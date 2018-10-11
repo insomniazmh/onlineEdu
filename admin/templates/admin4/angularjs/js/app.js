@@ -132,6 +132,27 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     $urlRouterProvider.otherwise("/dashboard.html");
 
     $stateProvider
+    
+    	// 课程列表
+        .state('coursesList', {
+            url: "/coursesList.html",
+            templateUrl: "views/course/coursesList.html",            
+            data: {pageTitle: '课程', pageSubTitle: '课程列表'},
+            controller: "CoursesListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            
+                             'js/controllers/CoursesListController.js'
+                             
+                        ] 
+                    });
+                }]
+            }
+        })
 
         // Dashboard
         .state('dashboard', {
@@ -230,9 +251,14 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                         name: 'MetronicApp',
                         files: [
 							'../../../assets/global/plugins/jstree/dist/themes/default/style.min.css',
+                        	'../../../assets/global/plugins/dropzone/css/dropzone.css',
                             '../../../assets/global/plugins/jstree/dist/jstree.min.js',
                             '../../../assets/admin/pages/scripts/ui-tree.js',
-                            'js/controllers/GeneralPageController.js'
+                            'js/controllers/GeneralPageController.js',
+                        
+                        	'../../../assets/global/plugins/dropzone/dropzone.js',
+                        	'../../../assets/admin/pages/scripts/form-dropzone.js',
+                            '../../../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
                         ] 
                     }]);
                 }] 
@@ -492,10 +518,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../../../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
                             '../../../assets/global/plugins/select2/select2.css',
                             '../../../assets/admin/pages/css/todo.css',
+                            '../../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
                             
                             '../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
                             '../../../assets/global/plugins/select2/select2.min.js',
-
+                            
                             '../../../assets/admin/pages/scripts/todo.js',
 
                             'js/controllers/TodoController.js'  
