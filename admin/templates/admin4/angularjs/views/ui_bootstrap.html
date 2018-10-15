@@ -114,43 +114,9 @@
 					<span class="caption-subject bold uppercase">课程目录</span>
 					<span class="caption-helper hide"></span>
 				</div>
-				<div class="actions">
-					<a class="btn btn-circle btn-icon-only btn-default" href="#">
-						<i class="icon-cloud-upload"></i>
-					</a>
-
-				</div>
 			</div>
 			<div class="portlet-body">
 				<div id="tree" class="tree-demo"></div>
-				<!--<div id="tree_1" class="tree-demo">
-					<ul>
-						<li>
-							第一章
-							<ul>
-								<li data-jstree='{ "selected" : true }'>
-									<a href="javascript:;">
-										课程简介 </a>
-								</li>
-								<li data-jstree='{ "icon" : "fa fa-briefcase icon-state-success " }'>
-									课程简介
-								</li>
-							</ul>
-						</li>
-						<li data-jstree='{ "type" : "file" }'>
-							第二章
-							<ul>
-								<li data-jstree='{ "selected" : false }'>
-									<a href="javascript:;">
-										课程简介 </a>
-								</li>
-								<li data-jstree='{ "icon" : "fa fa-briefcase icon-state-success " }'>
-									课程简介
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>-->
 			</div>
 		</div>
 
@@ -270,14 +236,31 @@
 					<div class="row" style="margin-bottom: 40px;">
 						<div class="col-md-12">
 							<div class="form-group form-md-line-input">
-
-								<label for="form_control_1">轮播图</label>
+								<label for="form_control_1" style="color: #888888;">轮播图</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<div id="uploader" class="wu-example">
+									<div class="queueList">
+										<div id="dndArea" class="placeholder">
+											<div id="filePicker"></div>
+											<p>或将照片拖到这里，单次最多可选300张</p>
+										</div>
+									</div>
+									<div class="statusBar" style="display:none;">
+										<div class="progress">
+											<span class="text">0%</span>
+											<span class="percentage"></span>
+										</div>
+										<div class="info"></div>
+										<div class="btns">
+											<div id="filePicker2"></div>
+											<!--<div class="uploadBtn">开始上传</div>-->
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="form-actions noborder">
-						<button type="button" class="btn blue">Submit</button>
-						<button type="button" class="btn default">Cancel</button>
+						<button type="button" class="btn blue">保存</button>
 					</div>
 				</div>
 
@@ -285,7 +268,7 @@
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
-	
+
 	<div class="modal fade" id="sm" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
@@ -330,11 +313,13 @@
 </div>
 <!-- END MAIN CONTENT -->
 
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<script src="js/webuploader-0.1.5/demo.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
 	function FileUploadCtrl($scope) {
 		$scope.flag = "";
-		
+
 		$('#tree').jstree({
 			'core': {
 				"check_callback": true,
@@ -390,7 +375,7 @@
 					"删除菜单": {
 						"label": "删除菜单",
 						"action": function(data) {
-							var r=confirm("确定要删除该节点吗");
+							var r = confirm("确定要删除该节点吗");
 							if(r) {
 								var ref = $('#tree').jstree(true),
 									sel = ref.get_selected();
@@ -409,7 +394,7 @@
 
 		$scope.createNode = function() {
 			var ref = $('#tree').jstree(true),
-			sel = ref.get_selected();
+				sel = ref.get_selected();
 			if(!sel.length) {
 				return false;
 			}
@@ -422,12 +407,11 @@
 						'opened': true
 					},
 				});
-			}else if($scope.flag == "rename") {
+			} else if($scope.flag == "rename") {
 				ref.rename_node(sel, $scope.nodeName);
 			}
-		}
-	};
+		};
 
-	UITree.init();
+	}
 </script>
 <!-- BEGIN MAIN JS -->

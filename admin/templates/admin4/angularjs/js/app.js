@@ -196,10 +196,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                         files: [
                         	'../../../assets/global/plugins/jstree/dist/themes/default/style.min.css',
                         	'../../../assets/global/plugins/dropzone/css/dropzone.css',
+                        	'js/webuploader-0.1.5/webuploader.css',
                             '../../../assets/global/plugins/jstree/dist/jstree.min.js',
                             '../../../assets/admin/pages/scripts/ui-tree.js',
                             'js/controllers/GeneralPageController.js',
-                        
+                        	'js/webuploader-0.1.5/webuploader.min.js',
                         	'../../../assets/global/plugins/dropzone/dropzone.js',
                         	'../../../assets/admin/pages/scripts/form-dropzone.js',
                             '../../../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
@@ -252,6 +253,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                         files: [
 							'../../../assets/global/plugins/jstree/dist/themes/default/style.min.css',
                         	'../../../assets/global/plugins/dropzone/css/dropzone.css',
+                        	'js/webuploader-0.1.5/webuploader.css',
+                        	'js/webuploader-0.1.5/demo.css',
                             '../../../assets/global/plugins/jstree/dist/jstree.min.js',
                             '../../../assets/admin/pages/scripts/ui-tree.js',
                             'js/controllers/GeneralPageController.js',
