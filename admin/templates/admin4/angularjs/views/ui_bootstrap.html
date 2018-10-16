@@ -1,225 +1,248 @@
+<style>
+	.breadcrumb > li {
+		color: #5b9bd1;
+		cursor: pointer;
+	}
+	.breadcrumb > .active {
+		cursor: auto;
+	}
+</style>
+	
+	
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb">
-	<li>
-		<a href="#">Home</a><i class="fa fa-circle"></i>
+	<li class="active" data-target="kecheng">
+		基本信息<i class="fa fa-circle"></i>
 	</li>
-	<li class="active" data-ng-bind="$state.current.data.pageTitle">
+	<li data-target="jiaofu">
+		教辅资料
 	</li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
 
 <div class="row" ng-controller="FileUploadCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
-	<div class="col-md-4">
-		<!-- BEGIN: ACCORDION DEMO -->
-		<div class="portlet light">
-			<div class="portlet-title tabbable-line">
-				<div class="caption font-green-sharp">
-					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">课程宣传</span>
-					<span class="caption-helper hide"></span>
-				</div>
-				<ul class="nav nav-tabs">
-					<li class="active">
-						<a data-target="#tab_1_1" data-toggle="tab">
-							轮播图 </a>
-					</li>
-					<li>
-						<a data-target="#tab_1_2" data-toggle="tab">
-							视频 </a>
-					</li>
-				</ul>
 
-			</div>
-			<div class="portlet-body">
-				<div class="tab-content">
-					<div class="tab-pane active" id="tab_1_1">
-						<div id="myCarousel" class="carousel image-carousel slide">
-							<div class="carousel-inner">
-								<div class="active item">
-									<img src="../../../assets/admin/pages/media/gallery/image5.jpg" class="img-responsive" alt="">
-									<div class="carousel-caption">
-										<h4>
+	<div id="kecheng" class="my-tab-content">
+		<div class="col-md-4">
+			<!-- BEGIN: ACCORDION DEMO -->
+			<div class="portlet light">
+				<div class="portlet-title tabbable-line">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">课程宣传</span>
+						<span class="caption-helper hide"></span>
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-target="#tab_1_1" data-toggle="tab">
+								轮播图 </a>
+						</li>
+						<li>
+							<a data-target="#tab_1_2" data-toggle="tab">
+								视频 </a>
+						</li>
+					</ul>
+
+				</div>
+				<div class="portlet-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_1_1">
+							<div id="myCarousel" class="carousel image-carousel slide">
+								<div class="carousel-inner">
+									<div class="active item">
+										<img src="../../../assets/admin/pages/media/gallery/image5.jpg" class="img-responsive" alt="">
+										<div class="carousel-caption">
+											<h4>
 													<a href="page_news_item.html">
 													First Thumbnail label </a>
 													</h4>
-										<p>
-											Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-										</p>
+											<p>
+												Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+											</p>
+										</div>
 									</div>
-								</div>
-								<div class="item">
-									<img src="../../../assets/admin/pages/media/gallery/image2.jpg" class="img-responsive" alt="">
-									<div class="carousel-caption">
-										<h4>
+									<div class="item">
+										<img src="../../../assets/admin/pages/media/gallery/image2.jpg" class="img-responsive" alt="">
+										<div class="carousel-caption">
+											<h4>
 													<a href="page_news_item.html">
 													Second Thumbnail label </a>
 													</h4>
-										<p>
-											Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-										</p>
+											<p>
+												Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+											</p>
+										</div>
 									</div>
-								</div>
-								<div class="item">
-									<img src="../../../assets/admin/pages/media/gallery/image1.jpg" class="img-responsive" alt="">
-									<div class="carousel-caption">
-										<h4>
+									<div class="item">
+										<img src="../../../assets/admin/pages/media/gallery/image1.jpg" class="img-responsive" alt="">
+										<div class="carousel-caption">
+											<h4>
 													<a href="page_news_item.html">
 													Third Thumbnail label </a>
 													</h4>
-										<p>
-											Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-										</p>
+											<p>
+												Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- Carousel nav -->
+								<a class="carousel-control left" data-target="#myCarousel" data-slide="prev">
+									<i class="m-icon-big-swapleft m-icon-white"></i>
+								</a>
+								<a class="carousel-control right" data-target="#myCarousel" data-slide="next">
+									<i class="m-icon-big-swapright m-icon-white"></i>
+								</a>
+								<ol class="carousel-indicators">
+									<li data-target="#myCarousel" data-slide-to="0" class="active">
+									</li>
+									<li data-target="#myCarousel" data-slide-to="1">
+									</li>
+									<li data-target="#myCarousel" data-slide-to="2">
+									</li>
+								</ol>
+							</div>
+							<div class="top-news margin-top-10">
+								<a href="javascript:;" class="btn blue">
+									<span>Featured News </span>
+									<em><i class="fa fa-tags"></i>USA, Business, Apple </em>
+									<i class="fa fa- icon-bullhorn top-news-icon"></i>
+								</a>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab_1_2">
+							<video controls="controls" style=" width: 100%;height: 100%;">
+								<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4"></source>
+							</video>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<!-- END: ACCORDION DEMO -->
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">课程目录</span>
+						<span class="caption-helper hide"></span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div id="tree-kecheng" class="tree-demo"></div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-8">
+			<!-- BEGIN: ACCORDION DEMO -->
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">课程信息</span>
+
+					</div>
+					<div class="actions">
+						<div class="btn-group">
+
+							<ul class="dropdown-menu pull-right">
+								<li>
+									<a href="#">
+										<i class="fa fa-pencil"></i> Edit </a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="fa fa-trash-o"></i> Delete </a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="fa fa-ban"></i> Ban </a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">
+										<i class="i"></i> Make admin </a>
+								</li>
+							</ul>
+						</div>
+						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="全屏">
+						</a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div role="form">
+						<div class="form-body">
+							<div class="row" style="margin-bottom: 40px;">
+								<div class="col-md-6">
+									<div class="form-group form-md-line-input {{flag}}">
+										<input type="text" class="form-control" id="form_control_1" ng-blur="aaa()" placeholder="请输入课程名称">
+										<label for="form_control_1">名称</label>
+										<span class="help-block">名称不得超过20个字符</span>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group form-md-line-input has-error">
+										<input type="text" class="form-control edited" id="form_control_1" placeholder="请输入课程编号">
+										<label for="form_control_1">编号</label>
+										<span class="help-block"></span>
 									</div>
 								</div>
 							</div>
-							<!-- Carousel nav -->
-							<a class="carousel-control left" data-target="#myCarousel" data-slide="prev">
-								<i class="m-icon-big-swapleft m-icon-white"></i>
-							</a>
-							<a class="carousel-control right" data-target="#myCarousel" data-slide="next">
-								<i class="m-icon-big-swapright m-icon-white"></i>
-							</a>
-							<ol class="carousel-indicators">
-								<li data-target="#myCarousel" data-slide-to="0" class="active">
-								</li>
-								<li data-target="#myCarousel" data-slide-to="1">
-								</li>
-								<li data-target="#myCarousel" data-slide-to="2">
-								</li>
-							</ol>
-						</div>
-						<div class="top-news margin-top-10">
-							<a href="javascript:;" class="btn blue">
-								<span>Featured News </span>
-								<em><i class="fa fa-tags"></i>USA, Business, Apple </em>
-								<i class="fa fa- icon-bullhorn top-news-icon"></i>
-							</a>
-						</div>
-					</div>
-					<div class="tab-pane" id="tab_1_2">
-						<video controls="controls" style=" width: 100%;height: 100%;">
-							<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4"></source>
-						</video>
-					</div>
-
-				</div>
-
-			</div>
-		</div>
-		<!-- END: ACCORDION DEMO -->
-		<div class="portlet light">
-			<div class="portlet-title">
-				<div class="caption font-green-sharp">
-					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">课程目录</span>
-					<span class="caption-helper hide"></span>
-				</div>
-			</div>
-			<div class="portlet-body">
-				<div id="tree" class="tree-demo"></div>
-			</div>
-		</div>
-
-	</div>
-	<div class="col-md-8">
-		<!-- BEGIN: ACCORDION DEMO -->
-		<div class="portlet light">
-			<div class="portlet-title">
-				<div class="caption font-green-sharp">
-					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">课程信息</span>
-
-				</div>
-				<div class="actions">
-					<div class="btn-group">
-
-						<ul class="dropdown-menu pull-right">
-							<li>
-								<a href="#">
-									<i class="fa fa-pencil"></i> Edit </a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="fa fa-trash-o"></i> Delete </a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="fa fa-ban"></i> Ban </a>
-							</li>
-							<li class="divider">
-							</li>
-							<li>
-								<a href="#">
-									<i class="i"></i> Make admin </a>
-							</li>
-						</ul>
-					</div>
-					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="全屏">
-					</a>
-				</div>
-			</div>
-			<div class="portlet-body">
-				<div role="form">
-					<div class="form-body">
-						<div class="row" style="margin-bottom: 40px;">
-							<div class="col-md-6">
-								<div class="form-group form-md-line-input {{flag}}">
-									<input type="text" class="form-control" id="form_control_1" ng-blur="aaa()" placeholder="请输入课程名称">
-									<label for="form_control_1">名称</label>
-									<span class="help-block">名称不得超过20个字符</span>
+							<div class="row" style="margin-bottom: 40px;">
+								<div class="col-md-6">
+									<div class="form-group form-md-line-input has-success">
+										<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程学分">
+										<label for="form_control_1">学分</label>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group form-md-line-input has-warning">
+										<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程学时">
+										<label for="form_control_1">学时</label>
+									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group form-md-line-input has-error">
-									<input type="text" class="form-control edited" id="form_control_1" placeholder="请输入课程编号">
-									<label for="form_control_1">编号</label>
-									<span class="help-block"></span>
-								</div>
-							</div>
-						</div>
-						<div class="row" style="margin-bottom: 40px;">
-							<div class="col-md-6">
-								<div class="form-group form-md-line-input has-success">
-									<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程学分">
-									<label for="form_control_1">学分</label>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group form-md-line-input has-warning">
-									<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程学时">
-									<label for="form_control_1">学时</label>
-								</div>
-							</div>
-						</div>
-						<div class="row" style="margin-bottom: 40px;">
-							<div class="col-md-12">
-								<div class="form-group form-md-radios">
-									<label>授课类型</label>
-									<div class="md-radio-inline">
-										<div class="md-radio">
-											<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
-											<label for="radio6">
+							<div class="row" style="margin-bottom: 40px;">
+								<div class="col-md-12">
+									<div class="form-group form-md-radios">
+										<label>授课类型</label>
+										<div class="md-radio-inline">
+											<div class="md-radio">
+												<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+												<label for="radio6">
 											<span></span>
 											<span class="check"></span>
 											<span class="box"></span>
 											录播课程 </label>
-										</div>
-										<div class="md-radio">
-											<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
-											<label for="radio7">
+											</div>
+											<div class="md-radio">
+												<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
+												<label for="radio7">
 											<span></span>
 											<span class="check"></span>
 											<span class="box"></span>
 											直播课程</label>
-										</div>
-										<div class="md-radio">
-											<input type="radio" id="radio8" name="radio2" class="md-radiobtn">
-											<label for="radio8">
+											</div>
+											<div class="md-radio">
+												<input type="radio" id="radio8" name="radio2" class="md-radiobtn">
+												<label for="radio8">
 											<span></span>
 											<span class="check"></span>
 											<span class="box"></span>
 											线下课堂</label>
+											</div>
 										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="margin-bottom: 40px;">
+								<div class="col-md-12">
+									<div class="form-group form-md-line-input">
+										<textarea class="form-control" rows="3" placeholder="请输入轮播图显示的简要描述"></textarea>
+										<label for="form_control_1">课程描述</label>
 									</div>
 								</div>
 							</div>
@@ -227,46 +250,153 @@
 						<div class="row" style="margin-bottom: 40px;">
 							<div class="col-md-12">
 								<div class="form-group form-md-line-input">
-									<textarea class="form-control" rows="3" placeholder="请输入轮播图显示的简要描述"></textarea>
-									<label for="form_control_1">课程描述</label>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row" style="margin-bottom: 40px;">
-						<div class="col-md-12">
-							<div class="form-group form-md-line-input">
-								<label for="form_control_1" style="color: #888888;">轮播图</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<div id="uploader" class="wu-example">
-									<div class="queueList">
-										<div id="dndArea" class="placeholder">
-											<div id="filePicker"></div>
-											<p>或将照片拖到这里，单次最多可选300张</p>
+									<label for="form_control_1" style="color: #888888;">轮播图</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<div id="uploader" class="wu-example">
+										<div class="queueList">
+											<div id="dndArea" class="placeholder">
+												<div id="filePicker"></div>
+												<p>或将照片拖到这里，单次最多可选300张</p>
+											</div>
 										</div>
-									</div>
-									<div class="statusBar" style="display:none;">
-										<div class="progress">
-											<span class="text">0%</span>
-											<span class="percentage"></span>
-										</div>
-										<div class="info"></div>
-										<div class="btns">
-											<div id="filePicker2"></div>
-											<!--<div class="uploadBtn">开始上传</div>-->
+										<div class="statusBar" style="display:none;">
+											<div class="progress">
+												<span class="text">0%</span>
+												<span class="percentage"></span>
+											</div>
+											<div class="info"></div>
+											<div class="btns">
+												<div id="filePicker2"></div>
+												<!--<div class="uploadBtn">开始上传</div>-->
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="form-actions noborder">
+							<button type="button" class="btn blue">保存</button>
+						</div>
 					</div>
-					<div class="form-actions noborder">
-						<button type="button" class="btn blue">保存</button>
+
+				</div>
+			</div>
+			<!-- END: ACCORDION DEMO -->
+		</div>
+	</div>
+
+	<div id="jiaofu" class="my-tab-content">
+		<div class="col-md-4">
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">Select files</span>
+						<span class="caption-helper hide"></span>
+					</div>
+					<div class="actions">
+						<a class="btn btn-circle btn-icon-only btn-default" href="#">
+							<i class="icon-cloud-upload"></i>
+						</a>
+						<a class="btn btn-circle btn-icon-only btn-default" href="#">
+							<i class="icon-wrench"></i>
+						</a>
 					</div>
 				</div>
-
+				<div class="portlet-body">
+					<div id="tree-jiaofu" class="tree-demo">
+					</div>
+				</div>
 			</div>
+
 		</div>
-		<!-- END: ACCORDION DEMO -->
+		<div class="col-md-4">
+			<!-- BEGIN: ACCORDION DEMO -->
+			<div class="portlet light" style="min-height: 400px;">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">章节参考</span>
+					</div>
+					<div class="actions">
+						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+						</a>
+					</div>
+				</div>
+				<div class="portlet-body">
+
+				</div>
+			</div>
+			<!-- END: ACCORDION DEMO -->
+
+			<!-- BEGIN: ACCORDION DEMO -->
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">章节练习</span>
+					</div>
+					<div class="actions">
+						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+						</a>
+					</div>
+				</div>
+				<div class="portlet-body">
+
+				</div>
+			</div>
+			<!-- END: ACCORDION DEMO -->
+		</div>
+
+		<div class="col-md-4">
+			<!-- BEGIN: ACCORDION DEMO -->
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">章节问答</span>
+					</div>
+					<div class="actions">
+						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+						</a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+					<p>11</p>
+				</div>
+			</div>
+			<!-- END: ACCORDION DEMO -->
+
+			<!-- BEGIN: ACCORDION DEMO -->
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">章节问答</span>
+					</div>
+					<div class="actions">
+						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+						</a>
+					</div>
+				</div>
+				<div class="portlet-body">
+
+				</div>
+			</div>
+			<!-- END: ACCORDION DEMO -->
+		</div>
 	</div>
 
 	<div class="modal fade" id="sm" tabindex="-1" role="dialog" aria-hidden="true">
@@ -319,81 +449,93 @@
 <script>
 	function FileUploadCtrl($scope) {
 		$scope.flag = "";
+		$scope.selector = '#tree-kecheng';
 
-		$('#tree').jstree({
-			'core': {
-				"check_callback": true,
-				'data': [{
-					'id': 'node_1',
-					'text': '第一章',
-					'state': {
-						'opened': true,
-					},
-					'children': [{
-						'text': '课程简介',
+		$(".breadcrumb li").click(function() {
+			$(".breadcrumb li").removeClass("active");
+			$(this).addClass("active");
+			var id = $(this).data("target");
+			$(".my-tab-content").hide();
+			$("#" + id).show();
+			$scope.selector = '#tree-'+id;
+			$scope.initTree();
+		});
+
+		$scope.initTree = function() {
+			$($scope.selector).jstree({
+				'core': {
+					"check_callback": true,
+					'data': [{
+						'id': 'node_1',
+						'text': '第一章',
+						'state': {
+							'opened': true,
+						},
+						'children': [{
+							'text': '课程简介',
+							'state': {
+								'opened': true
+							},
+						}, {
+							'text': '课程简介',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_2',
+						'text': '第一章',
 						'state': {
 							'opened': true
 						},
-					}, {
-						'text': '课程简介',
-						'icon': 'fa fa-briefcase icon-state-success'
+						'children': [{
+							'text': '课程简介'
+						}, '课程简介']
 					}]
-				}, {
-					'id': 'node_2',
-					'text': '第一章',
-					'state': {
-						'opened': true
-					},
-					'children': [{
-						'text': '课程简介'
-					}, '课程简介']
-				}]
-			},
-			"plugins": ['contextmenu'],
-			"contextmenu": {
-				"items": {
-					"create": null,
-					"rename": null,
-					"remove": null,
-					"ccp": null,
-					"新建菜单": {
-						"label": "新建菜单",
-						"action": function(data) {
-							$scope.flag = "create";
-							$scope.nodeName = "";
-							$("#sm").modal("show");
-						}
-					},
-					"编辑菜单": {
-						"label": "编辑菜单",
-						"action": function(data) {
-							$scope.flag = "rename";
-							$scope.nodeName = "";
-							$("#sm").modal("show");
-						}
-					},
-					"删除菜单": {
-						"label": "删除菜单",
-						"action": function(data) {
-							var r = confirm("确定要删除该节点吗");
-							if(r) {
-								var ref = $('#tree').jstree(true),
-									sel = ref.get_selected();
-								if(!sel.length) {
-									return false;
+				},
+				"plugins": ['contextmenu'],
+				"contextmenu": {
+					"items": {
+						"create": null,
+						"rename": null,
+						"remove": null,
+						"ccp": null,
+						"新建菜单": {
+							"label": "新建菜单",
+							"action": function(data) {
+								$scope.flag = "create";
+								$scope.nodeName = "";
+								$("#sm").modal("show");
+							}
+						},
+						"编辑菜单": {
+							"label": "编辑菜单",
+							"action": function(data) {
+								$scope.flag = "rename";
+								$scope.nodeName = "";
+								$("#sm").modal("show");
+							}
+						},
+						"删除菜单": {
+							"label": "删除菜单",
+							"action": function(data) {
+								var r = confirm("确定要删除该节点吗");
+								if(r) {
+									var ref = $($scope.selector).jstree(true),
+										sel = ref.get_selected();
+									if(!sel.length) {
+										return false;
+									}
+									ref.delete_node(sel);
 								}
-								ref.delete_node(sel);
 							}
 						}
 					}
 				}
-			}
-		});
-
-		$scope.flag = "";
+			});
+		}
+		$scope.initTree();
 
 		$scope.createNode = function() {
-			var ref = $('#tree').jstree(true),
+			var ref = $($scope.selector).jstree(true),
 				sel = ref.get_selected();
 			if(!sel.length) {
 				return false;
