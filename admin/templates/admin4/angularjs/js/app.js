@@ -259,6 +259,24 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                         name: 'MetronicApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
+                        	'js/webuploader-0.1.5/webuploader.css'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        //教辅资料库
+        .state('testPaper', {
+            url: "/testPaper.html",
+            templateUrl: "views/database/testPaper.html",            
+            data: {pageTitle: '资料库', pageSubTitle: '试卷库'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
                         ] 
                     });
                 }]

@@ -7,6 +7,11 @@
 	.breadcrumb> .active {
 		cursor: auto;
 	}
+	#uploader .placeholder {
+		min-height: 150px;
+		padding-top: 58px;
+		background: none;
+	}
 </style>
 
 <!-- BEGIN PAGE BREADCRUMB -->
@@ -38,8 +43,8 @@
 								轮播图 </a>
 						</li>
 						<li>
-							<a data-target="#tab_1_2" data-toggle="tab">
-								视频 </a>
+							<a data-target="" data-toggle="tab">
+								预告片 </a>
 						</li>
 					</ul>
 
@@ -47,20 +52,20 @@
 				<div class="portlet-body">
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_1_1">
-							<div style="height: 305px">
+							<div>
 						    	<carousel interval="myInterval">
 						      		<slide ng-repeat="slide in slides" active="slide.active">
-						        		<img ng-src="{{slide.image}}" style="margin:auto;">
+						        		<img ng-src="{{slide.image}}" style="margin:auto;height: 290px;">
 						        		<div class="carousel-caption">
-						          			<h4>Slide {{$index}}</h4>
+						          			<!--<h4>Slide {{$index}}</h4>-->
 						          			<p>{{slide.text}}</p>
 						        		</div>
 						      		</slide>
 						    	</carousel>
 						    	<div class="top-news margin-top-10">
 									<a href="javascript:;" class="btn blue">
-										<span>Featured News </span>
-										<em><i class="fa fa-tags"></i>USA, Business, Apple </em>
+										<span>电子商务基础 </span>
+										<em><i class="fa fa-tags"></i>电子商务 </em>
 										<i class="fa fa- icon-bullhorn top-news-icon"></i>
 									</a>
 								</div>
@@ -211,7 +216,6 @@
 										<div class="queueList">
 											<div id="dndArea" class="placeholder">
 												<div id="filePicker"></div>
-												<p>或将照片拖到这里，单次最多可选300张</p>
 											</div>
 										</div>
 										<div class="statusBar" style="display:none;">
@@ -264,106 +268,194 @@
 				<div class="portlet-title">
 					<div class="caption font-green-sharp">
 						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">知识点</span>
+						<span class="caption-subject bold uppercase">重点</span>
 					</div>
 					<div class="actions">
 						<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#kpModal">
-							<i class="fa fa-plus"></i> Add </button>
+							<i class="fa fa-plus"></i> 创建 </button>
 					</div>
 				</div>
 				<div class="portlet-body" id="kpContent">
+					<a class="btn btn-danger" name="kp" data-value="">取消</a>
+					<a class="btn btn-info" name="kp" data-value="">电子商务的定义<i class="fa fa-times" name="remove"></i></a>
+					<a class="btn btn-info" name="kp" data-value="">电子商务的概念<i class="fa fa-times" name="remove"></i></a>
 					<a class="btn btn-default" ng-repeat="row in knowledgePoints">{{row}}<i class="fa fa-times"></i></a>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-4">
-			<!-- BEGIN: ACCORDION DEMO -->
+			
 			<div class="portlet light" style="min-height: 400px;">
-				<div class="portlet-title">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">章节参考</span>
-					</div>
-					<div class="actions">
-						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
-						</a>
-					</div>
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">教案</span>
 				</div>
-				<div class="portlet-body">
-
+				<div class="actions">
+						<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#kpModal">
+							<i class="fa fa-plus"></i> 创建 </button>
+					</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_2_1" data-toggle="tab">
+							资料 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_2" data-toggle="tab">
+							问答 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_3" data-toggle="tab">
+							练习 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_4" data-toggle="tab">
+							作业 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_5" data-toggle="tab">
+							参考 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_2_1">
+						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础教案.doc
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础课件.ppt
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_2_2">
+						<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础同步导读.doc
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础课件.ppt
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+					</div>
+					<div class="tab-pane" id="tab_2_3">
+						
+					</div>
+					<div class="tab-pane" id="tab_2_4"></div>
+					<div class="tab-pane" id="tab_2_5">
+						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础同步导读.doc
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础课件.ppt
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
-			<!-- END: ACCORDION DEMO -->
-
-			<!-- BEGIN: ACCORDION DEMO -->
-			<div class="portlet light">
-				<div class="portlet-title">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">章节练习</span>
-					</div>
-					<div class="actions">
-						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
-						</a>
-					</div>
-				</div>
-				<div class="portlet-body">
-
-				</div>
-			</div>
-			<!-- END: ACCORDION DEMO -->
 		</div>
-
-		<div class="col-md-4">
-			<!-- BEGIN: ACCORDION DEMO -->
-			<div class="portlet light">
-				<div class="portlet-title">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">章节问答</span>
-					</div>
-					<div class="actions">
-						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
-						</a>
-					</div>
-				</div>
-				<div class="portlet-body">
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-					<p>11</p>
-				</div>
-			</div>
-			<!-- END: ACCORDION DEMO -->
-
-			<!-- BEGIN: ACCORDION DEMO -->
-			<div class="portlet light">
-				<div class="portlet-title">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">章节问答</span>
-					</div>
-					<div class="actions">
-						<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
-						</a>
-					</div>
-				</div>
-				<div class="portlet-body">
-
-				</div>
-			</div>
-			<!-- END: ACCORDION DEMO -->
 		</div>
+		
 	</div>
 
 	<div class="modal fade" id="sm" tabindex="-1" role="dialog" aria-hidden="true">
@@ -477,28 +569,52 @@
 					"check_callback": true,
 					'data': [{
 						'id': 'node_1',
-						'text': '第一章',
+						'text': '第一章 电子商务概述',
 						'state': {
 							'opened': true,
 						},
 						'children': [{
-							'text': '课程简介',
+							'text': '1.电子商务的内涵',
+							'icon': 'fa fa-briefcase icon-state-success',
 							'state': {
 								'opened': true
 							},
 						}, {
-							'text': '课程简介',
+							'text': '2.电子商务的产生背景和发展过程',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '3.电子商务的作用与影响',
 							'icon': 'fa fa-briefcase icon-state-success'
 						}]
 					}, {
 						'id': 'node_2',
-						'text': '第一章',
+						'text': '第二章 Internet 基础知识',
 						'state': {
 							'opened': true
 						},
 						'children': [{
-							'text': '课程简介'
-						}, '课程简介']
+							'text': '1.Internet 概述 ',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '2.Internet 的主要功能',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_3',
+						'text': '第三章 电子商务的主要模式',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '1.电子商务的框架模型',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, 
+						{
+							'text': '2.企业与企业之间的电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						},
+						{'text': '3.企业与消费者之间电子商务模式','icon': 'fa fa-briefcase icon-state-success'}
+						]
 					}]
 				},
 				"plugins": ['contextmenu'],
@@ -584,20 +700,28 @@
 			return false;
 		});
 		
-		$scope.myInterval = 5000;
-	  	var slides = $scope.slides = [];
+//		$scope.myInterval = 5000;
+	  	var slides = $scope.slides = [{
+	  		image: 'images/1.jpg',
+	  		text: "电子商务基础"
+	  	},{
+	  		image: 'images/2.jpg',
+	  		text: "电子商务基础"
+	  	},{
+	  		image: 'images/3.jpg',
+	  		text: "电子商务基础"
+	  	}];
 	  	$scope.addSlide = function() {
-	    	var newWidth = 500 + slides.length;
+//	    	var newWidth = 500 + slides.length;
 	    	slides.push({
-	      	image: 'http://placekitten.com/' + newWidth + '/300',
-	      	text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-	        	['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+		      	image: '',
+		      	text: '电子商务基础'
 	    	});
 	  	};
-	  	
-	  	for (var i=0; i<4; i++) {
-	    	$scope.addSlide();
-	  	}
+//	  	
+//	  	for (var i=0; i<4; i++) {
+//	    	$scope.addSlide();
+//	  	}
 	}
 </script>
 <!-- BEGIN MAIN JS -->
