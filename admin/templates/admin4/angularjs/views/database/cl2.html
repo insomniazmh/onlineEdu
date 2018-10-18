@@ -9,7 +9,7 @@
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="CoursesListController" class="margin-top-10">
+<div ng-controller="cl2Ctrl" class="margin-top-10">
 	<div class="portlet light">
 		<div class="portlet-body">
 			<div class="row">
@@ -27,7 +27,7 @@
 					      		</slide>
 					    	</carousel>
 					    	<div class="top-news margin-top-10">
-								<a href="#/ui_bootstrap.html" class="btn blue">
+								<a href="#/assistant.html" class="btn blue">
 									<span>web培训第一课 </span>
 									<em><i class="fa fa-tags"></i>html, css, js </em>
 									<i class="fa fa- icon-bullhorn top-news-icon"></i>
@@ -44,3 +44,22 @@
 
 </div>
 <!-- END MAIN CONTENT -->
+	
+<script>
+	function cl2Ctrl($scope) {
+		$scope.myInterval = 5000;
+	  	var slides = $scope.slides = [];
+	  	$scope.addSlide = function() {
+	    	var newWidth = 500 + slides.length;
+	    	slides.push({
+	      	image: 'http://placekitten.com/' + newWidth + '/300',
+	      	text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+	        	['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+	    	});
+	  	};
+	  	
+	  	for (var i=0; i<4; i++) {
+	    	$scope.addSlide();
+	  	}
+	}
+</script>

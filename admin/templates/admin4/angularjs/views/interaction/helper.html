@@ -1,0 +1,562 @@
+<div class="row" ng-controller="helperCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div id="tree-jiaofu" class="tree-demo">
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">知识点</span>
+				</div>
+			</div>
+			<div class="portlet-body" id="kpContent">
+				<a class="btn btn-danger" name="kp">知识点1</a>
+				<a class="btn btn-info" name="kp">知识点2</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">活动</span>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">
+							参考 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab">
+							练习 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_3" data-toggle="tab">
+							提问 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_4" data-toggle="tab">
+							作业 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_1">
+						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													Database server #12 overloaded. Please fix the issue.
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New order received and pending for process.
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New payment refund and pending approval.
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-warning">
+													<i class="fa fa-plus"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New member registered. Pending approval.
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+					<div class="tab-pane active" id="tab_1_2">
+						<ul class="feeds">
+								<li data-toggle="context" data-target="#context-menu">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													Database server #12 overloaded. Please fix the issue.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<button class="btn btn-danger btn-xs" type="button">开放 </button>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New order received and pending for process.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<button class="btn btn-danger btn-xs" type="button">开放 </button>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New payment refund and pending approval.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<button class="btn btn-danger btn-xs" type="button">开放 </button>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-warning">
+													<i class="fa fa-plus"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New member registered. Pending approval.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<button class="btn btn-danger btn-xs" type="button">开放 </button>
+									</div>
+								</li>
+							</ul>
+						
+					</div>
+					<div class="tab-pane active" id="tab_1_3">
+						<ul class="feeds">
+								<li data-toggle="context" data-target="#context-menu">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													Database server #12 overloaded. Please fix the issue.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="btn-group">
+											<button class="btn btn-danger btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+														<span>请选择</span> <i class="fa fa-angle-down"></i>
+														</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a>举手 </a>
+												</li>
+												<li>
+													<a>抢答 </a>
+												</li>
+												<li>
+													<a>选人 </a>
+												</li>
+												<li>
+													<a>评分 </a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New order received and pending for process.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="btn-group">
+											<button class="btn btn-danger btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+														<span>请选择</span> <i class="fa fa-angle-down"></i>
+														</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a>举手 </a>
+												</li>
+												<li>
+													<a>抢答 </a>
+												</li>
+												<li>
+													<a>选人 </a>
+												</li>
+												<li>
+													<a>评分 </a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New payment refund and pending approval.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="btn-group">
+											<button class="btn btn-danger btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+														<span>请选择</span> <i class="fa fa-angle-down"></i>
+														</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a>举手 </a>
+												</li>
+												<li>
+													<a>抢答 </a>
+												</li>
+												<li>
+													<a>选人 </a>
+												</li>
+												<li>
+													<a>评分 </a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-warning">
+													<i class="fa fa-plus"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New member registered. Pending approval.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="btn-group">
+											<button class="btn btn-danger btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+														<span>请选择</span> <i class="fa fa-angle-down"></i>
+														</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a>举手 </a>
+												</li>
+												<li>
+													<a>抢答 </a>
+												</li>
+												<li>
+													<a>选人 </a>
+												</li>
+												<li>
+													<a>评分 </a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+							</ul>
+						
+					</div>
+					<div class="tab-pane active" id="tab_1_4"></div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<div class="modal fade" id="sm" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">课程信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="nodeName" placeholder="请输入节点名称" />
+												<label for="form_control_1">节点</label>
+												<span class="help-block">名称不得超过20个字符</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="createNode()">Submit</button>
+									<button type="button" class="btn default" data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<!--<div id="context-menu" style="position: relative;">
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a href="javascript:;">
+										<i class="icon-user"></i> 举手 </a>
+								</li>
+								<li>
+									<a href="javascript:;">
+										<i class="icon-user"></i> 抢答 </a>
+								</li>
+								<li>
+									<a href="javascript:;">
+										<i class="icon-user"></i> 选人 </a>
+								</li>
+								<li>
+									<a href="javascript:;">
+										<i class="icon-user"></i> 评分 </a>
+								</li>
+							</ul>
+						</div>-->
+</div>
+<!-- END MAIN CONTENT -->
+
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<!-- BEGIN MAIN JS-->
+<script>
+	function helperCtrl($scope) {
+		$scope.flag = "";
+		$scope.knowledgePoints = [];
+		$scope.selector = '#tree-jiaofu';
+
+		$scope.initTree = function() {
+			$($scope.selector).jstree({
+				'core': {
+					"check_callback": true,
+					'data': [{
+						'id': 'node_1',
+						'text': '第一章',
+						'state': {
+							'opened': true,
+						},
+						'children': [{
+							'text': '课程简介',
+							'state': {
+								'opened': true
+							},
+						}, {
+							'text': '课程简介',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_2',
+						'text': '第一章',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '课程简介'
+						}, '课程简介']
+					}]
+				},
+				"plugins": ['contextmenu'],
+				"contextmenu": {
+					"items": {
+						"create": null,
+						"rename": null,
+						"remove": null,
+						"ccp": null,
+						"新建菜单": {
+							"label": "新建菜单",
+							"action": function(data) {
+								$scope.flag = "create";
+								$scope.nodeName = "";
+								$("#sm").modal("show");
+							}
+						},
+						"编辑菜单": {
+							"label": "编辑菜单",
+							"action": function(data) {
+								$scope.flag = "rename";
+								$scope.nodeName = "";
+								$("#sm").modal("show");
+							}
+						},
+						"删除菜单": {
+							"label": "删除菜单",
+							"action": function(data) {
+								var r = confirm("确定要删除该节点吗");
+								if(r) {
+									var ref = $($scope.selector).jstree(true),
+										sel = ref.get_selected();
+									if(!sel.length) {
+										return false;
+									}
+									ref.delete_node(sel);
+								}
+							}
+						}
+					}
+				}
+			});
+		}
+		$scope.initTree();
+
+		$scope.createNode = function() {
+			var ref = $($scope.selector).jstree(true),
+				sel = ref.get_selected();
+			if(!sel.length) {
+				return false;
+			}
+			sel = sel[0];
+			$("#sm").modal("hide");
+			if($scope.flag == "create") {
+				sel = ref.create_node(sel, {
+					text: $scope.nodeName,
+					'state': {
+						'opened': true
+					},
+				});
+			} else if($scope.flag == "rename") {
+				ref.rename_node(sel, $scope.nodeName);
+			}
+		};
+
+		$("#kpContent").on("click", "a[name='kp']", function() {
+			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
+			$(this).removeClass("btn-info").addClass("btn-danger");
+
+		});
+		
+		$("ul.feeds").on("click", "a", function() {
+			console.log($(this).html());
+			var html = $(this).html();
+			$(this).closest(".btn-group").find("span").html(html);
+		});
+
+		//		$('ul.feeds li').contextmenu({
+		//		  target:'#context-menu', 
+		//		  before: function(e,context) {
+		//		    // execute code before context menu if shown
+		//		    console.log(123);
+		//		  },
+		//		  onItem: function(context,e) {
+		//		  	console.log(124);
+		//		    // execute on menu item selection
+		//		  }
+		//		})
+
+	}
+</script>
+<!-- BEGIN MAIN JS -->

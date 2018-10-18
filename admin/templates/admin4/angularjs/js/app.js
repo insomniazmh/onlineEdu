@@ -138,7 +138,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             url: "/coursesList.html",
             templateUrl: "views/course/coursesList.html",            
             data: {pageTitle: '课程', pageSubTitle: '课程列表'},
-            controller: "CoursesListController",
+//          controller: "CoursesListController",
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
@@ -153,6 +153,118 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                 }]
             }
         })
+        
+        // 课堂协助
+        .state('helper', {
+            url: "/helper.html",
+            templateUrl: "views/interaction/helper.html",            
+            data: {pageTitle: '教学互动', pageSubTitle: '课堂活动'},
+            controller: "CoursesListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../../../assets/global/plugins/bootstrap-contextmenu/bootstrap-contextmenu.js',
+                            '../../../assets/admin/pages/scripts/components-context-menu.js',
+                             'js/controllers/CoursesListController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        //知识点题库
+        .state('konwledgePoint', {
+            url: "/konwledgePoint.html",
+            templateUrl: "views/database/konwledgePoint.html",            
+            data: {pageTitle: '资料库', pageSubTitle: '知识点题库'},
+            controller: "CoursesListController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../../../assets/global/plugins/bootstrap-contextmenu/bootstrap-contextmenu.js',
+                            '../../../assets/admin/pages/scripts/components-context-menu.js',
+                             'js/controllers/CoursesListController.js'
+                             
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // 课程列表1
+        .state('cl1', {
+            url: "/cl1.html",
+            templateUrl: "views/database/cl1.html",            
+            data: {pageTitle: '知识点题库', pageSubTitle: '课程列表'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // 课程列表2
+        .state('cl2', {
+            url: "/cl2.html",
+            templateUrl: "views/database/cl2.html",            
+            data: {pageTitle: '教辅资料库', pageSubTitle: '课程列表'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // 课程列表3
+        .state('cl3', {
+            url: "/cl3.html",
+            templateUrl: "views/database/cl3.html",            
+            data: {pageTitle: '试卷库', pageSubTitle: '课程列表'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        //教辅资料库
+        .state('assistant', {
+            url: "/assistant.html",
+            templateUrl: "views/database/assistant.html",            
+            data: {pageTitle: '资料库', pageSubTitle: '教辅资料库'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        ] 
+                    });
+                }]
+            }
+        })
+        
 
         // Dashboard
         .state('dashboard', {
@@ -194,11 +306,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                     return $ocLazyLoad.load([{
                         name: 'angularFileUpload',
                         files: [
-                        	'../../../assets/global/plugins/jstree/dist/themes/default/style.min.css',
                         	'../../../assets/global/plugins/dropzone/css/dropzone.css',
                         	'js/webuploader-0.1.5/webuploader.css',
-                            '../../../assets/global/plugins/jstree/dist/jstree.min.js',
-                            '../../../assets/admin/pages/scripts/ui-tree.js',
                             'js/controllers/GeneralPageController.js',
                         	'js/webuploader-0.1.5/webuploader.min.js',
                         	'../../../assets/global/plugins/dropzone/dropzone.js',
@@ -251,12 +360,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                     return $ocLazyLoad.load([{
                         name: 'MetronicApp',
                         files: [
-							'../../../assets/global/plugins/jstree/dist/themes/default/style.min.css',
                         	'../../../assets/global/plugins/dropzone/css/dropzone.css',
                         	'js/webuploader-0.1.5/webuploader.css',
                         	'js/webuploader-0.1.5/demo.css',
-                            '../../../assets/global/plugins/jstree/dist/jstree.min.js',
-                            '../../../assets/admin/pages/scripts/ui-tree.js',
                             'js/controllers/GeneralPageController.js',
                         
                         	'../../../assets/global/plugins/dropzone/dropzone.js',
@@ -358,9 +464,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
                             '../../../assets/admin/pages/scripts/components-pickers.js',
                             
-                            '../../../assets/global/plugins/jstree/dist/themes/default/style.min.css',
-                            '../../../assets/global/plugins/jstree/dist/jstree.min.js',
-                            '../../../assets/admin/pages/scripts/ui-tree.js',
                             'js/controllers/GeneralPageController.js',
 
                             'js/controllers/GeneralPageController.js'

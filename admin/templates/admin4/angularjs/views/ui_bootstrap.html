@@ -1,14 +1,14 @@
 <style>
-	.breadcrumb > li {
+	.breadcrumb> li {
 		color: #5b9bd1;
 		cursor: pointer;
 	}
-	.breadcrumb > .active {
+	
+	.breadcrumb> .active {
 		cursor: auto;
 	}
 </style>
-	
-	
+
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb">
 	<li class="active" data-target="kecheng">
@@ -20,7 +20,7 @@
 </ul>
 <!-- END PAGE BREADCRUMB -->
 
-<div class="row" ng-controller="FileUploadCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+<div class="row" ng-controller="createCourseCtrl">
 
 	<div id="kecheng" class="my-tab-content">
 		<div class="col-md-4">
@@ -47,68 +47,24 @@
 				<div class="portlet-body">
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_1_1">
-							<div id="myCarousel" class="carousel image-carousel slide">
-								<div class="carousel-inner">
-									<div class="active item">
-										<img src="../../../assets/admin/pages/media/gallery/image5.jpg" class="img-responsive" alt="">
-										<div class="carousel-caption">
-											<h4>
-													<a href="page_news_item.html">
-													First Thumbnail label </a>
-													</h4>
-											<p>
-												Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-											</p>
-										</div>
-									</div>
-									<div class="item">
-										<img src="../../../assets/admin/pages/media/gallery/image2.jpg" class="img-responsive" alt="">
-										<div class="carousel-caption">
-											<h4>
-													<a href="page_news_item.html">
-													Second Thumbnail label </a>
-													</h4>
-											<p>
-												Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-											</p>
-										</div>
-									</div>
-									<div class="item">
-										<img src="../../../assets/admin/pages/media/gallery/image1.jpg" class="img-responsive" alt="">
-										<div class="carousel-caption">
-											<h4>
-													<a href="page_news_item.html">
-													Third Thumbnail label </a>
-													</h4>
-											<p>
-												Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-											</p>
-										</div>
-									</div>
+							<div style="height: 305px">
+						    	<carousel interval="myInterval">
+						      		<slide ng-repeat="slide in slides" active="slide.active">
+						        		<img ng-src="{{slide.image}}" style="margin:auto;">
+						        		<div class="carousel-caption">
+						          			<h4>Slide {{$index}}</h4>
+						          			<p>{{slide.text}}</p>
+						        		</div>
+						      		</slide>
+						    	</carousel>
+						    	<div class="top-news margin-top-10">
+									<a href="javascript:;" class="btn blue">
+										<span>Featured News </span>
+										<em><i class="fa fa-tags"></i>USA, Business, Apple </em>
+										<i class="fa fa- icon-bullhorn top-news-icon"></i>
+									</a>
 								</div>
-								<!-- Carousel nav -->
-								<a class="carousel-control left" data-target="#myCarousel" data-slide="prev">
-									<i class="m-icon-big-swapleft m-icon-white"></i>
-								</a>
-								<a class="carousel-control right" data-target="#myCarousel" data-slide="next">
-									<i class="m-icon-big-swapright m-icon-white"></i>
-								</a>
-								<ol class="carousel-indicators">
-									<li data-target="#myCarousel" data-slide-to="0" class="active">
-									</li>
-									<li data-target="#myCarousel" data-slide-to="1">
-									</li>
-									<li data-target="#myCarousel" data-slide-to="2">
-									</li>
-								</ol>
-							</div>
-							<div class="top-news margin-top-10">
-								<a href="javascript:;" class="btn blue">
-									<span>Featured News </span>
-									<em><i class="fa fa-tags"></i>USA, Business, Apple </em>
-									<i class="fa fa- icon-bullhorn top-news-icon"></i>
-								</a>
-							</div>
+						  	</div>
 						</div>
 						<div class="tab-pane" id="tab_1_2">
 							<video controls="controls" style=" width: 100%;height: 100%;">
@@ -284,22 +240,14 @@
 		</div>
 	</div>
 
-	<div id="jiaofu" class="my-tab-content">
-		<div class="col-md-4">
+	<div id="jiaofu" class="my-tab-content" style="display: none;">
+		<div class="col-md-4" style="height: 400px;">
 			<div class="portlet light">
 				<div class="portlet-title">
 					<div class="caption font-green-sharp">
 						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">Select files</span>
+						<span class="caption-subject bold uppercase">章节目录</span>
 						<span class="caption-helper hide"></span>
-					</div>
-					<div class="actions">
-						<a class="btn btn-circle btn-icon-only btn-default" href="#">
-							<i class="icon-cloud-upload"></i>
-						</a>
-						<a class="btn btn-circle btn-icon-only btn-default" href="#">
-							<i class="icon-wrench"></i>
-						</a>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -308,6 +256,25 @@
 				</div>
 			</div>
 
+		</div>
+
+		<div class="col-md-8">
+			<!-- BEGIN: ACCORDION DEMO -->
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">知识点</span>
+					</div>
+					<div class="actions">
+						<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#kpModal">
+							<i class="fa fa-plus"></i> Add </button>
+					</div>
+				</div>
+				<div class="portlet-body" id="kpContent">
+					<a class="btn btn-default" ng-repeat="row in knowledgePoints">{{row}}<i class="fa fa-times"></i></a>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-4">
 			<!-- BEGIN: ACCORDION DEMO -->
@@ -440,6 +407,48 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+
+	<div class="modal fade" id="kpModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">知识点</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="kpName" placeholder="请输入知识点名称" />
+												<label for="form_control_1">知识点</label>
+												<span class="help-block">名称不得超过20个字符</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="createKnowledgePoint()">确定</button>
+									<button type="button" class="btn default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<!--<div class="modal-footer">
+					<button type="button" class="btn default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn blue">Save changes</button>
+				</div>-->
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 </div>
 <!-- END MAIN CONTENT -->
 
@@ -447,8 +456,9 @@
 <script src="js/webuploader-0.1.5/demo.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function FileUploadCtrl($scope) {
+	function createCourseCtrl($scope) {
 		$scope.flag = "";
+		$scope.knowledgePoints = [];
 		$scope.selector = '#tree-kecheng';
 
 		$(".breadcrumb li").click(function() {
@@ -460,7 +470,7 @@
 			$scope.selector = '#tree-'+id;
 			$scope.initTree();
 		});
-
+		
 		$scope.initTree = function() {
 			$($scope.selector).jstree({
 				'core': {
@@ -553,7 +563,41 @@
 				ref.rename_node(sel, $scope.nodeName);
 			}
 		};
-
+		
+		$scope.createKnowledgePoint = function() {
+			var html = '<a class="btn btn-info" name="kp" data-value="'+$scope.kpName+'">'+$scope.kpName+'<i class="fa fa-times" name="remove"></i></a>';
+			//$scope.knowledgePoints.push($scope.kpName);
+			$("#kpContent").append(html);
+			$scope.kpName = "";
+			$("#kpModal").modal("hide");
+		};
+		
+		$("#kpContent").on("click", "a[name='kp']", function() {
+			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
+			$(this).removeClass("btn-info").addClass("btn-danger");
+			
+			//alert("选中知识点"+$(this).data("value"));
+		});
+		
+		$("#kpContent").on("click", "i[name='remove']", function() {
+			$(this).parent("a").remove();
+			return false;
+		});
+		
+		$scope.myInterval = 5000;
+	  	var slides = $scope.slides = [];
+	  	$scope.addSlide = function() {
+	    	var newWidth = 500 + slides.length;
+	    	slides.push({
+	      	image: 'http://placekitten.com/' + newWidth + '/300',
+	      	text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+	        	['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+	    	});
+	  	};
+	  	
+	  	for (var i=0; i<4; i++) {
+	    	$scope.addSlide();
+	  	}
 	}
 </script>
 <!-- BEGIN MAIN JS -->

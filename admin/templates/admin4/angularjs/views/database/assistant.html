@@ -1,0 +1,385 @@
+<div class="row" ng-controller="assistantCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div id="tree-jiaofu" class="tree-demo">
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">知识点</span>
+				</div>
+			</div>
+			<div class="portlet-body" id="kpContent">
+				<a class="btn btn-danger" name="kp">知识点1</a>
+				<a class="btn btn-info" name="kp">知识点2</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 200px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">习题集</span>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">
+							提问 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab">
+							课后作业 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_3" data-toggle="tab">
+							课堂练习 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_1">
+						<div class="scroller" style="min-height: 200px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													Database server #12 overloaded. Please fix the issue.
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New order received and pending for process.
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New payment refund and pending approval.
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-warning">
+													<i class="fa fa-plus"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													New member registered. Pending approval.
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<button class="btn blue btn-block" style="bottom: 0;position: absolute;" data-toggle="modal" href="#putQuestion">创建提问</button>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_1_2">
+
+					</div>
+					<div class="tab-pane" id="tab_1_3">
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<!--创建提问-->
+	<div class="modal fade" id="putQuestion" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">创建提问</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="title" placeholder="请输入名称" />
+												<label for="form_control_1">名称</label>
+												<span class="help-block">名称不得超过50个字符</span>
+											</div>
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-6" style="height: 400px;overflow-y: scroll;">
+											<div class="well" style="background-color: #d6e9c6;">
+												<div class="md-checkbox" style="display: inline-block;width: 10%;top: -10px;">
+													<input type="checkbox" id="checkbox1" class="md-check">
+													<label for="checkbox1">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													</label>
+												</div>
+												<span style="display: inline-block;width: 89%;">Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.</span>
+											</div>
+											<div class="well" style="background-color: #d6e9c6;">
+												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+											</div>
+											<div class="well" style="background-color: #d6e9c6;">
+												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+											</div>
+											<div class="well" style="background-color: #d6e9c6;">
+												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+											</div>
+											<div class="well" style="background-color: #d6e9c6;">
+												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+											</div>
+											<div class="well" style="background-color: #d6e9c6;">
+												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+											</div>
+											<div class="well" style="background-color: #d6e9c6;">
+												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+											</div>
+											<div class="well" style="background-color: #d6e9c6;">
+												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+											</div>
+										</div>
+										<div class="col-md-6" style="height: 350px;">
+											<div class="well" style="height: 350px;background-color: #ebccd1;">
+												<p class="muted" style="font-size: 17.5px;">A:<span style="margin-left: 20px;font-size: 14px;">答案a</span></p>
+												<p class="muted" style="font-size: 17.5px;">B:<span style="margin-left: 20px;font-size: 14px;">答案b</span></p>
+												<p class="muted" style="font-size: 17.5px;color: #f03f2a;">C:<span style="margin-left: 20px;font-size: 14px;">答案c</span></p>
+												<p class="muted" style="font-size: 17.5px;">D:<span style="margin-left: 20px;font-size: 14px;">答案d</span></p>
+											</div>
+											<div class="form-actions noborder" style="text-align: right;">
+												<button type="button" class="btn blue" ng-click="">提交</button>
+												<button type="button" class="btn default" data-dismiss="modal">取消</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<div class="modal fade" id="sm" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">课程信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="nodeName" placeholder="请输入节点名称" />
+												<label for="form_control_1">节点</label>
+												<span class="help-block">名称不得超过20个字符</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="createNode()">Submit</button>
+									<button type="button" class="btn default" data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+</div>
+<!-- END MAIN CONTENT -->
+
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<!-- BEGIN MAIN JS-->
+<script>
+	function assistantCtrl($scope) {
+		$scope.flag = "";
+		$scope.knowledgePoints = [];
+		$scope.options = [];
+
+		$scope.addOption = function() {
+			$scope.options.push({});
+		}
+		$scope.delOption = function(index) {
+			$scope.options.splice(index, 1);
+		}
+
+		$scope.initTree = function() {
+			$('#tree-jiaofu').jstree({
+				'core': {
+					"check_callback": true,
+					'data': [{
+						'id': 'node_1',
+						'text': '第一章',
+						'state': {
+							'opened': true,
+						},
+						'children': [{
+							'text': '课程简介',
+							'state': {
+								'opened': true
+							},
+						}, {
+							'text': '课程简介',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_2',
+						'text': '第一章',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '课程简介'
+						}, '课程简介']
+					}]
+				},
+				"plugins": ['contextmenu'],
+				"contextmenu": {
+					"items": {
+						"create": null,
+						"rename": null,
+						"remove": null,
+						"ccp": null,
+						"新建菜单": {
+							"label": "新建菜单",
+							"action": function(data) {
+								$scope.flag = "create";
+								$scope.nodeName = "";
+								$("#sm").modal("show");
+							}
+						},
+						"编辑菜单": {
+							"label": "编辑菜单",
+							"action": function(data) {
+								$scope.flag = "rename";
+								$scope.nodeName = "";
+								$("#sm").modal("show");
+							}
+						},
+						"删除菜单": {
+							"label": "删除菜单",
+							"action": function(data) {
+								var r = confirm("确定要删除该节点吗");
+								if(r) {
+									var ref = $('#tree-jiaofu').jstree(true),
+										sel = ref.get_selected();
+									if(!sel.length) {
+										return false;
+									}
+									ref.delete_node(sel);
+								}
+							}
+						}
+					}
+				}
+			});
+		}
+		$scope.initTree();
+
+		$scope.createNode = function() {
+			var ref = $('#tree-jiaofu').jstree(true),
+				sel = ref.get_selected();
+			if(!sel.length) {
+				return false;
+			}
+			sel = sel[0];
+			$("#sm").modal("hide");
+			if($scope.flag == "create") {
+				sel = ref.create_node(sel, {
+					text: $scope.nodeName,
+					'state': {
+						'opened': true
+					},
+				});
+			} else if($scope.flag == "rename") {
+				ref.rename_node(sel, $scope.nodeName);
+			}
+		};
+
+		$("#kpContent").on("click", "a[name='kp']", function() {
+			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
+			$(this).removeClass("btn-info").addClass("btn-danger");
+
+		});
+
+		$("ul.feeds").on("click", "a", function() {
+			console.log($(this).html());
+			var html = $(this).html();
+			$(this).closest(".btn-group").find("span").html(html);
+		});
+	}
+</script>
+<!-- BEGIN MAIN JS -->
