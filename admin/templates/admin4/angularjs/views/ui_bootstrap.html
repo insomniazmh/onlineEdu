@@ -7,6 +7,7 @@
 	.breadcrumb> .active {
 		cursor: auto;
 	}
+	
 	#uploader .placeholder {
 		min-height: 150px;
 		padding-top: 58px;
@@ -53,23 +54,23 @@
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_1_1">
 							<div>
-						    	<carousel interval="myInterval">
-						      		<slide ng-repeat="slide in slides" active="slide.active">
-						        		<img ng-src="{{slide.image}}" style="margin:auto;height: 290px;">
-						        		<div class="carousel-caption">
-						          			<!--<h4>Slide {{$index}}</h4>-->
-						          			<p>{{slide.text}}</p>
-						        		</div>
-						      		</slide>
-						    	</carousel>
-						    	<div class="top-news margin-top-10">
+								<carousel interval="myInterval">
+									<slide ng-repeat="slide in slides" active="slide.active">
+										<img ng-src="{{slide.image}}" style="margin:auto;height: 290px;">
+										<div class="carousel-caption">
+											<!--<h4>Slide {{$index}}</h4>-->
+											<p>{{slide.text}}</p>
+										</div>
+									</slide>
+								</carousel>
+								<div class="top-news margin-top-10">
 									<a href="javascript:;" class="btn blue">
 										<span>电子商务基础 </span>
 										<em><i class="fa fa-tags"></i>电子商务 </em>
 										<i class="fa fa- icon-bullhorn top-news-icon"></i>
 									</a>
 								</div>
-						  	</div>
+							</div>
 						</div>
 						<div class="tab-pane" id="tab_1_2">
 							<video controls="controls" style=" width: 100%;height: 100%;">
@@ -282,64 +283,101 @@
 					<a class="btn btn-default" ng-repeat="row in knowledgePoints">{{row}}<i class="fa fa-times"></i></a>
 				</div>
 			</div>
-			
+
 			<div class="portlet light" style="min-height: 400px;">
-			<div class="portlet-title tabbable-line">
-				<div class="caption font-green-sharp">
-					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">教案</span>
-				</div>
-				<div class="actions">
-						<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#kpModal">
+				<div class="portlet-title tabbable-line">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">教案</span>
+					</div>
+					<div class="actions">
+						<button class="btn btn-circle red-sunglo btn-sm">
 							<i class="fa fa-plus"></i> 创建 </button>
 					</div>
-				<ul class="nav nav-tabs">
-					<li class="active">
-						<a data-target="#tab_2_1" data-toggle="tab">
-							资料 </a>
-					</li>
-					<li>
-						<a data-target="#tab_2_2" data-toggle="tab">
-							问答 </a>
-					</li>
-					<li>
-						<a data-target="#tab_2_3" data-toggle="tab">
-							练习 </a>
-					</li>
-					<li>
-						<a data-target="#tab_2_4" data-toggle="tab">
-							作业 </a>
-					</li>
-					<li>
-						<a data-target="#tab_2_5" data-toggle="tab">
-							参考 </a>
-					</li>
-				</ul>
-			</div>
-			<div class="portlet-body">
-				<div class="tab-content">
-					<div class="tab-pane active" id="tab_2_1">
-						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-							<ul class="feeds">
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-danger">
-													<i class="fa fa-bolt"></i>
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-target="#tab_2_1" data-toggle="tab">
+								资料 </a>
+						</li>
+						<li>
+							<a data-target="#tab_2_2" data-toggle="tab">
+								问答 </a>
+						</li>
+						<li>
+							<a data-target="#tab_2_3" data-toggle="tab">
+								练习 </a>
+						</li>
+						<li>
+							<a data-target="#tab_2_4" data-toggle="tab">
+								作业 </a>
+						</li>
+						<li>
+							<a data-target="#tab_2_5" data-toggle="tab">
+								参考 </a>
+						</li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_2_1">
+							<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+								<ul class="feeds">
+									<li>
+										<div class="col1">
+											<div class="cont">
+												<div class="cont-col1">
+													<div class="label label-sm label-danger">
+														<i class="fa fa-bolt"></i>
+													</div>
 												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
-													
+												<div class="cont-col2">
+													<div class="desc">
+														<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</li>
+									</li>
+									<li>
+										<div class="col1">
+											<div class="cont">
+												<div class="cont-col1">
+													<div class="label label-sm label-info">
+														<i class="fa fa-bullhorn"></i>
+													</div>
+												</div>
+												<div class="cont-col2">
+													<div class="desc">
+														电子商务基础教案.doc
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="col1">
+											<div class="cont">
+												<div class="cont-col1">
+													<div class="label label-sm label-success">
+														<i class="fa fa-bullhorn"></i>
+													</div>
+												</div>
+												<div class="cont-col2">
+													<div class="desc">
+														电子商务基础课件.ppt
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab_2_2">
+							<ul class="feeds">
 								<li>
-									<div class="col1">
+									<div class="col1" data-toggle="modal" href="#questionModal" style="cursor: pointer;">
 										<div class="cont">
 											<div class="cont-col1">
 												<div class="label label-sm label-info">
@@ -348,7 +386,7 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													电子商务基础教案.doc
+													电子商务的定义-问答册1
 												</div>
 											</div>
 										</div>
@@ -364,7 +402,7 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													电子商务基础课件.ppt
+													电子商务的概念-问答册2
 												</div>
 											</div>
 										</div>
@@ -372,90 +410,53 @@
 								</li>
 							</ul>
 						</div>
-					</div>
-					<div class="tab-pane" id="tab_2_2">
-						<ul class="feeds">
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-info">
-													<i class="fa fa-bullhorn"></i>
+						<div class="tab-pane" id="tab_2_3">
+
+						</div>
+						<div class="tab-pane" id="tab_2_4"></div>
+						<div class="tab-pane" id="tab_2_5">
+							<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+								<ul class="feeds">
+									<li>
+										<div class="col1">
+											<div class="cont">
+												<div class="cont-col1">
+													<div class="label label-sm label-info">
+														<i class="fa fa-bullhorn"></i>
+													</div>
 												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务基础同步导读.doc
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-success">
-													<i class="fa fa-bullhorn"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务基础课件.ppt
+												<div class="cont-col2">
+													<div class="desc">
+														电子商务基础同步导读.doc
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-							</ul>
-					</div>
-					<div class="tab-pane" id="tab_2_3">
-						
-					</div>
-					<div class="tab-pane" id="tab_2_4"></div>
-					<div class="tab-pane" id="tab_2_5">
-						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-							<ul class="feeds">
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-info">
-													<i class="fa fa-bullhorn"></i>
+									</li>
+									<li>
+										<div class="col1">
+											<div class="cont">
+												<div class="cont-col1">
+													<div class="label label-sm label-success">
+														<i class="fa fa-bullhorn"></i>
+													</div>
 												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务基础同步导读.doc
+												<div class="cont-col2">
+													<div class="desc">
+														电子商务基础课件.ppt
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-success">
-													<i class="fa fa-bullhorn"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务基础课件.ppt
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		</div>
-		
+
 	</div>
 
 	<div class="modal fade" id="sm" tabindex="-1" role="dialog" aria-hidden="true">
@@ -541,6 +542,46 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+
+	<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">电子商务的定义-问答册1</h4>
+				</div>
+				<div class="modal-body">
+					<div class="note note-success">
+						<h4 class="block">1. 商家要开展电子商务活动 , 应该用（ C ）作为其主要的生意平台。</h4>
+						<p>A． BBS</p>
+						<p>B．电子邮件</p>
+						<p>C．在线商店</p>
+						<p>D．电话定购</p>
+					</div>
+					<div class="note note-success">
+						<h4 class="block">2. Intranet和Internet的区别是 ( A )</h4>
+						<p>A．访问 Intranet 需要授权</p>
+						<p>B．Intranet 执行特殊的协议</p>
+						<p>C．Intranet 软件和协议是独立于硬件的</p>
+						<p>D．Intrarlet 只在扇部物理范围内运行</p>
+					</div>
+					<div class="note note-success">
+						<h4 class="block">3. 电子数据交换的简称是 ( B )</h4>
+						<p>A．EFT</p>
+						<p>B．EDI</p>
+						<p>C．NET</p>
+						<p>D．EC</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn blue">继续添加</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 </div>
 <!-- END MAIN CONTENT -->
 
@@ -559,10 +600,10 @@
 			var id = $(this).data("target");
 			$(".my-tab-content").hide();
 			$("#" + id).show();
-			$scope.selector = '#tree-'+id;
+			$scope.selector = '#tree-' + id;
 			$scope.initTree();
 		});
-		
+
 		$scope.initTree = function() {
 			$($scope.selector).jstree({
 				'core': {
@@ -608,13 +649,13 @@
 						'children': [{
 							'text': '1.电子商务的框架模型',
 							'icon': 'fa fa-briefcase icon-state-success'
-						}, 
-						{
+						}, {
 							'text': '2.企业与企业之间的电子商务模式',
 							'icon': 'fa fa-briefcase icon-state-success'
-						},
-						{'text': '3.企业与消费者之间电子商务模式','icon': 'fa fa-briefcase icon-state-success'}
-						]
+						}, {
+							'text': '3.企业与消费者之间电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
 					}]
 				},
 				"plugins": ['contextmenu'],
@@ -679,49 +720,49 @@
 				ref.rename_node(sel, $scope.nodeName);
 			}
 		};
-		
+
 		$scope.createKnowledgePoint = function() {
-			var html = '<a class="btn btn-info" name="kp" data-value="'+$scope.kpName+'">'+$scope.kpName+'<i class="fa fa-times" name="remove"></i></a>';
+			var html = '<a class="btn btn-info" name="kp" data-value="' + $scope.kpName + '">' + $scope.kpName + '<i class="fa fa-times" name="remove"></i></a>';
 			//$scope.knowledgePoints.push($scope.kpName);
 			$("#kpContent").append(html);
 			$scope.kpName = "";
 			$("#kpModal").modal("hide");
 		};
-		
+
 		$("#kpContent").on("click", "a[name='kp']", function() {
 			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
 			$(this).removeClass("btn-info").addClass("btn-danger");
-			
+
 			//alert("选中知识点"+$(this).data("value"));
 		});
-		
+
 		$("#kpContent").on("click", "i[name='remove']", function() {
 			$(this).parent("a").remove();
 			return false;
 		});
-		
-//		$scope.myInterval = 5000;
-	  	var slides = $scope.slides = [{
-	  		image: 'images/1.jpg',
-	  		text: "电子商务基础"
-	  	},{
-	  		image: 'images/2.jpg',
-	  		text: "电子商务基础"
-	  	},{
-	  		image: 'images/3.jpg',
-	  		text: "电子商务基础"
-	  	}];
-	  	$scope.addSlide = function() {
-//	    	var newWidth = 500 + slides.length;
-	    	slides.push({
-		      	image: '',
-		      	text: '电子商务基础'
-	    	});
-	  	};
-//	  	
-//	  	for (var i=0; i<4; i++) {
-//	    	$scope.addSlide();
-//	  	}
+
+		//		$scope.myInterval = 5000;
+		var slides = $scope.slides = [{
+			image: 'images/1.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/2.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/3.jpg',
+			text: "电子商务基础"
+		}];
+		$scope.addSlide = function() {
+			//	    	var newWidth = 500 + slides.length;
+			slides.push({
+				image: '',
+				text: '电子商务基础'
+			});
+		};
+		//	  	
+		//	  	for (var i=0; i<4; i++) {
+		//	    	$scope.addSlide();
+		//	  	}
 	}
 </script>
 <!-- BEGIN MAIN JS -->

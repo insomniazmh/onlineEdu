@@ -30,12 +30,13 @@
 			<div class="portlet-title">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">知识点</span>
+					<span class="caption-subject bold uppercase">重点</span>
 				</div>
 			</div>
 			<div class="portlet-body" id="kpContent">
-				<a class="btn btn-danger" name="kp">知识点1</a>
-				<a class="btn btn-info" name="kp">知识点2</a>
+				<a class="btn btn-danger" name="kp" data-value="">取消</a>
+				<a class="btn btn-info" name="kp">电子商务的定义</a>
+				<a class="btn btn-info" name="kp">电子商务的概念</a>
 			</div>
 		</div>
 	</div>
@@ -50,7 +51,7 @@
 				<ul class="nav nav-tabs">
 					<li class="active">
 						<a data-target="#tab_1_1" data-toggle="tab">
-							提问 </a>
+							问答 </a>
 					</li>
 					<li>
 						<a data-target="#tab_1_2" data-toggle="tab">
@@ -77,7 +78,7 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													Database server #12 overloaded. Please fix the issue.
+													电子商务的定义1
 												</div>
 											</div>
 										</div>
@@ -93,7 +94,7 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													New order received and pending for process.
+													电子商务的定义2
 												</div>
 											</div>
 										</div>
@@ -109,7 +110,7 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													New payment refund and pending approval.
+													电子商务的概念1
 												</div>
 											</div>
 										</div>
@@ -125,14 +126,14 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													New member registered. Pending approval.
+													电子商务的概念2
 												</div>
 											</div>
 										</div>
 									</div>
 								</li>
 							</ul>
-							<button class="btn blue btn-block" style="bottom: 0;position: absolute;" data-toggle="modal" href="#putQuestion">创建提问</button>
+							<button class="btn blue btn-block" style="bottom: 0;position: absolute;" data-toggle="modal" href="#putQuestion">创建问答</button>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_2">
@@ -260,13 +261,13 @@
 		<!-- END: ACCORDION DEMO -->
 	</div>
 
-	<!--创建提问-->
+	<!--创建问答-->
 	<div class="modal fade" id="putQuestion" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">创建提问</h4>
+					<h4 class="modal-title">创建问答</h4>
 				</div>
 				<div class="modal-body">
 					<div class="portlet">
@@ -402,28 +403,52 @@
 					"check_callback": true,
 					'data': [{
 						'id': 'node_1',
-						'text': '第一章',
+						'text': '第一章 电子商务概述',
 						'state': {
 							'opened': true,
 						},
 						'children': [{
-							'text': '课程简介',
+							'text': '1.电子商务的内涵',
+							'icon': 'fa fa-briefcase icon-state-success',
 							'state': {
 								'opened': true
 							},
 						}, {
-							'text': '课程简介',
+							'text': '2.电子商务的产生背景和发展过程',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '3.电子商务的作用与影响',
 							'icon': 'fa fa-briefcase icon-state-success'
 						}]
 					}, {
 						'id': 'node_2',
-						'text': '第一章',
+						'text': '第二章 Internet 基础知识',
 						'state': {
 							'opened': true
 						},
 						'children': [{
-							'text': '课程简介'
-						}, '课程简介']
+							'text': '1.Internet 概述 ',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '2.Internet 的主要功能',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_3',
+						'text': '第三章 电子商务的主要模式',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '1.电子商务的框架模型',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, 
+						{
+							'text': '2.企业与企业之间的电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						},
+						{'text': '3.企业与消费者之间电子商务模式','icon': 'fa fa-briefcase icon-state-success'}
+						]
 					}]
 				},
 				"plugins": ['contextmenu'],

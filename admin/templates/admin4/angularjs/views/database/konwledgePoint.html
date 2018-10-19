@@ -23,12 +23,13 @@
 			<div class="portlet-title">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">知识点</span>
+					<span class="caption-subject bold uppercase">重点</span>
 				</div>
 			</div>
 			<div class="portlet-body" id="kpContent">
-				<a class="btn btn-danger" name="kp">知识点1</a>
-				<a class="btn btn-info" name="kp">知识点2</a>
+				<a class="btn btn-danger" name="kp" data-value="">取消</a>
+				<a class="btn btn-info" name="kp">电子商务的定义</a>
+				<a class="btn btn-info" name="kp">电子商务的概念</a>
 			</div>
 		</div>
 	</div>
@@ -39,6 +40,12 @@
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
 					<span class="caption-subject bold uppercase">题库</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#kpModal">
+							<i class="fa fa-plus"></i> 创建 </button>
+					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="全屏">
+					</a>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
@@ -62,81 +69,63 @@
 			<div class="portlet-body">
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_1_1">
-						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-							<ul class="feeds">
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-danger">
-													<i class="fa fa-bolt"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													Database server #12 overloaded. Please fix the issue.
-												</div>
-											</div>
-										</div>
+						<div id="accordion1" class="panel-group">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_1">
+										1. 商家要开展电子商务活动 , 应该用（ C  ）作为其主要的生意平台。 </a>
+									</h4>
+								</div>
+								<div id="accordion1_1" class="panel-collapse collapse in">
+									<div class="panel-body">
+											<p>A． BBS</p>
+											<p>B．电子邮件</p>
+											<p>C．在线商店</p>
+											<p>D．电话定购</p>
 									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-info">
-													<i class="fa fa-bullhorn"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													New order received and pending for process.
-												</div>
-											</div>
-										</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_2">
+										2. Intranet和Internet的区别是 ( A ) </a>
+									</h4>
+								</div>
+								<div id="accordion1_2" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>A．访问 Intranet 需要授权</p>
+										<p>B．Intranet 执行特殊的协议</p>
+										<p>C．Intranet 软件和协议是独立于硬件的</p>
+										<p>D．Intrarlet 只在扇部物理范围内运行</p>
 									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-success">
-													<i class="fa fa-bullhorn"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													New payment refund and pending approval.
-												</div>
-											</div>
-										</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_3">
+										3. 电子数据交换的简称是 ( B )  </a>
+									</h4>
+								</div>
+								<div id="accordion1_3" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>A．EFT</p>
+										<p>B．EDI</p>
+										<p>C．NET</p>
+										<p>D．EC</p>
 									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-warning">
-													<i class="fa fa-plus"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													New member registered. Pending approval.
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-							<button class="btn blue btn-block" style="bottom: 0;position: absolute;" data-toggle="modal" href="#questionSingle">创建题目</button>
+								</div>
+							</div>
 						</div>
+
 					</div>
 					<div class="tab-pane" id="tab_1_2">
-						
+
 					</div>
 					<div class="tab-pane" id="tab_1_3">
-						
+
 					</div>
 					<div class="tab-pane" id="tab_1_4"></div>
 				</div>
@@ -144,7 +133,7 @@
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
-	
+
 	<div class="modal fade" id="questionSingle" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -264,42 +253,66 @@
 		$scope.flag = "";
 		$scope.knowledgePoints = [];
 		$scope.options = [];
-		
+
 		$scope.addOption = function() {
 			$scope.options.push({});
 		}
 		$scope.delOption = function(index) {
 			$scope.options.splice(index, 1);
 		}
-		
+
 		$scope.initTree = function() {
 			$('#tree-jiaofu').jstree({
 				'core': {
 					"check_callback": true,
 					'data': [{
 						'id': 'node_1',
-						'text': '第一章',
+						'text': '第一章 电子商务概述',
 						'state': {
 							'opened': true,
 						},
 						'children': [{
-							'text': '课程简介',
+							'text': '1.电子商务的内涵',
+							'icon': 'fa fa-briefcase icon-state-success',
 							'state': {
 								'opened': true
 							},
 						}, {
-							'text': '课程简介',
+							'text': '2.电子商务的产生背景和发展过程',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '3.电子商务的作用与影响',
 							'icon': 'fa fa-briefcase icon-state-success'
 						}]
 					}, {
 						'id': 'node_2',
-						'text': '第一章',
+						'text': '第二章 Internet 基础知识',
 						'state': {
 							'opened': true
 						},
 						'children': [{
-							'text': '课程简介'
-						}, '课程简介']
+							'text': '1.Internet 概述 ',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '2.Internet 的主要功能',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_3',
+						'text': '第三章 电子商务的主要模式',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '1.电子商务的框架模型',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '2.企业与企业之间的电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '3.企业与消费者之间电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
 					}]
 				},
 				"plugins": ['contextmenu'],
@@ -364,13 +377,13 @@
 				ref.rename_node(sel, $scope.nodeName);
 			}
 		};
-		
+
 		$("#kpContent").on("click", "a[name='kp']", function() {
 			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
 			$(this).removeClass("btn-info").addClass("btn-danger");
 
 		});
-		
+
 		$("ul.feeds").on("click", "a", function() {
 			console.log($(this).html());
 			var html = $(this).html();

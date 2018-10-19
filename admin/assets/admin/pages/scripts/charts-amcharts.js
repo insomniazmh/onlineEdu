@@ -15,11 +15,11 @@ var ChartsAmcharts = function() {
             "color":    '#888',
             
             "dataProvider": [{
-                "year": 2009,
+                "year": '2009-1-1',
                 "income": 23.5,
                 "expenses": 18.1
             }, {
-                "year": 2010,
+                "year": '2009-1-2',
                 "income": 26.2,
                 "expenses": 22.8
             }, {
