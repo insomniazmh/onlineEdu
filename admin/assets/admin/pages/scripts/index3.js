@@ -131,10 +131,10 @@ var Index = function() {
                         sales: 1550,
                         profit: 800
                     }],
-                    lineColors: ['#399a8c', '#92e9dc'],
+                    lineColors: ['#399a8c', '#105755'],
                     xkey: 'period',
                     ykeys: ['sales', 'profit'],
-                    labels: ['Sales', 'Profit'],
+                    labels: ['课程访问量', '新增访问量'],
                     pointSize: 0,
                     lineWidth: 0,
                     hideHover: 'auto',
