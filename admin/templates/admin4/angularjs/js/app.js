@@ -288,24 +288,14 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         .state('charts_amcharts', {
             url: "/charts_amcharts.html",
             templateUrl: "views/charts_amcharts.html",            
-            data: {pageTitle: '资料库', pageSubTitle: '试卷库'},
+            data: {pageTitle: '统计', pageSubTitle: '统计'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
                         name: 'MetronicApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
-                        	'../../../assets/global/plugins/amcharts/amcharts/amcharts.js',
-//                      	'../../../assets/global/plugins/amcharts/amcharts/serial.js',
-//                      	'../../../assets/global/plugins/amcharts/amcharts/pie.js',
-//                      	'../../../assets/global/plugins/amcharts/amcharts/radar.js',
-//                      	'../../../assets/global/plugins/amcharts/amcharts/themes/light.js',
-//                      	'../../../assets/global/plugins/amcharts/amcharts/themes/patterns.js',
-//                      	'../../../assets/global/plugins/amcharts/amcharts/themes/chalk.js',
-//                      	'../../../assets/global/plugins/amcharts/ammap/ammap.js',
-//                      	'../../../assets/global/plugins/amcharts/ammap/maps/js/worldLow.js',
-//                      	'../../../assets/global/plugins/amcharts/amstockcharts/amstock.js',
-//                      	'../../../assets/admin/pages/scripts/charts-amcharts.js',
+                        	'../../../assets/admin/pages/scripts/charts-amcharts.js',
                         	
                         ] 
                     });
