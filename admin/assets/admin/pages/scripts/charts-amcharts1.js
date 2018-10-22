@@ -15,36 +15,33 @@ var ChartsAmcharts = function() {
             "color":    '#888',
             
             "dataProvider": [{
-                "date": '10-15',
-                "income": 285,
-                "expenses": 281
+                "year": '2009-1-1',
+                "income": 23.5,
+                "expenses": 18.1
             }, {
-                "date": '10-16',
-                "income": 262,
-                "expenses": 228
+                "year": '2009-1-2',
+                "income": 26.2,
+                "expenses": 22.8
             }, {
-                "date": '10-17',
-                "income": 301,
-                "expenses": 239
-            }, 
-			{
-				"date": '10-19',
-				"income": 265,
-				"expenses": 251
-			}, 
-			{
-				"date": '10-20',
-				"income": 205,
-				"expenses": 201
-			}, {
-				"date": '10-21',
-				"income": 195,
-				"expenses": 151
-			}, {
-                "date": '10-22',
-                "income": 206,
-                "expenses": 172,
+                "year": 2011,
+                "income": 30.1,
+                "expenses": 23.9
+            }, {
+                "year": 2012,
+                "income": 29.5,
+                "expenses": 25.1
+            }, {
+                "year": 2013,
+                "income": 30.6,
+                "expenses": 27.2,
                 "dashLengthLine": 5
+            }, {
+                "year": 2014,
+                "income": 34.1,
+                "expenses": 29.9,
+                "dashLengthColumn": 5,
+                "alpha": 0.2,
+                "additional": "(projection)"
             }],
             "valueAxes": [{
                 "axisAlpha": 0,
@@ -53,14 +50,14 @@ var ChartsAmcharts = function() {
             "startDuration": 1,
             "graphs": [{
                 "alphaField": "alpha",
-                "balloonText": "<span style='font-size:13px;'>[[title]] : [[category]]:<b>[[value]]</b> [[additional]]</span>",
+                "balloonText": "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>",
                 "dashLengthField": "dashLengthColumn",
                 "fillAlphas": 1,
-                "title": "人数",
+                "title": "Income",
                 "type": "column",
                 "valueField": "income"
             }, {
-                "balloonText": "<span style='font-size:13px;'>[[title]] : [[category]]:<b>[[value]]</b> [[additional]]</span>",
+                "balloonText": "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>",
                 "bullet": "round",
                 "dashLengthField": "dashLengthLine",
                 "lineThickness": 3,
@@ -71,10 +68,10 @@ var ChartsAmcharts = function() {
                 "bulletBorderThickness": 3,
                 "fillAlphas": 0,
                 "lineAlpha": 1,
-                "title": "参与人数",
+                "title": "Expenses",
                 "valueField": "expenses"
             }],
-            "categoryField": "date",
+            "categoryField": "year",
             "categoryAxis": {
                 "gridPosition": "start",
                 "axisAlpha": 0,
@@ -337,7 +334,7 @@ var ChartsAmcharts = function() {
             "dataProvider": [{
                 "lineColor": "#b7e021",  
                 "date": "2012-01-01",
-                "duration": 908
+                "duration": 408
             }, {
                 "date": "2012-01-02",
                 "duration": 482
@@ -398,7 +395,7 @@ var ChartsAmcharts = function() {
             }],
             "chartScrollbar": {},
             "chartCursor": {
-                "categoryBalloonDateFormat": "YYYY MM DD",
+                "categoryBalloonDateFormat": "YYYY MMM DD",
                 "cursorAlpha": 0,
                 "zoomable": false
             },
@@ -407,13 +404,13 @@ var ChartsAmcharts = function() {
             "categoryAxis": {
                 "dateFormats": [{
                     "period": "DD",
-                    "format": "DD 日"
+                    "format": "DD"
                 }, {
                     "period": "WW",
-                    "format": "MM DD "
+                    "format": "MMM DD"
                 }, {
                     "period": "MM",
-                    "format": "MM月"
+                    "format": "MMM"
                 }, {
                     "period": "YYYY",
                     "format": "YYYY"
@@ -516,37 +513,73 @@ var ChartsAmcharts = function() {
             "color":    '#888',
 
             "dataProvider": [{
-                "country": "课程",
+                "country": "USA",
                 "visits": 4025,
                 "color": "#FF0F00"
-            },  {
-                "country": "练习",
+            }, {
+                "country": "China",
+                "visits": 1882,
+                "color": "#FF6600"
+            }, {
+                "country": "Japan",
                 "visits": 1809,
                 "color": "#FF9E01"
             }, {
-                "country": "提问",
+                "country": "Germany",
                 "visits": 1322,
                 "color": "#FCD202"
             }, {
-                "country": "作业",
-                "visits": 2122,
+                "country": "UK",
+                "visits": 1122,
                 "color": "#F8FF01"
             }, {
-                "country": "笔记",
+                "country": "France",
                 "visits": 1114,
                 "color": "#B0DE09"
             }, {
-                "country": "心得",
-                "visits": 1984,
+                "country": "India",
+                "visits": 984,
                 "color": "#04D215"
             }, {
-                "country": "讨论",
-                "visits": 2688,
+                "country": "Spain",
+                "visits": 711,
                 "color": "#0D8ECF"
             }, {
-                "country": "解答",
-                "visits": 3665,
+                "country": "Netherlands",
+                "visits": 665,
                 "color": "#0D52D1"
+            }, {
+                "country": "Russia",
+                "visits": 580,
+                "color": "#2A0CD0"
+            }, {
+                "country": "South Korea",
+                "visits": 443,
+                "color": "#8A0CCF"
+            }, {
+                "country": "Canada",
+                "visits": 441,
+                "color": "#CD0D74"
+            }, {
+                "country": "Brazil",
+                "visits": 395,
+                "color": "#754DEB"
+            }, {
+                "country": "Italy",
+                "visits": 386,
+                "color": "#DDDDDD"
+            }, {
+                "country": "Australia",
+                "visits": 384,
+                "color": "#999999"
+            }, {
+                "country": "Taiwan",
+                "visits": 338,
+                "color": "#333333"
+            }, {
+                "country": "Poland",
+                "visits": 328,
+                "color": "#000000"
             }],
             "valueAxes": [{
                 "position": "left",
@@ -614,36 +647,32 @@ var ChartsAmcharts = function() {
             "color":    '#888',
 
             "dataProvider": [{
-                "country": "轮播图",
-                "litres": 10
+                "country": "Lithuania",
+                "litres": 501.9
             }, {
-                "country": "宣传视频",
-                "litres": 10
+                "country": "Czech Republic",
+                "litres": 301.9
             }, {
-                "country": "基本内容",
-                "litres": 10
+                "country": "Ireland",
+                "litres": 201.1
             }, {
-                "country": "课程目录",
-                "litres": 10
+                "country": "Germany",
+                "litres": 165.8
             }, {
-                "country": "章节知识点",
-                "litres": 10
+                "country": "Australia",
+                "litres": 139.9
             }, {
-                "country": "课程目标",
-                "litres": 10
+                "country": "Austria",
+                "litres": 128.3
             }, {
-                "country": "辅助资料",
-                "litres": 10
+                "country": "UK",
+                "litres": 99
             }, {
-                "country": "辅助练习",
-                "litres": 1
-            },
-			{
-				"country": "课堂提问",
-				"litres": 1
-			},{
-                "country": "课后作业",
-                "litres": 1
+                "country": "Belgium",
+                "litres": 60
+            }, {
+                "country": "The Netherlands",
+                "litres": 50
             }],
             "valueField": "litres",
             "titleField": "country",
