@@ -112,9 +112,28 @@ MetronicApp.controller('SidebarController', ['$scope', function($scope) {
 }]);
 
 /* Setup Layout Part - Sidebar */
-MetronicApp.controller('PageHeadController', ['$scope', function($scope) {
+MetronicApp.controller('PageHeadController', ['$scope', '$rootScope', function($scope, $rootScope) {
     $scope.$on('$includeContentLoaded', function() {        
         Demo.init(); // init theme panel
+        $rootScope.kps = [];
+        $scope.createKp = function() {
+        	var html = '<a class="btn btn-info" name="kp"><span>'+$("#kp").val()+'</span><i class="fa fa-times" name="remove" style="font-size:14px;color: white;"></i></a>';
+        	$("#kpContent").append(html);
+        };
+        
+        $("#kpContent").on("click", "a[name='kp']", function() {
+			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
+			$(this).removeClass("btn-info").addClass("btn-danger");
+			var html = $(this).children("span").html();
+			$scope.$apply(function() {　　
+				if(html != "无") {
+					$rootScope.currKP = '-' + html;
+				} else {
+					$rootScope.currKP = '';
+				}
+			});
+
+		});
     });
 }]);
 

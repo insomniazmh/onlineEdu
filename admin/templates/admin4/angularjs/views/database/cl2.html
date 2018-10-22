@@ -17,23 +17,41 @@
 					<h4 style="margin-top:0">最新课程</h4>
 					<div class="row">
 						<div class="col-sm-3" style="height: 305px">
-					    	<carousel interval="myInterval">
-					      		<slide ng-repeat="slide in slides" active="slide.active">
-					        		<img ng-src="{{slide.image}}" style="margin:auto;">
-					        		<div class="carousel-caption">
-					          			<h4></h4>
-					          			<p></p>
-					        		</div>
-					      		</slide>
-					    	</carousel>
-					    	<div class="top-news margin-top-10">
+							<carousel interval="myInterval">
+								<slide ng-repeat="slide in slides" active="slide.active">
+									<img ng-src="{{slide.image}}" style="margin:auto;height: 231px;">
+									<div class="carousel-caption">
+										<h4></h4>
+										<p></p>
+									</div>
+								</slide>
+							</carousel>
+							<div class="top-news margin-top-10">
 								<a href="#/assistant.html" class="btn blue">
 									<span>电子商务基础 </span>
 									<em><i class="fa fa-tags">电子商务</i> </em>
 									<i class="fa fa- icon-bullhorn top-news-icon"></i>
 								</a>
 							</div>
-					  	</div>
+						</div>
+						<div class="col-sm-3" style="height: 305px">
+							<carousel interval="myInterval">
+								<slide ng-repeat="slide in slides2" active="slide.active">
+									<img ng-src="{{slide.image}}" style="margin:auto;height: 231px;">
+									<div class="carousel-caption">
+										<h4>Slide {{$index}}</h4>
+										<p>{{slide.text}}</p>
+									</div>
+								</slide>
+							</carousel>
+							<div class="top-news margin-top-10">
+								<a href="" class="btn blue">
+									<span>商务英语基础 </span>
+									<em><i class="fa fa-tags"></i>商务英语</em>
+									<i class="fa fa- icon-bullhorn top-news-icon"></i>
+								</a>
+							</div>
+						</div>
 					</div>
 					<div class="space20">
 					</div>
@@ -44,30 +62,44 @@
 
 </div>
 <!-- END MAIN CONTENT -->
-	
+
 <script>
 	function cl2Ctrl($scope) {
 		$scope.myInterval = 5000;
-	  	var slides = $scope.slides = [{
-	  		image: 'images/1.jpg',
-	  		text: "电子商务基础"
-	  	}, {
-	  		image: 'images/2.jpg',
-	  		text: "电子商务基础"
-	  	}, {
-	  		image: 'images/3.jpg',
-	  		text: "电子商务基础"
-	  	}];
-	  	$scope.addSlide = function() {
-	  	//	    	var newWidth = 500 + slides.length;
-	  	slides.push({
-	  		image: '',
-	  		text: '电子商务基础'
-	  	});
-	  	};
-	  	
-// 	  	for (var i=0; i<4; i++) {
-// 	    	$scope.addSlide();
-// 	  	}
+		var slides = $scope.slides = [{
+			image: 'images/1.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/2.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/3.jpg',
+			text: "电子商务基础"
+		}];
+		$scope.addSlide = function() {
+			//	    	var newWidth = 500 + slides.length;
+			slides.push({
+				image: '',
+				text: '电子商务基础'
+			});
+		};
+
+		var slides2 = $scope.slides2 = [{
+			image: 'images/4.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/5.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/6.jpg',
+			text: "电子商务基础"
+		}];
+		$scope.addSlide2 = function() {
+			//	    	var newWidth = 500 + slides.length;
+			slides2.push({
+				image: '',
+				text: '电子商务基础'
+			});
+		};
 	}
 </script>
