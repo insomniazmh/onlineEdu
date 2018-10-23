@@ -1,3 +1,11 @@
+<link href="../../../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
+<link href="../../../assets/frontend/pages/css/style-shop.css" rel="stylesheet" type="text/css">
+<style>
+	.pi-price {
+		color: #2386ca;
+	}
+</style>
+	
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb hide">
 	<li>
@@ -9,17 +17,55 @@
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="cl2Ctrl" class="margin-top-10">
+<div ng-controller="cl1Ctrl" class="margin-top-10">
 	<div class="portlet light">
 		<div class="portlet-body">
 			<div class="row">
-				<div class="col-md-12 news-page">
+				<div class="col-md-12">
+					<div class="owl-carousel owl-carousel5 owl-theme" style="opacity: 1; display: block;">
+						<div class="owl-wrapper-outer">
+							<div class="owl-wrapper" style="width: 3192px; left: 0px; display: block;">
+								<div class="owl-item active" style="width: 228px;">
+									<div>
+										<div class="product-item">
+											<div class="pi-img-wrapper">
+												<img src="images/1.jpg" class="img-responsive" alt="Berry Lace Dress">
+												<!--<div>
+													<a href="../../../assets/frontend/pages/img/products/model2.jpg" class="btn btn-default fancybox-button">Zoom</a>
+													<a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+												</div>-->
+											</div>
+											<h3><a href="#/assistant.html">电子商务基础</a></h3>
+											<div class="pi-price">课程编号：001</div>
+										</div>
+									</div>
+								</div>
+								<div class="owl-item active" style="width: 228px;">
+									<div>
+										<div class="product-item">
+											<div class="pi-img-wrapper">
+												<img src="images/4.jpg" class="img-responsive" alt="Berry Lace Dress">
+												<!--<div>
+													<a href="../../../assets/frontend/pages/img/products/model6.jpg" class="btn btn-default fancybox-button">Zoom</a>
+													<a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+												</div>-->
+											</div>
+											<h3><a>商务英语基础</a></h3>
+											<div class="pi-price">课程编号：002</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<div class="col-md-12 news-page">
 					<h4 style="margin-top:0">最新课程</h4>
 					<div class="row">
 						<div class="col-sm-3" style="height: 305px">
 							<carousel interval="myInterval">
 								<slide ng-repeat="slide in slides" active="slide.active">
-									<img ng-src="{{slide.image}}" style="margin:auto;height: 231px;">
+									<img ng-src="{{slide.image}}" style="margin:auto;height: 120px;">
 									<div class="carousel-caption">
 										<h4></h4>
 										<p></p>
@@ -27,9 +73,9 @@
 								</slide>
 							</carousel>
 							<div class="top-news margin-top-10">
-								<a href="#/assistant.html" class="btn blue">
+								<a href="#/konwledgePoint.html" class="btn blue">
 									<span>电子商务基础 </span>
-									<em><i class="fa fa-tags">电子商务</i> </em>
+									<em><i class="fa fa-tags">电子商务</i></em>
 									<i class="fa fa- icon-bullhorn top-news-icon"></i>
 								</a>
 							</div>
@@ -55,7 +101,7 @@
 					</div>
 					<div class="space20">
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 	</div>
@@ -64,7 +110,7 @@
 <!-- END MAIN CONTENT -->
 
 <script>
-	function cl2Ctrl($scope) {
+	function cl1Ctrl($scope) {
 		$scope.myInterval = 5000;
 		var slides = $scope.slides = [{
 			image: 'images/1.jpg',
@@ -101,5 +147,6 @@
 				text: '电子商务基础'
 			});
 		};
+
 	}
 </script>

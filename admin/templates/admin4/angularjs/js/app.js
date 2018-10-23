@@ -117,7 +117,7 @@ MetronicApp.controller('PageHeadController', ['$scope', '$rootScope', function($
         Demo.init(); // init theme panel
         $rootScope.kps = [];
         $scope.createKp = function() {
-        	var html = '<a class="btn btn-info" name="kp"><span>'+$("#kp").val()+'</span><i class="fa fa-times" name="remove" style="font-size:14px;color: white;"></i></a>';
+        	var html = '<a class="btn btn-circle btn-sm btn-info" name="kp"><span>'+$("#kp").val()+'</span><i class="fa fa-times" name="remove"></i></a>';
         	$("#kpContent").append(html);
         };
         
@@ -133,6 +133,11 @@ MetronicApp.controller('PageHeadController', ['$scope', '$rootScope', function($
 				}
 			});
 
+		});
+		
+		$("#kpContent").on("click", "i[name='remove']", function() {
+			$(this).closest("a").remove();
+			return false;
 		});
     });
 }]);
@@ -156,7 +161,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         .state('coursesList', {
             url: "/coursesList.html",
             templateUrl: "views/course/coursesList.html",            
-            data: {pageTitle: '课程', pageSubTitle: '课程列表'},
+            data: {pageTitle: '课程管理', pageSubTitle: '课程列表'},
 //          controller: "CoursesListController",
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -256,6 +261,23 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             url: "/cl3.html",
             templateUrl: "views/database/cl3.html",            
             data: {pageTitle: '试卷库', pageSubTitle: '课程列表'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // 课程列表4
+        .state('cl4', {
+            url: "/cl4.html",
+            templateUrl: "views/interaction/cl4.html",            
+            data: {pageTitle: '教学互动', pageSubTitle: '课程列表'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
@@ -410,7 +432,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         .state('uibootstrap', {
             url: "/ui_bootstrap.html",
             templateUrl: "views/ui_bootstrap.html",
-            data: {pageTitle: '课程添加'},
+            data: {pageTitle: '课程管理', pageSubTitle: '课程添加', btn_taps:true},
             controller: "GeneralPageController",
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {

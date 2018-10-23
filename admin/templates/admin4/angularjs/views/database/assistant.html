@@ -4,6 +4,10 @@
 		padding: 0;
 		background: #3598dc;
 	}
+	#createData {
+		min-width: 100px;
+	}
+	.createFile div:nth-child(2){width:100%!important;height:100%!important;}
 </style>
 <div class="row" ng-controller="assistantCtrl">
 
@@ -26,137 +30,149 @@
 
 	<div class="col-md-8">
 		<!-- BEGIN: ACCORDION DEMO -->
-		<div class="portlet light">
-			<div class="portlet-title">
+		<div class="portlet light" style="min-height: 200px;">
+			<div class="portlet-title tabbable-line">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">重点</span>
+					<span class="caption-subject bold uppercase">教学资料{{currKP}}</span>
 				</div>
-			</div>
-			<div class="portlet-body" id="kpContent">
-				<a class="btn btn-danger" name="kp" data-value="">取消</a>
-				<a class="btn btn-info" name="kp">电子商务的定义</a>
-				<a class="btn btn-info" name="kp">电子商务的概念</a>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-8">
-				<!-- BEGIN: ACCORDION DEMO -->
-				<div class="portlet light" style="min-height: 200px;">
-					<div class="portlet-title tabbable-line">
-						<div class="caption font-green-sharp">
-							<i class="icon-settings font-green-sharp"></i>
-							<span class="caption-subject bold uppercase">教学资料</span>
-						</div>
-						<ul class="nav nav-tabs">
-							<li class="active">
-								<a data-target="#tab_2_1" data-toggle="tab">
+				<div class="actions">
+					<div class="btn-group btn-group-circle">
+						<button type="button" class="btn btn-danger">创建</button>
+						<button type="button" class="btn btn-circle-right btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-angle-down"></i></button>
+						<ul class="dropdown-menu" role="menu" id="createData">
+							<li>
+								<a href="javascript:;" class="createFile">
 									文档 </a>
 							</li>
 							<li>
-								<a data-target="#tab_2_2" data-toggle="tab">
+								<a href="javascript:;" class="createFile">
 									音频 </a>
 							</li>
 							<li>
-								<a data-target="#tab_2_3" data-toggle="tab">
+								<a href="javascript:;" class="createFile">
 									视频 </a>
 							</li>
 							<li>
-								<a data-target="#tab_2_4" data-toggle="tab">
+								<a href="javascript:;" class="createFile">
 									链接 </a>
 							</li>
 						</ul>
 					</div>
-					<div class="portlet-body">
-						<div class="tab-content">
-							<div class="tab-pane active" id="tab_2_1">
-								<div class="scroller" style="min-height: 100px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-									<ul class="feeds" style="margin-bottom: 50px;">
-							<li>
-																	<div class="col1">
-																		<div class="cont">
-																			<div class="cont-col1">
-																				<div class="label label-sm label-danger">
-																					<i class="fa fa-bolt"></i>
-																				</div>
-																			</div>
-																			<div class="cont-col2">
-																				<div class="desc">
-																					<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
-							
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="col1">
-																		<div class="cont">
-																			<div class="cont-col1">
-																				<div class="label label-sm label-info">
-																					<i class="fa fa-bullhorn"></i>
-																				</div>
-																			</div>
-																			<div class="cont-col2">
-																				<div class="desc">
-																					电子商务基础教案.doc
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="col1">
-																		<div class="cont">
-																			<div class="cont-col1">
-																				<div class="label label-sm label-success">
-																					<i class="fa fa-bullhorn"></i>
-																				</div>
-																			</div>
-																			<div class="cont-col2">
-																				<div class="desc">
-																					电子商务基础课件.ppt
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</li>
-															</ul>
-									
-								</div>
-							</div>
-							<div class="tab-pane" id="tab_2_2">
-		
-							</div>
-							<div class="tab-pane" id="tab_2_3">
-		
-							</div>
-							<div class="tab-pane" id="tab_2_4">
-		
-							</div>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_2_1" data-toggle="tab">
+							文档 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_2" data-toggle="tab">
+							音频 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_3" data-toggle="tab">
+							视频 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_4" data-toggle="tab">
+							链接 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_2_1">
+						<div class="scroller" style="min-height: 100px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础教案.doc
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础课件.ppt
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+
 						</div>
 					</div>
+					<div class="tab-pane" id="tab_2_2">
+
+					</div>
+					<div class="tab-pane" id="tab_2_3">
+
+					</div>
+					<div class="tab-pane" id="tab_2_4">
+
+					</div>
 				</div>
-				<!-- END: ACCORDION DEMO -->
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
 		<!-- BEGIN: ACCORDION DEMO -->
 		<div class="portlet light" style="min-height: 100px;">
 			<div class="portlet-title tabbable-line">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">习题集</span>
+					<span class="caption-subject bold uppercase">习题集{{currKP}}</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#putQuestion">
+						<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
 						<a data-target="#tab_1_1" data-toggle="tab">
-							问答 </a>
+							提问 </a>
 					</li>
 					<li>
 						<a data-target="#tab_1_2" data-toggle="tab">
-							课后作业 </a>
+							课堂练习 </a>
 					</li>
 					<li>
 						<a data-target="#tab_1_3" data-toggle="tab">
-							课堂练习 </a>
+							课后作业 </a>
 					</li>
 				</ul>
 			</div>
@@ -230,7 +246,7 @@
 									</div>
 								</li>
 							</ul>
-							
+
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_2">
@@ -243,17 +259,16 @@
 			</div>
 		</div>
 		<!-- END: ACCORDION DEMO -->
-		
 
 	</div>
 
-	<!--创建问答-->
+	<!--创建提问-->
 	<div class="modal fade" id="putQuestion" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">创建问答</h4>
+					<h4 class="modal-title">创建提问册</h4>
 				</div>
 				<div class="modal-body">
 					<div class="portlet">
@@ -263,16 +278,22 @@
 									<div class="row" style="margin-bottom: 40px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" ng-model="title" placeholder="请输入名称" />
-												<label for="form_control_1">名称</label>
+												<input type="text" class="form-control" ng-model="title" placeholder="提问册名称" />
+												<label for="form_control_1">提问册名称</label>
 												<span class="help-block">名称不得超过50个字符</span>
 											</div>
 										</div>
 									</div>
 									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<p class="text-primary" style="font-size: 15px;">
+												温馨提示： 题目来源于 资料库管理—>知识点题库
+												<i class="glyphicon glyphicon-hand-down" style="font-size: 17px;"></i>
+											</p>
+										</div>
 										<div class="col-md-6" style="height: 400px;overflow-y: scroll;">
 											<div class="well" style="background-color: #d6e9c6;">
-												<div class="md-checkbox" style="display: inline-block;width: 10%;top: -10px;">
+												<div class="md-checkbox" style="display: inline-block;width: 10%;">
 													<input type="checkbox" id="checkbox1" class="md-check">
 													<label for="checkbox1">
 													<span></span>
@@ -280,28 +301,29 @@
 													<span class="box"></span>
 													</label>
 												</div>
-												<span style="display: inline-block;width: 89%;">Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.</span>
+												<span style="display: inline-block;width: 89%;">商家要开展电子商务活动 , 应该用（  C ）作为其主要的生意平台。 </span>
 											</div>
 											<div class="well" style="background-color: #d6e9c6;">
-												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+												<div class="md-checkbox" style="display: inline-block;width: 10%;">
+													<input type="checkbox" id="checkbox2" class="md-check">
+													<label for="checkbox2">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													</label>
+												</div>
+												<span style="display: inline-block;width: 89%;">Intranet和Internet的区别是 ( A )</span>
 											</div>
 											<div class="well" style="background-color: #d6e9c6;">
-												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
-											</div>
-											<div class="well" style="background-color: #d6e9c6;">
-												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
-											</div>
-											<div class="well" style="background-color: #d6e9c6;">
-												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
-											</div>
-											<div class="well" style="background-color: #d6e9c6;">
-												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
-											</div>
-											<div class="well" style="background-color: #d6e9c6;">
-												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
-											</div>
-											<div class="well" style="background-color: #d6e9c6;">
-												Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+												<div class="md-checkbox" style="display: inline-block;width: 10%;">
+													<input type="checkbox" id="checkbox3" class="md-check">
+													<label for="checkbox3">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													</label>
+												</div>
+												<span style="display: inline-block;width: 89%;">电子数据交换的简称是 ( B )</span>
 											</div>
 										</div>
 										<div class="col-md-6" style="height: 350px;">
@@ -428,13 +450,13 @@
 						'children': [{
 							'text': '1.电子商务的框架模型',
 							'icon': 'fa fa-briefcase icon-state-success'
-						}, 
-						{
+						}, {
 							'text': '2.企业与企业之间的电子商务模式',
 							'icon': 'fa fa-briefcase icon-state-success'
-						},
-						{'text': '3.企业与消费者之间电子商务模式','icon': 'fa fa-briefcase icon-state-success'}
-						]
+						}, {
+							'text': '3.企业与消费者之间电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
 					}]
 				},
 				"plugins": ['contextmenu'],
@@ -511,46 +533,42 @@
 			var html = $(this).html();
 			$(this).closest(".btn-group").find("span").html(html);
 		});
-		
+
 		var uploader = WebUploader.create({
-		    // swf文件路径
-		    swf: 'js/Uploader.swf',
-		    // 文件接收服务端。
-		    server: 'http://webuploader.duapp.com/server/fileupload.php',
-		    // 选择文件的按钮。可选。
-		    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-		    pick: '#createFile',
-		    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-		    resize: false
+			// swf文件路径
+			swf: 'js/Uploader.swf',
+			// 文件接收服务端。
+			server: 'http://webuploader.duapp.com/server/fileupload.php',
+			// 选择文件的按钮。可选。
+			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+			pick: '.createFile',
+			// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+			resize: false
 		});
-		
+
 		// 当有文件被添加进队列的时候
-		uploader.on( 'fileQueued', function( file ) {
-			console.log(file.name);
-			var html = `
-			<li>
-				<div class="col1">
-					<div class="cont">
-						<div class="cont-col1">
-							<div class="label label-sm label-warning">
-								<i class="fa fa-plus"></i>
-							</div>
-						</div>
-						<div class="cont-col2">
-							<div class="desc">
-								${file.name}
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-			`;
-			$("#tab_2_1 ul").append(html);
-//		    $list.append( '<div id="' + file.id + '" class="item">' +
-//		        '<h4 class="info">' + file.name + '</h4>' +
-//		        '<p class="state">等待上传...</p>' +
-//		    '</div>' );
-		});
+//		uploader.on('fileQueued', function(file) {
+//			console.log(file.name);
+//			var html = `
+//			<li>
+//				<div class="col1">
+//					<div class="cont">
+//						<div class="cont-col1">
+//							<div class="label label-sm label-warning">
+//								<i class="fa fa-plus"></i>
+//							</div>
+//						</div>
+//						<div class="cont-col2">
+//							<div class="desc">
+//								${file.name}
+//							</div>
+//						</div>
+//					</div>
+//				</div>
+//			</li>
+//			`;
+//			$("#tab_2_1 ul").append(html);
+//		});
 	}
 </script>
 <!-- BEGIN MAIN JS -->
