@@ -200,6 +200,25 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
         
+        // 课堂协助
+        .state('helper2', {
+            url: "/helper2.html",
+            templateUrl: "views/interaction/helper2.html",            
+            data: {pageTitle: '教学互动', pageSubTitle: '课堂活动'},
+            controller: "",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../../../assets/admin/pages/scripts/charts-amcharts.js',
+                        ] 
+                    });
+                }]
+            }
+        })
+        
         //知识点题库
         .state('konwledgePoint', {
             url: "/konwledgePoint.html",
