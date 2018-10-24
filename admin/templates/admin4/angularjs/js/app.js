@@ -212,6 +212,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                         name: 'MetronicApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
+                       		'../../../assets/admin/pages/css/profile.css',
                             '../../../assets/admin/pages/scripts/charts-amcharts.js',
                         ] 
                     });
