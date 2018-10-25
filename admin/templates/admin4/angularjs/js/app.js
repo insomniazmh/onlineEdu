@@ -724,7 +724,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../../../assets/global/plugins/select2/select2.css',
                             '../../../assets/admin/pages/css/todo.css',
                             '../../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
-                            
+                            '../../../assets/admin/pages/css/profile.css',
                             '../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
                             '../../../assets/global/plugins/select2/select2.min.js',
                             

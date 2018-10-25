@@ -1,14 +1,12 @@
 <link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
-<style>
-	.profile-userpic img {
-		width: 80%;
-	}
-	
-	.uppercase {
-		font-size: 16px;
-		margin-top: 10px;
-	}
-</style>
+<style>.profile-userpic img {
+	width: 80%;
+}
+
+.uppercase {
+	font-size: 16px;
+	margin-top: 10px;
+}</style>
 <!-- BEGIN PAGE CONTENT-->
 <div class="row profile" ng-controller="helper2Ctrl">
 	<div class="col-md-12">
@@ -72,7 +70,7 @@
 										<a href="javascript:;">
 											讨论小组（5） </a>
 									</p>
-									<div class="row margin-top-10">
+									<div class="row margin-top-10"  data-toggle="modal" href="#yuxiModal">
 										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 											<div class="dashboard-stat2">
 												<div class="display">
@@ -228,7 +226,9 @@
 								<!--end col-md-4-->
 							</div>
 							<!--end row-->
+							
 							<div class="tabbable tabbable-custom tabbable-custom-profile">
+								<p style="font-size: 18px;padding: 20px 0;">课程资料列表</p>
 								<ul class="nav nav-tabs">
 									<li class="active">
 										<a data-target="#tab_1_21" data-toggle="tab">
@@ -283,7 +283,7 @@
 													</div>
 													<div class="col2">
 														<div class="date">
-															2018-10-25
+															10-25
 														</div>
 													</div>
 												</li>
@@ -308,7 +308,7 @@
 														</div>
 														<div class="col2">
 															<div class="date">
-																2018-10-25
+																10-25
 															</div>
 														</div>
 													</a>
@@ -333,7 +333,7 @@
 													</div>
 													<div class="col2">
 														<div class="date">
-															2018-10-25
+															10-25
 														</div>
 													</div>
 												</li>
@@ -358,7 +358,7 @@
 														</div>
 														<div class="col2">
 															<div class="date">
-																2018-10-25
+																10-25
 															</div>
 														</div>
 													</a>
@@ -383,7 +383,7 @@
 													</div>
 													<div class="col2">
 														<div class="date">
-															2018-10-25
+															10-25
 														</div>
 													</div>
 												</li>
@@ -677,7 +677,7 @@
 															</div>
 															<div class="col2">
 																<div class="date">
-																	2018-10-25
+																	10-25
 																</div>
 															</div>
 														</li>
@@ -702,7 +702,7 @@
 																</div>
 																<div class="col2">
 																	<div class="date">
-																		2018-10-25
+																		10-25
 																	</div>
 																</div>
 															</a>
@@ -727,7 +727,7 @@
 															</div>
 															<div class="col2">
 																<div class="date">
-																	2018-10-25
+																	10-25
 																</div>
 															</div>
 														</li>
@@ -752,7 +752,7 @@
 																</div>
 																<div class="col2">
 																	<div class="date">
-																		2018-10-25
+																		10-25
 																	</div>
 																</div>
 															</a>
@@ -777,7 +777,7 @@
 															</div>
 															<div class="col2">
 																<div class="date">
-																	2018-10-25
+																	10-25
 																</div>
 															</div>
 														</li>
@@ -1217,6 +1217,125 @@
 		<!-- /.modal-dialog -->
 	</div>
 
+	<div class="modal fade" id="yuxiModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">预习情况</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="col-md-1" data-toggle="modal" href="#person">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									张三
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs green">全部完成</a>
+								</div>
+							</div>
+							<div class="col-md-1" data-toggle="modal" href="#person">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李四
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs btn-warning">部分参与</a>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									王五
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs btn-warning">部分参与</a>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									马六
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs btn-danger">未参与</a>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs btn-danger">未参与</a>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs btn-danger">未参与</a>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs btn-danger">未参与</a>
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs btn-danger">未参与</a>
+								</div>
+							</div>
+							<div class="col-md-1" style="padding-bottom: 40px;">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="profile-userbuttons">
+									<a href="javascript:;" class="btn btn-xs btn-danger">未参与</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+
 	<div class="modal fade" id="person" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-large">
 			<div class="modal-content">
@@ -1417,66 +1536,65 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+
 </div>
 <!-- END PAGE CONTENT-->
 
-<script>
-	function helper2Ctrl($scope) {
-		$("#tree-kecheng").jstree({
-			'core': {
-				"check_callback": true,
-				'data': [{
-					'id': 'node_1',
-					'text': '第一章 电子商务概述',
-					'state': {
-						'opened': true,
-					},
-					'children': [{
-						'text': '1.电子商务的内涵',
-						'icon': 'fa fa-briefcase icon-state-success',
-						'state': {
-							'opened': true
-						},
-					}, {
-						'text': '2.电子商务的产生背景和发展过程',
-						'icon': 'fa fa-briefcase icon-state-success'
-					}, {
-						'text': '3.电子商务的作用与影响',
-						'icon': 'fa fa-briefcase icon-state-success'
-					}]
-				}, {
-					'id': 'node_2',
-					'text': '第二章 Internet 基础知识',
+<script>function helper2Ctrl($scope) {
+	$("#tree-kecheng").jstree({
+		'core': {
+			"check_callback": true,
+			'data': [{
+				'id': 'node_1',
+				'text': '第一章 电子商务概述',
+				'state': {
+					'opened': true,
+				},
+				'children': [{
+					'text': '1.电子商务的内涵',
+					'icon': 'fa fa-briefcase icon-state-success',
 					'state': {
 						'opened': true
 					},
-					'children': [{
-						'text': '1.Internet 概述 ',
-						'icon': 'fa fa-briefcase icon-state-success'
-					}, {
-						'text': '2.Internet 的主要功能',
-						'icon': 'fa fa-briefcase icon-state-success'
-					}]
 				}, {
-					'id': 'node_3',
-					'text': '第三章 电子商务的主要模式',
-					'state': {
-						'opened': true
-					},
-					'children': [{
-						'text': '1.电子商务的框架模型',
-						'icon': 'fa fa-briefcase icon-state-success'
-					}, {
-						'text': '2.企业与企业之间的电子商务模式',
-						'icon': 'fa fa-briefcase icon-state-success'
-					}, {
-						'text': '3.企业与消费者之间电子商务模式',
-						'icon': 'fa fa-briefcase icon-state-success'
-					}]
+					'text': '2.电子商务的产生背景和发展过程',
+					'icon': 'fa fa-briefcase icon-state-success'
+				}, {
+					'text': '3.电子商务的作用与影响',
+					'icon': 'fa fa-briefcase icon-state-success'
 				}]
-			}
-		});
+			}, {
+				'id': 'node_2',
+				'text': '第二章 Internet 基础知识',
+				'state': {
+					'opened': true
+				},
+				'children': [{
+					'text': '1.Internet 概述 ',
+					'icon': 'fa fa-briefcase icon-state-success'
+				}, {
+					'text': '2.Internet 的主要功能',
+					'icon': 'fa fa-briefcase icon-state-success'
+				}]
+			}, {
+				'id': 'node_3',
+				'text': '第三章 电子商务的主要模式',
+				'state': {
+					'opened': true
+				},
+				'children': [{
+					'text': '1.电子商务的框架模型',
+					'icon': 'fa fa-briefcase icon-state-success'
+				}, {
+					'text': '2.企业与企业之间的电子商务模式',
+					'icon': 'fa fa-briefcase icon-state-success'
+				}, {
+					'text': '3.企业与消费者之间电子商务模式',
+					'icon': 'fa fa-briefcase icon-state-success'
+				}]
+			}]
+		}
+	});
 
-		ChartsAmcharts.init();
-	}
-</script>
+	ChartsAmcharts.init();
+}</script>

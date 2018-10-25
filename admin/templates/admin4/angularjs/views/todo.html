@@ -1,3 +1,12 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>.profile-userpic img {
+	width: 80%;
+}
+.uppercase {
+	font-size: 16px;
+	margin-top: 10px;
+}
+</style>
 <div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -65,7 +74,7 @@
 									试卷规则
 								</span>
 								&nbsp;&nbsp;&nbsp;
-								<span class="label label-sm label-success">
+								<span class="label label-sm label-success" data-toggle="modal" href="#fenshuModal">
 									成员分数
 								</span>
 							</td>
@@ -179,7 +188,7 @@
 									试卷规则
 								</span>
 								&nbsp;&nbsp;&nbsp;
-								<span class="label label-sm label-success">
+								<span class="label label-sm label-success" data-toggle="modal" href="#fenshuModal">
 									成员分数
 								</span>
 							</td>
@@ -254,6 +263,126 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	
+	<div class="modal fade" id="fenshuModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">考试成绩</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="col-md-1" data-toggle="modal" href="#person">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									张三
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									95分
+								</div>
+							</div>
+							<div class="col-md-1" data-toggle="modal" href="#person">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李四
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									87分
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									王五
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									69分
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									马六
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									72分
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									85分
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									91分
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									96分
+								</div>
+							</div>
+							<div class="col-md-1">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									78分
+								</div>
+							</div>
+							<div class="col-md-1" style="padding-bottom: 40px;">
+								<div class="uppercase profile-userpic">
+									<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									李同学
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									52分
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	
 </div>
 <script type="text/javascript" src="../../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
