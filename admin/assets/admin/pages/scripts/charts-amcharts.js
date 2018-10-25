@@ -810,22 +810,22 @@ var ChartsAmcharts = function() {
             "color":    '#888',
 
             "dataProvider": [{
-                "country": "Czech Republic",
-                "litres": 156.9
+                "country": "预习",
+                "litres": 89
             }, {
-                "country": "Ireland",
-                "litres": 131.1
+                "country": "练习",
+                "litres": 93
             }, {
-                "country": "Germany",
-                "litres": 115.8
+                "country": "作业",
+                "litres": 96
             }, {
-                "country": "Australia",
-                "litres": 109.9
+                "country": "讨论",
+                "litres": 83
             }, {
-                "country": "Austria",
-                "litres": 108.3
+                "country": "考试",
+                "litres": 95
             }, {
-                "country": "UK",
+                "country": "提问",
                 "litres": 99
             }],
             "valueAxes": [{
@@ -835,7 +835,7 @@ var ChartsAmcharts = function() {
             }],
             "startDuration": 2,
             "graphs": [{
-                "balloonText": "[[value]] litres of beer per year",
+                "balloonText": "[[value]]%",
                 "bullet": "round",
                 "valueField": "litres"
             }],
