@@ -356,13 +356,75 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
                         	'../../../assets/admin/pages/scripts/charts-amcharts.js',
-                        	
                         ] 
                     });
                 }]
             }
         })
         
+        //角色
+        .state('role', {
+            url: "/role.html",
+            templateUrl: "views/authorize/role.html",            
+            data: {pageTitle: '权限管理', pageSubTitle: '角色管理'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
+        
+        //权限
+        .state('authorize', {
+            url: "/authorize.html",
+            templateUrl: "views/authorize/authorize.html",            
+            data: {pageTitle: '权限管理', pageSubTitle: '权限管理'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
+        
+        //学生
+        .state('student', {
+            url: "/student.html",
+            templateUrl: "views/user/student.html",            
+            data: {pageTitle: '用户管理', pageSubTitle: '学生'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
+        
+        //教学教务人员
+        .state('teacher', {
+            url: "/teacher.html",
+            templateUrl: "views/user/teacher.html",            
+            data: {pageTitle: '用户管理', pageSubTitle: '教学教务人员'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
 
         // Dashboard
         .state('dashboard', {
