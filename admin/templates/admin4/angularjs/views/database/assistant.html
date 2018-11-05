@@ -21,8 +21,7 @@
 				</div>
 			</div>
 			<div class="portlet-body">
-				<div id="tree-jiaofu" class="tree-demo">
-				</div>
+				<div data-ng-include="'views/template/nodeTree.html'"></div>
 			</div>
 		</div>
 
@@ -134,7 +133,6 @@
 									</div>
 								</li>
 							</ul>
-
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_2_2">
@@ -158,7 +156,7 @@
 					<span class="caption-subject bold uppercase">习题集{{currKP}}</span>
 				</div>
 				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#putQuestion">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#exercisesBookModal">
 						<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
@@ -259,133 +257,9 @@
 			</div>
 		</div>
 		<!-- END: ACCORDION DEMO -->
-
 	</div>
 
-	<!--创建提问-->
-	<div class="modal fade" id="putQuestion" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">创建提问册</h4>
-				</div>
-				<div class="modal-body">
-					<div class="portlet">
-						<div class="portlet-body">
-							<div role="form">
-								<div class="form-body">
-									<div class="row" style="margin-bottom: 40px;">
-										<div class="col-md-12">
-											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" ng-model="title" placeholder="提问册名称" />
-												<label for="form_control_1">提问册名称</label>
-												<span class="help-block">名称不得超过50个字符</span>
-											</div>
-										</div>
-									</div>
-									<div class="row" style="margin-bottom: 40px;">
-										<div class="col-md-12">
-											<p class="text-primary" style="font-size: 15px;">
-												温馨提示： 题目来源于 资料库管理—>知识点题库
-												<i class="glyphicon glyphicon-hand-down" style="font-size: 17px;"></i>
-											</p>
-										</div>
-										<div class="col-md-6" style="height: 400px;overflow-y: scroll;">
-											<div class="well" style="background-color: #d6e9c6;">
-												<div class="md-checkbox" style="display: inline-block;width: 10%;">
-													<input type="checkbox" id="checkbox1" class="md-check">
-													<label for="checkbox1">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													</label>
-												</div>
-												<span style="display: inline-block;width: 89%;">商家要开展电子商务活动 , 应该用（  C ）作为其主要的生意平台。 </span>
-											</div>
-											<div class="well" style="background-color: #d6e9c6;">
-												<div class="md-checkbox" style="display: inline-block;width: 10%;">
-													<input type="checkbox" id="checkbox2" class="md-check">
-													<label for="checkbox2">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													</label>
-												</div>
-												<span style="display: inline-block;width: 89%;">Intranet和Internet的区别是 ( A )</span>
-											</div>
-											<div class="well" style="background-color: #d6e9c6;">
-												<div class="md-checkbox" style="display: inline-block;width: 10%;">
-													<input type="checkbox" id="checkbox3" class="md-check">
-													<label for="checkbox3">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													</label>
-												</div>
-												<span style="display: inline-block;width: 89%;">电子数据交换的简称是 ( B )</span>
-											</div>
-										</div>
-										<div class="col-md-6" style="height: 350px;">
-											<div class="well" style="height: 350px;background-color: #ebccd1;">
-												<p class="muted" style="font-size: 17.5px;">A:<span style="margin-left: 20px;font-size: 14px;">答案a</span></p>
-												<p class="muted" style="font-size: 17.5px;">B:<span style="margin-left: 20px;font-size: 14px;">答案b</span></p>
-												<p class="muted" style="font-size: 17.5px;color: #f03f2a;">C:<span style="margin-left: 20px;font-size: 14px;">答案c</span></p>
-												<p class="muted" style="font-size: 17.5px;">D:<span style="margin-left: 20px;font-size: 14px;">答案d</span></p>
-											</div>
-											<div class="form-actions noborder" style="text-align: right;">
-												<button type="button" class="btn blue" ng-click="">提交</button>
-												<button type="button" class="btn default" data-dismiss="modal">取消</button>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-
-	<div class="modal fade" id="sm" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">课程信息</h4>
-				</div>
-				<div class="modal-body">
-					<div class="portlet">
-						<div class="portlet-body">
-							<div role="form">
-								<div class="form-body">
-									<div class="row" style="margin-bottom: 40px;">
-										<div class="col-md-12">
-											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" ng-model="nodeName" placeholder="请输入节点名称" />
-												<label for="form_control_1">节点</label>
-												<span class="help-block">名称不得超过20个字符</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="form-actions noborder">
-									<button type="button" class="btn blue" ng-click="createNode()">Submit</button>
-									<button type="button" class="btn default" data-dismiss="modal">Cancel</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
+	<div data-ng-include="'views/template/exercisesBook.html'"></div>
 
 </div>
 <!-- END MAIN CONTENT -->
@@ -394,134 +268,12 @@
 <!-- BEGIN MAIN JS-->
 <script>
 	function assistantCtrl($scope) {
-		$scope.flag = "";
 		$scope.knowledgePoints = [];
-		$scope.options = [];
-
-		$scope.addOption = function() {
-			$scope.options.push({});
-		}
-		$scope.delOption = function(index) {
-			$scope.options.splice(index, 1);
-		}
-
-		$scope.initTree = function() {
-			$('#tree-jiaofu').jstree({
-				'core': {
-					"check_callback": true,
-					'data': [{
-						'id': 'node_1',
-						'text': '第一章 电子商务概述',
-						'state': {
-							'opened': true,
-						},
-						'children': [{
-							'text': '1.电子商务的内涵',
-							'icon': 'fa fa-briefcase icon-state-success',
-							'state': {
-								'opened': true
-							},
-						}, {
-							'text': '2.电子商务的产生背景和发展过程',
-							'icon': 'fa fa-briefcase icon-state-success'
-						}, {
-							'text': '3.电子商务的作用与影响',
-							'icon': 'fa fa-briefcase icon-state-success'
-						}]
-					}, {
-						'id': 'node_2',
-						'text': '第二章 Internet 基础知识',
-						'state': {
-							'opened': true
-						},
-						'children': [{
-							'text': '1.Internet 概述 ',
-							'icon': 'fa fa-briefcase icon-state-success'
-						}, {
-							'text': '2.Internet 的主要功能',
-							'icon': 'fa fa-briefcase icon-state-success'
-						}]
-					}, {
-						'id': 'node_3',
-						'text': '第三章 电子商务的主要模式',
-						'state': {
-							'opened': true
-						},
-						'children': [{
-							'text': '1.电子商务的框架模型',
-							'icon': 'fa fa-briefcase icon-state-success'
-						}, {
-							'text': '2.企业与企业之间的电子商务模式',
-							'icon': 'fa fa-briefcase icon-state-success'
-						}, {
-							'text': '3.企业与消费者之间电子商务模式',
-							'icon': 'fa fa-briefcase icon-state-success'
-						}]
-					}]
-				},
-				"plugins": ['contextmenu'],
-				"contextmenu": {
-					"items": {
-						"create": null,
-						"rename": null,
-						"remove": null,
-						"ccp": null,
-						"新建菜单": {
-							"label": "新建菜单",
-							"action": function(data) {
-								$scope.flag = "create";
-								$scope.nodeName = "";
-								$("#sm").modal("show");
-							}
-						},
-						"编辑菜单": {
-							"label": "编辑菜单",
-							"action": function(data) {
-								$scope.flag = "rename";
-								$scope.nodeName = "";
-								$("#sm").modal("show");
-							}
-						},
-						"删除菜单": {
-							"label": "删除菜单",
-							"action": function(data) {
-								var r = confirm("确定要删除该节点吗");
-								if(r) {
-									var ref = $('#tree-jiaofu').jstree(true),
-										sel = ref.get_selected();
-									if(!sel.length) {
-										return false;
-									}
-									ref.delete_node(sel);
-								}
-							}
-						}
-					}
-				}
-			});
-		}
-		$scope.initTree();
-
-		$scope.createNode = function() {
-			var ref = $('#tree-jiaofu').jstree(true),
-				sel = ref.get_selected();
-			if(!sel.length) {
-				return false;
-			}
-			sel = sel[0];
-			$("#sm").modal("hide");
-			if($scope.flag == "create") {
-				sel = ref.create_node(sel, {
-					text: $scope.nodeName,
-					'state': {
-						'opened': true
-					},
-				});
-			} else if($scope.flag == "rename") {
-				ref.rename_node(sel, $scope.nodeName);
-			}
-		};
-
+		
+		$scope.$on('to-parent', function(d,data) {  
+	        console.log(data);         //父级能得到值  
+	    });
+		
 		$("#kpContent").on("click", "a[name='kp']", function() {
 			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
 			$(this).removeClass("btn-info").addClass("btn-danger");

@@ -193,7 +193,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../../../assets/global/plugins/bootstrap-contextmenu/bootstrap-contextmenu.js',
                             '../../../assets/admin/pages/css/profile.css',
                             '../../../assets/admin/pages/scripts/components-context-menu.js',
-                             'js/controllers/CoursesListController.js'
                         ] 
                     });
                 }]
@@ -346,9 +345,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         })
         
         //统计
-        .state('charts_amcharts', {
-            url: "/charts_amcharts.html",
-            templateUrl: "views/charts_amcharts.html",            
+        .state('statistics', {
+            url: "/statistics.html",
+            templateUrl: "views/statistics/statistics.html",            
             data: {pageTitle: '统计', pageSubTitle: '统计'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -449,9 +448,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         })
 
         // UI Bootstrap
-        .state('uibootstrap', {
-            url: "/ui_bootstrap.html",
-            templateUrl: "views/ui_bootstrap.html",
+        .state('courseAdd', {
+            url: "/courseAdd.html",
+            templateUrl: "views/course/courseAdd.html",
             data: {pageTitle: '课程管理', pageSubTitle: '课程添加', btn_taps:true},
             controller: "GeneralPageController",
             resolve: {
@@ -709,9 +708,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         })
 
         // Todo
-        .state('todo', {
-            url: "/todo",
-            templateUrl: "views/todo.html",
+        .state('test', {
+            url: "/test",
+            templateUrl: "views/test/test.html",
             data: {pageTitle: 'Todo', pageSubTitle: 'user todo & tasks sample'},
             controller: "TodoController",
             resolve: {

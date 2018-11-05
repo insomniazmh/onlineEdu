@@ -1,0 +1,160 @@
+<div ng-controller="nodeTreeCtrl">
+	<div id="tree" class="tree-demo"></div>
+	<div class="modal fade" id="createNodeModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">课程信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="nodeName" placeholder="请输入节点名称" />
+												<label for="form_control_1">节点</label>
+												<span class="help-block">名称不得超过20个字符</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="createNode()">提交</button>
+									<button type="button" class="btn default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
+
+<script>
+	function nodeTreeCtrl($scope) {
+		$scope.flag = "";
+		$scope.initTree = function() {
+			$('#tree').jstree({
+				'core': {
+					"check_callback": true,
+					'data': [{
+						'id': 'node_1',
+						'text': '第一章 电子商务概述',
+						'state': {
+							'opened': true,
+						},
+						'children': [{
+							'text': '1.电子商务的内涵',
+							'icon': 'fa fa-briefcase icon-state-success',
+							'state': {
+								'opened': true
+							},
+						}, {
+							'text': '2.电子商务的产生背景和发展过程',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '3.电子商务的作用与影响',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_2',
+						'text': '第二章 Internet 基础知识',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '1.Internet 概述 ',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '2.Internet 的主要功能',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_3',
+						'text': '第三章 电子商务的主要模式',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '1.电子商务的框架模型',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '2.企业与企业之间的电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '3.企业与消费者之间电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}]
+				},
+				"plugins": ['contextmenu'],
+				"contextmenu": {
+					"items": {
+						"create": null,
+						"rename": null,
+						"remove": null,
+						"ccp": null,
+						"新建菜单": {
+							"label": "新建菜单",
+							"action": function(data) {
+								$scope.flag = "create";
+								$scope.nodeName = "";
+								$("#createNodeModal").modal("show");
+							}
+						},
+						"编辑菜单": {
+							"label": "编辑菜单",
+							"action": function(data) {
+								$scope.flag = "rename";
+								$scope.nodeName = "";
+								$("#createNodeModal").modal("show");
+							}
+						},
+						"删除菜单": {
+							"label": "删除菜单",
+							"action": function(data) {
+								var r = confirm("确定要删除该节点吗");
+								if(r) {
+									var ref = $('#tree').jstree(true),
+										sel = ref.get_selected();
+									if(!sel.length) {
+										return false;
+									}
+									ref.delete_node(sel);
+								}
+							}
+						}
+					}
+				}
+			});
+		}
+		$scope.initTree();
+
+		$scope.createNode = function() {
+			var ref = $('#tree').jstree(true),
+				sel = ref.get_selected();
+			if(!sel.length) {
+				return false;
+			}
+			sel = sel[0];
+			$("#createNodeModal").modal("hide");
+			if($scope.flag == "create") {
+				sel = ref.create_node(sel, {
+					text: $scope.nodeName,
+					'state': {
+						'opened': true
+					},
+				});
+			} else if($scope.flag == "rename") {
+				ref.rename_node(sel, $scope.nodeName);
+			}
+		};
+	}
+</script>
