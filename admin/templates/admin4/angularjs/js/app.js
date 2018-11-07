@@ -789,7 +789,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
                             '../../../assets/global/plugins/select2/select2.min.js',
                             
-                            '../../../assets/admin/pages/scripts/todo.js',
+                            //'../../../assets/admin/pages/scripts/todo.js',
 
                             'js/controllers/TodoController.js'  
                         ]                    
