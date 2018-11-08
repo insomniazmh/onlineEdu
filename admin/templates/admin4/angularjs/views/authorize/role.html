@@ -35,7 +35,7 @@
 									&nbsp;&nbsp;&nbsp;
 									<span class="label label-sm label-success" ng-click="delRole(row.roleId);">删除</span>
 									&nbsp;&nbsp;&nbsp;
-									<span class="label label-sm label-success" ng-click="showPerson();">人员管理</span>
+									<span class="label label-sm label-success" ng-click="openUserManageModal(row);">人员管理</span>
 								</td>
 							</tr>
 						</tbody>
@@ -164,7 +164,6 @@
 											<div class="form-group form-md-line-input">
 												<input type="text" class="form-control" ng-model="currRole.roleInfo" placeholder="请输入角色说明">
 												<label for="form_control_1">说明</label>
-												<span class="help-block">角色说明不能为空</span>
 											</div>
 										</div>
 									</div>
@@ -187,10 +186,9 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+
+	<div data-ng-include="'views/template/roleUserManage.html'"></div>
 </div>
-<script type="text/javascript" src="../../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-<!--<script src="../../../assets/admin/pages/scripts/table-managed.js"></script>-->
 <script>
 	function roleCtrl($scope) {
 		$scope.currRole = {};
@@ -237,6 +235,10 @@
 			}
 		}
 
+		$scope.openUserManageModal = function(role) {
+			$scope.$broadcast('to-child', role);
+		}
+
 		$scope.initTree = function() {
 			$('#tree').jstree({
 				'core': {
@@ -246,14 +248,18 @@
 						'text': '课程管理',
 						'state': {
 							'opened': true,
+							'selected': true
 						},
 						'children': [{
+							'id': 'node_1_1',
 							'text': '课程添加',
 							'icon': 'fa fa-briefcase icon-state-success',
 							'state': {
-								'opened': true
+								'opened': true,
+								'selected': true
 							},
 						}, {
+							'id': 'node_1_2',
 							'text': '课程总览',
 							'icon': 'fa fa-briefcase icon-state-success'
 						}]
@@ -264,9 +270,11 @@
 							'opened': true
 						},
 						'children': [{
+							'id': 'node_2_1',
 							'text': '知识点题库',
 							'icon': 'fa fa-briefcase icon-state-success'
 						}, {
+							'id': 'node_2_2',
 							'text': '教辅资料库',
 							'icon': 'fa fa-briefcase icon-state-success'
 						}]
@@ -277,7 +285,12 @@
 							'opened': true
 						}
 					}]
-				}
+				},
+				"plugins": ["checkbox"],
+				"checkbox": {
+					"three_state": false, //父子级别级联选择
+					"tie_selection": false //复选框能不能操作
+				},
 			});
 		}
 		$scope.initTree();
@@ -293,21 +306,9 @@
 		}
 
 		$scope.showToast = function() {
-			toastr.options = {
-				"closeButton": true,
-				"debug": false,
-				"positionClass": "toast-top-center",
-				"onclick": null,
-				"showDuration": "1000",
-				"hideDuration": "1000",
-				"timeOut": "3000",
-				"extendedTimeOut": "1000",
-				"showEasing": "swing",
-				"hideEasing": "linear",
-				"showMethod": "fadeIn",
-				"hideMethod": "fadeOut"
-			};
-			toastr.success("","删除成功");
+			common.toast({
+				title: "删除成功"
+			});
 		}
 	}
 </script>
