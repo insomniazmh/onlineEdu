@@ -193,7 +193,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../../../assets/global/plugins/bootstrap-contextmenu/bootstrap-contextmenu.js',
                             '../../../assets/admin/pages/css/profile.css',
                             '../../../assets/admin/pages/scripts/components-context-menu.js',
-                             'js/controllers/CoursesListController.js'
                         ] 
                     });
                 }]
@@ -346,9 +345,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         })
         
         //统计
-        .state('charts_amcharts', {
-            url: "/charts_amcharts.html",
-            templateUrl: "views/charts_amcharts.html",            
+        .state('statistics', {
+            url: "/statistics.html",
+            templateUrl: "views/statistics/statistics.html",            
             data: {pageTitle: '统计', pageSubTitle: '统计'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -357,13 +356,75 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
                         files: [
                         	'../../../assets/admin/pages/scripts/charts-amcharts.js',
-                        	
                         ] 
                     });
                 }]
             }
         })
         
+        //角色
+        .state('role', {
+            url: "/role.html",
+            templateUrl: "views/authorize/role.html",            
+            data: {pageTitle: '权限管理', pageSubTitle: '角色管理'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
+        
+        //权限
+        .state('authorize', {
+            url: "/authorize.html",
+            templateUrl: "views/authorize/authorize.html",            
+            data: {pageTitle: '权限管理', pageSubTitle: '权限管理'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
+        
+        //学生
+        .state('student', {
+            url: "/student.html",
+            templateUrl: "views/user/student.html",            
+            data: {pageTitle: '用户管理', pageSubTitle: '学生'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
+        
+        //教学教务人员
+        .state('teacher', {
+            url: "/teacher.html",
+            templateUrl: "views/user/teacher.html",            
+            data: {pageTitle: '用户管理', pageSubTitle: '教学教务人员'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
 
         // Dashboard
         .state('dashboard', {
@@ -449,9 +510,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         })
 
         // UI Bootstrap
-        .state('uibootstrap', {
-            url: "/ui_bootstrap.html",
-            templateUrl: "views/ui_bootstrap.html",
+        .state('courseAdd', {
+            url: "/courseAdd.html",
+            templateUrl: "views/course/courseAdd.html",
             data: {pageTitle: '课程管理', pageSubTitle: '课程添加', btn_taps:true},
             controller: "GeneralPageController",
             resolve: {
@@ -709,9 +770,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         })
 
         // Todo
-        .state('todo', {
-            url: "/todo",
-            templateUrl: "views/todo.html",
+        .state('test', {
+            url: "/test",
+            templateUrl: "views/test/test.html",
             data: {pageTitle: 'Todo', pageSubTitle: 'user todo & tasks sample'},
             controller: "TodoController",
             resolve: {
@@ -728,7 +789,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                             '../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
                             '../../../assets/global/plugins/select2/select2.min.js',
                             
-                            '../../../assets/admin/pages/scripts/todo.js',
+                            //'../../../assets/admin/pages/scripts/todo.js',
 
                             'js/controllers/TodoController.js'  
                         ]                    

@@ -7,5 +7,5 @@ MetronicApp.controller('TodoController', function($rootScope, $scope, $http, $ti
 
     // set sidebar closed and body solid layout mode
     $rootScope.settings.layout.pageAutoScrollOnLoad = 1500;
-    $rootScope.settings.layout.pageSidebarClosed = true;
+    //$rootScope.settings.layout.pageSidebarClosed = true;
 });

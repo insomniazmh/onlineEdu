@@ -83,7 +83,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_1').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -320,7 +320,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_2').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -427,7 +427,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_3').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -501,7 +501,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_4').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -600,7 +600,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_5').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -656,7 +656,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_6').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -717,7 +717,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_7').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -796,7 +796,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_8').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -851,7 +851,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_9').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -3192,7 +3192,7 @@ var ChartsAmcharts = function() {
         });
 
         $('#chart_12').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
+            //chart.invalidateSize();
         });
     }
 
@@ -3202,17 +3202,17 @@ var ChartsAmcharts = function() {
         init: function() {
 
             initChartSample1();
-            initChartSample2();
+//          initChartSample2();
             initChartSample3();
-            initChartSample4();
+//          initChartSample4();
             initChartSample5();
             initChartSample6();
-            initChartSample7();
-            initChartSample8();
+//          initChartSample7();
+//          initChartSample8();
             initChartSample9();
-            initChartSample10();
-            initChartSample11();
-            initChartSample12();
+//          initChartSample10();
+//          initChartSample11();
+//          initChartSample12();
         }
 
     };
