@@ -608,6 +608,8 @@
 									电子商务基础--电子商务内涵--课堂协助--课堂编号（0731）
 								</span>
 								<button class="btn green" id="pulsate-once"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始上课</font></font></button>
+							
+							<h4 id="timer" style="color:red"></h4>
 							</div>
 						</div>
 					</div>
@@ -1540,7 +1542,8 @@
 </div>
 <!-- END PAGE CONTENT-->
 
-<script>function helper2Ctrl($scope) {
+<script>
+	function helper2Ctrl($scope) {
 	$("#tree-kecheng").jstree({
 		'core': {
 			"check_callback": true,
@@ -1597,4 +1600,22 @@
 	});
 
 	ChartsAmcharts.init();
-}</script>
+}
+
+	             var maxtime = 60 * 60; //一个小时，按秒计算，自己调整!   
+             function CountDown() {
+                 if (maxtime >= 0) {
+                     minutes = Math.floor(maxtime / 60);
+                     seconds = Math.floor(maxtime % 60);
+                     msg = "距离下课" + minutes + "分" + seconds + "秒";
+                     document.all["timer"].innerHTML = msg;
+                     if (maxtime == 5 * 60)alert("还剩5分钟");
+                         --maxtime;
+                 } else{
+                     clearInterval(timer);
+                    alert("时间到，结束!");
+                 }
+             }
+             timer = setInterval("CountDown()", 1000);                
+
+</script>
