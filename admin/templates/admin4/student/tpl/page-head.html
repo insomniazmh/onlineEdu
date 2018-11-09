@@ -1,0 +1,72 @@
+<!-- BEGIN PAGE TITLE -->
+<div class="page-title">
+	<h1>
+		<span data-ng-bind="$state.current.data.pageTitle"></span> 
+		<small data-ng-bind="$state.current.data.pageSubTitle"></small>
+		<div ng-if="$state.current.data.btn_taps" class="btn-group btn-group-devided btn-group-solid btn-taps">
+			<button type="button" class="btn btn-circle green red" data-target="kecheng">基本信息</button>
+			<button type="button" class="btn btn-circle green" data-target="jiaofu">教辅资料</button>
+		</div>
+	</h1>
+
+</div>
+<!-- END PAGE TITLE -->
+<!-- BEGIN PAGE TOOLBAR -->
+<div class="page-toolbar">
+	<!-- BEGIN THEME PANEL -->
+	<div class="btn-group">
+		<a href="javascript:;" class="btn btn-xs yellow" data-toggle="dropdown">
+			知识点 <i class="fa fa-search"></i>
+		</a>
+		<div class="dropdown-menu theme-panel pull-right dropdown-custom hold-on-click">
+			<div class="row">
+
+				<div class="portlet light">
+					<div class="portlet-title">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase">知识点</span>
+						</div>
+
+						<div class="actions">
+							<button class="btn btn-circle btn-info btn-sm" ng-click="createKp();">创建 </button>
+						</div>
+						<div class="inputs">
+							<div class="portlet-input input-small input-inline">
+								<div class="input-icon right">
+									<input type="text" id="kp" class="form-control form-control-solid" placeholder="请输入知识点">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="portlet-body" id="kpContent">
+						<a href="javascript:;" class="btn btn-circle btn-sm btn-danger" name="kp">
+							<span>无</span>
+						</a>
+						<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
+							<span>电子商务的定义</span>
+							<i class="fa fa-times" name="remove"></i>
+						</a>
+						<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
+							<span>电子商务的概念</span>
+							<i class="fa fa-times" name="remove"></i>
+						</a>
+						<!--<a class="btn btn-danger" name="kp" data-value="">无</a>
+						<a class="btn btn-info" name="kp">
+							<span>电子商务的定义</span>
+							<i class="fa fa-times" name="remove" style="font-size:14px;color: white;"></i>
+						</a>
+						<a class="btn btn-info" name="kp">
+							<span>电子商务的概念</span>
+							<i class="fa fa-times" name="remove" style="font-size:14px;color: white;"></i>
+						</a>-->
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- END THEME PANEL -->
+</div>
+<!-- END PAGE TOOLBAR -->

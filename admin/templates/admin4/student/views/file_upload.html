@@ -1,0 +1,358 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb">
+	<li>
+		<a href="#">Home</a><i class="fa fa-circle"></i>
+	</li>
+	<li class="active" data-ng-bind="$state.current.data.pageTitle">
+	</li>
+</ul>
+<!-- END PAGE BREADCRUMB -->
+
+<div class="row" ng-controller="FileUploadCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+	<div class="col-md-4">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">课程宣传</span>
+					<span class="caption-helper hide"></span>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">
+							视频 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab">
+							轮播图 </a>
+					</li>
+				</ul>
+
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+				<div class="tab-pane active" id="tab_1_1">
+					
+						<video controls="controls" style=" width: 100%;height: 100%;">
+    
+    <source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4"></source>
+</video>
+					
+				</div>
+				<div class="tab-pane" id="tab_1_2">
+					<div id="myCarousel" class="carousel image-carousel slide">
+					<div class="carousel-inner">
+						<div class="active item">
+							<img src="../../../assets/admin/pages/media/gallery/image5.jpg" class="img-responsive" alt="">
+							<div class="carousel-caption">
+								<h4>
+													<a href="page_news_item.html">
+													First Thumbnail label </a>
+													</h4>
+								<p>
+									Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+								</p>
+							</div>
+						</div>
+						<div class="item">
+							<img src="../../../assets/admin/pages/media/gallery/image2.jpg" class="img-responsive" alt="">
+							<div class="carousel-caption">
+								<h4>
+													<a href="page_news_item.html">
+													Second Thumbnail label </a>
+													</h4>
+								<p>
+									Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+								</p>
+							</div>
+						</div>
+						<div class="item">
+							<img src="../../../assets/admin/pages/media/gallery/image1.jpg" class="img-responsive" alt="">
+							<div class="carousel-caption">
+								<h4>
+													<a href="page_news_item.html">
+													Third Thumbnail label </a>
+													</h4>
+								<p>
+									Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+								</p>
+							</div>
+						</div>
+					</div>
+					<!-- Carousel nav -->
+					<a class="carousel-control left" href="#myCarousel" data-slide="prev">
+						<i class="m-icon-big-swapleft m-icon-white"></i>
+					</a>
+					<a class="carousel-control right" href="#myCarousel" data-slide="next">
+						<i class="m-icon-big-swapright m-icon-white"></i>
+					</a>
+					<ol class="carousel-indicators">
+						<li data-target="#myCarousel" data-slide-to="0" class="active">
+						</li>
+						<li data-target="#myCarousel" data-slide-to="1">
+						</li>
+						<li data-target="#myCarousel" data-slide-to="2">
+						</li>
+					</ol>
+				</div>
+				<div class="top-news margin-top-10">
+					<a href="javascript:;" class="btn blue">
+						<span>Featured News </span>
+						<em><i class="fa fa-tags"></i>USA, Business, Apple </em>
+						<i class="fa fa- icon-bullhorn top-news-icon"></i>
+					</a>
+				</div>
+				</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">课程目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+				<div class="actions">
+					<a class="btn btn-circle btn-icon-only btn-default" href="#">
+						<i class="icon-cloud-upload"></i>
+					</a>
+					
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div id="tree_1" class="tree-demo">
+					<ul>
+						<li>
+							第一章
+							<ul>
+								<li data-jstree='{ "selected" : true }'>
+									<a href="javascript:;">
+										课程简介 </a>
+								</li>
+								<li data-jstree='{ "icon" : "fa fa-briefcase icon-state-success " }'>
+									课程简介 
+								</li>
+							</ul>
+						</li>
+						<li data-jstree='{ "type" : "file" }'>
+							第二章
+							<ul>
+								<li data-jstree='{ "selected" : true }'>
+									<a href="javascript:;">
+										课程简介 </a>
+								</li>
+								<li data-jstree='{ "icon" : "fa fa-briefcase icon-state-success " }'>
+									课程简介 
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">课程信息</span>
+					
+				</div>
+				<div class="actions">
+					<div class="btn-group">
+						
+						<ul class="dropdown-menu pull-right">
+							<li>
+								<a href="#">
+									<i class="fa fa-pencil"></i> Edit </a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fa fa-trash-o"></i> Delete </a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fa fa-ban"></i> Ban </a>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<a href="#">
+									<i class="i"></i> Make admin </a>
+							</li>
+						</ul>
+					</div>
+					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="全屏">
+					</a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div role="form">
+					<div class="form-body">
+						<div class="row" style="margin-bottom: 40px;">
+							<div class="col-md-6">
+								<div class="form-group form-md-line-input {{flag}}">
+									<input type="text" class="form-control" id="form_control_1" ng-change="aaa()" placeholder="请输入课程名称">
+									<label for="form_control_1">名称</label>
+									<span class="help-block">名称不得超过20个字符</span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group form-md-line-input has-error">
+									<input type="text" class="form-control edited" id="form_control_1" placeholder="请输入课程编号">
+									<label for="form_control_1">编号</label>
+									<span class="help-block"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="margin-bottom: 40px;">
+							<div class="col-md-6">
+								<div class="form-group form-md-line-input has-success">
+									<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程学分">
+									<label for="form_control_1">学分</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group form-md-line-input has-warning">
+									<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程学时">
+									<label for="form_control_1">学时</label>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="margin-bottom: 40px;">
+							<div class="col-md-12">
+							<div class="form-group form-md-radios">
+									<label>授课类型</label>
+									<div class="md-radio-inline">
+										<div class="md-radio">
+											<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+											<label for="radio6">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											录播课程 </label>
+										</div>
+										<div class="md-radio">
+											<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
+											<label for="radio7">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											直播课程</label>
+										</div>
+										<div class="md-radio">
+											<input type="radio" id="radio8" name="radio2" class="md-radiobtn">
+											<label for="radio8">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											线下课堂</label>
+										</div>
+									</div>
+								</div>
+								</div>
+						</div>
+						<div class="row" style="margin-bottom: 40px;">
+							<div class="col-md-12">
+								<div class="form-group form-md-line-input">
+									<textarea class="form-control" rows="3" placeholder="请输入轮播图显示的简要描述"></textarea>
+									<label for="form_control_1">课程描述</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-bottom: 40px;">
+						<div class="col-md-12">
+							<div class="form-group form-md-line-input">
+								
+								<label for="form_control_1">轮播图</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-actions noborder">
+						<button type="button" class="btn blue">Submit</button>
+						<button type="button" class="btn default">Cancel</button>
+					</div>
+				</div>
+		
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+</div>
+<!-- END MAIN CONTENT -->
+
+<!-- BEGIN MAIN JS-->
+<script>
+	function FileUploadCtrl($scope, FileUploader) {
+		$scope.flag = "";
+		var uploader = $scope.uploader = new FileUploader({
+			url: '../../../assets/global/plugins/angularjs/plugins/angular-file-upload/upload.php'
+		});
+
+		// FILTERS
+		uploader.filters.push({
+			name: 'customFilter',
+			fn: function(item /*{File|FileLikeObject}*/ , options) {
+				return this.queue.length < 10;
+			}
+		});
+
+		// CALLBACKS
+
+		uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
+			console.info('onWhenAddingFileFailed', item, filter, options);
+		};
+		uploader.onAfterAddingFile = function(fileItem) {
+			console.info('onAfterAddingFile', fileItem);
+		};
+		uploader.onAfterAddingAll = function(addedFileItems) {
+			console.info('onAfterAddingAll', addedFileItems);
+		};
+		uploader.onBeforeUploadItem = function(item) {
+			console.info('onBeforeUploadItem', item);
+		};
+		uploader.onProgressItem = function(fileItem, progress) {
+			console.info('onProgressItem', fileItem, progress);
+		};
+		uploader.onProgressAll = function(progress) {
+			console.info('onProgressAll', progress);
+		};
+		uploader.onSuccessItem = function(fileItem, response, status, headers) {
+			console.info('onSuccessItem', fileItem, response, status, headers);
+		};
+		uploader.onErrorItem = function(fileItem, response, status, headers) {
+			console.info('onErrorItem', fileItem, response, status, headers);
+		};
+		uploader.onCancelItem = function(fileItem, response, status, headers) {
+			console.info('onCancelItem', fileItem, response, status, headers);
+		};
+		uploader.onCompleteItem = function(fileItem, response, status, headers) {
+			console.info('onCompleteItem', fileItem, response, status, headers);
+		};
+		uploader.onCompleteAll = function() {
+			console.info('onCompleteAll');
+		};
+
+		console.info('uploader', uploader);
+
+		$scope.aaa = function() {
+			if($scope.flag == "") {
+				$scope.flag = "has-error";
+			} else {
+				$scope.flag = "";
+			}
+		}
+	};
+
+	UITree.init();
+</script>
+<!-- BEGIN MAIN JS -->

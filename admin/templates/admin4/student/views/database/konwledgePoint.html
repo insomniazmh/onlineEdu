@@ -1,0 +1,144 @@
+<div class="row" ng-controller="kpCtrl">
+
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'views/template/nodeTree.html'"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase" id="title">题库{{currKP}}</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#questionSingle">
+							<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">
+							单选 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab">
+							多选 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_3" data-toggle="tab">
+							判断 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_4" data-toggle="tab">
+							简答 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_1">
+						<div id="accordion1" class="panel-group">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_1">
+										1. 商家要开展电子商务活动 , 应该用（ C  ）作为其主要的生意平台。 </a>
+									</h4>
+								</div>
+								<div id="accordion1_1" class="panel-collapse collapse in">
+									<div class="panel-body">
+										<p>A． BBS</p>
+										<p>B．电子邮件</p>
+										<p>C．在线商店</p>
+										<p>D．电话定购</p>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_2">
+										2. Intranet和Internet的区别是 ( A ) </a>
+									</h4>
+								</div>
+								<div id="accordion1_2" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>A．访问 Intranet 需要授权</p>
+										<p>B．Intranet 执行特殊的协议</p>
+										<p>C．Intranet 软件和协议是独立于硬件的</p>
+										<p>D．Intrarlet 只在扇部物理范围内运行</p>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_3">
+										3. 电子数据交换的简称是 ( B )  </a>
+									</h4>
+								</div>
+								<div id="accordion1_3" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>A．EFT</p>
+										<p>B．EDI</p>
+										<p>C．NET</p>
+										<p>D．EC</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="tab-pane" id="tab_1_2">
+
+					</div>
+					<div class="tab-pane" id="tab_1_3">
+
+					</div>
+					<div class="tab-pane" id="tab_1_4"></div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<div data-ng-include="'views/template/addQuestion.html'"></div>
+
+	
+
+</div>
+<!-- END MAIN CONTENT -->
+
+
+
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<!-- BEGIN MAIN JS-->
+<script>
+	function kpCtrl($scope) {
+		$scope.knowledgePoints = [];
+		
+		$scope.$on('to-parent', function(d,data) {  
+	        console.log(data);         //父级能得到值  
+	    });
+
+		$("ul.feeds").on("click", "a", function() {
+			console.log($(this).html());
+			var html = $(this).html();
+			$(this).closest(".btn-group").find("span").html(html);
+		});
+	}
+</script>
+<!-- BEGIN MAIN JS -->

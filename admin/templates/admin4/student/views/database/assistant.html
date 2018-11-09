@@ -1,0 +1,326 @@
+<style>
+	.webuploader-pick {
+		display: block;
+		padding: 0;
+		background: #3598dc;
+	}
+	#createData {
+		min-width: 100px;
+	}
+	.createFile div:nth-child(2){width:100%!important;height:100%!important;}
+</style>
+<div class="row" ng-controller="assistantCtrl">
+
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'views/template/nodeTree.html'"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 200px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">教学资料{{currKP}}</span>
+				</div>
+				<div class="actions">
+					<div class="btn-group btn-group-circle">
+						<button type="button" class="btn btn-danger">创建</button>
+						<button type="button" class="btn btn-circle-right btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-angle-down"></i></button>
+						<ul class="dropdown-menu" role="menu" id="createData">
+							<li>
+								<a href="javascript:;" class="createFile">
+									文档 </a>
+							</li>
+							<li>
+								<a href="javascript:;" class="createFile">
+									音频 </a>
+							</li>
+							<li>
+								<a href="javascript:;" class="createFile">
+									视频 </a>
+							</li>
+							<li>
+								<a href="javascript:;" class="createFile">
+									链接 </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_2_1" data-toggle="tab">
+							文档 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_2" data-toggle="tab">
+							音频 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_3" data-toggle="tab">
+							视频 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_4" data-toggle="tab">
+							链接 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_2_1">
+						<div class="scroller" style="min-height: 100px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础教案.doc
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础课件.ppt
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_2_2">
+
+					</div>
+					<div class="tab-pane" id="tab_2_3">
+
+					</div>
+					<div class="tab-pane" id="tab_2_4">
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 100px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">习题集{{currKP}}</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#exercisesBookModal">
+						<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">
+							提问 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab">
+							课堂练习 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_3" data-toggle="tab">
+							课后作业 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_1">
+						<div class="scroller" style="min-height: 200px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务的定义1
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务的定义2
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务的概念1
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-warning">
+													<i class="fa fa-plus"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务的概念2
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_1_2">
+
+					</div>
+					<div class="tab-pane" id="tab_1_3">
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<div data-ng-include="'views/template/exercisesBook.html'"></div>
+
+</div>
+<!-- END MAIN CONTENT -->
+
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<!-- BEGIN MAIN JS-->
+<script>
+	function assistantCtrl($scope) {
+		$scope.knowledgePoints = [];
+		
+		$scope.$on('to-parent', function(d,data) {  
+	        console.log(data);         //父级能得到值  
+	    });
+		
+		$("#kpContent").on("click", "a[name='kp']", function() {
+			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
+			$(this).removeClass("btn-info").addClass("btn-danger");
+
+		});
+
+		$("ul.feeds").on("click", "a", function() {
+			console.log($(this).html());
+			var html = $(this).html();
+			$(this).closest(".btn-group").find("span").html(html);
+		});
+
+		var uploader = WebUploader.create({
+			// swf文件路径
+			swf: 'js/Uploader.swf',
+			// 文件接收服务端。
+			server: 'http://webuploader.duapp.com/server/fileupload.php',
+			// 选择文件的按钮。可选。
+			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+			pick: '.createFile',
+			// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+			resize: false
+		});
+
+		// 当有文件被添加进队列的时候
+//		uploader.on('fileQueued', function(file) {
+//			console.log(file.name);
+//			var html = `
+//			<li>
+//				<div class="col1">
+//					<div class="cont">
+//						<div class="cont-col1">
+//							<div class="label label-sm label-warning">
+//								<i class="fa fa-plus"></i>
+//							</div>
+//						</div>
+//						<div class="cont-col2">
+//							<div class="desc">
+//								${file.name}
+//							</div>
+//						</div>
+//					</div>
+//				</div>
+//			</li>
+//			`;
+//			$("#tab_2_1 ul").append(html);
+//		});
+	}
+</script>
+<!-- BEGIN MAIN JS -->

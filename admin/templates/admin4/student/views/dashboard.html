@@ -1,0 +1,694 @@
+<link href="../../../assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="DashboardController" class="margin-top-10">
+	<!-- BEGIN PAGE CONTENT-->
+	<div class="row">
+		<div class="col-md-12">
+			<!-- BEGIN PROFILE SIDEBAR -->
+			<div class="profile-sidebar" style="width: 250px;">
+				<!-- PORTLET MAIN -->
+				<div class="portlet light profile-sidebar-portlet">
+					<!-- SIDEBAR USERPIC -->
+					<div class="profile-userpic">
+						<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+					</div>
+					<!-- END SIDEBAR USERPIC -->
+					<!-- SIDEBAR USER TITLE -->
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">
+							赵孟浩
+						</div>
+						<div class="profile-usertitle-job">
+							电子商务专业
+						</div>
+					</div>
+					<!-- END SIDEBAR USER TITLE -->
+					<!-- SIDEBAR BUTTONS -->
+					<div class="profile-userbuttons">
+						<button type="button" class="btn btn-circle green-haze btn-sm">已修学分&nbsp;20</button>
+						<button type="button" class="btn btn-circle btn-danger btn-sm">剩余学分&nbsp;80</button>
+					</div>
+					<!-- END SIDEBAR BUTTONS -->
+					<!-- SIDEBAR MENU -->
+					<div class="profile-usermenu">
+						<ul class="nav">
+							<li class="active">
+								<a href="extra_profile.html">
+									<i class="icon-home"></i>
+									首页 </a>
+							</li>
+							<li>
+								<a href="extra_profile_account.html">
+									<i class="icon-settings"></i>
+									课程学习 </a>
+							</li>
+							<li>
+								<a href="page_todo.html" target="_blank">
+									<i class="icon-check"></i>
+									在线考试 </a>
+							</li>
+							<li>
+								<a href="extra_profile_help.html">
+									<i class="icon-info"></i>
+									毕业论文 </a>
+							</li>
+							<li>
+								<a href="extra_profile_help.html">
+									<i class="icon-info"></i>
+								  学籍档案 </a>
+							</li>
+						</ul>
+					</div>
+					<!-- END MENU -->
+				</div>
+				<!-- END PORTLET MAIN -->
+			</div>
+			<!-- END BEGIN PROFILE SIDEBAR -->
+			<!-- BEGIN PROFILE CONTENT -->
+			<div class="profile-content">
+				<div class="row">
+					<div class="col-md-6">
+						<!-- BEGIN PORTLET -->
+						<div class="portlet light">
+							<div class="portlet-title tabbable-line">
+								<div class="caption caption-md">
+									<i class="icon-globe theme-font hide"></i>
+									<span class="caption-subject font-blue-madison bold uppercase">我的课程</span>
+								</div>
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a href="#tab_1_1" data-toggle="tab">
+											学习中 </a>
+									</li>
+									<li>
+										<a href="#tab_1_2" data-toggle="tab">
+											已完成 </a>
+									</li>
+								</ul>
+							</div>
+							<div class="portlet-body">
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab_1_1">
+										<div class="table-scrollable table-scrollable-borderless" style="height: 300px;">
+											<table class="table table-hover table-light">
+												<thead>
+													<tr class="uppercase">
+														<th>
+															课程名称
+														</th>
+														<th>
+															学分
+														</th>
+														<th>
+															平时成绩
+														</th>
+														<th>
+															学习进度
+														</th>
+														<th>
+															互动交流
+														</th>
+													</tr>
+												</thead>
+												<tr>
+													<td>
+														<a href="javascript:;" class="primary-link">大学英语（二）</a>
+													</td>
+													<td>
+														12
+													</td>
+													<td>
+														25/40
+													</td>
+													<td>
+														<span class="bold theme-font">80%</span>
+													</td>
+													<td>
+														<a href="javascript:;" class="primary-link">进入</a>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a href="javascript:;" class="primary-link">大学英语（三）</a>
+													</td>
+													<td>
+														12
+													</td>
+													<td>
+														25/40
+													</td>
+													<td>
+														<span class="bold theme-font">67%</span>
+													</td>
+													<td>
+														<a href="javascript:;" class="primary-link">进入</a>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a href="javascript:;" class="primary-link">公共关系学</a>
+													</td>
+													<td>
+														4
+													</td>
+													<td>
+														25/40
+													</td>
+													<td>
+														<span class="bold theme-font">98%</span>
+													</td>
+													<td>
+														<a href="javascript:;" class="primary-link">进入</a>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a href="javascript:;" class="primary-link">公共管理学</a>
+													</td>
+													<td>
+														5
+													</td>
+													<td>
+														25/40
+													</td>
+													<td>
+														<span class="bold theme-font">58%</span>
+													</td>
+													<td>
+														<a href="javascript:;" class="primary-link">进入</a>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab_1_2">
+										<div class="table-scrollable table-scrollable-borderless" style="height: 300px;">
+											<table class="table table-hover table-light">
+												<thead>
+													<tr class="uppercase">
+														<th>
+															课程名称
+														</th>
+														<th>
+															学分
+														</th>
+														<th>
+															平时成绩
+														</th>
+														<th>
+															考试成绩
+														</th>
+														<th>
+															总成绩
+														</th>
+													</tr>
+												</thead>
+												<tr>
+													<td>
+														<a href="javascript:;" class="primary-link">大学英语（一）</a>
+													</td>
+													<td>
+														12
+													</td>
+													<td>
+														40/40
+													</td>
+													<td>
+														<span class="bold theme-font">58/60</span>
+													</td>
+													<td>
+														<span class="bold theme-font">98/100</span>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END PORTLET -->
+					</div>
+					<div class="col-md-6">
+						<!-- BEGIN PORTLET -->
+						<div class="portlet light">
+							<div class="portlet-title tabbable-line">
+								<div class="caption caption-md">
+									<i class="icon-globe theme-font hide"></i>
+									<span class="caption-subject font-blue-madison bold uppercase">讨论</span>
+								</div>
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a href="#tab_2_1" data-toggle="tab">
+											全部 </a>
+									</li>
+									<li>
+										<a href="#tab_2_2" data-toggle="tab">
+											我关注的 </a>
+									</li>
+								</ul>
+							</div>
+							<div class="portlet-body">
+								<!--BEGIN TABS-->
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab_2_1">
+										<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+											<div class="general-item-list">
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar4.jpg">
+															<a href="" class="item-name primary-link">张帅</a>
+															<span class="item-label">2018-11-9</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														传播主体向相对集中的较大的公众群体进行传播什么？
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar3.jpg">
+															<a href="" class="item-name primary-link">李思</a>
+															<span class="item-label">2018-11-8</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														公共关系状态指的是组织与公众之间的什么
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar6.jpg">
+															<a href="" class="item-name primary-link">王武</a>
+															<span class="item-label">2018-11-7</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														传播主体向相对集中的较大的公众群体进行传播?
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar7.jpg">
+															<a href="" class="item-name primary-link">赵乐</a>
+															<span class="item-label">2018-11-6</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														标志我国公共关系走向职业化和行业化的道路的事件是?
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar9.jpg">
+															<a href="" class="item-name primary-link">刘琦</a>
+															<span class="item-label">2018-11-5</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														双方互为传播的主、客体，随时调整传播的角色，是?
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar8.jpg">
+															<a href="" class="item-name primary-link">钱三儿</a>
+															<span class="item-label">2018-11-4</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														1923年，爱德华·伯纳斯出版的第一本公关专著是？
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab_2_2">
+										<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+											<div class="general-item-list">
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar6.jpg">
+															<a href="" class="item-name primary-link">王武</a>
+															<span class="item-label">2018-11-7</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														传播主体向相对集中的较大的公众群体进行传播?
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar8.jpg">
+															<a href="" class="item-name primary-link">钱三儿</a>
+															<span class="item-label">2018-11-4</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														1923年，爱德华·伯纳斯出版的第一本公关专著是？
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--END TABS-->
+							</div>
+						</div>
+						<!-- END PORTLET -->
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- BEGIN PORTLET -->
+						<div class="portlet light">
+							<div class="portlet-title">
+								<div class="caption caption-md">
+									<i class="icon-bar-chart theme-font hide"></i>
+									<span class="caption-subject font-blue-madison bold uppercase">提问</span>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div class="scroller" style="height: 320px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<ul class="feeds">
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																宾语和主语如何运用 <span class="label label-sm label-info"> 大学英语（二） <i class="fa fa-share"></i>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														已回答
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																wage，earning与incoming区别及使用条件 <span class="label label-sm label-info"> 大学英语（二） <i class="fa fa-share"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														已回答
+													</div>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																cut off是什么意思 <span class="label label-sm label-info"> 大学英语（二） <i class="fa fa-share"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														未回答
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																公共关系人员的职业道德规范有哪些？ <span class="label label-sm label-danger"> 公共关系学 <i class="fa fa-share"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														未回答
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																公共关系的构成要素有哪些？ <span class="label label-sm label-danger"> 公共关系学 <i class="fa fa-share"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														已回答
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-sm label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																道德标准包括哪些内容？ <span class="label label-sm label-warning"> 公共管理学 <i class="fa fa-share"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col2">
+													<div class="date">
+														未回答
+													</div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- END PORTLET -->
+					</div>
+					<div class="col-md-6">
+						<!-- BEGIN PORTLET -->
+						<div class="portlet light">
+							<div class="portlet-title tabbable-line">
+								<div class="caption caption-md">
+									<i class="icon-globe theme-font hide"></i>
+									<span class="caption-subject font-blue-madison bold uppercase">心得笔记</span>
+								</div>
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a href="#tab_4_1" data-toggle="tab">
+											全部 </a>
+									</li>
+									<li>
+										<a href="#tab_4_2" data-toggle="tab">
+											我关注的 </a>
+									</li>
+								</ul>
+							</div>
+							<div class="portlet-body">
+								<!--BEGIN TABS-->
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab_4_1">
+										<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+											<div class="general-item-list">
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar4.jpg">
+															<a href="" class="item-name primary-link">张帅</a>
+															<span class="item-label">2018-11-9</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														传播主体向相对集中的较大的公众群体进行传播什么？
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar3.jpg">
+															<a href="" class="item-name primary-link">李思</a>
+															<span class="item-label">2018-11-8</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														公共关系状态指的是组织与公众之间的什么
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar6.jpg">
+															<a href="" class="item-name primary-link">王武</a>
+															<span class="item-label">2018-11-7</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														传播主体向相对集中的较大的公众群体进行传播?
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar7.jpg">
+															<a href="" class="item-name primary-link">赵乐</a>
+															<span class="item-label">2018-11-6</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														标志我国公共关系走向职业化和行业化的道路的事件是?
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar9.jpg">
+															<a href="" class="item-name primary-link">刘琦</a>
+															<span class="item-label">2018-11-5</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														双方互为传播的主、客体，随时调整传播的角色，是?
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar8.jpg">
+															<a href="" class="item-name primary-link">钱三儿</a>
+															<span class="item-label">2018-11-4</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														1923年，爱德华·伯纳斯出版的第一本公关专著是？
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="tab_4_2">
+										<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+											<div class="general-item-list">
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar6.jpg">
+															<a href="" class="item-name primary-link">王武</a>
+															<span class="item-label">2018-11-7</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														传播主体向相对集中的较大的公众群体进行传播?
+													</div>
+												</div>
+												<div class="item">
+													<div class="item-head">
+														<div class="item-details">
+															<img class="item-pic" src="../../../assets/admin/layout4/img/avatar8.jpg">
+															<a href="" class="item-name primary-link">钱三儿</a>
+															<span class="item-label">2018-11-4</span>
+														</div>
+														<span class="item-status">关注（13） 点赞（6） 评论（81） 浏览（109）</span>
+													</div>
+													<div class="item-body">
+														1923年，爱德华·伯纳斯出版的第一本公关专著是？
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--END TABS-->
+							</div>
+						</div>
+						<!-- END PORTLET -->
+					</div>
+				</div>
+			</div>
+			<!-- END PROFILE CONTENT -->
+		</div>
+	</div>
+	<!-- END PAGE CONTENT-->
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+
+<script>
+	function DashboardController() {
+
+	}
+</script>
+<!-- BEGIN MAIN JS & CSS -->

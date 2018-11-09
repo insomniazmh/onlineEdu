@@ -1,0 +1,615 @@
+<style>
+	.profile-userpic img {
+		width: 80%;
+	}
+	.uppercase {
+		font-size: 16px;
+		margin-top: 10px;
+	}
+</style>
+
+<div class="row" ng-controller="helperCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div id="tree-jiaofu" class="tree-demo">
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">活动{{currKP}}</span>
+				</div>
+				<div class="actions">
+					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="全屏">
+					</a>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">
+							资料 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab">
+							问答 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_3" data-toggle="tab">
+							练习 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_4" data-toggle="tab">
+							作业 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_1">
+						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础教案.doc
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础课件.ppt
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="tab-pane" id="tab_1_2">
+						<div id="accordion1" class="panel-group">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_1">
+										1. 商家要开展电子商务活动 , 应该用（ C  ）作为其主要的生意平台。 </a>
+										<div class="btn-group" style="float: right;">
+											<button class="btn btn-danger btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+														<span>请选择</span> <i class="fa fa-angle-down"></i>
+														</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a>举手 </a>
+												</li>
+												<li>
+													<a>抢答 </a>
+												</li>
+												<li>
+													<a>选人 </a>
+												</li>
+											</ul>
+										</div>
+									</h4>
+								</div>
+								<div id="accordion1_1" class="panel-collapse collapse in">
+									<div class="panel-body">
+										<p>A． BBS</p>
+										<p>B．电子邮件</p>
+										<p>C．在线商店</p>
+										<p>D．电话定购</p>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_2">
+										2. Intranet和Internet的区别是 ( A ) </a>
+										<div class="btn-group" style="float: right;">
+											<button class="btn btn-danger btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+														<span>请选择</span> <i class="fa fa-angle-down"></i>
+														</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a>举手 </a>
+												</li>
+												<li>
+													<a>抢答 </a>
+												</li>
+												<li>
+													<a>选人 </a>
+												</li>
+											</ul>
+										</div>
+									</h4>
+								</div>
+								<div id="accordion1_2" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>A．访问 Intranet 需要授权</p>
+										<p>B．Intranet 执行特殊的协议</p>
+										<p>C．Intranet 软件和协议是独立于硬件的</p>
+										<p>D．Intrarlet 只在扇部物理范围内运行</p>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_3">
+										3. 电子数据交换的简称是 ( B )  </a>
+										<div class="btn-group" style="float: right;">
+											<button class="btn btn-danger btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+												<span>请选择</span> <i class="fa fa-angle-down"></i>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a>举手 </a>
+												</li>
+												<li>
+													<a>抢答 </a>
+												</li>
+												<li>
+													<a>选人 </a>
+												</li>
+											</ul>
+										</div>
+									</h4>
+								</div>
+								<div id="accordion1_3" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>A．EFT</p>
+										<p>B．EDI</p>
+										<p>C．NET</p>
+										<p>D．EC</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="tab-pane" id="tab_1_3">
+						<ul class="feeds">
+							<li data-toggle="context" data-target="#context-menu">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-danger">
+												<i class="fa fa-bolt"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												Database server #12 overloaded. Please fix the issue.
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<button class="btn btn-danger btn-xs" type="button">开放 </button>
+								</div>
+							</li>
+							<li>
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-info">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												New order received and pending for process.
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<button class="btn btn-danger btn-xs" type="button">开放 </button>
+								</div>
+							</li>
+							<li>
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												New payment refund and pending approval.
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<button class="btn btn-danger btn-xs" type="button">开放 </button>
+								</div>
+							</li>
+							<li>
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-warning">
+												<i class="fa fa-plus"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												New member registered. Pending approval.
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<button class="btn btn-danger btn-xs" type="button">开放 </button>
+								</div>
+							</li>
+						</ul>
+
+					</div>
+
+					<div class="tab-pane" id="tab_1_4"></div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<div class="modal fade" id="sm" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">课程信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="nodeName" placeholder="请输入节点名称" />
+												<label for="form_control_1">节点</label>
+												<span class="help-block">名称不得超过20个字符</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="createNode()">Submit</button>
+									<button type="button" class="btn default" data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<div class="modal fade" id="full" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">企业与企业之间的电子商务模式</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="portlet light">
+								<div class="portlet-body">
+									<div class="note note-success">
+										<h4 class="block" style="line-height: 32px; font-size: 16px;">1. 商家要开展电子商务活动 , 应该用（ C  ）作为其主要的生意平台。</h4>
+									</div>
+									<div class="note note-success">
+										<h4 class="block" style="line-height: 32px; font-size: 16px;">2. Intranet和Internet的区别是 ( A )</h4>
+									</div>
+									<div class="note note-success">
+										<h4 class="block" style="line-height: 32px; font-size: 16px;">3. 电子数据交换的简称是 ( B )</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-8" style="border-left: 5px solid #eee;">
+							<div class="note" style="border-left: 0;border-bottom: 1px solid #eee;">
+								<h4 class="block">1. 商家要开展电子商务活动 , 应该用（ C ）作为其主要的生意平台。</h4>
+								<p>A． BBS</p>
+								<p>B．电子邮件</p>
+								<p>C．在线商店</p>
+								<p>D．电话定购</p>
+							</div>
+							<div class="col-md-2">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									 蒋会全&nbsp;&nbsp;&nbsp;C
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									 张继伟&nbsp;&nbsp;&nbsp;C
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									 赵孟浩&nbsp;&nbsp;&nbsp;B
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									 石岚&nbsp;&nbsp;&nbsp;C
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									 石岚&nbsp;&nbsp;&nbsp;C
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									 石岚&nbsp;&nbsp;&nbsp;C
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									 石岚&nbsp;&nbsp;&nbsp;C
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text" style="color: red;">
+									 石岚&nbsp;&nbsp;&nbsp;A
+								</div>
+							</div>
+							<div class="col-md-2" style="padding-bottom: 40px;">
+								<div class="uppercase profile-userpic">
+									 <img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+								</div>
+								<div class="uppercase profile-stat-text">
+									 石岚&nbsp;&nbsp;&nbsp;C
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+</div>
+<!-- END MAIN CONTENT -->
+
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<!-- BEGIN MAIN JS-->
+<script>
+	function helperCtrl($scope) {
+		$scope.flag = "";
+		$scope.knowledgePoints = [];
+		$scope.selector = '#tree-jiaofu';
+
+		$scope.initTree = function() {
+			$($scope.selector).jstree({
+				'core': {
+					"check_callback": true,
+					'data': [{
+						'id': 'node_1',
+						'text': '第一章 电子商务概述',
+						'state': {
+							'opened': true,
+						},
+						'children': [{
+							'text': '1.电子商务的内涵',
+							'icon': 'fa fa-briefcase icon-state-success',
+							'state': {
+								'opened': true
+							},
+						}, {
+							'text': '2.电子商务的产生背景和发展过程',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '3.电子商务的作用与影响',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_2',
+						'text': '第二章 Internet 基础知识',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '1.Internet 概述 ',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '2.Internet 的主要功能',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_3',
+						'text': '第三章 电子商务的主要模式',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'text': '1.电子商务的框架模型',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '2.企业与企业之间的电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'text': '3.企业与消费者之间电子商务模式',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}]
+				},
+				"plugins": ['contextmenu'],
+				"contextmenu": {
+					"items": {
+						"create": null,
+						"rename": null,
+						"remove": null,
+						"ccp": null,
+						"新建菜单": {
+							"label": "新建菜单",
+							"action": function(data) {
+								$scope.flag = "create";
+								$scope.nodeName = "";
+								$("#sm").modal("show");
+							}
+						},
+						"编辑菜单": {
+							"label": "编辑菜单",
+							"action": function(data) {
+								$scope.flag = "rename";
+								$scope.nodeName = "";
+								$("#sm").modal("show");
+							}
+						},
+						"删除菜单": {
+							"label": "删除菜单",
+							"action": function(data) {
+								var r = confirm("确定要删除该节点吗");
+								if(r) {
+									var ref = $($scope.selector).jstree(true),
+										sel = ref.get_selected();
+									if(!sel.length) {
+										return false;
+									}
+									ref.delete_node(sel);
+								}
+							}
+						}
+					}
+				}
+			});
+		}
+		$scope.initTree();
+
+		$scope.createNode = function() {
+			var ref = $($scope.selector).jstree(true),
+				sel = ref.get_selected();
+			if(!sel.length) {
+				return false;
+			}
+			sel = sel[0];
+			$("#sm").modal("hide");
+			if($scope.flag == "create") {
+				sel = ref.create_node(sel, {
+					text: $scope.nodeName,
+					'state': {
+						'opened': true
+					},
+				});
+			} else if($scope.flag == "rename") {
+				ref.rename_node(sel, $scope.nodeName);
+			}
+		};
+
+		$("#kpContent").on("click", "a[name='kp']", function() {
+			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
+			$(this).removeClass("btn-info").addClass("btn-danger");
+
+		});
+
+		$("#accordion1").on("click", "a", function() {
+			console.log($(this).html());
+			var html = $(this).html();
+			$(this).closest(".btn-group").find("span").html(html);
+			$("#full").modal("show");
+		});
+
+		//		$('ul.feeds li').contextmenu({
+		//		  target:'#context-menu', 
+		//		  before: function(e,context) {
+		//		    // execute code before context menu if shown
+		//		    console.log(123);
+		//		  },
+		//		  onItem: function(context,e) {
+		//		  	console.log(124);
+		//		    // execute on menu item selection
+		//		  }
+		//		})
+
+	}
+</script>
+<!-- BEGIN MAIN JS -->

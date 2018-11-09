@@ -1,0 +1,312 @@
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb">
+	<li>
+		<a href="#">Home</a><i class="fa fa-circle"></i>
+	</li>
+	<li class="active" data-ng-bind="$state.current.data.pageTitle">
+	</li>
+</ul>
+<!-- END PAGE BREADCRUMB -->
+
+<div class="row" ng-controller="FileUploadCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+	<div class="col-md-4">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">Select files</span>
+					<span class="caption-helper hide"></span>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">
+							视频 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab">
+							轮播图 </a>
+					</li>
+				</ul>
+
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+				<div class="tab-pane active" id="tab_1_1">
+					<video controls="controls" style="width: 100%;height: 100%;" src="http://baishi.baidu.com/watch/0140400391910435905.html?page=videoMultiNeed"></video>
+				</div>
+				<div class="tab-pane" id="tab_1_2">
+					<div id="myCarousel" class="carousel image-carousel slide">
+					<div class="carousel-inner">
+						<div class="active item">
+							<img src="../../../assets/admin/pages/media/gallery/image5.jpg" class="img-responsive" alt="">
+							<div class="carousel-caption">
+								<h4>
+													<a href="page_news_item.html">
+													First Thumbnail label </a>
+													</h4>
+								<p>
+									Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+								</p>
+							</div>
+						</div>
+						<div class="item">
+							<img src="../../../assets/admin/pages/media/gallery/image2.jpg" class="img-responsive" alt="">
+							<div class="carousel-caption">
+								<h4>
+													<a href="page_news_item.html">
+													Second Thumbnail label </a>
+													</h4>
+								<p>
+									Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+								</p>
+							</div>
+						</div>
+						<div class="item">
+							<img src="../../../assets/admin/pages/media/gallery/image1.jpg" class="img-responsive" alt="">
+							<div class="carousel-caption">
+								<h4>
+													<a href="page_news_item.html">
+													Third Thumbnail label </a>
+													</h4>
+								<p>
+									Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+								</p>
+							</div>
+						</div>
+					</div>
+					<!-- Carousel nav -->
+					<a class="carousel-control left" href="#myCarousel" data-slide="prev">
+						<i class="m-icon-big-swapleft m-icon-white"></i>
+					</a>
+					<a class="carousel-control right" href="#myCarousel" data-slide="next">
+						<i class="m-icon-big-swapright m-icon-white"></i>
+					</a>
+					<ol class="carousel-indicators">
+						<li data-target="#myCarousel" data-slide-to="0" class="active">
+						</li>
+						<li data-target="#myCarousel" data-slide-to="1">
+						</li>
+						<li data-target="#myCarousel" data-slide-to="2">
+						</li>
+					</ol>
+				</div>
+				<div class="top-news margin-top-10">
+					<a href="javascript:;" class="btn blue">
+						<span>Featured News </span>
+						<em><i class="fa fa-tags"></i>USA, Business, Apple </em>
+						<i class="fa fa- icon-bullhorn top-news-icon"></i>
+					</a>
+				</div>
+				</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">Select files</span>
+					<span class="caption-helper hide"></span>
+				</div>
+				<div class="actions">
+					<a class="btn btn-circle btn-icon-only btn-default" href="#">
+						<i class="icon-cloud-upload"></i>
+					</a>
+					<a class="btn btn-circle btn-icon-only btn-default" href="#">
+						<i class="icon-wrench"></i>
+					</a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div id="tree_1" class="tree-demo">
+					<ul>
+						<li>
+							Root node 1
+							<ul>
+								<li data-jstree='{ "selected" : true }'>
+									<a href="javascript:;">
+										Initially selected </a>
+								</li>
+								<li data-jstree='{ "icon" : "fa fa-briefcase icon-state-success " }'>
+									custom icon URL
+								</li>
+								<li data-jstree='{ "opened" : true }'>
+									initially open
+									<ul>
+										<li data-jstree='{ "disabled" : true }'>
+											Disabled Node
+										</li>
+										<li data-jstree='{ "type" : "file" }'>
+											Another node
+										</li>
+									</ul>
+								</li>
+								<li data-jstree='{ "icon" : "fa fa-warning icon-state-danger" }'>
+									Custom icon class (bootstrap)
+								</li>
+							</ul>
+						</li>
+						<li data-jstree='{ "type" : "file" }'>
+							<a>Clickanle link node </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="col-md-4">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节参考</span>
+				</div>
+				<div class="actions">
+					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+					</a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+		
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节练习</span>
+				</div>
+				<div class="actions">
+					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+					</a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+	
+	<div class="col-md-4">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节问答</span>
+				</div>
+				<div class="actions">
+					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+					</a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<p>11</p>
+				<p>11</p>
+				<p>11</p>
+				<p>11</p>
+				<p>11</p>
+				<p>11</p>
+				<p>11</p>
+				<p>11</p><p>11</p><p>11</p><p>11</p><p>11</p><p>11</p><p>11</p>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+		
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节问答</span>
+				</div>
+				<div class="actions">
+					<a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title="">
+					</a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+</div>
+<!-- END MAIN CONTENT -->
+
+<!-- BEGIN MAIN JS-->
+<script>
+	function FileUploadCtrl($scope, FileUploader) {
+		$scope.flag = "";
+		var uploader = $scope.uploader = new FileUploader({
+			url: '../../../assets/global/plugins/angularjs/plugins/angular-file-upload/upload.php'
+		});
+
+		// FILTERS
+		uploader.filters.push({
+			name: 'customFilter',
+			fn: function(item /*{File|FileLikeObject}*/ , options) {
+				return this.queue.length < 10;
+			}
+		});
+
+		// CALLBACKS
+
+		uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
+			console.info('onWhenAddingFileFailed', item, filter, options);
+		};
+		uploader.onAfterAddingFile = function(fileItem) {
+			console.info('onAfterAddingFile', fileItem);
+		};
+		uploader.onAfterAddingAll = function(addedFileItems) {
+			console.info('onAfterAddingAll', addedFileItems);
+		};
+		uploader.onBeforeUploadItem = function(item) {
+			console.info('onBeforeUploadItem', item);
+		};
+		uploader.onProgressItem = function(fileItem, progress) {
+			console.info('onProgressItem', fileItem, progress);
+		};
+		uploader.onProgressAll = function(progress) {
+			console.info('onProgressAll', progress);
+		};
+		uploader.onSuccessItem = function(fileItem, response, status, headers) {
+			console.info('onSuccessItem', fileItem, response, status, headers);
+		};
+		uploader.onErrorItem = function(fileItem, response, status, headers) {
+			console.info('onErrorItem', fileItem, response, status, headers);
+		};
+		uploader.onCancelItem = function(fileItem, response, status, headers) {
+			console.info('onCancelItem', fileItem, response, status, headers);
+		};
+		uploader.onCompleteItem = function(fileItem, response, status, headers) {
+			console.info('onCompleteItem', fileItem, response, status, headers);
+		};
+		uploader.onCompleteAll = function() {
+			console.info('onCompleteAll');
+		};
+
+		console.info('uploader', uploader);
+
+		$scope.aaa = function() {
+			if($scope.flag == "") {
+				$scope.flag = "has-error";
+			} else {
+				$scope.flag = "";
+			}
+		}
+	};
+
+	UITree.init();
+</script>
+<!-- BEGIN MAIN JS -->

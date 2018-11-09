@@ -1,0 +1,314 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<div class="row" ng-controller="roleCtrl">
+	<div class="col-md-6">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase" id="title">角色</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openRoleModal();">
+						<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+
+			</div>
+			<div class="portlet-body">
+				<div class="scroller" style="height: 200px; overflow: hidden; width: auto;">
+					<table class="table table-striped table-bordered table-hover" id="sample_1">
+						<thead>
+							<tr>
+								<th>角色名称</th>
+								<th>角色说明</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="odd gradeX" ng-repeat="row in roles">
+								<td>{{row.roleName}}</td>
+								<td>{{mergeRoleInfo(row.roleInfo)}}</td>
+								<td>
+									<span class="label label-sm label-success" ng-click="openRoleModal(row);">
+										修改
+									</span>
+									&nbsp;&nbsp;&nbsp;
+									<span class="label label-sm label-success" ng-click="delRole(row.roleId);">删除</span>
+									&nbsp;&nbsp;&nbsp;
+									<span class="label label-sm label-success" ng-click="openUserManageModal(row);">人员管理</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="portlet-title tabbable-line" style="padding-top: 10px;margin-top: 20px;border-top: 1px solid #4DB3A2;">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase" id="title">该角色现有权限</span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="scroller" style="height: 200px; overflow: hidden; width: auto;">
+					<table class="table table-striped table-bordered table-hover" id="sample_1">
+						<thead>
+							<tr>
+								<th>父模块</th>
+								<th>子模块</th>
+								<th>拥有的操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="odd gradeX">
+								<td rowspan="2">用户管理</td>
+								<td>角色权限</td>
+								<td>新增角色</td>
+							</tr>
+							<tr class="odd gradeX">
+								<td>用户管理</td>
+								<td>新增用户&nbsp;&nbsp;&nbsp;编辑&nbsp;&nbsp;&nbsp;删除</td>
+							</tr>
+							<tr class="odd gradeX">
+								<td rowspan="2">客户管理</td>
+								<td>客户详情</td>
+								<td>进行中团队&nbsp;&nbsp;&nbsp;历史团队</td>
+							</tr>
+							<tr class="odd gradeX">
+								<td>用户管理</td>
+								<td>启用&nbsp;&nbsp;&nbsp;禁用&nbsp;&nbsp;&nbsp;修改密码</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<div class="col-md-6">
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase" id="title">菜单</span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="col-md-6">
+					<div class="scroller" style="height: 200px; overflow: hidden; width: auto;">
+						<div id="tree" class="tree-demo"></div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="md-checkbox">
+						<input type="checkbox" id="checkbox6" class="md-check">
+						<label for="checkbox6">
+							<span></span>
+							<span class="check"></span>
+							<span class="box"></span>
+							查看 </label>
+					</div>
+					<div class="md-checkbox">
+						<input type="checkbox" id="checkbox7" class="md-check" checked="">
+						<label for="checkbox7">
+							<span></span>
+							<span class="check"></span>
+							<span class="box"></span>
+							新增 </label>
+					</div>
+					<div class="md-checkbox">
+						<input type="checkbox" id="checkbox8" class="md-check">
+						<label for="checkbox8">
+							<span></span>
+							<span class="check"></span>
+							<span class="box"></span>
+							编辑 </label>
+					</div>
+					<div class="md-checkbox">
+						<input type="checkbox" id="checkbox9" class="md-check">
+						<label for="checkbox9">
+							<span></span>
+							<span class="check"></span>
+							<span class="box"></span>
+							删除 </label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">角色信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 20px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="currRole.roleName" placeholder="请输入角色名称">
+												<label for="form_control_1">名称</label>
+												<span class="help-block">角色名称不能为空</span>
+											</div>
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="currRole.roleInfo" placeholder="请输入角色说明">
+												<label for="form_control_1">说明</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue">提交</button>
+									<button type="button" class="btn default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--<div class="modal-footer">
+					<button type="button" class="btn default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn blue">Save changes</button>
+				</div>-->
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<div data-ng-include="'views/template/roleUserManage.html'"></div>
+</div>
+<script>
+	function roleCtrl($scope) {
+		$scope.currRole = {};
+
+		$scope.roles = [{
+				roleName: '管理者',
+				roleInfo: '系统的管理者',
+				roleId: '1'
+			},
+			{
+				roleName: '教务',
+				roleInfo: '',
+				roleId: '2'
+			},
+			{
+				roleName: '科目负责人',
+				roleInfo: '',
+				roleId: '3'
+			},
+			{
+				roleName: '教师',
+				roleInfo: '',
+				roleId: '4'
+			},
+		];
+
+		$scope.openRoleModal = function(row) {
+			if (row) {
+				$scope.currRole = {
+					roleName: row.roleName,
+					roleInfo: row.roleInfo,
+					roleId: row.roleId
+				};
+			} else {
+				$scope.currRole = {};
+			}
+			$("#roleModal").modal("show");
+		}
+
+		$scope.delRole = function(id) {
+			var flag = confirm("您确定要删除该角色吗？");
+			if (flag) {
+				$scope.showToast();
+			}
+		}
+
+		$scope.openUserManageModal = function(role) {
+			$scope.$broadcast('to-child', role);
+		}
+
+		$scope.initTree = function() {
+			$('#tree').jstree({
+				'core': {
+					"check_callback": true,
+					'data': [{
+						'id': 'node_1',
+						'text': '课程管理',
+						'state': {
+							'opened': true,
+							'selected': true
+						},
+						'children': [{
+							'id': 'node_1_1',
+							'text': '课程添加',
+							'icon': 'fa fa-briefcase icon-state-success',
+							'state': {
+								'opened': true,
+								'selected': true
+							},
+						}, {
+							'id': 'node_1_2',
+							'text': '课程总览',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_2',
+						'text': '资料库管理',
+						'state': {
+							'opened': true
+						},
+						'children': [{
+							'id': 'node_2_1',
+							'text': '知识点题库',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}, {
+							'id': 'node_2_2',
+							'text': '教辅资料库',
+							'icon': 'fa fa-briefcase icon-state-success'
+						}]
+					}, {
+						'id': 'node_3',
+						'text': '考试管理',
+						'state': {
+							'opened': true
+						}
+					}]
+				},
+				"plugins": ["checkbox"],
+				"checkbox": {
+					"three_state": false, //父子级别级联选择
+					"tie_selection": false //复选框能不能操作
+				},
+			});
+		}
+		$scope.initTree();
+
+		$scope.mergeRoleInfo = function(str) {
+			var rtn = '';
+			if (!str || str == "") {
+				rtn = "无";
+			} else {
+				rtn = str;
+			}
+			return rtn;
+		}
+
+		$scope.showToast = function() {
+			common.toast({
+				title: "删除成功"
+			});
+		}
+	}
+</script>
