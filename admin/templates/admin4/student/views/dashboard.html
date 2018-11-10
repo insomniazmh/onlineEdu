@@ -31,13 +31,13 @@
 					<!-- END SIDEBAR BUTTONS -->
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
-						<ul class="nav">
-							<li class="active">
+						<ul class="nav nav-left">
+							<li class="active" name="home">
 								<a ng-click="changeTab('home')">
 									<i class="icon-home"></i>
 									首页 </a>
 							</li>
-							<li>
+							<li name="courseList">
 								<a ng-click="changeTab('courseList')">
 									<i class="icon-settings"></i>
 									课程学习 </a>
@@ -67,7 +67,7 @@
 			
 			<div data-ng-include="'views/template/home.html'" class="page-tab" id="home"></div>
 			
-			<div data-ng-include="'views/template/courseList.html'" class="page-tab" id="courseList" style="display: none;"></div>
+			<div data-ng-include="'views/template/course.html'" class="page-tab" id="courseList" style="display: none;"></div>
 			
 		</div>
 	</div>
@@ -79,6 +79,8 @@
 <script>
 	function DashboardController($scope) {
 		$scope.changeTab = function(url) {
+			$(".nav-left li").removeClass("active");
+			$(".nav-left li[name="+url+"]").addClass("active");
 			$(".page-tab").hide();
 			$("#"+url).show();
 		}
