@@ -67,7 +67,9 @@
 			
 			<div data-ng-include="'views/template/home.html'" class="page-tab" id="home"></div>
 			
-			<div data-ng-include="'views/template/course.html'" class="page-tab" id="courseList" style="display: none;"></div>
+			<div data-ng-include="'views/template/course.html'" class="page-tab" id="course" style="display: none;"></div>
+			
+			<div data-ng-include="'views/template/courseList.html'" class="page-tab" id="courseList" style="display: none;"></div>
 			
 		</div>
 	</div>
@@ -84,6 +86,11 @@
 			$(".page-tab").hide();
 			$("#"+url).show();
 		}
+		
+		$scope.$on('to-parent', function(d,data) {  
+	        $(".page-tab").hide();
+			$("#"+data).show();//父级能得到值  
+	    });
 	}
 </script>
 <!-- BEGIN MAIN JS & CSS -->

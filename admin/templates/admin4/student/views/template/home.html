@@ -1,5 +1,5 @@
 <!-- BEGIN PROFILE CONTENT -->
-<div class="profile-content">
+<div class="profile-content" ng-controller="homeController">
 	<div class="row">
 		<div class="col-md-6">
 			<!-- BEGIN PORTLET -->
@@ -46,7 +46,7 @@
 									</thead>
 									<tr>
 										<td>
-											<a href="javascript:;" class="primary-link">大学英语（二）</a>
+											<a ng-click="goUrl('course')" class="primary-link">大学英语（二）</a>
 										</td>
 										<td>
 											12
@@ -63,7 +63,7 @@
 									</tr>
 									<tr>
 										<td>
-											<a href="javascript:;" class="primary-link">大学英语（三）</a>
+											<a ng-click="goUrl('course')" class="primary-link">大学英语（三）</a>
 										</td>
 										<td>
 											12
@@ -80,7 +80,7 @@
 									</tr>
 									<tr>
 										<td>
-											<a href="javascript:;" class="primary-link">公共关系学</a>
+											<a ng-click="goUrl('course')" class="primary-link">公共关系学</a>
 										</td>
 										<td>
 											4
@@ -97,7 +97,7 @@
 									</tr>
 									<tr>
 										<td>
-											<a href="javascript:;" class="primary-link">公共管理学</a>
+											<a ng-click="goUrl('course')" class="primary-link">公共管理学</a>
 										</td>
 										<td>
 											5
@@ -139,7 +139,7 @@
 									</thead>
 									<tr>
 										<td>
-											<a href="javascript:;" class="primary-link">大学英语（一）</a>
+											<a ng-click="goUrl('course')" class="primary-link">大学英语（一）</a>
 										</td>
 										<td>
 											12
@@ -466,150 +466,159 @@
 						</div>
 						<!-- END PORTLET -->
 					</div>
-					<div class="col-md-6">
-						<!-- BEGIN PORTLET -->
-						<div class="portlet light">
-							<div class="portlet-title tabbable-line">
-								<div class="caption caption-md">
-									<i class="icon-globe theme-font hide"></i>
-									<span class="caption-subject font-blue-madison bold uppercase">心得笔记</span>
-												</div>
-												<ul class="nav nav-tabs">
-													<li class="active">
-														<a href="#tab_4_1" data-toggle="tab">
-															全部 </a>
-													</li>
-													<li>
-														<a href="#tab_4_2" data-toggle="tab">
-															我关注的 </a>
-													</li>
-												</ul>
-											</div>
-											<div class="portlet-body">
-												<!--BEGIN TABS-->
-												<div class="tab-content">
-													<div class="tab-pane active" id="tab_4_1">
-														<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-															<div class="general-item-list">
-																<div class="item">
-																	<div class="item-head">
-																		<div class="item-details">
-																			<img class="item-pic" src="../../../assets/admin/layout4/img/avatar4.jpg">
-																			<a href="" class="item-name primary-link">张帅</a>
-																			<span class="item-label">2018-11-9</span>
-																		</div>
-																		<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
-																	</div>
-																	<div class="item-body">
-																		传播主体向相对集中的较大的公众群体进行传播什么？
-																	</div>
-																</div>
-																<div class="item">
-																	<div class="item-head">
-																		<div class="item-details">
-																			<img class="item-pic" src="../../../assets/admin/layout4/img/avatar3.jpg">
-																			<a href="" class="item-name primary-link">李思</a>
-																			<span class="item-label">2018-11-8</span>
-																		</div>
-																		<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
-																	</div>
-																	<div class="item-body">
-																		公共关系状态指的是组织与公众之间的什么
-																	</div>
-																</div>
-																<div class="item">
-																	<div class="item-head">
-																		<div class="item-details">
-																			<img class="item-pic" src="../../../assets/admin/layout4/img/avatar6.jpg">
-																			<a href="" class="item-name primary-link">王武</a>
-																			<span class="item-label">2018-11-7</span>
-																		</div>
-																		<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
-																	</div>
-																	<div class="item-body">
-																		传播主体向相对集中的较大的公众群体进行传播?
-																	</div>
-																</div>
-																<div class="item">
-																	<div class="item-head">
-																		<div class="item-details">
-																			<img class="item-pic" src="../../../assets/admin/layout4/img/avatar7.jpg">
-																			<a href="" class="item-name primary-link">赵乐</a>
-																			<span class="item-label">2018-11-6</span>
-																		</div>
-																		<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
-																	</div>
-																	<div class="item-body">
-																		标志我国公共关系走向职业化和行业化的道路的事件是?
-																	</div>
-																</div>
-																<div class="item">
-																	<div class="item-head">
-																		<div class="item-details">
-																			<img class="item-pic" src="../../../assets/admin/layout4/img/avatar9.jpg">
-																			<a href="" class="item-name primary-link">刘琦</a>
-																			<span class="item-label">2018-11-5</span>
-																		</div>
-																		<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
-																	</div>
-																	<div class="item-body">
-																		双方互为传播的主、客体，随时调整传播的角色，是?
-																	</div>
-																</div>
-																<div class="item">
-																	<div class="item-head">
-																		<div class="item-details">
-																			<img class="item-pic" src="../../../assets/admin/layout4/img/avatar8.jpg">
-																			<a href="" class="item-name primary-link">钱三儿</a>
-																			<span class="item-label">2018-11-4</span>
-																		</div>
-																		<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
-																	</div>
-																	<div class="item-body">
-																		1923年，爱德华·伯纳斯出版的第一本公关专著是？
-																	</div>
-																</div>
+		<div class="col-md-6">
+			<!-- BEGIN PORTLET -->
+			<div class="portlet light">
+				<div class="portlet-title tabbable-line">
+					<div class="caption caption-md">
+						<i class="icon-globe theme-font hide"></i>
+						<span class="caption-subject font-blue-madison bold uppercase">心得笔记</span>
+									</div>
+									<ul class="nav nav-tabs">
+										<li class="active">
+											<a href="#tab_4_1" data-toggle="tab">
+												全部 </a>
+										</li>
+										<li>
+											<a href="#tab_4_2" data-toggle="tab">
+												我关注的 </a>
+										</li>
+									</ul>
+								</div>
+								<div class="portlet-body">
+									<!--BEGIN TABS-->
+									<div class="tab-content">
+										<div class="tab-pane active" id="tab_4_1">
+											<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<div class="general-item-list">
+													<div class="item">
+														<div class="item-head">
+															<div class="item-details">
+																<img class="item-pic" src="../../../assets/admin/layout4/img/avatar4.jpg">
+																<a href="" class="item-name primary-link">张帅</a>
+																<span class="item-label">2018-11-9</span>
 															</div>
+															<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
+														</div>
+														<div class="item-body">
+															传播主体向相对集中的较大的公众群体进行传播什么？
 														</div>
 													</div>
-													<div class="tab-pane" id="tab_4_2">
-														<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-															<div class="general-item-list">
-																<div class="item">
-																	<div class="item-head">
-																		<div class="item-details">
-																			<img class="item-pic" src="../../../assets/admin/layout4/img/avatar6.jpg">
-																			<a href="" class="item-name primary-link">王武</a>
-																			<span class="item-label">2018-11-7</span>
-																		</div>
-																		<span class="item-status">关注(13)评论(81) 浏览(109)</span>
-																	</div>
-																	<div class="item-body">
-																		传播主体向相对集中的较大的公众群体进行传播?
-																	</div>
-																</div>
-																<div class="item">
-																	<div class="item-head">
-																		<div class="item-details">
-																			<img class="item-pic" src="../../../assets/admin/layout4/img/avatar8.jpg">
-																			<a href="" class="item-name primary-link">钱三儿</a>
-																			<span class="item-label">2018-11-4</span>
-																		</div>
-																		<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
-																	</div>
-																	<div class="item-body">
-																		1923年，爱德华·伯纳斯出版的第一本公关专著是？
-																	</div>
-																</div>
+													<div class="item">
+														<div class="item-head">
+															<div class="item-details">
+																<img class="item-pic" src="../../../assets/admin/layout4/img/avatar3.jpg">
+																<a href="" class="item-name primary-link">李思</a>
+																<span class="item-label">2018-11-8</span>
 															</div>
+															<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
+														</div>
+														<div class="item-body">
+															公共关系状态指的是组织与公众之间的什么
+														</div>
+													</div>
+													<div class="item">
+														<div class="item-head">
+															<div class="item-details">
+																<img class="item-pic" src="../../../assets/admin/layout4/img/avatar6.jpg">
+																<a href="" class="item-name primary-link">王武</a>
+																<span class="item-label">2018-11-7</span>
+															</div>
+															<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
+														</div>
+														<div class="item-body">
+															传播主体向相对集中的较大的公众群体进行传播?
+														</div>
+													</div>
+													<div class="item">
+														<div class="item-head">
+															<div class="item-details">
+																<img class="item-pic" src="../../../assets/admin/layout4/img/avatar7.jpg">
+																<a href="" class="item-name primary-link">赵乐</a>
+																<span class="item-label">2018-11-6</span>
+															</div>
+															<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
+														</div>
+														<div class="item-body">
+															标志我国公共关系走向职业化和行业化的道路的事件是?
+														</div>
+													</div>
+													<div class="item">
+														<div class="item-head">
+															<div class="item-details">
+																<img class="item-pic" src="../../../assets/admin/layout4/img/avatar9.jpg">
+																<a href="" class="item-name primary-link">刘琦</a>
+																<span class="item-label">2018-11-5</span>
+															</div>
+															<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
+														</div>
+														<div class="item-body">
+															双方互为传播的主、客体，随时调整传播的角色，是?
+														</div>
+													</div>
+													<div class="item">
+														<div class="item-head">
+															<div class="item-details">
+																<img class="item-pic" src="../../../assets/admin/layout4/img/avatar8.jpg">
+																<a href="" class="item-name primary-link">钱三儿</a>
+																<span class="item-label">2018-11-4</span>
+															</div>
+															<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
+														</div>
+														<div class="item-body">
+															1923年，爱德华·伯纳斯出版的第一本公关专著是？
 														</div>
 													</div>
 												</div>
-												<!--END TABS-->
 											</div>
 										</div>
-										<!-- END PORTLET -->
+										<div class="tab-pane" id="tab_4_2">
+											<div class="scroller" style="height: 305px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+												<div class="general-item-list">
+													<div class="item">
+														<div class="item-head">
+															<div class="item-details">
+																<img class="item-pic" src="../../../assets/admin/layout4/img/avatar6.jpg">
+																<a href="" class="item-name primary-link">王武</a>
+																<span class="item-label">2018-11-7</span>
+															</div>
+															<span class="item-status">关注(13)评论(81) 浏览(109)</span>
+														</div>
+														<div class="item-body">
+															传播主体向相对集中的较大的公众群体进行传播?
+														</div>
+													</div>
+													<div class="item">
+														<div class="item-head">
+															<div class="item-details">
+																<img class="item-pic" src="../../../assets/admin/layout4/img/avatar8.jpg">
+																<a href="" class="item-name primary-link">钱三儿</a>
+																<span class="item-label">2018-11-4</span>
+															</div>
+															<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
+														</div>
+														<div class="item-body">
+															1923年，爱德华·伯纳斯出版的第一本公关专著是？
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
-					</div>
-				</div>
-				<!-- END PROFILE CONTENT -->
+									<!--END TABS-->
+								</div>
+							</div>
+							<!-- END PORTLET -->
+						</div>
+		</div>
+	</div>
+	<!-- END PROFILE CONTENT -->
+		
+<script>
+	function homeController($scope) {
+		$scope.goUrl = function(url) {
+			$scope.$emit('to-parent', url);
+		}
+	}
+</script>
+	
