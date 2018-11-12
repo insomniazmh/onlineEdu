@@ -1,9 +1,10 @@
 <style>
 	.title {
 		font-size: 14px;
+		color: #858585;
 	}
 </style>
-<div class="profile-content">
+<div class="profile-content" ng-controller="courseController">
 	<div class="portlet light">
 		<div class="portlet-title tabbable-line">
 			<div class="caption caption-md">
@@ -44,9 +45,9 @@
 							<div class="col-md-10 title">
 								<p>听完全部的讲座内容即获得在线学习满分。共30分</p>
 							</div>
-							<div class="col-md-2 title">单元测试分</div>
+							<div class="col-md-2 title">课堂练习分</div>
 							<div class="col-md-10 title">
-								<p>根据讲座内容，在线完成全部单元测试。获得的分数以实际测试分数之和（未做单元以零分记）除以必修单元数再乘以30%得出。共30分</p>
+								<p>根据讲座内容，在线完成全部课堂练习。获得的分数以实际测试分数之和（未做单元以零分记）除以必修单元数再乘以30%得出。共30分</p>
 							</div>
 							<div class="col-md-2 title">期末考试分</div>
 							<div class="col-md-10 title">
@@ -91,14 +92,14 @@
 										<div class="item-head">
 											<div class="item-details">
 												<img class="item-pic" src="../../../assets/admin/layout4/img/avatar4.jpg">
-												<a href="" class="item-name primary-link">张帅</a>
+												<span class="item-name">张帅</span>
 												<span class="item-label">2018-11-9</span>
 											</div>
 											<span class="item-status">关注(13)  评论(81) 浏览(109)</span>
 										</div>
-										<div class="item-body">
+										<a class="item-name primary-link" ng-click="goUrl('postDetail')">
 											传播主体向相对集中的较大的公众群体进行传播什么？
-										</div>
+										</a>
 									</div>
 									<div class="item">
 										<div class="item-head">
@@ -226,3 +227,11 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function courseController($scope) {
+		$scope.goUrl = function(url) {
+			window.location.href = '#/post.html';
+		}
+	}
+</script>

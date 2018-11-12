@@ -65,11 +65,17 @@
 			</div>
 			<!-- END BEGIN PROFILE SIDEBAR -->
 			
-			<div data-ng-include="'views/template/home.html'" class="page-tab" id="home"></div>
+			<!-- 首页 -->
+			<div data-ng-include="'views/template/home.html'" class="page-tab" id="home" style="display: none;"></div>
 			
+			<!-- 课程详情 -->
 			<div data-ng-include="'views/template/course.html'" class="page-tab" id="course" style="display: none;"></div>
 			
+			<!-- 课程列表 -->
 			<div data-ng-include="'views/template/courseList.html'" class="page-tab" id="courseList" style="display: none;"></div>
+			
+			<!-- 帖子 -->
+			<div data-ng-include="'views/template/postDetail.html'" class="page-tab" id="postDetail" style="display: block;"></div>
 			
 		</div>
 	</div>

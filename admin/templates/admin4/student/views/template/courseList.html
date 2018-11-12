@@ -1,5 +1,22 @@
 <link href="../../../assets/admin/pages/css/blog.css" rel="stylesheet" type="text/css"/>
 <link href="../../../assets/admin/pages/css/news.css" rel="stylesheet" type="text/css"/>
+<style>
+	.img-responsive {
+		max-height: 200px;
+		width: auto;
+		margin: 0 auto;
+	}
+	p {
+		font-size: 14px;
+		color: #858585;
+		display: inline-block;
+		margin-right: 40px;
+	}
+	p span {
+		color: #4CC443;
+		font-size: 16px;
+	}
+</style>
 <div class="profile-content" ng-controller="courseListController">
 	<div class="portlet light">
 		<div class="portlet-title tabbable-line">
@@ -15,15 +32,36 @@
 				</div>
 				<div class="col-md-9 blog-article">
 					<h3><a ng-click="goUrl('course')">电子商务基础</a></h3>
-					<p>
-						At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero consectetur adipiscing elit magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat. Pellentesque viverra vehicula sem ut volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat.
-					</p>
-					<a class="btn blue" href="page_blog_item.html">
+					<div>
+						<p>学习进度： <span> 100%</span></p>
+						<p>当前平时总成绩： <span> 98分</span></p>
+					</div>
+					<div>
+						<p>考勤分： 5分</p><p>互动交流分： 5分</p><p>在线学习分： 30分</p><p>课堂练习分： 29分</p><p>期末考试分： 29分</p>
+					</div>
+					<a class="btn blue" ng-click="goUrl('course')">
 						继续学习 <i class="m-icon-swapright m-icon-white"></i>
 					</a>
 				</div>
 			</div>
-
+			<div class="row">
+				<div class="col-md-3 blog-img blog-tag-data">
+					<img src="images/4.jpg" alt="" class="img-responsive">
+				</div>
+				<div class="col-md-9 blog-article">
+					<h3><a ng-click="goUrl('course')">商务英语基础</a></h3>
+					<div>
+						<p>学习进度： <span> 100%</span></p>
+						<p>当前平时总成绩： <span> 98分</span></p>
+					</div>
+					<div>
+						<p>考勤分： 5分</p><p>互动交流分： 5分</p><p>在线学习分： 30分</p><p>课堂练习分： 29分</p><p>期末考试分： 29分</p>
+					</div>
+					<a class="btn blue" ng-click="goUrl('course')">
+						继续学习 <i class="m-icon-swapright m-icon-white"></i>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -31,7 +69,7 @@
 <script>
 	function courseListController($scope) {
 		$scope.goUrl = function(url) {
-			$scope.$emit('to-parent', url);
+			window.location.href = '#/course.html';
 		}
 	}
 </script>

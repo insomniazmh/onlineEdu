@@ -1,0 +1,118 @@
+<link href="../../../assets/admin/pages/css/blog.css" rel="stylesheet" type="text/css"/>
+<div class="profile-content" ng-controller="postController">
+	<!-- BEGIN PAGE CONTENT-->
+	<div class="portlet light">
+		<div class="portlet-body">
+			<div class="row">
+				<div class="col-md-12 blog-page">
+					<div class="row">
+						<div class="col-md-9 article-block">
+							<h3 style="margin-top:0;">传播主体向相对集中的较大的公众群体进行传播什么？</h3>
+							<div class="blog-tag-data">
+								<div class="row">
+									<div class="col-md-6"></div>
+									<div class="col-md-6 blog-tag-data-inner">
+										<ul class="list-inline">
+											<li>
+												<span>作者：张帅 </span>
+											</li>
+											<li>
+												<i class="fa fa-calendar"></i>
+												<span>2018-11-12 </span>
+											</li>
+											<li>
+												<i class="fa fa-comments"></i>
+												<span>38 回复 </span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+							<div class="media">
+								<h3>回复</h3>
+								<a href="javascript:;" class="pull-left">
+								<img alt="" src="../../../assets/admin/pages/media/blog/9.jpg" class="media-object">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading">张三<span>
+									5小时前 / <a href="javascript:;">
+									回复 </a>
+									</span>
+									</h4>
+									<p>在家啊安定搜地方</p>
+									<hr>
+									<!-- Nested media object -->
+									<div class="media">
+										<a href="javascript:;" class="pull-left">
+										<img alt="" src="../../../assets/admin/pages/media/blog/5.jpg" class="media-object">
+										</a>
+										<div class="media-body">
+											<h4 class="media-heading">李思 <span>
+											17小时前 / <a href="javascript:;">
+											回复 </a>
+											</span>
+											</h4>
+											<p>阿是发的规范发放表</p>
+										</div>
+									</div>
+									<!--end media-->
+									<hr>
+									<div class="media">
+										<a href="javascript:;" class="pull-left">
+										<img alt="" src="../../../assets/admin/pages/media/blog/7.jpg" class="media-object">
+										</a>
+										<div class="media-body">
+											<h4 class="media-heading">王吴 <span>
+											2天前 / <a href="javascript:;">
+											回复 </a>
+											</span>
+											</h4>
+											<p>个方便你后面你家后面跨境</p>
+										</div>
+									</div>
+									<!--end media-->
+								</div>
+							</div>
+							<!--end media-->
+							<div class="media">
+								<a href="javascript:;" class="pull-left">
+								<img alt="" src="../../../assets/admin/pages/media/blog/6.jpg" class="media-object">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading">赵乐 <span>
+									2018-11-3 / <a href="javascript:;">
+									回复 </a>
+									</span>
+									</h4>
+									<p>把你和你交换机</p>
+								</div>
+							</div>
+							<!--end media-->
+							<hr>
+							<div class="post-comment">
+								<h3>请留言</h3>
+								<form role="form" action="#">
+									<div class="form-group">
+										<textarea class="col-md-10 form-control" rows="8"></textarea>
+									</div>
+									<button class="margin-top-20 btn blue" type="submit">提交留言</button>
+								</form>
+							</div>
+						</div>
+						<!--end col-md-9-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END PAGE CONTENT-->
+</div>
+
+<script>
+	function postController($scope) {
+		$scope.goUrl = function(url) {
+			$scope.$emit('to-parent', url);
+		}
+	}
+</script>
