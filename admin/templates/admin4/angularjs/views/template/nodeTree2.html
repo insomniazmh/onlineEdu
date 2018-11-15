@@ -93,68 +93,16 @@
 							'icon': 'fa fa-briefcase icon-state-success'
 						}]
 					}]
-				},
-				"plugins": ['contextmenu'],
-				"contextmenu": {
-					"items": {
-						"create": null,
-						"rename": null,
-						"remove": null,
-						"ccp": null,
-						"新建菜单": {
-							"label": "新建菜单",
-							"action": function(data) {
-								$scope.flag = "create";
-								$scope.nodeName = "";
-								$("#createNodeModal2").modal("show");
-							}
-						},
-						"编辑菜单": {
-							"label": "编辑菜单",
-							"action": function(data) {
-								$scope.flag = "rename";
-								$scope.nodeName = "";
-								$("#createNodeModal2").modal("show");
-							}
-						},
-						"删除菜单": {
-							"label": "删除菜单",
-							"action": function(data) {
-								var r = confirm("确定要删除该节点吗");
-								if(r) {
-									var ref = $('#tree2').jstree(true),
-										sel = ref.get_selected();
-									if(!sel.length) {
-										return false;
-									}
-									ref.delete_node(sel);
-								}
-							}
-						}
-					}
 				}
 			});
 		}
 		$scope.initTree();
 
-		$scope.createNode = function() {
-			var ref = $('#tree2').jstree(true),
-				sel = ref.get_selected();
-			if(!sel.length) {
-				return false;
-			}
-			sel = sel[0];
-			$("#createNodeModal2").modal("hide");
-			if($scope.flag == "create") {
-				sel = ref.create_node(sel, {
-					text: $scope.nodeName,
-					'state': {
-						'opened': true
-					},
-				});
-			} else if($scope.flag == "rename") {
-				ref.rename_node(sel, $scope.nodeName);
-			}
-		};
+		$('#tree2').bind("activate_node.jstree", function(obj, e) {
+			// 处理代码
+			// 获取当前节点
+			var currentNode = e.node;
+			console.log(currentNode);
+		});
 	}
 </script>

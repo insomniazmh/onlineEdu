@@ -1,0 +1,263 @@
+<div class="row" ng-controller="prepareLessonsCtrl">
+	<div class="col-md-4" style="height: 400px;">
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'views/template/nodeTree2.html'"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<div class="portlet light">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">教案和课件{{currKP}}</span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<ul class="feeds" style="display: inline-block;width: 48%;">
+						<li>
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col2">
+										<div class="desc">
+											第一节教案.ppt
+											<span class="label label-danger label-sm">上传教案</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="feeds" style="display: inline-block;width: 48%;">
+						<li>
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col2">
+										<div class="desc">
+											<a>第一节课件.doc</a>
+											<span class="label label-danger label-sm">上传课件</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">教案{{currKP}}</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#dataModal">
+						<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_2_1" data-toggle="tab">
+							资料 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_2" data-toggle="tab">
+							提问 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_3" data-toggle="tab">
+							讨论 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_4" data-toggle="tab">
+							练习 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_5" data-toggle="tab">
+							头脑风暴 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_5" data-toggle="tab">
+							作业 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_5" data-toggle="tab">
+							任务 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_5" data-toggle="tab">
+							调查活动 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_2_1">
+						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-danger">
+													<i class="fa fa-bolt"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础教案.doc
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础课件.ppt
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_2_2">
+						<ul class="feeds">
+							<li>
+								<div class="col1" data-toggle="modal" href="#questionModal" style="cursor: pointer;">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-info">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												1.商家要开展电子商务活动 , 应该用（ ）作为其主要的生意平台。
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												2.Intranet和Internet的区别是 ( )
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="col1" data-toggle="modal" href="#questionModal" style="cursor: pointer;">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-info">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												3.电子数据交换的简称是 ( )
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="tab-pane" id="tab_2_3">
+
+					</div>
+					<div class="tab-pane" id="tab_2_4"></div>
+					<div class="tab-pane" id="tab_2_5">
+						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-info">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础同步导读.doc
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													电子商务基础课件.ppt
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div data-ng-include="'views/template/lessonPlan.html'"></div>
+</div>
+<script>
+	function prepareLessonsCtrl($scope) {}
+</script>

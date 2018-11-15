@@ -1,5 +1,10 @@
 <link href="../../../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
 <link href="../../../assets/frontend/pages/css/style-shop.css" rel="stylesheet" type="text/css">
+<style>
+	.pi-price {
+		color: #2386ca;
+	}
+</style>
 	
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb hide">
@@ -12,7 +17,7 @@
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="cl1Ctrl" class="margin-top-10">
+<div ng-controller="prepareLessonsListCtrl" class="margin-top-10">
 	<div class="portlet light">
 		<div class="portlet-body">
 			<div class="row">
@@ -20,23 +25,26 @@
 					<div class="owl-carousel owl-carousel5 owl-theme" style="opacity: 1; display: block;">
 						<div class="owl-wrapper-outer">
 							<div class="owl-wrapper" style="width: 3192px; left: 0px; display: block;">
-								<div class="owl-item active" style="width: 228px;" ng-repeat="row in courses">
+								<div class="owl-item active" style="width: 228px;">
 									<div>
 										<div class="product-item">
 											<div class="pi-img-wrapper">
-												<img src="{{row.image}}" class="img-responsive" alt="Berry Lace Dress">
+												<img src="images/1.jpg" class="img-responsive" alt="Berry Lace Dress">
 											</div>
-											<h3><a href="#/prepareLessonsList.html">{{row.text}}</a></h3>
-											<div class="pi-price">课程编号：{{row.num}}</div>
-											<a href="#/courseAdd.html" class="btn btn-default add2cart">编辑</a>
+											<h3><a href="#/prepareLessons.html">电子商务基础(讲师：<span style="color: red;">张帅</span>)</a></h3>
+											<div class="pi-price">课程编号：001</div>
 										</div>
 									</div>
 								</div>
+								
+								
+								
 							
 							</div>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -45,20 +53,6 @@
 <!-- END MAIN CONTENT -->
 
 <script>
-	function cl1Ctrl($scope) {
-		$scope.courses = [{
-			image: 'images/1.jpg',
-			text: "电子商务基础",
-			num: "001"
-		}, {
-			image: 'images/4.jpg',
-			text: "商务英语基础",
-			num: "002"
-		}, {
-			image: 'images/7.jpg',
-			text: "计算机基础",
-			num: "003"
-		}];
-		
+	function prepareLessonsListCtrl($scope) {
 	}
 </script>

@@ -157,12 +157,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
     $stateProvider
     
-    	// 课程列表
+				// 课程列表
         .state('coursesList', {
             url: "/coursesList.html",
             templateUrl: "views/course/coursesList.html",            
             data: {pageTitle: '课程管理', pageSubTitle: '课程列表'},
-//          controller: "CoursesListController",
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
@@ -177,6 +176,54 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                 }]
             }
         })
+				
+				// 备课列表
+				.state('prepareLessonsList', {
+						url: "/prepareLessonsList.html",
+						templateUrl: "views/course/prepareLessonsList.html",            
+						data: {pageTitle: '课程管理', pageSubTitle: '备课列表'},
+						resolve: {
+								deps: ['$ocLazyLoad', function($ocLazyLoad) {
+										return $ocLazyLoad.load({
+												name: 'MetronicApp',
+												insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+												files: [] 
+										});
+								}]
+						}
+				})
+				
+				// 我的课程
+				.state('myCourses', {
+						url: "/myCourses.html",
+						templateUrl: "views/course/myCourses.html",            
+						data: {pageTitle: '课程管理', pageSubTitle: '我的课程'},
+						resolve: {
+								deps: ['$ocLazyLoad', function($ocLazyLoad) {
+										return $ocLazyLoad.load({
+												name: 'MetronicApp',
+												insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+												files: [] 
+										});
+								}]
+						}
+				})
+				
+				// 备课详情
+				.state('prepareLessons', {
+						url: "/prepareLessons.html",
+						templateUrl: "views/course/prepareLessons.html",            
+						data: {pageTitle: '课程管理', pageSubTitle: '备课详情'},
+						resolve: {
+								deps: ['$ocLazyLoad', function($ocLazyLoad) {
+										return $ocLazyLoad.load({
+												name: 'MetronicApp',
+												insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+												files: [] 
+										});
+								}]
+						}
+				})
         
         // 课堂协助
         .state('helper', {

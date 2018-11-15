@@ -1,5 +1,10 @@
 <link href="../../../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
 <link href="../../../assets/frontend/pages/css/style-shop.css" rel="stylesheet" type="text/css">
+<style>
+	.pi-price {
+		color: #2386ca;
+	}
+</style>
 	
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb hide">
@@ -12,7 +17,7 @@
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="cl1Ctrl" class="margin-top-10">
+<div ng-controller="prepareLessonsListCtrl" class="margin-top-10">
 	<div class="portlet light">
 		<div class="portlet-body">
 			<div class="row">
@@ -20,23 +25,23 @@
 					<div class="owl-carousel owl-carousel5 owl-theme" style="opacity: 1; display: block;">
 						<div class="owl-wrapper-outer">
 							<div class="owl-wrapper" style="width: 3192px; left: 0px; display: block;">
-								<div class="owl-item active" style="width: 228px;" ng-repeat="row in courses">
+								<div class="owl-item active" style="width: 228px;" ng-repeat="row in coursePrepare">
 									<div>
 										<div class="product-item">
 											<div class="pi-img-wrapper">
 												<img src="{{row.image}}" class="img-responsive" alt="Berry Lace Dress">
 											</div>
-											<h3><a href="#/prepareLessonsList.html">{{row.text}}</a></h3>
-											<div class="pi-price">课程编号：{{row.num}}</div>
-											<a href="#/courseAdd.html" class="btn btn-default add2cart">编辑</a>
+											<h3><a href="#/prepareLessons.html">{{row.text}}(讲师：<span style="color: red;">{{row.teacher}}</span>)</a></h3>
+											<div class="pi-price"><span style="color: #3e4d5c;">班级：</span>{{row.num}}</div>
 										</div>
 									</div>
 								</div>
-							
+								
 							</div>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -45,20 +50,22 @@
 <!-- END MAIN CONTENT -->
 
 <script>
-	function cl1Ctrl($scope) {
-		$scope.courses = [{
+	function prepareLessonsListCtrl($scope) {
+		$scope.coursePrepare = [{
 			image: 'images/1.jpg',
 			text: "电子商务基础",
-			num: "001"
+			num: "18级1班",
+			teacher: "张帅"
 		}, {
-			image: 'images/4.jpg',
-			text: "商务英语基础",
-			num: "002"
+			image: 'images/1.jpg',
+			text: "电子商务基础",
+			num: "18级2班",
+			teacher: "李思"
 		}, {
-			image: 'images/7.jpg',
-			text: "计算机基础",
-			num: "003"
+			image: 'images/1.jpg',
+			text: "电子商务基础",
+			num: "18级3班",
+			teacher: "王武"
 		}];
-		
 	}
 </script>
