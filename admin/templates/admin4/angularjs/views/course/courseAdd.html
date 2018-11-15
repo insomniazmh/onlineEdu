@@ -44,7 +44,8 @@
 						</div>
 						<div class="tab-pane" id="tab_1_2">
 							<video controls="controls" style=" width: 100%;height: 100%;">
-								<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4"></source>
+								<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4">
+								</source>
 							</video>
 						</div>
 
@@ -53,7 +54,7 @@
 				</div>
 			</div>
 			<!-- END: ACCORDION DEMO -->
-			
+
 			<div class="portlet light">
 				<div class="portlet-title">
 					<div class="caption font-green-sharp">
@@ -66,7 +67,7 @@
 					<div data-ng-include="'views/template/nodeTree.html'"></div>
 				</div>
 			</div>
-	
+
 		</div>
 		<div class="col-md-8">
 			<!-- BEGIN: ACCORDION DEMO -->
@@ -125,20 +126,6 @@
 								</div>
 							</div>
 							<div class="row" style="margin-bottom: 40px;">
-								<div class="col-md-6">
-									<div class="form-group form-md-line-input has-success">
-										<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程学分">
-										<label for="form_control_1">学分</label>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group form-md-line-input has-warning">
-										<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程学时">
-										<label for="form_control_1">学时</label>
-									</div>
-								</div>
-							</div>
-							<div class="row" style="margin-bottom: 40px;">
 								<div class="col-md-12">
 									<div class="form-group form-md-checkboxes">
 										<label>授课类型</label>
@@ -146,26 +133,26 @@
 											<div class="md-checkbox">
 												<input type="checkbox" id="checkbox6" class="md-check">
 												<label for="checkbox6">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												录播课程 </label>
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													录播课程 </label>
 											</div>
 											<div class="md-checkbox">
 												<input type="checkbox" id="checkbox7" class="md-check" checked="">
 												<label for="checkbox7">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												直播课程 </label>
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													直播课程 </label>
 											</div>
 											<div class="md-checkbox">
 												<input type="checkbox" id="checkbox8" class="md-check">
 												<label for="checkbox8">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												线下课堂 </label>
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													线下课堂 </label>
 											</div>
 										</div>
 									</div>
@@ -206,7 +193,7 @@
 							</div>
 						</div>
 						<div class="form-actions noborder">
-							<button type="button" class="btn blue">保存</button>
+							<button type="button" class="btn blue" ng-click="sub()">保存</button>
 						</div>
 					</div>
 
@@ -234,6 +221,61 @@
 		</div>
 
 		<div class="col-md-8">
+			<div class="portlet light">
+				<div class="portlet-title tabbable-line">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">教案{{currKP}}</span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="tab-content">
+						<ul class="feeds" style="width: 48%; display: inline-block;">
+							<li>
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-danger">
+												<i class="fa fa-bolt"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<a href="file/1.docx" type="application/ms-word" target=_blank>第一节教案.doc</a>
+												<span class="label label-danger label-sm">
+													上传教案
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<ul class="feeds" style="width: 48%; display: inline-block;">
+							<li>
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-info">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												第一节课件.doc
+												<span class="label label-danger label-sm">
+													上传课件
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
 			<div class="portlet light" style="min-height: 400px;">
 				<div class="portlet-title tabbable-line">
 					<div class="caption font-green-sharp">
@@ -433,6 +475,7 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<div data-ng-include="'views/template/lessonPlan.html'"></div>
@@ -446,9 +489,9 @@
 	function createCourseCtrl($scope) {
 		$scope.knowledgePoints = [];
 
-		//		$(".btn-taps button").click(function() {
-		//			
-		//		});
+		$scope.sub = function() {
+			common.toast({title: "添加成功"});
+		}
 
 		$(".page-title").on("click", "button", function() {
 			$(".btn-taps button").removeClass("red");
