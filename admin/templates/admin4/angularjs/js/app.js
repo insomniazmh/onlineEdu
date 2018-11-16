@@ -356,11 +356,46 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
         
+        // 课程列表5
+        .state('cl5', {
+            url: "/cl5.html",
+            templateUrl: "views/database/cl5.html",            
+            data: {pageTitle: '习题册', pageSubTitle: '课程列表'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        ] 
+                    });
+                }]
+            }
+        })
+        
         //教辅资料库
         .state('assistant', {
             url: "/assistant.html",
             templateUrl: "views/database/assistant.html",            
             data: {pageTitle: '资料库', pageSubTitle: '教辅资料库'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        	'js/webuploader-0.1.5/webuploader.css'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        //习题册
+        .state('xitice', {
+            url: "/xitice.html",
+            templateUrl: "views/database/xitice.html",            
+            data: {pageTitle: '资料库', pageSubTitle: '习题册'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({

@@ -4,6 +4,20 @@
 		padding-top: 58px;
 		background: none;
 	}
+	
+	.webuploader-pick {
+		padding: 0 4px 1px 4px;
+	}
+	
+	#filePicker3 div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
+	#filePicker4 div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
 </style>
 
 <div class="row" ng-controller="createCourseCtrl">
@@ -35,7 +49,6 @@
 									<slide ng-repeat="slide in slides" active="slide.active">
 										<img ng-src="{{slide.image}}" style="margin:auto;height: 180px;">
 										<div class="carousel-caption">
-											<!--<h4>Slide {{$index}}</h4>-->
 											<p>{{slide.text}}</p>
 										</div>
 									</slide>
@@ -185,7 +198,7 @@
 											<div class="info"></div>
 											<div class="btns">
 												<div id="filePicker2"></div>
-												<!--<div class="uploadBtn">开始上传</div>-->
+												<div class="uploadBtn">开始上传</div>
 											</div>
 										</div>
 									</div>
@@ -225,7 +238,7 @@
 				<div class="portlet-title tabbable-line">
 					<div class="caption font-green-sharp">
 						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">教案{{currKP}}</span>
+						<span class="caption-subject bold uppercase">教案和课件{{currKP}}</span>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -241,8 +254,8 @@
 										</div>
 										<div class="cont-col2">
 											<div class="desc">
-												<a href="file/1.docx" type="application/ms-word" target=_blank>第一节教案.doc</a>
-												<span class="label label-danger label-sm">
+												<a href="{{jiaoanUrl}}">{{jiaoan}}</a>
+												<span id="filePicker3">
 													上传教案
 												</span>
 											</div>
@@ -262,8 +275,8 @@
 										</div>
 										<div class="cont-col2">
 											<div class="desc">
-												第一节课件.doc
-												<span class="label label-danger label-sm">
+												<a href="{{kejianUrl}}" target="_blank">{{kejian}}</a>
+												<span id="filePicker4">
 													上传课件
 												</span>
 											</div>
@@ -280,7 +293,7 @@
 				<div class="portlet-title tabbable-line">
 					<div class="caption font-green-sharp">
 						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">教案{{currKP}}</span>
+						<span class="caption-subject bold uppercase">课堂互动{{currKP}}</span>
 					</div>
 					<div class="actions">
 						<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#dataModal">
@@ -337,7 +350,7 @@
 												<div class="cont-col2">
 													<div class="desc">
 														<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
-
+														<span class="label label-default label-sm clipboard" data-clipboard-text="111">复制链接到剪切板</span>
 													</div>
 												</div>
 											</div>
@@ -484,13 +497,17 @@
 
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script src="js/webuploader-0.1.5/demo.js"></script>
+<script src="js/clipboard.js-master/dist/clipboard.min.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
 	function createCourseCtrl($scope) {
 		$scope.knowledgePoints = [];
+		$scope.jiaoan = "";
 
 		$scope.sub = function() {
-			common.toast({title: "添加成功"});
+			common.toast({
+				title: "添加成功"
+			});
 		}
 
 		$(".page-title").on("click", "button", function() {
@@ -504,8 +521,6 @@
 		$("#kpContent").on("click", "a[name='kp']", function() {
 			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
 			$(this).removeClass("btn-info").addClass("btn-danger");
-
-			//alert("选中知识点"+$(this).data("value"));
 		});
 
 		$("#kpContent").on("click", "i[name='remove']", function() {
@@ -531,6 +546,28 @@
 				text: '电子商务基础'
 			});
 		};
+
+		common.fileUpload({
+			id: 'filePicker3',
+			success: function(file, response) {
+				$scope.$apply(function() {　　
+					$scope.jiaoan = response.fileName;
+					$scope.jiaoanUrl = response.filePath;
+				});
+			}
+		});
+		
+		common.fileUpload({
+			id: 'filePicker4',
+			success: function(file, response, uploader) {
+				$scope.$apply(function() {　　
+					console.log(uploader.getFiles().length);
+					$scope.kejian = response.fileName;
+					$scope.kejianUrl = response.filePath;
+				});
+			}
+		});
+		
 	}
 </script>
 <!-- BEGIN MAIN JS -->
