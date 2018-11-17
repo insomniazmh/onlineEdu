@@ -491,6 +491,21 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                 }]
             }
         })
+        
+        //单个问题详情
+        .state('singleQuestion', {
+            url: "/singleQuestion.html",
+            templateUrl: "views/single/singleQuestion.html",            
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [] 
+                    });
+                }]
+            }
+        })
 
         // Dashboard
         .state('dashboard', {

@@ -1,0 +1,123 @@
+<style>
+	#filePicker4 .webuploader-pick {
+		padding: 10px 15px;
+	}
+</style>
+
+<!--上传课件-->
+<div class="modal fade" id="uploadKejianModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="uploadKejianCtrl">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">上传课件</h4>
+			</div>
+			<div class="modal-body">
+				<div class="portlet">
+					<div class="portlet-body">
+						<div role="form">
+							<div class="form-body">
+								<div class="row" style="margin-bottom: 40px;">
+									<div class="col-md-12">
+										<div class="form-group form-md-radios">
+											<label>课件类型</label>
+											<div class="md-radio-inline">
+												<div class="md-radio">
+													<input type="radio" id="radio6" name="kejianType" class="md-radiobtn" value="1" checked="">
+													<label for="radio6">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													PPT </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="2">
+													<label for="radio7">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													视频 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="3">
+													<label for="radio8">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													图集 </label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row" style="margin-bottom: 40px;">
+									<div id="fileTab">
+										<div id="filePicker4" style="text-align: center;">选择文件</div>
+									</div>
+									<div id="picsTab">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group form-md-line-input">
+													<!--<div id="uploader" class="wu-example">
+														<div class="queueList">
+															<div id="dndArea" class="placeholder">
+																<div id="filePicker"></div>
+															</div>
+														</div>
+														<div class="statusBar" style="display:none;">
+															<div class="progress">
+																<span class="text">0%</span>
+																<span class="percentage"></span>
+															</div>
+															<div class="info"></div>
+															<div class="btns">
+																<div id="filePicker"></div>
+																<div class="uploadBtn">开始上传</div>
+															</div>
+														</div>
+													</div>-->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<script>
+	function uploadKejianCtrl($scope) {
+		$scope.sub = function() {
+			$scope.$emit('to-parent', 'uploadKejian');
+		}
+
+		$('input:radio[name="kejianType"]').change(function() {
+			console.log($(this).val());
+			if($(this).val() == 3) {
+				$("#fileTab").hide();
+				$("#picsTab").show();
+			}else {
+				$("#fileTab").show();
+				$("#picsTab").hide();
+			}
+		});
+
+		common.fileUpload({
+			id: 'filePicker4',
+			success: function(file, response, uploader) {
+				$scope.$apply(function() {　　
+					console.log(uploader.getFiles().length);
+					$scope.kejian = response.fileName;
+					$scope.kejianUrl = response.filePath;
+				});
+			}
+		});
+	}
+</script>
