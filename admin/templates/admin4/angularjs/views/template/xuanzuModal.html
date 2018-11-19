@@ -1,0 +1,164 @@
+<style>
+	.uppercase {
+		cursor: pointer;
+	}
+	
+	.uppercase.active img {
+		border: 2px solid red;
+	}
+	
+	.group-students .profile-userpic img {
+		width: 50%;
+	}
+	
+	.col-md-12.active {
+		border: 2px solid red;
+	}
+</style>
+
+<div class="modal fade" id="groups" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="xuanzuModalCtrl">
+	<div class="modal-dialog modal-full">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">请选择分组</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row group-students">
+					<div class="col-md-12 {{x.active ? 'active':''}}" ng-repeat="x in groups" ng-click="clickGroup($index)" style="margin-bottom: 10px;">
+						<div class="col-md-1" style="padding-top: 30px;">
+							{{x.groupName}}
+						</div>
+						<div class="col-md-1" ng-repeat="row in x.students">
+							<div class="uppercase profile-userpic {{row.active ? 'active':''}}">
+								<img src="{{row.image}}" class="img-responsive" alt="">
+							</div>
+							<div class="uppercase profile-stat-text">
+								{{row.name}}
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group form-md-radios">
+							<label>类型</label>
+							<div class="md-radio-inline">
+								<div class="md-radio">
+									<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+									<label for="radio6">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											抢答 </label>
+								</div>
+								<div class="md-radio">
+									<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked="">
+									<label for="radio7">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											举手 </label>
+								</div>
+								<div class="md-radio">
+									<input type="radio" id="radio8" name="radio2" class="md-radiobtn">
+									<label for="radio8">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											选人 </label>
+								</div>
+								<div class="md-radio">
+									<input type="radio" id="radio9" name="radio2" class="md-radiobtn">
+									<label for="radio9">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											投票 </label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn blue" ng-click="sub()">确定</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<script>
+	function xuanzuModalCtrl($scope, $rootScope) {
+		$scope.groups = [{
+			groupName: "第一组",
+			students: [{
+					name: "张三",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				},
+				{
+					name: "李四",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				},
+				{
+					name: "王五",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				}
+			]
+		}, {
+			groupName: "第二组",
+			students: [{
+					name: "马六",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				},
+				{
+					name: "赵琦",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				},
+				{
+					name: "韩八",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				}
+			]
+		}, {
+			groupName: "第三组",
+			students: [{
+					name: "钱九",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				},
+				{
+					name: "李同学",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				},
+				{
+					name: "李同学",
+					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+				}
+			]
+		}];
+
+		$scope.clickGroup = function(index) {
+			var obj = $scope.groups[index];
+			if(obj.active) {
+				obj.active = false;
+			} else {
+				obj.active = true;
+			}
+		};
+
+		$scope.sub = function() {
+			var studentsArr = [];
+			$($scope.students).each(function() {
+				if(this.active) {
+					studentsArr.push(this);
+				}
+			});
+			common.toast({
+				title: "选择成功"
+			});
+			$("#students").modal("hide");
+			$scope.$emit('students', studentsArr);
+		}
+	}
+</script>

@@ -63,6 +63,8 @@
 	</div>
 	
 	<div data-ng-include="'views/template/xuanrenModal.html'"></div>
+	
+	<div data-ng-include="'views/template/xuanzuModal.html'"></div>
 </div>
 <script>
 	function singleQuestionCtrl($scope, $rootScope) {
@@ -94,7 +96,7 @@
 		};
 		
 		$scope.xuanzu = function() {
-			
+			$("#groups").modal("show");
 		};
 	}
 </script>
