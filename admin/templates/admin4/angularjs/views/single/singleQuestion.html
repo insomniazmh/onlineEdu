@@ -1,99 +1,100 @@
 <link href="../../../assets/admin/pages/css/profile.css" rel="stylesheet">
 <style>
-.profile-userpic img {
-	width: 80%;
-}
-
-.uppercase {
-	font-size: 16px;
-	margin-top: 10px;
-}
+	.profile-userpic img {
+		width: 80%;
+	}
+	
+	.uppercase {
+		font-size: 14px;
+		margin-top: 10px;
+	}
 </style>
 <div class="row" style="background-color: white;" ng-controller="singleQuestionCtrl">
-	<div class="col-md-12">
+	<div class="col-md-6">
 		<div class="note" style="border-left: 0;border-bottom: 1px solid #eee;">
-			<h4 class="block">1. 商家要开展电子商务活动 , 应该用（ C ）作为其主要的生意平台。</h4>
+			<h4 class="block">
+				商家要开展电子商务活动 , 应该用（ C ）作为其主要的生意平台。
+			</h4>
 			<p>A． BBS</p>
 			<p>B．电子邮件</p>
 			<p>C．在线商店</p>
 			<p>D．电话定购</p>
 		</div>
-		<div class="col-md-1" data-toggle="modal" href="#person">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text">
-				张三&nbsp;&nbsp;&nbsp;C
-			</div>
-		</div>
-		<div class="col-md-1" data-toggle="modal" href="#person">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text">
-				李四&nbsp;&nbsp;&nbsp;C
-			</div>
-		</div>
-		<div class="col-md-1">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text" style="color: red;">
-				王五&nbsp;&nbsp;&nbsp;B
-			</div>
-		</div>
-		<div class="col-md-1">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text">
-				马六&nbsp;&nbsp;&nbsp;C
-			</div>
-		</div>
-		<div class="col-md-1">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text">
-				李同学&nbsp;&nbsp;&nbsp;D
-			</div>
-		</div>
-		<div class="col-md-1">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text">
-				李同学&nbsp;&nbsp;&nbsp;E
-			</div>
-		</div>
-		<div class="col-md-1">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text">
-				李同学&nbsp;&nbsp;&nbsp;C
-			</div>
-		</div>
-		<div class="col-md-1">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text" style="color: red;">
-				李同学&nbsp;&nbsp;&nbsp;A
-			</div>
-		</div>
-		<div class="col-md-1" style="padding-bottom: 40px;">
-			<div class="uppercase profile-userpic">
-				<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-			</div>
-			<div class="uppercase profile-stat-text">
-				李同学&nbsp;&nbsp;&nbsp;F
-			</div>
-		</div>
 	</div>
+	<div class="col-md-6">
+		<div style="text-align: right;margin-top: 15px;">
+			<div class="btn-group">
+				<button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+				开始 <i class="fa fa-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+						<a href="javascript:;" ng-click="qiangda()">抢答 </a>
+					</li>
+					<li>
+						<a href="javascript:;" ng-click="jushou()">举手 </a>
+					</li>
+					<!--<li>
+						<a href="javascript:;">打分</a>
+					</li>-->
+					<li>
+						<a href="javascript:;" ng-click="xuanren()">选人</a>
+					</li>
+					<li>
+						<a href="javascript:;"  ng-click="xuanzu()">选组</a>
+					</li>
+				</ul>
+			</div>
+			<button class="btn btn-success" ng-click="showAnswer()">显示回答</button>
+		</div>
+		<div id="answersContent">
+			<div class="col-md-2" ng-repeat="row in students">
+				<div class="uppercase profile-userpic">
+					<img src="{{row.image}}" class="img-responsive" alt="">
+				</div>
+				<div class="uppercase profile-stat-text">
+					{{row.name}}&nbsp;&nbsp;&nbsp;
+					<span ng-if="$index%2==0">已回答</span>
+					<span ng-if="$index%2==1" style="color: red;">未回答</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+	<div data-ng-include="'views/template/xuanrenModal.html'"></div>
 </div>
 <script>
 	function singleQuestionCtrl($scope, $rootScope) {
 		$rootScope.settings.layout.pageSidebarClosed = true;
+		
+		$scope.$on('students', function(event, data) {
+			console.log(data);
+			$scope.students = data;
+		});
+		
+		$scope.showAnswer = function() {
+			$("#answersContent").show();
+		}
+		
+		$scope.qiangda = function() {
+			common.toast({
+				title: "开始抢答"
+			})
+		};
+		
+		$scope.jushou = function() {
+			$scope.$broadcast('type', 'jushou');  
+			$("#students").modal("show");
+		};
+		
+		$scope.xuanren = function() {
+			$scope.$broadcast('type', 'xuanren');  
+			$("#students").modal("show");
+		};
+		
+		$scope.xuanzu = function() {
+			
+		};
 	}
 </script>

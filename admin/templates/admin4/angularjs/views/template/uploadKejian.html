@@ -28,15 +28,7 @@
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
-													PPT </label>
-												</div>
-												<div class="md-radio">
-													<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="2">
-													<label for="radio7">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													视频 </label>
+													PPT或视频 </label>
 												</div>
 												<div class="md-radio">
 													<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="3">
@@ -52,6 +44,11 @@
 								</div>
 								<div class="row" style="margin-bottom: 40px;">
 									<div id="fileTab">
+										<div class="row">
+											<div class="col-md-12" id="kejianContent4" style="text-align: center;margin-bottom: 20px;">
+												
+											</div>
+										</div>
 										<div id="filePicker4" style="text-align: center;">选择文件</div>
 									</div>
 									<div id="picsTab">
@@ -116,6 +113,8 @@
 					console.log(uploader.getFiles().length);
 					$scope.kejian = response.fileName;
 					$scope.kejianUrl = response.filePath;
+					var html = '<a href="'+response.filePath+'" target="_blink">'+response.fileName+'</a>';
+					$("#kejianContent4").html(html);
 				});
 			}
 		});
