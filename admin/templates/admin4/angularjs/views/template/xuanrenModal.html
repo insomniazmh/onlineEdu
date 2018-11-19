@@ -41,9 +41,11 @@
 <script>
 	function xuanrenModalCtrl($scope, $rootScope, $interval) {
 		$scope.students = [];
+		$scope.type = '';
 		$scope.$on("type", function(event, data) {
 			console.log(data);
-			if(data == 'xuanren') {
+			$scope.type = data;
+			if(data == 'xuanren' || data == 'toupiao') {
 				$scope.students = [
 					{name: "张三" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
 					{name: "李四" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
@@ -61,7 +63,7 @@
 				var studentsName = ['张三','李四','王五','马六'];
 				var i = 0;
 				$interval(function () {
-					if(i < 8) {
+					if(i < 4) {
 						$scope.students.push({
 							name: studentsName[i] , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
 						});
@@ -91,7 +93,13 @@
 				title: "选择成功"
 			});
 			$("#students").modal("hide");
-			$scope.$emit('students', studentsArr);
+			$("#groups").modal("hide");
+			if($scope.type == 'toupiao') {
+				$scope.$emit('toupiaoStudent', studentsArr);
+			}else {
+				$scope.$emit('answerStudents', studentsArr);
+			}
+			
 		}
 	}
 </script>

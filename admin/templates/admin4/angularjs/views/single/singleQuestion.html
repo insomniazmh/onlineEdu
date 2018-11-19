@@ -8,6 +8,10 @@
 		font-size: 14px;
 		margin-top: 10px;
 	}
+	
+	.detail {
+		display: none;
+	}
 </style>
 <div class="row" style="background-color: white;" ng-controller="singleQuestionCtrl">
 	<div class="col-md-6">
@@ -25,7 +29,7 @@
 		<div style="text-align: right;margin-top: 15px;">
 			<div class="btn-group">
 				<button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-				开始 <i class="fa fa-angle-down"></i>
+				选人 <i class="fa fa-angle-down"></i>
 				</button>
 				<ul class="dropdown-menu" role="menu">
 					<li>
@@ -34,55 +38,103 @@
 					<li>
 						<a href="javascript:;" ng-click="jushou()">举手 </a>
 					</li>
-					<!--<li>
-						<a href="javascript:;">打分</a>
-					</li>-->
 					<li>
 						<a href="javascript:;" ng-click="xuanren()">选人</a>
 					</li>
 					<li>
-						<a href="javascript:;"  ng-click="xuanzu()">选组</a>
+						<a href="javascript:;"  ng-click="toupiao()">投票</a>
+					</li>
+				</ul>
+			</div>
+			<div class="btn-group">
+				<button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+				选组 <i class="fa fa-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+						<a href="javascript:;" ng-click="qiangdazu()">抢答 </a>
+					</li>
+					<li>
+						<a href="javascript:;" ng-click="jushouzu()">举手 </a>
+					</li>
+					<li>
+						<a href="javascript:;" ng-click="xuanrenzu()">选人</a>
+					</li>
+					<li>
+						<a href="javascript:;"  ng-click="toupiaozu()">投票</a>
 					</li>
 				</ul>
 			</div>
 			<button class="btn btn-success" ng-click="showAnswer()">显示回答</button>
 		</div>
-		<div id="answersContent">
+		<div id="answerrenDetail" class="detail">
 			<div class="col-md-2" ng-repeat="row in students">
 				<div class="uppercase profile-userpic">
 					<img src="{{row.image}}" class="img-responsive" alt="">
 				</div>
 				<div class="uppercase profile-stat-text">
-					{{row.name}}&nbsp;&nbsp;&nbsp;
+					{{row.name}}&nbsp;&nbsp;
 					<span ng-if="$index%2==0">已回答</span>
 					<span ng-if="$index%2==1" style="color: red;">未回答</span>
 				</div>
 			</div>
 		</div>
-
+		<div id="answerzuDetail" class="detail">
+			
+		</div>
+		<div id="toupiaorenDetail" class="detail">
+			<div class="col-md-2" ng-repeat="row in students">
+				<div class="uppercase profile-userpic">
+					<img src="{{row.image}}" class="img-responsive" alt="">
+				</div>
+				<div class="uppercase profile-stat-text">
+					{{row.name}}&nbsp;&nbsp;18票
+				</div>
+			</div>
+		</div>
+		<div id="toupiaozuDetail" class="detail">
+			<p>第一组得票数： 18</p>
+			<p>第二组得票数： 21</p>
+		</div>
 	</div>
+	
+	<div data-ng-include="'views/template/xuanzuModal.html'"></div>
 	
 	<div data-ng-include="'views/template/xuanrenModal.html'"></div>
 	
-	<div data-ng-include="'views/template/xuanzuModal.html'"></div>
 </div>
 <script>
 	function singleQuestionCtrl($scope, $rootScope) {
 		$rootScope.settings.layout.pageSidebarClosed = true;
 		
-		$scope.$on('students', function(event, data) {
+		//选人或举手回答
+		$scope.$on('answerStudents', function(event, data) {
 			console.log(data);
 			$scope.students = data;
+			$(".detail").hide();
+			$("#answerrenDetail").show();
 		});
 		
-		$scope.showAnswer = function() {
-			$("#answersContent").show();
-		}
+		//分组投票
+		$scope.$on('toupiaoGroup', function(event, data) {
+			console.log(data);
+			$scope.students = data;
+			$(".detail").hide();
+			$("#toupiaozuDetail").show();
+		});
+		
+		//选人投票
+		$scope.$on('toupiaoStudent', function(event, data) {
+			console.log(data);
+			$scope.students = data;
+			$(".detail").hide();
+			$("#toupiaorenDetail").show();
+		});
 		
 		$scope.qiangda = function() {
 			common.toast({
 				title: "开始抢答"
-			})
+			});
 		};
 		
 		$scope.jushou = function() {
@@ -95,7 +147,29 @@
 			$("#students").modal("show");
 		};
 		
-		$scope.xuanzu = function() {
+		$scope.toupiao = function() {
+			$scope.$broadcast('type', 'toupiao');  
+			$("#students").modal("show");
+		};
+		
+		$scope.qiangdazu = function() {
+			common.toast({
+				title: "开始抢答"
+			});
+		};
+		
+		$scope.jushouzu = function() {
+			$scope.$broadcast('type', 'jushou');  
+			$("#groups").modal("show");
+		};
+		
+		$scope.xuanrenzu = function() {
+			$scope.$broadcast('type', 'xuanren');  
+			$("#groups").modal("show");
+		};
+		
+		$scope.toupiaozu = function() {
+			$scope.$broadcast('type', 'toupiao');  
 			$("#groups").modal("show");
 		};
 	}

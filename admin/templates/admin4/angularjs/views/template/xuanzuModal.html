@@ -38,45 +38,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
-						<div class="form-group form-md-radios">
-							<label>类型</label>
-							<div class="md-radio-inline">
-								<div class="md-radio">
-									<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
-									<label for="radio6">
-											<span></span>
-											<span class="check"></span>
-											<span class="box"></span>
-											抢答 </label>
-								</div>
-								<div class="md-radio">
-									<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked="">
-									<label for="radio7">
-											<span></span>
-											<span class="check"></span>
-											<span class="box"></span>
-											举手 </label>
-								</div>
-								<div class="md-radio">
-									<input type="radio" id="radio8" name="radio2" class="md-radiobtn">
-									<label for="radio8">
-											<span></span>
-											<span class="check"></span>
-											<span class="box"></span>
-											选人 </label>
-								</div>
-								<div class="md-radio">
-									<input type="radio" id="radio9" name="radio2" class="md-radiobtn">
-									<label for="radio9">
-											<span></span>
-											<span class="check"></span>
-											<span class="box"></span>
-											投票 </label>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -90,7 +51,11 @@
 </div>
 
 <script>
-	function xuanzuModalCtrl($scope, $rootScope) {
+	function xuanzuModalCtrl($scope, $rootScope) {	
+		$scope.type = "";
+		$scope.$on("type", function(event, data) {
+			$scope.type = data;
+		});
 		$scope.groups = [{
 			groupName: "第一组",
 			students: [{
@@ -148,17 +113,22 @@
 		};
 
 		$scope.sub = function() {
-			var studentsArr = [];
-			$($scope.students).each(function() {
+			var groupsArr = [];
+			$($scope.groups).each(function() {
 				if(this.active) {
-					studentsArr.push(this);
+					groupsArr.push(this.groupName);
 				}
 			});
 			common.toast({
-				title: "选择成功"
+				title: "选择成功",
+				message: "您所选的组是"+groupsArr.join("   ")
 			});
-			$("#students").modal("hide");
-			$scope.$emit('students', studentsArr);
+			if($scope.type == "toupiao") {
+				$("#groups").modal("hide");
+				$scope.$emit('toupiaoGroup', groupsArr);
+			}else {
+				$("#students").modal("show");
+			}
 		}
 	}
 </script>
