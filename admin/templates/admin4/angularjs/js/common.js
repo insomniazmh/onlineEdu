@@ -31,6 +31,7 @@ var common = {
 
 	},
 
+	//上传文件
 	fileUpload: function(settings) {
 		// 初始化Web Uploader
 		var uploader = WebUploader.create({

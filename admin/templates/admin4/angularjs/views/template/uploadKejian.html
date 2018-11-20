@@ -2,6 +2,9 @@
 	#filePicker4 .webuploader-pick {
 		padding: 10px 15px;
 	}
+	#filePicker5 .webuploader-pick {
+		padding: 10px 15px;
+	}
 </style>
 
 <!--上传课件-->
@@ -28,7 +31,15 @@
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
-													PPT或视频 </label>
+													PPT </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="2">
+													<label for="radio7">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													视频 </label>
 												</div>
 												<div class="md-radio">
 													<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="3">
@@ -43,19 +54,27 @@
 									</div>
 								</div>
 								<div class="row" style="margin-bottom: 40px;">
-									<div id="fileTab">
+									<div class="fileTab">
 										<div class="row">
-											<div class="col-md-12" id="kejianContent4" style="text-align: center;margin-bottom: 20px;">
+											<div class="col-md-12" id="PPTKejian" style="text-align: center;margin-bottom: 20px;">
 												
 											</div>
 										</div>
 										<div id="filePicker4" style="text-align: center;">选择文件</div>
 									</div>
-									<div id="picsTab">
+									<div class="fileTab" style="display: none;">
 										<div class="row">
-											<div class="col-md-12">
+											<div class="col-md-12" id="videoKejian" style="text-align: center;margin-bottom: 20px;">
+												
+											</div>
+										</div>
+										<div id="filePicker5" style="text-align: center;">选择文件</div>
+									</div>
+									<div class="fileTab" style="display: none;">
+										<div class="row">
+											<div class="col-md-12" id="picsKejian">
 												<div class="form-group form-md-line-input">
-													<!--<div id="uploader" class="wu-example">
+													<div id="uploader" class="wu-example">
 														<div class="queueList">
 															<div id="dndArea" class="placeholder">
 																<div id="filePicker"></div>
@@ -72,7 +91,7 @@
 																<div class="uploadBtn">开始上传</div>
 															</div>
 														</div>
-													</div>-->
+													</div>
 												</div>
 											</div>
 										</div>
@@ -97,12 +116,13 @@
 
 		$('input:radio[name="kejianType"]').change(function() {
 			console.log($(this).val());
-			if($(this).val() == 3) {
-				$("#fileTab").hide();
-				$("#picsTab").show();
-			}else {
-				$("#fileTab").show();
-				$("#picsTab").hide();
+			$(".fileTab").hide();
+			if($(this).val() == 1) {
+				$("#PPTKejian").closest(".fileTab").show();
+			}else if($(this).val() == 2) {
+				$("#videoKejian").closest(".fileTab").show();
+			}else if($(this).val() == 3) {
+				$("#picsKejian").closest(".fileTab").show();
 			}
 		});
 
@@ -115,6 +135,19 @@
 					$scope.kejianUrl = response.filePath;
 					var html = '<a href="'+response.filePath+'" target="_blink">'+response.fileName+'</a>';
 					$("#kejianContent4").html(html);
+				});
+			}
+		});
+		
+		common.fileUpload({
+			id: 'filePicker5',
+			success: function(file, response, uploader) {
+				$scope.$apply(function() {　　
+					console.log(uploader.getFiles().length);
+					$scope.kejian = response.fileName;
+					$scope.kejianUrl = response.filePath;
+					var html = '<a href="'+response.filePath+'" target="_blink">'+response.fileName+'</a>';
+					$("#kejianContent5").html(html);
 				});
 			}
 		});

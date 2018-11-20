@@ -27,12 +27,10 @@
 </style>
 
 <div class="row" ng-controller="createCourseCtrl">
-	<div data-ng-include="'views/template/zhishidian.html'"></div>
-
 	<div class="col-md-12">
 		<!-- BEGIN: ACCORDION DEMO -->
 		<div class="portlet light">
-			<div class="portlet-title">
+			<div class="portlet-title tabbable-line">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
 					<span class="caption-subject bold uppercase">课程信息</span>
@@ -112,31 +110,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row" style="margin-bottom: 40px;">
-								<div class="col-md-12">
-									<div class="form-group form-md-line-input">
-										<label for="form_control_1" style="color: #888888;">轮播图</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<div id="uploader" class="wu-example">
-											<div class="queueList">
-												<div id="dndArea" class="placeholder">
-													<div id="filePicker"></div>
-												</div>
-											</div>
-											<div class="statusBar" style="display:none;">
-												<div class="progress">
-													<span class="text">0%</span>
-													<span class="percentage"></span>
-												</div>
-												<div class="info"></div>
-												<div class="btns">
-													<div id="filePicker2"></div>
-													<div class="uploadBtn">开始上传</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+
 							<div class="form-actions noborder">
 								<button type="button" class="btn blue" ng-click="sub()">保存</button>
 							</div>
@@ -152,49 +126,19 @@
 										</div>
 									</div>
 									<div class="portlet-body">
-										<div data-ng-include="'views/template/nodeTree2.html'"></div>
+										<div data-ng-include="'views/template/nodeTree.html'"></div>
 									</div>
 								</div>
 
-								<div class="portlet light">
-									<div class="portlet-title">
-										<div class="caption" style="font-size: 14px;">
-											<i class="icon-settings" style="font-size: 12px;"></i>知识点
-										</div>
-										<div class="actions">
-											<button class="btn btn-circle btn-info btn-sm" ng-click="createKp();">创建 </button>
-										</div>
-										<div class="inputs">
-											<div class="portlet-input input-small input-inline">
-												<div class="input-icon right">
-													<input type="text" id="kp" class="form-control form-control-solid" placeholder="请输入知识点">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="portlet-body" id="kpContent">
-										<a href="javascript:;" class="btn btn-circle btn-sm btn-danger" name="kp">
-											<span>章节</span>
-										</a>
-										<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
-											<span>电子商务的定义</span>
-											<i class="fa fa-times" name="remove"></i>
-										</a>
-										<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
-											<span>电子商务的概念</span>
-											<i class="fa fa-times" name="remove"></i>
-										</a>
-									</div>
-								</div>
+								<div data-ng-include="'views/template/zhishidian.html'"></div>
 
 							</div>
 
 							<div class="col-md-8">
 								<div class="portlet light">
 									<div class="portlet-title tabbable-line">
-										<div class="caption font-green-sharp">
-											<i class="icon-settings font-green-sharp"></i>
-											<span class="caption-subject bold uppercase">教案和课件{{currKP}}</span>
+										<div class="caption" style="font-size: 14px;">
+											<i class="icon-settings" style="font-size: 12px;"></i>教案和课件{{currKP}}
 										</div>
 									</div>
 									<div class="portlet-body">
@@ -211,9 +155,7 @@
 															<div class="cont-col2">
 																<div class="desc">
 																	<a href="{{jiaoanUrl}}">{{jiaoan}}</a>
-																	<span id="filePicker3">
-													上传教案
-												</span>
+																	<span id="filePicker3"> 上传教案 </span>
 																</div>
 															</div>
 														</div>
@@ -233,8 +175,8 @@
 																<div class="desc">
 																	<a href="{{kejianUrl}}" target="_blank">{{kejian}}</a>
 																	<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
-													上传课件
-												</span>
+																		上传课件
+																	</span>
 																</div>
 															</div>
 														</div>
@@ -247,9 +189,8 @@
 
 								<div class="portlet light" style="height: 400px;">
 									<div class="portlet-title tabbable-line">
-										<div class="caption font-green-sharp">
-											<i class="icon-settings font-green-sharp"></i>
-											<span class="caption-subject bold uppercase">课堂互动{{currKP}}</span>
+										<div class="caption" style="font-size: 14px;">
+											<i class="icon-settings" style="font-size: 12px;"></i>课堂互动{{currKP}}
 										</div>
 										<div class="actions">
 											<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#dataModal">
@@ -365,31 +306,78 @@
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
-
 					<div class="tab-pane" id="tab_1_3">
-						<div class="col-md-4">
-							<!-- BEGIN: ACCORDION DEMO -->
-							<div class="portlet light">
-								<div class="portlet-title tabbable-line">
-									<div class="caption font-green-sharp">
-										<i class="icon-settings font-green-sharp"></i>
-										<span class="caption-subject bold uppercase">课程宣传</span>
-										<span class="caption-helper hide"></span>
+						<div class="row">
+							<div class="col-md-6" style="border-right: 1px solid #4DB3A2;">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption" style="font-size: 14px;">
+											<i class="icon-settings" style="font-size: 12px;"></i>轮播图
+										</div>
 									</div>
-
+									<div class="portlet-body">
+										<carousel interval="myInterval">
+											<slide ng-repeat="slide in slides" active="slide.active">
+												<img ng-src="{{slide.image}}" style="margin:auto;height: 180px;">
+												<div class="carousel-caption">
+													<p>{{slide.text}}</p>
+												</div>
+											</slide>
+										</carousel>
+										<div role="form">
+											<div class="form-body">
+												<div class="row" style="margin-bottom: 40px;">
+													<div class="col-md-12">
+														<div class="form-group form-md-line-input">
+															<label for="form_control_1" style="color: #888888;">上传轮播图</label>
+															<div id="uploader" class="wu-example">
+																<div class="queueList">
+																	<div id="dndArea" class="placeholder">
+																		<div id="filePicker"></div>
+																	</div>
+																</div>
+																<div class="statusBar" style="display:none;">
+																	<div class="progress">
+																		<span class="text">0%</span>
+																		<span class="percentage"></span>
+																	</div>
+																	<div class="info"></div>
+																	<div class="btns">
+																		<div id="filePicker2"></div>
+																		<div class="uploadBtn">开始上传</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
-
 							</div>
-							<!-- END: ACCORDION DEMO -->
+							<div class="col-md-6">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption" style="font-size: 14px;">
+											<i class="icon-settings" style="font-size: 12px;"> 宣传片 </i>
+										</div>
+									</div>
+									<div class="portlet-body" style="text-align: center;">
+										<video controls="controls" style=" width: 100%;height: auto;">
+											<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4">
+											</source>
+										</video>
+										<button class="btn btn-info" style="margin-top: 40px;">上传宣传片</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
 		</div>
 		<!-- END: ACCORDION DEMO -->
@@ -410,44 +398,38 @@
 		$scope.jiaoan = "";
 
 		$scope.ziliaoList = [{
-				icon: "fa fa-bolt",
-				text: "《电子商务基础》教学大纲.doc",
-				url: "111",
-				color: "label-danger"
-			},
-			{
-				icon: "fa fa-bullhorn",
-				text: "电子商务基础教案.doc",
-				url: "222",
-				color: "label-info"
-			},
-			{
-				icon: "fa fa-bullhorn",
-				text: "电子商务基础课件.ppt",
-				url: "333",
-				color: "label-success"
-			}
-		];
+			icon: "fa fa-bolt",
+			text: "《电子商务基础》教学大纲.doc",
+			url: "111",
+			color: "label-danger"
+		}, {
+			icon: "fa fa-bullhorn",
+			text: "电子商务基础教案.doc",
+			url: "222",
+			color: "label-info"
+		}, {
+			icon: "fa fa-bullhorn",
+			text: "电子商务基础课件.ppt",
+			url: "333",
+			color: "label-success"
+		}];
 
 		$scope.tiwenList = [{
-				icon: "fa fa-bullhorn",
-				text: "商家要开展电子商务活动 , 应该用( )作为其主要的生意平台。",
-				url: "111",
-				color: "label-info"
-			},
-			{
-				icon: "fa fa-bullhorn",
-				text: "Intranet和Internet的区别是 ( )",
-				url: "222",
-				color: "label-success"
-			},
-			{
-				icon: "fa fa-bullhorn",
-				text: "电子数据交换的简称是 ( )",
-				url: "333",
-				color: "label-info"
-			}
-		];
+			icon: "fa fa-bullhorn",
+			text: "商家要开展电子商务活动 , 应该用( )作为其主要的生意平台。",
+			url: "111",
+			color: "label-info"
+		}, {
+			icon: "fa fa-bullhorn",
+			text: "Intranet和Internet的区别是 ( )",
+			url: "222",
+			color: "label-success"
+		}, {
+			icon: "fa fa-bullhorn",
+			text: "电子数据交换的简称是 ( )",
+			url: "333",
+			color: "label-info"
+		}];
 
 		$scope.sub = function() {
 			common.toast({
