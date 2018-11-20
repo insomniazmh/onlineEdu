@@ -19,6 +19,7 @@
 		width: 100%!important;
 		height: 100%!important;
 	}
+	
 	#filePicker4 div:nth-child(2) {
 		width: 100%!important;
 		height: 100%!important;
@@ -27,134 +28,86 @@
 
 <div class="row" ng-controller="createCourseCtrl">
 	<div data-ng-include="'views/template/zhishidian.html'"></div>
-	<div id="kecheng" class="my-tab-content">
-		<div class="col-md-4">
-			<!-- BEGIN: ACCORDION DEMO -->
-			<div class="portlet light">
-				<div class="portlet-title tabbable-line">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">课程宣传</span>
-						<span class="caption-helper hide"></span>
-					</div>
-					<!--<ul class="nav nav-tabs">
-						<li class="active">
-							<a data-target="#tab_1_1" data-toggle="tab">轮播图</a>
-						</li>
-						<li>
-							<a data-target="" data-toggle="tab">预告片</a>
-						</li>
-					</ul>-->
+
+	<div class="col-md-12">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">课程信息</span>
 				</div>
-				<div class="portlet-body">
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab_1_1">
-							<div>
-								<carousel interval="myInterval">
-									<slide ng-repeat="slide in slides" active="slide.active">
-										<img ng-src="{{slide.image}}" style="margin:auto;height: 180px;">
-										<div class="carousel-caption">
-											<p>{{slide.text}}</p>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">基本信息</a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab">教辅信息</a>
+					</li>
+					<li>
+						<a data-target="#tab_1_3" data-toggle="tab">课程宣传</a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_1">
+						<div role="form">
+							<div class="form-body">
+								<div class="row" style="margin-bottom: 40px;">
+									<div class="col-md-6">
+										<div class="form-group form-md-line-input {{flag}}">
+											<input type="text" class="form-control" id="form_control_1" ng-blur="aaa()" placeholder="请输入课程名称">
+											<label for="form_control_1">名称</label>
+											<span class="help-block">名称不得超过20个字符</span>
 										</div>
-									</slide>
-								</carousel>
-							</div>
-						</div>
-						<div class="tab-pane" id="tab_1_2">
-							<video controls="controls" style=" width: 100%;height: 100%;">
-								<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4">
-								</source>
-							</video>
-						</div>
-
-					</div>
-
-				</div>
-			</div>
-			<!-- END: ACCORDION DEMO -->
-
-			<div class="portlet light">
-				<div class="portlet-title">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">课程目录</span>
-						<span class="caption-helper hide"></span>
-					</div>
-				</div>
-				<div class="portlet-body">
-					<div data-ng-include="'views/template/nodeTree.html'"></div>
-				</div>
-			</div>
-
-		</div>
-		<div class="col-md-8">
-			<!-- BEGIN: ACCORDION DEMO -->
-			<div class="portlet light">
-				<div class="portlet-title">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">课程信息</span>
-					</div>
-					<ul class="nav nav-tabs">
-						<li class="active">
-							<a data-target="#tab_1_1" data-toggle="tab">基本信息</a>
-						</li>
-						<li>
-							<a data-target="#tab_1_2" data-toggle="tab">教辅信息</a>
-						</li>
-						<li>
-							<a data-target="#tab_1_3" data-toggle="tab">课程宣传</a>
-						</li>
-					</ul>
-				</div>
-				<div class="portlet-body">
-					<div role="form">
-						<div class="form-body">
-							<div class="row" style="margin-bottom: 40px;">
-								<div class="col-md-6">
-									<div class="form-group form-md-line-input {{flag}}">
-										<input type="text" class="form-control" id="form_control_1" ng-blur="aaa()" placeholder="请输入课程名称">
-										<label for="form_control_1">名称</label>
-										<span class="help-block">名称不得超过20个字符</span>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group form-md-line-input has-success">
+											<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程编号">
+											<label for="form_control_1">编号</label>
+											<span class="help-block"></span>
+										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="form-group form-md-line-input has-success">
-										<input type="text" class="form-control" id="form_control_1" placeholder="请输入课程编号">
-										<label for="form_control_1">编号</label>
-										<span class="help-block"></span>
-									</div>
-								</div>
-							</div>
-							<div class="row" style="margin-bottom: 40px;">
-								<div class="col-md-12">
-									<div class="form-group form-md-checkboxes">
-										<label>授课类型</label>
-										<div class="md-checkbox-inline">
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox6" class="md-check">
-												<label for="checkbox6">
+								<div class="row" style="margin-bottom: 40px;">
+									<div class="col-md-12">
+										<div class="form-group form-md-checkboxes">
+											<label>授课类型</label>
+											<div class="md-checkbox-inline">
+												<div class="md-checkbox">
+													<input type="checkbox" id="checkbox6" class="md-check">
+													<label for="checkbox6">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													录播课程 </label>
-											</div>
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox7" class="md-check" checked="">
-												<label for="checkbox7">
+												</div>
+												<div class="md-checkbox">
+													<input type="checkbox" id="checkbox7" class="md-check" checked="">
+													<label for="checkbox7">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													直播课程 </label>
-											</div>
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox8" class="md-check">
-												<label for="checkbox8">
+												</div>
+												<div class="md-checkbox">
+													<input type="checkbox" id="checkbox8" class="md-check">
+													<label for="checkbox8">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													线下课堂 </label>
+												</div>
 											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row" style="margin-bottom: 40px;">
+									<div class="col-md-12">
+										<div class="form-group form-md-line-input">
+											<textarea class="form-control" rows="3" placeholder="请输入轮播图显示的简要描述"></textarea>
+											<label for="form_control_1">课程描述</label>
 										</div>
 									</div>
 								</div>
@@ -162,246 +115,288 @@
 							<div class="row" style="margin-bottom: 40px;">
 								<div class="col-md-12">
 									<div class="form-group form-md-line-input">
-										<textarea class="form-control" rows="3" placeholder="请输入轮播图显示的简要描述"></textarea>
-										<label for="form_control_1">课程描述</label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row" style="margin-bottom: 40px;">
-							<div class="col-md-12">
-								<div class="form-group form-md-line-input">
-									<label for="form_control_1" style="color: #888888;">轮播图</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<div id="uploader" class="wu-example">
-										<div class="queueList">
-											<div id="dndArea" class="placeholder">
-												<div id="filePicker"></div>
+										<label for="form_control_1" style="color: #888888;">轮播图</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<div id="uploader" class="wu-example">
+											<div class="queueList">
+												<div id="dndArea" class="placeholder">
+													<div id="filePicker"></div>
+												</div>
 											</div>
-										</div>
-										<div class="statusBar" style="display:none;">
-											<div class="progress">
-												<span class="text">0%</span>
-												<span class="percentage"></span>
-											</div>
-											<div class="info"></div>
-											<div class="btns">
-												<div id="filePicker2"></div>
-												<div class="uploadBtn">开始上传</div>
+											<div class="statusBar" style="display:none;">
+												<div class="progress">
+													<span class="text">0%</span>
+													<span class="percentage"></span>
+												</div>
+												<div class="info"></div>
+												<div class="btns">
+													<div id="filePicker2"></div>
+													<div class="uploadBtn">开始上传</div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<div class="form-actions noborder">
+								<button type="button" class="btn blue" ng-click="sub()">保存</button>
+							</div>
 						</div>
-						<div class="form-actions noborder">
-							<button type="button" class="btn blue" ng-click="sub()">保存</button>
-						</div>
 					</div>
+					<div class="tab-pane" id="tab_1_2">
+						<div class="row">
+							<div class="col-md-4" style="height: 600px;border-right: 1px solid #4DB3A2;">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption" style="font-size: 14px;">
+											<i class="icon-settings" style="font-size: 12px;"></i>章节目录
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div data-ng-include="'views/template/nodeTree2.html'"></div>
+									</div>
+								</div>
 
-				</div>
-			</div>
-			<!-- END: ACCORDION DEMO -->
-		</div>
-	</div>
-
-	<div id="jiaofu" class="my-tab-content" style="display: none;">
-		<div class="col-md-4" style="height: 400px;">
-			<div class="portlet light">
-				<div class="portlet-title">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">章节目录</span>
-						<span class="caption-helper hide"></span>
-					</div>
-				</div>
-				<div class="portlet-body">
-					<div data-ng-include="'views/template/nodeTree2.html'"></div>
-				</div>
-			</div>
-
-		</div>
-
-		<div class="col-md-8">
-			<div class="portlet light">
-				<div class="portlet-title tabbable-line">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">教案和课件{{currKP}}</span>
-					</div>
-				</div>
-				<div class="portlet-body">
-					<div class="tab-content">
-						<ul class="feeds" style="width: 48%; display: inline-block;">
-							<li>
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-danger">
-												<i class="fa fa-bolt"></i>
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption" style="font-size: 14px;">
+											<i class="icon-settings" style="font-size: 12px;"></i>知识点
+										</div>
+										<div class="actions">
+											<button class="btn btn-circle btn-info btn-sm" ng-click="createKp();">创建 </button>
+										</div>
+										<div class="inputs">
+											<div class="portlet-input input-small input-inline">
+												<div class="input-icon right">
+													<input type="text" id="kp" class="form-control form-control-solid" placeholder="请输入知识点">
+												</div>
 											</div>
 										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												<a href="{{jiaoanUrl}}">{{jiaoan}}</a>
-												<span id="filePicker3">
+									</div>
+									<div class="portlet-body" id="kpContent">
+										<a href="javascript:;" class="btn btn-circle btn-sm btn-danger" name="kp">
+											<span>章节</span>
+										</a>
+										<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
+											<span>电子商务的定义</span>
+											<i class="fa fa-times" name="remove"></i>
+										</a>
+										<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
+											<span>电子商务的概念</span>
+											<i class="fa fa-times" name="remove"></i>
+										</a>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="col-md-8">
+								<div class="portlet light">
+									<div class="portlet-title tabbable-line">
+										<div class="caption font-green-sharp">
+											<i class="icon-settings font-green-sharp"></i>
+											<span class="caption-subject bold uppercase">教案和课件{{currKP}}</span>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="tab-content">
+											<ul class="feeds" style="width: 48%; display: inline-block;">
+												<li>
+													<div class="col1">
+														<div class="cont">
+															<div class="cont-col1">
+																<div class="label label-sm label-danger">
+																	<i class="fa fa-bolt"></i>
+																</div>
+															</div>
+															<div class="cont-col2">
+																<div class="desc">
+																	<a href="{{jiaoanUrl}}">{{jiaoan}}</a>
+																	<span id="filePicker3">
 													上传教案
 												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul>
-						<ul class="feeds" style="width: 48%; display: inline-block;">
-							<li>
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-info">
-												<i class="fa fa-bullhorn"></i>
-											</div>
-										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												<a href="{{kejianUrl}}" target="_blank">{{kejian}}</a>
-												<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
+																</div>
+															</div>
+														</div>
+													</div>
+												</li>
+											</ul>
+											<ul class="feeds" style="width: 48%; display: inline-block;">
+												<li>
+													<div class="col1">
+														<div class="cont">
+															<div class="cont-col1">
+																<div class="label label-sm label-info">
+																	<i class="fa fa-bullhorn"></i>
+																</div>
+															</div>
+															<div class="cont-col2">
+																<div class="desc">
+																	<a href="{{kejianUrl}}" target="_blank">{{kejian}}</a>
+																	<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
 													上传课件
 												</span>
-											</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
 
-			<div class="portlet light" style="min-height: 400px;">
-				<div class="portlet-title tabbable-line">
-					<div class="caption font-green-sharp">
-						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase">课堂互动{{currKP}}</span>
-					</div>
-					<div class="actions">
-						<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#dataModal">
+								<div class="portlet light" style="height: 400px;">
+									<div class="portlet-title tabbable-line">
+										<div class="caption font-green-sharp">
+											<i class="icon-settings font-green-sharp"></i>
+											<span class="caption-subject bold uppercase">课堂互动{{currKP}}</span>
+										</div>
+										<div class="actions">
+											<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#dataModal">
 							<i class="fa fa-plus"></i> 创建 </button>
-					</div>
-					<ul class="nav nav-tabs">
-						<li class="active">
-							<a data-target="#tab_2_1" data-toggle="tab">
-								资料 </a>
-						</li>
-						<li>
-							<a data-target="#tab_2_2" data-toggle="tab">
-								提问 </a>
-						</li>
-						<li>
-							<a data-target="#tab_2_3" data-toggle="tab">
-								讨论 </a>
-						</li>
-						<li>
-							<a data-target="#tab_2_4" data-toggle="tab">
-								练习 </a>
-						</li>
-						<li>
-							<a data-target="#tab_2_5" data-toggle="tab">
-								头脑风暴 </a>
-						</li>
-						<li>
-							<a data-target="#tab_2_6" data-toggle="tab">
-								作业 </a>
-						</li>
-						<li>
-							<a data-target="#tab_2_7" data-toggle="tab">
-								任务 </a>
-						</li>
-						<li>
-							<a data-target="#tab_2_8" data-toggle="tab">
-								调查活动 </a>
-						</li>
-					</ul>
-				</div>
-				<div class="portlet-body">
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab_2_1">
-							<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-								<ul class="feeds">
-									<li ng-repeat="row in ziliaoList">
-										<div class="col1">
-											<div class="cont">
-												<div class="cont-col1">
-													<div class="label label-sm {{row.color}}">
-														<i class="fa {{row.icon}}"></i>
-													</div>
-												</div>
-												<div class="cont-col2">
-													<div class="desc">
-														<a href="{{row.url}}" target=_blank>{{row.text}}</a>
-														<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
-													</div>
+										</div>
+										<ul class="nav nav-tabs">
+											<li class="active">
+												<a data-target="#tab_2_1" data-toggle="tab">
+													资料 </a>
+											</li>
+											<li>
+												<a data-target="#tab_2_2" data-toggle="tab">
+													提问 </a>
+											</li>
+											<li>
+												<a data-target="#tab_2_3" data-toggle="tab">
+													讨论 </a>
+											</li>
+											<li>
+												<a data-target="#tab_2_4" data-toggle="tab">
+													练习 </a>
+											</li>
+											<li>
+												<a data-target="#tab_2_5" data-toggle="tab">
+													头脑风暴 </a>
+											</li>
+											<li>
+												<a data-target="#tab_2_6" data-toggle="tab">
+													作业 </a>
+											</li>
+											<li>
+												<a data-target="#tab_2_7" data-toggle="tab">
+													任务 </a>
+											</li>
+											<li>
+												<a data-target="#tab_2_8" data-toggle="tab">
+													调查活动 </a>
+											</li>
+										</ul>
+									</div>
+									<div class="portlet-body">
+										<div class="tab-content">
+											<div class="tab-pane active" id="tab_2_1">
+												<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+													<ul class="feeds">
+														<li ng-repeat="row in ziliaoList">
+															<div class="col1">
+																<div class="cont">
+																	<div class="cont-col1">
+																		<div class="label label-sm {{row.color}}">
+																			<i class="fa {{row.icon}}"></i>
+																		</div>
+																	</div>
+																	<div class="cont-col2">
+																		<div class="desc">
+																			<a href="{{row.url}}" target=_blank>{{row.text}}</a>
+																			<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</li>
+													</ul>
 												</div>
 											</div>
+											<div class="tab-pane" id="tab_2_2">
+												<ul class="feeds">
+													<li ng-repeat="row in tiwenList">
+														<div class="col1" style="cursor: pointer;">
+															<div class="cont">
+																<div class="cont-col1">
+																	<div class="label label-sm {{row.color}}">
+																		<i class="fa {{row.icon}}"></i>
+																	</div>
+																</div>
+																<div class="cont-col2">
+																	<div class="desc">
+																		{{row.text}}
+																		<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+											<div class="tab-pane" id="tab_2_3"></div>
+											<div class="tab-pane" id="tab_2_4">
+												<ul class="feeds">
+													<li ng-repeat="row in tiwenList">
+														<div class="col1" style="cursor: pointer;">
+															<div class="cont">
+																<div class="cont-col1">
+																	<div class="label label-sm {{row.color}}">
+																		<i class="fa {{row.icon}}"></i>
+																	</div>
+																</div>
+																<div class="cont-col2">
+																	<div class="desc">
+																		{{row.text}}
+																		<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+											<div class="tab-pane" id="tab_2_5"></div>
+											<div class="tab-pane" id="tab_2_6"></div>
+											<div class="tab-pane" id="tab_2_7"></div>
+											<div class="tab-pane" id="tab_2_8"></div>
 										</div>
-									</li>
-								</ul>
+									</div>
+								</div>
+
 							</div>
 						</div>
-						<div class="tab-pane" id="tab_2_2">
-							<ul class="feeds">
-								<li ng-repeat="row in tiwenList">
-									<div class="col1" style="cursor: pointer;">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm {{row.color}}">
-													<i class="fa {{row.icon}}"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													{{row.text}}
-													<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<div class="tab-pane" id="tab_2_3"></div>
-						<div class="tab-pane" id="tab_2_4">
-							<ul class="feeds">
-								<li ng-repeat="row in tiwenList">
-									<div class="col1" style="cursor: pointer;">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm {{row.color}}">
-													<i class="fa {{row.icon}}"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													{{row.text}}
-													<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<div class="tab-pane" id="tab_2_5"></div>
-						<div class="tab-pane" id="tab_2_6"></div>
-						<div class="tab-pane" id="tab_2_7"></div>
-						<div class="tab-pane" id="tab_2_8"></div>
 					</div>
-				</div>
-			</div>
 
+					<div class="tab-pane" id="tab_1_3">
+						<div class="col-md-4">
+							<!-- BEGIN: ACCORDION DEMO -->
+							<div class="portlet light">
+								<div class="portlet-title tabbable-line">
+									<div class="caption font-green-sharp">
+										<i class="icon-settings font-green-sharp"></i>
+										<span class="caption-subject bold uppercase">课程宣传</span>
+										<span class="caption-helper hide"></span>
+									</div>
+
+								</div>
+
+							</div>
+							<!-- END: ACCORDION DEMO -->
+						</div>
+					</div>
+
+				</div>
+
+			</div>
 		</div>
+		<!-- END: ACCORDION DEMO -->
 	</div>
+
 	<div data-ng-include="'views/template/lessonPlan.html'"></div>
-	
+
 	<div data-ng-include="'views/template/uploadKejian.html'"></div>
 </div>
 <!-- END MAIN CONTENT -->
@@ -413,17 +408,45 @@
 <script>
 	function createCourseCtrl($scope) {
 		$scope.jiaoan = "";
-		
-		$scope.ziliaoList = [
-			{icon: "fa fa-bolt", text: "《电子商务基础》教学大纲.doc", url: "111", color: "label-danger"},
-			{icon: "fa fa-bullhorn", text: "电子商务基础教案.doc", url: "222", color: "label-info"},
-			{icon: "fa fa-bullhorn", text: "电子商务基础课件.ppt", url: "333", color: "label-success"}
+
+		$scope.ziliaoList = [{
+				icon: "fa fa-bolt",
+				text: "《电子商务基础》教学大纲.doc",
+				url: "111",
+				color: "label-danger"
+			},
+			{
+				icon: "fa fa-bullhorn",
+				text: "电子商务基础教案.doc",
+				url: "222",
+				color: "label-info"
+			},
+			{
+				icon: "fa fa-bullhorn",
+				text: "电子商务基础课件.ppt",
+				url: "333",
+				color: "label-success"
+			}
 		];
-		
-		$scope.tiwenList = [
-			{icon: "fa fa-bullhorn", text: "商家要开展电子商务活动 , 应该用( )作为其主要的生意平台。", url: "111", color: "label-info"},
-			{icon: "fa fa-bullhorn", text: "Intranet和Internet的区别是 ( )", url: "222", color: "label-success"},
-			{icon: "fa fa-bullhorn", text: "电子数据交换的简称是 ( )", url: "333", color: "label-info"}
+
+		$scope.tiwenList = [{
+				icon: "fa fa-bullhorn",
+				text: "商家要开展电子商务活动 , 应该用( )作为其主要的生意平台。",
+				url: "111",
+				color: "label-info"
+			},
+			{
+				icon: "fa fa-bullhorn",
+				text: "Intranet和Internet的区别是 ( )",
+				url: "222",
+				color: "label-success"
+			},
+			{
+				icon: "fa fa-bullhorn",
+				text: "电子数据交换的简称是 ( )",
+				url: "333",
+				color: "label-info"
+			}
 		];
 
 		$scope.sub = function() {
@@ -466,7 +489,7 @@
 				});
 			}
 		});
-		
+
 	}
 </script>
 <!-- BEGIN MAIN JS -->
