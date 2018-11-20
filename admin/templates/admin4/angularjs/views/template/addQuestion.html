@@ -1,76 +1,170 @@
 <div class="modal fade" id="questionSingle" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="addQuestionCtrl">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">添加题目</h4>
-			</div>
-			<div class="modal-body">
-				<div class="portlet">
-					<div class="portlet-body">
-						<div role="form">
-							<div class="form-body">
-								<div class="row" style="margin-bottom: 40px;">
-									<div class="col-md-8">
-										<div class="form-group form-md-line-input">
-											<input type="text" class="form-control" ng-model="title" placeholder="请输入题干" />
-											<label for="form_control_1">题干</label>
-											<span class="help-block">题干不得超过50个字符</span>
+
+			<div class="portlet light" style="min-height: 400px;">
+				<div class="portlet-title tabbable-line">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase" id="title">创建题目</span>
+					</div>
+					<div class="actions">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-target="#tab_3_1" data-toggle="tab"> 单选 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_2" data-toggle="tab"> 多选 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_3" data-toggle="tab"> 判断 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_4" data-toggle="tab"> 填空 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_5" data-toggle="tab"> 简答 </a>
+						</li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_3_1">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-8">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="single.title" placeholder="请输入题干" />
+												<label for="form_control_1">题干</label>
+												<span class="help-block">题干不得超过50个字符</span>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group form-md-line-input has-info">
+												<select class="form-control" id="form_control_1">
+													<option value="">请选择</option>
+													<option value="">电子商务的定义</option>
+													<option value="">电子商务的概念</option>
+												</select>
+												<label for="form_control_1">知识点</label>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-4">
-										<div class="form-group form-md-line-input has-info">
-											<select class="form-control" id="form_control_1">
-												<option value="">请选择</option>
-												<option value="">电子商务的定义</option>
-												<option value="">电子商务的概念</option>
-											</select>
-											<label for="form_control_1">知识点</label>
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<button class="btn btn-circle green btn-sm" ng-click="single.addOption();">
+												<i class="fa fa-plus"></i> 创建选项 </button>
+												<span>正确答案：  {{single.right}}</span>
+											</div>
+										</div>
+										<div ng-repeat="row in single.options">
+											<div class="col-md-1" style="height: 54px;">
+												<div class="form-group form-md-line-input" style="padding-top: 27px;">
+													<div class="md-radio">
+														<input type="radio" id="radio{{$index}}" name="single" ng-value="row.name" class="md-radiobtn" ng-model="single.right">
+														<label for="radio{{$index}}">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span></label>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-1" style="height: 54px;">
+												<span style="position: absolute;bottom: 7px;">{{row.name}}.</span>
+											</div>
+											<div class="col-md-8">
+												<div class="form-group form-md-line-input">
+													<input type="text" class="form-control" ng-model="row.value" placeholder="请输入选项内容" />
+													<span class="help-block">内容不得超过50个字符</span>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group form-md-line-input">
+													<button class="btn btn-danger" ng-click="single.delOption($index);">删除</button>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="row" style="margin-bottom: 40px;">
-									<div class="col-md-12">
-										<div class="form-group form-md-line-input">
-											<button class="btn btn-circle green btn-sm" ng-click="addOption();">
-												<i class="fa fa-plus"></i> 创建选项 </button>
-												<span>正确答案：  {{right}}</span>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="sub()">提交</button>
+									<button type="button" class="btn default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab_3_2">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-8">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="multi.title" placeholder="请输入题干" />
+												<label for="form_control_1">题干</label>
+												<span class="help-block">题干不得超过50个字符</span>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group form-md-line-input has-info">
+												<select class="form-control" id="form_control_1">
+													<option value="">请选择</option>
+													<option value="">电子商务的定义</option>
+													<option value="">电子商务的概念</option>
+												</select>
+												<label for="form_control_1">知识点</label>
+											</div>
 										</div>
 									</div>
-									<div ng-repeat="row in options">
-										<div class="col-md-1" style="height: 54px;">
-											<div class="form-group form-md-line-input" style="padding-top: 27px;">
-												<div class="md-radio">
-													<input type="radio" id="radio{{$index}}" name="single" ng-value="row.option" class="md-radiobtn" ng-model="$parent.right" ng-change="changeRightOption();">
-													<label for="radio{{$index}}">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-12">
+											<div class="form-group form-md-line-input">
+												<button class="btn btn-circle green btn-sm" ng-click="multi.addOption();">
+												<i class="fa fa-plus"></i> 创建选项 </button>
+												<span>正确答案：  {{multi.right}}</span>
+											</div>
+										</div>
+										<div ng-repeat="row in multi.options">
+											
+											<div class="col-md-1" style="height: 54px;">
+												<div class="md-checkbox" style="margin-top: 27px;">
+													<input type="checkbox" id="checkbox{{$index}}" name="multi" ng-value="row.name" class="md-check" ng-model="multi.right">
+													<label for="checkbox{{$index}}">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span></label>
 												</div>
 											</div>
-										</div>
-										<div class="col-md-1" style="height: 54px;">
-											<span style="position: absolute;bottom: 7px;">{{row.option}}.</span>
-										</div>
-										<div class="col-md-8">
-											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" ng-model="row.value" placeholder="请输入选项内容" />
-												<span class="help-block">内容不得超过50个字符</span>
+											<div class="col-md-1" style="height: 54px;">
+												<span style="position: absolute;bottom: 7px;">{{row.name}}.</span>
 											</div>
-										</div>
-										<div class="col-md-2">
-											<div class="form-group form-md-line-input">
-												<button class="btn btn-danger" ng-click="delOption($index);">删除</button>
+											<div class="col-md-8">
+												<div class="form-group form-md-line-input">
+													<input type="text" class="form-control" ng-model="row.value" placeholder="请输入选项内容" />
+													<span class="help-block">内容不得超过50个字符</span>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group form-md-line-input">
+													<button class="btn btn-danger" ng-click="multi.delOption($index);">删除</button>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-actions noborder">
-								<button type="button" class="btn blue" ng-click="sub()">提交</button>
-								<button type="button" class="btn default" data-dismiss="modal">取消</button>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="sub()">提交</button>
+									<button type="button" class="btn default" data-dismiss="modal">取消</button>
+								</div>
 							</div>
 						</div>
+						<div class="tab-pane" id="tab_3_3">
+
+						</div>
+						<div class="tab-pane" id="tab_3_4"></div>
+						<div class="tab-pane" id="tab_3_5"></div>
 					</div>
 				</div>
 			</div>
@@ -82,26 +176,98 @@
 
 <script>
 	function addQuestionCtrl($scope) {
-		$scope.right = '';
-		$scope.options = [{
-			option: 'A'
-		}, {
-			option: 'B'
-		}, {
-			option: 'C'
-		}, {
-			option: 'D'
-		}];
+		//单选题
+		$scope.single = {
+			right: "",
+			options: [{
+				name: "A",
+				value: ""
+			}, {
+				name: "B",
+				value: ""
+			}, {
+				name: "C",
+				value: ""
+			}, {
+				name: "D",
+				value: ""
+			}],
 
-		$scope.addOption = function() {
-			$scope.options.push({});
-		}
-		$scope.delOption = function(index) {
-			$scope.options.splice(index, 1);
-		}
-		
+			addOption: function() {
+				console.log(this.options);
+				this.options.push({
+					value: ""
+				});
+				this.rename();
+			},
+
+			delOption: function(index) {
+				this.options.splice(index, 1);
+				this.rename();
+			},
+
+			rename: function() {
+				$(this.options).each(function(i) {
+					if(i == 0) {
+						this.name = "A";
+					} else if(i == 1) {
+						this.name = "B";
+					} else if(i == 2) {
+						this.name = "C";
+					} else if(i == 3) {
+						this.name = "D";
+					}
+				});
+			}
+		};
+
+		//多选题
+		$scope.multi = {
+			right: "",
+			options: [{
+				name: "A",
+				value: ""
+			}, {
+				name: "B",
+				value: ""
+			}, {
+				name: "C",
+				value: ""
+			}, {
+				name: "D",
+				value: ""
+			}],
+
+			addOption: function() {
+				console.log(this.options);
+				this.options.push({
+					value: ""
+				});
+				this.rename();
+			},
+
+			delOption: function(index) {
+				this.options.splice(index, 1);
+				this.rename();
+			},
+
+			rename: function() {
+				$(this.options).each(function(i) {
+					if(i == 0) {
+						this.name = "A";
+					} else if(i == 1) {
+						this.name = "B";
+					} else if(i == 2) {
+						this.name = "C";
+					} else if(i == 3) {
+						this.name = "D";
+					}
+				});
+			}
+		};
+
 		$scope.sub = function() {
 			$scope.$emit('to-parent', 'createQuestion');
-		}
+		};
 	}
 </script>

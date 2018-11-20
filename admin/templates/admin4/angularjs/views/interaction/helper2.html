@@ -1,170 +1,172 @@
 <link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
 <style>
-.profile-userpic img {
-	width: 80%;
-}
-
-.uppercase {
-	font-size: 16px;
-	margin-top: 10px;
-}
+	.profile-userpic img {
+		width: 80%;
+	}
+	
+	.uppercase {
+		font-size: 16px;
+		margin-top: 10px;
+	}
 </style>
-<!-- BEGIN PAGE CONTENT-->
-<div class="row profile" ng-controller="helper2Ctrl">
-	<div class="col-md-12">
-		<!--BEGIN TABS-->
-		<div class="tabbable tabbable-custom tabbable-noborder">
-			<ul class="nav nav-tabs">
-				<li class="active">
-					<a data-target="#tab_1_1" data-toggle="tab">
-						课堂资源 </a>
-				</li>
-				<li>
-					<a data-target="#tab_1_6" data-toggle="tab">
-						课堂 </a>
-				</li>
-				<li>
-					<a data-target="#tab_1_3" data-toggle="tab">
-						任务 </a>
-				</li>
-				<li>
-					<a data-target="#tab_1_4" data-toggle="tab">
-						活动 </a>
-				</li>
-				
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane active" id="tab_1_1">
-					<div data-ng-include="'views/template/teachOverview.html'"></div>
-				</div>
-				<!--tab_1_2-->
-				<div class="tab-pane" id="tab_1_3">					
-					<div class="row">
-						<div class="col-md-12">
-							<div class="add-portfolio">
-								<span>
+<div ng-controller="helper2Ctrl">
+	<div data-ng-include="'views/template/zhishidian.html'"></div>
+	<!-- BEGIN PAGE CONTENT-->
+	<div class="row profile">
+		<div class="col-md-12">
+			<!--BEGIN TABS-->
+			<div class="tabbable tabbable-custom tabbable-noborder">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab">
+							课堂资源 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_6" data-toggle="tab">
+							课堂 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_3" data-toggle="tab">
+							任务 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_4" data-toggle="tab">
+							调查 </a>
+					</li>
+
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_1">
+						<div data-ng-include="'views/template/teachOverview.html'"></div>
+					</div>
+					<!--tab_1_2-->
+					<div class="tab-pane" id="tab_1_3">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="add-portfolio">
+									<span>
 									电子商务基础--电子商务内涵--课堂任务
 								 </span>
-								
+
+								</div>
 							</div>
 						</div>
-					</div>
-					<!--end add-portfolio-->
-					<!--end row-->
-					<div class="row portfolio-block">
-						<div class="col-md-5 col-sm-12 portfolio-text">
-							<img src="../../../assets/admin/pages/media/profile/logo_azteca.jpg" alt="" />
-							<div class="portfolio-text-info">
-								<h4>搜集整理电子商务活动内容</h4>
-								<p>
-									1.体验京东、淘宝、亚马逊电子商务平台商务活动，思考商务活动的基础框架组成。 
-								</p>
+						<!--end add-portfolio-->
+						<!--end row-->
+						<div class="row portfolio-block">
+							<div class="col-md-5 col-sm-12 portfolio-text">
+								<img src="../../../assets/admin/pages/media/profile/logo_azteca.jpg" alt="" />
+								<div class="portfolio-text-info">
+									<h4>搜集整理电子商务活动内容</h4>
+									<p>
+										1.体验京东、淘宝、亚马逊电子商务平台商务活动，思考商务活动的基础框架组成。
+									</p>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-5 portfolio-stat">
-							<div class="portfolio-info">
-								参与任务 <span>
+							<div class="col-md-5 portfolio-stat">
+								<div class="portfolio-info">
+									参与任务 <span>
 														24 人 </span>
-							</div>
-							<div class="portfolio-info">
-								完成任务 <span>
+								</div>
+								<div class="portfolio-info">
+									完成任务 <span>
 														6人 </span>
-							</div>
-							<div class="portfolio-info">
-								比例 <span>
+								</div>
+								<div class="portfolio-info">
+									比例 <span>
 														25% </span>
+								</div>
+							</div>
+							<div class="col-md-2 col-sm-12 portfolio-btn">
+								<a href="javascript:;" class="btn bigicn-only">
+									<span>
+														详情 </span>
+								</a>
 							</div>
 						</div>
-						<div class="col-md-2 col-sm-12 portfolio-btn">
-							<a href="javascript:;" class="btn bigicn-only">
-								<span>
-														详情 </span>
-							</a>
-						</div>
+						<!--end row-->
 					</div>
-					<!--end row-->
-					</div>
-				<!--end tab-pane-->
-				<div class="tab-pane" id="tab_1_4">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="add-portfolio">
-								<span>
+					<!--end tab-pane-->
+					<div class="tab-pane" id="tab_1_4">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="add-portfolio">
+									<span>
 									电子商务基础--电子商务内涵--调查活动
 								 </span>
-								
+
+								</div>
 							</div>
 						</div>
-					</div>
-					<!--end add-portfolio-->
-					<!--end row-->
-					<div class="row portfolio-block">
-						<div class="col-md-5 col-sm-12 portfolio-text">
-							<img src="../../../assets/admin/pages/media/profile/logo_azteca.jpg" alt="" />
-							<div class="portfolio-text-info">
-								<h4>对小组搜集整理电子商务活动完成情况满意度调查。</h4>
-								<p>
-									1.体验京东、淘宝、亚马逊电子商务平台商务活动，思考商务活动的基础框架组成。 
-								</p>
+						<!--end add-portfolio-->
+						<!--end row-->
+						<div class="row portfolio-block">
+							<div class="col-md-5 col-sm-12 portfolio-text">
+								<img src="../../../assets/admin/pages/media/profile/logo_azteca.jpg" alt="" />
+								<div class="portfolio-text-info">
+									<h4>对小组搜集整理电子商务活动完成情况满意度调查。</h4>
+									<p>
+										1.体验京东、淘宝、亚马逊电子商务平台商务活动，思考商务活动的基础框架组成。
+									</p>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-5 portfolio-stat">
-							<div class="portfolio-info">
-								满意 <span>
+							<div class="col-md-5 portfolio-stat">
+								<div class="portfolio-info">
+									满意 <span>
 														24 人 </span>
-							</div>
-							<div class="portfolio-info">
-								不满意 <span>
+								</div>
+								<div class="portfolio-info">
+									不满意 <span>
 														6人 </span>
-							</div>
-							<div class="portfolio-info">
-								比例 <span>
+								</div>
+								<div class="portfolio-info">
+									比例 <span>
 														25% </span>
+								</div>
+							</div>
+							<div class="col-md-2 col-sm-12 portfolio-btn">
+								<a href="javascript:;" class="btn bigicn-only">
+									<span>
+														详情 </span>
+								</a>
 							</div>
 						</div>
-						<div class="col-md-2 col-sm-12 portfolio-btn">
-							<a href="javascript:;" class="btn bigicn-only">
-								<span>
-														详情 </span>
-							</a>
-						</div>
+						<!--end row-->
+
 					</div>
-					<!--end row-->
-					
+					<!--end tab-pane-->
+					<div class="tab-pane" id="tab_1_6">
+						<div data-ng-include="'views/template/teaching.html'"></div>
+					</div>
+					<!--end tab-pane-->
 				</div>
-				<!--end tab-pane-->
-				<div class="tab-pane" id="tab_1_6">
-					<div data-ng-include="'views/template/teaching.html'"></div>
-				</div>
-				<!--end tab-pane-->
 			</div>
+			<!--END TABS-->
 		</div>
-		<!--END TABS-->
+
+		<div data-ng-include="'views/template/answerDetail.html'"></div>
+
+		<div data-ng-include="'views/template/previewCourse.html'"></div>
+
+		<div data-ng-include="'views/template/personCourse.html'"></div>
 	</div>
-
-	<div data-ng-include="'views/template/answerDetail.html'"></div>
-
-	<div data-ng-include="'views/template/previewCourse.html'"></div>
-	
-	<div data-ng-include="'views/template/personCourse.html'"></div>
+	<!-- END PAGE CONTENT-->
 </div>
-<!-- END PAGE CONTENT-->
-
 <script>
 	function helper2Ctrl($scope) {
 		ChartsAmcharts.init();
 		Metronic.blockUI({
-            boxed: true,
-            message: "加载中，请耐心等待..."
-        });
-        
-        Metronic.blockUI({
-            boxed: true,
-            message: "加载中，请耐心等待..."
-        });
+			boxed: true,
+			message: "加载中，请耐心等待..."
+		});
 
-        window.setTimeout(function() {
-            Metronic.unblockUI();
-        }, 2000);
+		Metronic.blockUI({
+			boxed: true,
+			message: "加载中，请耐心等待..."
+		});
+
+		window.setTimeout(function() {
+			Metronic.unblockUI();
+		}, 2000);
 	}
 </script>

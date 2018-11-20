@@ -15,8 +15,8 @@
 									<div class="row" style="margin-bottom: 40px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" ng-model="nodeName" placeholder="请输入节点名称" />
-												<label for="form_control_1">节点</label>
+												<input type="text" class="form-control" ng-model="nodeName" placeholder="请输入章节名称" />
+												<label for="form_control_1">章节</label>
 												<span class="help-block">名称不得超过20个字符</span>
 											</div>
 										</div>
@@ -101,26 +101,26 @@
 						"rename": null,
 						"remove": null,
 						"ccp": null,
-						"新建菜单": {
-							"label": "新建菜单",
+						"新建章节": {
+							"label": "新建章节",
 							"action": function(data) {
 								$scope.flag = "create";
 								$scope.nodeName = "";
 								$("#createNodeModal").modal("show");
 							}
 						},
-						"编辑菜单": {
-							"label": "编辑菜单",
+						"编辑章节": {
+							"label": "编辑章节",
 							"action": function(data) {
 								$scope.flag = "rename";
 								$scope.nodeName = "";
 								$("#createNodeModal").modal("show");
 							}
 						},
-						"删除菜单": {
-							"label": "删除菜单",
+						"删除章节": {
+							"label": "删除章节",
 							"action": function(data) {
-								var r = confirm("确定要删除该节点吗");
+								var r = confirm("确定要删除该章节吗");
 								if(r) {
 									var ref = $('#tree').jstree(true),
 										sel = ref.get_selected();

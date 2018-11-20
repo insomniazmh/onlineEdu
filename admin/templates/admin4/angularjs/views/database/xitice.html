@@ -10,7 +10,7 @@
 	.createFile div:nth-child(2){width:100%!important;height:100%!important;}
 </style>
 <div class="row" ng-controller="assistantCtrl">
-
+	<div data-ng-include="'views/template/zhishidian.html'"></div>
 	<div class="col-md-4">
 		<div class="portlet light" style="min-height: 500px;">
 			<div class="portlet-title">
@@ -153,12 +153,6 @@
 		$scope.$on('to-parent', function(d,data) {  
 	        console.log(data);         //父级能得到值  
 	    });
-		
-		$("#kpContent").on("click", "a[name='kp']", function() {
-			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
-			$(this).removeClass("btn-info").addClass("btn-danger");
-
-		});
 
 		$("ul.feeds").on("click", "a", function() {
 			console.log($(this).html());
