@@ -15,15 +15,11 @@
 		padding: 0 4px 1px 4px;
 	}
 	
-	#filePicker3 div:nth-child(2) {
+	.filePicker div:nth-child(2) {
 		width: 100%!important;
 		height: 100%!important;
 	}
 	
-	#filePicker4 div:nth-child(2) {
-		width: 100%!important;
-		height: 100%!important;
-	}
 </style>
 
 <div class="row" ng-controller="createCourseCtrl">
@@ -155,7 +151,7 @@
 															<div class="cont-col2">
 																<div class="desc">
 																	<a href="{{jiaoanUrl}}">{{jiaoan}}</a>
-																	<span id="filePicker3"> 上传教案 </span>
+																	<span id="filePicker3" class="filePicker"> 上传教案 </span>
 																</div>
 															</div>
 														</div>
@@ -173,7 +169,7 @@
 															</div>
 															<div class="cont-col2">
 																<div class="desc">
-																	<a href="{{kejianUrl}}" target="_blank">{{kejian}}</a>
+																	<div id="kejianContent" style="display: inline-block;"></div>
 																	<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
 																		上传课件
 																	</span>
@@ -194,7 +190,7 @@
 										</div>
 										<div class="actions">
 											<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#dataModal">
-							<i class="fa fa-plus"></i> 创建 </button>
+											<i class="fa fa-plus"></i> 创建 </button>
 										</div>
 										<ul class="nav nav-tabs">
 											<li class="active">
@@ -336,7 +332,7 @@
 															<div id="uploader" class="wu-example">
 																<div class="queueList">
 																	<div id="dndArea" class="placeholder">
-																		<div id="filePicker"></div>
+																		<div id="filePicker" class="filePicker"></div>
 																	</div>
 																</div>
 																<div class="statusBar" style="display:none;">
@@ -396,6 +392,23 @@
 <script>
 	function createCourseCtrl($scope) {
 		$scope.jiaoan = "";
+		
+		$scope.$on('kejian', function(d,data) {  
+	        console.log(data);         //父级能得到值  
+	        var html = '';
+	        var filePath = data.filePath;
+	        var filePathArr = data.filePath.split('.');
+	        var type = filePathArr[filePathArr.length-1];
+	        if(type == "ppt" || type == "pptx") {
+	        	html = '<a href="'+filePath+'" target="_blank">PPT课件</a>';
+	        }else if(type == "mp4") {
+	        	html = '<a href="'+filePath+'" target="_blank">视频课件</a>';
+	        }else {
+	        	html = '<a href="'+filePath+'" target="_blank">其它课件</a>';
+	        }
+	        $("#kejianContent").empty();
+	        $("#kejianContent").append(html);
+	    });
 
 		$scope.ziliaoList = [{
 			icon: "fa fa-bolt",

@@ -5,6 +5,68 @@
 	#filePicker5 .webuploader-pick {
 		padding: 10px 15px;
 	}
+	#filePicker6 .webuploader-pick {
+		padding: 10px 15px;
+	}
+	.blockOverlay {
+		z-index: 21000 !important;
+	}
+	.blockMsg {
+		z-index: 21011 !important;
+	}
+	
+	.pics {
+		list-style: none;
+	    margin: 0;
+	    padding: 0;
+	}
+	
+	.pics li {
+		width: 110px;
+	    height: 110px;
+	    text-align: center;
+	    margin: 0 8px 20px 0;
+	    position: relative;
+	    display: inline;
+	    float: left;
+	    overflow: hidden;
+	    font-size: 12px;
+	}
+	
+	.pics li p.imgWrap {
+		position: relative;
+	    z-index: 2;
+	    line-height: 110px;
+	    vertical-align: middle;
+	    overflow: hidden;
+	    width: 110px;
+	    height: 110px;
+	}
+	
+	.pics div.file-panel {
+		position: absolute;
+	    height: 0;
+	    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
+	    background: rgba( 0, 0, 0, 0.5 );
+	    width: 100%;
+	    top: 0;
+	    left: 0;
+	    overflow: hidden;
+	    z-index: 300;
+	}
+	
+	.pics div.file-panel i {
+		font-size: 16px;
+	    display: inline;
+	    float: right;
+	    margin: 5px 1px 1px;
+	    color: white;
+	    cursor: pointer;
+	}
+	
+	.pics div.file-panel i.cancel {
+		background-position: -48px -24px;
+	}
 </style>
 
 <!--上传课件-->
@@ -56,11 +118,11 @@
 								<div class="row" style="margin-bottom: 40px;">
 									<div class="fileTab">
 										<div class="row">
-											<div class="col-md-12" id="PPTKejian" style="text-align: center;margin-bottom: 20px;">
+											<div class="col-md-12" id="PPTKejian" style="text-align: center;margin-bottom: 20px;height: 50px;">
 												
 											</div>
 										</div>
-										<div id="filePicker4" style="text-align: center;">选择文件</div>
+										<div id="filePicker4" class="filePicker" style="text-align: center;">选择文件</div>
 									</div>
 									<div class="fileTab" style="display: none;">
 										<div class="row">
@@ -68,33 +130,16 @@
 												
 											</div>
 										</div>
-										<div id="filePicker5" style="text-align: center;">选择文件</div>
+										<div id="filePicker5" class="filePicker" style="text-align: center;">选择文件</div>
 									</div>
 									<div class="fileTab" style="display: none;">
 										<div class="row">
 											<div class="col-md-12" id="picsKejian">
-												<div class="form-group form-md-line-input">
-													<div id="uploader" class="wu-example">
-														<div class="queueList">
-															<div id="dndArea" class="placeholder">
-																<div id="filePicker"></div>
-															</div>
-														</div>
-														<div class="statusBar" style="display:none;">
-															<div class="progress">
-																<span class="text">0%</span>
-																<span class="percentage"></span>
-															</div>
-															<div class="info"></div>
-															<div class="btns">
-																<div id="filePicker"></div>
-																<div class="uploadBtn">开始上传</div>
-															</div>
-														</div>
-													</div>
-												</div>
+												<ul class="pics"></ul>
 											</div>
 										</div>
+										<div id="filePicker6" class="filePicker" style="text-align: center;">选择文件</div>
+										<button class="btn btn-default uploadBtn1">开始上传</button>
 									</div>
 								</div>
 							</div>
@@ -110,10 +155,6 @@
 </div>
 <script>
 	function uploadKejianCtrl($scope) {
-		$scope.sub = function() {
-			$scope.$emit('to-parent', 'uploadKejian');
-		}
-
 		$('input:radio[name="kejianType"]').change(function() {
 			console.log($(this).val());
 			$(".fileTab").hide();
@@ -130,11 +171,11 @@
 			id: 'filePicker4',
 			success: function(file, response, uploader) {
 				$scope.$apply(function() {　　
-					console.log(uploader.getFiles().length);
 					$scope.kejian = response.fileName;
 					$scope.kejianUrl = response.filePath;
-					var html = '<a href="'+response.filePath+'" target="_blink">'+response.fileName+'</a>';
-					$("#kejianContent4").html(html);
+					var html = '<a href="'+response.filePath+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
+					$("#PPTKejian").html(html);
+					$scope.$emit('kejian', response);
 				});
 			}
 		});
@@ -143,11 +184,19 @@
 			id: 'filePicker5',
 			success: function(file, response, uploader) {
 				$scope.$apply(function() {　　
-					console.log(uploader.getFiles().length);
-					$scope.kejian = response.fileName;
-					$scope.kejianUrl = response.filePath;
-					var html = '<a href="'+response.filePath+'" target="_blink">'+response.fileName+'</a>';
-					$("#kejianContent5").html(html);
+					var html = '<video src="'+response.filePath+'" controls="controls" style="height: 300px; width:auto;">'+response.fileName+'</video>';
+					$("#videoKejian").html(html);
+					$scope.$emit('kejian', response);
+				});
+			}
+		});
+		
+		common.multiFileUpload({
+			id: 'filePicker6',
+			uploadBtn: '.uploadBtn1',
+			success: function(file, response, uploader) {
+				$scope.$apply(function() {　　
+					
 				});
 			}
 		});
