@@ -148,6 +148,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn blue" ng-click="sub()">确定</button>
+			</div>
 		</div>
 		<!-- /.modal-content -->
 	</div>
@@ -155,8 +159,12 @@
 </div>
 <script>
 	function uploadKejianCtrl($scope) {
+		var type = 1;
+		var pptKejian = {};
+		var videoKejian = {};
+		var picsKejian = [];
 		$('input:radio[name="kejianType"]').change(function() {
-			console.log($(this).val());
+			type = $(this).val();
 			$(".fileTab").hide();
 			if($(this).val() == 1) {
 				$("#PPTKejian").closest(".fileTab").show();
@@ -170,24 +178,18 @@
 		common.fileUpload({
 			id: 'filePicker4',
 			success: function(file, response, uploader) {
-				$scope.$apply(function() {　　
-					$scope.kejian = response.fileName;
-					$scope.kejianUrl = response.filePath;
-					var html = '<a href="'+response.filePath+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
-					$("#PPTKejian").html(html);
-					$scope.$emit('kejian', response);
-				});
+				var html = '<a href="'+response.filePath+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
+				$("#PPTKejian").html(html);
+				pptKejian = response;
 			}
 		});
 		
 		common.fileUpload({
 			id: 'filePicker5',
 			success: function(file, response, uploader) {
-				$scope.$apply(function() {　　
-					var html = '<video src="'+response.filePath+'" controls="controls" style="height: 300px; width:auto;">'+response.fileName+'</video>';
-					$("#videoKejian").html(html);
-					$scope.$emit('kejian', response);
-				});
+				var html = '<video src="'+response.filePath+'" controls="controls" style="height: 300px; width:auto;">'+response.fileName+'</video>';
+				$("#videoKejian").html(html);
+				videoKejian = response;
 			}
 		});
 		
@@ -195,10 +197,26 @@
 			id: 'filePicker6',
 			uploadBtn: '.uploadBtn1',
 			success: function(file, response, uploader) {
-				$scope.$apply(function() {　　
-					
-				});
+				console.log(response);
+				picsKejian.push(response.filePath);
 			}
 		});
+		
+		$scope.sub = function() {
+			var kejian = {
+				type: type,
+				content: ''
+			};
+			
+			if(type == 1) {
+				kejian.content = pptKejian;
+			}else if(type == 2) {
+				kejian.content = videoKejian;
+			}else if(type == 3) {
+				kejian.content = picsKejian;
+			}
+			$scope.$emit('kejian', kejian);
+			$("#uploadKejianModal").modal("hide");
+		}
 	}
 </script>
