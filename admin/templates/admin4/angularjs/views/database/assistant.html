@@ -1,13 +1,13 @@
 <style>
-	.webuploader-pick {
-		display: block;
-		padding: 0;
-		background: #3598dc;
-	}
 	#createData {
 		min-width: 100px;
 	}
 	.createFile div:nth-child(2){width:100%!important;height:100%!important;}
+	
+	.filePicker div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
 </style>
 <div class="row" ng-controller="assistantCtrl">
 	<div data-ng-include="'views/template/zhishidian.html'"></div>
@@ -36,28 +36,8 @@
 					<span class="caption-subject bold uppercase">教学资料{{currKP}}</span>
 				</div>
 				<div class="actions">
-					<div class="btn-group btn-group-circle">
-						<button type="button" class="btn btn-danger">创建</button>
-						<button type="button" class="btn btn-circle-right btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-angle-down"></i></button>
-						<ul class="dropdown-menu" role="menu" id="createData">
-							<li>
-								<a href="javascript:;" class="createFile">
-									文档 </a>
-							</li>
-							<li>
-								<a href="javascript:;" class="createFile">
-									音频 </a>
-							</li>
-							<li>
-								<a href="javascript:;" class="createFile">
-									视频 </a>
-							</li>
-							<li>
-								<a href="javascript:;" class="createFile">
-									链接 </a>
-							</li>
-						</ul>
-					</div>
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#addJiaofuModal">
+							<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
@@ -135,6 +115,7 @@
 		<!-- END: ACCORDION DEMO -->
 	</div>
 
+	<div data-ng-include="'views/template/jiaofu/addJiaofu.html'"></div>
 </div>
 <!-- END MAIN CONTENT -->
 
@@ -154,41 +135,6 @@
 			$(this).closest(".btn-group").find("span").html(html);
 		});
 
-		var uploader = WebUploader.create({
-			// swf文件路径
-			swf: 'js/Uploader.swf',
-			// 文件接收服务端。
-			server: 'http://webuploader.duapp.com/server/fileupload.php',
-			// 选择文件的按钮。可选。
-			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
-			pick: '.createFile',
-			// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-			resize: false
-		});
-
-		// 当有文件被添加进队列的时候
-//		uploader.on('fileQueued', function(file) {
-//			console.log(file.name);
-//			var html = `
-//			<li>
-//				<div class="col1">
-//					<div class="cont">
-//						<div class="cont-col1">
-//							<div class="label label-sm label-warning">
-//								<i class="fa fa-plus"></i>
-//							</div>
-//						</div>
-//						<div class="cont-col2">
-//							<div class="desc">
-//								${file.name}
-//							</div>
-//						</div>
-//					</div>
-//				</div>
-//			</li>
-//			`;
-//			$("#tab_2_1 ul").append(html);
-//		});
 	}
 </script>
 <!-- BEGIN MAIN JS -->

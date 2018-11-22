@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
 <style>
 	#uploader .placeholder {
 		min-height: 150px;
@@ -20,6 +21,10 @@
 		height: 100%!important;
 	}
 	
+	#filePicker7 .webuploader-pick {
+		padding: 5px 15px;
+		margin: 5px 35px;
+	}
 </style>
 
 <div class="row" ng-controller="createCourseCtrl">
@@ -65,8 +70,8 @@
 									</div>
 								</div>
 								<div class="row" style="margin-bottom: 40px;">
-									<div class="col-md-12">
-										<div class="form-group form-md-checkboxes">
+									<div class="col-md-6">
+										<div class="form-group form-md-checkboxes" style="margin-bottom: 40px;">
 											<label>授课类型</label>
 											<div class="md-checkbox-inline">
 												<div class="md-checkbox">
@@ -95,13 +100,63 @@
 												</div>
 											</div>
 										</div>
+										<div class="form-group form-md-checkboxes">
+											<label>封面图片</label>
+												<a href="javascript:;" class="thumbnail" style="width: 160px;">
+													<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTkiIGhlaWdodD0iMTgwIj48cmVjdCB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE4MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9Ijc5LjUiIHk9IjkwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MTU5eDE4MDwvdGV4dD48L3N2Zz4=" alt="100%x180" style="height: 180px; width: 100%; display: block;">
+												</a>
+											<div id="filePicker7" class="filePicker">选择文件</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group form-md-checkboxes">
+											<label>备课类型</label>
+											<div class="md-radio-inline">
+												<div class="md-radio">
+													<input type="radio" id="radio1" name="beikeType" class="md-radiobtn" value="1" checked="">
+													<label for="radio1">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													单人备课 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio2" name="beikeType" class="md-radiobtn" value="2">
+													<label for="radio2">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													集体备课 </label>
+												</div>
+											</div>
+										</div>
+										<div style="width: 100%; height: 170px;display: none;" id="multipleContent">
+											<select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
+												<option>Dallas Cowboys</option>
+												<option>New York Giants</option>
+												<option selected>Philadelphia Eagles</option>
+												<option selected>Washington Redskins</option>
+												<option>Chicago Bears</option>
+												<option>Detroit Lions</option>
+												<option>Green Bay Packers</option>
+												<option>Minnesota Vikings</option>
+												<option selected>Atlanta Falcons</option>
+												<option>Carolina Panthers</option>
+												<option>New Orleans Saints</option>
+												<option>Tampa Bay Buccaneers</option>
+												<option>Arizona Cardinals</option>
+												<option>St. Louis Rams</option>
+												<option>San Francisco 49ers</option>
+												<option>Seattle Seahawks</option>
+											</select>
+										</div>
 									</div>
 								</div>
 								<div class="row" style="margin-bottom: 40px;">
 									<div class="col-md-12">
 										<div class="form-group form-md-line-input">
-											<textarea class="form-control" rows="3" placeholder="请输入轮播图显示的简要描述"></textarea>
-											<label for="form_control_1">课程描述</label>
+											<label for="form_control_1" style="font-size: 13px; color: #888888;">课程描述</label>
+											<div name="summernote" id="summernote_1"></div>
 										</div>
 									</div>
 								</div>
@@ -408,6 +463,7 @@
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script src="js/webuploader-0.1.5/demo.js"></script>
 <script src="js/clipboard.js-master/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="../../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
 	function createCourseCtrl($scope) {
@@ -494,9 +550,31 @@
 				text: '电子商务基础'
 			});
 		};
+		
+		$('#my_multi_select1').multiSelect();
+		
+		$('input:radio[name="beikeType"]').change(function() {
+			console.log($(this).val());
+			if($(this).val() == 2) {
+				$("#multipleContent").show();
+			}else {
+				$("#multipleContent").hide();
+			}
+		});
+		
+		$('#summernote_1').summernote({height: 300});
 
 		common.fileUpload({
 			id: 'filePicker3',
+			success: function(file, response) {
+				$scope.$apply(function() {　　
+					$scope.jiaoan = response.fileName;
+					$scope.jiaoanUrl = response.filePath;
+				});
+			}
+		});
+		common.fileUpload({
+			id: 'filePicker7',
 			success: function(file, response) {
 				$scope.$apply(function() {　　
 					$scope.jiaoan = response.fileName;

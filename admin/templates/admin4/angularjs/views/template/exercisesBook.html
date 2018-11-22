@@ -12,11 +12,42 @@
 						<div role="form">
 							<div class="form-body">
 								<div class="row" style="margin-bottom: 40px;">
-									<div class="col-md-12">
+									<div class="col-md-6">
 										<div class="form-group form-md-line-input">
 											<input type="text" class="form-control" ng-model="title" placeholder="提问册名称" />
 											<label for="form_control_1">提问册名称</label>
 											<span class="help-block">名称不得超过50个字符</span>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group form-md-radios">
+											<label>难易程度</label>
+											<div class="md-radio-inline">
+												<div class="md-radio">
+													<input type="radio" id="radio6" name="kejianType" class="md-radiobtn" value="1" checked="">
+													<label for="radio6">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													简单 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="2">
+													<label for="radio7">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													中等 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="3">
+													<label for="radio8">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													困难 </label>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>

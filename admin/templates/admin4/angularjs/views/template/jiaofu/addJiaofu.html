@@ -1,0 +1,186 @@
+<style>
+	.blockOverlay {
+		z-index: 21000 !important;
+	}
+	.blockMsg {
+		z-index: 21011 !important;
+	}
+</style>
+
+<!--上传课件-->
+<div class="modal fade" id="addJiaofuModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="addJiaofuCtrl">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="portlet light" style="min-height: 400px;">
+				<div class="portlet-title tabbable-line">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase" id="title">创建题目</span>
+					</div>
+					<div class="actions">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-target="#tab_3_1" data-toggle="tab"> 文档 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_2" data-toggle="tab"> 音频 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_3" data-toggle="tab"> 视频 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_4" data-toggle="tab"> 链接 </a>
+						</li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_3_1">
+							<div role="form">
+								<div class="form-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group form-md-checkboxes" style="margin-bottom: 40px;">
+												<label>资料标签</label>
+												<div class="md-checkbox-inline">
+													<div class="md-checkbox">
+														<input type="checkbox" id="checkbox6" class="md-check">
+														<label for="checkbox6">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														预习参考 </label>
+													</div>
+													<div class="md-checkbox">
+														<input type="checkbox" id="checkbox7" class="md-check" checked="">
+														<label for="checkbox7">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														课程案例 </label>
+													</div>
+													<div class="md-checkbox">
+														<input type="checkbox" id="checkbox8" class="md-check">
+														<label for="checkbox8">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														课堂参考 </label>
+													</div>
+													<div class="md-checkbox">
+														<input type="checkbox" id="checkbox9" class="md-check">
+														<label for="checkbox9">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														复习参考 </label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group form-md-checkboxes" style="margin-bottom: 40px;">
+												<label>资料权限</label>
+												<div class="md-checkbox-inline">
+													<div class="md-checkbox">
+														<input type="checkbox" id="checkbox1" class="md-check">
+														<label for="checkbox1">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														教师共享 </label>
+													</div>
+													<div class="md-checkbox">
+														<input type="checkbox" id="checkbox2" class="md-check" checked="">
+														<label for="checkbox2">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														学生可见 </label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="fileTab">
+								<div class="row">
+									<div class="col-md-12" id="wendangContent" style="text-align: center;margin-bottom: 20px;height: 50px;">
+										
+									</div>
+								</div>
+								<div id="filePicker4" class="filePicker" style="text-align: center;">选择文件</div>
+							</div>
+							<div class="form-actions noborder" style="text-align: right;">
+								<button type="button" class="btn blue" ng-click="sub();">提交并关闭</button>
+								<button type="button" class="btn blue">提交并继续</button>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab_3_2">
+						</div>
+						<div class="tab-pane" id="tab_3_3">
+
+						</div>
+						<div class="tab-pane" id="tab_3_4"></div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+</div>
+<script>
+	function addJiaofuCtrl($scope) {
+		var wendang = ''
+		common.fileUpload({
+			id: 'filePicker4',
+			success: function(file, response, uploader) {
+				var html = '<a href="'+response.filePath+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
+				$("#wendangContent").html(html);
+				wendang = response;
+			}
+		});
+		
+		common.fileUpload({
+			id: 'filePicker5',
+			success: function(file, response, uploader) {
+				var html = '<video src="'+response.filePath+'" controls="controls" style="height: 300px; width:auto;">'+response.fileName+'</video>';
+				$("#videoKejian").html(html);
+				videoKejian = response;
+			}
+		});
+		
+		common.multiFileUpload({
+			id: 'filePicker6',
+			uploadBtn: '.uploadBtn1',
+			success: function(file, response, uploader) {
+				console.log(response);
+				picsKejian.push(response.filePath);
+			}
+		});
+		
+		$scope.sub = function() {
+			var kejian = {
+				type: type,
+				content: ''
+			};
+			
+			if(type == 1) {
+				kejian.content = pptKejian;
+			}else if(type == 2) {
+				kejian.content = videoKejian;
+			}else if(type == 3) {
+				kejian.content = picsKejian;
+			}
+			$scope.$emit('kejian', kejian);
+			$("#uploadKejianModal").modal("hide");
+		}
+	}
+</script>
