@@ -57,6 +57,45 @@
 										</div>
 									</div>
 									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-md-8">
+											<div class="form-group form-md-line-input">
+												<input type="text" class="form-control" ng-model="single.jiexi" placeholder="请输入解析" />
+												<label for="form_control_1">解析</label>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group form-md-radios">
+											<label>难易程度</label>
+											<div class="md-radio-inline">
+												<div class="md-radio">
+													<input type="radio" id="radio6" name="level" class="md-radiobtn" value="1" checked="">
+													<label for="radio6">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													简单 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio7" name="level" class="md-radiobtn" value="2">
+													<label for="radio7">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													中等 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio8" name="level" class="md-radiobtn" value="3">
+													<label for="radio8">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													困难 </label>
+												</div>
+											</div>
+										</div>
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 40px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
 												<button class="btn btn-circle green btn-sm" ng-click="single.addOption();">

@@ -10,7 +10,7 @@
 	}
 </style>
 <div ng-controller="helper2Ctrl">
-	<div data-ng-include="'views/template/zhishidian.html'"></div>
+	<!--<div data-ng-include="'views/template/zhishidian.html'"></div>-->
 	<!-- BEGIN PAGE CONTENT-->
 	<div class="row profile">
 		<div class="col-md-12">
@@ -154,19 +154,19 @@
 </div>
 <script>
 	function helper2Ctrl($scope) {
-		ChartsAmcharts.init();
-		Metronic.blockUI({
-			boxed: true,
-			message: "加载中，请耐心等待..."
-		});
-
-		Metronic.blockUI({
-			boxed: true,
-			message: "加载中，请耐心等待..."
-		});
-
-		window.setTimeout(function() {
-			Metronic.unblockUI();
-		}, 2000);
+//		ChartsAmcharts.init();
+//		Metronic.blockUI({
+//			boxed: true,
+//			message: "加载中，请耐心等待..."
+//		});
+//
+//		Metronic.blockUI({
+//			boxed: true,
+//			message: "加载中，请耐心等待..."
+//		});
+//
+//		window.setTimeout(function() {
+//			Metronic.unblockUI();
+//		}, 2000);
 	}
 </script>
