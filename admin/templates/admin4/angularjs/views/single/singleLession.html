@@ -1,0 +1,206 @@
+<link href="../../../assets/global/plugins/slider-layer-slider/css/layerslider.css" rel="stylesheet">
+<link href="../../../assets/frontend/pages/css/style-layer-slider.css" rel="stylesheet">
+<style>
+	.profile-userpic img {
+		width: 80%;
+	}
+	
+	.uppercase {
+		font-size: 14px;
+		margin-top: 10px;
+	}
+	
+	.detail {
+		display: none;
+	}
+	
+	.cont {
+		margin-right: 0; 
+		width: 100%;
+	}
+</style>
+<div class="row" style="background-color: white;" ng-controller="singleLessionCtrl">
+	<div class="btn-group btn-theme-panel" style="position: absolute;right: 10px;top: 3px;" title="资料">
+		<a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
+			<i class="icon-docs"></i>
+		</a>
+
+	</div>
+
+	<div class="btn-group btn-theme-panel" style="position: absolute;right: 60px;top: 3px;" title="提问">
+		<a href="javascript:;" class="btn dropdown-toggle" ng-click="questionToggle();">
+			<i class="icon-question"></i>
+		</a>
+	</div>
+
+	<div class="btn-group btn-theme-panel" style="position: absolute;right: 110px;top: 3px;" title="练习">
+		<a href="javascript:;" class="btn dropdown-toggle" ng-click="questionToggle();">
+			<i class="icon-pencil"></i>
+		</a>
+	</div>
+
+	<div class="btn-group btn-theme-panel" style="position: absolute;right: 160px;top: 3px;" title="头脑风暴">
+		<a href="javascript:;" class="btn dropdown-toggle" ng-click="questionToggle();">
+			<i class="icon-fire"></i>
+		</a>
+	</div>
+
+	<div class="btn-group btn-theme-panel" style="position: absolute;right: 210px;top: 3px;" title="讨论">
+		<a href="javascript:;" class="btn dropdown-toggle" ng-click="questionToggle();">
+			<i class="icon-bubble"></i>
+		</a>
+	</div>
+
+	<div class="btn-group btn-theme-panel" style="position: absolute;right: 260px;top: 3px;" title="任务">
+		<a href="javascript:;" class="btn dropdown-toggle" ng-click="questionToggle();">
+			<i class="icon-envelope-letter"></i>
+		</a>
+	</div>
+
+	<div class="btn-group btn-theme-panel" style="position: absolute;right: 310px;top: 3px;" title="调查">
+		<a href="javascript:;" class="btn dropdown-toggle" ng-click="questionToggle();">
+			<i class="icon-disc"></i>
+		</a>
+	</div>
+
+	<div data-ng-include="'views/template/hudong/singleQuestion.html'" id="question" style="width: 79%;display: none;float: left;"></div>
+
+	<div style="width: 19%;float: right;">
+		<div class="portlet light" style="min-height: 200px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">教学资料{{currKP}}</span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="scroller" style="min-height: 100px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+					<ul class="feeds" style="margin-bottom: 50px;">
+						<li>
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="label label-sm label-danger">
+											<i class="fa fa-bolt"></i>
+										</div>
+									</div>
+									<div class="cont-col2">
+										<div class="desc">
+											<a href="file/201801.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+											<span class="label label-danger label-sm clipboard">课前预习</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="label label-sm label-success">
+											<i class="fa fa-bullhorn"></i>
+										</div>
+									</div>
+									<div class="cont-col2">
+										<div class="desc">
+											<a href="file/201802.pptx" type="application/vnd.ms-powerpoint" target=_blank>电子商务基础课件.ppt</a>
+											<span class="label label-danger label-sm clipboard">课程案例</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div style="width: 80%;float: left;">
+
+		<!-- LayerSlider start -->
+		<div id="layerslider" style="width: 100%; height: 759px; margin: 0;">
+
+			<!-- slide one start -->
+			<div class="ls-slide ls-slide1" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;">
+
+				<img src="images/ppt/幻灯片1.PNG" class="ls-bg" alt="Slide background">
+
+			</div>
+			<!-- slide one end -->
+
+			<!-- slide two start -->
+			<div class="ls-slide ls-slide2" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 110,111,112,113;">
+
+				<img src="images/ppt/幻灯片2.PNG" class="ls-bg" alt="Slide background">
+
+			</div>
+			<!-- slide two end -->
+
+			<!-- slide three start -->
+			<div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">
+
+				<img src="images/ppt/幻灯片3.PNG" class="ls-bg" alt="Slide background">
+
+			</div>
+			<!-- slide three end -->
+
+			<!-- slide four start -->
+			<div class="ls-slide ls-slide4" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 110,111,112,113;">
+
+				<img src="images/ppt/幻灯片4.PNG" class="ls-bg" alt="Slide background">
+
+			</div>
+			<!-- slide four end -->
+
+			<!-- slide one start -->
+			<div class="ls-slide ls-slide5" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;">
+
+				<img src="images/ppt/幻灯片5.PNG" class="ls-bg" alt="Slide background">
+
+			</div>
+			<!-- slide one end -->
+
+		</div>
+		<!-- LayerSlider end -->
+	</div>
+	
+
+</div>
+<!-- BEGIN LayerSlider -->
+<script src="../../../assets/global/plugins/slider-layer-slider/js/greensock.js" type="text/javascript"></script>
+<!-- External libraries: GreenSock -->
+<script src="../../../assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js" type="text/javascript"></script>
+<!-- LayerSlider script files -->
+<script src="../../../assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
+<!-- LayerSlider script files -->
+
+<!-- END LayerSlider -->
+<script>
+	var LayersliderInit = function() {
+		return {
+			initLayerSlider: function() {
+				$('#layerslider').layerSlider({
+					skinsPath: '../../../assets/global/plugins/slider-layer-slider/skins/',
+					skin: 'fullwidth',
+					thumbnailNavigation: 'hover',
+					hoverPrevNext: false,
+					responsive: false,
+					responsiveUnder: 960,
+					layersContainer: 960
+				});
+			}
+		};
+
+	}();
+
+	function singleLessionCtrl($scope, $rootScope) {
+		$rootScope.settings.layout.pageSidebarClosed = true;
+		LayersliderInit.initLayerSlider();
+
+		$scope.questionToggle = function() {
+			$("#question").toggle("slow");
+		}
+	}
+</script>

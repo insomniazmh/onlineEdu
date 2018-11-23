@@ -1,0 +1,208 @@
+<link href="../../../assets/admin/pages/css/profile.css" rel="stylesheet">
+
+<style>
+	.profile-userpic img {
+		width: 80%;
+	}
+	
+	.uppercase {
+		font-size: 14px;
+		margin-top: 10px;
+	}
+	
+	.detail {
+		display: none;
+	}
+	
+	.badge {
+		padding: 6px 9px;
+		height: 24px;
+		font-weight: 600;
+		cursor: pointer;
+	}
+</style>
+<div class="row" style="background-color: #fcf8e3;" ng-controller="singleQuestionCtrl">
+	<div class="alert alert-block fade in">
+		<div>
+			
+			<div style="display: inline-block;margin-right: 20px;">
+				<i class="icon-settings font-green-sharp"></i>
+				<span style="color: #4DB3A2;font-size: 16px;margin-left: 5px;font-weight: 600;">课堂提问</span>
+			</div>
+			<span class="badge badge-danger"> 1 </span>
+			<span class="badge badge-danger"> 2 </span>
+			<span class="badge badge-success"> 3 </span>
+			<span class="badge badge-success"> 4 </span>
+			<span class="badge badge-success"> 5 </span>
+			<span class="badge badge-success"> 6 </span>
+		</div>
+		<div>
+			<div style="width: 48%;float: left;">
+				<div class="note" style="border-left: 0;border-bottom: 1px solid #eee;">
+					<h4 class="block">
+						商家要开展电子商务活动 , 应该用（ C ）作为其主要的生意平台。
+					</h4>
+					<p>A． BBS</p>
+					<p>B．电子邮件</p>
+					<p>C．在线商店</p>
+					<p>D．电话定购</p>
+				</div>
+				
+			</div>
+			<div style="width: 48%;float: left;">
+				<div style="text-align: right;margin-top: 15px;">
+					<div class="btn-group">
+						<button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+				选人 <i class="fa fa-angle-down"></i>
+				</button>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<a href="javascript:;" ng-click="qiangda()">抢答 </a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="jushou()">举手 </a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="xuanren()">选人</a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="toupiao()">投票</a>
+							</li>
+						</ul>
+					</div>
+					<div class="btn-group">
+						<button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+				选组 <i class="fa fa-angle-down"></i>
+				</button>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<a href="javascript:;" ng-click="qiangdazu()">抢答 </a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="jushouzu()">举手 </a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="xuanrenzu()">选人</a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="toupiaozu()">投票</a>
+							</li>
+						</ul>
+					</div>
+					<button class="btn btn-success" ng-click="showAnswer()">显示回答</button>
+				</div>
+				<div id="answerrenDetail" class="detail">
+					<div class="col-md-2" ng-repeat="row in students">
+						<div class="uppercase profile-userpic">
+							<img src="{{row.image}}" class="img-responsive" alt="">
+						</div>
+						<div class="uppercase profile-stat-text">
+							{{row.name}}&nbsp;&nbsp;
+							<span ng-if="$index%2==0">已回答</span>
+							<span ng-if="$index%2==1" style="color: red;">未回答</span>
+						</div>
+					</div>
+				</div>
+				<div id="answerzuDetail" class="detail">
+
+				</div>
+				<div id="toupiaorenDetail" class="detail">
+					<div class="col-md-2" ng-repeat="row in students">
+						<div class="uppercase profile-userpic">
+							<img src="{{row.image}}" class="img-responsive" alt="">
+						</div>
+						<div class="uppercase profile-stat-text">
+							{{row.name}}&nbsp;&nbsp;18票
+						</div>
+					</div>
+				</div>
+				<div id="toupiaozuDetail" class="detail">
+					<p>第一组得票数： 18</p>
+					<p>第二组得票数： 21</p>
+				</div>
+			</div>
+		
+			<div style="clear: both;"></div>
+			<div style="text-align: center;">
+				<button class="btn btn-info">上一题</button>
+				<button class="btn btn-info">上一题</button>
+			</div>
+		</div>
+	</div>
+
+	<div data-ng-include="'views/template/xuanzuModal.html'"></div>
+
+	<div data-ng-include="'views/template/xuanrenModal.html'"></div>
+
+</div>
+<script>
+	function singleQuestionCtrl($scope, $rootScope) {
+		$rootScope.settings.layout.pageSidebarClosed = true;
+
+		//选人或举手回答
+		$scope.$on('answerStudents', function(event, data) {
+			console.log(data);
+			$scope.students = data;
+			$(".detail").hide();
+			$("#answerrenDetail").show();
+		});
+
+		//分组投票
+		$scope.$on('toupiaoGroup', function(event, data) {
+			console.log(data);
+			$scope.students = data;
+			$(".detail").hide();
+			$("#toupiaozuDetail").show();
+		});
+
+		//选人投票
+		$scope.$on('toupiaoStudent', function(event, data) {
+			console.log(data);
+			$scope.students = data;
+			$(".detail").hide();
+			$("#toupiaorenDetail").show();
+		});
+
+		$scope.qiangda = function() {
+			common.toast({
+				title: "开始抢答"
+			});
+		};
+
+		$scope.jushou = function() {
+			$scope.$broadcast('type', 'jushou');
+			$("#students").modal("show");
+		};
+
+		$scope.xuanren = function() {
+			$scope.$broadcast('type', 'xuanren');
+			$("#students").modal("show");
+		};
+
+		$scope.toupiao = function() {
+			$scope.$broadcast('type', 'toupiao');
+			$("#students").modal("show");
+		};
+
+		$scope.qiangdazu = function() {
+			common.toast({
+				title: "开始抢答"
+			});
+		};
+
+		$scope.jushouzu = function() {
+			$scope.$broadcast('type', 'jushou');
+			$("#groups").modal("show");
+		};
+
+		$scope.xuanrenzu = function() {
+			$scope.$broadcast('type', 'xuanren');
+			$("#groups").modal("show");
+		};
+
+		$scope.toupiaozu = function() {
+			$scope.$broadcast('type', 'toupiao');
+			$("#groups").modal("show");
+		};
+	}
+</script>
