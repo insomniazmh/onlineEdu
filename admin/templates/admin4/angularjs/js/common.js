@@ -47,7 +47,6 @@ var common = {
 		});
 		
 		uploader.on('uploadBeforeSend', function (block, data, headers) {
-			console.log(111);
 			Metronic.blockUI({
 				boxed: true,
 				message: "上传中，请耐心等待..."

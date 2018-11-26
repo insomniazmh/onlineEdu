@@ -1,119 +1,95 @@
-<div class="row">
-	<div class="col-md-12">
-		<div class="add-portfolio">
-			<span>电子商务基础--电子商务内涵--课堂协助--课堂编号（0731）</span>
-			<button class="btn green" id="pulsate-once"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始上课</font></font></button>
-			<button class="btn green" id="pulsate-once"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">扫码进课堂</font></font></button>
+<div ng-controller="teachingCtrl">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="add-portfolio">
+				<span>电子商务基础--电子商务内涵--课堂协助--课堂编号（0731）</span>
+				<button class="btn green" ng-click="goUrl()"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始上课</font></font></button>
+				<button class="btn green" id="pulsate-once" data-toggle="modal" href="#erweima"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">扫码进课堂</font></font></button>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="row">
-	<div class="col-md-3">
-		<div data-ng-include="'views/template/nodeTree2.html'"></div>
-	</div>
-	<div class="col-md-9">
-		<div class="tab-content">
-			<div id="tab_1" class="tab-pane active">
-				<div id="accordion1" class="panel-group">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+	<div class="row">
+		<div class="col-md-3">
+			<div data-ng-include="'views/template/nodeTree2.html'"></div>
+		</div>
+		<div class="col-md-9" style="display: none;">
+			<div class="tab-content">
+				<div id="tab_1" class="tab-pane active">
+					<div id="accordion1" class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_1">
 																			1. 课堂资料(5) </a>
 																	</h4>
-						</div>
-						<div id="accordion1_1" class="panel-collapse collapse in">
-							<div class="panel-body">
-								<ul class="feeds">
-									<li>
-										<div class="col1">
-											<div class="cont">
-												<div class="cont-col1">
-													<div class="label label-success">
-														<i class="fa fa-bell-o"></i>
+							</div>
+							<div id="accordion1_1" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<ul class="feeds">
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-success">
+															<i class="fa fa-bell-o"></i>
+														</div>
 													</div>
-												</div>
-												<div class="cont-col2">
-													<div class="desc">
-														<a href="file/201801.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
-														<span class="label label-danger label-sm">
+													<div class="cont-col2">
+														<div class="desc">
+															<a href="file/201801.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+															<span class="label label-danger label-sm">
 																				课程 <i class="fa fa-share"></i>
 																			</span>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col2">
-											<div class="date">
-												10-25
+											<div class="col2">
+												<div class="date">
+													10-25
+												</div>
 											</div>
-										</div>
-									</li>
-									<li>
-										<a href="javascript:;">
-											<div class="col1">
-												<div class="cont">
-													<div class="cont-col1">
-														<div class="label label-success">
-															<i class="fa fa-bell-o"></i>
+										</li>
+										<li>
+											<a href="javascript:;">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
 														</div>
-													</div>
-													<div class="cont-col2">
-														<div class="desc">
-															电子商务的内涵.mp4
-															<span class="label label-danger label-sm">
+														<div class="cont-col2">
+															<div class="desc">
+																电子商务的内涵.mp4
+																<span class="label label-danger label-sm">
 																										章节 <i class="fa fa-share"></i>
 																										</span>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-											<div class="col2">
-												<div class="date">
-													10-25
-												</div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<div class="col1">
-											<div class="cont">
-												<div class="cont-col1">
-													<div class="label label-danger">
-														<i class="fa fa-bolt"></i>
+												<div class="col2">
+													<div class="date">
+														10-25
 													</div>
 												</div>
-												<div class="cont-col2">
-													<div class="desc">
-														<a href="file/201802.pptx" type="application/vnd.ms-powerpoint" target=_blank>电子商务基础课件.ppt</a>
-														<span class="label label-danger label-sm">
-																				知识点 <i class="fa fa-share"></i>
-																			</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col2">
-											<div class="date">
-												10-25
-											</div>
-										</div>
-									</li>
-									<li>
-										<a href="http://app.myzaker.com/news/article.php?pk=5a023e271bc8e0c910000017" target="_blank">
+											</a>
+										</li>
+										<li>
 											<div class="col1">
 												<div class="cont">
 													<div class="cont-col1">
-														<div class="label label-success">
-															<i class="fa fa-bell-o"></i>
+														<div class="label label-danger">
+															<i class="fa fa-bolt"></i>
 														</div>
 													</div>
 													<div class="cont-col2">
 														<div class="desc">
-															大学生网上收购垃圾
+															<a href="file/201802.pptx" type="application/vnd.ms-powerpoint" target=_blank>电子商务基础课件.ppt</a>
 															<span class="label label-danger label-sm">
-																						案例 <i class="fa fa-share"></i>
-																				</span>
+																				知识点 <i class="fa fa-share"></i>
+																			</span>
 														</div>
 													</div>
 												</div>
@@ -123,362 +99,447 @@
 													10-25
 												</div>
 											</div>
-										</a>
-									</li>
-									<li>
-										<div class="col1">
-											<div class="cont">
-												<div class="cont-col1">
-													<div class="label label-danger">
-														<i class="fa fa-bolt"></i>
+										</li>
+										<li>
+											<a href="http://app.myzaker.com/news/article.php?pk=5a023e271bc8e0c910000017" target="_blank">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="label label-success">
+																<i class="fa fa-bell-o"></i>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																大学生网上收购垃圾
+																<span class="label label-danger label-sm">
+																						案例 <i class="fa fa-share"></i>
+																				</span>
+															</div>
+														</div>
 													</div>
 												</div>
-												<div class="cont-col2">
-													<div class="desc">
-														电子+商务与传统商务活动相对的含义.ppt
-														<span class="label label-danger label-sm">
+												<div class="col2">
+													<div class="date">
+														10-25
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<div class="col1">
+												<div class="cont">
+													<div class="cont-col1">
+														<div class="label label-danger">
+															<i class="fa fa-bolt"></i>
+														</div>
+													</div>
+													<div class="cont-col2">
+														<div class="desc">
+															电子+商务与传统商务活动相对的含义.ppt
+															<span class="label label-danger label-sm">
 																				预习参考 <i class="fa fa-share"></i>
 																			</span>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col2">
-											<div class="date">
-												10-25
+											<div class="col2">
+												<div class="date">
+													10-25
+												</div>
 											</div>
-										</div>
-									</li>
-								</ul>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
+						<div class="panel panel-default">
+							<div class="panel-heading">
 
-							<h4 class="panel-title">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_2">
 																			2. 课堂提问(2) </a>
 																	</h4>
-						</div>
-						<div id="accordion1_2" class="panel-collapse collapse">
-							<div class="panel-body">
-								<ul>
-									<li>
-										<a><i class="fa fa-leaf"></i>1、你认为什么是电子商务？
-										</a>
-										<span class="label label-danger label-sm">
+							</div>
+							<div id="accordion1_2" class="panel-collapse collapse">
+								<div class="panel-body">
+									<ul>
+										<li>
+											<a><i class="fa fa-leaf"></i>1、你认为什么是电子商务？
+											</a>
+											<span class="label label-danger label-sm">
 															导入提问 <i class="fa fa-share"></i>
 															</i>
 														</span>
-									</li>
-									<li>
-										<a><i class="fa fa-leaf"></i>
-										<a href="http://127.0.0.1:8848/admin/templates/admin4/angularjs/index.html#/singleQuestion.html" target="_blank">
-											2、商家要开展电子商务活动 , 应该用( )作为其主要的生意平台？</a>
-										<span class="label label-danger label-sm">
+										</li>
+										<li>
+											<a><i class="fa fa-leaf"></i>
+												<a href="http://127.0.0.1:8848/admin/templates/admin4/angularjs/index.html#/singleQuestion.html" target="_blank">
+													2、商家要开展电子商务活动 , 应该用( )作为其主要的生意平台？</a>
+												<span class="label label-danger label-sm">
 															授课提问 <i class="fa fa-share"></i>
 															</i>
 														</span>
-									  </li>
-									<li data-toggle="modal" data-target="#questionSingle">
-										<a><i class="fa fa-leaf"></i>3、商家要开展电子商务活动 , 应该用什么作为其主要的生意平台。
-										</a>
-										<span class="label label-danger label-sm">
+										</li>
+										<li data-toggle="modal" data-target="#questionSingle">
+											<a><i class="fa fa-leaf"></i>3、商家要开展电子商务活动 , 应该用什么作为其主要的生意平台。
+											</a>
+											<span class="label label-danger label-sm">
 															授课提问 <i class="fa fa-share"></i>
 															</i>
 														</span>
-									</li>
-								</ul>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-success">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_3">
 																			3. 小组讨论(1) </a>
 																	</h4>
-						</div>
-						<div id="accordion1_3" class="panel-collapse collapse">
-							<div class="panel-body">
-								<li>
-									<a><i class="fa fa-leaf"></i>1、电子商务就是网上卖东西吗？</a>
-								</li>
+							</div>
+							<div id="accordion1_3" class="panel-collapse collapse">
+								<div class="panel-body">
+									<li>
+										<a><i class="fa fa-leaf"></i>1、电子商务就是网上卖东西吗？</a>
+									</li>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-warning">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_4">
 																			4. 课程练习(2) </a>
 																	</h4>
-						</div>
-						<div id="accordion1_4" class="panel-collapse collapse">
-							<div class="panel-body">
-								<li data-toggle="modal" data-target="#questionSingle">
-									<a><i class="fa fa-leaf"></i>1、商家要开展电子商务活动 , 应该用（ A ）作为其主要的生意平台？</a>
-								</li>
-								<li>
-									<a><i class="fa fa-leaf"></i>2. 电子数据交换的简称是 ( B )？</a>
-								</li>
+							</div>
+							<div id="accordion1_4" class="panel-collapse collapse">
+								<div class="panel-body">
+									<li data-toggle="modal" data-target="#questionSingle">
+										<a><i class="fa fa-leaf"></i>1、商家要开展电子商务活动 , 应该用（ A ）作为其主要的生意平台？</a>
+									</li>
+									<li>
+										<a><i class="fa fa-leaf"></i>2. 电子数据交换的简称是 ( B )？</a>
+									</li>
 
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-danger">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_5">
 																			5. 头脑风暴(2) </a>
 																	</h4>
-						</div>
-						<div id="accordion1_5" class="panel-collapse collapse">
-							<div class="panel-body">
-								<li>
-									<a><i class="fa fa-leaf"></i>1、广义与狭义电子商务有什么区别？ </a>
-								</li>
-								<li>
-									<a><i class="fa fa-leaf"></i>2、电子商务活动可能涉及到的行业有哪些？ </a>
-								</li>
+							</div>
+							<div id="accordion1_5" class="panel-collapse collapse">
+								<div class="panel-body">
+									<li>
+										<a><i class="fa fa-leaf"></i>1、广义与狭义电子商务有什么区别？ </a>
+									</li>
+									<li>
+										<a><i class="fa fa-leaf"></i>2、电子商务活动可能涉及到的行业有哪些？ </a>
+									</li>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_6">
 																			6. 课后作业(1) </a>
 																	</h4>
-						</div>
-						<div id="accordion1_6" class="panel-collapse collapse">
-							<div class="panel-body">
-								<li>
-									<a><i class="fa fa-leaf"></i>1、比较传统商务与电子商务的特点？ </a>
-								</li>
+							</div>
+							<div id="accordion1_6" class="panel-collapse collapse">
+								<div class="panel-body">
+									<li>
+										<a><i class="fa fa-leaf"></i>1、比较传统商务与电子商务的特点？ </a>
+									</li>
 
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_7">
 																			7. 本次任务(1) </a>
 																	</h4>
-						</div>
-						<div id="accordion1_7" class="panel-collapse collapse">
-							<div class="panel-body">
-								体验京东、淘宝、亚马逊电子商务平台商务活动，思考商务活动的基础框架组成。
+							</div>
+							<div id="accordion1_7" class="panel-collapse collapse">
+								<div class="panel-body">
+									体验京东、淘宝、亚马逊电子商务平台商务活动，思考商务活动的基础框架组成。
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div id="tab_2" class="tab-pane">
-				<div id="accordion2" class="panel-group">
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+				<div id="tab_2" class="tab-pane">
+					<div id="accordion2" class="panel-group">
+						<div class="panel panel-warning">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_1">
 																			1. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry ? </a>
 																	</h4>
-						</div>
-						<div id="accordion2_1" class="panel-collapse collapse in">
-							<div class="panel-body">
-								<p>
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-								</p>
-								<p>
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-								</p>
+							</div>
+							<div id="accordion2_1" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<p>
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</p>
+									<p>
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-danger">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_2">
 																			2. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry ? </a>
 																	</h4>
-						</div>
-						<div id="accordion2_2" class="panel-collapse collapse">
-							<div class="panel-body">
-								Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+							</div>
+							<div id="accordion2_2" class="panel-collapse collapse">
+								<div class="panel-body">
+									Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-success">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_3">
 																			3. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor ? </a>
 																	</h4>
-						</div>
-						<div id="accordion2_3" class="panel-collapse collapse">
-							<div class="panel-body">
-								Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+							</div>
+							<div id="accordion2_3" class="panel-collapse collapse">
+								<div class="panel-body">
+									Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_4">
 																			4. Wolf moon officia aute, non cupidatat skateboard dolor brunch ? </a>
 																	</h4>
-						</div>
-						<div id="accordion2_4" class="panel-collapse collapse">
-							<div class="panel-body">
-								3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+							</div>
+							<div id="accordion2_4" class="panel-collapse collapse">
+								<div class="panel-body">
+									3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_5">
 																			5. Leggings occaecat craft beer farm-to-table, raw denim aesthetic ? </a>
 																	</h4>
-						</div>
-						<div id="accordion2_5" class="panel-collapse collapse">
-							<div class="panel-body">
-								3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+							</div>
+							<div id="accordion2_5" class="panel-collapse collapse">
+								<div class="panel-body">
+									3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_6">
 																			6. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth ? </a>
 																	</h4>
-						</div>
-						<div id="accordion2_6" class="panel-collapse collapse">
-							<div class="panel-body">
-								3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+							</div>
+							<div id="accordion2_6" class="panel-collapse collapse">
+								<div class="panel-body">
+									3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_7">
 																			7. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft ? </a>
 																	</h4>
-						</div>
-						<div id="accordion2_7" class="panel-collapse collapse">
-							<div class="panel-body">
-								3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+							</div>
+							<div id="accordion2_7" class="panel-collapse collapse">
+								<div class="panel-body">
+									3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div id="tab_3" class="tab-pane">
-				<div id="accordion3" class="panel-group">
-					<div class="panel panel-danger">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+				<div id="tab_3" class="tab-pane">
+					<div id="accordion3" class="panel-group">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3_1">
 																			1. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry ? </a>
 																	</h4>
-						</div>
-						<div id="accordion3_1" class="panel-collapse collapse in">
-							<div class="panel-body">
-								<p>
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-								</p>
-								<p>
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-								</p>
-								<p>
-									Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-								</p>
+							</div>
+							<div id="accordion3_1" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<p>
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+									</p>
+									<p>
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+									</p>
+									<p>
+										Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-success">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3_2">
 																			2. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry ? </a>
 																	</h4>
-						</div>
-						<div id="accordion3_2" class="panel-collapse collapse">
-							<div class="panel-body">
-								Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+							</div>
+							<div id="accordion3_2" class="panel-collapse collapse">
+								<div class="panel-body">
+									Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3_3">
 																			3. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor ? </a>
 																	</h4>
-						</div>
-						<div id="accordion3_3" class="panel-collapse collapse">
-							<div class="panel-body">
-								Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+							</div>
+							<div id="accordion3_3" class="panel-collapse collapse">
+								<div class="panel-body">
+									Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3_4">
 																			4. Wolf moon officia aute, non cupidatat skateboard dolor brunch ? </a>
 																	</h4>
-						</div>
-						<div id="accordion3_4" class="panel-collapse collapse">
-							<div class="panel-body">
-								3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+							</div>
+							<div id="accordion3_4" class="panel-collapse collapse">
+								<div class="panel-body">
+									3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3_5">
 																			5. Leggings occaecat craft beer farm-to-table, raw denim aesthetic ? </a>
 																	</h4>
-						</div>
-						<div id="accordion3_5" class="panel-collapse collapse">
-							<div class="panel-body">
-								3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+							</div>
+							<div id="accordion3_5" class="panel-collapse collapse">
+								<div class="panel-body">
+									3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3_6">
 																			6. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth ? </a>
 																	</h4>
-						</div>
-						<div id="accordion3_6" class="panel-collapse collapse">
-							<div class="panel-body">
-								3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+							</div>
+							<div id="accordion3_6" class="panel-collapse collapse">
+								<div class="panel-body">
+									3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3_7">
 																			7. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft ? </a>
 																	</h4>
-						</div>
-						<div id="accordion3_7" class="panel-collapse collapse">
-							<div class="panel-body">
-								3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+							</div>
+							<div id="accordion3_7" class="panel-collapse collapse">
+								<div class="panel-body">
+									3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-md-1" ng-repeat="row in students">
+						<div class="uppercase profile-userpic {{row.active ? 'active':''}}" ng-click="clickStudent($index);">
+							<img src="{{row.image}}" class="img-responsive" alt="">
+						</div>
+						<div class="uppercase profile-stat-text">
+							{{row.name}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="erweima" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+	
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">二维码</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<img src="images/erweima.png" style="width: 80%;margin-left: 10%;" />
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
 	</div>
 </div>
+
+<script>
+	function teachingCtrl($scope, $rootScope) {
+		$scope.goUrl = function() {
+			window.open('#/singleLession.html');
+		}
+		
+		$scope.students = [
+					{name: "张三" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "李四" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "王五" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "马六" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "赵琦" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "韩八" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "钱九" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"}
+				];
+	}
+</script>

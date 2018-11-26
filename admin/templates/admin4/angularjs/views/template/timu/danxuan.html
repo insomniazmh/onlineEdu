@@ -1,0 +1,190 @@
+<div role="form" ng-controller="danxuanCtrl">
+	<div class="form-body">
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">					
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
+					<div id="danxuan_title"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
+					<div id="danxuan_jiexi"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-6">
+				<div class="form-group form-md-line-input has-info">
+					<select class="form-control" id="form_control_1">
+						<option value="">请选择</option>
+						<option value="">电子商务的定义</option>
+						<option value="">电子商务的概念</option>
+					</select>
+					<label for="form_control_1">知识点</label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group form-md-radios">
+					<label>难易程度</label>
+					<div class="md-radio-inline">
+						<div class="md-radio">
+							<input type="radio" id="radio6" name="level" class="md-radiobtn" value="1" checked="">
+							<label for="radio6">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													简单 </label>
+						</div>
+						<div class="md-radio">
+							<input type="radio" id="radio7" name="level" class="md-radiobtn" value="2">
+							<label for="radio7">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													中等 </label>
+						</div>
+						<div class="md-radio">
+							<input type="radio" id="radio8" name="level" class="md-radiobtn" value="3">
+							<label for="radio8">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													困难 </label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<button class="btn btn-circle green btn-sm" ng-click="single.addOption();">
+												<i class="fa fa-plus"></i> 创建选项 </button>
+					<span>正确答案：  {{single.right}}</span>
+				</div>
+			</div>
+			<div style="margin-top: 20px;"></div>
+			<div ng-repeat="row in single.options" style="height: 200px;">
+				<div class="col-md-1" style="height: 54px;">
+					<div class="form-group form-md-line-input" style="padding-top: 27px;">
+						<div class="md-radio">
+							<input type="radio" id="radio{{$index}}" name="single" ng-value="row.name" class="md-radiobtn" ng-model="single.right">
+							<label for="radio{{$index}}">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span></label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1" style="height: 54px;">
+					<span style="position: absolute;bottom: 7px;">{{row.name}}.</span>
+				</div>
+				<div class="col-md-8">
+					<div class="form-group form-md-line-input">
+						<div class="danxuan_summernote" id="danxuan_option{{row.count}}"></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group form-md-line-input">
+						<button class="btn btn-danger" ng-click="single.delOption($index);">删除</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions noborder">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
+		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+	</div>
+</div>
+
+<script>
+	function danxuanCtrl($scope, $timeout) {
+		var count = 5;
+		$scope.single = {
+			right: "",
+			options: [{
+				name: "A",
+				count: "1"
+			}, {
+				name: "B",
+				count: "2"
+			}, {
+				name: "C",
+				count: "3"
+			}, {
+				name: "D",
+				count: "4"
+			}],
+
+			addOption: function() {
+				console.log(this.options);
+				this.options.push({
+					value: "",
+					count: count
+				});
+				this.rename();
+				
+				$timeout(function() {
+					$('#danxuan_option'+count).summernote({
+						height: 100
+					});
+					count++;
+				},300);
+			},
+
+			delOption: function(index) {
+				this.options.splice(index, 1);
+				this.rename();
+			},
+
+			rename: function() {
+				$(this.options).each(function(i) {
+					if(i == 0) {
+						this.name = "A";
+					} else if(i == 1) {
+						this.name = "B";
+					} else if(i == 2) {
+						this.name = "C";
+					} else if(i == 3) {
+						this.name = "D";
+					}
+				});
+			}
+		};
+		
+		$('#danxuan_title').summernote({
+			height: 100
+		});
+		$('#danxuan_jiexi').summernote({
+			height: 100
+		});
+		
+		$timeout(function() {
+			$('#danxuan_option1').summernote({
+				height: 100
+			});
+			$('#danxuan_option2').summernote({
+				height: 100
+			});
+			$('#danxuan_option3').summernote({
+				height: 100
+			});
+			$('#danxuan_option4').summernote({
+				height: 100
+			});
+		},300);
+		
+		$scope.sub = function() {
+			var aaa = $('#danxuan_title').code();
+			for(var i=0;i<$(".danxuan_summernote").length;i++) {
+				console.log($(".danxuan_summernote").eq(i).code());
+			}
+		}
+		
+	}
+</script>

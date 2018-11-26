@@ -132,22 +132,22 @@
 										</div>
 										<div style="width: 100%; height: 170px;display: none;" id="multipleContent">
 											<select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
-												<option>Dallas Cowboys</option>
-												<option>New York Giants</option>
-												<option selected>Philadelphia Eagles</option>
-												<option selected>Washington Redskins</option>
-												<option>Chicago Bears</option>
-												<option>Detroit Lions</option>
-												<option>Green Bay Packers</option>
-												<option>Minnesota Vikings</option>
-												<option selected>Atlanta Falcons</option>
-												<option>Carolina Panthers</option>
-												<option>New Orleans Saints</option>
-												<option>Tampa Bay Buccaneers</option>
-												<option>Arizona Cardinals</option>
-												<option>St. Louis Rams</option>
-												<option>San Francisco 49ers</option>
-												<option>Seattle Seahawks</option>
+												<option>胡珊珊</option>
+												<option>张燕</option>
+												<option selected>李康</option>
+												<option selected>申琪</option>
+												<option>赵红</option>
+												<option>王艳丽</option>
+												<option>梁伟</option>
+												<option>侯卓媛</option>
+												<option selected>马聪颖</option>
+												<option>韩涵</option>
+												<option>张艳欣</option>
+												<option>李永红</option>
+												<option>霍爱萍</option>
+												<option>李曼</option>
+												<option>白继萍</option>
+												<option>张书文</option>
 											</select>
 										</div>
 									</div>
@@ -551,6 +551,10 @@
 			});
 		};
 		
+		$('#summernote_1').summernote({
+			height: 300
+		});
+		
 		$('#my_multi_select1').multiSelect();
 		
 		$('input:radio[name="beikeType"]').change(function() {
@@ -562,8 +566,6 @@
 			}
 		});
 		
-		$('#summernote_1').summernote({height: 300});
-
 		common.fileUpload({
 			id: 'filePicker3',
 			success: function(file, response) {
@@ -584,5 +586,6 @@
 		});
 
 	}
+	
 </script>
 <!-- BEGIN MAIN JS -->
