@@ -41,118 +41,61 @@
 							<div data-ng-include="'views/template/timu/duoxuan.html'"></div>
 						</div>
 						<div class="tab-pane" id="tab_3_3">
-
+							<div data-ng-include="'views/template/timu/panduan.html'"></div>
 						</div>
-						<div class="tab-pane" id="tab_3_4"></div>
-						<div class="tab-pane" id="tab_3_5"></div>
+						<div class="tab-pane" id="tab_3_4">
+							<div data-ng-include="'views/template/timu/tiankong.html'"></div>
+						</div>
+						<div class="tab-pane" id="tab_3_5">
+							<div data-ng-include="'views/template/timu/zhuguan.html'"></div>
+						</div>
 						<div class="tab-pane" id="tab_3_6" style="background-color: #e9ecf3;">
 							<div class="row">
 								<div class="col-md-12" style="background-color: white;">
 									<div class="form-group form-md-line-input">
 										<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
-										<div name="summernote" id="summernote_1"></div>
+										<div name="summernote" id="summernote_dati"></div>
 									</div>
 								</div>
 								<div class="col-md-6" style="background-color: white;margin-top: 15px;width: 49%; margin-right: 1%;">
-									<div role="form" style="margin: 0 15px;">
-										<div class="form-body">
-											<div class="row" style="margin-bottom: 40px;margin-top: 10px;">
-												<div class="col-md-12">
-													<div class="form-group form-md-radios">
-														<label>题目类型</label>
-														<div class="md-radio-inline">
-															<div class="md-radio">
-																<input type="radio" id="radio6" name="kejianType" class="md-radiobtn" value="1" checked="">
-																<label for="radio6">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																单选 </label>
-															</div>
-															<div class="md-radio">
-																<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="2">
-																<label for="radio7">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																多选 </label>
-															</div>
-															<div class="md-radio">
-																<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="3">
-																<label for="radio8">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																判断 </label>
-															</div>
-															<div class="md-radio">
-																<input type="radio" id="radio9" name="kejianType" class="md-radiobtn" value="3">
-																<label for="radio9">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																填空 </label>
-															</div>
-															<div class="md-radio">
-																<input type="radio" id="radio10" name="kejianType" class="md-radiobtn" value="3">
-																<label for="radio10">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																主观 </label>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-md-12">
-													<div class="form-group form-md-line-input">
-														<input type="text" class="form-control" ng-model="single.title" placeholder="请输入题干" />
-														<label for="form_control_1">题干</label>
-														<span class="help-block">题干不得超过50个字符</span>
-													</div>
-												</div>
+									<div class="form-group form-md-radios">
+										<label>题目类型</label>
+										<div class="md-radio-inline">
+											<div class="md-radio">
+												<input type="radio" id="radio6" name="kejianType" class="md-radiobtn" value="1" checked="">
+												<label for="radio6">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												单选 </label>
 											</div>
-											<div class="row" style="margin-bottom: 40px;">
-												<div class="col-md-12">
-													<div class="form-group form-md-line-input">
-														<button class="btn btn-circle green btn-sm" ng-click="single.addOption();">
-														<i class="fa fa-plus"></i> 创建选项 </button>
-														<span>正确答案：  {{single.right}}</span>
-													</div>
-												</div>
-												<div ng-repeat="row in single.options">
-													<div class="col-md-1" style="height: 54px;">
-														<div class="form-group form-md-line-input" style="padding-top: 27px;">
-															<div class="md-radio">
-																<input type="radio" id="radio{{$index}}" name="single" ng-value="row.name" class="md-radiobtn" ng-model="single.right">
-																<label for="radio{{$index}}">
-															<span></span>
-															<span class="check"></span>
-															<span class="box"></span></label>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-1" style="height: 54px;">
-														<span style="position: absolute;bottom: 7px;">{{row.name}}.</span>
-													</div>
-													<div class="col-md-8">
-														<div class="form-group form-md-line-input">
-															<input type="text" class="form-control" ng-model="row.value" placeholder="请输入选项内容" />
-															<span class="help-block">内容不得超过50个字符</span>
-														</div>
-													</div>
-													<div class="col-md-2">
-														<div class="form-group form-md-line-input">
-															<button class="btn btn-danger" ng-click="single.delOption($index);">删除</button>
-														</div>
-													</div>
-												</div>
+											<div class="md-radio">
+												<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="2">
+												<label for="radio7">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												多选 </label>
 											</div>
-										</div>
-										<div class="form-actions noborder">
-											<button type="button" class="btn blue" ng-click="sub()">提交</button>
+											<div class="md-radio">
+												<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="3">
+												<label for="radio8">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												判断 </label>
+											</div>
+											<div class="md-radio">
+												<input type="radio" id="radio9" name="kejianType" class="md-radiobtn" value="4">
+												<label for="radio9">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												填空 </label>
+											</div>
 										</div>
 									</div>
+									<div data-ng-include="'views/template/timu/danxuan2.html'"></div>
 								</div>
 								<div class="col-md-6" style="background-color: white;margin-top: 15px;width: 49%; margin-right: 1%;">
 									<div style="margin-top: 10px;">
@@ -170,57 +113,8 @@
 													</div>
 												</div>
 											</div>
-											<!--<div class="panel panel-default">
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_1">
-														1. 商家要开展电子商务活动 , 应该用（ C  ）作为其主要的生意平台。 </a>
-													</h4>
-												</div>
-												<div id="accordion2_1" class="panel-collapse collapse in">
-													<div class="panel-body">
-														<p>A． BBS</p>
-														<p>B．电子邮件</p>
-														<p>C．在线商店</p>
-														<p>D．电话定购</p>
-													</div>
-												</div>
-											</div>
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_2">
-														2. Intranet和Internet的区别是 ( A ) </a>
-													</h4>
-												</div>
-												<div id="accordion2_2" class="panel-collapse collapse">
-													<div class="panel-body">
-														<p>A．访问 Intranet 需要授权</p>
-														<p>B．Intranet 执行特殊的协议</p>
-														<p>C．Intranet 软件和协议是独立于硬件的</p>
-														<p>D．Intrarlet 只在扇部物理范围内运行</p>
-													</div>
-												</div>
-											</div>
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" data-target="#accordion2_3">
-														3. 电子数据交换的简称是 ( B )  </a>
-													</h4>
-												</div>
-												<div id="accordion2_3" class="panel-collapse collapse">
-													<div class="panel-body">
-														<p>A．EFT</p>
-														<p>B．EDI</p>
-														<p>C．NET</p>
-														<p>D．EC</p>
-													</div>
-												</div>
-											</div>-->
 										</div>
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -241,7 +135,7 @@
 			$scope.$emit('to-parent', 'createQuestion');
 		};
 
-		$('#summernote_1').summernote({
+		$('#summernote_dati').summernote({
 			height: 100
 		});
 		

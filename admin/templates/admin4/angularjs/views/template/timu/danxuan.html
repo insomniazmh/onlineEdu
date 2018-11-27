@@ -32,24 +32,24 @@
 					<label>难易程度</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="radio6" name="level" class="md-radiobtn" value="1" checked="">
-							<label for="radio6">
+							<input type="radio" id="danxuanRadio1" name="danxuanlevel" class="md-radiobtn" value="1" checked="">
+							<label for="danxuanRadio1">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													简单 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="radio7" name="level" class="md-radiobtn" value="2">
-							<label for="radio7">
+							<input type="radio" id="danxuanRadio2" name="danxuanlevel" class="md-radiobtn" value="2">
+							<label for="danxuanRadio2">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													中等 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="radio8" name="level" class="md-radiobtn" value="3">
-							<label for="radio8">
+							<input type="radio" id="danxuanRadio3" name="danxuanlevel" class="md-radiobtn" value="3">
+							<label for="danxuanRadio3">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -67,8 +67,8 @@
 					<span>正确答案：  {{single.right}}</span>
 				</div>
 			</div>
-			<div style="margin-top: 20px;"></div>
-			<div ng-repeat="row in single.options" style="height: 200px;">
+			<div style="margin-top: 50px;"></div>
+			<div ng-repeat="row in single.options" style="height: 250px;">
 				<div class="col-md-1" style="height: 54px;">
 					<div class="form-group form-md-line-input" style="padding-top: 27px;">
 						<div class="md-radio">
@@ -152,6 +152,10 @@
 						this.name = "C";
 					} else if(i == 3) {
 						this.name = "D";
+					} else if(i == 4) {
+						this.name = "E";
+					} else if(i == 5) {
+						this.name = "F";
 					}
 				});
 			}

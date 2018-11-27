@@ -1,18 +1,18 @@
-<div role="form" ng-controller="duoxuanCtrl">
+<div role="form" ng-controller="danxuan2Ctrl">
 	<div class="form-body">
-		<div class="row" >
+		<div class="row" style="">
 			<div class="col-md-12">
-				<div class="form-group form-md-line-input">
+				<div class="form-group form-md-line-input">					
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
-					<div class="summernote" id="duoxuan_title"></div>
+					<div id="danxuan2_title"></div>
 				</div>
 			</div>
 		</div>
-		<div class="row" >
+		<div class="row" style="">
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
-					<div class="summernote" id="duoxuan_jiexi"></div>
+					<div id="danxuan2_jiexi"></div>
 				</div>
 			</div>
 		</div>
@@ -32,24 +32,24 @@
 					<label>难易程度</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="duoxuanradio1" name="duoxuanlevel" class="md-radiobtn" value="1" checked="">
-							<label for="duoxuanradio1">
+							<input type="radio" id="danxuan2Radio1" name="danxuan2level" class="md-radiobtn" value="1" checked="">
+							<label for="danxuan2Radio1">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													简单 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="duoxuanradio2" name="duoxuanlevel" class="md-radiobtn" value="2">
-							<label for="duoxuanradio2">
+							<input type="radio" id="danxuan2Radio2" name="danxuan2level" class="md-radiobtn" value="2">
+							<label for="danxuan2Radio2">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													中等 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="duoxuanradio3" name="duoxuanlevel" class="md-radiobtn" value="3">
-							<label for="duoxuanradio3">
+							<input type="radio" id="danxuan2Radio3" name="danxuan2level" class="md-radiobtn" value="3">
+							<label for="danxuan2Radio3">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -59,23 +59,25 @@
 				</div>
 			</div>
 		</div>
-		<div class="row" >
+		<div class="row" style="">
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">
-					<button class="btn btn-circle green btn-sm" ng-click="multi.addOption();">
+					<button class="btn btn-circle green btn-sm" ng-click="single.addOption();">
 												<i class="fa fa-plus"></i> 创建选项 </button>
-					<span>正确答案：  {{multi.right}}</span>
+					<span>正确答案：  {{single.right}}</span>
 				</div>
 			</div>
 			<div style="margin-top: 50px;"></div>
-			<div ng-repeat="row in multi.options" style="height: 250px;">
+			<div ng-repeat="row in single.options" style="height: 250px;">
 				<div class="col-md-1" style="height: 54px;">
-					<div class="md-checkbox" style="margin-top: 27px;">
-						<input type="checkbox" id="checkbox{{$index}}" name="multi" class="md-check" ng-model="row.checked" ng-click="multi.showChecked()">
-						<label for="checkbox{{$index}}">
+					<div class="form-group form-md-line-input" style="padding-top: 27px;">
+						<div class="md-radio">
+							<input type="radio" id="radio{{$index}}" name="single" ng-value="row.name" class="md-radiobtn" ng-model="single.right">
+							<label for="radio{{$index}}">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span></label>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-1" style="height: 54px;">
@@ -83,44 +85,39 @@
 				</div>
 				<div class="col-md-8">
 					<div class="form-group form-md-line-input">
-						<div class="duoxuan_summernote" id="duoxuan_option{{row.count}}"></div>
+						<div class="danxuan2_summernote" id="danxuan2_option{{row.count}}"></div>
 					</div>
 				</div>
 				<div class="col-md-2">
 					<div class="form-group form-md-line-input">
-						<button class="btn btn-danger" ng-click="multi.delOption($index);">删除</button>
+						<button class="btn btn-danger" ng-click="single.delOption($index);">删除</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="form-actions noborder">
-		<button type="button" class="btn blue" ng-click="sub()">提交</button>
-		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+		<button type="button" class="btn blue" ng-click="sub()">添加</button>
 	</div>
 </div>
+
 <script>
-	function duoxuanCtrl($scope, $timeout) {
+	function danxuan2Ctrl($scope, $timeout) {
 		var count = 5;
-		//多选题
-		$scope.multi = {
-			right: "ABCD",
+		$scope.single = {
+			right: "",
 			options: [{
 				name: "A",
-				count: "1",
-				checked: true
+				count: "1"
 			}, {
 				name: "B",
-				count: "2",
-				checked: true
+				count: "2"
 			}, {
 				name: "C",
-				count: "3",
-				checked: true
+				count: "3"
 			}, {
 				name: "D",
-				count: "4",
-				checked: true
+				count: "4"
 			}],
 
 			addOption: function() {
@@ -132,7 +129,7 @@
 				this.rename();
 				
 				$timeout(function() {
-					$('#duoxuan_option'+count).summernote({
+					$('#danxuan2_option'+count).summernote({
 						height: 100
 					});
 					count++;
@@ -160,46 +157,37 @@
 						this.name = "F";
 					}
 				});
-			},
-			
-			showChecked: function() {
-				this.right = '';
-				var that = this;
-				$(this.options).each(function(i) {
-					if(this.checked) {
-						that.right += this.name;
-					}
-				});
 			}
 		};
 		
-		$('#duoxuan_title').summernote({
+		$('#danxuan2_title').summernote({
 			height: 100
 		});
-		$('#duoxuan_jiexi').summernote({
+		$('#danxuan2_jiexi').summernote({
 			height: 100
 		});
 		
 		$timeout(function() {
-			$('#duoxuan_option1').summernote({
+			$('#danxuan2_option1').summernote({
 				height: 100
 			});
-			$('#duoxuan_option2').summernote({
+			$('#danxuan2_option2').summernote({
 				height: 100
 			});
-			$('#duoxuan_option3').summernote({
+			$('#danxuan2_option3').summernote({
 				height: 100
 			});
-			$('#duoxuan_option4').summernote({
+			$('#danxuan2_option4').summernote({
 				height: 100
 			});
 		},300);
 		
 		$scope.sub = function() {
-			var aaa = $('#duoxuan_title').code();
-			for(var i=0;i<$(".duoxuan_summernote").length;i++) {
-				console.log($(".duoxuan_summernote").eq(i).code());
+			var aaa = $('#danxuan2_title').code();
+			for(var i=0;i<$(".danxuan2_summernote").length;i++) {
+				console.log($(".danxuan2_summernote").eq(i).code());
 			}
 		}
+		
 	}
 </script>

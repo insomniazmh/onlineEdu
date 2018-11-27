@@ -1,0 +1,98 @@
+<div role="form" ng-controller="tiankongCtrl">
+	<div class="form-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">					
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
+					<div id="tiankong_title"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input has-success">
+					<input type="text" class="form-control" id="form_control_1" placeholder="请输入答案">
+					<label for="form_control_1">答案</label>
+					<span class="help-block"></span>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
+					<div id="tiankong_jiexi"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-6">
+				<div class="form-group form-md-line-input has-info">
+					<select class="form-control" id="form_control_1">
+						<option value="">请选择</option>
+						<option value="">电子商务的定义</option>
+						<option value="">电子商务的概念</option>
+					</select>
+					<label for="form_control_1">知识点</label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group form-md-radios">
+					<label>难易程度</label>
+					<div class="md-radio-inline">
+						<div class="md-radio">
+							<input type="radio" id="tiankongradio6" name="tiankonglevel" class="md-radiobtn" value="1" checked="">
+							<label for="tiankongradio6">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													简单 </label>
+						</div>
+						<div class="md-radio">
+							<input type="radio" id="tiankongradio7" name="tiankonglevel" class="md-radiobtn" value="2">
+							<label for="tiankongradio7">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													中等 </label>
+						</div>
+						<div class="md-radio">
+							<input type="radio" id="tiankongradio8" name="tiankonglevel" class="md-radiobtn" value="3">
+							<label for="tiankongradio8">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													困难 </label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions noborder">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
+		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+	</div>
+</div>
+
+<script>
+	function tiankongCtrl($scope, $timeout) {
+		var count = 5;
+		$scope.tiankong = {
+			
+		};
+		
+		$('#tiankong_title').summernote({
+			height: 100
+		});
+		$('#tiankong_jiexi').summernote({
+			height: 100
+		});
+		
+		$scope.sub = function() {
+			var aaa = $('#tiankong_title').code();
+			
+		}
+		
+	}
+</script>
