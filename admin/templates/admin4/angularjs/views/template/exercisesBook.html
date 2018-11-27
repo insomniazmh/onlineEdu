@@ -1,10 +1,10 @@
 <!--创建提问-->
 <div class="modal fade" id="exercisesBookModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookCtrl">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-full">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">创建提问册</h4>
+				<h4 class="modal-title">创建册子</h4>
 			</div>
 			<div class="modal-body">
 				<div class="portlet">
@@ -12,19 +12,19 @@
 						<div role="form">
 							<div class="form-body">
 								<div class="row" style="margin-bottom: 40px;">
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div class="form-group form-md-line-input">
-											<input type="text" class="form-control" ng-model="title" placeholder="提问册名称" />
-											<label for="form_control_1">提问册名称</label>
+											<input type="text" class="form-control" ng-model="title" placeholder="册子名称" />
+											<label for="form_control_1">名称</label>
 											<span class="help-block">名称不得超过50个字符</span>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div class="form-group form-md-radios">
 											<label>难易程度</label>
 											<div class="md-radio-inline">
 												<div class="md-radio">
-													<input type="radio" id="radio6" name="kejianType" class="md-radiobtn" value="1" checked="">
+													<input type="radio" id="radio6" name="level" class="md-radiobtn" value="1" checked="">
 													<label for="radio6">
 													<span></span>
 													<span class="check"></span>
@@ -32,7 +32,7 @@
 													简单 </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="2">
+													<input type="radio" id="radio7" name="level" class="md-radiobtn" value="2">
 													<label for="radio7">
 													<span></span>
 													<span class="check"></span>
@@ -40,12 +40,43 @@
 													中等 </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="3">
+													<input type="radio" id="radio8" name="level" class="md-radiobtn" value="3">
 													<label for="radio8">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													困难 </label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group form-md-radios">
+											<label>册子类型</label>
+											<div class="md-radio-inline">
+												<div class="md-radio">
+													<input type="radio" id="radio1" name="type" class="md-radiobtn" value="1" checked="">
+													<label for="radio1">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													提问册 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio2" name="type" class="md-radiobtn" value="2">
+													<label for="radio2">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													课堂练习册 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio3" name="type" class="md-radiobtn" value="3">
+													<label for="radio3">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													课后作业册 </label>
 												</div>
 											</div>
 										</div>
@@ -59,18 +90,18 @@
 										</p>
 									</div>
 									<div class="col-md-6" style="height: 400px;overflow-y: scroll;">
-										<div class="well" style="background-color: #d6e9c6;">
+										<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
 											<div class="md-checkbox" style="display: inline-block;width: 10%;">
-												<input type="checkbox" id="checkbox1" class="md-check">
-												<label for="checkbox1">
+												<input type="checkbox" id="checkbox{{$index}}" class="md-check">
+												<label for="checkbox{{$index}}">
 												<span></span>
 												<span class="check"></span>
 												<span class="box"></span>
 												</label>
 											</div>
-											<span style="display: inline-block;width: 89%;">商家要开展电子商务活动 , 应该用（  C ）作为其主要的生意平台。 </span>
+											<span style="display: inline-block;width: 89%;cursor: pointer;" ng-click="select(row)">{{row.name}} </span>
 										</div>
-										<div class="well" style="background-color: #d6e9c6;">
+										<!--<div class="well" style="background-color: #d6e9c6;">
 											<div class="md-checkbox" style="display: inline-block;width: 10%;">
 												<input type="checkbox" id="checkbox2" class="md-check">
 												<label for="checkbox2">
@@ -91,14 +122,21 @@
 												</label>
 											</div>
 											<span style="display: inline-block;width: 89%;">电子数据交换的简称是 ( B )</span>
-										</div>
+										</div>-->
 									</div>
 									<div class="col-md-6" style="height: 350px;">
 										<div class="well" style="height: 350px;background-color: #ebccd1;">
-											<p class="muted" style="font-size: 17.5px;">A:<span style="margin-left: 20px;font-size: 14px;">答案a</span></p>
-											<p class="muted" style="font-size: 17.5px;">B:<span style="margin-left: 20px;font-size: 14px;">答案b</span></p>
+											<p class="muted" style="font-size: 17.5px;" ng-repeat="row in selected.options">
+												<span ng-if="!row.right">
+													{{row.option}}:<span style="margin-left: 20px;font-size: 14px;">{{row.value}}</span>
+												</span>
+												<span ng-if="row.right" style="color: #f03f2a;">
+													{{row.option}}:<span style="margin-left: 20px;font-size: 14px;">{{row.value}}</span>
+												</span>
+											</p>
+											<!--<p class="muted" style="font-size: 17.5px;">B:<span style="margin-left: 20px;font-size: 14px;">答案b</span></p>
 											<p class="muted" style="font-size: 17.5px;color: #f03f2a;">C:<span style="margin-left: 20px;font-size: 14px;">答案c</span></p>
-											<p class="muted" style="font-size: 17.5px;">D:<span style="margin-left: 20px;font-size: 14px;">答案d</span></p>
+											<p class="muted" style="font-size: 17.5px;">D:<span style="margin-left: 20px;font-size: 14px;">答案d</span></p>-->
 										</div>
 										<div class="form-actions noborder" style="text-align: right;">
 											<button type="button" class="btn blue" ng-click="sub();">提交</button>
@@ -119,6 +157,47 @@
 </div>
 <script>
 	function exercisesBookCtrl($scope) {
+		$scope.questionList = [
+			{
+				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
+				options: [
+					{option: "A", value: "第一题答案a"},
+					{option: "B", value: "第一题答案b"},
+					{option: "C", value: "第一题答案c", right: true},
+					{option: "D", value: "第一题答案d"}
+				]
+			}, {
+				name: "Intranet和Internet的区别是 (  )",
+				options: [
+					{option: "A", value: "第二题答案a", right: true},
+					{option: "B", value: "第二题答案b"},
+					{option: "C", value: "第二题答案c"},
+					{option: "D", value: "第二题答案d"}
+				]
+			}, {
+				name: "电子数据交换的简称是 (  )",
+				options: [
+					{option: "A", value: "第三题答案a"},
+					{option: "B", value: "第三题答案b", right: true},
+					{option: "C", value: "第三题答案c"},
+					{option: "D", value: "第三题答案d"}
+				]
+			}
+		];
+		$scope.selected = {
+			name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
+			options: [
+				{option: "A", value: "第一题答案a"},
+				{option: "B", value: "第一题答案b"},
+				{option: "C", value: "第一题答案c", right: true},
+				{option: "D", value: "第一题答案d"}
+			]
+		};
+		
+		$scope.select = function(row) {
+			$scope.selected = row;
+		}
+		
 		$scope.sub = function() {
 			$scope.$emit('to-parent', 'createExercisesBook');
 		}
