@@ -1,0 +1,256 @@
+<div ng-controller="lessonPlanCtrl">
+	<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">教案{{currKP}}</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a data-target="#tab_4_1" data-toggle="tab">
+									资料 </a>
+							</li>
+							<li>
+								<a data-target="#tab_4_2" data-toggle="tab">
+									提问 </a>
+							</li>
+							<li>
+								<a data-target="#tab_4_3" data-toggle="tab">
+									讨论 </a>
+							</li>
+							<li>
+								<a data-target="#tab_4_4" data-toggle="tab">
+									练习 </a>
+							</li>
+							<li>
+								<a data-target="#tab_4_5" data-toggle="tab">
+									头脑风暴 </a>
+							</li>
+							<li>
+								<a data-target="#tab_4_6" data-toggle="tab">
+									作业 </a>
+							</li>
+							<li>
+								<a data-target="#tab_4_7" data-toggle="tab">
+									任务 </a>
+							</li>
+							<li>
+								<a data-target="#tab_4_8" data-toggle="tab">
+									调查活动 </a>
+							</li>
+
+						</ul>
+					</div>
+					<div class="portlet-body">
+						<div class="tab-content">
+							<!-- 描述：资料  -->
+							<div class="tab-pane active" id="tab_4_1">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="portlet box grey-cascade">
+											<div class="portlet-title">
+												<div class="caption">
+													<i class="fa fa-gift"></i>资料库列表
+												</div>
+												<div class="tools">
+													<a href="javascript:;" class="collapse" data-original-title="" title="">
+													</a>
+												</div>
+											</div>
+											<div class="portlet-body">
+												<ul class="feeds">
+													<li ng-repeat="row in docList">
+														<div class="col1">
+															<div class="cont">
+																<div class="cont-col1">
+																	<div class="md-checkbox">
+																		<input type="checkbox" id="doc{{$index}}" class="md-check" name="doc">
+																		<label for="doc{{$index}}">
+																<span></span>
+																<span class="check"></span>
+																<span class="box"></span>
+																</label>
+																	</div>
+																</div>
+																<div class="cont-col2">
+																	<div class="desc">
+																		{{row.name}}
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6" style="text-align: center;">
+										<div class="portlet box grey-cascade">
+											<div class="portlet-title">
+												<div class="caption">
+													<i class="fa fa-gift"></i>新增文件
+												</div>
+												<div class="tools">
+													<a href="javascript:;" class="collapse" data-original-title="" title="">
+													</a>
+												</div>
+											</div>
+											<div class="portlet-body">
+												<ul class="feeds">
+													<li ng-repeat="row in newDocList">
+														<div class="col1">
+															<div class="cont">
+																<div class="cont-col1">
+																	<div class="md-checkbox">
+																		<input type="checkbox" id="newDoc{{$index}}" class="md-check" name="newDoc">
+																		<label for="newDoc{{$index}}">
+																<span></span>
+																<span class="check"></span>
+																<span class="box"></span>
+																</label>
+																	</div>
+																</div>
+																<div class="cont-col2">
+																	<div class="desc">
+																		{{row.name}}
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+												</ul>
+												<button type="button" class="btn green" data-toggle="modal" href="#addJiaofuModal" style="margin-top: 40px;">上传</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 描述：提问  -->
+							<div class="tab-pane" id="tab_4_2">
+								<div class="row">
+									<div class="col-md-4" style="text-align: center;">
+										<ul class="feeds">
+											<li ng-repeat="row in tiwenceList">
+												<div class="col1">
+													<div class="cont">
+														<div class="cont-col1">
+															<div class="md-checkbox">
+																<input type="checkbox" id="tiwence{{$index}}" class="md-check" name="tiwence">
+																<label for="tiwence{{$index}}">
+																<span></span>
+																<span class="check"></span>
+																<span class="box"></span>
+																</label>
+															</div>
+														</div>
+														<div class="cont-col2">
+															<div class="desc">
+																{{row.name}}
+															</div>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+										<button type="button" class="btn green" data-toggle="modal" href="#questionSingle" style="margin-top: 40px;">创建题目</button>
+									</div>
+									<div class="col-md-8">
+										<div id="accordionTiwen" class="panel-group">
+											<div class="panel panel-default" ng-repeat="row in tiwenQuestionList">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionTiwen" data-target="#accordionTiwen{{$index}}">
+														{{row.name}} </a>
+														<button class="btn btn-danger">删除</button>
+													</h4>
+												</div>
+												<div id="accordionTiwen{{$index}}" class="panel-collapse collapse in">
+													<div class="panel-body">
+														<p ng-repeat="x in row.options">{{x.num}}. {{x.text}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab_4_3">
+
+							</div>
+							<div class="tab-pane" id="tab_4_4"></div>
+							<div class="tab-pane" id="tab_4_5"></div>
+							<div class="tab-pane" id="tab_4_6"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn blue">确定</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div data-ng-include="'views/template/jiaofu/addJiaofu.html'"></div>
+	
+	<div data-ng-include="'views/template/timu/addQuestion.html'"></div>
+</div>
+
+<script>
+	function lessonPlanCtrl($scope) {
+		$scope.docList = [
+			{name: "电子商务基础教学大纲.doc"},
+			{name: "电子商务基础教案.doc"},
+			{name: "电子商务基础课件.ppt"}
+		];
+		
+		$scope.newDocList = [
+			{name: "新增文件.doc"}
+		];
+		
+		$scope.tiwenceList = [
+			{name: "电子商务基础-问答册1"},
+			{name: "电子商务基础-问答册2"},
+			{name: "电子商务基础-问答册3"},
+			{name: "电子商务基础-问答册4"},
+			{name: "电子商务基础-问答册5"},
+			{name: "电子商务基础-问答册6"}
+		];
+		
+		$scope.tiwenQuestionList = [
+			{
+				name: "1. 商家要开展电子商务活动 , 应该用（ C  ）作为其主要的生意平台。",
+				options: [
+					{num: 'A', text: 'BBS'},
+					{num: 'B', text: '电子邮件'},
+					{num: 'C', text: '在线商店'},
+					{num: 'D', text: '电话订购'},
+				]
+			}, {
+				name: "2. Intranet和Internet的区别是 ( A ) ",
+				options: [
+					{num: 'A', text: '访问 Intranet 需要授权'},
+					{num: 'A', text: 'Intranet 执行特殊的协议'},
+					{num: 'A', text: 'Intranet 软件和协议是独立于硬件的'},
+					{num: 'A', text: 'Intrarlet 只在扇部物理范围内运行'}
+				]
+			}, {
+				name: "3. 电子数据交换的简称是 ( B )",
+				options: [
+					{num: 'A', text: 'BBS'},
+					{num: 'B', text: 'EDI'},
+					{num: 'C', text: 'NET'},
+					{num: 'D', text: 'EC'}
+				]
+			}
+		];
+	}
+</script>

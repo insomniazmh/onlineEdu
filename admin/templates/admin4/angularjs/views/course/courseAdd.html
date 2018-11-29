@@ -22,8 +22,11 @@
 	}
 	
 	#filePicker7 .webuploader-pick {
-		padding: 5px 15px;
-		margin: 5px 35px;
+		padding: 10px 15px;
+	}
+	
+	#filePicker7 div:nth-child(2) label {
+		width: 150px !important;
 	}
 </style>
 
@@ -292,7 +295,8 @@
 																<div class="cont">
 																	<div class="cont-col1">
 																		<div class="label label-sm {{row.color}}">
-																			<i class="fa {{row.icon}}"></i>
+																			<!--<i class="fa {{row.icon}}"></i>-->
+																			<span style="padding: 2px;">{{row.icon}}</span>
 																		</div>
 																	</div>
 																	<div class="cont-col2">
@@ -314,7 +318,8 @@
 															<div class="cont">
 																<div class="cont-col1">
 																	<div class="label label-sm {{row.color}}">
-																		<i class="fa {{row.icon}}"></i>
+																		<!--<i class="fa {{row.icon}}"></i>-->
+																		<span style="padding: 2px;">{{row.icon}}</span>
 																	</div>
 																</div>
 																<div class="cont-col2">
@@ -336,7 +341,8 @@
 															<div class="cont">
 																<div class="cont-col1">
 																	<div class="label label-sm {{row.color}}">
-																		<i class="fa {{row.icon}}"></i>
+																		<!--<i class="fa {{row.icon}}"></i>-->
+																		<span style="padding: 2px;">{{row.icon}}</span>
 																	</div>
 																</div>
 																<div class="cont-col2">
@@ -454,7 +460,7 @@
 		<!-- /.modal-dialog -->
 	</div>
 
-	<div data-ng-include="'views/template/lessonPlan.html'"></div>
+	<div data-ng-include="'views/template/lessonPlan/lessonPlan.html'"></div>
 
 	<div data-ng-include="'views/template/uploadKejian.html'"></div>
 </div>
@@ -487,37 +493,37 @@
 	    });
 
 		$scope.ziliaoList = [{
-			icon: "fa fa-bolt",
+			icon: "预",
 			text: "《电子商务基础》教学大纲.doc",
 			url: "111",
 			color: "label-danger"
 		}, {
-			icon: "fa fa-bullhorn",
+			icon: "预",
 			text: "电子商务基础教案.doc",
 			url: "222",
-			color: "label-info"
+			color: "label-danger"
 		}, {
-			icon: "fa fa-bullhorn",
+			icon: "堂",
 			text: "电子商务基础课件.ppt",
 			url: "333",
 			color: "label-success"
 		}];
 
 		$scope.tiwenList = [{
-			icon: "fa fa-bullhorn",
+			icon: "堂",
 			text: "商家要开展电子商务活动 , 应该用( )作为其主要的生意平台。",
 			url: "111",
-			color: "label-info"
+			color: "label-success"
 		}, {
-			icon: "fa fa-bullhorn",
+			icon: "堂",
 			text: "Intranet和Internet的区别是 ( )",
 			url: "222",
 			color: "label-success"
 		}, {
-			icon: "fa fa-bullhorn",
+			icon: "堂",
 			text: "电子数据交换的简称是 ( )",
 			url: "333",
-			color: "label-info"
+			color: "label-success"
 		}];
 
 		$scope.sub = function() {
