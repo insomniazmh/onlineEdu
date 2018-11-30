@@ -17,7 +17,7 @@
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="prepareLessonsListCtrl" class="margin-top-10">
+<div ng-controller="myCoursesCtrl" class="margin-top-10">
 	<div class="portlet light">
 		<div class="portlet-body">
 			<div class="row">
@@ -53,6 +53,33 @@
 <!-- END MAIN CONTENT -->
 
 <script>
-	function prepareLessonsListCtrl($scope) {
+	function myCoursesCtrl($scope, $http) {
+		$http({
+			    method: 'post',
+			    url: 'http://132.232.124.203:8090/course/findAll',
+			    data: {
+			    	page: 0,
+			    	size: 10
+			    }
+			}).then(function successCallback(response) {
+					var data = response.data;
+			        if(data.ret == 0) {
+			        	common.toast({
+							title: "操作成功"
+						});
+			        }else {
+			        	common.toast({
+			        		type: 2,
+							title: "操作失败",
+							message: data.msg
+						});
+			        }
+			    }, function errorCallback(response) {
+			        console.log(response);
+			        common.toast({
+			        	type: 2,
+			        	title: "网络异常"
+			        });
+			});
 	}
 </script>

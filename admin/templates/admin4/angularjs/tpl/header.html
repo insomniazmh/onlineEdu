@@ -108,7 +108,7 @@
 							<i class="icon-user"></i> 修改密码 </a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="#" onclick="signOut();">
 							<i class="icon-key"></i> 退出登录 </a>
 						</li>
 					</ul>
@@ -121,3 +121,10 @@
 	<!-- END PAGE TOP -->
 </div>
 <!-- END HEADER INNER -->
+	
+<script>
+	function signOut() {
+		localStorage.removeItem("username");
+		window.location.href = "login.html";
+	}
+</script>

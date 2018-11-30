@@ -169,6 +169,12 @@ License: You must have a valid license purchased only from themeforest(the above
 		<script type="text/javascript">
 			/* Init Metronic's core jquery plugins and layout scripts */
 			$(document).ready(function() {
+				console.log(localStorage.getItem("username"));
+			if(!localStorage.getItem("username") || !localStorage.getItem("userid")) {
+					confirm("登录信息失效，请重新登录");
+					window.location.href = "login.html";
+				}
+				
 				Metronic.init(); // Run metronic theme
 				Metronic.setAssetsPath('../../../assets/'); // Set the assets folder path			
 			});
