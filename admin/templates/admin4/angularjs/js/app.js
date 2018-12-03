@@ -581,9 +581,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
 
-        // UI Bootstrap
+        //课程添加/修改
         .state('courseAdd', {
-            url: "/courseAdd.html",
+            url: "/courseAdd.html/{id}",
             templateUrl: "views/course/courseAdd.html",
             data: {pageTitle: '课程管理', pageSubTitle: '课程添加', btn_taps:true},
             controller: "GeneralPageController",

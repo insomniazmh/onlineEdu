@@ -70,8 +70,8 @@
 															<div class="cont">
 																<div class="cont-col1">
 																	<div class="md-checkbox">
-																		<input type="checkbox" id="doc{{$index}}" class="md-check" name="doc">
-																		<label for="doc{{$index}}">
+																		<input type="checkbox" id="doc{{row.id}}" class="md-check" name="doc" ng-click="chooseZiliao(row)">
+																		<label for="doc{{row.id}}">
 																<span></span>
 																<span class="check"></span>
 																<span class="box"></span>
@@ -94,7 +94,7 @@
 										<div class="portlet box grey-cascade">
 											<div class="portlet-title">
 												<div class="caption">
-													<i class="fa fa-gift"></i>新增文件
+													<i class="fa fa-gift"></i>已选文件
 												</div>
 												<div class="tools">
 													<a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -108,8 +108,8 @@
 															<div class="cont">
 																<div class="cont-col1">
 																	<div class="md-checkbox">
-																		<input type="checkbox" id="newDoc{{$index}}" class="md-check" name="newDoc">
-																		<label for="newDoc{{$index}}">
+																		<input type="checkbox" id="newDoc{{row.id}}" class="md-check" name="newDoc" checked="checked">
+																		<label for="newDoc{{row.id}}">
 																<span></span>
 																<span class="check"></span>
 																<span class="box"></span>
@@ -207,14 +207,28 @@
 <script>
 	function lessonPlanCtrl($scope) {
 		$scope.docList = [
-			{name: "电子商务基础教学大纲.doc"},
-			{name: "电子商务基础教案.doc"},
-			{name: "电子商务基础课件.ppt"}
+			{id: "1", name: "电子商务基础教学大纲.doc"},
+			{id: "2", name: "电子商务基础教案.doc"},
+			{id: "3", name: "电子商务基础课件.ppt"},
+			{id: "4", name: "新增文件.doc"}
 		];
 		
 		$scope.newDocList = [
-			{name: "新增文件.doc"}
+			
 		];
+		
+		$scope.chooseZiliao = function(doc) {
+			var flag = true;
+			console.log(doc);
+			$($scope.newDocList).each(function() {
+				if(this.id == doc.id) {
+					flag = false;
+				}
+			});
+			if(flag) {
+				$scope.newDocList.push(doc);
+			}
+		}
 		
 		$scope.tiwenceList = [
 			{name: "电子商务基础-问答册1"},

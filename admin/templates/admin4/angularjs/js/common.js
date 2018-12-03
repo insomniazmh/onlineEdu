@@ -1,4 +1,8 @@
 var common = {
+	//永永服务
+	//url: 'http://132.232.124.203:8090',
+	//永永本机
+	url: 'http://192.168.13.230:8090',
 	//提示框
 	toast: function(settings) {
 		var defaults = {
@@ -160,6 +164,47 @@ var common = {
 			uploader.upload();
 		})
 	},
+	
+	ajax: function(settings) {
+		var defaults = {
+			method: 'post',
+			url: '',
+			data: {},
+			success: function(response) {},
+			error: function(response) {
+				console.log(response);
+				common.toast({
+		        	type: 2,
+		        	title: "网络异常"
+			    });
+			}
+		};
+		settings = $.extend(defaults, settings);
+		console.log(JSON.stringify(settings.data));
+		settings.$http({
+			    method: settings.method,
+			    url: common.url + settings.url,
+			    data: settings.data,
+			}).then(function successCallback(response) {
+					var data = response.data;
+			        if(data.ret == 0) {
+			        	if(settings.operate) {
+			        		common.toast({
+								title: "操作成功"
+							});
+			        	}
+						settings.success(response.data);
+			        }else {
+			        	common.toast({
+			        		type: 2,
+							title: "操作失败",
+							message: data.msg
+						});
+			        }
+			    }, function errorCallback(response) {
+			        settings.error(response);
+			});
+	}
 }
 
 //复制链接到剪切板

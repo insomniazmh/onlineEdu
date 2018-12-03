@@ -481,10 +481,36 @@
 <script type="text/javascript" src="../../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function createCourseCtrl($scope, $http) {
-		$scope.course = {
-			topPicSrc: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTkiIGhlaWdodD0iMTgwIj48cmVjdCB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE4MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9Ijc5LjUiIHk9IjkwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MTU5eDE4MDwvdGV4dD48L3N2Zz4='
-		};
+	function createCourseCtrl($scope, $http, $stateParams) {
+		if($stateParams.id == 0) {
+			$scope.course = {
+				topPicSrc: 'images/zanwu.jpg'
+			};
+		}else {
+			//加载课程信息
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/course/getCourseId',
+				data: {
+			    	'courseId': $stateParams.id
+			    },
+			    success: function(data) {
+			    	console.log(data);
+			    	//课程信息
+			    	$scope.course = data.data;
+			    	//课程描述
+			    	$('#summernoteMiaoshu').code($scope.course.courseDescribe);
+			    	//授课类型
+//			    	$("input[name='lessonType'][value="++"]").attr("checked","checked");
+					//处理封面
+					if(!$scope.course.topPicSrc) {
+						$scope.course.topPicSrc = 'images/zanwu.jpg';
+					}
+			    }
+			});
+		}
+		
 		$scope.jiaoan = "";
 		
 		$scope.$on('kejian', function(d,data) {  
@@ -554,37 +580,38 @@
             $scope.course.teachingType = teachingType;
             $scope.course.shareType = shareType;
             $scope.course.courseDescribe = courseDescribe;
-            console.log($scope.course);
             
-            $http({
-			    method: 'post',
-			    url: 'http://132.232.124.203:8090/course/save',
-			    data: {
-			    	course: $scope.course,
-			    	teachers: [{
-			    		teacherId: localStorage.getItem('userid')
-			    	}]
-			    }
-			}).then(function successCallback(response) {
-					var data = response.data;
-			        if(data.ret == 0) {
-			        	common.toast({
-							title: "操作成功"
-						});
-			        }else {
-			        	common.toast({
-			        		type: 2,
-							title: "操作失败",
-							message: data.msg
-						});
-			        }
-			    }, function errorCallback(response) {
-			        console.log(response);
-			        common.toast({
-			        	type: 2,
-			        	title: "网络异常"
-			        });
-			});
+            if($stateParams.id == 0) {
+            	//添加课程
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					url: '/course/save',
+					data: {
+				    	course: $scope.course,
+				    	teachers: [{
+				    		teacherId: localStorage.getItem('userid')
+				    	}]
+				    },
+				});
+            }else {
+            	$scope.course.courseId = $stateParams.id;
+            	//编辑课程
+            	common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					url: '/course/edit',
+					data: {
+				    	course: $scope.course,
+				    	teachers: [{
+				    		teacherId: localStorage.getItem('userid')
+				    	}]
+				    },
+				});
+            }
+            
 		}
 
 		$(".page-title").on("click", "button", function() {
