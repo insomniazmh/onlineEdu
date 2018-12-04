@@ -351,7 +351,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         
         //教辅资料库
         .state('assistant', {
-            url: "/assistant.html",
+            url: "/assistant.html/{id}",
             templateUrl: "views/database/assistant.html",            
             data: {pageTitle: '资料库', pageSubTitle: '教辅资料库'},
             resolve: {

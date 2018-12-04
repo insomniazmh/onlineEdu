@@ -1,0 +1,346 @@
+<div class="row" ng-controller="jiaofuCtrl">
+	<div class="col-md-4" style="height: 600px;border-right: 1px solid #4DB3A2;">
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption" style="font-size: 14px;">
+					<i class="icon-settings" style="font-size: 12px;"></i>章节目录
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'views/template/nodeTree.html'"></div>
+			</div>
+		</div>
+
+		<div data-ng-include="'views/template/zhishidian.html'"></div>
+
+	</div>
+
+	<div class="col-md-8">
+		<div class="portlet light">
+			<div class="portlet-title tabbable-line">
+				<div class="caption" style="font-size: 14px;">
+					<i class="icon-settings" style="font-size: 12px;"></i>教案和课件{{currKP}}
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<ul class="feeds" style="width: 48%; display: inline-block;">
+						<li>
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="label label-sm label-danger">
+											<i class="fa fa-bolt"></i>
+										</div>
+									</div>
+									<div class="cont-col2">
+										<div class="desc">
+											<a href="{{jiaoan.filePath}}" target="_blank">{{jiaoan.fileName}}</a>
+											<span id="filePicker3" class="filePicker"> 上传教案 </span>
+											<span class="exist"> 
+												已有教案（<span style="color: red;">4</span>） 
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="feeds" style="width: 48%; display: inline-block;">
+						<li>
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="label label-sm label-info">
+											<i class="fa fa-bullhorn"></i>
+										</div>
+									</div>
+									<div class="cont-col2">
+										<div class="desc">
+											<div id="kejianContent" style="display: inline-block;"></div>
+											<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
+												上传课件
+											</span>
+											<span class="exist"> 
+												PPT（<span style="color: red;">1</span>） 
+											</span>
+											<span class="exist" style="margin-left: 100px;"> 
+												图集（<span style="color: red;">1</span>） 
+											</span>
+											<span class="exist" style="margin-left: 180px;"> 
+												视频（<span style="color: red;">0</span>） 
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="portlet light" style="height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption" style="font-size: 14px;">
+					<i class="icon-settings" style="font-size: 12px;"></i>课堂互动{{currKP}}
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#dataModal">
+					<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_2_1" data-toggle="tab">
+							资料 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_2" data-toggle="tab">
+							提问 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_3" data-toggle="tab">
+							讨论 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_4" data-toggle="tab">
+							练习 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_5" data-toggle="tab">
+							头脑风暴 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_6" data-toggle="tab">
+							作业 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_7" data-toggle="tab">
+							任务 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_8" data-toggle="tab">
+							调查活动 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_2_1">
+						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li ng-repeat="row in ziliaoList">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm {{row.color}}">
+													<!--<i class="fa {{row.icon}}"></i>-->
+													<span style="padding: 2px;">{{row.icon}}</span>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="{{row.url}}" target=_blank>{{row.text}}</a>
+													<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_2_2">
+						<ul class="feeds">
+							<li ng-repeat="row in tiwenList">
+								<div class="col1" style="cursor: pointer;">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm {{row.color}}">
+												<!--<i class="fa {{row.icon}}"></i>-->
+												<span style="padding: 2px;">{{row.icon}}</span>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												{{row.text}}
+												<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="tab-pane" id="tab_2_3"></div>
+					<div class="tab-pane" id="tab_2_4">
+						<ul class="feeds">
+							<li ng-repeat="row in tiwenList">
+								<div class="col1" style="cursor: pointer;">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm {{row.color}}">
+												<!--<i class="fa {{row.icon}}"></i>-->
+												<span style="padding: 2px;">{{row.icon}}</span>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												{{row.text}}
+												<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="tab-pane" id="tab_2_5"></div>
+					<div class="tab-pane" id="tab_2_6"></div>
+					<div class="tab-pane" id="tab_2_7"></div>
+					<div class="tab-pane" id="tab_2_8"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">图集</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<img src="{{row}}" style="width: 110px;height: 110px;" ng-repeat="row in picsKejian" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div data-ng-include="'views/template/lessonPlan/lessonPlan.html'"></div>
+
+	<div data-ng-include="'views/template/uploadKejian.html'"></div>
+</div>
+
+<script>
+	function jiaofuCtrl($scope, $http, $stateParams) {
+		//当前选中章节
+		$scope.currentNode = {
+			id: 'node_1_1'
+		}
+		
+		//根据章节id加载资料
+		$scope.loadChapterData = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/chapteData/findByChapterId',
+				data: {
+			    	'chapterId': $scope.currentNode.id
+			    },
+			    success: function(data) {
+			    	console.log(data);
+			    }
+			});
+		}
+		
+		if($stateParams.id != 0) {
+			$scope.loadChapterData();
+		}
+		
+		//切换章节回调
+		$scope.$on('currentNode', function(d,data) {  
+	        $scope.currentNode = data;
+	        $scope.loadChapterData();
+	    });
+		
+		$scope.jiaoan = {};
+		
+		//上传课件回调
+		$scope.$on('kejian', function(d,data) {  
+	        console.log(data);         //父级能得到值  
+	        $scope.loadChapterData();
+//	        var html = '';
+//	        if(data.type == 1) {
+//	        	html = '<a href="'+data.content.filePath+'" target="_blank">PPT课件</a>';
+//	        }else if(data.type == 2) {
+//	        	html = '<a href="'+data.content.filePath+'" target="_blank">视频课件</a>';
+//	        }else if(data.type == 3){
+//	        	$scope.picsKejian = data.content;
+//	        	html = '<a data-toggle="modal" data-target="#picsModal">图集课件</a>';
+//	        }else if(data.type == 4){
+//	        	html = '<a href="'+data.content.filePath+'" target="_blank">其它课件</a>';
+//	        }
+//	        $("#kejianContent").empty();
+//	        $("#kejianContent").append(html);
+	    });
+	    
+		$scope.ziliaoList = [{
+			icon: "预",
+			text: "《电子商务基础》教学大纲.doc",
+			url: "111",
+			color: "label-danger"
+		}, {
+			icon: "预",
+			text: "电子商务基础教案.doc",
+			url: "222",
+			color: "label-danger"
+		}, {
+			icon: "堂",
+			text: "电子商务基础课件.ppt",
+			url: "333",
+			color: "label-success"
+		}];
+
+		$scope.tiwenList = [{
+			icon: "堂",
+			text: "商家要开展电子商务活动 , 应该用( )作为其主要的生意平台。",
+			url: "111",
+			color: "label-success"
+		}, {
+			icon: "堂",
+			text: "Intranet和Internet的区别是 ( )",
+			url: "222",
+			color: "label-success"
+		}, {
+			icon: "堂",
+			text: "电子数据交换的简称是 ( )",
+			url: "333",
+			color: "label-success"
+		}];
+		
+		//上传教案
+		common.fileUpload({
+			id: 'filePicker3',
+			success: function(file, response) {
+				$scope.$apply(function() {　　
+					common.ajax({
+						$scope: $scope,
+						$http: $http,
+						operate: true,
+						url: '/chapteData/save',
+						data: {
+					    	courseId: $stateParams.id,
+					    	chapterId: $scope.currentNode.id,
+					    	datumName: $scope.jiaoan.fileName,
+					    	datumArea: 1,
+					    	datumType: 1,
+							files: [response]
+					    },
+					    success: function(data) {
+//					   		$scope.jiaoan = response;
+					   		$scope.loadChapterData();
+					    }
+					})
+				});
+			}
+		});
+	}
+</script>

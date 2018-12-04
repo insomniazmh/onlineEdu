@@ -9,7 +9,7 @@
 	}
 	.createFile div:nth-child(2){width:100%!important;height:100%!important;}
 </style>
-<div class="row" ng-controller="assistantCtrl">
+<div class="row" ng-controller="xiticeCtrl">
 	<div data-ng-include="'views/template/zhishidian.html'"></div>
 	<div class="col-md-4">
 		<div class="portlet light" style="min-height: 500px;">
@@ -147,7 +147,7 @@
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function assistantCtrl($scope) {
+	function xiticeCtrl($scope) {
 		$scope.knowledgePoints = [];
 		
 		$scope.$on('to-parent', function(d,data) {  

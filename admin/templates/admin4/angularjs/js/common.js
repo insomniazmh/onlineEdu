@@ -59,15 +59,14 @@ var common = {
 
 		uploader.on('uploadSuccess', function(file, response) {
 			Metronic.unblockUI();
-			common.toast({
-				title: "上传成功",
-			});
+//			common.toast({
+//				title: "上传成功",
+//			});
 			settings.success(file, response, uploader);
 		});
 
 		uploader.on('uploadError', function(file) {
 			Metronic.unblockUI();
-			console.log(12354);
 			common.toast({
 				title: "上传失败",
 				type: 2
@@ -168,6 +167,7 @@ var common = {
 	ajax: function(settings) {
 		var defaults = {
 			method: 'post',
+			operate: false,
 			url: '',
 			data: {},
 			success: function(response) {},

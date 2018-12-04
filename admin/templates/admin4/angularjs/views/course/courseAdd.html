@@ -37,6 +37,15 @@
 	#filePicker7 div:nth-child(2) label {
 		width: 150px !important;
 	}
+	
+	.exist {
+		height: 20px; 
+		line-height: 20px;
+		display: inline-block; 
+		position: absolute;
+		margin-left: 20px;
+		cursor: pointer;
+	}
 </style>
 
 <div class="row" ng-controller="createCourseCtrl">
@@ -63,317 +72,10 @@
 			<div class="portlet-body">
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_1_1">
-						<div role="form">
-							<div class="form-body">
-								<div class="row" style="margin-bottom: 40px;">
-									<div class="col-md-6">
-										<div class="form-group form-md-line-input">
-											<input type="text" class="form-control" id="form_control_1" ng-model="course.courseName" placeholder="请输入课程名称">
-											<label for="form_control_1">名称</label>
-											<span class="help-block">名称不得超过20个字符</span>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group form-md-line-input has-success">
-											<input type="text" class="form-control" id="form_control_2" ng-model="course.courseNumber" placeholder="请输入课程编号">
-											<label for="form_control_2">编号</label>
-											<span class="help-block"></span>
-										</div>
-									</div>
-								</div>
-								<div class="row" style="margin-bottom: 40px;">
-									<div class="col-md-6">
-										<div class="form-group form-md-checkboxes" style="margin-bottom: 40px;">
-											<label>授课类型</label>
-											<div class="md-checkbox-inline">
-												<div class="md-checkbox">
-													<input type="checkbox" id="lessonType1" class="md-check" name="lessonType" value="1">
-													<label for="lessonType1">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													录播课程 </label>
-												</div>
-												<div class="md-checkbox">
-													<input type="checkbox" id="lessonType2" class="md-check" name="lessonType" value="2">
-													<label for="lessonType2">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													直播课程 </label>
-												</div>
-												<div class="md-checkbox">
-													<input type="checkbox" id="lessonType3" class="md-check" name="lessonType" value="3" checked="">
-													<label for="lessonType3">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													线下课堂 </label>
-												</div>
-											</div>
-										</div>
-										<div class="form-group form-md-checkboxes">
-											<label>封面图片</label>
-												<a href="javascript:;" class="thumbnail" style="width: 160px;">
-													<img src="{{course.topPicSrc}}" alt="100%x180" style="height: 180px; width: 100%; display: block;">
-												</a>
-											<div id="topPicSrc" class="filePicker">选择文件</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group form-md-checkboxes">
-											<label>备课类型</label>
-											<div class="md-radio-inline">
-												<div class="md-radio">
-													<input type="radio" id="beikeType1" name="beikeType" class="md-radiobtn" value="1" checked="">
-													<label for="beikeType1">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													单人备课 </label>
-												</div>
-												<div class="md-radio">
-													<input type="radio" id="beikeType2" name="beikeType" class="md-radiobtn" value="2">
-													<label for="beikeType2">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													集体备课 </label>
-												</div>
-											</div>
-										</div>
-										<div style="width: 100%; height: 170px;display: none;" id="multipleContent">
-											<select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
-												<option>胡珊珊</option>
-												<option>张燕</option>
-												<option selected>李康</option>
-												<option selected>申琪</option>
-												<option>赵红</option>
-												<option>王艳丽</option>
-												<option>梁伟</option>
-												<option>侯卓媛</option>
-												<option selected>马聪颖</option>
-												<option>韩涵</option>
-												<option>张艳欣</option>
-												<option>李永红</option>
-												<option>霍爱萍</option>
-												<option>李曼</option>
-												<option>白继萍</option>
-												<option>张书文</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="row" style="margin-bottom: 40px;">
-									<div class="col-md-12">
-										<div class="form-group form-md-line-input">
-											<label for="form_control_1" style="font-size: 13px; color: #888888;">课程描述</label>
-											<div name="summernote" id="summernoteMiaoshu"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="form-actions noborder">
-								<button type="button" class="btn blue" ng-click="sub()">保存</button>
-							</div>
-						</div>
+						<div data-ng-include="'views/template/kecheng/basic.html'"></div>
 					</div>
 					<div class="tab-pane" id="tab_1_2">
-						<div class="row">
-							<div class="col-md-4" style="height: 600px;border-right: 1px solid #4DB3A2;">
-								<div class="portlet light">
-									<div class="portlet-title">
-										<div class="caption" style="font-size: 14px;">
-											<i class="icon-settings" style="font-size: 12px;"></i>章节目录
-										</div>
-									</div>
-									<div class="portlet-body">
-										<div data-ng-include="'views/template/nodeTree.html'"></div>
-									</div>
-								</div>
-
-								<div data-ng-include="'views/template/zhishidian.html'"></div>
-
-							</div>
-
-							<div class="col-md-8">
-								<div class="portlet light">
-									<div class="portlet-title tabbable-line">
-										<div class="caption" style="font-size: 14px;">
-											<i class="icon-settings" style="font-size: 12px;"></i>教案和课件{{currKP}}
-										</div>
-									</div>
-									<div class="portlet-body">
-										<div class="tab-content">
-											<ul class="feeds" style="width: 48%; display: inline-block;">
-												<li>
-													<div class="col1">
-														<div class="cont">
-															<div class="cont-col1">
-																<div class="label label-sm label-danger">
-																	<i class="fa fa-bolt"></i>
-																</div>
-															</div>
-															<div class="cont-col2">
-																<div class="desc">
-																	<a href="{{jiaoanUrl}}">{{jiaoan}}</a>
-																	<span id="filePicker3" class="filePicker"> 上传教案 </span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-											</ul>
-											<ul class="feeds" style="width: 48%; display: inline-block;">
-												<li>
-													<div class="col1">
-														<div class="cont">
-															<div class="cont-col1">
-																<div class="label label-sm label-info">
-																	<i class="fa fa-bullhorn"></i>
-																</div>
-															</div>
-															<div class="cont-col2">
-																<div class="desc">
-																	<div id="kejianContent" style="display: inline-block;"></div>
-																	<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
-																		上传课件
-																	</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-
-								<div class="portlet light" style="height: 400px;">
-									<div class="portlet-title tabbable-line">
-										<div class="caption" style="font-size: 14px;">
-											<i class="icon-settings" style="font-size: 12px;"></i>课堂互动{{currKP}}
-										</div>
-										<div class="actions">
-											<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#dataModal">
-											<i class="fa fa-plus"></i> 创建 </button>
-										</div>
-										<ul class="nav nav-tabs">
-											<li class="active">
-												<a data-target="#tab_2_1" data-toggle="tab">
-													资料 </a>
-											</li>
-											<li>
-												<a data-target="#tab_2_2" data-toggle="tab">
-													提问 </a>
-											</li>
-											<li>
-												<a data-target="#tab_2_3" data-toggle="tab">
-													讨论 </a>
-											</li>
-											<li>
-												<a data-target="#tab_2_4" data-toggle="tab">
-													练习 </a>
-											</li>
-											<li>
-												<a data-target="#tab_2_5" data-toggle="tab">
-													头脑风暴 </a>
-											</li>
-											<li>
-												<a data-target="#tab_2_6" data-toggle="tab">
-													作业 </a>
-											</li>
-											<li>
-												<a data-target="#tab_2_7" data-toggle="tab">
-													任务 </a>
-											</li>
-											<li>
-												<a data-target="#tab_2_8" data-toggle="tab">
-													调查活动 </a>
-											</li>
-										</ul>
-									</div>
-									<div class="portlet-body">
-										<div class="tab-content">
-											<div class="tab-pane active" id="tab_2_1">
-												<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-													<ul class="feeds">
-														<li ng-repeat="row in ziliaoList">
-															<div class="col1">
-																<div class="cont">
-																	<div class="cont-col1">
-																		<div class="label label-sm {{row.color}}">
-																			<!--<i class="fa {{row.icon}}"></i>-->
-																			<span style="padding: 2px;">{{row.icon}}</span>
-																		</div>
-																	</div>
-																	<div class="cont-col2">
-																		<div class="desc">
-																			<a href="{{row.url}}" target=_blank>{{row.text}}</a>
-																			<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</li>
-													</ul>
-												</div>
-											</div>
-											<div class="tab-pane" id="tab_2_2">
-												<ul class="feeds">
-													<li ng-repeat="row in tiwenList">
-														<div class="col1" style="cursor: pointer;">
-															<div class="cont">
-																<div class="cont-col1">
-																	<div class="label label-sm {{row.color}}">
-																		<!--<i class="fa {{row.icon}}"></i>-->
-																		<span style="padding: 2px;">{{row.icon}}</span>
-																	</div>
-																</div>
-																<div class="cont-col2">
-																	<div class="desc">
-																		{{row.text}}
-																		<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</li>
-												</ul>
-											</div>
-											<div class="tab-pane" id="tab_2_3"></div>
-											<div class="tab-pane" id="tab_2_4">
-												<ul class="feeds">
-													<li ng-repeat="row in tiwenList">
-														<div class="col1" style="cursor: pointer;">
-															<div class="cont">
-																<div class="cont-col1">
-																	<div class="label label-sm {{row.color}}">
-																		<!--<i class="fa {{row.icon}}"></i>-->
-																		<span style="padding: 2px;">{{row.icon}}</span>
-																	</div>
-																</div>
-																<div class="cont-col2">
-																	<div class="desc">
-																		{{row.text}}
-																		<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</li>
-												</ul>
-											</div>
-											<div class="tab-pane" id="tab_2_5"></div>
-											<div class="tab-pane" id="tab_2_6"></div>
-											<div class="tab-pane" id="tab_2_7"></div>
-											<div class="tab-pane" id="tab_2_8"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<div data-ng-include="'views/template/kecheng/jiaofu.html'"></div>
 					</div>
 					<div class="tab-pane" id="tab_1_3">
 						<div class="row">
@@ -433,10 +135,10 @@
 										</div>
 									</div>
 									<div class="portlet-body" style="text-align: center;">
-										<video controls="controls" style=" width: 100%;height: auto;">
+										<!--<video controls="controls" style=" width: 100%;height: auto;" preload="none">
 											<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4">
 											</source>
-										</video>
+										</video>-->
 										<button class="btn btn-info" style="margin-top: 40px;">上传宣传片</button>
 									</div>
 								</div>
@@ -448,30 +150,6 @@
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
-	
-	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">图集</h4>
-				</div>
-				<div class="modal-body">
-					<div class="portlet">
-						<div class="portlet-body">
-							<img src="{{row}}" style="width: 110px;height: 110px;" ng-repeat="row in picsKejian" />
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-
-	<div data-ng-include="'views/template/lessonPlan/lessonPlan.html'"></div>
-
-	<div data-ng-include="'views/template/uploadKejian.html'"></div>
 </div>
 <!-- END MAIN CONTENT -->
 
@@ -481,147 +159,7 @@
 <script type="text/javascript" src="../../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function createCourseCtrl($scope, $http, $stateParams) {
-		if($stateParams.id == 0) {
-			$scope.course = {
-				topPicSrc: 'images/zanwu.jpg'
-			};
-		}else {
-			//加载课程信息
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				url: '/course/getCourseId',
-				data: {
-			    	'courseId': $stateParams.id
-			    },
-			    success: function(data) {
-			    	console.log(data);
-			    	//课程信息
-			    	$scope.course = data.data;
-			    	//课程描述
-			    	$('#summernoteMiaoshu').code($scope.course.courseDescribe);
-			    	//授课类型
-//			    	$("input[name='lessonType'][value="++"]").attr("checked","checked");
-					//处理封面
-					if(!$scope.course.topPicSrc) {
-						$scope.course.topPicSrc = 'images/zanwu.jpg';
-					}
-			    }
-			});
-		}
-		
-		$scope.jiaoan = "";
-		
-		$scope.$on('kejian', function(d,data) {  
-	        console.log(data);         //父级能得到值  
-	        var html = '';
-	        if(data.type == 1) {
-	        	html = '<a href="'+data.content.filePath+'" target="_blank">PPT课件</a>';
-	        }else if(data.type == 2) {
-	        	html = '<a href="'+data.content.filePath+'" target="_blank">视频课件</a>';
-	        }else if(data.type == 3){
-	        	$scope.picsKejian = data.content;
-	        	html = '<a data-toggle="modal" data-target="#picsModal">图集课件</a>';
-	        }else if(data.type == 4){
-	        	html = '<a href="'+data.content.filePath+'" target="_blank">其它课件</a>';
-	        }
-	        $("#kejianContent").empty();
-	        $("#kejianContent").append(html);
-	    });
-
-		$scope.ziliaoList = [{
-			icon: "预",
-			text: "《电子商务基础》教学大纲.doc",
-			url: "111",
-			color: "label-danger"
-		}, {
-			icon: "预",
-			text: "电子商务基础教案.doc",
-			url: "222",
-			color: "label-danger"
-		}, {
-			icon: "堂",
-			text: "电子商务基础课件.ppt",
-			url: "333",
-			color: "label-success"
-		}];
-
-		$scope.tiwenList = [{
-			icon: "堂",
-			text: "商家要开展电子商务活动 , 应该用( )作为其主要的生意平台。",
-			url: "111",
-			color: "label-success"
-		}, {
-			icon: "堂",
-			text: "Intranet和Internet的区别是 ( )",
-			url: "222",
-			color: "label-success"
-		}, {
-			icon: "堂",
-			text: "电子数据交换的简称是 ( )",
-			url: "333",
-			color: "label-success"
-		}];
-
-		$scope.sub = function() {
-			//所属专业
-			$scope.course.specialtyId = "zhuanye001";
-			//授课类型
-			var teachingType = 3;
-//			$.each($('input[name="lessonType"]:checked'),function(){
-//				teachingType.push($(this).val());
-//          });
-            //备课类型
-            var shareType = $('input[name="beikeType"]:checked').val();
-            //课程描述
-            var courseDescribe = $('#summernoteMiaoshu').code();
-            
-            $scope.course.teachingType = teachingType;
-            $scope.course.shareType = shareType;
-            $scope.course.courseDescribe = courseDescribe;
-            
-            if($stateParams.id == 0) {
-            	//添加课程
-				common.ajax({
-					$scope: $scope,
-					$http: $http,
-					operate: true,
-					url: '/course/save',
-					data: {
-				    	course: $scope.course,
-				    	teachers: [{
-				    		teacherId: localStorage.getItem('userid')
-				    	}]
-				    },
-				});
-            }else {
-            	$scope.course.courseId = $stateParams.id;
-            	//编辑课程
-            	common.ajax({
-					$scope: $scope,
-					$http: $http,
-					operate: true,
-					url: '/course/edit',
-					data: {
-				    	course: $scope.course,
-				    	teachers: [{
-				    		teacherId: localStorage.getItem('userid')
-				    	}]
-				    },
-				});
-            }
-            
-		}
-
-		$(".page-title").on("click", "button", function() {
-			$(".btn-taps button").removeClass("red");
-			$(this).addClass("red");
-			var id = $(this).data("target");
-			$(".my-tab-content").hide();
-			$("#" + id).show();
-		});
-
+	function createCourseCtrl($scope, $http, $stateParams) {		
 		var slides = $scope.slides = [{
 			image: 'images/1.jpg',
 			text: "电子商务基础"
@@ -638,43 +176,6 @@
 				text: '电子商务基础'
 			});
 		};
-		
-		$('#summernoteMiaoshu').summernote({
-			height: 300
-		});
-		
-		$('#my_multi_select1').multiSelect();
-		
-		$('input:radio[name="beikeType"]').change(function() {
-			console.log($(this).val());
-			if($(this).val() == 2) {
-				$("#multipleContent").show();
-			}else {
-				$("#multipleContent").hide();
-			}
-		});
-		
-		//上传教案
-		common.fileUpload({
-			id: 'filePicker3',
-			success: function(file, response) {
-				$scope.$apply(function() {　　
-					$scope.jiaoan = response.fileName;
-					$scope.jiaoanUrl = response.filePath;
-				});
-			}
-		});
-		//上传封面图片
-		common.fileUpload({
-			id: 'topPicSrc',
-			success: function(file, response) {
-				$scope.$apply(function() {　
-					$scope.course.topPicSrc = response.filePath;
-				});
-			}
-		});
-
 	}
 	
 </script>
-<!-- BEGIN MAIN JS -->

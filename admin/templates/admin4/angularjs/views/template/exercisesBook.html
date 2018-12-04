@@ -1,3 +1,15 @@
+<style>
+	.badge {
+		padding: 6px 9px;
+		height: 24px;
+		margin: 3px;
+	}
+	.search {
+		display: inline-block !important;
+		margin-right: 20px;
+		width: auto !important;
+	}
+</style>
 <!--创建提问-->
 <div class="modal fade" id="exercisesBookModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookCtrl">
 	<div class="modal-dialog modal-full">
@@ -82,66 +94,58 @@
 										</div>
 									</div>
 								</div>
+								<div class="modal-header row">
+									<h4 class="modal-title">题库选题</h4>
+								</div>
 								<div class="row" style="margin-bottom: 40px;">
 									<div class="col-md-12">
-										<p class="text-primary" style="font-size: 15px;">
+										<p class="text-primary" style="font-size: 15px;float: right;">
 											温馨提示： 题目来源于 资料库管理—>知识点题库
 											<i class="glyphicon glyphicon-hand-down" style="font-size: 17px;"></i>
 										</p>
 									</div>
+									<div class="col-md-6" style="height: 400px;">
+										<div>
+											<p class="search">题号(<span style="color: red;">红色为已选择</span>)</p>
+											<p class="search">知识点：</p>
+											<select class="form-control search">
+												<option>请选择</option>
+												<option>电子商务的概念</option>
+												<option>电子商务的含义</option>
+											</select>
+											<p class="search">难易程度：</p>
+											<select class="form-control search">
+												<option>请选择</option>
+												<option>简单</option>
+												<option>中等</option>
+												<option>困难</option>
+											</select>
+											<p class="search">题目类型：</p>
+											<select class="form-control search">
+												<option>请选择</option>
+												<option>单选</option>
+												<option>多选</option>
+												<option>判断</option>
+												<option>主观</option>
+												<option>大题</option>
+											</select>
+											<button class="btn btn-primary">确定</button>
+										</div>
+										<span class="badge {{row.class ? row.class : 'badge-success'}}" ng-repeat="row in questionList"> {{$index+1}} </span>
+									</div>
 									<div class="col-md-6" style="height: 400px;overflow-y: scroll;">
 										<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
-											<div class="md-checkbox" style="display: inline-block;width: 10%;">
-												<input type="checkbox" id="checkbox{{$index}}" class="md-check">
+											<div class="md-checkbox" style="display: inline-block;">
+												<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-change="select(row)" ng-model="row.select">
 												<label for="checkbox{{$index}}">
 												<span></span>
 												<span class="check"></span>
 												<span class="box"></span>
 												</label>
 											</div>
-											<span style="display: inline-block;width: 89%;cursor: pointer;" ng-click="select(row)">{{row.name}} </span>
+											<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.{{row.name}} </span>
 										</div>
-										<!--<div class="well" style="background-color: #d6e9c6;">
-											<div class="md-checkbox" style="display: inline-block;width: 10%;">
-												<input type="checkbox" id="checkbox2" class="md-check">
-												<label for="checkbox2">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												</label>
-											</div>
-											<span style="display: inline-block;width: 89%;">Intranet和Internet的区别是 ( A )</span>
-										</div>
-										<div class="well" style="background-color: #d6e9c6;">
-											<div class="md-checkbox" style="display: inline-block;width: 10%;">
-												<input type="checkbox" id="checkbox3" class="md-check">
-												<label for="checkbox3">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												</label>
-											</div>
-											<span style="display: inline-block;width: 89%;">电子数据交换的简称是 ( B )</span>
-										</div>-->
-									</div>
-									<div class="col-md-6" style="height: 350px;">
-										<div class="well" style="height: 350px;background-color: #ebccd1;">
-											<p class="muted" style="font-size: 17.5px;" ng-repeat="row in selected.options">
-												<span ng-if="!row.right">
-													{{row.option}}:<span style="margin-left: 20px;font-size: 14px;">{{row.value}}</span>
-												</span>
-												<span ng-if="row.right" style="color: #f03f2a;">
-													{{row.option}}:<span style="margin-left: 20px;font-size: 14px;">{{row.value}}</span>
-												</span>
-											</p>
-											<!--<p class="muted" style="font-size: 17.5px;">B:<span style="margin-left: 20px;font-size: 14px;">答案b</span></p>
-											<p class="muted" style="font-size: 17.5px;color: #f03f2a;">C:<span style="margin-left: 20px;font-size: 14px;">答案c</span></p>
-											<p class="muted" style="font-size: 17.5px;">D:<span style="margin-left: 20px;font-size: 14px;">答案d</span></p>-->
-										</div>
-										<div class="form-actions noborder" style="text-align: right;">
-											<button type="button" class="btn blue" ng-click="sub();">提交</button>
-											<button type="button" class="btn default" data-dismiss="modal">取消</button>
-										</div>
+										<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
 									</div>
 								</div>
 							</div>
@@ -158,6 +162,32 @@
 <script>
 	function exercisesBookCtrl($scope) {
 		$scope.questionList = [
+			{
+				id: "1",
+				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
+				options: [
+					{option: "A", value: "第一题答案a"},
+					{option: "B", value: "第一题答案b"},
+					{option: "C", value: "第一题答案c", right: true},
+					{option: "D", value: "第一题答案d"}
+				]
+			}, {
+				name: "Intranet和Internet的区别是 (  )",
+				options: [
+					{option: "A", value: "第二题答案a", right: true},
+					{option: "B", value: "第二题答案b"},
+					{option: "C", value: "第二题答案c"},
+					{option: "D", value: "第二题答案d"}
+				]
+			}, {
+				name: "电子数据交换的简称是 (  )",
+				options: [
+					{option: "A", value: "第三题答案a"},
+					{option: "B", value: "第三题答案b", right: true},
+					{option: "C", value: "第三题答案c"},
+					{option: "D", value: "第三题答案d"}
+				]
+			},
 			{
 				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
 				options: [
@@ -182,7 +212,57 @@
 					{option: "C", value: "第三题答案c"},
 					{option: "D", value: "第三题答案d"}
 				]
-			}
+			},
+			{
+				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
+				options: [
+					{option: "A", value: "第一题答案a"},
+					{option: "B", value: "第一题答案b"},
+					{option: "C", value: "第一题答案c", right: true},
+					{option: "D", value: "第一题答案d"}
+				]
+			}, {
+				name: "Intranet和Internet的区别是 (  )",
+				options: [
+					{option: "A", value: "第二题答案a", right: true},
+					{option: "B", value: "第二题答案b"},
+					{option: "C", value: "第二题答案c"},
+					{option: "D", value: "第二题答案d"}
+				]
+			}, {
+				name: "电子数据交换的简称是 (  )",
+				options: [
+					{option: "A", value: "第三题答案a"},
+					{option: "B", value: "第三题答案b", right: true},
+					{option: "C", value: "第三题答案c"},
+					{option: "D", value: "第三题答案d"}
+				]
+			},
+			{
+				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
+				options: [
+					{option: "A", value: "第一题答案a"},
+					{option: "B", value: "第一题答案b"},
+					{option: "C", value: "第一题答案c", right: true},
+					{option: "D", value: "第一题答案d"}
+				]
+			}, {
+				name: "Intranet和Internet的区别是 (  )",
+				options: [
+					{option: "A", value: "第二题答案a", right: true},
+					{option: "B", value: "第二题答案b"},
+					{option: "C", value: "第二题答案c"},
+					{option: "D", value: "第二题答案d"}
+				]
+			}, {
+				name: "电子数据交换的简称是 (  )",
+				options: [
+					{option: "A", value: "第三题答案a"},
+					{option: "B", value: "第三题答案b", right: true},
+					{option: "C", value: "第三题答案c"},
+					{option: "D", value: "第三题答案d"}
+				]
+			},
 		];
 		$scope.selected = {
 			name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
@@ -195,7 +275,11 @@
 		};
 		
 		$scope.select = function(row) {
-			$scope.selected = row;
+			if(row.select) {
+				row.class = 'badge-danger';
+			}else {
+				row.class = 'badge-success';
+			}
 		}
 		
 		$scope.sub = function() {

@@ -96,21 +96,22 @@
 													PPT </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="2">
-													<label for="radio7">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													视频 </label>
-												</div>
-												<div class="md-radio">
-													<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="3">
+													<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="2">
 													<label for="radio8">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													图集 </label>
 												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="3">
+													<label for="radio7">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													视频 </label>
+												</div>
+												
 											</div>
 										</div>
 									</div>
@@ -126,20 +127,20 @@
 									</div>
 									<div class="fileTab" style="display: none;">
 										<div class="row">
-											<div class="col-md-12" id="videoKejian" style="text-align: center;margin-bottom: 20px;">
-												
-											</div>
-										</div>
-										<div id="filePicker5" class="filePicker" style="text-align: center;">选择文件</div>
-									</div>
-									<div class="fileTab" style="display: none;">
-										<div class="row">
 											<div class="col-md-12" id="picsKejian">
 												<ul class="pics"></ul>
 											</div>
 										</div>
 										<div id="filePicker6" class="filePicker" style="text-align: center;">选择文件</div>
 										<button class="btn btn-default uploadBtn1">开始上传</button>
+									</div>
+									<div class="fileTab" style="display: none;">
+										<div class="row">
+											<div class="col-md-12" id="videoKejian" style="text-align: center;margin-bottom: 20px;">
+												
+											</div>
+										</div>
+										<div id="filePicker5" class="filePicker" style="text-align: center;">选择文件</div>
 									</div>
 								</div>
 							</div>
@@ -174,6 +175,7 @@
 			}
 		});
 
+		//文档类型课件
 		common.fileUpload({
 			id: 'filePicker4',
 			success: function(file, response, uploader) {
@@ -183,6 +185,7 @@
 			}
 		});
 		
+		//视频类型课件
 		common.fileUpload({
 			id: 'filePicker5',
 			success: function(file, response, uploader) {
@@ -192,6 +195,7 @@
 			}
 		});
 		
+		//图集类型课件
 		common.multiFileUpload({
 			id: 'filePicker6',
 			uploadBtn: '.uploadBtn1',
@@ -201,6 +205,7 @@
 			}
 		});
 		
+		//提交，将数据传至父页面
 		$scope.sub = function() {
 			var kejian = {
 				type: type,
@@ -210,9 +215,9 @@
 			if(type == 1) {
 				kejian.content = pptKejian;
 			}else if(type == 2) {
-				kejian.content = videoKejian;
-			}else if(type == 3) {
 				kejian.content = picsKejian;
+			}else if(type == 3) {
+				kejian.content = videoKejian;
 			}
 			$scope.$emit('kejian', kejian);
 			$("#uploadKejianModal").modal("hide");
