@@ -1,8 +1,8 @@
 var common = {
 	//永永服务
-	//url: 'http://132.232.124.203:8090',
+	url: 'http://132.232.124.203:8090',
 	//永永本机
-	url: 'http://192.168.13.230:8090',
+	//url: 'http://192.168.13.230:8090',
 	//提示框
 	toast: function(settings) {
 		var defaults = {
