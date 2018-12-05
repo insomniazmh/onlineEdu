@@ -12,7 +12,9 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">请选择学生</h4>
+				<h4 class="modal-title">请选择学生
+					<button type="button" class="btn blue" style="margin-left: 20px;" ng-click="all()">全选</button>
+				</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -81,6 +83,12 @@
 				obj.active = true;
 			}
 		};
+		
+		$scope.all = function() {
+			$($scope.students).each(function() {
+				this.active = true;
+			})
+		}
 		
 		$scope.sub = function() {
 			var studentsArr = [];
