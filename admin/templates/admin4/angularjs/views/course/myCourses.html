@@ -59,9 +59,9 @@
 			$http: $http,
 			url: '/course/findAll',
 			data: {
-				page: 0,
-		    	size: 10,
-		    	sorting: "cTime"
+				"page": 0,
+		    	"size": 10,
+		    	"sorting": "cTime"
 			},
 			success: function(data) {
 				$(data.data.content).each(function() {

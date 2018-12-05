@@ -183,6 +183,12 @@ var common = {
 		};
 		settings = $.extend(defaults, settings);
 		console.log(JSON.stringify(settings.data));
+		
+		Metronic.blockUI({
+			boxed: true,
+			message: "加载中，请耐心等待..."
+		});
+		
 		settings.$http({
 			    method: settings.method,
 			    url: common.url + settings.url,
@@ -203,7 +209,13 @@ var common = {
 							message: data.msg
 						});
 			        }
+			        window.setTimeout(function() {
+						Metronic.unblockUI();
+					});
 			    }, function errorCallback(response) {
+			    	window.setTimeout(function() {
+						Metronic.unblockUI();
+					});
 			        settings.error(response);
 			});
 	},
@@ -225,6 +237,12 @@ var common = {
 		};
 		settings = $.extend(defaults, settings);
 		console.log(JSON.stringify(settings.data));
+		
+		Metronic.blockUI({
+			boxed: true,
+			message: "加载中，请耐心等待..."
+		});
+		
 		settings.$http({
 			    method: settings.method,
 			    url: common.url2 + settings.url,
@@ -245,7 +263,13 @@ var common = {
 							message: data.msg
 						});
 			        }
+			        window.setTimeout(function() {
+						Metronic.unblockUI();
+					});
 			    }, function errorCallback(response) {
+			    	window.setTimeout(function() {
+						Metronic.unblockUI();
+					});
 			        settings.error(response);
 			});
 	}
