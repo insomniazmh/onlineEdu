@@ -75,11 +75,14 @@
 </div>
 
 <script>
-	function zhuguanCtrl($scope, $timeout) {
-		var count = 5;
-		$scope.zhuguan = {
-			
-		};
+	function zhuguanCtrl($scope, $http, $stateParams) {
+		console.log($stateParams.id);
+		
+		//获取当前选中章节
+		$scope.$on('currentNode1', function(d,data) {  
+	        console.log(data);         //父级能得到值  
+	        $scope.currentNode = data;
+	   });
 		
 		$('#zhuguan_title').summernote({
 			height: 100
@@ -93,8 +96,41 @@
 		});
 		
 		$scope.sub = function() {
-			var aaa = $('#zhuguan_title').code();
+//			var aaa = $('#zhuguan_title').code();
+//console.log($("input[name='zhuguanlevel']:checked").val());
+			var obj = {
+				"relate":0,
+				"teacherId": localStorage.getItem("userid"),
+				"levelId":$("input[name='zhuguanlevel']:checked").val(),
+				"knowledgeId":"123",
+				"chapter": $scope.currentNode.id,
+			    "examChildren": [
+			        {
+			            "relate": 0,
+			            "score": 1,
+			            "teacherId": localStorage.getItem("userid"),
+			            "designQuestion": $('#zhuguan_title').code(),
+			            "designAnsw": $('#zhuguan_answer').code(),
+			            "designAnalysis": $('#zhuguan_jiexi').code(),
+			            "examType": "design"
+			        }
+			    ]
+			}
 			
+			//添加题目(主观)
+	        common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/question/design/edit',
+				data: obj,
+				success: function(res) {
+					console.log(res);
+//					$scope.$emit('addQuestion', res.data.examChildren[0]);
+					$scope.$emit('addQuestion', true);
+					$("#addQuestion").modal("hide");
+				}
+	        });
 		}
 		
 	}

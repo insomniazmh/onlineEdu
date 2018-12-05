@@ -243,9 +243,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         })
         
         //知识点题库
-        .state('konwledgePoint', {
-            url: "/konwledgePoint.html",
-            templateUrl: "views/database/konwledgePoint.html",            
+        .state('knowledgePoint', {
+            url: "/knowledgePoint.html/{id}",
+            templateUrl: "views/database/knowledgePoint.html",            
             data: {pageTitle: '资料库', pageSubTitle: '知识点题库'},
             controller: "CoursesListController",
             resolve: {

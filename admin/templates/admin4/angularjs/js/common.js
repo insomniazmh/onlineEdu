@@ -3,6 +3,8 @@ var common = {
 	url: 'http://132.232.124.203:8090',
 	//永永本机
 	//url: 'http://192.168.13.230:8090',
+	//真铭服务
+	url2: 'http://132.232.124.203:8070',
 	//提示框
 	toast: function(settings) {
 		var defaults = {
@@ -184,6 +186,48 @@ var common = {
 		settings.$http({
 			    method: settings.method,
 			    url: common.url + settings.url,
+			    data: settings.data,
+			}).then(function successCallback(response) {
+					var data = response.data;
+			        if(data.ret == 0) {
+			        	if(settings.operate) {
+			        		common.toast({
+								title: "操作成功"
+							});
+			        	}
+						settings.success(response.data);
+			        }else {
+			        	common.toast({
+			        		type: 2,
+							title: "操作失败",
+							message: data.msg
+						});
+			        }
+			    }, function errorCallback(response) {
+			        settings.error(response);
+			});
+	},
+	
+	ajax2: function(settings) {
+		var defaults = {
+			method: 'post',
+			operate: false,
+			url: '',
+			data: {},
+			success: function(response) {},
+			error: function(response) {
+				console.log(response);
+				common.toast({
+		        	type: 2,
+		        	title: "网络异常"
+			    });
+			}
+		};
+		settings = $.extend(defaults, settings);
+		console.log(JSON.stringify(settings.data));
+		settings.$http({
+			    method: settings.method,
+			    url: common.url2 + settings.url,
 			    data: settings.data,
 			}).then(function successCallback(response) {
 					var data = response.data;

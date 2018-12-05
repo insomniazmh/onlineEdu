@@ -1,4 +1,4 @@
-<div class="modal fade" id="questionSingle" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="addQuestionCtrl">
+<div class="modal fade" id="addQuestion" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="addQuestionCtrl">
 	<div class="modal-dialog modal-full">
 		<div class="modal-content">
 
@@ -129,8 +129,11 @@
 
 <script>
 	function addQuestionCtrl($scope) {
+		//添加题目完成回调
+//	    $scope.$on('addQuestion', function(d,data) {  
+//	        console.log(data);         
+//	    });
 		
-
 		$scope.sub = function() {
 			$scope.$emit('to-parent', 'createQuestion');
 		};

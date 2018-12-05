@@ -133,19 +133,45 @@
 										</div>
 										<span class="badge {{row.class ? row.class : 'badge-success'}}" ng-repeat="row in questionList"> {{$index+1}} </span>
 									</div>
-									<div class="col-md-6" style="height: 400px;overflow-y: scroll;">
-										<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
-											<div class="md-checkbox" style="display: inline-block;">
-												<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-change="select(row)" ng-model="row.select">
-												<label for="checkbox{{$index}}">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												</label>
+									<div class="col-md-6">
+										<div class="portlet light">
+											<div class="portlet-title tabbable-line">
+												<ul class="nav nav-tabs" style="float: left;">
+													<li class="active">
+														<a data-target="#tab_2_1" data-toggle="tab">
+															未选题目 </a>
+													</li>
+													<li>
+														<a data-target="#tab_2_2" data-toggle="tab">
+															已选题目 </a>
+													</li>
+												</ul>
 											</div>
-											<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.{{row.name}} </span>
+											<div class="portlet-body">
+												<div class="tab-content">
+													<div class="tab-pane active" id="tab_2_1">
+														<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+															<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
+																<div class="md-checkbox" style="display: inline-block;">
+																	<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-change="select(row)" ng-model="row.select">
+																	<label for="checkbox{{$index}}">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	</label>
+																</div>
+																<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.{{row.name}} </span>
+															</div>
+															<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
+														</div>
+													</div>
+													<div class="tab-pane" id="tab_2_2">
+								
+													</div>
+												</div>
+											</div>
 										</div>
-										<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
+										
 									</div>
 								</div>
 							</div>

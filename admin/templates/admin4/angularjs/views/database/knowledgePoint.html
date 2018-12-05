@@ -26,7 +26,7 @@
 					<span class="caption-subject bold uppercase" id="title">题库{{currKP}}</span>
 				</div>
 				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#questionSingle">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#addQuestion">
 							<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
@@ -109,7 +109,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 					<div class="tab-pane" id="tab_1_2">
 
@@ -118,7 +117,25 @@
 
 					</div>
 					<div class="tab-pane" id="tab_1_4"></div>
-					<div class="tab-pane" id="tab_1_5"></div>
+					<div class="tab-pane" id="tab_1_5">
+						<div id="accordion5" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in design">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" data-target="#accordion5_{{$index}}" ng-bind-html="row.designQuestion">
+										</a>
+									</h4>
+								</div>
+								<div id="accordion5_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>答案： <span ng-bind-html="row.designAnsw"></span></p>
+										<p>解析： <span ng-bind-html="row.designAnalysis"></span></p>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
 					<div class="tab-pane" id="tab_1_6"></div>
 				</div>
 			</div>
@@ -127,29 +144,74 @@
 	</div>
 
 	<div data-ng-include="'views/template/timu/addQuestion.html'"></div>
-
 	
-
 </div>
 <!-- END MAIN CONTENT -->
-
-
-
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
-<!-- BEGIN MAIN JS-->
 <script>
-	function kpCtrl($scope) {
+	function kpCtrl($scope, $http) {
 		$scope.knowledgePoints = [];
+		//主观题
+		$scope.design = [];
+		//初始化当前选中章节
+		$scope.currentNode = {
+			id: 'node_1_1'
+		}
 		
 		$scope.$on('to-parent', function(d,data) {  
-	        console.log(data);         //父级能得到值  
+	        console.log(data);         
 	    });
-
-		$("ul.feeds").on("click", "a", function() {
-			console.log($(this).html());
-			var html = $(this).html();
-			$(this).closest(".btn-group").find("span").html(html);
-		});
+	    
+	    //获取选中的树节点
+	    $scope.$on('currentNode', function(d,data) {  
+	        console.log(data);        
+	        $scope.$broadcast('currentNode1', data);
+	        $scope.loadQuestions(5);
+	    });
+	    
+	    //添加题目完成回调
+	    $scope.$on('addQuestion', function(d,data) {  
+	        console.log(data);         
+	        //$scope.matchType(data);
+	        if(data) {
+	        	$scope.loadQuestions(5);
+	        }
+	    });
+	    
+	    //加载题目
+	    $scope.loadQuestions = function(type) {
+	    	//根据章节加载题目
+	    	common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				url: '/question/findAll/detailed',
+				data: {
+					"operatorId": localStorage.getItem("userid"),
+					"page": 0,
+					"size": 20,
+					"sort": 1,
+					"sorting": "uTime"
+				},
+				success: function(res) {
+					console.log(res.data);
+					var data = res.data;
+					$scope.design = [];
+					$(data).each(function() {
+						var obj = this.examChildren[0];
+						if(obj.examType == 'design') {
+							$scope.design.push(obj);
+						}
+					});
+				}
+	        });
+	    };
+	    $scope.loadQuestions(5);
+	    	    
+//		$("ul.feeds").on("click", "a", function() {
+//			console.log($(this).html());
+//			var html = $(this).html();
+//			$(this).closest(".btn-group").find("span").html(html);
+//		});
 	}
 </script>
 <!-- BEGIN MAIN JS -->
