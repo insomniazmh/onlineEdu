@@ -8,8 +8,27 @@
 		width: 100%!important;
 		height: 100%!important;
 	}
+	.sign {
+		padding: 3px 3px 3px 4px;
+		margin-right: 5px;
+		cursor: pointer;
+	}
+	.opreat {
+		font-size: 16px;
+		width:20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
 </style>
 <div class="row" ng-controller="assistantCtrl">
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn red">知识点题库</button>
+			<button type="button" class="btn green">习题册</button>
+			<button type="button" class="btn blue">课程信息</button>
+		</div>
+	</div>
 	<div data-ng-include="'views/template/zhishidian.html'"></div>
 	<div class="col-md-4">
 		<div class="portlet light" style="min-height: 500px;">
@@ -47,40 +66,22 @@
 						<a data-target="#tab_2_2" data-toggle="tab"> 图集 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_3" data-toggle="tab"> 音频 </a>
+						<a data-target="#tab_2_3" data-toggle="tab"> 链接 </a>
 					</li>
 					<li>
 						<a data-target="#tab_2_4" data-toggle="tab"> 视频 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_5" data-toggle="tab"> 链接 </a>
+						<a data-target="#tab_2_5" data-toggle="tab"> 音频 </a>
 					</li>
 				</ul>
 			</div>
 			<div class="portlet-body">
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_2_1">
-						<div class="scroller" style="min-height: 100px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+						<div class="scroller" style="min-height: 408px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 							<ul class="feeds" style="margin-bottom: 50px;">
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-danger">
-													<i class="fa fa-bolt"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													<a href="file/201801.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
-
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								
-								<li>
+								<li ng-repeat="row in docs">
 									<div class="col1">
 										<div class="cont">
 											<div class="cont-col1">
@@ -90,9 +91,21 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													<a href="file/201802.pptx" type="application/vnd.ms-powerpoint" target=_blank>电子商务基础课件.ppt</a>
+													<a href="" style="line-height: 25px;" target=_blank>{{row.title}}</a>
+													<div class="label label-sm label-danger sign" title="预习资料">预</div>
+													<div class="label label-sm label-success sign" title="课堂参考">堂</div>
+													<div class="label label-sm label-warning sign" title="课程案例">案</div>
+													<div class="label label-sm label-info sign" title="复习参考">复</div>
+													<div class="label label-sm label-primary sign" title="资料共享">享</div>
+													<div class="label label-sm sign" style="background-color: #8e5fa2;" title="学生可见">生</div>
 												</div>
 											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-copy opreat" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+											<i class="fa fa-trash-o opreat" title="删除"></i>
 										</div>
 									</div>
 								</li>
@@ -100,7 +113,37 @@
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_2_2">
-
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li ng-repeat="row in tujis">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="javascript;" style="line-height: 25px;" data-toggle="modal" data-target="#picsModal">{{row.title}}</a>
+													<div class="label label-sm label-danger sign" title="预习资料">预</div>
+													<div class="label label-sm label-success sign" title="课堂参考">堂</div>
+													<div class="label label-sm label-warning sign" title="课程案例">案</div>
+													<div class="label label-sm label-info sign" title="复习参考">复</div>
+													<div class="label label-sm label-primary sign" title="资料共享">享</div>
+													<div class="label label-sm sign" style="background-color: #8e5fa2;" title="学生可见">生</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-edit opreat" style="font-size: 16px;width:20px;color: #45B6AF;padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+											<i class="fa fa-trash-o opreat" style="font-size: 18px;width:20px;color: #45B6AF;"title="删除"></i>
+										</div>
+									</div>
+								</li>
+								
+							</ul>
 					</div>
 					<div class="tab-pane" id="tab_2_3">
 
@@ -115,6 +158,27 @@
 			</div>
 		</div>
 		<!-- END: ACCORDION DEMO -->
+	</div>
+	
+	<!-- 显示图集图片 -->
+	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">图集</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<img src="{{row}}" style="width: 150px;height: 150px;margin: 10px;" ng-repeat="row in pics" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
 	</div>
 
 	<div data-ng-include="'views/template/jiaofu/addJiaofu.html'"></div>
@@ -137,6 +201,37 @@
 			var html = $(this).html();
 			$(this).closest(".btn-group").find("span").html(html);
 		});
+		
+		$scope.pics = [
+			'images/ppt/幻灯片1.PNG',
+			'images/ppt/幻灯片2.PNG',
+			'images/ppt/幻灯片3.PNG',
+			'images/ppt/幻灯片4.PNG',
+			'images/ppt/幻灯片5.PNG',
+			'images/ppt/幻灯片6.PNG',
+			'images/ppt/幻灯片7.PNG',
+			'images/ppt/幻灯片8.PNG',
+			'images/ppt/幻灯片9.PNG',
+			'images/ppt/幻灯片10.PNG',
+		];
+		
+		$scope.docs = [
+			{title: '《电子商务基础》教学大纲.doc'},
+			{title: '《电子商务基础》教学大纲.doc'},
+			{title: '《电子商务基础》教学大纲.doc'},
+			{title: '《电子商务基础》教学大纲.doc《电子商务基础》教学大纲.doc《电子商务基础》教学大纲.doc《电子商务基础》教学大纲.doc《电子商务基础》教学大纲.doc《电子商务基础》教学大纲.doc《电子商务基础》教学大纲.doc'},
+			{title: '《电子商务基础》教学大纲.doc'},
+			{title: '《电子商务基础》教学大纲.doc'},
+			{title: '《电子商务基础》教学大纲.doc'},
+		]
+		
+		$scope.tujis = [
+			{title: '图集1'},
+			{title: '图集2'},
+			{title: '图集3'},
+			{title: '图集4'},
+			{title: '图集5'}
+		]
 
 	}
 </script>

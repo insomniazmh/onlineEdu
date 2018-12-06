@@ -109,8 +109,8 @@
 		</div>
 	</div>
 
-	<div class="form-actions noborder">
-		<button type="button" class="btn blue" ng-click="sub()">保存</button>
+	<div class="form-actions noborder" style="text-align: center;">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
 	</div>
 </div>
 
@@ -175,6 +175,15 @@
 				    		teacherId: localStorage.getItem('userid')
 				    	}]
 				    },
+				    success: function(data) {
+				    	console.log(data);
+				    	if(data.ret == 0) {
+				    		var flag = confirm("提交成功，是否转到教辅资料库添加资料?");
+				    		if(flag) {
+				    			window.location.href = "#/assistant.html/"+data.data.courseId;
+				    		}
+				    	}
+				    }
 				});
             }else {
             	$scope.course.courseId = $stateParams.id;
