@@ -63,9 +63,7 @@
 	</head>
 
 	<body style="background-color: #e9ecf3">
-		<div style="height: 75px;">
-			
-		</div>
+		
 		<div style="float: left;width: 3%;height: 600px;">
 			<div class="page-sidebar navbar-collapse collapse">
 				<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
@@ -103,6 +101,13 @@
 			<div id="question" style="background-color: #fcf8e3;display: none;">
 				<div class="alert alert-block fade in">
 					<button type="button" class="close" onclick="closeQuestion()"></button>
+					<div style="height: 140px;" id="studentsWrapper">
+			
+					</div>
+					<div style="height: 40px;text-align: center;">
+						<button class="btn btn-primary" id="all">全选</button>
+						<button class="btn btn-primary" id="sub">确定</button>
+					</div>
 					<div>
 						<div style="display: inline-block;margin-right: 20px;">
 							<i class="icon-settings font-green-sharp"></i>
@@ -312,39 +317,6 @@
 			</div>
 
 		</div>
-		
-		<div class="modal fade" id="students" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog modal-full">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						<h4 class="modal-title">请选择学生
-							<button type="button" class="btn blue" style="margin-left: 20px;" onclick="all()">全选</button>
-						</h4>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12" id="studentsWrapper">
-								<!--<div class="col-md-1">
-									<div class="uppercase profile-userpic {{row.active ? 'active':''}}" ng-click="clickStudent($index);">
-										<img src="{{row.image}}" class="img-responsive" alt="">
-									</div>
-									<div class="uppercase profile-stat-text">
-										{{row.name}}
-									</div>
-								</div>-->
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn default" data-dismiss="modal">取消</button>
-						<button type="button" class="btn blue" ng-click="sub()">确定</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
 
 		<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 		<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -405,7 +377,7 @@
 				$(students).each(function() {
 					packStudents(this);
 				});
-				$("#students").modal("show");
+				//$("#students").modal("show");
 			}
 			//点击举手
 			function jushou() {
@@ -418,7 +390,7 @@
 					{name: "马六" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"}
 				];
 				var i = 0;
-				$("#students").modal("show");
+				//$("#students").modal("show");
 				window.setInterval(function() {
 					if(i < 4) {
 						packStudents(studentsName[i]);
@@ -429,17 +401,18 @@
 			
 			//将学生数据拼装
 			function packStudents(row) {
-				var html = '<div class="col-md-1">'
+				var html = '<div style="width:80px;float:left;">'
 						+	'<div class="uppercase profile-userpic">'
 						+	'<img src="'+row.image+'" class="img-responsive" alt="">'
 						+	'</div>'
 						+	'<div class="uppercase profile-stat-text">'+row.name+'</div>'
+						+   '<div class="uppercase profile-stat-text answer"></div>'
 						+	'</div>';
 				$("#studentsWrapper").append(html);
 			}
 			
 			//点击学生头像，改变样式
-			$("#students").on("click", ".profile-userpic", function() {
+			$("#studentsWrapper").on("click", ".profile-userpic", function() {
 				if($(this).hasClass("active")) {
 					$(this).removeClass("active");
 				}else {
@@ -447,11 +420,16 @@
 				}
 			});
 			
-			function all() {
-				console.log(123);
-				console.log($("#students .profile-userpic").length);
-				$("#students .profile-userpic").addClass("active");
-			}
+			$("#all").click(function() {
+				$("#studentsWrapper .profile-userpic").addClass("active");
+			});
+			
+			$("#sub").click(function() {
+//				var studentsArr = [];
+				$("#studentsWrapper .profile-userpic.active").each(function() {
+					$(this).parent().find("div.answer").html("未回答");
+				});
+			});
 		</script>
 	</body>
 
