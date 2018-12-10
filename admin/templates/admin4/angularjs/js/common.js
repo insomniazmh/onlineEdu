@@ -272,6 +272,14 @@ var common = {
 					});
 			        settings.error(response);
 			});
+	},
+	
+	goUrl: function(url, type) {
+		if(type) {
+			window.location.href = '#/'+url+'.html/'+localStorage.getItem("courseId");
+		}else {
+			window.location.href = '#/'+url+'.html';
+		}
 	}
 }
 

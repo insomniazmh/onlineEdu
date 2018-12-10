@@ -24,9 +24,9 @@
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
-			<button type="button" class="btn red">知识点题库</button>
-			<button type="button" class="btn green">习题册</button>
-			<button type="button" class="btn blue">课程信息</button>
+			<button type="button" class="btn red" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
+			<button type="button" class="btn green" onclick="common.goUrl('xitice', true)">互动集</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseAdd', true)">课程信息</button>
 		</div>
 	</div>
 	<div data-ng-include="'views/template/zhishidian.html'"></div>
@@ -104,7 +104,6 @@
 									</div>
 									<div class="col2">
 										<div class="date">
-											<i class="fa fa-copy opreat" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
 											<i class="fa fa-trash-o opreat" title="删除"></i>
 										</div>
 									</div>
@@ -189,7 +188,7 @@
 <!-- BEGIN MAIN JS-->
 <script>
 	function assistantCtrl($scope, $http, $stateParams) {
-		
+		localStorage.setItem('courseId', $stateParams.id);
 		$scope.knowledgePoints = [];
 		
 		$scope.$on('to-parent', function(d,data) {  
@@ -231,7 +230,16 @@
 			{title: '图集3'},
 			{title: '图集4'},
 			{title: '图集5'}
-		]
+		];
+		
+//		$scope.goUrl = function(url, type) {
+//			if(type) {
+//				window.location.href = '#/'+url+'.html/'+$stateParams.id;
+//			}else {
+//				window.location.href = '#/'+url+'.html';
+//			}
+//			
+//		}
 
 	}
 </script>

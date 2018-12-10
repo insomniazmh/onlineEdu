@@ -1,0 +1,37 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+.fl_l{float:left;}
+.fl_r{float:right;}
+.cfx{clear:both;}
+.mt_10{margin-top:10rpx;}
+.mt_20{margin-top:20rpx;}
+.mt_30{margin-top:30rpx;}
+.mt_40{margin-top:40rpx;}
+.zoom{zoom:120%;}
+.cl_g{color:#d2d2d2}
+.banner{width:100%;display:block;}
+.dis_none{display:none;}
+.opacity{opacity:0.5;}
+.logo_min{width:360rpx;position:fixed;bottom:50rpx;left:50%;margin-left:-180rpx;}
+
+/*课程公共样式*/
+.cl_o{color:#f2a84b;}
+.mt_100{margin-top:100rpx;}
+.text_typeOne{background:#F8F8F8;padding:60rpx 20rpx;position:relative;}
+.text_typeOne text{font-size:32rpx;}
+.text_state{width:90rpx;position:absolute;right:0;top:0;}
+.text_answers{margin-top:50rpx;border-bottom:15rpx solid #f8f8f8;padding-bottom:50rpx;}
+.text_answers_clm{border:1px solid #d2d2d2;padding:10rpx 30rpx;width:500rpx;margin:40rpx auto;border-radius:10rpx;}
+.text_answers_clm text{font-size:35rpx;}
+.e_number{margin-right:40rpx;}
+.com_btn{width:570rpx;}
+.btn_state_on{background:#15AD24;color:white;}
+.btn_state_off{color:rgb(192, 192, 192);}

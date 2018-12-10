@@ -22,22 +22,23 @@
 		<div class="portlet-body">
 			<div class="row">
 				<div class="col-md-12">
+					
 					<div class="owl-carousel owl-carousel5 owl-theme" style="opacity: 1; display: block;">
 						<div class="owl-wrapper-outer">
-							<div class="owl-wrapper" style="width: 3192px; left: 0px; display: block;">
+							<div class="owl-wrapper" style="width: 100%; left: 0px; display: block;">
 								<div class="owl-item active" style="width: 228px;" ng-repeat="row in courses">
 									<div>
 										<div class="product-item">
 											<div class="pi-img-wrapper">
-												<img src="{{row.image}}" class="img-responsive" alt="找不到图片">
+												<img src="{{row.topPicSrc}}" class="img-responsive" alt="暂无图片">
 											</div>
-											<h3><a href="#/{{row.url}}">{{row.name}}</a></h3>
-											<div class="pi-price">课程编号：{{row.num}}</div>
+											<h3>
+												<a href="#/xitice.html/{{row.courseId}}">{{row.courseName}}(讲师：<span style="color: red;">张帅</span>)</a>
+											</h3>
+											<div class="pi-price">课程编号：{{row.courseNumber}}</div>
 										</div>
 									</div>
 								</div>
-								
-							
 							</div>
 						</div>
 					</div>
@@ -50,11 +51,25 @@
 <!-- END MAIN CONTENT -->
 
 <script>
-	function cl5Ctrl($scope) {
-		$scope.courses = [
-			{image: "images/1.jpg", url: "xitice.html",name: "电子商务基础", num: "001"},
-			{image: "images/4.jpg", url: "xitice.html",name: "商务英语基础", num: "002"},
-			{image: "images/7.jpg", url: "xitice.html",name: "计算机基础", num: "004"},
-		]
+	function cl5Ctrl($scope, $http) {
+		//加载课程列表
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			url: '/course/findAll',
+			data: {
+				page: 0,
+		    	size: 10,
+		    	sorting: "cTime"
+			},
+			success: function(data) {
+				$(data.data.content).each(function() {
+					if(!this.topPicSrc) {
+						this.topPicSrc = 'images/zanwu.jpg';
+					}
+				});
+				$scope.courses = data.data.content;
+			}
+		});
 	}
 </script>

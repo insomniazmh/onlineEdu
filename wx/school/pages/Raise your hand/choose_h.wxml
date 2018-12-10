@@ -1,0 +1,25 @@
+<!--pages/Raise your hand/choose_h.wxml-->
+<!--pages/practice/practice.wxml-->
+
+<view class='text_typeOne'>
+  <text>商家要开展电子商务活动 , 应该用（  ）作为其主要的生意平台。</text>
+</view>
+
+<view class='text_answers '>
+  <!--题目是否可用通过添加删除类“opacity”切换-->
+  <view class='text_answers_clm' style="{{radioindex==1?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='1'>
+    <text><text class='cl_o e_number'>A.</text>BBS</text>
+  </view>
+  <view class='text_answers_clm' style="{{radioindex==2?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='2'>
+    <text><text class='cl_o e_number'>B.</text>电子邮件</text>
+  </view>
+  <view class='text_answers_clm' style="{{radioindex==3?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='3'>
+    <text><text class='cl_o e_number'>C.</text>在线商店</text>
+  </view>
+  <view class='text_answers_clm' style="{{radioindex==4?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='4'>
+    <text><text class='cl_o e_number'>D.</text>电话定购</text>
+  </view>
+  <button class='com_btn mt_100 btn_state_on dis_none'>提交</button>
+  <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
+</view>
+<image class='raise_hand' bindtap='imgclick' src="{{checkimg==1?'../../img/z20.png':'../../img/z19.png'}}" data-id='1'  mode='widthFix'></image>

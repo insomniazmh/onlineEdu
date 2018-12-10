@@ -1,3 +1,19 @@
+<style>
+	.sign {
+		padding: 3px 3px 3px 4px;
+		margin-right: 5px;
+		cursor: pointer;
+	}
+	.opreat {
+		font-size: 16px;
+		width:20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+	.label-violet {
+	  background-color: #8e5fa2;
+	}
+</style>
 <div class="row" ng-controller="jiaofuCtrl">
 	<div class="col-md-4" style="height: 600px;border-right: 1px solid #4DB3A2;">
 		<div class="portlet light">
@@ -100,28 +116,27 @@
 					</li>
 					<li>
 						<a data-target="#tab_2_3" data-toggle="tab">
-							讨论 </a>
-					</li>
-					<li>
-						<a data-target="#tab_2_4" data-toggle="tab">
 							练习 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_5" data-toggle="tab">
-							头脑风暴 </a>
-					</li>
-					<li>
-						<a data-target="#tab_2_6" data-toggle="tab">
+						<a data-target="#tab_2_4" data-toggle="tab">
 							作业 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_7" data-toggle="tab">
+						<a data-target="#tab_2_5" data-toggle="tab">
 							任务 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_8" data-toggle="tab">
-							调查活动 </a>
+						<a data-target="#tab_2_6" data-toggle="tab">
+							问卷 </a>
 					</li>
+					<li>
+						<a data-target="#tab_2_7" data-toggle="tab">
+							风暴 </a>
+					</li>
+					
+					
+					
 				</ul>
 			</div>
 			<div class="portlet-body">
@@ -133,17 +148,27 @@
 									<div class="col1">
 										<div class="cont">
 											<div class="cont-col1">
-												<div class="label label-sm {{row.color}}">
-													<!--<i class="fa {{row.icon}}"></i>-->
-													<span style="padding: 2px;">{{row.icon}}</span>
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
 												</div>
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													<a href="{{row.url}}" target=_blank>{{row.text}}</a>
-													<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+													<a href="{{row.url}}" style="line-height: 25px;" target=_blank>{{row.text}}</a>
+													<div class="label label-sm {{row.yu ? 'label-danger' : 'label-default'}} sign" title="预习资料" ng-click="changeLabel(row, 1)">预</div>
+													<div class="label label-sm {{row.tang ? 'label-success' : 'label-default'}} sign" title="课堂参考" ng-click="changeLabel(row, 2)">堂</div>
+													<div class="label label-sm {{row.an ? 'label-warning' : 'label-default'}} sign" title="课程案例" ng-click="changeLabel(row, 3)">案</div>
+													<div class="label label-sm {{row.fu ? 'label-info' : 'label-default'}} sign" title="复习参考" ng-click="changeLabel(row, 4)">复</div>
+													<div class="label label-sm {{row.xiang ? 'label-primary' : 'label-default'}} sign" title="资料共享" ng-click="changeLabel(row, 5)">享</div>
+													<div class="label label-sm {{row.sheng ? 'label-violet' : 'label-default'}} sign" title="学生可见" ng-click="changeLabel(row, 6)">生</div>
 												</div>
 											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-link opreat clipboard"  data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+											<i class="fa fa-trash-o opreat" title="删除"></i>
 										</div>
 									</div>
 								</li>
@@ -156,24 +181,33 @@
 								<div class="col1" style="cursor: pointer;">
 									<div class="cont">
 										<div class="cont-col1">
-											<div class="label label-sm {{row.color}}">
-												<!--<i class="fa {{row.icon}}"></i>-->
-												<span style="padding: 2px;">{{row.icon}}</span>
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
 											</div>
 										</div>
 										<div class="cont-col2">
 											<div class="desc">
-												{{row.text}}
-												<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+												<a href="{{row.url}}" style="line-height: 25px;" target=_blank>{{row.text}}</a>
+												<div class="label label-sm label-danger sign" title="预习资料">预</div>
+												<div class="label label-sm label-success sign" title="课堂参考">堂</div>
+												<div class="label label-sm label-warning sign" title="课程案例">案</div>
+												<div class="label label-sm label-info sign" title="复习参考">复</div>
+												<div class="label label-sm label-primary sign" title="资料共享">享</div>
+												<div class="label label-sm sign" style="background-color: #8e5fa2;" title="学生可见">生</div>
 											</div>
 										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard"  data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
 									</div>
 								</div>
 							</li>
 						</ul>
 					</div>
-					<div class="tab-pane" id="tab_2_3"></div>
-					<div class="tab-pane" id="tab_2_4">
+					<div class="tab-pane" id="tab_2_3">
 						<ul class="feeds">
 							<li ng-repeat="row in tiwenList">
 								<div class="col1" style="cursor: pointer;">
@@ -195,10 +229,10 @@
 							</li>
 						</ul>
 					</div>
+					<div class="tab-pane" id="tab_2_4"></div>
 					<div class="tab-pane" id="tab_2_5"></div>
 					<div class="tab-pane" id="tab_2_6"></div>
 					<div class="tab-pane" id="tab_2_7"></div>
-					<div class="tab-pane" id="tab_2_8"></div>
 				</div>
 			</div>
 		</div>
@@ -283,20 +317,32 @@
 	    });
 	    
 		$scope.ziliaoList = [{
-			icon: "预",
 			text: "《电子商务基础》教学大纲.doc",
 			url: "111",
-			color: "label-danger"
+			yu: true,
+			tang: true,
+			an: true,
+			fu: true,
+			xiang: true,
+			sheng: true
 		}, {
-			icon: "预",
 			text: "电子商务基础教案.doc",
 			url: "222",
-			color: "label-danger"
+			yu: true,
+			tang: true,
+			an: true,
+			fu: true,
+			xiang: true,
+			sheng: true
 		}, {
-			icon: "堂",
 			text: "电子商务基础课件.ppt",
 			url: "333",
-			color: "label-success"
+			yu: true,
+			tang: true,
+			an: true,
+			fu: true,
+			xiang: true,
+			sheng: true
 		}];
 
 		$scope.tiwenList = [{
@@ -315,6 +361,46 @@
 			url: "333",
 			color: "label-success"
 		}];
+		
+		$scope.changeLabel = function(row, type) {
+			if(type == 1) {
+				if(row.yu) {
+					row.yu = false;
+				}else {
+					row.yu = true;
+				}
+			}else if(type == 2) {
+				if(row.tang) {
+					row.tang = false;
+				}else {
+					row.tang = true;
+				}
+			}else if(type == 3) {
+				if(row.an) {
+					row.an = false;
+				}else {
+					row.an = true;
+				}
+			}else if(type == 4) {
+				if(row.fu) {
+					row.fu = false;
+				}else {
+					row.fu = true;
+				}
+			}else if(type == 5) {
+				if(row.xiang) {
+					row.xiang = false;
+				}else {
+					row.xiang = true;
+				}
+			}else if(type == 6) {
+				if(row.sheng) {
+					row.sheng = false;
+				}else {
+					row.sheng = true;
+				}
+			}
+		}
 		
 		//上传教案
 		common.fileUpload({

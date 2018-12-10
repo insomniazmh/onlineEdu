@@ -16,6 +16,14 @@
 	}
 </style>
 <div class="row" ng-controller="xiticeCtrl">
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn red" onclick="common.goUrl('assistant', true)">备课参考</button>
+			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseAdd', true)">课程信息</button>
+		</div>
+	</div>
 	<div data-ng-include="'views/template/zhishidian.html'"></div>
 	<div class="col-md-4">
 		<div class="portlet light" style="min-height: 500px;">
@@ -183,7 +191,8 @@
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function xiticeCtrl($scope) {
+	function xiticeCtrl($scope, $http, $stateParams) {
+		localStorage.setItem('courseId', $stateParams.id);
 		$scope.knowledgePoints = [];
 		
 		$scope.$on('to-parent', function(d,data) {  

@@ -1,0 +1,17 @@
+<!--pages/True or false/True or false.wxml-->
+<view class='text_typeOne'>
+  <image class='text_state' src='../../img/z17.png' mode='widthFix'></image>
+  <image class='text_state dis_none' src='../../img/z18.png' mode='widthFix'></image><!--已回答、已过期标签，添加“dis_none”隐藏-->
+  <text>网上洽谈由于双方不能直接见面，所以受到很多限制，不如面对面洽谈方便。</text>
+</view>
+<view class='text_answers '><!--题目是否可用通过添加删除类“opacity”切换-->
+
+  <view class='allow_state '><!--是否可用通过添加“dis_none”切换/彩色-->
+
+    <image bindtap='imgclick' src="{{checkimg==1?'../../img/r_icon.png':'../../img/r_icon_g.png'}}" data-id='1'  mode='widthFix'></image>
+    <image bindtap='imgclick' src="{{checkimg==2?'../../img/w_icon.png':'../../img/w_icon_g.png'}}" data-id='2'  mode='widthFix'></image>
+  </view>
+
+</view>
+
+<button class='com_btn mt_100 btn_state_off'>提交</button><!--按钮的状态通过添加删除类“btn_state”切换-->

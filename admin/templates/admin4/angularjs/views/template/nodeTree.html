@@ -54,7 +54,7 @@
 						'children': [{
 							'id': 'node_1_1',
 							'text': '1.电子商务的内涵',
-							'icon': 'fa fa-briefcase icon-state-success',
+							'icon': 'fa fa-send icon-state-success',
 							'state': {
 								'opened': true,
 								'selected': true
@@ -62,11 +62,11 @@
 						}, {
 							'id': 'node_1_2',
 							'text': '2.电子商务的产生背景和发展过程',
-							'icon': 'fa fa-briefcase icon-state-success'
+							'icon': 'fa fa-send icon-state-success'
 						}, {
 							'id': 'node_1_3',
 							'text': '3.电子商务的作用与影响',
-							'icon': 'fa fa-briefcase icon-state-success'
+							'icon': 'fa fa-send-o icon-state-success'
 						}]
 					}, {
 						'id': 'node_2',
@@ -77,11 +77,11 @@
 						'children': [{
 							'id': 'node_2_1',
 							'text': '1.Internet 概述 ',
-							'icon': 'fa fa-briefcase icon-state-success'
+							'icon': 'fa fa-send-o icon-state-success'
 						}, {
 							'id': 'node_2_2',
 							'text': '2.Internet 的主要功能',
-							'icon': 'fa fa-briefcase icon-state-success'
+							'icon': 'fa fa-send-o icon-state-success'
 						}]
 					}, {
 						'id': 'node_3',
@@ -92,15 +92,15 @@
 						'children': [{
 							'id': 'node_3_1',
 							'text': '1.电子商务的框架模型',
-							'icon': 'fa fa-briefcase icon-state-success'
+							'icon': 'fa fa-send-o icon-state-success'
 						}, {
 							'id': 'node_3_2',
 							'text': '2.企业与企业之间的电子商务模式',
-							'icon': 'fa fa-briefcase icon-state-success'
+							'icon': 'fa fa-send-o icon-state-success'
 						}, {
 							'id': 'node_3_3',
 							'text': '3.企业与消费者之间电子商务模式',
-							'icon': 'fa fa-briefcase icon-state-success'
+							'icon': 'fa fa-send-o icon-state-success'
 						}]
 					}]
 				},
@@ -125,6 +125,15 @@
 								$scope.flag = "rename";
 								$scope.nodeName = "";
 								$("#createNodeModal").modal("show");
+							}
+						},
+						"发布章节": {
+							"label": "发布章节",
+							"action": function(data) {
+//								var r = confirm("确定要发布该章节吗");
+//								if(r) {
+//									
+//								}
 							}
 						},
 						"删除章节": {
