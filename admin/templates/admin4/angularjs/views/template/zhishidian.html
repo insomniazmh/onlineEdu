@@ -39,6 +39,26 @@
 	
 <script>
 	function zhishidianCtrl($scope, $rootScope) {
+		//获取章节知识点
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			url: '/kNode/findAllPage',
+			data: {
+		    	'chapterId': $scope.currentNode.id,
+		    	"courseId": courseId,
+		    	"sortVo": {
+				    "page": 0,
+				    "size": 200,
+				    "sort": 1,
+				    "sorting": "cTime"
+				  }
+		    },
+		    success: function(data) {
+//			    	console.log(data);
+		    }
+		});
+		
 		$rootScope.kps = [];
         $scope.createKp = function() {
         	var html = '<a class="btn btn-circle btn-sm btn-info" name="kp"><span>'+$("#kp").val()+'</span><i class="fa fa-times" name="remove"></i></a>';

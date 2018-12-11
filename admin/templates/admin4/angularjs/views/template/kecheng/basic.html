@@ -118,7 +118,6 @@
 	function basicCtrl($scope, $http, $location) {
 		var courseId = localStorage.getItem('courseId');
 		var search = $location.search();
-		console.log(search);
 		if(search.courseId == 0) {
 			$scope.course = {
 				topPicSrc: 'images/zanwu.jpg'
@@ -133,7 +132,6 @@
 			    	'courseId': courseId
 			    },
 			    success: function(data) {
-			    	console.log(data);
 			    	//课程信息
 			    	$scope.course = data.data;
 			    	//课程描述

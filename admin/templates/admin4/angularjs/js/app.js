@@ -119,7 +119,6 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 					}
 				});
 				$scope.courses = data.data.content;
-				console.log($scope.courses);
 				localStorage.setItem('courseId', data.data.content[0].courseId);
 			}
 		});

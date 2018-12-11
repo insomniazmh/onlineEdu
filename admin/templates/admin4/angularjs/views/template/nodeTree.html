@@ -50,7 +50,6 @@
 		    	courseId: localStorage.getItem('courseId')
 		    },
 		    success: function(data) {
-		    	console.log(data);
 		    	data.data.push({
 		    		'id': '0',
 		    		"parent" : "#",
@@ -216,7 +215,6 @@
 					  "courseId": localStorage.getItem('courseId')
 					},
 				    success: function(data) {
-				    	console.log(data);
 				    	//创建节点
 				    	sel = ref.create_node(sel, {
 				    		id: data.data.chapterId,
@@ -241,7 +239,6 @@
 					  "chapterId": $scope.currentNode.id
 					},
 				    success: function(data) {
-				    	console.log(data);
 				    	//修改节点名称
 				    	ref.rename_node(sel, $scope.nodeName);
 				    }
@@ -254,7 +251,6 @@
 			// 处理代码
 			// 获取当前节点
 			$scope.currentNode = e.node;
-			console.log($scope.currentNode);
 			$scope.$emit('currentNode', $scope.currentNode);
 		});
 	}

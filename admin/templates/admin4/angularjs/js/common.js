@@ -166,6 +166,7 @@ var common = {
 		})
 	},
 	
+	//网络请求--永永接口
 	ajax: function(settings) {
 		var defaults = {
 			method: 'post',
@@ -182,7 +183,6 @@ var common = {
 			}
 		};
 		settings = $.extend(defaults, settings);
-		console.log(JSON.stringify(settings.data));
 		
 		Metronic.blockUI({
 			boxed: true,
@@ -194,6 +194,7 @@ var common = {
 			    url: common.url + settings.url,
 			    data: settings.data,
 			}).then(function successCallback(response) {
+					console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
 					var data = response.data;
 			        if(data.ret == 0) {
 			        	if(settings.operate) {
@@ -220,6 +221,7 @@ var common = {
 			});
 	},
 	
+	//网络请求--真铭接口
 	ajax2: function(settings) {
 		var defaults = {
 			method: 'post',
@@ -236,7 +238,7 @@ var common = {
 			}
 		};
 		settings = $.extend(defaults, settings);
-		console.log(JSON.stringify(settings.data));
+		
 		
 		Metronic.blockUI({
 			boxed: true,
@@ -248,6 +250,7 @@ var common = {
 			    url: common.url2 + settings.url,
 			    data: settings.data,
 			}).then(function successCallback(response) {
+					console.log("请求："+JSON.stringify(settings.data)+"返回"+JSON.stringify(response));
 					var data = response.data;
 			        if(data.ret == 0) {
 			        	if(settings.operate) {
