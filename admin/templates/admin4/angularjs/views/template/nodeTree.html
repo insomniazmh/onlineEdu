@@ -16,7 +16,7 @@
 									<div class="row" style="margin-bottom: 40px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" ng-model="nodeName" placeholder="请输入章节名称" />
+												<input type="text" class="form-control" id="nodeName" ng-model="nodeName" placeholder="请输入章节名称" />
 												<label for="form_control_1">章节</label>
 												<span class="help-block">名称不得超过20个字符</span>
 											</div>
@@ -39,70 +39,95 @@
 </div>
 
 <script>
-	function nodeTreeCtrl($scope) {
+	function nodeTreeCtrl($scope, $http) {
 		$scope.flag = "";
-		$scope.initTree = function() {
+		//根据课程id查询章节树
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			url: '/courseChapter/findByCourseId',
+			data: {
+		    	courseId: localStorage.getItem('courseId')
+		    },
+		    success: function(data) {
+		    	console.log(data);
+		    	data.data.push({
+		    		'id': '0',
+		    		"parent" : "#",
+					'text': '电子商务基础',
+					'state': {
+						'opened': true
+					}
+		    	});
+		    	$scope.initTree(data.data);
+		    }
+		})
+		
+		
+		
+		$scope.initTree = function(data) {
 			$('#tree').jstree({
 				'core': {
 					"check_callback": true,
-					'data': [{
-						'id': 'node_1',
-						'text': '第一章 电子商务概述',
-						'state': {
-							'opened': true
-						},
-						'children': [{
-							'id': 'node_1_1',
-							'text': '1.电子商务的内涵',
-							'icon': 'fa fa-send icon-state-success',
-							'state': {
-								'opened': true,
-								'selected': true
-							},
-						}, {
-							'id': 'node_1_2',
-							'text': '2.电子商务的产生背景和发展过程',
-							'icon': 'fa fa-send icon-state-success'
-						}, {
-							'id': 'node_1_3',
-							'text': '3.电子商务的作用与影响',
-							'icon': 'fa fa-send-o icon-state-success'
-						}]
-					}, {
-						'id': 'node_2',
-						'text': '第二章 Internet 基础知识',
-						'state': {
-							'opened': true
-						},
-						'children': [{
-							'id': 'node_2_1',
-							'text': '1.Internet 概述 ',
-							'icon': 'fa fa-send-o icon-state-success'
-						}, {
-							'id': 'node_2_2',
-							'text': '2.Internet 的主要功能',
-							'icon': 'fa fa-send-o icon-state-success'
-						}]
-					}, {
-						'id': 'node_3',
-						'text': '第三章 电子商务的主要模式',
-						'state': {
-							'opened': true
-						},
-						'children': [{
-							'id': 'node_3_1',
-							'text': '1.电子商务的框架模型',
-							'icon': 'fa fa-send-o icon-state-success'
-						}, {
-							'id': 'node_3_2',
-							'text': '2.企业与企业之间的电子商务模式',
-							'icon': 'fa fa-send-o icon-state-success'
-						}, {
-							'id': 'node_3_3',
-							'text': '3.企业与消费者之间电子商务模式',
-							'icon': 'fa fa-send-o icon-state-success'
-						}]
-					}]
+					'data': data,
+//					'data': [{
+//						'id': '0',
+//						'text': '第一章 电子商务概述',
+//						'state': {
+//							'opened': true
+//						},
+//						'children': [{
+//							'id': 'node_1_1',
+//							'text': '1.电子商务的内涵',
+//							'icon': 'fa fa-send icon-state-success',
+//							'state': {
+//								'opened': true,
+//								'selected': true
+//							},
+//						}, {
+//							'id': 'node_1_2',
+//							'text': '2.电子商务的产生背景和发展过程',
+//							'icon': 'fa fa-send icon-state-success'
+//						}, {
+//							'id': 'node_1_3',
+//							'text': '3.电子商务的作用与影响',
+//							'icon': 'fa fa-send-o icon-state-success'
+//						}]
+//					}, {
+//						'id': 'node_2',
+//						'text': '第二章 Internet 基础知识',
+//						'state': {
+//							'opened': true
+//						},
+//						'children': [{
+//							'id': 'node_2_1',
+//							'text': '1.Internet 概述 ',
+//							'icon': 'fa fa-send-o icon-state-success'
+//						}, {
+//							'id': 'node_2_2',
+//							'text': '2.Internet 的主要功能',
+//							'icon': 'fa fa-send-o icon-state-success'
+//						}]
+//					}, {
+//						'id': 'node_3',
+//						'text': '第三章 电子商务的主要模式',
+//						'state': {
+//							'opened': true
+//						},
+//						'children': [{
+//							'id': 'node_3_1',
+//							'text': '1.电子商务的框架模型',
+//							'icon': 'fa fa-send-o icon-state-success'
+//						}, {
+//							'id': 'node_3_2',
+//							'text': '2.企业与企业之间的电子商务模式',
+//							'icon': 'fa fa-send-o icon-state-success'
+//						}, {
+//							'id': 'node_3_3',
+//							'text': '3.企业与消费者之间电子商务模式',
+//							'icon': 'fa fa-send-o icon-state-success'
+//						}]
+//					}]
 				},
 				"plugins": ['contextmenu'],
 				"contextmenu": {
@@ -123,7 +148,8 @@
 							"label": "编辑章节",
 							"action": function(data) {
 								$scope.flag = "rename";
-								$scope.nodeName = "";
+								$scope.nodeName = $scope.currentNode.text;
+								$("#nodeName").val($scope.currentNode.text);
 								$("#createNodeModal").modal("show");
 							}
 						},
@@ -141,12 +167,25 @@
 							"action": function(data) {
 								var r = confirm("确定要删除该章节吗");
 								if(r) {
-									var ref = $('#tree').jstree(true),
-										sel = ref.get_selected();
-									if(!sel.length) {
-										return false;
-									}
-									ref.delete_node(sel);
+									//删除章节
+									common.ajax({
+										$scope: $scope,
+										$http: $http,
+										operate: true,
+										url: '/courseChapter/deleteById',
+										data: {
+										  "chapterId": $scope.currentNode.id,
+										},
+									    success: function(data) {
+									    	//删除节点
+									    	var ref = $('#tree').jstree(true),
+												sel = ref.get_selected();
+											if(!sel.length) {
+												return false;
+											}
+											ref.delete_node(sel);
+									    }
+									});
 								}
 							}
 						}
@@ -154,7 +193,6 @@
 				}
 			});
 		}
-		$scope.initTree();
 
 		$scope.createNode = function() {
 			var ref = $('#tree').jstree(true),
@@ -165,22 +203,59 @@
 			sel = sel[0];
 			$("#createNodeModal").modal("hide");
 			if($scope.flag == "create") {
-				sel = ref.create_node(sel, {
-					text: $scope.nodeName,
-					'state': {
-						'opened': true
+				//创建章节
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					url: '/courseChapter/save',
+					data: {
+					  "chapterName": $scope.nodeName,
+					  "chapterParentId": $scope.currentNode.id,
+					  "chapterType": 1,
+					  "courseId": localStorage.getItem('courseId')
 					},
+				    success: function(data) {
+				    	console.log(data);
+				    	//创建节点
+				    	sel = ref.create_node(sel, {
+				    		id: data.data.chapterId,
+							text: $scope.nodeName,
+							'icon': 'fa fa-briefcase icon-state-success',
+							'state': {
+								'opened': true
+							}
+						});
+				    }
 				});
+				
 			} else if($scope.flag == "rename") {
-				ref.rename_node(sel, $scope.nodeName);
+				//修改章节名称
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					url: '/courseChapter/edit',
+					data: {
+					  "chapterName": $scope.nodeName,
+					  "chapterId": $scope.currentNode.id
+					},
+				    success: function(data) {
+				    	console.log(data);
+				    	//修改节点名称
+				    	ref.rename_node(sel, $scope.nodeName);
+				    }
+				});
+				
 			}
 		};
 		
 		$('#tree').bind("activate_node.jstree", function(obj, e) {
 			// 处理代码
 			// 获取当前节点
-			var currentNode = e.node;
-			$scope.$emit('currentNode', currentNode);
+			$scope.currentNode = e.node;
+			console.log($scope.currentNode);
+			$scope.$emit('currentNode', $scope.currentNode);
 		});
 	}
 </script>

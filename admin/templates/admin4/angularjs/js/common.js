@@ -275,11 +275,7 @@ var common = {
 	},
 	
 	goUrl: function(url, type) {
-		if(type) {
-			window.location.href = '#/'+url+'.html/'+localStorage.getItem("courseId");
-		}else {
-			window.location.href = '#/'+url+'.html';
-		}
+		window.location.href = '#/'+url+'.html';
 	}
 }
 

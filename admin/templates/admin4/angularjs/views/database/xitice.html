@@ -192,7 +192,7 @@
 <!-- BEGIN MAIN JS-->
 <script>
 	function xiticeCtrl($scope, $http, $stateParams) {
-		localStorage.setItem('courseId', $stateParams.id);
+		var courseId = localStorage.getItem('courseId');
 		$scope.knowledgePoints = [];
 		
 		$scope.$on('to-parent', function(d,data) {  

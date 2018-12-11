@@ -115,8 +115,11 @@
 </div>
 
 <script>
-	function basicCtrl($scope, $http, $stateParams) {
-		if($stateParams.id == 0) {
+	function basicCtrl($scope, $http, $location) {
+		var courseId = localStorage.getItem('courseId');
+		var search = $location.search();
+		console.log(search);
+		if(search.courseId == 0) {
 			$scope.course = {
 				topPicSrc: 'images/zanwu.jpg'
 			};
@@ -127,7 +130,7 @@
 				$http: $http,
 				url: '/course/getCourseId',
 				data: {
-			    	'courseId': $stateParams.id
+			    	'courseId': courseId
 			    },
 			    success: function(data) {
 			    	console.log(data);
@@ -144,6 +147,8 @@
 			    }
 			});
 		}
+		
+		
 		
 		$scope.sub = function() {
 			//所属专业
@@ -162,7 +167,7 @@
             $scope.course.shareType = shareType;
             $scope.course.courseDescribe = courseDescribe;
             
-            if($stateParams.id == 0) {
+            if(search.courseId == 0) {
             	//添加课程
 				common.ajax({
 					$scope: $scope,
@@ -178,15 +183,16 @@
 				    success: function(data) {
 				    	console.log(data);
 				    	if(data.ret == 0) {
+				    		localStorage.setItem("courseId", data.data.courseId);
 				    		var flag = confirm("提交成功，是否转到教辅资料库添加资料?");
 				    		if(flag) {
-				    			window.location.href = "#/assistant.html/"+data.data.courseId;
+				    			window.location.href = "#/assistant.html";
 				    		}
 				    	}
 				    }
 				});
             }else {
-            	$scope.course.courseId = $stateParams.id;
+            	$scope.course.courseId = courseId;
             	//编辑课程
             	common.ajax({
 					$scope: $scope,
@@ -199,6 +205,9 @@
 				    		teacherId: localStorage.getItem('userid')
 				    	}]
 				    },
+				    success: function(data) {
+				    	console.log(data);
+				    }
 				});
             }
 		}

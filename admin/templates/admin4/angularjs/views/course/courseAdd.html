@@ -167,8 +167,7 @@
 <script type="text/javascript" src="../../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function createCourseCtrl($scope, $http, $stateParams) {		
-		localStorage.setItem('courseId', $stateParams.id);
+	function createCourseCtrl($scope, $http) {		
 		var slides = $scope.slides = [{
 			image: 'images/1.jpg',
 			text: "电子商务基础"

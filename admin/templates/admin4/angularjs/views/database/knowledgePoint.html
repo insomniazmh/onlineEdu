@@ -176,8 +176,8 @@
 <!-- END MAIN CONTENT -->
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
-	function kpCtrl($scope, $http, $stateParams) {
-		localStorage.setItem('courseId', $stateParams.id);
+	function kpCtrl($scope, $http) {
+		var courseId = localStorage.getItem('courseId');
 		$scope.knowledgePoints = [];
 		//主观题
 		$scope.design = [];

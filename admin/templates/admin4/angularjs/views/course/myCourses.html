@@ -33,7 +33,7 @@
 											</div>
 											<h3 style="text-align: center;">
 												<!--<a href="#/prepareLessons.html">{{row.courseName}}(讲师：<span style="color: red;">张帅</span>)</a>-->
-												<a href="#/courseAdd.html/{{row.courseId}}">{{row.courseName}}(讲师：<span style="color: red;">张帅</span>)</a>
+												<a href="" ng-click="goUrl(row.courseId)">{{row.courseName}}(讲师：<span style="color: red;">张帅</span>)</a>
 												
 											</h3>
 											<div class="pi-price" style="width: 100%;margin-bottom: 20px;text-align: center;">课程编号：{{row.courseNumber}}</div>
@@ -78,5 +78,10 @@
 				$scope.courses = data.data.content;
 			}
 		});
+		
+		$scope.goUrl = function(id) {
+			localStorage.setItem('courseId', id);
+			window.location.href = '#/courseAdd.html';
+		}
 	}
 </script>

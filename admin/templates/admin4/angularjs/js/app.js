@@ -98,9 +98,37 @@ initialization can be disabled and Layout.init() should be called on page load c
 ***/
 
 /* Setup Layout Part - Header */
-MetronicApp.controller('HeaderController', ['$scope', function($scope) {
+MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
     $scope.$on('$includeContentLoaded', function() {
         Layout.initHeader(); // init header
+        
+        //加载课程列表
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			url: '/course/findAll',
+			data: {
+				page: 0,
+		    	size: 10,
+		    	sorting: "cTime"
+			},
+			success: function(data) {
+				$(data.data.content).each(function() {
+					if(!this.topPicSrc) {
+						this.topPicSrc = 'images/zanwu.jpg';
+					}
+				});
+				$scope.courses = data.data.content;
+				console.log($scope.courses);
+				localStorage.setItem('courseId', data.data.content[0].courseId);
+			}
+		});
+
+		$scope.changeCourse = function(id) {
+			//location.reload();
+			localStorage.setItem('courseId', id);
+			$rootScope.$broadcast("coursesId", id);
+		}
     });
 }]);
 
@@ -224,7 +252,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         
         // 课堂协助
         .state('helper2', {
-            url: "/helper2.html/{id}",
+            url: "/helper2.html",
             templateUrl: "views/interaction/helper2.html",            
             data: {pageTitle: '教学互动', pageSubTitle: '课堂活动'},
             controller: "",
@@ -244,7 +272,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         
         //知识点题库
         .state('knowledgePoint', {
-            url: "/knowledgePoint.html/{id}",
+            url: "/knowledgePoint.html",
             templateUrl: "views/database/knowledgePoint.html",            
             data: {pageTitle: '资料库', pageSubTitle: '知识点题库'},
             controller: "CoursesListController",
@@ -351,7 +379,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         
         //教辅资料库
         .state('assistant', {
-            url: "/assistant.html/{id}",
+            url: "/assistant.html",
             templateUrl: "views/database/assistant.html",            
             data: {pageTitle: '资料库', pageSubTitle: '教辅资料库'},
             resolve: {
@@ -369,7 +397,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         
         //习题册
         .state('xitice', {
-            url: "/xitice.html/{id}",
+            url: "/xitice.html",
             templateUrl: "views/database/xitice.html",            
             data: {pageTitle: '资料库', pageSubTitle: '互动集'},
             resolve: {
@@ -583,7 +611,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
         //课程添加/修改
         .state('courseAdd', {
-            url: "/courseAdd.html/{id}",
+            url: "/courseAdd.html",
             templateUrl: "views/course/courseAdd.html",
             data: {pageTitle: '课程管理', pageSubTitle: '课程添加', btn_taps:true},
             controller: "GeneralPageController",
