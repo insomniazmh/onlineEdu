@@ -19,10 +19,10 @@
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-6">
 				<div class="form-group form-md-line-input has-info">
-					<select class="form-control" id="form_control_1">
+					<select class="form-control" id="form_control_1" ng-model="knowledgeId">
 						<option value="">请选择</option>
-						<option value="">电子商务的定义</option>
-						<option value="">电子商务的概念</option>
+						<option ng-repeat="row in kNodes" value="{{row.knodeId}}">{{row.nodeName}}</option>
+						<!--<option value="">电子商务的概念</option>-->
 					</select>
 					<label for="form_control_1">知识点</label>
 				</div>
@@ -72,7 +72,7 @@
 				<div class="col-md-1" style="height: 54px;">
 					<div class="form-group form-md-line-input" style="padding-top: 27px;">
 						<div class="md-radio">
-							<input type="radio" id="radio{{$index}}" name="single" ng-value="row.name" class="md-radiobtn" ng-model="single.right">
+							<input type="radio" id="radio{{$index}}" name="single" ng-value="row.optValue" class="md-radiobtn" ng-model="single.right">
 							<label for="radio{{$index}}">
 													<span></span>
 													<span class="check"></span>
@@ -103,22 +103,47 @@
 </div>
 
 <script>
-	function danxuanCtrl($scope, $timeout) {
-		var count = 5;
+	function danxuanCtrl($scope, $http, $timeout) {
+		//切换章节回调
+		$scope.$on('currentNode', function(d,data) { 
+	        $scope.currentNode = data;
+	        
+	        //获取所有知识点
+	        common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/kNode/findAllPage',
+				data: {
+			    	'chapterId': $scope.currentNode.id,
+			    	"courseId": localStorage.getItem('courseId'),
+			    	"sortVo": {
+					    "page": 0,
+					    "size": 200,
+					    "sort": 1,
+					    "sorting": "cTime"
+					}
+			    },
+			    success: function(data) {
+			    	$scope.kNodes = data.data.content;
+			    }
+			});
+	    });
+	    
+		var count = 4;
 		$scope.single = {
 			right: "",
 			options: [{
-				name: "A",
-				count: "1"
+				optValue: "A",
+				count: 0
 			}, {
-				name: "B",
-				count: "2"
+				optValue: "B",
+				count: 1
 			}, {
-				name: "C",
-				count: "3"
+				optValue: "C",
+				count: 2
 			}, {
-				name: "D",
-				count: "4"
+				optValue: "D",
+				count: 3
 			}],
 
 			addOption: function() {
@@ -145,17 +170,17 @@
 			rename: function() {
 				$(this.options).each(function(i) {
 					if(i == 0) {
-						this.name = "A";
+						this.optValue = "A";
 					} else if(i == 1) {
-						this.name = "B";
+						this.optValue = "B";
 					} else if(i == 2) {
-						this.name = "C";
+						this.optValue = "C";
 					} else if(i == 3) {
-						this.name = "D";
+						this.optValue = "D";
 					} else if(i == 4) {
-						this.name = "E";
+						this.optValue = "E";
 					} else if(i == 5) {
-						this.name = "F";
+						this.optValue = "F";
 					}
 				});
 			}
@@ -169,6 +194,9 @@
 		});
 		
 		$timeout(function() {
+			$('#danxuan_option0').summernote({
+				height: 100
+			});
 			$('#danxuan_option1').summernote({
 				height: 100
 			});
@@ -178,16 +206,54 @@
 			$('#danxuan_option3').summernote({
 				height: 100
 			});
-			$('#danxuan_option4').summernote({
-				height: 100
-			});
 		},300);
 		
 		$scope.sub = function() {
-			var aaa = $('#danxuan_title').code();
-			for(var i=0;i<$(".danxuan_summernote").length;i++) {
-				console.log($(".danxuan_summernote").eq(i).code());
+			//拼装选项
+			var opts = [];
+			$($scope.single.options).each(function(i) {
+				opts.push({
+					"optTxt": $('#danxuan_option'+i).code(),
+                    "optValue": this.optValue
+				});
+			});
+			
+			if(!$scope.knowledgeId) {
+				$scope.knowledgeId = "";
 			}
+			
+			var obj = {
+				"relate":0,
+				"teacherId": localStorage.getItem("userid"),
+				"levelId":$("input[name='danxuanlevel']:checked").val(),
+				"knowledgeId": $scope.knowledgeId,
+				"chapter": $scope.currentNode.id,
+			    "examChildren": [
+			        {
+			            "examType":"choice",
+			            "score": 1,
+			            "teacherId": localStorage.getItem("userid"),
+			            "choiceQstTxt": $('#danxuan_title').code(),
+			            "choiceQstAnsw": $scope.single.right,
+			            "choiceQstAnalysis": $('#danxuan_jiexi').code(),
+			            "choiceType": "single",
+			            "optChildren": opts
+			        }
+			    ]
+			};
+			
+			//添加题目(单选)
+	        common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/question/choiceQst/edit',
+				data: obj,
+				success: function(res) {
+					$scope.$emit('addQuestion', "single");
+					$("#addQuestion").modal("hide");
+				}
+	        });
 		}
 		
 	}

@@ -129,15 +129,6 @@
 
 <script>
 	function addQuestionCtrl($scope, $http, $rootScope) {
-		//添加题目完成回调
-//	    $scope.$on('addQuestion', function(d,data) {  
-//	        console.log(data);         
-//	    });
-		
-		$scope.sub = function() {
-			$scope.$emit('to-parent', 'createQuestion');
-		};
-
 		$('#summernote_dati').summernote({
 			height: 100
 		});

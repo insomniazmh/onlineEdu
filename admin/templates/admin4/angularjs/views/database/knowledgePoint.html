@@ -177,59 +177,74 @@
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
 	function kpCtrl($scope, $http, $rootScope) {
-		var courseId = localStorage.getItem('courseId');
-		$scope.knowledgePoints = [];
-		//主观题
-		$scope.design = [];
+		$scope.currentNode = {};
 		
-	    //获取选中的树节点
-	    $scope.$on('currentNode', function(d,data) {  
-	        console.log(data);        
-	        $scope.loadQuestions(5);
+		//切换章节回调
+		$scope.$on('currentNode', function(d,data) { 
+	        $scope.currentNode = data;
 	    });
 	    
 	    //获取当前选中知识点
 		$scope.$on('kPointNode', function(d,data) {  
 	        $scope.kPointNode = data;
+	        $scope.loadQuestions('single');
+	        $scope.loadQuestions('multiple');
+	        $scope.loadQuestions('trueOrFalse');
+	        $scope.loadQuestions('design');
 	    });
 	    
 	    //添加题目完成回调
 	    $scope.$on('addQuestion', function(d,data) {  
-	        console.log(data);         
-	        //$scope.matchType(data);
 	        if(data) {
-	        	$scope.loadQuestions(5);
+	        	$scope.loadQuestions(data);
 	        }
 	    });
 	    
 	    //加载题目
 	    $scope.loadQuestions = function(type) {
-	    	//根据章节加载题目
+	    	var data = {
+	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapter": $scope.currentNode.id,//章节id
+				"operatorId": localStorage.getItem("userid"),//当前用户id
+				"questionType": type,//题目类型 single multiple trueOrFalse design bigQuestion
+				"page": 0,
+				"size": 20,
+				"sort": 1,
+				"sorting": "uTime"
+	    	}
+	    	//处理知识点查询传参
+	    	if($scope.kPointNode.knodeId) {
+	    		data.knowledgeId = $scope.kPointNode.knodeId;
+	    	}
+	    	
+	    	//根据章节和知识点加载题目
 	    	common.ajax2({
 	        	$scope: $scope,
 				$http: $http,
 				url: '/question/findAll/detailed',
-				data: {
-					"operatorId": localStorage.getItem("userid"),
-					"page": 0,
-					"size": 20,
-					"sort": 1,
-					"sorting": "uTime"
-				},
+				data: data,
 				success: function(res) {
-					console.log(res.data);
 					var data = res.data;
-					$scope.design = [];
-					$(data).each(function() {
-						var obj = this.examChildren[0];
-						if(obj.examType == 'design') {
-							$scope.design.push(obj);
-						}
-					});
+					if(type == 'single') {
+						$scope.single = res.data;
+					}else if(type == 'multiple') {
+						$scope.multiple = res.data;
+					}else if(type == 'trueOrFalse') {
+						$scope.trueOrFalse = res.data;
+					}else if(type == 'design') {
+						$scope.design = res.data;
+					}
+//					
+//					$scope.design = [];
+//					$(data).each(function() {
+//						var obj = this.examChildren[0];
+//						if(obj.examType == 'design') {
+//							$scope.design.push(obj);
+//						}
+//					});
 				}
 	        });
 	    };
-	    $scope.loadQuestions(5);
 	    	    
 //		$("ul.feeds").on("click", "a", function() {
 //			console.log($(this).html());

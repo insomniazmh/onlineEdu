@@ -39,16 +39,6 @@
 	
 <script>
 	function zhishidianCtrl($scope, $http, $rootScope) {
-//		$scope.kNodes = [{
-//			nodeName: "章节",
-//			knodeId: "0",
-//			kNodeType: "1",
-//			selected: true
-//		}, {
-//			nodeName: "复合知识点",
-//			knodeId: "1",
-//			kNodeType: "2"
-//		}];
 		$scope.currentNode = {};
 		//获取章节知识点
 		$scope.loadKNode = function() {
@@ -82,7 +72,6 @@
 			    }
 			});
 		};
-		$scope.loadKNode();
 		
 		//切换章节回调
 		$scope.$on('currentNode', function(d,data) {  
