@@ -176,25 +176,21 @@
 <!-- END MAIN CONTENT -->
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
-	function kpCtrl($scope, $http) {
+	function kpCtrl($scope, $http, $rootScope) {
 		var courseId = localStorage.getItem('courseId');
 		$scope.knowledgePoints = [];
 		//主观题
 		$scope.design = [];
-		//初始化当前选中章节
-		$scope.currentNode = {
-			id: 'node_1_1'
-		}
 		
-		$scope.$on('to-parent', function(d,data) {  
-	        console.log(data);         
-	    });
-	    
 	    //获取选中的树节点
 	    $scope.$on('currentNode', function(d,data) {  
 	        console.log(data);        
-	        $scope.$broadcast('currentNode1', data);
 	        $scope.loadQuestions(5);
+	    });
+	    
+	    //获取当前选中知识点
+		$scope.$on('kPointNode', function(d,data) {  
+	        $scope.kPointNode = data;
 	    });
 	    
 	    //添加题目完成回调

@@ -39,94 +39,51 @@
 </div>
 
 <script>
-	function nodeTreeCtrl($scope, $http) {
+	function nodeTreeCtrl($scope, $http, $rootScope) {
 		$scope.flag = "";
+		
+		//切换课程
+		$scope.$on('course', function(d,data) {
+			$scope.loadChapter();
+		});
+		
 		//根据课程id查询章节树
-		common.ajax({
-			$scope: $scope,
-			$http: $http,
-			url: '/courseChapter/findByCourseId',
-			data: {
-		    	courseId: localStorage.getItem('courseId')
-		    },
-		    success: function(data) {
-		    	data.data.push({
-		    		'id': '0',
-		    		"parent" : "#",
-					'text': '电子商务基础',
-					'state': {
-						'opened': true
-					}
-		    	});
-		    	$scope.initTree(data.data);
-		    }
-		})
-		
-		
-		
+		$scope.loadChapter = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/courseChapter/findByCourseId',
+				data: {
+			    	courseId: localStorage.getItem('courseId')
+			    },
+			    success: function(data) {
+			    	//获取初始化时应选中的节点
+			    	$(data.data).each(function() {
+			    		if(this.state.selected) {
+			    			$rootScope.$emit('currentNode', $scope.currentNode);
+			    		}
+			    	});
+			    	
+			    	//加入树根节点
+			    	data.data.unshift({
+			    		'id': '0',
+			    		"parent" : "#",
+						'text': '电子商务基础',
+						'state': {
+							'opened': true
+						}
+			    	});
+			    	$scope.initTree(data.data);
+			    }
+			});
+		};
+				
+		//初始化树结构
 		$scope.initTree = function(data) {
 			$('#tree').jstree({
 				'core': {
 					"check_callback": true,
-					'data': data,
-//					'data': [{
-//						'id': '0',
-//						'text': '第一章 电子商务概述',
-//						'state': {
-//							'opened': true
-//						},
-//						'children': [{
-//							'id': 'node_1_1',
-//							'text': '1.电子商务的内涵',
-//							'icon': 'fa fa-send icon-state-success',
-//							'state': {
-//								'opened': true,
-//								'selected': true
-//							},
-//						}, {
-//							'id': 'node_1_2',
-//							'text': '2.电子商务的产生背景和发展过程',
-//							'icon': 'fa fa-send icon-state-success'
-//						}, {
-//							'id': 'node_1_3',
-//							'text': '3.电子商务的作用与影响',
-//							'icon': 'fa fa-send-o icon-state-success'
-//						}]
-//					}, {
-//						'id': 'node_2',
-//						'text': '第二章 Internet 基础知识',
-//						'state': {
-//							'opened': true
-//						},
-//						'children': [{
-//							'id': 'node_2_1',
-//							'text': '1.Internet 概述 ',
-//							'icon': 'fa fa-send-o icon-state-success'
-//						}, {
-//							'id': 'node_2_2',
-//							'text': '2.Internet 的主要功能',
-//							'icon': 'fa fa-send-o icon-state-success'
-//						}]
-//					}, {
-//						'id': 'node_3',
-//						'text': '第三章 电子商务的主要模式',
-//						'state': {
-//							'opened': true
-//						},
-//						'children': [{
-//							'id': 'node_3_1',
-//							'text': '1.电子商务的框架模型',
-//							'icon': 'fa fa-send-o icon-state-success'
-//						}, {
-//							'id': 'node_3_2',
-//							'text': '2.企业与企业之间的电子商务模式',
-//							'icon': 'fa fa-send-o icon-state-success'
-//						}, {
-//							'id': 'node_3_3',
-//							'text': '3.企业与消费者之间电子商务模式',
-//							'icon': 'fa fa-send-o icon-state-success'
-//						}]
-//					}]
+					'data': data
 				},
 				"plugins": ['contextmenu'],
 				"contextmenu": {
@@ -193,6 +150,7 @@
 			});
 		}
 
+		//新建或修改章节
 		$scope.createNode = function() {
 			var ref = $('#tree').jstree(true),
 				sel = ref.get_selected();
@@ -212,6 +170,7 @@
 					  "chapterName": $scope.nodeName,
 					  "chapterParentId": $scope.currentNode.id,
 					  "chapterType": 1,
+					  'publish' : 'Y',
 					  "courseId": localStorage.getItem('courseId')
 					},
 				    success: function(data) {
@@ -247,11 +206,12 @@
 			}
 		};
 		
+		//点击树节点触发事件，获取被选中节点
 		$('#tree').bind("activate_node.jstree", function(obj, e) {
 			// 处理代码
 			// 获取当前节点
 			$scope.currentNode = e.node;
-			$scope.$emit('currentNode', $scope.currentNode);
+			$rootScope.$emit('currentNode', $scope.currentNode);
 		});
 	}
 </script>

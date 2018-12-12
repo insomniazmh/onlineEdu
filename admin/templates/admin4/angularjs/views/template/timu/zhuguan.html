@@ -75,14 +75,18 @@
 </div>
 
 <script>
-	function zhuguanCtrl($scope, $http, $stateParams) {
-		console.log($stateParams.id);
+	function zhuguanCtrl($scope, $http) {
+		var courseId = localStorage.getItem('courseId');
 		
 		//获取当前选中章节
-		$scope.$on('currentNode1', function(d,data) {  
-	        console.log(data);         //父级能得到值  
+		$scope.$on('currentNode', function(d,data) {  
 	        $scope.currentNode = data;
-	   });
+	    });
+	    
+	    //获取当前选中知识点
+		$scope.$on('kPointNode', function(d,data) {  
+	        $scope.kPointNode = data;
+	    });
 		
 		$('#zhuguan_title').summernote({
 			height: 100
@@ -96,17 +100,21 @@
 		});
 		
 		$scope.sub = function() {
-//			var aaa = $('#zhuguan_title').code();
-//console.log($("input[name='zhuguanlevel']:checked").val());
+			var kPointId = "";
+			//获取当前选中知识点id
+			if($scope.kPointNode.knodeId) {
+				kPointId = $scope.kPointNode.knodeId;
+			}
+			
 			var obj = {
 				"relate":0,
 				"teacherId": localStorage.getItem("userid"),
 				"levelId":$("input[name='zhuguanlevel']:checked").val(),
-				"knowledgeId":"123",
+				"knowledgeId":kPointId,
 				"chapter": $scope.currentNode.id,
 			    "examChildren": [
 			        {
-			            "relate": 0,
+			            "relate": "1",
 			            "score": 1,
 			            "teacherId": localStorage.getItem("userid"),
 			            "designQuestion": $('#zhuguan_title').code(),

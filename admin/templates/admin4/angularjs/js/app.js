@@ -89,6 +89,22 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
         Metronic.initComponents(); // init core components
         //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive 
     });
+    
+    //切换课程回调
+	$rootScope.$on('course', function(d,data) {  
+		localStorage.setItem('courseId', data.courseId);
+        $scope.$broadcast('course', data);
+    });
+    
+    //切换章节回调
+	$rootScope.$on('currentNode', function(d,data) {  
+        $scope.$broadcast('currentNode', data);
+    });
+    
+    //切换知识点回调
+	$rootScope.$on('kPointNode', function(d,data) {  
+        $scope.$broadcast('kPointNode', data);
+    });
 }]);
 
 /***
@@ -119,14 +135,15 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 					}
 				});
 				$scope.courses = data.data.content;
-				localStorage.setItem('courseId', data.data.content[0].courseId);
+				//默认选中第一个课程
+				$rootScope.$emit("course", data.data.content[0]);
+//				localStorage.setItem('courseId', data.data.content[0].courseId);
 			}
 		});
 
-		$scope.changeCourse = function(id) {
-			//location.reload();
-			localStorage.setItem('courseId', id);
-			$rootScope.$broadcast("coursesId", id);
+		//header中课程被选中事件，获取被选中的课程
+		$scope.changeCourse = function(row) {
+			$rootScope.$emit("course", row);
 		}
     });
 }]);

@@ -264,18 +264,7 @@
 </div>
 
 <script>
-	function jiaofuCtrl($scope, $http) {
-		var courseId = localStorage.getItem('courseId');
-		//当前选中章节
-		$scope.currentNode = {
-			id: 'node_1_1'
-		};
-		
-		//切换课程
-		$scope.$on('coursesId', function(d,data) {
-//			console.log(data);
-		});
-		
+	function jiaofuCtrl($scope, $http, $rootScope) {
 		//根据章节id加载章节信息
 		$scope.loadChapterData = function() {
 			//章节资料
@@ -290,10 +279,6 @@
 //			    	console.log(data);
 			    }
 			});
-		}
-		
-		if(courseId != 0) {
-			$scope.loadChapterData();
 		}
 		
 		//切换章节回调
@@ -420,7 +405,7 @@
 						operate: true,
 						url: '/chapteData/save',
 						data: {
-					    	courseId: courseId,
+					    	courseId: localStorage.getItem('courseId');,
 					    	chapterId: $scope.currentNode.id,
 					    	datumName: $scope.jiaoan.fileName,
 					    	datumArea: 1,
