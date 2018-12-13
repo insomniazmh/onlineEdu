@@ -1,5 +1,5 @@
 <!--pages/students_interaction/students_interaction.wxml-->
-<view class='stud_int_clm'>
+<view class='stud_int_clm' data-url="/pages/haveClass/haveClass" bindtap="goUrl">
   <image src='../../img/z11.png' mode='widthFix'></image>
   <text>答题</text>
 </view>

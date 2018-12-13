@@ -223,6 +223,7 @@ var common = {
 	
 	//网络请求--真铭接口
 	ajax2: function(settings) {
+		console.log(settings);
 		var defaults = {
 			method: 'post',
 			operate: false,
@@ -250,6 +251,7 @@ var common = {
 			    url: common.url2 + settings.url,
 			    data: settings.data,
 			}).then(function successCallback(response) {
+				console.log("success");
 					console.log("请求："+JSON.stringify(settings.data)+"返回"+JSON.stringify(response));
 					var data = response.data;
 			        if(data.ret == 0) {
@@ -270,6 +272,7 @@ var common = {
 						Metronic.unblockUI();
 					});
 			    }, function errorCallback(response) {
+			    	console.log("error");
 			    	window.setTimeout(function() {
 						Metronic.unblockUI();
 					});

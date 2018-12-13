@@ -7,7 +7,7 @@
 	margin-top: 10px;
 }
 </style>
-<div class="row">
+<div class="row" ng-controller="testCtrl">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet box grey-cascade">
@@ -389,4 +389,18 @@
 <script src="../../../assets/admin/pages/scripts/table-managed.js"></script>
 <script>
 	TableManaged.init();
+	
+	function testCtrl($scope, $http) {
+		common.ajax2({
+			method: "get",
+			$scope: $scope,
+			$http: $http,
+			url: '/interact/achieve/questions?circleId=123&examineeId=10005&random=123711',
+			data: {},
+		    success: function(data) {
+		    	console.log(44444);
+		    	console.log(data);
+		    }
+		});
+	}
 </script>

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/school_index/index",
     "pages/nav_deleteAfertText/nav",
     "pages/True or false/True or false",
     "pages/haveClass/haveClass",
@@ -7,8 +8,6 @@
     "pages/Raise your hand/Raise your hand",
     "pages/Raise your hand/TrueOrFalse_h",
     "pages/Raise your hand/choose_h",
-    
-    "pages/school_index/index",
     "pages/fill up/fill up",
     "pages/practice/practice",
     "pages/index/index",
