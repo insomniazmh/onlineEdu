@@ -382,7 +382,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         .state('cl5', {
             url: "/cl5.html",
             templateUrl: "views/database/cl5.html",            
-            data: {pageTitle: '习题册', pageSubTitle: '课程列表'},
+            data: {pageTitle: '教辅题册', pageSubTitle: '课程列表'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
@@ -413,11 +413,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
         
-        //习题册
+        //教辅题册
         .state('xitice', {
             url: "/xitice.html",
             templateUrl: "views/database/xitice.html",            
-            data: {pageTitle: '资料库', pageSubTitle: '互动集'},
+            data: {pageTitle: '资料库', pageSubTitle: '教辅题册'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
