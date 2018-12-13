@@ -48,7 +48,7 @@
 	}
 </style>
 
-<div class="row" ng-controller="createCourseCtrl">
+<div class="row" ng-controller="editCourseCtrl">
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
@@ -69,12 +69,12 @@
 					<li class="active">
 						<a data-target="#tab_1_1" data-toggle="tab">基本信息</a>
 					</li>
-					<!--<li>
+					<li>
 						<a data-target="#tab_1_2" data-toggle="tab">教辅信息</a>
 					</li>
 					<li>
 						<a data-target="#tab_1_3" data-toggle="tab">课程宣传</a>
-					</li>-->
+					</li>
 				</ul>
 			</div>
 			<div class="portlet-body">
@@ -82,7 +82,7 @@
 					<div class="tab-pane active" id="tab_1_1">
 						<div data-ng-include="'views/template/kecheng/basic.html'"></div>
 					</div>
-					<!--<div class="tab-pane" id="tab_1_2">
+					<div class="tab-pane" id="tab_1_2">
 						<div data-ng-include="'views/template/kecheng/jiaofu.html'"></div>
 					</div>
 					<div class="tab-pane" id="tab_1_3">
@@ -143,12 +143,16 @@
 										</div>
 									</div>
 									<div class="portlet-body" style="text-align: center;">
+										<!--<video controls="controls" style=" width: 100%;height: auto;" preload="none">
+											<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4">
+											</source>
+										</video>-->
 										<button class="btn btn-info" style="margin-top: 40px;">上传宣传片</button>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>-->
+					</div>
 				</div>
 			</div>
 		</div>
@@ -158,28 +162,28 @@
 <!-- END MAIN CONTENT -->
 
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
-<!--<script src="js/webuploader-0.1.5/demo.js"></script>-->
+<script src="js/webuploader-0.1.5/demo.js"></script>
 <script src="js/clipboard.js-master/dist/clipboard.min.js"></script>
 <script type="text/javascript" src="../../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function createCourseCtrl($scope, $http) {		
-//		var slides = $scope.slides = [{
-//			image: 'images/1.jpg',
-//			text: "电子商务基础"
-//		}, {
-//			image: 'images/2.jpg',
-//			text: "电子商务基础"
-//		}, {
-//			image: 'images/3.jpg',
-//			text: "电子商务基础"
-//		}];
-//		$scope.addSlide = function() {
-//			slides.push({
-//				image: '',
-//				text: '电子商务基础'
-//			});
-//		};
+	function editCourseCtrl($scope, $http) {		
+		var slides = $scope.slides = [{
+			image: 'images/1.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/2.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/3.jpg',
+			text: "电子商务基础"
+		}];
+		$scope.addSlide = function() {
+			slides.push({
+				image: '',
+				text: '电子商务基础'
+			});
+		};
 	}
 	
 </script>

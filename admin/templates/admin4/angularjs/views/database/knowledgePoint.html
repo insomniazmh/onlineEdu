@@ -75,27 +75,29 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_1_1">
 						<div id="accordion1" class="panel-group">
-							<div class="panel panel-default">
+							<div class="panel panel-default" ng-repeat="row in single">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_1">
-										1. 商家要开展电子商务活动 , 应该用（ C  ）作为其主要的生意平台。 </a>
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_{{$index}}">
+										<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
 											<i class="fa fa-trash-o opreat" title="删除"></i>
 										</div>
 									</h4>
 								</div>
-								<div id="accordion1_1" class="panel-collapse collapse in">
+								<div id="accordion1_{{$index}}" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p>A． BBS</p>
-										<p>B．电子邮件</p>
-										<p>C．在线商店</p>
-										<p>D．电话定购</p>
+										<p ng-repeat="x in row.examChildren[0].optChildren">
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>． 
+											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+										</p>
+										<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].choiceQstAnalysis" style="display: inline-block;"></span> </p>
 									</div>
 								</div>
 							</div>
-							<div class="panel panel-default">
+							<!--<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_2">
@@ -134,7 +136,7 @@
 										<p>D．EC</p>
 									</div>
 								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_2">
@@ -227,6 +229,7 @@
 					var data = res.data;
 					if(type == 'single') {
 						$scope.single = res.data;
+						console.log($scope.single);
 					}else if(type == 'multiple') {
 						$scope.multiple = res.data;
 					}else if(type == 'trueOrFalse') {

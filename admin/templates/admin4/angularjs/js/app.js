@@ -98,11 +98,13 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
     
     //切换章节回调
 	$rootScope.$on('currentNode', function(d,data) {  
+		localStorage.setItem('currentNode', data);
         $scope.$broadcast('currentNode', data);
     });
     
     //切换知识点回调
 	$rootScope.$on('kPointNode', function(d,data) {  
+		localStorage.setItem('kPointNode', data);
         $scope.$broadcast('kPointNode', data);
     });
 }]);
@@ -625,11 +627,36 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
 
-        //课程添加/修改
+        //课程添加
         .state('courseAdd', {
             url: "/courseAdd.html",
             templateUrl: "views/course/courseAdd.html",
             data: {pageTitle: '课程管理', pageSubTitle: '课程添加', btn_taps:true},
+            controller: "GeneralPageController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        name: 'MetronicApp',
+                        files: [
+                        	'../../../assets/global/plugins/dropzone/css/dropzone.css',
+                        	'js/webuploader-0.1.5/webuploader.css',
+                        	'js/webuploader-0.1.5/demo.css',
+                            'js/controllers/GeneralPageController.js',
+                        
+                        	'../../../assets/global/plugins/dropzone/dropzone.js',
+                        	'../../../assets/admin/pages/scripts/form-dropzone.js',
+                            '../../../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
+                        ] 
+                    }]);
+                }] 
+            }
+        })
+        
+        //课程修改
+        .state('courseEdit', {
+            url: "/courseEdit.html",
+            templateUrl: "views/course/courseEdit.html",
+            data: {pageTitle: '课程管理', pageSubTitle: '课程修改', btn_taps:true},
             controller: "GeneralPageController",
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {

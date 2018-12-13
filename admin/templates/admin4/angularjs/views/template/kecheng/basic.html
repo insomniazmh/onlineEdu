@@ -117,8 +117,8 @@
 <script>
 	function basicCtrl($scope, $http, $location) {
 		var courseId = localStorage.getItem('courseId');
-		var search = $location.search();
-		if(search.courseId == 0) {
+		var path = $location.path();
+		if(path.indexOf("courseAdd") != -1) {
 			$scope.course = {
 				topPicSrc: 'images/zanwu.jpg'
 			};
@@ -165,7 +165,7 @@
             $scope.course.shareType = shareType;
             $scope.course.courseDescribe = courseDescribe;
             
-            if(search.courseId == 0) {
+            if(path.indexOf("courseAdd") != -1) {
             	//添加课程
 				common.ajax({
 					$scope: $scope,
@@ -179,13 +179,10 @@
 				    	}]
 				    },
 				    success: function(data) {
-				    	console.log(data);
 				    	if(data.ret == 0) {
-				    		localStorage.setItem("courseId", data.data.courseId);
-				    		var flag = confirm("提交成功，是否转到教辅资料库添加资料?");
-				    		if(flag) {
-				    			window.location.href = "#/assistant.html";
-				    		}
+				    		$rootScope.$emit("course", data.data);
+				    		var flag = confirm("提交成功，即将转到教辅资料库添加资料");
+			    			window.location.href = "#/assistant.html";
 				    	}
 				    }
 				});
