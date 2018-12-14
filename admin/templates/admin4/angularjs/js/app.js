@@ -99,6 +99,7 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
     //切换章节回调
 	$rootScope.$on('currentNode', function(d,data) {  
 		localStorage.setItem('currentNode', data);
+		console.log(data);
         $scope.$broadcast('currentNode', data);
     });
     
