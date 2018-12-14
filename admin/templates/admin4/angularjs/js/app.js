@@ -92,6 +92,7 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
     
     //切换课程回调
 	$rootScope.$on('course', function(d,data) {  
+		console.log("course");
 		localStorage.setItem('courseId', data.courseId);
         $scope.$broadcast('course', data);
     });
@@ -99,12 +100,13 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
     //切换章节回调
 	$rootScope.$on('currentNode', function(d,data) {  
 		localStorage.setItem('currentNode', data);
-		console.log(data);
+		console.log("currentNode");
         $scope.$broadcast('currentNode', data);
     });
     
     //切换知识点回调
 	$rootScope.$on('kPointNode', function(d,data) {  
+		console.log("kPointNode");
 		localStorage.setItem('kPointNode', data);
         $scope.$broadcast('kPointNode', data);
     });
@@ -139,8 +141,7 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 				});
 				$scope.courses = data.data.content;
 				//默认选中第一个课程
-				$rootScope.$emit("course", data.data.content[0]);
-//				localStorage.setItem('courseId', data.data.content[0].courseId);
+				localStorage.setItem('courseId', data.data.content[0].courseId);
 			}
 		});
 
