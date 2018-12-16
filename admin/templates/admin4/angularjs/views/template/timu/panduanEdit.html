@@ -131,7 +131,7 @@
 	    	$('#panduanEdit_title').code(data.examChildren[0].trueOrFalseInfo);//初始化标题
 	    	$('#panduanEdit_jiexi').code(data.examChildren[0].trueOrFalseAnalysis);//初始化解析
 	    	$("input[name='panduanEditlevel'][value='"+data.levelId+"']").prop("checked","checked");//初始化难易程度
-	    	$scope.knowledgeId = question.knowledgeId//初始化知识点
+	    	$scope.knowledgeId = $scope.question.knowledgeId//初始化知识点
 	    	//初始化正确答案
 	    	if(data.examChildren[0].trueOrFalseAnsw) {
 	    		$("input[name='panduanEditanswer'][value='1']").prop("checked","checked");

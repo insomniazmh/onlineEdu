@@ -4,7 +4,7 @@
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">					
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
-					<div id="zhuguan_title"></div>
+					<div id="zhuguanEdit_title"></div>
 				</div>
 			</div>
 		</div>
@@ -12,7 +12,7 @@
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">					
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">答案</label>
-					<div id="zhuguan_answer"></div>
+					<div id="zhuguanEdit_answer"></div>
 				</div>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
-					<div id="zhuguan_jiexi"></div>
+					<div id="zhuguanEdit_jiexi"></div>
 				</div>
 			</div>
 		</div>
@@ -39,24 +39,24 @@
 					<label>难易程度</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="zhuguanradio6" name="zhuguanlevel" class="md-radiobtn" value="1" checked="">
-							<label for="zhuguanradio6">
+							<input type="radio" id="zhuguanEditradio6" name="zhuguanEditlevel" class="md-radiobtn" value="1" checked="">
+							<label for="zhuguanEditradio6">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													简单 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="zhuguanradio7" name="zhuguanlevel" class="md-radiobtn" value="2">
-							<label for="zhuguanradio7">
+							<input type="radio" id="zhuguanEditradio7" name="zhuguanEditlevel" class="md-radiobtn" value="2">
+							<label for="zhuguanEditradio7">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													中等 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="zhuguanradio8" name="zhuguanlevel" class="md-radiobtn" value="3">
-							<label for="zhuguanradio8">
+							<input type="radio" id="zhuguanEditradio8" name="zhuguanEditlevel" class="md-radiobtn" value="3">
+							<label for="zhuguanEditradio8">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -102,38 +102,33 @@
 			});
 	   });
 		
-		$('#zhuguan_title').summernote({
+		$('#zhuguanEdit_title').summernote({
 			height: 100
 		});
-		$('#zhuguan_jiexi').summernote({
+		$('#zhuguanEdit_jiexi').summernote({
+			height: 100
+		});
+		$('#zhuguanEdit_answer').summernote({
 			height: 100
 		});
 		
-		$('#zhuguan_answer').summernote({
-			height: 100
-		});
+		//加载题目信息
+		$scope.$on('questionDesign', function(d,data) { 
+			console.log(data);
+	    	$scope.question = data;
+	    	$('#zhuguanEdit_title').code(data.examChildren[0].designQuestion);//初始化标题
+	    	$('#zhuguanEdit_jiexi').code(data.examChildren[0].designAnalysis);//初始化解析
+	    	$('#zhuguanEdit_answer').code(data.examChildren[0].designAnsw);//初始化答案
+	    	$("input[name='zhuguanEditlevel'][value='"+data.levelId+"']").prop("checked","checked");//初始化难易程度
+	    	$scope.knowledgeId = $scope.question.knowledgeId//初始化知识点
+	    });
 		
 		$scope.sub = function() {
-			var kPointId = "";
-			
-			var obj = {
-				"relate":0,
-				"teacherId": localStorage.getItem("userid"),
-				"levelId":$("input[name='zhuguanlevel']:checked").val(),
-				"knowledgeId":$scope.knowledgeId,
-				"chapter": $scope.currentNode.id,
-			    "examChildren": [
-			        {
-			            "relate": "1",
-			            "score": 1,
-			            "teacherId": localStorage.getItem("userid"),
-			            "designQuestion": $('#zhuguan_title').code(),
-			            "designAnsw": $('#zhuguan_answer').code(),
-			            "designAnalysis": $('#zhuguan_jiexi').code(),
-			            "examType": "design"
-			        }
-			    ]
-			}
+			$scope.question.examChildren[0].designQuestion = $('#zhuguanEdit_title').code();
+			$scope.question.examChildren[0].designAnalysis = $('#zhuguanEdit_jiexi').code();
+			$scope.question.examChildren[0].designAnsw = $('#zhuguanEdit_answer').code();
+			$scope.question.knowledgeId = $scope.knowledgeId;
+			$scope.question.levelId = $("input[name='zhuguanEditlevel']:checked").val();
 			
 			//添加题目(主观)
 	        common.ajax2({
@@ -141,11 +136,10 @@
 				$http: $http,
 				operate: true,
 				url: '/question/design/edit',
-				data: obj,
+				data: $scope.question,
 				success: function(res) {
-					console.log(res);
 					$scope.$emit('addQuestion', "design");
-					$("#addQuestion").modal("hide");
+					$("#editDesign").modal("hide");
 				}
 	        });
 		}
