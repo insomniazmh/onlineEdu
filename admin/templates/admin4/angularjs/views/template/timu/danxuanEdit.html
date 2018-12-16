@@ -182,7 +182,7 @@
 		});
 		
 		//加载题目信息
-	    $scope.$on('question', function(d,data) { 
+	    $scope.$on('questionSingle', function(d,data) { 
 	    	$scope.question = data;
 	    	console.log(data);
 	    	$('#danxuanEdit_title').code(data.examChildren[0].choiceQstTxt);//初始化标题
@@ -225,10 +225,10 @@
 			$scope.question.examChildren[0].choiceQstTxt = $('#danxuanEdit_title').code();//题目标题
 			$scope.question.examChildren[0].choiceQstAnsw = $scope.single.right;//正确答案
 			$scope.question.examChildren[0].choiceQstAnalysis = $('#danxuanEdit_jiexi').code();//解析
-			$scope.question.examChildren[0].levelId = $("input[name='danxuanEditlevel']:checked").val();//难以程度
-			$scope.question.examChildren[0].levelId = $scope.single.options;//选项
+			$scope.question.levelId = $("input[name='danxuanEditlevel']:checked").val();//难以程度
+			$scope.question.examChildren[0].optChildren = $scope.single.options;//选项
 			
-			//添加题目(单选)
+			//编辑题目(单选)
 	        common.ajax2({
 	        	$scope: $scope,
 				$http: $http,

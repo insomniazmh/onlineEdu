@@ -1,10 +1,10 @@
-<div role="form" ng-controller="duoxuanCtrl">
+<div role="form" ng-controller="duoxuanEditCtrl">
 	<div class="form-body">
 		<div class="row" style="">
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">					
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
-					<div id="duoxuan_title"></div>
+					<div id="duoxuanEdit_title"></div>
 				</div>
 			</div>
 		</div>
@@ -12,19 +12,19 @@
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
-					<div id="duoxuan_jiexi"></div>
+					<div id="duoxuanEdit_jiexi"></div>
 				</div>
 			</div>
 		</div>
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-6">
 				<div class="form-group form-md-line-input has-info">
-					<select class="form-control" id="form_control_1" ng-model="knowledgeId">
+					<select class="form-control" id="duoxuanEdit_1" ng-model="question.knowledgeId">
 						<option value="">请选择</option>
 						<option ng-repeat="row in kNodes" value="{{row.knodeId}}">{{row.nodeName}}</option>
 						<!--<option value="">电子商务的概念</option>-->
 					</select>
-					<label for="form_control_1">知识点</label>
+					<label for="duoxuanEdit_1">知识点</label>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -32,24 +32,24 @@
 					<label>难易程度</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="duoxuanRadio1" name="duoxuanlevel" class="md-radiobtn" value="1" checked="">
-							<label for="duoxuanRadio1">
+							<input type="radio" id="duoxuanEditRadio1" name="duoxuanEditlevel" class="md-radiobtn" value="1">
+							<label for="duoxuanEditRadio1">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													简单 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="duoxuanRadio2" name="duoxuanlevel" class="md-radiobtn" value="2">
-							<label for="duoxuanRadio2">
+							<input type="radio" id="duoxuanEditRadio2" name="duoxuanEditlevel" class="md-radiobtn" value="2">
+							<label for="duoxuanEditRadio2">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													中等 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="duoxuanRadio3" name="duoxuanlevel" class="md-radiobtn" value="3">
-							<label for="duoxuanRadio3">
+							<input type="radio" id="duoxuanEditRadio3" name="duoxuanEditlevel" class="md-radiobtn" value="3">
+							<label for="duoxuanEditRadio3">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -71,8 +71,8 @@
 			<div ng-repeat="row in multi.options" style="height: 250px;">
 				<div class="col-md-1" style="height: 54px;">
 					<div class="md-checkbox" style="margin-top: 27px;">
-						<input type="checkbox" id="checkbox{{$index}}" name="multi" class="md-check" ng-model="row.checked" ng-click="multi.showChecked()">
-						<label for="checkbox{{$index}}">
+						<input type="checkbox" id="checkboxEdit{{$index}}" name="multiEdit" class="md-check" ng-model="row.checked" ng-click="multi.showChecked()">
+						<label for="checkboxEdit{{$index}}">
 							<span></span>
 							<span class="check"></span>
 							<span class="box"></span>
@@ -84,7 +84,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="form-group form-md-line-input">
-						<div class="duoxuan_summernote" id="duoxuan_option{{row.count}}" name="duoxuan_option"></div>
+						<div class="duoxuanEdit_summernote" id="duoxuanEdit_option{{row.count}}" name="duoxuanEdit_option"></div>
 					</div>
 				</div>
 				<div class="col-md-2">
@@ -102,7 +102,7 @@
 </div>
 
 <script>
-	function duoxuanCtrl($scope, $http, $timeout) {
+	function duoxuanEditCtrl($scope, $http, $timeout) {
 		//切换章节回调
 		$scope.$on('currentNode', function(d,data) { 
 	        $scope.currentNode = data;
@@ -128,26 +128,10 @@
 			});
 	    });
 	    
-		var count = 4;
+		var count = 0;
 		$scope.multi = {
-			right: "ABCD",
-			options: [{
-				optValue: "A",
-				count: 0,
-				checked: true
-			}, {
-				optValue: "B",
-				count: 1,
-				checked: true
-			}, {
-				optValue: "C",
-				count: 2,
-				checked: true
-			}, {
-				optValue: "D",
-				count: 3,
-				checked: true
-			}],
+			right: "",
+			options: [],
 
 			addOption: function() {
 				console.log(this.options);
@@ -158,7 +142,7 @@
 				this.rename();
 				
 				$timeout(function() {
-					$('#duoxuan_option'+count).summernote({
+					$('#duoxuanEdit_option'+count).summernote({
 						height: 100
 					});
 					count++;
@@ -168,6 +152,7 @@
 			delOption: function(index) {
 				this.options.splice(index, 1);
 				this.rename();
+				this.showChecked();
 			},
 
 			rename: function() {
@@ -199,72 +184,84 @@
 			}
 		};
 		
-		$('#duoxuan_title').summernote({
+		$('#duoxuanEdit_title').summernote({
 			height: 100
 		});
-		$('#duoxuan_jiexi').summernote({
+		$('#duoxuanEdit_jiexi').summernote({
 			height: 100
 		});
 		
-		$timeout(function() {
-			$('#duoxuan_option0').summernote({
-				height: 100
-			});
-			$('#duoxuan_option1').summernote({
-				height: 100
-			});
-			$('#duoxuan_option2').summernote({
-				height: 100
-			});
-			$('#duoxuan_option3').summernote({
-				height: 100
-			});
-		},300);
+		//加载题目信息
+	    $scope.$on('questionMulti', function(d,data) { 
+	    	$scope.question = data;
+	    	console.log(data);
+	    	$('#duoxuanEdit_title').code(data.examChildren[0].choiceQstTxt);//初始化标题
+	    	$('#duoxuanEdit_jiexi').code(data.examChildren[0].choiceQstAnalysis);//初始化解析
+	    	$("input[name='duoxuanEditlevel'][value='"+data.levelId+"']").prop("checked","checked");//初始化难易程度
+	    	$scope.multi.right = data.examChildren[0].choiceQstAnsw;//初始化正确答案
+	    	//初始化选项--开始
+	    	$(data.examChildren[0].optChildren).each(function(i) {
+	    		this.count = i;
+	    	});
+	    	$scope.multi.options = data.examChildren[0].optChildren;
+	    	count = data.examChildren[0].optChildren.length + 1;
+	    	
+	    	$timeout(function() {
+	    		$(data.examChildren[0].optChildren).each(function(i) {
+		    		$('#duoxuanEdit_option'+i).summernote({
+						height: 100
+					});
+					$('#duoxuanEdit_option'+i).code(this.optTxt);
+					var optValue = "";
+					if(i == 0) {
+						optValue = "A";
+					} else if(i == 1) {
+						optValue = "B";
+					} else if(i == 2) {
+						optValue = "C";
+					} else if(i == 3) {
+						optValue = "D";
+					} else if(i == 4) {
+						optValue = "E";
+					} else if(i == 5) {
+						optValue = "F";
+					}
+					if(data.examChildren[0].choiceQstAnsw.indexOf(optValue)>=0) {
+						data.examChildren[0].optChildren[i].checked = true;
+						$('#checkboxEdit'+i).attr("checked", true);
+					}
+		    	});
+		    	
+			},300);
+			//初始化选项--结束
+	    });
 		
 		$scope.sub = function() {
 			//拼装选项
-			var opts = [];
 			$($scope.multi.options).each(function(i) {
-				opts.push({
-					"optTxt": $('[name=duoxuan_option]').eq(i).code(),
-                    "optValue": this.optValue
-				});
+				this.optTxt = $('[name=duoxuanEdit_option]').eq(i).code();
 			});
 			
 			if(!$scope.knowledgeId) {
 				$scope.knowledgeId = "";
 			}
 			
-			var obj = {
-				"relate":0,
-				"teacherId": localStorage.getItem("userid"),
-				"levelId":$("input[name='duoxuanlevel']:checked").val(),
-				"knowledgeId": $scope.knowledgeId,
-				"chapter": $scope.currentNode.id,
-			    "examChildren": [
-			        {
-			            "examType":"choice",
-			            "score": 1,
-			            "teacherId": localStorage.getItem("userid"),
-			            "choiceQstTxt": $('#duoxuan_title').code(),
-			            "choiceQstAnsw": $scope.multi.right,
-			            "choiceQstAnalysis": $('#duoxuan_jiexi').code(),
-			            "choiceType": "multiple",
-			            "optChildren": opts
-			        }
-			    ]
-			};
+			$scope.question.examChildren[0].choiceQstTxt = $('#duoxuanEdit_title').code();//题目标题
+			$scope.question.examChildren[0].choiceQstAnsw = $scope.multi.right;//正确答案
+			$scope.question.examChildren[0].choiceQstAnalysis = $('#duoxuanEdit_jiexi').code();//解析
+			$scope.question.levelId = $("input[name='duoxuanEditlevel']:checked").val();//难以程度
+			$scope.question.examChildren[0].optChildren = $scope.multi.options;//选项
 			
-			//添加题目(单选)
+			//编辑题目(多选)
 	        common.ajax2({
 	        	$scope: $scope,
 				$http: $http,
 				operate: true,
 				url: '/question/choiceQst/edit',
-				data: obj,
+				data: $scope.question,
 				success: function(res) {
 					$scope.$emit('addQuestion', "multiple");
-					$("#addQuestion").modal("hide");
+					$("#editmulti").modal("hide");
 				}
 	        });
 		}

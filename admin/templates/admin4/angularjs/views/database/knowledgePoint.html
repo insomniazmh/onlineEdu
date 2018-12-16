@@ -97,50 +97,33 @@
 									</div>
 								</div>
 							</div>
-							<!--<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_2">
-										2. Intranet和Internet的区别是 ( A ) </a>
-										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
-											<i class="fa fa-trash-o opreat" title="删除"></i>
-										</div>
-									</h4>
-								</div>
-								<div id="accordion1_2" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>A．访问 Intranet 需要授权</p>
-										<p>B．Intranet 执行特殊的协议</p>
-										<p>C．Intranet 软件和协议是独立于硬件的</p>
-										<p>D．Intrarlet 只在扇部物理范围内运行</p>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_3">
-										3. 电子数据交换的简称是 ( B )  </a>
-										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
-											<i class="fa fa-trash-o opreat" title="删除"></i>
-										</div>
-									</h4>
-								</div>
-								<div id="accordion1_3" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>A．EFT</p>
-										<p>B．EDI</p>
-										<p>C．NET</p>
-										<p>D．EC</p>
-									</div>
-								</div>
-							</div>-->
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_2">
-
+						<div id="accordionDuoxuan" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in multiple">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDuoxuan" data-target="#accordionDuoxuan_{{$index}}">
+										<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+										</div>
+									</h4>
+								</div>
+								<div id="accordionDuoxuan_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p ng-repeat="x in row.examChildren[0].optChildren">
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>． 
+											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+										</p>
+										<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].choiceQstAnalysis" style="display: inline-block;"></span> </p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_3">
 
@@ -182,9 +165,34 @@
 							<i class="icon-settings font-green-sharp"></i>
 							<span class="caption-subject bold uppercase" id="title">编辑题目</span>
 						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
 					</div>
 					<div class="portlet-body">
 						<div data-ng-include="'views/template/timu/danxuanEdit.html'"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--编辑多选题-->
+	<div class="modal fade" id="editmulti" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">编辑题目</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div data-ng-include="'views/template/timu/duoxuanEdit.html'"></div>
 					</div>
 				</div>
 			</div>
@@ -248,7 +256,6 @@
 					var data = res.data;
 					if(type == 'single') {
 						$scope.single = res.data;
-						console.log($scope.single);
 					}else if(type == 'multiple') {
 						$scope.multiple = res.data;
 					}else if(type == 'trueOrFalse') {
@@ -256,22 +263,20 @@
 					}else if(type == 'design') {
 						$scope.design = res.data;
 					}
-//					
-//					$scope.design = [];
-//					$(data).each(function() {
-//						var obj = this.examChildren[0];
-//						if(obj.examType == 'design') {
-//							$scope.design.push(obj);
-//						}
-//					});
 				}
 	        });
 	    };
 	    
 	    //修改题目
 	    $scope.editQuestion = function(question) {
-	    	$scope.$broadcast('question', question);
-	    	$("#editSingle").modal("show");
+	    	if(question.examChildren[0].choiceType && question.examChildren[0].choiceType=="single") {//单选题
+	    		$scope.$broadcast('questionSingle', question);
+	    		$("#editSingle").modal("show");
+	    	}else if(question.examChildren[0].choiceType && question.examChildren[0].choiceType=="multiple") {
+	    		$scope.$broadcast('questionMulti', question);
+	    		$("#editmulti").modal("show");
+	    	}
+	    	
 	    }
 	    
 	    //删除题目
@@ -289,12 +294,6 @@
 		        });
 	    	}
 	    }
-	    	    
-//		$("ul.feeds").on("click", "a", function() {
-//			console.log($(this).html());
-//			var html = $(this).html();
-//			$(this).closest(".btn-group").find("span").html(html);
-//		});
 	}
 </script>
 <!-- BEGIN MAIN JS -->
