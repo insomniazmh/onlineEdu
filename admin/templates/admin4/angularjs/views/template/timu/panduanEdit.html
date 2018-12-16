@@ -1,10 +1,10 @@
-<div role="form" ng-controller="panduanCtrl">
+<div role="form" ng-controller="panduanEditCtrl">
 	<div class="form-body">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">					
 					<label style="font-size: 13px; color: #888888;">题干</label>
-					<div id="panduan_title"></div>
+					<div id="panduanEdit_title"></div>
 				</div>
 			</div>
 		</div>
@@ -14,16 +14,16 @@
 					<label>答案</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="panduananswer1" name="panduananswer" class="md-radiobtn" value="1" checked="">
-							<label for="panduananswer1">
+							<input type="radio" id="panduanEditanswer1" name="panduanEditanswer" class="md-radiobtn" value="1" checked="">
+							<label for="panduanEditanswer1">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													对 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="panduananswer2" name="panduananswer" class="md-radiobtn" value="2">
-							<label for="panduananswer2">
+							<input type="radio" id="panduanEditanswer2" name="panduanEditanswer" class="md-radiobtn" value="2">
+							<label for="panduanEditanswer2">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -37,7 +37,7 @@
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
-					<div id="panduan_jiexi"></div>
+					<div id="panduanEdit_jiexi"></div>
 				</div>
 			</div>
 		</div>
@@ -56,24 +56,24 @@
 					<label>难易程度</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="panduanradio6" name="panduanlevel" class="md-radiobtn" value="1" checked="">
-							<label for="panduanradio6">
+							<input type="radio" id="panduanEditradio6" name="panduanEditlevel" class="md-radiobtn" value="1" checked="">
+							<label for="panduanEditradio6">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													简单 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="panduanradio7" name="panduanlevel" class="md-radiobtn" value="2">
-							<label for="panduanradio7">
+							<input type="radio" id="panduanEditradio7" name="panduanEditlevel" class="md-radiobtn" value="2">
+							<label for="panduanEditradio7">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													中等 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="panduanradio8" name="panduanlevel" class="md-radiobtn" value="3">
-							<label for="panduanradio8">
+							<input type="radio" id="panduanEditradio8" name="panduanEditlevel" class="md-radiobtn" value="3">
+							<label for="panduanEditradio8">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -91,7 +91,8 @@
 </div>
 
 <script>
-	function panduanCtrl($scope, $http, $timeout) {
+	function panduanEditCtrl($scope, $http, $timeout) {
+		$scope.question = {};
 		//切换章节回调
 		$scope.$on('currentNode', function(d,data) { 
 	        $scope.currentNode = data;
@@ -117,35 +118,38 @@
 			});
 	    });
 	    
-		$('#panduan_title').summernote({
+		$('#panduanEdit_title').summernote({
 			height: 100
 		});
-		$('#panduan_jiexi').summernote({
+		$('#panduanEdit_jiexi').summernote({
 			height: 100
 		});
 		
-		
+		//加载题目信息
+		$scope.$on('questionTrueOrFalse', function(d,data) { 
+	    	$scope.question = data;
+	    	$('#panduanEdit_title').code(data.examChildren[0].trueOrFalseInfo);//初始化标题
+	    	$('#panduanEdit_jiexi').code(data.examChildren[0].trueOrFalseAnalysis);//初始化解析
+	    	$("input[name='panduanEditlevel'][value='"+data.levelId+"']").prop("checked","checked");//初始化难易程度
+	    	$scope.knowledgeId = question.knowledgeId//初始化知识点
+	    	//初始化正确答案
+	    	if(data.examChildren[0].trueOrFalseAnsw) {
+	    		$("input[name='panduanEditanswer'][value='1']").prop("checked","checked");
+	    	}else {
+	    		$("input[name='panduanEditanswer'][value='2']").prop("checked","checked");
+	    	}
+	    	
+	    });
 		
 		$scope.sub = function() {
-			var obj = {
-				relate: 0,
-				teacherId: localStorage.getItem("userid"),
-				chapter: $scope.currentNode.id,
-				levelId: $("input[name='panduanlevel']:checked").val(),
-				knowledgeId: $scope.knowledgeId,
-				examChildren: [{
-					score: 1,
-					examType: "trueOrFalse",
-					teacherId: localStorage.getItem("userid"),
-					trueOrFalseInfo: $('#panduan_title').code(),
-					trueOrFalseAnalysis: $('#panduan_jiexi').code()
-				}]
-			};
-			
-			if($("input[name='panduananswer']:checked").val() == 1) {
-				obj.examChildren[0].trueOrFalseAnsw = true;
+			$scope.question.levelId = $("input[name='panduanEditlevel']:checked").val();
+			$scope.question.knowledgeId = $scope.knowledgeId;
+			$scope.question.examChildren[0].trueOrFalseInfo = $('#panduanEdit_title').code();
+			$scope.question.examChildren[0].trueOrFalseAnalysis = $('#panduanEdit_jiexi').code();
+			if($("input[name='panduanEditanswer']:checked").val() == 1) {
+				$scope.question.examChildren[0].trueOrFalseAnsw = true;
 			}else {
-				obj.examChildren[0].trueOrFalseAnsw = false;
+				$scope.question.examChildren[0].trueOrFalseAnsw = false;
 			}
 			
 			//添加题目(判断)
@@ -154,10 +158,10 @@
 				$http: $http,
 				operate: true,
 				url: '/question/trueOrFalse/edit',
-				data: obj,
+				data: $scope.question,
 				success: function(res) {
 					$scope.$emit('addQuestion', "trueOrFalse");
-					$("#addQuestion").modal("hide");
+					$("#editTrueOrFalse").modal("hide");
 				}
 	        });
 			
