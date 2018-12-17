@@ -94,6 +94,7 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
 	$rootScope.$on('course', function(d,data) {  
 		$rootScope.courseId = data.courseId;
 		$rootScope.course = data;
+		console.log(data);
 		localStorage.setItem('courseId', data.courseId);
         $scope.$broadcast('course', data);
     });
@@ -143,6 +144,7 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 				$scope.courses = data.data.content;
 				//默认选中第一个课程
 				localStorage.setItem('courseId', data.data.content[0].courseId);
+				$rootScope.course = data.data.content[0];
 			}
 		});
 

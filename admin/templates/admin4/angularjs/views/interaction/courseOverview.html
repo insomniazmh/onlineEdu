@@ -27,6 +27,9 @@
 	.btn+.btn {
 		margin-left: 0;
 	}
+	.class-active {
+		box-shadow: #6699FF 0px 0px 10px 5px !important;
+	}
 </style>
 <div ng-controller="courseOverviewCtrl">
 	<div class="row profile">
@@ -713,26 +716,26 @@
 						</li>
 					</ul>
 					<div class="top-news">
-						<a href="javascript:;" class="btn green">
-							<span>1761班</span>
-							<em>电子商务基础</em>
+						<a href="javascript:;" class="btn {{row.color}} {{row.active ? 'class-active' : ''}}" ng-repeat="row in classes" ng-click="selectClass(row)">
+							<span>{{row.value}}</span>
+							<em>{{row.name}}</em>
 							<i class="fa fa-briefcase top-news-icon"></i>
 						</a>
-						<a href="javascript:;" class="btn yellow">
+						<!--<a href="javascript:;" class="btn yellow" style="box-shadow: #6699FF 0px 0px 10px 5px;">
 							<span>1762班</span>
 							<em>电子商务基础</em>
 							<i class="fa fa-briefcase top-news-icon"></i>
 						</a>
-						<a href="javascript:;" class="btn red">
+						<a href="javascript:;" class="btn red" style="box-shadow: #6699FF 0px 0px 10px 5px;">
 							<span>1763班</span>
 							<em>电子商务基础</em>
 							<i class="fa fa-briefcase top-news-icon"></i>
 						</a>
-						<a href="javascript:;" class="btn blue">
+						<a href="javascript:;" class="btn blue" style="box-shadow: #6699FF 0px 0px 10px 5px;">
 							<span>1764班</span>
 							<em>电子商务基础</em>
 							<i class="fa fa-briefcase top-news-icon"></i>
-						</a>
+						</a>-->
 					</div>
 				</div>
 				<!--end col-md-4-->
@@ -743,6 +746,30 @@
 </div>
 <script>
 	function courseOverviewCtrl($scope) {
-
+		$scope.classes = [{
+			color: "green",
+			name: '电子商务基础',
+			value: "1761班",
+			active: true
+		},{
+			color: "yellow",
+			name: '电子商务基础',
+			value: "1762班"
+		},{
+			color: "red",
+			name: '电子商务基础',
+			value: "1763班"
+		},{
+			color: "blue",
+			name: '电子商务基础',
+			value: "1764班"
+		}];
+		
+		$scope.selectClass = function(row) {
+			$($scope.classes).each(function() {
+				this.active = false;
+			});
+			row.active = true;
+		}
 	}
 </script>
