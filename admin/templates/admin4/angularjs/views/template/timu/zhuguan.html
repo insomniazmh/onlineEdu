@@ -74,34 +74,7 @@
 </div>
 
 <script>
-	function zhuguanCtrl($scope, $http) {
-		var courseId = localStorage.getItem('courseId');
-		
-		//获取当前选中章节
-		$scope.$on('currentNode', function(d,data) {  
-	        $scope.currentNode = data;
-	        
-	        //获取所有知识点
-	        common.ajax({
-				$scope: $scope,
-				$http: $http,
-				url: '/kNode/findAllPage',
-				data: {
-			    	'chapterId': $scope.currentNode.id,
-			    	"courseId": localStorage.getItem('courseId'),
-			    	"sortVo": {
-					    "page": 0,
-					    "size": 200,
-					    "sort": 1,
-					    "sorting": "cTime"
-					}
-			    },
-			    success: function(data) {
-			    	$scope.kNodes = data.data.content;
-			    }
-			});
-	   });
-		
+	function zhuguanCtrl($scope, $http) {		
 		$('#zhuguan_title').summernote({
 			height: 100
 		});
@@ -121,7 +94,7 @@
 				"teacherId": localStorage.getItem("userid"),
 				"levelId":$("input[name='zhuguanlevel']:checked").val(),
 				"knowledgeId":$scope.knowledgeId,
-				"chapter": $scope.currentNode.id,
+				"chapter": localStorage.getItem("currentNodeId"),
 			    "examChildren": [
 			        {
 			            "relate": "1",

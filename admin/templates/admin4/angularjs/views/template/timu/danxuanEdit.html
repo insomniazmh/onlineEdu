@@ -104,38 +104,12 @@
 
 <script>
 	function danxuanEditCtrl($scope, $http, $timeout) {
-		//切换章节回调
-		$scope.$on('currentNode', function(d,data) { 
-	        $scope.currentNode = data;
-	        
-	        //获取所有知识点
-	        common.ajax({
-				$scope: $scope,
-				$http: $http,
-				url: '/kNode/findAllPage',
-				data: {
-			    	'chapterId': $scope.currentNode.id,
-			    	"courseId": localStorage.getItem('courseId'),
-			    	"sortVo": {
-					    "page": 0,
-					    "size": 200,
-					    "sort": 1,
-					    "sorting": "cTime"
-					}
-			    },
-			    success: function(data) {
-			    	$scope.kNodes = data.data.content;
-			    }
-			});
-	    });
-	    
 		var count = 4;
 		$scope.single = {
 			right: "",
 			options: [],
 
 			addOption: function() {
-				console.log(this.options);
 				this.options.push({
 					value: "",
 					count: count
