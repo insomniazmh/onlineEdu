@@ -1,4 +1,16 @@
-<div ng-controller="teachingCtrl">
+<link href="../../../assets/admin/pages/css/profile.css" rel="stylesheet">
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+	.profile-userpic img {
+		width: 80%;
+	}
+	
+	.uppercase {
+		font-size: 16px;
+		margin-top: 10px;
+	}
+</style>
+<div ng-controller="beginCtrl" style="background-color: #ffffff;">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="add-portfolio">
@@ -10,7 +22,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-3">
-			<div data-ng-include="'views/template/nodeTree2.html'"></div>
+			<div data-ng-include="'views/template/nodeTree.html'"></div>
 		</div>
 		<div class="col-md-9" style="display: none;">
 			<div class="tab-content">
@@ -482,10 +494,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="col-md-1" ng-repeat="row in students">
+					<div class="col-md-2" ng-repeat="row in students">
 						<div class="uppercase profile-userpic {{row.active ? 'active':''}}" ng-click="clickStudent($index);">
 							<img src="{{row.image}}" class="img-responsive" alt="">
 						</div>
@@ -493,6 +505,67 @@
 							{{row.name}}
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="portlet sale-summary">
+				<div class="portlet-title">
+					<div class="caption">
+						课程资料
+					</div>
+					<div class="tools">
+						<a class="reload" href="javascript:;">
+						</a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<ul class="list-unstyled">
+						<li>
+							<span class="sale-info">
+								教学资料 <i class="fa fa-img-up"></i>
+							</span>
+							<span class="sale-num">
+								23 </span>
+						</li>
+						<li>
+							<span class="sale-info">
+								头脑风暴 <i class="fa fa-img-down"></i>
+							</span>
+							<span class="sale-num">
+								17 </span>
+						</li>
+						<li>
+							<span class="sale-info">
+								课堂提问 </span>
+							<span class="sale-num">
+								27 </span>
+						</li>
+						<li>
+							<span class="sale-info">
+								任务 </span>
+							<span class="sale-num">
+								20 </span>
+						</li>
+						<li>
+							<span class="sale-info">
+								练习 </span>
+							<span class="sale-num">
+								20 </span>
+						</li>
+						<li>
+							<span class="sale-info">
+								作业 </span>
+							<span class="sale-num">
+								120 </span>
+						</li>
+						<li>
+							<span class="sale-info">
+								活动 </span>
+							<span class="sale-num">
+								12 </span>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -524,7 +597,7 @@
 </div>
 
 <script>
-	function teachingCtrl($scope, $rootScope) {
+	function beginCtrl($scope, $rootScope) {
 		$scope.goUrl = function() {
 			window.open('singleLession.html');
 		}

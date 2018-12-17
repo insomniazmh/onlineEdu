@@ -1,0 +1,748 @@
+
+<style>
+	
+	
+	.note p {
+		display: inline-block;
+		margin-right: 10px;
+		color: #3c763d;
+	}
+	
+	.note-info p {
+		color: #31708f;
+	}
+	
+	.note-danger p {
+		color: #a94442;
+	}
+	
+	.note-warning p {
+		color: #8a6d3b;
+	}
+	
+	h4.block {
+		font-weight: 600;
+	}
+	
+	.btn+.btn {
+		margin-left: 0;
+	}
+</style>
+<div ng-controller="courseOverviewCtrl">
+	<div class="row profile">
+		<div class="col-md-3">
+			<div class="portlet light" style="margin-bottom: 0;">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">课程目录</span>
+						<span class="caption-helper hide"></span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div data-ng-include="'views/template/nodeTree.html'"></div>
+				</div>
+			</div>
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase">讨论小组</span>
+						<span class="caption-helper hide"></span>
+					</div>
+					<div class="actions">
+						<button class="btn btn-circle btn-info btn-sm" ng-click="createKp();">编辑 </button>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="note note-success">
+						<h4 class="block">第一组</h4>
+						<p>张三</p>
+						<p>李四</p>
+						<p>王五</p>
+						<p>赵六</p>
+						<p>六七</p>
+					</div>
+					<div class="note note-info">
+						<h4 class="block">第一组</h4>
+						<p>张三</p>
+						<p>李四</p>
+						<p>王五</p>
+						<p>赵六</p>
+						<p>六七</p>
+					</div>
+					<div class="note note-danger">
+						<h4 class="block">第一组</h4>
+						<p>张三</p>
+						<p>李四</p>
+						<p>王五</p>
+						<p>赵六</p>
+						<p>六七</p>
+					</div>
+					<div class="note note-warning">
+						<h4 class="block">第一组</h4>
+						<p>张三</p>
+						<p>李四</p>
+						<p>王五</p>
+						<p>赵六</p>
+						<p>六七</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-10 profile-info">
+					<h1>教学目的</h1>
+					<div class="row margin-top-10" data-toggle="modal" href="#yuxiModal">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-green-sharp">56<small class="font-green-sharp">人</small></h3>
+										<small> 参与预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-pie-chart"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+																				<span class="sr-only">76% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											76%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-red-haze">13<small class="font-green-sharp">人</small></h3>
+										<small>完成预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-like"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 25%;" class="progress-bar progress-bar-success red-haze">
+																				<span class="sr-only">25% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											25%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-blue-sharp">27<small class="font-green-sharp">人</small></h3>
+										<small>参与预习作业</small>
+									</div>
+									<div class="icon">
+										<i class="icon-basket"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+																				<span class="sr-only">45% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											同比上月
+										</div>
+										<div class="status-number">
+											45%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row margin-top-10" data-toggle="modal" href="#yuxiModal">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-green-sharp">56<small class="font-green-sharp">人</small></h3>
+										<small> 参与预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-pie-chart"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+																				<span class="sr-only">76% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											76%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-red-haze">13<small class="font-green-sharp">人</small></h3>
+										<small>完成预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-like"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 25%;" class="progress-bar progress-bar-success red-haze">
+																				<span class="sr-only">25% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											25%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-blue-sharp">27<small class="font-green-sharp">人</small></h3>
+										<small>参与预习作业</small>
+									</div>
+									<div class="icon">
+										<i class="icon-basket"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+																				<span class="sr-only">45% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											同比上月
+										</div>
+										<div class="status-number">
+											45%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row margin-top-10" data-toggle="modal" href="#yuxiModal">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-green-sharp">56<small class="font-green-sharp">人</small></h3>
+										<small> 参与预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-pie-chart"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+																				<span class="sr-only">76% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											76%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-red-haze">13<small class="font-green-sharp">人</small></h3>
+										<small>完成预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-like"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 25%;" class="progress-bar progress-bar-success red-haze">
+																				<span class="sr-only">25% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											25%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-blue-sharp">27<small class="font-green-sharp">人</small></h3>
+										<small>参与预习作业</small>
+									</div>
+									<div class="icon">
+										<i class="icon-basket"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+																				<span class="sr-only">45% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											同比上月
+										</div>
+										<div class="status-number">
+											45%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row margin-top-10" data-toggle="modal" href="#yuxiModal">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-green-sharp">56<small class="font-green-sharp">人</small></h3>
+										<small> 参与预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-pie-chart"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+																				<span class="sr-only">76% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											76%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-red-haze">13<small class="font-green-sharp">人</small></h3>
+										<small>完成预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-like"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 25%;" class="progress-bar progress-bar-success red-haze">
+																				<span class="sr-only">25% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											25%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-blue-sharp">27<small class="font-green-sharp">人</small></h3>
+										<small>参与预习作业</small>
+									</div>
+									<div class="icon">
+										<i class="icon-basket"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+																				<span class="sr-only">45% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											同比上月
+										</div>
+										<div class="status-number">
+											45%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row margin-top-10" data-toggle="modal" href="#yuxiModal">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-green-sharp">56<small class="font-green-sharp">人</small></h3>
+										<small> 参与预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-pie-chart"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+																				<span class="sr-only">76% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											76%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-red-haze">13<small class="font-green-sharp">人</small></h3>
+										<small>完成预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-like"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 25%;" class="progress-bar progress-bar-success red-haze">
+																				<span class="sr-only">25% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											25%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-blue-sharp">27<small class="font-green-sharp">人</small></h3>
+										<small>参与预习作业</small>
+									</div>
+									<div class="icon">
+										<i class="icon-basket"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+																				<span class="sr-only">45% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											同比上月
+										</div>
+										<div class="status-number">
+											45%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row margin-top-10" data-toggle="modal" href="#yuxiModal">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-green-sharp">56<small class="font-green-sharp">人</small></h3>
+										<small> 参与预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-pie-chart"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+																				<span class="sr-only">76% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											76%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-red-haze">13<small class="font-green-sharp">人</small></h3>
+										<small>完成预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-like"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 25%;" class="progress-bar progress-bar-success red-haze">
+																				<span class="sr-only">25% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											25%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-blue-sharp">27<small class="font-green-sharp">人</small></h3>
+										<small>参与预习作业</small>
+									</div>
+									<div class="icon">
+										<i class="icon-basket"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+																				<span class="sr-only">45% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											同比上月
+										</div>
+										<div class="status-number">
+											45%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row margin-top-10" data-toggle="modal" href="#yuxiModal">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-green-sharp">56<small class="font-green-sharp">人</small></h3>
+										<small> 参与预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-pie-chart"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
+																				<span class="sr-only">76% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											76%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-red-haze">13<small class="font-green-sharp">人</small></h3>
+										<small>完成预习任务</small>
+									</div>
+									<div class="icon">
+										<i class="icon-like"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 25%;" class="progress-bar progress-bar-success red-haze">
+																				<span class="sr-only">25% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											人数比例
+										</div>
+										<div class="status-number">
+											25%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+							<div class="dashboard-stat2">
+								<div class="display">
+									<div class="number">
+										<h3 class="font-blue-sharp">27<small class="font-green-sharp">人</small></h3>
+										<small>参与预习作业</small>
+									</div>
+									<div class="icon">
+										<i class="icon-basket"></i>
+									</div>
+								</div>
+								<div class="progress-info">
+									<div class="progress">
+										<span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
+																				<span class="sr-only">45% </span>
+										</span>
+									</div>
+									<div class="status">
+										<div class="status-title">
+											同比上月
+										</div>
+										<div class="status-number">
+											45%
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--end col-md-8-->
+				<div class="col-md-2">
+					<ul class="list-unstyled profile-nav">
+						<li>
+							<img src="../../../templates\admin4\angularjs\images\1.jpg" class="img-responsive" alt="" />
+							<p style="text-align: center;font-weight: 600;margin-top: 5px;">电子商务基础</p>
+						</li>
+						<li>
+							<p style="text-align: center;">
+								<span style="line-height: 26px;height: 26px;font-weight: 600;font-size: 14px;color: rgb(170, 181, 188);">课程评价</span>
+								<img src="images/pingjia.png" style="width: 150px;height: auto;" />
+							</p>
+						</li>
+					</ul>
+					<div class="top-news">
+						<a href="javascript:;" class="btn green">
+							<span>1761班</span>
+							<em>电子商务基础</em>
+							<i class="fa fa-briefcase top-news-icon"></i>
+						</a>
+						<a href="javascript:;" class="btn yellow">
+							<span>1762班</span>
+							<em>电子商务基础</em>
+							<i class="fa fa-briefcase top-news-icon"></i>
+						</a>
+						<a href="javascript:;" class="btn red">
+							<span>1763班</span>
+							<em>电子商务基础</em>
+							<i class="fa fa-briefcase top-news-icon"></i>
+						</a>
+						<a href="javascript:;" class="btn blue">
+							<span>1764班</span>
+							<em>电子商务基础</em>
+							<i class="fa fa-briefcase top-news-icon"></i>
+						</a>
+					</div>
+				</div>
+				<!--end col-md-4-->
+			</div>
+			<!--end row-->
+		</div>
+	</div>
+</div>
+<script>
+	function courseOverviewCtrl($scope) {
+
+	}
+</script>

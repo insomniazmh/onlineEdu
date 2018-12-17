@@ -183,7 +183,7 @@
 		<!-- END: ACCORDION DEMO -->
 	</div>
 
-	<div data-ng-include="'views/template/exercisesBook.html'"></div>
+	<div data-ng-include="'views/template/tice/exercisesBook.html'"></div>
 
 </div>
 <!-- END MAIN CONTENT -->
@@ -191,19 +191,26 @@
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function xiticeCtrl($scope, $http, $stateParams) {
+	function xiticeCtrl($scope, $http, $stateParams, $rootScope) {
 		var courseId = localStorage.getItem('courseId');
-		$scope.knowledgePoints = [];
 		
-		$scope.$on('to-parent', function(d,data) {  
-	        console.log(data);         //父级能得到值  
+		$scope.$on('exercisesBookChange', function(d,data) {  
+	        $scope.loadQuestionList();
 	    });
+	    
+	    //加载习题册
+	    $scope.loadQuestionList = function() {
+	    	common.ajax2({
+	    		method: "get",
+	        	$scope: $scope,
+				$http: $http,
+				url: '/exerciseBook/findDetailed/'+$rootScope.currentNodeId,
+				success: function(res) {
+					console.log(res);
+				}
+	        });
+	    };
 
-		$("ul.feeds").on("click", "a", function() {
-			console.log($(this).html());
-			var html = $(this).html();
-			$(this).closest(".btn-group").find("span").html(html);
-		});
 	}
 </script>
 <!-- BEGIN MAIN JS -->

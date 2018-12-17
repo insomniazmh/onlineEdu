@@ -9,6 +9,9 @@
 		margin-right: 20px;
 		width: auto !important;
 	}
+	.htmlWrapper p {
+		display: inline;
+	}
 </style>
 <!--创建提问-->
 <div class="modal fade" id="exercisesBookModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookCtrl">
@@ -26,7 +29,7 @@
 								<div class="row" style="margin-bottom: 40px;">
 									<div class="col-md-4">
 										<div class="form-group form-md-line-input">
-											<input type="text" class="form-control" ng-model="title" placeholder="册子名称" />
+											<input type="text" class="form-control" ng-model="list.exeBookName" placeholder="册子名称" />
 											<label for="form_control_1">名称</label>
 											<span class="help-block">名称不得超过50个字符</span>
 										</div>
@@ -67,24 +70,24 @@
 											<label>册子类型</label>
 											<div class="md-radio-inline">
 												<div class="md-radio">
-													<input type="radio" id="radio1" name="type" class="md-radiobtn" value="1" checked="">
-													<label for="radio1">
+													<input type="radio" id="exeBookType1" name="exeBookType" class="md-radiobtn" value="1" checked="">
+													<label for="exeBookType1">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													提问册 </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="radio2" name="type" class="md-radiobtn" value="2">
-													<label for="radio2">
+													<input type="radio" id="exeBookType2" name="exeBookType" class="md-radiobtn" value="2">
+													<label for="exeBookType2">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													课堂练习册 </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="radio3" name="type" class="md-radiobtn" value="3">
-													<label for="radio3">
+													<input type="radio" id="exeBookType3" name="exeBookType" class="md-radiobtn" value="3">
+													<label for="exeBookType3">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -157,7 +160,9 @@
 																	<span class="box"></span>
 																	</label>
 																</div>
-																<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.{{row.name}} </span>
+																<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.
+																	<span class="htmlWrapper" ng-bind-html="row.title"></span>
+																</span>
 															</div>
 															<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
 														</div>
@@ -176,6 +181,9 @@
 						</div>
 					</div>
 				</div>
+				<div class="form-actions noborder" style="text-align: center;margin-bottom: 10px;">
+					<button type="button" class="btn blue" ng-click="sub()">提交</button>
+				</div>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -183,110 +191,51 @@
 	<!-- /.modal-dialog -->
 </div>
 <script>
-	function exercisesBookCtrl($scope) {
-		$scope.questionList = [
-			{
-				id: "1",
-				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
-				options: [
-					{option: "A", value: "第一题答案a"},
-					{option: "B", value: "第一题答案b"},
-					{option: "C", value: "第一题答案c", right: true},
-					{option: "D", value: "第一题答案d"}
-				]
-			}, {
-				name: "Intranet和Internet的区别是 (  )",
-				options: [
-					{option: "A", value: "第二题答案a", right: true},
-					{option: "B", value: "第二题答案b"},
-					{option: "C", value: "第二题答案c"},
-					{option: "D", value: "第二题答案d"}
-				]
-			}, {
-				name: "电子数据交换的简称是 (  )",
-				options: [
-					{option: "A", value: "第三题答案a"},
-					{option: "B", value: "第三题答案b", right: true},
-					{option: "C", value: "第三题答案c"},
-					{option: "D", value: "第三题答案d"}
-				]
-			},
-			{
-				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
-				options: [
-					{option: "A", value: "第一题答案a"},
-					{option: "B", value: "第一题答案b"},
-					{option: "C", value: "第一题答案c", right: true},
-					{option: "D", value: "第一题答案d"}
-				]
-			}, {
-				name: "Intranet和Internet的区别是 (  )",
-				options: [
-					{option: "A", value: "第二题答案a", right: true},
-					{option: "B", value: "第二题答案b"},
-					{option: "C", value: "第二题答案c"},
-					{option: "D", value: "第二题答案d"}
-				]
-			}, {
-				name: "电子数据交换的简称是 (  )",
-				options: [
-					{option: "A", value: "第三题答案a"},
-					{option: "B", value: "第三题答案b", right: true},
-					{option: "C", value: "第三题答案c"},
-					{option: "D", value: "第三题答案d"}
-				]
-			},
-			{
-				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
-				options: [
-					{option: "A", value: "第一题答案a"},
-					{option: "B", value: "第一题答案b"},
-					{option: "C", value: "第一题答案c", right: true},
-					{option: "D", value: "第一题答案d"}
-				]
-			}, {
-				name: "Intranet和Internet的区别是 (  )",
-				options: [
-					{option: "A", value: "第二题答案a", right: true},
-					{option: "B", value: "第二题答案b"},
-					{option: "C", value: "第二题答案c"},
-					{option: "D", value: "第二题答案d"}
-				]
-			}, {
-				name: "电子数据交换的简称是 (  )",
-				options: [
-					{option: "A", value: "第三题答案a"},
-					{option: "B", value: "第三题答案b", right: true},
-					{option: "C", value: "第三题答案c"},
-					{option: "D", value: "第三题答案d"}
-				]
-			},
-			{
-				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
-				options: [
-					{option: "A", value: "第一题答案a"},
-					{option: "B", value: "第一题答案b"},
-					{option: "C", value: "第一题答案c", right: true},
-					{option: "D", value: "第一题答案d"}
-				]
-			}, {
-				name: "Intranet和Internet的区别是 (  )",
-				options: [
-					{option: "A", value: "第二题答案a", right: true},
-					{option: "B", value: "第二题答案b"},
-					{option: "C", value: "第二题答案c"},
-					{option: "D", value: "第二题答案d"}
-				]
-			}, {
-				name: "电子数据交换的简称是 (  )",
-				options: [
-					{option: "A", value: "第三题答案a"},
-					{option: "B", value: "第三题答案b", right: true},
-					{option: "C", value: "第三题答案c"},
-					{option: "D", value: "第三题答案d"}
-				]
-			},
-		];
+	function exercisesBookCtrl($scope, $http) {
+		var currentNodeId = localStorage.getItem("currentNodeId");
+		$scope.list = {};//册子
+    	//根据章节加载题目
+    	$scope.loadQuestions = function() {
+    		var data = {
+	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapter": currentNodeId,//章节id
+				"operatorId": localStorage.getItem("userid"),//当前用户id
+				"page": 0,
+				"size": 20,
+				"sort": 1,
+				"sorting": "uTime"
+	    	};
+	    	
+    		common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				url: '/question/findAll/detailed',
+				data: data,
+				success: function(res) {
+					var data = res.data;
+					$(data).each(function() {
+						if(this.examChildren[0].examType == "single") {
+							this.title = this.examChildren[0].choiceQstTxt+"（单选）";
+						}else if(this.examChildren[0].examType == "multiple") {
+							this.title = this.examChildren[0].choiceQstTxt+"（多选）";
+						}else if(this.examChildren[0].examType == "trueOrFalse") {
+							this.title = this.examChildren[0].trueOrFalseInfo+"（判断）";
+						}else if(this.examChildren[0].examType == "design") {
+							this.title = this.examChildren[0].designQuestion+"（主观）";
+						}
+					});
+					$scope.questionList = data;
+				}
+	        });
+    	}
+    	$scope.loadQuestions();
+    	
+    	//切换章节回调
+		$scope.$on('currentNode', function(d,data) { 
+	        currentNodeId = data.id;
+	        $scope.loadQuestions();
+	    });
+    	
 		$scope.selected = {
 			name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
 			options: [
@@ -305,8 +254,34 @@
 			}
 		}
 		
+		//提交
 		$scope.sub = function() {
-			$scope.$emit('to-parent', 'createExercisesBook');
+			$scope.list.exeBookType = $("input[name='exeBookType']:checked").val();//册子类型
+			$scope.list.sectionId = currentNodeId;//章节id
+			$scope.list.teacherId = localStorage.getItem("userid");
+			$scope.list.questionIds = [];
+			var i = 0;
+			$($scope.questionList).each(function() {
+				if(this.select) {
+					$scope.list.questionIds.push({
+						bigQuestionId: this.id,
+						index: i
+					});
+					i++;
+				}
+			});
+			console.log($scope.list);
+			
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				url: '/exerciseBook/build',
+				data: $scope.list,
+				success: function(res) {
+					$("#exercisesBookModal").modal("hide");
+					$scope.$emit('exercisesBookChange', true);
+				}
+	        });
 		}
 	}
 </script>

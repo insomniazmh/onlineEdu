@@ -92,21 +92,22 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
     
     //切换课程回调
 	$rootScope.$on('course', function(d,data) {  
-		console.log("course");
+		$rootScope.courseId = data.courseId;
+		$rootScope.course = data;
 		localStorage.setItem('courseId', data.courseId);
         $scope.$broadcast('course', data);
     });
     
     //切换章节回调
 	$rootScope.$on('currentNode', function(d,data) {  
+		$rootScope.currentNodeId = data.id;
+		$rootScope.currentNode = data;
 		localStorage.setItem('currentNodeId', data.id);
-		console.log("currentNode");
         $scope.$broadcast('currentNode', data);
     });
     
     //切换知识点回调
 	$rootScope.$on('kPointNode', function(d,data) {  
-		console.log("kPointNode");
 		localStorage.setItem('kPointNode', data);
         $scope.$broadcast('kPointNode', data);
     });
@@ -290,6 +291,40 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
         
+        //课程总览
+        .state('courseOverview', {
+            url: "/courseOverview.html",
+            templateUrl: "views/interaction/courseOverview.html",            
+            data: {pageTitle: '教学互动', pageSubTitle: '课程总览'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        //上课
+        .state('begin', {
+            url: "/begin.html",
+            templateUrl: "views/interaction/begin.html",            
+            data: {pageTitle: '教学互动', pageSubTitle: '上课'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        ] 
+                    });
+                }]
+            }
+        })
+        
         //知识点题库
         .state('knowledgePoint', {
             url: "/knowledgePoint.html",
@@ -312,79 +347,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
         
-        // 课程列表1
-        .state('cl1', {
-            url: "/cl1.html",
-            templateUrl: "views/database/cl1.html",            
-            data: {pageTitle: '知识点题库', pageSubTitle: '课程列表'},
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                        ] 
-                    });
-                }]
-            }
-        })
-        
         // 课程列表2
         .state('cl2', {
             url: "/cl2.html",
             templateUrl: "views/database/cl2.html",            
             data: {pageTitle: '教辅资料库', pageSubTitle: '课程列表'},
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                        ] 
-                    });
-                }]
-            }
-        })
-        
-        // 课程列表3
-        .state('cl3', {
-            url: "/cl3.html",
-            templateUrl: "views/database/cl3.html",            
-            data: {pageTitle: '试卷库', pageSubTitle: '课程列表'},
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                        ] 
-                    });
-                }]
-            }
-        })
-        
-        // 课程列表4
-        .state('cl4', {
-            url: "/cl4.html",
-            templateUrl: "views/interaction/cl4.html",            
-            data: {pageTitle: '教学互动', pageSubTitle: '课程列表'},
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                        ] 
-                    });
-                }]
-            }
-        })
-        
-        // 课程列表5
-        .state('cl5', {
-            url: "/cl5.html",
-            templateUrl: "views/database/cl5.html",            
-            data: {pageTitle: '教辅题册', pageSubTitle: '课程列表'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
