@@ -99,7 +99,7 @@
 									</div>
 									<div class="col2">
 										<div class="date">
-											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑"></i>
+											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
 											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 										</div>
 									</div>
@@ -125,7 +125,7 @@
 								</div>
 								<div class="col2">
 									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑"></i>
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -149,7 +149,7 @@
 								</div>
 								<div class="col2">
 									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑"></i>
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -163,6 +163,8 @@
 	</div>
 
 	<div data-ng-include="'views/template/tice/exercisesBook.html'"></div>
+	
+	<div data-ng-include="'views/template/tice/exercisesBookEdit.html'"></div>
 
 </div>
 <!-- END MAIN CONTENT -->
@@ -175,7 +177,9 @@
 		
 		//添加册子回调
 		$scope.$on('exercisesBookChange', function(d,data) {  
-	        $scope.loadQuestionList(data);
+	        $scope.loadQuestionList("1");
+		    $scope.loadQuestionList("2");
+		    $scope.loadQuestionList("3");
 	    });
 	    
 	    //切换章节回调
@@ -187,6 +191,7 @@
 	    
 	    //加载习题册   type： 1、提问册  2、练习册  3、作业册
 	    $scope.loadQuestionList = function(type) {
+	    	
 	    	common.ajax2({
 	        	$scope: $scope,
 				$http: $http,
@@ -202,7 +207,6 @@
 				},
 				url: '/exerciseBook/findAll/detailed',
 				success: function(res) {
-					console.log(res);
 					if(type == "1") {
 						$scope.tiwence = res.data;
 					}else if(type == "2") {
@@ -213,6 +217,15 @@
 				}
 	        });
 	    };
+	    $scope.loadQuestionList("1");
+	    $scope.loadQuestionList("2");
+	    $scope.loadQuestionList("3");
+	    
+	    //修改提题册
+	    $scope.editExercisesBook = function(id) {
+	    	$scope.$broadcast('editExercisesBookId', id);
+	    	$("#exercisesBookEditModal").modal("show");
+	    }
 
 	}
 </script>

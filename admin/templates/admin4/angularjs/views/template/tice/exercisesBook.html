@@ -171,7 +171,6 @@
 		$scope.list = {};//册子
     	//根据章节加载题目
     	$scope.loadQuestions = function() {
-    		console.log($rootScope.currentNodeId);
     		var data = {
 	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
 				"chapter": $rootScope.currentNodeId,//章节id
@@ -204,7 +203,7 @@
 				}
 	        });
     	}
-    	//$scope.loadQuestions();
+    	$scope.loadQuestions();
     	
     	//切换章节回调
 		$scope.$on('currentNode', function(d,data) { 

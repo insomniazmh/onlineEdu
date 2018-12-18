@@ -14,7 +14,7 @@
 	}
 </style>
 <!--创建提问-->
-<div class="modal fade" id="exercisesBookEditModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookCtrl">
+<div class="modal fade" id="exercisesBookEditModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookEditCtrl">
 	<div class="modal-dialog modal-full">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -39,24 +39,24 @@
 											<label>难易程度</label>
 											<div class="md-radio-inline">
 												<div class="md-radio">
-													<input type="radio" id="radio6" name="level" class="md-radiobtn" value="1" checked="">
-													<label for="radio6">
+													<input type="radio" id="cezilevel1" name="cezilevel" class="md-radiobtn" value="1" checked="">
+													<label for="cezilevel1">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													简单 </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="radio7" name="level" class="md-radiobtn" value="2">
-													<label for="radio7">
+													<input type="radio" id="cezilevel2" name="cezilevel" class="md-radiobtn" value="2">
+													<label for="cezilevel2">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													中等 </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="radio8" name="level" class="md-radiobtn" value="3">
-													<label for="radio8">
+													<input type="radio" id="cezilevel3" name="cezilevel" class="md-radiobtn" value="3">
+													<label for="cezilevel3">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -70,24 +70,24 @@
 											<label>册子类型</label>
 											<div class="md-radio-inline">
 												<div class="md-radio">
-													<input type="radio" id="exeBookType1" name="exeBookType" class="md-radiobtn" value="1" checked="">
-													<label for="exeBookType1">
+													<input type="radio" id="exeBookTypeEdit1" name="exeBookTypeEdit" class="md-radiobtn" value="1" checked="">
+													<label for="exeBookTypeEdit1">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													提问册 </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="exeBookType2" name="exeBookType" class="md-radiobtn" value="2">
-													<label for="exeBookType2">
+													<input type="radio" id="exeBookTypeEdit2" name="exeBookTypeEdit" class="md-radiobtn" value="2">
+													<label for="exeBookTypeEdit2">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
 													课堂练习册 </label>
 												</div>
 												<div class="md-radio">
-													<input type="radio" id="exeBookType3" name="exeBookType" class="md-radiobtn" value="3">
-													<label for="exeBookType3">
+													<input type="radio" id="exeBookTypeEdit3" name="exeBookTypeEdit" class="md-radiobtn" value="3">
+													<label for="exeBookTypeEdit3">
 													<span></span>
 													<span class="check"></span>
 													<span class="box"></span>
@@ -131,7 +131,7 @@
 											</select>
 											<button class="btn btn-primary">确定</button>
 										</div>
-										<span class="badge {{row.class ? row.class : 'badge-success'}}" ng-repeat="row in questionList"> {{$index+1}} </span>
+										<span class="badge {{row.select ? 'badge-danger' : 'badge-success'}}" ng-repeat="row in questionList"> {{$index+1}} </span>
 									</div>
 									<div class="col-md-6">
 										<div class="portlet light">
@@ -151,10 +151,10 @@
 												<div class="tab-content">
 													<div class="tab-pane active" id="tab_2_1">
 														<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-															<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
+															<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList" ng-if="!row.already">
 																<div class="md-checkbox" style="display: inline-block;">
-																	<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-change="select(row)" ng-model="row.select">
-																	<label for="checkbox{{$index}}">
+																	<input type="checkbox" id="checkboxEdit{{$index}}" class="md-check" ng-model="row.select">
+																	<label for="checkboxEdit{{$index}}">
 																	<span></span>
 																	<span class="check"></span>
 																	<span class="box"></span>
@@ -168,7 +168,22 @@
 														</div>
 													</div>
 													<div class="tab-pane" id="tab_2_2">
-								
+														<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+															<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList" ng-if="row.already">
+																<div class="md-checkbox" style="display: inline-block;">
+																	<input type="checkbox" id="checkboxAlready{{$index}}" class="md-check" ng-model="row.select">
+																	<label for="checkboxAlready{{$index}}">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	</label>
+																</div>
+																<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.
+																	<span class="htmlWrapper" ng-bind-html="row.title"></span>
+																</span>
+															</div>
+															<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -191,27 +206,32 @@
 	<!-- /.modal-dialog -->
 </div>
 <script>
-	function exercisesBookEditModal($scope, $http, $rootScope) {
+	function exercisesBookEditCtrl($scope, $http, $rootScope) {
 		$scope.list = {};//册子
-    	//根据章节加载题目
-    	$scope.loadQuestions = function() {
+    	//根据练习册id加载详细信息
+    	 $scope.loadData = function(id) {
+    	 	console.log($rootScope.currentNodeId);
     		var data = {
-	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
-				"chapter": $rootScope.currentNodeId,//章节id
-				"operatorId": localStorage.getItem("userid"),//当前用户id
-				"page": 0,
-				"size": 20,
-				"sort": 1,
-				"sorting": "uTime"
-	    	};
+			  "allOrPart": "all",
+			  "chapter": $rootScope.currentNodeId,
+//			  "knowledgeId": 0,
+//			  "levelId": 0,
+			  "operatorId": localStorage.getItem('userid'),
+			  "page": 0,
+			  "problemSetId": id,
+//			  "questionType": "single",
+			  "size": 200,
+			  "sort": 1,
+			  "sorting": "uTime"
+			};
 	    	
     		common.ajax2({
 	        	$scope: $scope,
 				$http: $http,
-				url: '/question/findAll/detailed',
+				url: '/question/findAll/problemSet',
 				data: data,
 				success: function(res) {
-					var data = res.data;
+					var data = res.data.bigQuestionList;
 					$(data).each(function() {
 						if(this.examChildren[0].examType == "single") {
 							this.title = this.examChildren[0].choiceQstTxt+"（单选）";
@@ -221,17 +241,26 @@
 							this.title = this.examChildren[0].trueOrFalseInfo+"（判断）";
 						}else if(this.examChildren[0].examType == "design") {
 							this.title = this.examChildren[0].designQuestion+"（主观）";
+						};
+						if(res.data.intersection.indexOf(this.id) >= 0) {
+							this.already = true;
+							this.select = true;
 						}
 					});
 					$scope.questionList = data;
+					$scope.list = {
+						id: res.data.problemSet.id,
+						exeBookName: res.data.problemSet.exeBookName,
+					};
+					$("input[name='exeBookTypeEdit'][value='"+res.data.problemSet.exeBookType+"']").prop("checked","checked");//初始化册子类型
+					$("input[name='cezilevel'][value='"+res.data.problemSet.levelId+"']").prop("checked","checked");//初始化难易程度
 				}
 	        });
-    	}
-    	$scope.loadQuestions();
+    	};
     	
-    	//切换章节回调
-		$scope.$on('currentNode', function(d,data) { 
-	        $scope.loadQuestions();
+    	//接收题册id回调
+		$scope.$on('editExercisesBookId', function(d,data) { 
+	        $scope.loadData(data);
 	    });
     	
 		$scope.selected = {
@@ -244,18 +273,19 @@
 			]
 		};
 		
-		$scope.select = function(row) {
-			if(row.select) {
-				row.class = 'badge-danger';
-			}else {
-				row.class = 'badge-success';
-			}
-		}
+//		$scope.select = function(row) {
+//			if(row.select) {
+//				row.class = 'badge-danger';
+//			}else {
+//				row.class = 'badge-success';
+//			}
+//		}
 		
 		//提交
 		$scope.sub = function() {
-			$scope.list.exeBookType = $("input[name='exeBookType']:checked").val();//册子类型
-			$scope.list.sectionId = currentNodeId;//章节id
+			$scope.list.exeBookType = $("input[name='exeBookTypeEdit']:checked").val();//册子类型
+			$scope.list.levelId = $("input[name='cezilevel']:checked").val();//难以程度
+			$scope.list.sectionId = $rootScope.currentNodeId;//章节id
 			$scope.list.teacherId = localStorage.getItem("userid");
 			$scope.list.questionIds = [];
 			var i = 0;
@@ -268,7 +298,6 @@
 					i++;
 				}
 			});
-			console.log($scope.list);
 			
 			common.ajax2({
 	        	$scope: $scope,
@@ -276,8 +305,8 @@
 				url: '/exerciseBook/build',
 				data: $scope.list,
 				success: function(res) {
-					$("#exercisesBookModal").modal("hide");
-					$scope.$emit('exercisesBookChange', $("input[name='exeBookType']:checked").val());
+					$("#exercisesBookEditModal").modal("hide");
+					$scope.$emit('exercisesBookChange', $("input[name='exeBookTypeEdit']:checked").val());
 				}
 	        });
 		}
