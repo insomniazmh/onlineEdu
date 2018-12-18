@@ -131,13 +131,13 @@
 											</select>
 											<button class="btn btn-primary">确定</button>
 										</div>
-										<span class="badge {{row.class ? row.class : 'badge-success'}}" ng-repeat="row in questionList"> {{$index+1}} </span>
+										<span class="badge {{row.select ? 'badge-danger' : 'badge-success'}}" ng-repeat="row in questionList"> {{$index+1}} </span>
 									</div>
 									<div class="col-md-6">
 										<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 											<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
 												<div class="md-checkbox" style="display: inline-block;">
-													<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-change="select(row)" ng-model="row.select">
+													<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-model="row.select">
 													<label for="checkbox{{$index}}">
 													<span></span>
 													<span class="check"></span>
@@ -210,18 +210,18 @@
 	        $scope.loadQuestions();
 	    });
     	
-		$scope.select = function(row) {
-			if(row.select) {
-				row.class = 'badge-danger';
-			}else {
-				row.class = 'badge-success';
-			}
-		}
+//		$scope.select = function(row) {
+//			if(row.select) {
+//				row.class = 'badge-danger';
+//			}else {
+//				row.class = 'badge-success';
+//			}
+//		}
 		
 		//提交
 		$scope.sub = function() {
 			$scope.list.exeBookType = $("input[name='exeBookType']:checked").val();//册子类型
-			$scope.list.sectionId = $rootScope.currentNodeId;//章节id
+			$scope.list.chapterId = $rootScope.currentNodeId;//章节id
 			$scope.list.teacherId = localStorage.getItem("userid");
 			$scope.list.questionIds = [];
 			var i = 0;
@@ -239,6 +239,7 @@
 			common.ajax2({
 	        	$scope: $scope,
 				$http: $http,
+				operate: true,
 				url: '/exerciseBook/build',
 				data: $scope.list,
 				success: function(res) {

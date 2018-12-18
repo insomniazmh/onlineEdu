@@ -25,31 +25,31 @@
 						</div>
 						<ul class="nav nav-tabs">
 							<li class="active">
-								<a data-target="#tab_4_1" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_1" data-toggle="tab">
 									资料 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_2" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
 									提问 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_3" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_3" data-toggle="tab">
 									练习 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_4" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_4" data-toggle="tab">
 									作业 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_5" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_5" data-toggle="tab">
 									任务 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_6" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_6" data-toggle="tab">
 									问卷 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_6" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_6" data-toggle="tab">
 									风暴 </a>
 							</li>
 
@@ -58,7 +58,7 @@
 					<div class="portlet-body">
 						<div class="tab-content">
 							<!-- 描述：资料  -->
-							<div class="tab-pane active" id="tab_4_1">
+							<div class="tab-pane active" id="tab_lessonPlan_1">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="portlet box grey-cascade">
@@ -144,16 +144,16 @@
 								</div>
 							</div>
 							<!-- 描述：提问  -->
-							<div class="tab-pane" id="tab_4_2">
+							<div class="tab-pane" id="tab_lessonPlan_2">
 								<div class="row">
 									<div class="col-md-6" style="text-align: center;">
 										<ul class="feeds" style="margin-bottom: 30px;">
-											<li ng-repeat="row in tiwenceList">
+											<li ng-repeat="row in tiwence">
 												<div class="col1">
 													<div class="cont">
 														<div class="cont-col1">
 															<div class="md-checkbox">
-																<input type="checkbox" id="tiwence{{$index}}" class="md-check" name="tiwence">
+																<input type="checkbox" id="tiwence{{$index}}" class="md-check" name="tiwence" ng-model="row.select" ng-change="loadQuestionByCezi(row.id)" ng-disabled="row.select">
 																<label for="tiwence{{$index}}">
 																<span></span>
 																<span class="check"></span>
@@ -163,7 +163,7 @@
 														</div>
 														<div class="cont-col2">
 															<div class="desc">
-																{{row.name}}
+																{{row.exeBookName}}
 															</div>
 														</div>
 													</div>
@@ -245,12 +245,12 @@
 									</div>
 								</div>
 							</div>
-							<div class="tab-pane" id="tab_4_3">
+							<div class="tab-pane" id="tab_lessonPlan_3">
 
 							</div>
-							<div class="tab-pane" id="tab_4_4"></div>
-							<div class="tab-pane" id="tab_4_5"></div>
-							<div class="tab-pane" id="tab_4_6"></div>
+							<div class="tab-pane" id="tab_lessonPlan_4"></div>
+							<div class="tab-pane" id="tab_lessonPlan_5"></div>
+							<div class="tab-pane" id="tab_lessonPlan_6"></div>
 						</div>
 					</div>
 				</div>
@@ -270,7 +270,7 @@
 </div>
 
 <script>
-	function lessonPlanCtrl($scope) {
+	function lessonPlanCtrl($scope, $rootScope, $http) {
 		$scope.docList = [
 			{id: "1", name: "电子商务基础教学大纲.doc"},
 			{id: "2", name: "电子商务基础教案.doc"},
@@ -295,14 +295,54 @@
 			}
 		}
 		
-		$scope.tiwenceList = [
-			{name: "电子商务基础-问答册1"},
-			{name: "电子商务基础-问答册2"},
-			{name: "电子商务基础-问答册3"},
-			{name: "电子商务基础-问答册4"},
-			{name: "电子商务基础-问答册5"},
-			{name: "电子商务基础-问答册6"}
-		];
+		//加载所有册子  type： 1提问侧   2练习册   3作业册
+		$scope.loadCeziList = function(type) {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+				  "allOrPart": "part",
+				  "exeBookType": type,
+				  "operatorId": localStorage.getItem('userid'),
+				  "page": 0,
+				  "chapterId": localStorage.getItem('currentNodeId'),
+				  "size": 20,
+				  "sort": 1,
+				  "sorting": "uTime"
+				},
+				url: '/exerciseBook/findAll/detailed',
+				success: function(res) {
+					if(type == "1") {
+						$scope.tiwence = res.data;
+					}else if(type == "2") {
+						$scope.lianxice = res.data;
+					}else if(type == "3") {
+						$scope.zuoyece = res.data;
+					}
+				}
+	        });
+		}
+		$scope.loadCeziList(1);
+		
+		$scope.tiwenQuestionList = [];
+		
+		//根据册子id加载册子中的题目，加载时，先判断有没有在已有题目中，再判断有没有在上面的册子中，都没有则保留
+		$scope.loadQuestionByCezi = function(id) {
+			common.ajax2({
+				method: "get",
+	        	$scope: $scope,
+				$http: $http,
+				url: '/exerciseBook/findDetailed/'+id,
+				success: function(res) {
+					console.log(res);
+					if(res.data.exeBookType == 1) {
+						$scope.tiwenQuestionList = $scope.tiwenQuestionList.concat(res.data.bigQuestionList);//合并数组
+					}
+				}
+	        });
+		};
+		
+		//加载已挂接题目
 		
 		$scope.tiwenQuestionList = [
 			{

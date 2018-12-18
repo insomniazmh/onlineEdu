@@ -285,7 +285,7 @@
 		$scope.sub = function() {
 			$scope.list.exeBookType = $("input[name='exeBookTypeEdit']:checked").val();//册子类型
 			$scope.list.levelId = $("input[name='cezilevel']:checked").val();//难以程度
-			$scope.list.sectionId = $rootScope.currentNodeId;//章节id
+			$scope.list.chapterId = $rootScope.currentNodeId;//章节id
 			$scope.list.teacherId = localStorage.getItem("userid");
 			$scope.list.questionIds = [];
 			var i = 0;
@@ -302,6 +302,7 @@
 			common.ajax2({
 	        	$scope: $scope,
 				$http: $http,
+				operate: true,
 				url: '/exerciseBook/build',
 				data: $scope.list,
 				success: function(res) {
