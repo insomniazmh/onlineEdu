@@ -14,6 +14,11 @@
 		color: #45B6AF;
 		cursor: pointer;
 	}
+	.list-icon {
+		font-size: 18px;
+		width:20px;
+		color: #45B6AF;
+	}
 </style>
 <div class="row" ng-controller="xiticeCtrl">
 	<div style="position: absolute;right: 10px; top: 35px;">
@@ -47,7 +52,7 @@
 			<div class="portlet-title tabbable-line">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">习题集{{currKP}}</span>
+					<span class="caption-subject bold uppercase">题册{{currKP}}</span>
 				</div>
 				<div class="actions">
 					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#exercisesBookModal">
@@ -79,91 +84,23 @@
 					<div class="tab-pane active" id="tab_1_1">
 						<div class="scroller" style="min-height: 200px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 							<ul class="feeds">
-								<li>
+								<li ng-repeat="row in tiwence">
 									<div class="col1">
 										<div class="cont">
 											<div class="cont-col1">
-												<div class="label label-sm label-danger">
-													<i class="fa fa-bolt"></i>
-												</div>
+												<div class="label label-sm label-danger">问</div>
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													电子商务的定义1
+													{{row.exeBookName}}
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="col2">
 										<div class="date">
-											<i class="fa fa-edit opreat" style="font-size: 16px;width:20px;color: #45B6AF;padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
-											<i class="fa fa-trash-o opreat" style="font-size: 18px;width:20px;color: #45B6AF;"title="删除"></i>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-info">
-													<i class="fa fa-bullhorn"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务的定义2
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col2">
-										<div class="date">
-											<i class="fa fa-edit opreat" style="font-size: 16px;width:20px;color: #45B6AF;padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
-											<i class="fa fa-trash-o opreat" style="font-size: 18px;width:20px;color: #45B6AF;"title="删除"></i>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-success">
-													<i class="fa fa-bullhorn"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务的概念1
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col2">
-										<div class="date">
-											<i class="fa fa-edit opreat" style="font-size: 16px;width:20px;color: #45B6AF;padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
-											<i class="fa fa-trash-o opreat" style="font-size: 18px;width:20px;color: #45B6AF;"title="删除"></i>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-warning">
-													<i class="fa fa-plus"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务的概念2
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col2">
-										<div class="date">
-											<i class="fa fa-edit opreat" style="font-size: 16px;width:20px;color: #45B6AF;padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
-											<i class="fa fa-trash-o opreat" style="font-size: 18px;width:20px;color: #45B6AF;"title="删除"></i>
+											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑"></i>
+											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 										</div>
 									</div>
 								</li>
@@ -172,10 +109,52 @@
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_2">
-
+						<ul class="feeds">
+							<li ng-repeat="row in lianxice">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-danger">习</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												{{row.exeBookName}}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
 					</div>
 					<div class="tab-pane" id="tab_1_3">
-
+						<ul class="feeds">
+							<li ng-repeat="row in zuoyece">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-danger">作</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												{{row.exeBookName}}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -194,19 +173,43 @@
 	function xiticeCtrl($scope, $http, $stateParams, $rootScope) {
 		var courseId = localStorage.getItem('courseId');
 		
+		//添加册子回调
 		$scope.$on('exercisesBookChange', function(d,data) {  
-	        $scope.loadQuestionList();
+	        $scope.loadQuestionList(data);
 	    });
 	    
-	    //加载习题册
-	    $scope.loadQuestionList = function() {
+	    //切换章节回调
+		$scope.$on('currentNode', function(d,data) {  
+			$scope.loadQuestionList("1");
+		    $scope.loadQuestionList("2");
+		    $scope.loadQuestionList("3");
+	    });
+	    
+	    //加载习题册   type： 1、提问册  2、练习册  3、作业册
+	    $scope.loadQuestionList = function(type) {
 	    	common.ajax2({
-	    		method: "get",
 	        	$scope: $scope,
 				$http: $http,
-				url: '/exerciseBook/findDetailed/'+$rootScope.currentNodeId,
+				data: {
+				  "allOrPart": "part",
+				  "exeBookType": type,
+				  "operatorId": localStorage.getItem('userid'),
+				  "page": 0,
+				  "sectionId": $rootScope.currentNodeId,
+				  "size": 20,
+				  "sort": 1,
+				  "sorting": "uTime"
+				},
+				url: '/exerciseBook/findAll/detailed',
 				success: function(res) {
 					console.log(res);
+					if(type == "1") {
+						$scope.tiwence = res.data;
+					}else if(type == "2") {
+						$scope.lianxice = res.data;
+					}else if(type == "3") {
+						$scope.zuoyece = res.data;
+					}
 				}
 	        });
 	    };

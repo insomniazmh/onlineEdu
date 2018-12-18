@@ -14,7 +14,7 @@
 	}
 </style>
 <!--创建提问-->
-<div class="modal fade" id="exercisesBookModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookCtrl">
+<div class="modal fade" id="exercisesBookEditModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookCtrl">
 	<div class="modal-dialog modal-full">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -134,22 +134,46 @@
 										<span class="badge {{row.class ? row.class : 'badge-success'}}" ng-repeat="row in questionList"> {{$index+1}} </span>
 									</div>
 									<div class="col-md-6">
-										<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-											<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
-												<div class="md-checkbox" style="display: inline-block;">
-													<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-change="select(row)" ng-model="row.select">
-													<label for="checkbox{{$index}}">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													</label>
-												</div>
-												<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.
-													<span class="htmlWrapper" ng-bind-html="row.title"></span>
-												</span>
+										<div class="portlet light">
+											<div class="portlet-title tabbable-line">
+												<ul class="nav nav-tabs" style="float: left;">
+													<li class="active">
+														<a data-target="#tab_2_1" data-toggle="tab">
+															未选题目 </a>
+													</li>
+													<li>
+														<a data-target="#tab_2_2" data-toggle="tab">
+															已选题目 </a>
+													</li>
+												</ul>
 											</div>
-											<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
+											<div class="portlet-body">
+												<div class="tab-content">
+													<div class="tab-pane active" id="tab_2_1">
+														<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+															<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
+																<div class="md-checkbox" style="display: inline-block;">
+																	<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-change="select(row)" ng-model="row.select">
+																	<label for="checkbox{{$index}}">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	</label>
+																</div>
+																<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.
+																	<span class="htmlWrapper" ng-bind-html="row.title"></span>
+																</span>
+															</div>
+															<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
+														</div>
+													</div>
+													<div class="tab-pane" id="tab_2_2">
+								
+													</div>
+												</div>
+											</div>
 										</div>
+										
 									</div>
 								</div>
 							</div>
@@ -167,11 +191,10 @@
 	<!-- /.modal-dialog -->
 </div>
 <script>
-	function exercisesBookCtrl($scope, $http, $rootScope) {
+	function exercisesBookEditModal($scope, $http, $rootScope) {
 		$scope.list = {};//册子
     	//根据章节加载题目
     	$scope.loadQuestions = function() {
-    		console.log($rootScope.currentNodeId);
     		var data = {
 	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
 				"chapter": $rootScope.currentNodeId,//章节id
@@ -204,13 +227,23 @@
 				}
 	        });
     	}
-    	//$scope.loadQuestions();
+    	$scope.loadQuestions();
     	
     	//切换章节回调
 		$scope.$on('currentNode', function(d,data) { 
 	        $scope.loadQuestions();
 	    });
     	
+		$scope.selected = {
+			name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
+			options: [
+				{option: "A", value: "第一题答案a"},
+				{option: "B", value: "第一题答案b"},
+				{option: "C", value: "第一题答案c", right: true},
+				{option: "D", value: "第一题答案d"}
+			]
+		};
+		
 		$scope.select = function(row) {
 			if(row.select) {
 				row.class = 'badge-danger';
@@ -222,7 +255,7 @@
 		//提交
 		$scope.sub = function() {
 			$scope.list.exeBookType = $("input[name='exeBookType']:checked").val();//册子类型
-			$scope.list.sectionId = $rootScope.currentNodeId;//章节id
+			$scope.list.sectionId = currentNodeId;//章节id
 			$scope.list.teacherId = localStorage.getItem("userid");
 			$scope.list.questionIds = [];
 			var i = 0;
