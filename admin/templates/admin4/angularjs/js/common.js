@@ -1,10 +1,9 @@
 var common = {
-	//永永服务
-	url: 'http://132.232.124.203:8090',
-	//永永本机
-	//url: 'http://192.168.13.230:8090',
-	//真铭服务
-	url2: 'http://132.232.124.203:8070',
+	
+	url: 'http://132.232.124.203:8090',//永永服务
+	//url: 'http://192.168.13.230:8090',//永永本机
+	url2: 'http://132.232.124.203:8070',//真铭服务
+	//url2: 'http://192.168.13.15:8080',//真铭本机
 	//提示框
 	toast: function(settings) {
 		var defaults = {
@@ -280,6 +279,24 @@ var common = {
 	
 	goUrl: function(url, type) {
 		window.location.href = '#/'+url+'.html';
+	},
+	
+	addTitleForQuestion: function(settings) {
+		$(settings.questionArr).each(function() {
+			if(settings.select) {
+				this.select = true;
+			}
+			if(this.examChildren[0].examType == "single") {
+				this.title = this.examChildren[0].choiceQstTxt+"（单选）";
+			}else if(this.examChildren[0].examType == "multiple") {
+				this.title = this.examChildren[0].choiceQstTxt+"（多选）";
+			}else if(this.examChildren[0].examType == "trueOrFalse") {
+				this.title = this.examChildren[0].trueOrFalseInfo+"（判断）";
+			}else if(this.examChildren[0].examType == "design") {
+				this.title = this.examChildren[0].designQuestion+"（主观）";
+			}
+		});
+		return settings.questionArr;
 	}
 }
 

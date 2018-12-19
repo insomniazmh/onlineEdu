@@ -13,6 +13,9 @@
 	.label-violet {
 	  background-color: #8e5fa2;
 	}
+	.htmlWrapper p {
+		display: inline;
+	}
 </style>
 <div class="row" ng-controller="jiaofuCtrl">
 	<div class="col-md-4" style="height: 600px;border-right: 1px solid #4DB3A2;">
@@ -177,8 +180,8 @@
 					</div>
 					<div class="tab-pane" id="tab_2_2">
 						<ul class="feeds">
-							<li ng-repeat="row in tiwenList">
-								<div class="col1" style="cursor: pointer;">
+							<li ng-repeat="row in tiwenQuestionList">
+								<div class="col1">
 									<div class="cont">
 										<div class="cont-col1">
 											<div class="label label-sm label-success">
@@ -187,13 +190,7 @@
 										</div>
 										<div class="cont-col2">
 											<div class="desc">
-												<a href="{{row.url}}" style="line-height: 25px;" target=_blank>{{row.text}}</a>
-												<div class="label label-sm label-danger sign" title="预习资料">预</div>
-												<div class="label label-sm label-success sign" title="课堂参考">堂</div>
-												<div class="label label-sm label-warning sign" title="课程案例">案</div>
-												<div class="label label-sm label-info sign" title="复习参考">复</div>
-												<div class="label label-sm label-primary sign" title="资料共享">享</div>
-												<div class="label label-sm sign" style="background-color: #8e5fa2;" title="学生可见">生</div>
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
 											</div>
 										</div>
 									</div>
@@ -209,27 +206,58 @@
 					</div>
 					<div class="tab-pane" id="tab_2_3">
 						<ul class="feeds">
-							<li ng-repeat="row in tiwenList">
-								<div class="col1" style="cursor: pointer;">
+							<li ng-repeat="row in lianxiQuestionList">
+								<div class="col1">
 									<div class="cont">
 										<div class="cont-col1">
-											<div class="label label-sm {{row.color}}">
-												<!--<i class="fa {{row.icon}}"></i>-->
-												<span style="padding: 2px;">{{row.icon}}</span>
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
 											</div>
 										</div>
 										<div class="cont-col2">
 											<div class="desc">
-												{{row.text}}
-												<span class="label label-default label-sm clipboard" data-clipboard-text="{{row.url}}">复制链接到剪切板</span>
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+												<div class="label label-sm {{row.preview.indexOf('before')>=0 ? 'label-danger' : 'label-default'}} sign" title="预习资料" ng-click="changeLianxiLabel(row, 'before')">预</div>
+												<div class="label label-sm {{row.preview.indexOf('now')>=0 ? 'label-success' : 'label-default'}} sign" title="课堂参考" ng-click="changeLianxiLabel(row, 'now')">堂</div>
 											</div>
 										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard"  data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
 									</div>
 								</div>
 							</li>
 						</ul>
 					</div>
-					<div class="tab-pane" id="tab_2_4"></div>
+					<div class="tab-pane" id="tab_2_4">
+						<ul class="feeds">
+							<li ng-repeat="row in zuoyeQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard"  data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 					<div class="tab-pane" id="tab_2_5"></div>
 					<div class="tab-pane" id="tab_2_6"></div>
 					<div class="tab-pane" id="tab_2_7"></div>
@@ -285,6 +313,21 @@
 		$scope.$on('currentNode', function(d,data) {  
 	        $scope.currentNode = data;
 	        $scope.loadChapterData();
+	        $scope.loadTiwenQuestions();//加载提问问题列表
+	        $scope.loadLianxiQuestions();//加载练习题目列表
+	        $scope.loadZuoyeQuestions();//加载作业题目列表
+	    });
+	    
+	    //提问/练习/作业册更新回调
+		$scope.$on('ceziChange', function(d,data) {  
+			console.log(data);
+	        if(data == 1) {
+	        	$scope.loadTiwenQuestions();//加载提问题目列表
+	        }else if(data == 2) {
+	        	$scope.loadLianxiQuestions();//加载练习题目列表
+	        }else if(data == 3) {
+	        	$scope.loadZuoyeQuestions();//加载作业题目列表
+	        }
 	    });
 		
 		$scope.jiaoan = {};
@@ -416,9 +459,87 @@
 //					   		$scope.jiaoan = response;
 					   		$scope.loadChapterData();
 					    }
-					})
+					});
 				});
 			}
 		});
+		
+		//加载所有挂接的提问题目
+		$scope.loadTiwenQuestions = function() {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+					"exeBookType": "1"
+				},
+				url: '/exerciseBook/findExerciseBook',
+				success: function(res) {
+					res.data = common.addTitleForQuestion({
+					questionArr: res.data
+				});//组装题干以供展示
+					$scope.tiwenQuestionList = res.data;
+				}
+	        });
+		}
+		$scope.loadTiwenQuestions();
+		
+		//加载所有挂接的练习题目
+		$scope.loadLianxiQuestions = function() {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+					"exeBookType": "2"
+				},
+				url: '/exerciseBook/findExerciseBook',
+				success: function(res) {
+					res.data = common.addTitleForQuestion({
+					questionArr: res.data,
+					select: true
+				});//组装题干以供展示
+					$scope.lianxiQuestionList = res.data;
+				}
+	        });
+		}
+		$scope.loadLianxiQuestions();
+		
+		//加载所有挂接的作业题目
+		$scope.loadZuoyeQuestions = function() {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+					"exeBookType": "3"
+				},
+				url: '/exerciseBook/findExerciseBook',
+				success: function(res) {
+					res.data = common.addTitleForQuestion({
+					questionArr: res.data,
+					select: true
+				});//组装题干以供展示
+					$scope.zuoyeQuestionList = res.data;
+				}
+	        });
+		}
+		$scope.loadZuoyeQuestions();
+		
+		//修改练习的标签
+		$scope.changeLianxiLabel = function(row, type) {
+			if(row.preview) {
+				if(row.preview.indexOf(type)>=0) {
+					
+				}else if(row.preview.indexOf(type)<0) {
+					
+				}
+			}else {
+				
+			}
+		};
 	}
 </script>

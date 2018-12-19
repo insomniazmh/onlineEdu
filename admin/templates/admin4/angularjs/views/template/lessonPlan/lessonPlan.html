@@ -9,9 +9,6 @@
 		margin-right: 20px;
 		width: auto !important;
 	}
-	.htmlWrapper p {
-		display: inline;
-	}
 </style>
 <div ng-controller="lessonPlanCtrl">
 	<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -151,9 +148,11 @@
 								<div data-ng-include="'views/template/lessonPlan/tiwen.html'"></div>
 							</div>
 							<div class="tab-pane" id="tab_lessonPlan_3">
-
+								<div data-ng-include="'views/template/lessonPlan/lianxi.html'"></div>
 							</div>
-							<div class="tab-pane" id="tab_lessonPlan_4"></div>
+							<div class="tab-pane" id="tab_lessonPlan_4">
+								<div data-ng-include="'views/template/lessonPlan/zuoye.html'"></div>
+							</div>
 							<div class="tab-pane" id="tab_lessonPlan_5"></div>
 							<div class="tab-pane" id="tab_lessonPlan_6"></div>
 						</div>
