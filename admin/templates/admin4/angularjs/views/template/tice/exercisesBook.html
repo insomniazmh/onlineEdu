@@ -173,7 +173,7 @@
     	$scope.loadQuestions = function() {
     		var data = {
 	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
-				"chapter": $rootScope.currentNodeId,//章节id
+				"chapterId": $rootScope.currentNodeId,//章节id
 				"operatorId": localStorage.getItem("userid"),//当前用户id
 				"page": 0,
 				"size": 20,

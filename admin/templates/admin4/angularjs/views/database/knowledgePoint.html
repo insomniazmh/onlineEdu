@@ -277,6 +277,7 @@
 <script>
 	function kpCtrl($scope, $http, $rootScope) {
 		$scope.currentNode = {};
+		$scope.kPointNode = {};
 		
 		//切换章节回调
 		$scope.$on('currentNode', function(d,data) { 
@@ -303,7 +304,7 @@
 	    $scope.loadQuestions = function(type) {
 	    	var data = {
 	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
-				"chapter": $scope.currentNode.id,//章节id
+				"chapterId": $scope.currentNode.id,//章节id
 				"operatorId": localStorage.getItem("userid"),//当前用户id
 				"questionType": type,//题目类型 single multiple trueOrFalse design bigQuestion
 				"page": 0,
@@ -336,6 +337,10 @@
 				}
 	        });
 	    };
+	    $scope.loadQuestions('single');
+        $scope.loadQuestions('multiple');
+        $scope.loadQuestions('trueOrFalse');
+        $scope.loadQuestions('design');
 	    
 	    //修改题目
 	    $scope.editQuestion = function(question) {
