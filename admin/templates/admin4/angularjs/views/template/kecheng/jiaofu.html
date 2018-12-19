@@ -533,13 +533,29 @@
 		$scope.changeLianxiLabel = function(row, type) {
 			if(row.preview) {
 				if(row.preview.indexOf(type)>=0) {
-					
+					row.preview = row.preview.replace(type, '');
 				}else if(row.preview.indexOf(type)<0) {
-					
+					row.preview = row.preview + type;
 				}
 			}else {
-				
+				row.preview = type;
 			}
+			
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: {
+					"preview": row.preview,
+				    "chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+				    "targetId": row.id
+				},
+				url: '/exerciseBook/edit/preview',
+				success: function() {
+					$scope.$broadcast('lianxiLabelChange', true);
+				}
+	        });
 		};
 	}
 </script>

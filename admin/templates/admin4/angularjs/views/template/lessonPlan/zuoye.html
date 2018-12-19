@@ -167,6 +167,13 @@ function zuoyeCtrl($scope, $rootScope, $http) {
 	};
 	$scope.loadZuoyeExistQuestion();
 	
+	//切换章节回调
+	$scope.$on('currentNode', function(d,data) {  
+        $scope.loadCeziList();//加载所有练习册
+        $scope.loadZuoyeExistQuestion();//加载已挂载题目列表
+        $scope.zuoyeQuestionList = [];
+    });
+	
 	$scope.zuoyeQuestionList = [];
 	//根据册子id加载册子中的题目，加载时，先判断有没有在已有题目中，再判断有没有在上面的册子中，都没有则保留
 	$scope.loadQuestionByCezi = function(id) {

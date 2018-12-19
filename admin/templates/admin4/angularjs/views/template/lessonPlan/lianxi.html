@@ -167,6 +167,18 @@ function lianxiCtrl($scope, $rootScope, $http) {
 	};
 	$scope.loadLianxiExistQuestion();
 	
+	//切换章节回调
+	$scope.$on('currentNode', function(d,data) {  
+        $scope.loadCeziList();//加载所有练习册
+        $scope.loadLianxiExistQuestion();//加载已挂载题目列表
+        $scope.lianxiQuestionList = [];
+    });
+    
+    //切换挂载题目标签回调
+	$scope.$on('lianxiLabelChange', function(d,data) {  
+        $scope.loadLianxiExistQuestion();//加载已挂载题目列表
+    });
+	
 	$scope.lianxiQuestionList = [];
 	//根据册子id加载册子中的题目，加载时，先判断有没有在已有题目中，再判断有没有在上面的册子中，都没有则保留
 	$scope.loadQuestionByCezi = function(id) {
