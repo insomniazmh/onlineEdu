@@ -112,9 +112,7 @@
 			        		}
 		        		});
 		        		$scope.answer = answerArr.join(",");
-		        	}
-		        	console.log($scope.answer);
-		        	
+		        	}		        	
 		        	common.ajax2({
 			        	$scope: $scope,
 						$http: $http,
@@ -127,7 +125,7 @@
 						},
 						url: '/interact/send/answer',
 						success: function(res) {
-							
+							alert("提交成功");
 						}
 			        });
 		        }
