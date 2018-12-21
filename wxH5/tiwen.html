@@ -82,6 +82,9 @@
 									questionArr: res.data.bigQuestion
 								});
 								$scope.question = res.data.bigQuestion;
+								if(res.data.participate == "raise") {
+									//不能答题，只显示一个举手按钮
+								}
 							}
 						}
 			        });

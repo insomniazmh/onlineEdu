@@ -16,7 +16,9 @@
 			<div class="add-portfolio">
 				<span>电子商务基础--电子商务内涵--课堂协助--课堂编号（0731）</span>
 				<button class="btn green" ng-click="goUrl()"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始上课</font></font></button>
-				<button class="btn green" id="pulsate-once" data-toggle="modal" href="#erweima"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">扫码进课堂</font></font></button>
+				<button class="btn green" id="pulsate-once" data-toggle="modal" href="#erweima" ng-click="createRoom()">
+					<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">扫码进课堂</font></font>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -597,22 +599,61 @@
 </div>
 
 <script>
-	function beginCtrl($scope, $rootScope) {
+	function beginCtrl($scope, $rootScope, $http) {
 		$scope.goUrl = function() {
 			window.open('singleLession.html');
 		}
+		$scope.circleId = "";
+		
+		//老师创建临时课堂，获取课堂id
+		$scope.createRoom = function() {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+				  "teacherId": localStorage.getItem('userid'),
+    			  "chapterId": localStorage.getItem('currentNodeId')
+				},
+				url: '/classRoom/create/reuse',
+				success: function(res) {
+					console.log(res);
+					$scope.circleId = res.data;
+					$scope.joinRoom("10001");
+					$scope.joinRoom("10002");
+					$scope.joinRoom("10003");
+					$scope.joinRoom("10004");
+				}
+	        });
+		};
+		
+		//学生加入课堂（模拟）
+		$scope.joinRoom = function(examineeId) {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+				  "examineeId": examineeId,
+    			  "circleId": $scope.circleId
+				},
+				url: '/classRoom/join/interactiveRoom',
+				success: function(res) {
+					console.log(res);
+					$scope.circleId = res.data;
+				}
+	        });
+		}
 		
 		$scope.students = [
-					{name: "张三" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "李四" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "王五" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "马六" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "赵琦" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "韩八" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "钱九" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"}
-				];
+			{name: "张三" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "李四" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "王五" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "马六" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "赵琦" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "韩八" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "钱九" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+			{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"}
+		];
 	}
 </script>
