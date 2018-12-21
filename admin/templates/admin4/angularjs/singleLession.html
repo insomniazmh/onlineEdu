@@ -443,6 +443,7 @@
 		        
 		        //发送问题
 		        $scope.sub = function() {
+		        	var timestamp=new Date().getTime()+"";
 		        	var selected = [];
 		        	$($scope.allStudents).each(function() {
 		        		if(this.select) {
@@ -458,7 +459,7 @@
 						data: {
 							"category": $scope.currentTiwenQues.category,
 							"circleId": "123",
-							"cut": 0,
+							"cut": timestamp,
 							"interactive": $scope.currentTiwenQues.chooseType,
 							"questionId": $scope.currentTiwenQues.id,
 							"selected": $scope.currentTiwenQues.selectStudents
@@ -484,6 +485,7 @@
 								}
 								$(res.data).each(function() {
 									if(that.id == this.askAnswer.questionId) {
+										
 										that.answers.push({
 											studentId: this.id,
 											answer: this.askAnswer.answer
@@ -498,11 +500,24 @@
 		        $interval($scope.receiveAnswer ,1000);
 		        
 		        $scope.showAnswer = function() {
+		        	var flag = 0;
+		        	if($scope.currentTiwenQues.examChildren[0].examType == "trueOrFalse") {
+						flag = 1;
+					}
 					//遍历题目中的answer列表，再遍历学生列表，将学生id与题目中答题学生id对应，显示学生的回答
 	        		$($scope.currentTiwenQues.answers).each(function() {
 	        			var that = this;
+	        			console.log(that);
+	        			if(flag == 1) {
+	        				if(that.answer == "true") {
+	        					that.answer = "对";
+	        				}else if(that.answer == "false") {
+	        					that.answer = "错";
+	        				}
+	        			}
 	        			$($scope.allStudents).each(function() {
 	        				if(that.studentId == this.id) {
+	        					
 	        					this.answer = that.answer;
 	        				}
 	        			});

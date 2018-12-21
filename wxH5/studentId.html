@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<link href="css/app.css" rel="stylesheet" type="text/css" />
+		<style>
+		</style>
+	</head>
+	<body>
+		<div style="text-align: center;">
+			<input type="text" id="studentId" value="" />
+		    <button class='com_btn mt_100 btn_state_on' style="margin: 0 auto;padding: 10px;" id="go">提交</button>			
+		</div>
+		
+		<script src="js/jquery.min.js" type="text/javascript"></script>
+		<script src="js/angularjs/angular.min.js" type="text/javascript"></script>
+		<script src="js/angularjs/angular-sanitize.min.js" type="text/javascript"></script>
+		<script src="js/commonJiaohu.js" type="text/javascript"></script>
+		<script>
+			$(function() {
+				$("#go").click(function() {
+					window.open("tiwen.html?studentId="+$("#studentId").val())
+//					window.location.href = "tiwen.html?studentId="+$("#studentId").val();
+				});
+			});
+		</script>
+	</body>
+</html>

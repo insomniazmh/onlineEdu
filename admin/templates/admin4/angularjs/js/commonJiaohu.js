@@ -27,13 +27,16 @@ var common = {
 			    data: settings.data,
 			}).then(function successCallback(response) {
 //					console.log("请求："+JSON.stringify(settings.data)+"返回"+JSON.stringify(response));
-					var data = response.data;
-			        if(data.ret == 0) {
-			        	
-						settings.success(response.data);
-			        }else {
-			        	
-			        }
+					if(response) {
+						var data = response.data;
+				        if(data.ret == 0) {
+							settings.success(response.data);
+				        }else {
+				        	if(response.ret == 2000) {
+				        		alert(response.msg);
+				        	}
+				        }
+					}
 			    }, function errorCallback(response) {
 			    	console.log("error");
 			    	settings.error(response);

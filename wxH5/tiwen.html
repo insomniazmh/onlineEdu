@@ -55,7 +55,16 @@
 			var app = angular.module('myApp', [
 			    "ngSanitize"
 			]);
-			app.controller('myCtrl', function($scope, $http, $interval) {
+			app.config([ '$locationProvider', function($locationProvider) { 
+				$locationProvider.html5Mode({ 
+				     //设置为html5Mode(模式)，当为false时为Hashbang模式 
+				enabled : true, 
+				     //是否需要加入base标签，这里设置为false，设置为true时，需在html的head配置<base href="" />标签 
+				requireBase : false
+				}); 
+			}]);
+			app.controller('myCtrl', function($scope, $http, $interval, $location) {
+				var studentId = $location.search().studentId;
 				//接收老师推送问题
 		        var random = Math.random().toString(36).substr(2);//生成随机数
 		        $scope.receiveQuestion = function() {
@@ -63,10 +72,11 @@
 		        		method: 'get',
 			        	$scope: $scope,
 						$http: $http,
-						url: '/interact/achieve/questions?examineeId=10001&circleId=123&random='+random,
+						url: '/interact/achieve/questions?examineeId='+studentId+'&circleId=123&random='+random,
 						success: function(res) {
-							console.log(res);
 							if(res) {
+								$scope.answer = "";
+								$scope.cut = res.data.cut;
 								$scope.questionType = res.data.bigQuestion.examChildren[0].examType;
 								res.data.bigQuestion = common.addTitleForQuestion({
 									questionArr: res.data.bigQuestion
@@ -119,8 +129,8 @@
 						data: {
 						  "answer": $scope.answer,
 						  "circleId": "123",
-						  "cut": "0",
-						  "examineeId": "10001",
+						  "cut": $scope.cut,
+						  "examineeId": studentId,
 						  "questionId": $scope.question.id
 						},
 						url: '/interact/send/answer',
