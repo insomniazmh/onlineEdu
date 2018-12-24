@@ -1,0 +1,315 @@
+<style>
+	.badge {
+		padding: 6px 9px;
+		height: 24px;
+		margin: 3px;
+	}
+	.search {
+		display: inline-block !important;
+		margin-right: 20px;
+		width: auto !important;
+	}
+	.htmlWrapper p {
+		display: inline;
+	}
+</style>
+<!--创建提问-->
+<div class="modal fade" id="exercisesBookEditModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookEditCtrl">
+	<div class="modal-dialog modal-full">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">创建册子</h4>
+			</div>
+			<div class="modal-body">
+				<div class="portlet">
+					<div class="portlet-body">
+						<div role="form">
+							<div class="form-body">
+								<div class="row" style="margin-bottom: 40px;">
+									<div class="col-md-4">
+										<div class="form-group form-md-line-input">
+											<input type="text" class="form-control" ng-model="list.exeBookName" placeholder="册子名称" />
+											<label for="form_control_1">名称</label>
+											<span class="help-block">名称不得超过50个字符</span>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group form-md-radios">
+											<label>难易程度</label>
+											<div class="md-radio-inline">
+												<div class="md-radio">
+													<input type="radio" id="cezilevel1" name="cezilevel" class="md-radiobtn" value="1" checked="">
+													<label for="cezilevel1">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													简单 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="cezilevel2" name="cezilevel" class="md-radiobtn" value="2">
+													<label for="cezilevel2">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													中等 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="cezilevel3" name="cezilevel" class="md-radiobtn" value="3">
+													<label for="cezilevel3">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													困难 </label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group form-md-radios">
+											<label>册子类型</label>
+											<div class="md-radio-inline">
+												<div class="md-radio">
+													<input type="radio" id="exeBookTypeEdit1" name="exeBookTypeEdit" class="md-radiobtn" value="1" checked="">
+													<label for="exeBookTypeEdit1">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													提问册 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="exeBookTypeEdit2" name="exeBookTypeEdit" class="md-radiobtn" value="2">
+													<label for="exeBookTypeEdit2">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													课堂练习册 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="exeBookTypeEdit3" name="exeBookTypeEdit" class="md-radiobtn" value="3">
+													<label for="exeBookTypeEdit3">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													课后作业册 </label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal-header row">
+									<h4 class="modal-title">题库选题</h4>
+								</div>
+								<div class="row" style="margin-bottom: 40px;">
+									<div class="col-md-12">
+										<p class="text-primary" style="font-size: 15px;float: right;">
+											温馨提示： 题目来源于 资料库管理—>知识点题库
+											<i class="glyphicon glyphicon-hand-down" style="font-size: 17px;"></i>
+										</p>
+									</div>
+									<div class="col-md-6" style="height: 400px;">
+										<div>
+											<!--<p class="search">题号(<span style="color: red;">红色为已选择</span>)</p>-->
+											<select class="form-control search">
+												<option>请选择知识点</option>
+												<option>电子商务的概念</option>
+												<option>电子商务的含义</option>
+											</select>
+											<select class="form-control search">
+												<option>请选择难易程度</option>
+												<option>简单</option>
+												<option>中等</option>
+												<option>困难</option>
+											</select>
+											<select class="form-control search">
+												<option>请选择题目类型</option>
+												<option>单选</option>
+												<option>多选</option>
+												<option>判断</option>
+												<option>主观</option>
+												<option>大题</option>
+											</select>
+											<button class="btn btn-primary">确定</button>
+										</div>
+										<span class="badge {{row.select ? 'badge-danger' : 'badge-success'}}" ng-repeat="row in questionList"> {{$index+1}} </span>
+									</div>
+									<div class="col-md-6">
+										<div class="portlet light">
+											<div class="portlet-title tabbable-line">
+												<ul class="nav nav-tabs" style="float: left;">
+													<li class="active">
+														<a data-target="#tab_2_1" data-toggle="tab">
+															未选题目 </a>
+													</li>
+													<li>
+														<a data-target="#tab_2_2" data-toggle="tab">
+															已选题目 </a>
+													</li>
+												</ul>
+											</div>
+											<div class="portlet-body">
+												<div class="tab-content">
+													<div class="tab-pane active" id="tab_2_1">
+														<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+															<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList" ng-if="!row.already">
+																<div class="md-checkbox" style="display: inline-block;">
+																	<input type="checkbox" id="checkboxEdit{{$index}}" class="md-check" ng-model="row.select">
+																	<label for="checkboxEdit{{$index}}">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	</label>
+																</div>
+																<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.
+																	<span class="htmlWrapper" ng-bind-html="row.title"></span>
+																</span>
+															</div>
+															<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
+														</div>
+													</div>
+													<div class="tab-pane" id="tab_2_2">
+														<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+															<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList" ng-if="row.already">
+																<div class="md-checkbox" style="display: inline-block;">
+																	<input type="checkbox" id="checkboxAlready{{$index}}" class="md-check" ng-model="row.select">
+																	<label for="checkboxAlready{{$index}}">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	</label>
+																</div>
+																<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.
+																	<span class="htmlWrapper" ng-bind-html="row.title"></span>
+																</span>
+															</div>
+															<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="form-actions noborder" style="text-align: center;margin-bottom: 10px;">
+					<button type="button" class="btn blue" ng-click="sub()">提交</button>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<script>
+	function exercisesBookEditCtrl($scope, $http, $rootScope) {
+		$scope.list = {};//册子
+    	//根据练习册id加载详细信息
+    	 $scope.loadData = function(id) {
+    	 	console.log($rootScope.currentNodeId);
+    		var data = {
+			  "allOrPart": "all",
+			  "chapterId": $rootScope.currentNodeId,
+//			  "knowledgeId": 0,
+//			  "levelId": 0,
+			  "operatorId": localStorage.getItem('userid'),
+			  "page": 0,
+			  "problemSetId": id,
+//			  "questionType": "single",
+			  "size": 200,
+			  "sort": 1,
+			  "sorting": "uTime"
+			};
+	    	
+    		common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				url: '/question/findAll/problemSet',
+				data: data,
+				success: function(res) {
+					var data = res.data.bigQuestionList;
+					$(data).each(function() {
+						if(this.examChildren[0].examType == "single") {
+							this.title = this.examChildren[0].choiceQstTxt+"（单选）";
+						}else if(this.examChildren[0].examType == "multiple") {
+							this.title = this.examChildren[0].choiceQstTxt+"（多选）";
+						}else if(this.examChildren[0].examType == "trueOrFalse") {
+							this.title = this.examChildren[0].trueOrFalseInfo+"（判断）";
+						}else if(this.examChildren[0].examType == "design") {
+							this.title = this.examChildren[0].designQuestion+"（主观）";
+						};
+						if(res.data.intersection.indexOf(this.id) >= 0) {
+							this.already = true;
+							this.select = true;
+						}
+					});
+					$scope.questionList = data;
+					$scope.list = {
+						id: res.data.problemSet.id,
+						exeBookName: res.data.problemSet.exeBookName,
+					};
+					$("input[name='exeBookTypeEdit'][value='"+res.data.problemSet.exeBookType+"']").prop("checked","checked");//初始化册子类型
+					$("input[name='cezilevel'][value='"+res.data.problemSet.levelId+"']").prop("checked","checked");//初始化难易程度
+				}
+	        });
+    	};
+    	
+    	//接收题册id回调
+		$scope.$on('editExercisesBookId', function(d,data) { 
+	        $scope.loadData(data);
+	    });
+    	
+		$scope.selected = {
+			name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
+			options: [
+				{option: "A", value: "第一题答案a"},
+				{option: "B", value: "第一题答案b"},
+				{option: "C", value: "第一题答案c", right: true},
+				{option: "D", value: "第一题答案d"}
+			]
+		};
+		
+//		$scope.select = function(row) {
+//			if(row.select) {
+//				row.class = 'badge-danger';
+//			}else {
+//				row.class = 'badge-success';
+//			}
+//		}
+		
+		//提交
+		$scope.sub = function() {
+			$scope.list.exeBookType = $("input[name='exeBookTypeEdit']:checked").val();//册子类型
+			$scope.list.levelId = $("input[name='cezilevel']:checked").val();//难以程度
+			$scope.list.chapterId = $rootScope.currentNodeId;//章节id
+			$scope.list.teacherId = localStorage.getItem("userid");
+			$scope.list.questionIds = [];
+			var i = 0;
+			$($scope.questionList).each(function() {
+				if(this.select) {
+					$scope.list.questionIds.push({
+						bigQuestionId: this.id,
+						index: i
+					});
+					i++;
+				}
+			});
+			
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/exerciseBook/build',
+				data: $scope.list,
+				success: function(res) {
+					$("#exercisesBookEditModal").modal("hide");
+					$scope.$emit('exercisesBookChange', $("input[name='exeBookTypeEdit']:checked").val());
+				}
+	        });
+		}
+	}
+</script>

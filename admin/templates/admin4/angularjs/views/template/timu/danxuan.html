@@ -81,11 +81,11 @@
 					</div>
 				</div>
 				<div class="col-md-1" style="height: 54px;">
-					<span style="position: absolute;bottom: 7px;">{{row.name}}.</span>
+					<span style="position: absolute;bottom: 7px;">{{row.optValue}}.</span>
 				</div>
 				<div class="col-md-8">
 					<div class="form-group form-md-line-input">
-						<div class="danxuan_summernote" id="danxuan_option{{row.count}}"></div>
+						<div class="danxuan_summernote" id="danxuan_option{{row.count}}" name="danxuan_option"></div>
 					</div>
 				</div>
 				<div class="col-md-2">
@@ -104,31 +104,6 @@
 
 <script>
 	function danxuanCtrl($scope, $http, $timeout) {
-		//切换章节回调
-		$scope.$on('currentNode', function(d,data) { 
-	        $scope.currentNode = data;
-	        
-	        //获取所有知识点
-	        common.ajax({
-				$scope: $scope,
-				$http: $http,
-				url: '/kNode/findAllPage',
-				data: {
-			    	'chapterId': $scope.currentNode.id,
-			    	"courseId": localStorage.getItem('courseId'),
-			    	"sortVo": {
-					    "page": 0,
-					    "size": 200,
-					    "sort": 1,
-					    "sorting": "cTime"
-					}
-			    },
-			    success: function(data) {
-			    	$scope.kNodes = data.data.content;
-			    }
-			});
-	    });
-	    
 		var count = 4;
 		$scope.single = {
 			right: "",
@@ -213,7 +188,7 @@
 			var opts = [];
 			$($scope.single.options).each(function(i) {
 				opts.push({
-					"optTxt": $('#danxuan_option'+i).code(),
+					"optTxt": $('[name=danxuan_option]').eq(i).code(),
                     "optValue": this.optValue
 				});
 			});
@@ -227,7 +202,7 @@
 				"teacherId": localStorage.getItem("userid"),
 				"levelId":$("input[name='danxuanlevel']:checked").val(),
 				"knowledgeId": $scope.knowledgeId,
-				"chapter": $scope.currentNode.id,
+				"chapterId": localStorage.getItem("currentNodeId"),
 			    "examChildren": [
 			        {
 			            "examType":"choice",

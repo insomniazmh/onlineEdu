@@ -50,7 +50,6 @@
 		
 		//根据课程id查询章节树
 		$scope.loadChapter = function() {
-			
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -63,15 +62,24 @@
 			    	$(data.data).each(function() {
 			    		if(this.state.selected) {
 			    			$scope.currentNode  = this;
-			    			$rootScope.$emit('currentNode', $scope.currentNode);
+//			    			$rootScope.$emit('currentNode', $scope.currentNode);
+			    			$rootScope.currentNodeId = this.id;
+							$rootScope.currentNode = this;
+							localStorage.setItem('currentNodeId', this.id);
 			    		}
 			    	});
+			    	
+			    	if(!$rootScope.course) {
+			    		$rootScope.course = {
+			    			courseName: "#"
+			    		}
+			    	};
 			    	
 			    	//加入树根节点
 			    	data.data.unshift({
 			    		'id': '0',
 			    		"parent" : "#",
-						'text': '电子商务基础',
+						'text': $rootScope.course.courseName,
 						'state': {
 							'opened': true
 						}

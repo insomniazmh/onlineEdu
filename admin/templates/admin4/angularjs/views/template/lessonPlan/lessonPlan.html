@@ -25,31 +25,31 @@
 						</div>
 						<ul class="nav nav-tabs">
 							<li class="active">
-								<a data-target="#tab_4_1" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_1" data-toggle="tab">
 									资料 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_2" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
 									提问 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_3" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_3" data-toggle="tab">
 									练习 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_4" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_4" data-toggle="tab">
 									作业 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_5" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_5" data-toggle="tab">
 									任务 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_6" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_6" data-toggle="tab">
 									问卷 </a>
 							</li>
 							<li>
-								<a data-target="#tab_4_6" data-toggle="tab">
+								<a data-target="#tab_lessonPlan_6" data-toggle="tab">
 									风暴 </a>
 							</li>
 
@@ -58,7 +58,7 @@
 					<div class="portlet-body">
 						<div class="tab-content">
 							<!-- 描述：资料  -->
-							<div class="tab-pane active" id="tab_4_1">
+							<div class="tab-pane active" id="tab_lessonPlan_1">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="portlet box grey-cascade">
@@ -144,120 +144,21 @@
 								</div>
 							</div>
 							<!-- 描述：提问  -->
-							<div class="tab-pane" id="tab_4_2">
-								<div class="row">
-									<div class="col-md-6" style="text-align: center;">
-										<ul class="feeds" style="margin-bottom: 30px;">
-											<li ng-repeat="row in tiwenceList">
-												<div class="col1">
-													<div class="cont">
-														<div class="cont-col1">
-															<div class="md-checkbox">
-																<input type="checkbox" id="tiwence{{$index}}" class="md-check" name="tiwence">
-																<label for="tiwence{{$index}}">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																</label>
-															</div>
-														</div>
-														<div class="cont-col2">
-															<div class="desc">
-																{{row.name}}
-															</div>
-														</div>
-													</div>
-												</div>
-											</li>
-										</ul>
-										
-										<div style="text-align: left;margin-bottom: 10px;">
-											<!--<p class="search">题号(<span style="color: red;">红色为已选择</span>)</p>-->
-											<select class="form-control search">
-												<option>知识点</option>
-												<option>电子商务的概念</option>
-												<option>电子商务的含义</option>
-											</select>
-											<select class="form-control search">
-												<option>难易度</option>
-												<option>简单</option>
-												<option>中等</option>
-												<option>困难</option>
-											</select>
-											<select class="form-control search" style="margin-right: 10px;">
-												<option>类型</option>
-												<option>单选</option>
-												<option>多选</option>
-												<option>判断</option>
-												<option>主观</option>
-												<option>大题</option>
-											</select>
-											<button class="btn btn-primary btn-circle btn-sm">搜索</button>
-											<!--<i class="fa fa-search" style="font-size: 18px; color: #1b746c;cursor: pointer;"></i>-->
-										</div>
-										<div style="text-align: left;">
-											<span class="badge {{row.class ? row.class : 'badge-success'}}" ng-repeat="row in tiwenQuestionList"> {{$index+1}} </span>
-										</div>
-										
-									</div>
-									<div class="col-md-6" style="border-left: 1px solid #45B6AF;">
-										<div class="portlet light">
-											<div class="portlet-title tabbable-line">
-												<div class="actions">
-													<button class="btn btn-circle green btn-sm" data-toggle="modal" href="#addQuestion">
-													<i class="fa fa-plus"></i> 创建题目 </button>
-												</div>
-												<ul class="nav nav-tabs" style="float: left;">
-													<li class="active">
-														<a data-target="#tab_5_1" data-toggle="tab">
-															未选题目 </a>
-													</li>
-													<li>
-														<a data-target="#tab_5_2" data-toggle="tab">
-															已选题目 </a>
-													</li>
-												</ul>
-											</div>
-											<div class="portlet-body">
-												<div class="tab-content">
-													<div class="tab-pane active" id="tab_5_1">
-														<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-															<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in tiwenQuestionList">
-																<div class="md-checkbox" style="display: inline-block;">
-																	<input type="checkbox" id="checkbox{{$index}}" class="md-check" ng-change="select(row)" ng-model="row.select">
-																	<label for="checkbox{{$index}}">
-																	<span></span>
-																	<span class="check"></span>
-																	<span class="box"></span>
-																	</label>
-																</div>
-																<span style="display: inline-block;width: 89%;cursor: pointer;">{{$index+1}}.{{row.name}} </span>
-															</div>
-															<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
-														</div>
-													</div>
-													<div class="tab-pane" id="tab_5_2">
-								
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+							<div class="tab-pane" id="tab_lessonPlan_2">
+								<div data-ng-include="'views/template/lessonPlan/tiwen.html'"></div>
 							</div>
-							<div class="tab-pane" id="tab_4_3">
-
+							<div class="tab-pane" id="tab_lessonPlan_3">
+								<div data-ng-include="'views/template/lessonPlan/lianxi.html'"></div>
 							</div>
-							<div class="tab-pane" id="tab_4_4"></div>
-							<div class="tab-pane" id="tab_4_5"></div>
-							<div class="tab-pane" id="tab_4_6"></div>
+							<div class="tab-pane" id="tab_lessonPlan_4">
+								<div data-ng-include="'views/template/lessonPlan/zuoye.html'"></div>
+							</div>
+							<div class="tab-pane" id="tab_lessonPlan_5"></div>
+							<div class="tab-pane" id="tab_lessonPlan_6"></div>
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn blue">确定</button>
-				</div>
+				
 			</div>
 			<!-- /.modal-content -->
 		</div>
@@ -270,7 +171,7 @@
 </div>
 
 <script>
-	function lessonPlanCtrl($scope) {
+	function lessonPlanCtrl($scope, $rootScope, $http) {
 		$scope.docList = [
 			{id: "1", name: "电子商务基础教学大纲.doc"},
 			{id: "2", name: "电子商务基础教案.doc"},
@@ -295,125 +196,7 @@
 			}
 		}
 		
-		$scope.tiwenceList = [
-			{name: "电子商务基础-问答册1"},
-			{name: "电子商务基础-问答册2"},
-			{name: "电子商务基础-问答册3"},
-			{name: "电子商务基础-问答册4"},
-			{name: "电子商务基础-问答册5"},
-			{name: "电子商务基础-问答册6"}
-		];
 		
-		$scope.tiwenQuestionList = [
-			{
-				id: "1",
-				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
-				options: [
-					{option: "A", value: "第一题答案a"},
-					{option: "B", value: "第一题答案b"},
-					{option: "C", value: "第一题答案c", right: true},
-					{option: "D", value: "第一题答案d"}
-				]
-			}, {
-				name: "Intranet和Internet的区别是 (  )",
-				options: [
-					{option: "A", value: "第二题答案a", right: true},
-					{option: "B", value: "第二题答案b"},
-					{option: "C", value: "第二题答案c"},
-					{option: "D", value: "第二题答案d"}
-				]
-			}, {
-				name: "电子数据交换的简称是 (  )",
-				options: [
-					{option: "A", value: "第三题答案a"},
-					{option: "B", value: "第三题答案b", right: true},
-					{option: "C", value: "第三题答案c"},
-					{option: "D", value: "第三题答案d"}
-				]
-			},
-			{
-				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
-				options: [
-					{option: "A", value: "第一题答案a"},
-					{option: "B", value: "第一题答案b"},
-					{option: "C", value: "第一题答案c", right: true},
-					{option: "D", value: "第一题答案d"}
-				]
-			}, {
-				name: "Intranet和Internet的区别是 (  )",
-				options: [
-					{option: "A", value: "第二题答案a", right: true},
-					{option: "B", value: "第二题答案b"},
-					{option: "C", value: "第二题答案c"},
-					{option: "D", value: "第二题答案d"}
-				]
-			}, {
-				name: "电子数据交换的简称是 (  )",
-				options: [
-					{option: "A", value: "第三题答案a"},
-					{option: "B", value: "第三题答案b", right: true},
-					{option: "C", value: "第三题答案c"},
-					{option: "D", value: "第三题答案d"}
-				]
-			},
-			{
-				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
-				options: [
-					{option: "A", value: "第一题答案a"},
-					{option: "B", value: "第一题答案b"},
-					{option: "C", value: "第一题答案c", right: true},
-					{option: "D", value: "第一题答案d"}
-				]
-			}, {
-				name: "Intranet和Internet的区别是 (  )",
-				options: [
-					{option: "A", value: "第二题答案a", right: true},
-					{option: "B", value: "第二题答案b"},
-					{option: "C", value: "第二题答案c"},
-					{option: "D", value: "第二题答案d"}
-				]
-			}, {
-				name: "电子数据交换的简称是 (  )",
-				options: [
-					{option: "A", value: "第三题答案a"},
-					{option: "B", value: "第三题答案b", right: true},
-					{option: "C", value: "第三题答案c"},
-					{option: "D", value: "第三题答案d"}
-				]
-			},
-			{
-				name: "商家要开展电子商务活动 , 应该用（   ）作为其主要的生意平台。",
-				options: [
-					{option: "A", value: "第一题答案a"},
-					{option: "B", value: "第一题答案b"},
-					{option: "C", value: "第一题答案c", right: true},
-					{option: "D", value: "第一题答案d"}
-				]
-			}, {
-				name: "Intranet和Internet的区别是 (  )",
-				options: [
-					{option: "A", value: "第二题答案a", right: true},
-					{option: "B", value: "第二题答案b"},
-					{option: "C", value: "第二题答案c"},
-					{option: "D", value: "第二题答案d"}
-				]
-			}, {
-				name: "电子数据交换的简称是 (  )",
-				options: [
-					{option: "A", value: "第三题答案a"},
-					{option: "B", value: "第三题答案b", right: true},
-					{option: "C", value: "第三题答案c"},
-					{option: "D", value: "第三题答案d"}
-				]
-			},
-		];
 		
-		$scope.select = function(row) {
-			if(row.select) {
-				row.class = 'badge-danger';
-			}else {
-				row.class = 'badge-success';
-			}
-		}
 	}
 </script>

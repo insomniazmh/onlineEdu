@@ -27,12 +27,11 @@
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-6">
 				<div class="form-group form-md-line-input has-info">
-					<select class="form-control" id="form_control_1">
+					<select class="form-control" ng-model="knowledgeId">
 						<option value="">请选择</option>
-						<option value="">电子商务的定义</option>
-						<option value="">电子商务的概念</option>
+						<option ng-repeat="row in kNodes" value="{{row.knodeId}}">{{row.nodeName}}</option>
 					</select>
-					<label for="form_control_1">知识点</label>
+					<label for="">知识点</label>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -75,14 +74,7 @@
 </div>
 
 <script>
-	function zhuguanCtrl($scope, $http) {
-		var courseId = localStorage.getItem('courseId');
-		
-		//获取当前选中章节
-		$scope.$on('currentNode', function(d,data) {  
-	        $scope.currentNode = data;
-	   });
-		
+	function zhuguanCtrl($scope, $http) {		
 		$('#zhuguan_title').summernote({
 			height: 100
 		});
@@ -101,8 +93,8 @@
 				"relate":0,
 				"teacherId": localStorage.getItem("userid"),
 				"levelId":$("input[name='zhuguanlevel']:checked").val(),
-				"knowledgeId":kPointId,
-				"chapter": $scope.currentNode.id,
+				"knowledgeId":$scope.knowledgeId,
+				"chapterId": localStorage.getItem("currentNodeId"),
 			    "examChildren": [
 			        {
 			            "relate": "1",
@@ -125,8 +117,7 @@
 				data: obj,
 				success: function(res) {
 					console.log(res);
-//					$scope.$emit('addQuestion', res.data.examChildren[0]);
-					$scope.$emit('addQuestion', true);
+					$scope.$emit('addQuestion', "design");
 					$("#addQuestion").modal("hide");
 				}
 	        });

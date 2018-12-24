@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">					
-					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
+					<label style="font-size: 13px; color: #888888;">题干</label>
 					<div id="panduan_title"></div>
 				</div>
 			</div>
@@ -44,12 +44,11 @@
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-6">
 				<div class="form-group form-md-line-input has-info">
-					<select class="form-control" id="form_control_1">
+					<select class="form-control" ng-model="knowledgeId">
 						<option value="">请选择</option>
-						<option value="">电子商务的定义</option>
-						<option value="">电子商务的概念</option>
+						<option ng-repeat="row in kNodes" value="{{row.knodeId}}">{{row.nodeName}}</option>
 					</select>
-					<label for="form_control_1">知识点</label>
+					<label for="">知识点</label>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -92,12 +91,7 @@
 </div>
 
 <script>
-	function panduanCtrl($scope, $timeout) {
-		var count = 5;
-		$scope.panduan = {
-			
-		};
-		
+	function panduanCtrl($scope, $http, $timeout) {	    
 		$('#panduan_title').summernote({
 			height: 100
 		});
@@ -105,8 +99,42 @@
 			height: 100
 		});
 		
+		
+		
 		$scope.sub = function() {
-			var aaa = $('#panduan_title').code();
+			var obj = {
+				relate: 0,
+				teacherId: localStorage.getItem("userid"),
+				chapter: localStorage.getItem("currentNodeId"),
+				levelId: $("input[name='panduanlevel']:checked").val(),
+				knowledgeId: $scope.knowledgeId,
+				examChildren: [{
+					score: 1,
+					examType: "trueOrFalse",
+					teacherId: localStorage.getItem("userid"),
+					trueOrFalseInfo: $('#panduan_title').code(),
+					trueOrFalseAnalysis: $('#panduan_jiexi').code()
+				}]
+			};
+			
+			if($("input[name='panduananswer']:checked").val() == 1) {
+				obj.examChildren[0].trueOrFalseAnsw = true;
+			}else {
+				obj.examChildren[0].trueOrFalseAnsw = false;
+			}
+			
+			//添加题目(判断)
+	        common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/question/trueOrFalse/edit',
+				data: obj,
+				success: function(res) {
+					$scope.$emit('addQuestion', "trueOrFalse");
+					$("#addQuestion").modal("hide");
+				}
+	        });
 			
 		}
 		

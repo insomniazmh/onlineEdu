@@ -115,7 +115,7 @@
 </div>
 
 <script>
-	function basicCtrl($scope, $http, $location) {
+	function basicCtrl($scope, $http, $location, $rootScope) {
 		var courseId = localStorage.getItem('courseId');
 		var path = $location.path();
 		if(path.indexOf("courseAdd") != -1) {
@@ -181,6 +181,8 @@
 				    success: function(data) {
 				    	if(data.ret == 0) {
 				    		$rootScope.$emit("course", data.data);
+				    		localStorage.setItem('currentNodeId', "0");
+				    		$rootScope.currentNodeId = "0";
 				    		var flag = confirm("提交成功，即将转到教辅资料库添加资料");
 			    			window.location.href = "#/assistant.html";
 				    	}

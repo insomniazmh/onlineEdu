@@ -44,7 +44,7 @@
 		$scope.loadKNode = function() {
 			$scope.kNodes = [{
 				nodeName: "章节",
-				knodeId: "0",
+				knodeId: "",
 				kNodeType: "1",
 				selected: true
 			}, {
@@ -69,6 +69,7 @@
 			    success: function(data) {
 			    	$scope.kNodes = $scope.kNodes.concat(data.data.content);
 					$rootScope.$emit('kPointNode', {});
+					$rootScope.kNodes = $scope.kNodes;
 			    }
 			});
 		};
