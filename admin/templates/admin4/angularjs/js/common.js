@@ -223,7 +223,6 @@ var common = {
 	
 	//网络请求--真铭接口
 	ajax2: function(settings) {
-		console.log(settings);
 		var defaults = {
 			method: 'post',
 			operate: false,
