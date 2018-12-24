@@ -211,7 +211,7 @@
 						<div style="height: 140px; display: none;" id="studentsWrapper">
 							<div style="width:80px;float:left;" ng-repeat="row in allStudents" ng-show="row.show">
 								<div class="uppercase profile-userpic {{row.select ? 'active' : ''}}" ng-click="selectStudent(row)">
-									<img src="{{row.image}}" class="img-responsive" alt="学生头像">
+									<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">
 								</div>
 								<div class="uppercase profile-stat-text">{{row.name}}</div>
 								<div class="uppercase profile-stat-text answer" style="color: orangered;" ng-bind-html="row.answer"></div>
@@ -346,30 +346,23 @@
 			]);
 			app.controller('myCtrl', function($scope, $http, $interval) {
 				var raiseFlag;//举手定时器
-				$scope.currentTiwenQues = {};//当前选中的提问问题
-				//所有扫码进入的学生
-				$scope.allStudents = [{
-					id: "10001",
-					name: "张三",
-					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-				}, {
-					id: "10002",
-					name: "李四",
-					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-				}, {
-					id: "10003",
-					name: "王五",
-					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-				}, {
-					id: "10004",
-					name: "马六",
-					image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-				}];
+				$scope.currentTiwenQues = {};//当前选中的提问问题				
 				
-				//将所有学生都隐藏
-	        	$($scope.allStudents).each(function() {
-	        		this.show = true;
-	        	});
+				//加载所有扫码进入的学生
+				common.ajax2({
+		        	$scope: $scope,
+					$http: $http,
+					data: {
+						"circleId": localStorage.getItem('circleId')
+					},
+					url: '/classRoom/find/interactiveStudents',
+					success: function(res) {
+						$(res.data).each(function() {
+							this.show = true;
+						});
+						$scope.allStudents = res.data;
+					}
+		        });
 				
 				//加载所有的提问题目
 				common.ajax2({
@@ -473,7 +466,7 @@
 						url: '/interact/send/question',
 						data: {
 							"category": $scope.currentTiwenQues.category,
-							"circleId": "123",
+							"circleId": localStorage.getItem("circleId"),
 							"cut": timestamp,
 							"interactive": $scope.currentTiwenQues.chooseType,
 							"questionId": $scope.currentTiwenQues.id,
@@ -496,7 +489,7 @@
 						url: '/interact/send/question',
 						data: {
 							"category": $scope.currentTiwenQues.category,
-							"circleId": "123",
+							"circleId": localStorage.getItem("circleId"),
 							"cut": timestamp,
 							"interactive": $scope.currentTiwenQues.chooseType,
 							"questionId": $scope.currentTiwenQues.id,
@@ -520,7 +513,7 @@
 		        		method: 'get',
 			        	$scope: $scope,
 						$http: $http,
-						url: '/interact/achieve/answer?teacher='+localStorage.getItem('userid')+'&circleId=123&random='+random,
+						url: '/interact/achieve/answer?teacher='+localStorage.getItem('userid')+'&circleId='+localStorage.getItem("circleId")+'&random='+random,
 						success: function(res) {
 							console.log(res);
 							//将学生的回答情况暂存至相对应的题目中
@@ -549,7 +542,7 @@
 		        		method: 'get',
 			        	$scope: $scope,
 						$http: $http,
-						url: '/interact/achieve/raise?teacher='+localStorage.getItem('userid')+'&circleId=123&random='+random,
+						url: '/interact/achieve/raise?teacher='+localStorage.getItem('userid')+'&circleId='+localStorage.getItem("circleId")+'&random='+random,
 						success: function(res) {
 							console.log(res);
 							//接收全量的已举手学生，将学生显示出来供老师选择
@@ -619,11 +612,6 @@
 			function closeQuestion() {
 				$("#question").hide("slow");
 			}
-			
-			
-
-
-			
 		</script>
 	</body>
 

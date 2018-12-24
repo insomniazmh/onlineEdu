@@ -616,8 +616,8 @@
 				},
 				url: '/classRoom/create/reuse',
 				success: function(res) {
-					console.log(res);
 					$scope.circleId = res.data;
+					localStorage.setItem("circleId", $scope.circleId);
 					$scope.joinRoom("10001");
 					$scope.joinRoom("10002");
 					$scope.joinRoom("10003");

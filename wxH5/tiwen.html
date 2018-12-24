@@ -72,7 +72,7 @@
 		        		method: 'get',
 			        	$scope: $scope,
 						$http: $http,
-						url: '/interact/achieve/questions?examineeId='+studentId+'&circleId=123&random='+random,
+						url: '/interact/achieve/questions?examineeId='+studentId+'&circleId='+localStorage.getItem("circleId")+'&random='+random,
 						success: function(res) {
 							if(res) {
 								$scope.answer = "";
@@ -131,7 +131,7 @@
 						$http: $http,
 						data: {
 						  "answer": $scope.answer,
-						  "circleId": "123",
+						  "circleId": localStorage.getItem("circleId"),
 						  "cut": $scope.cut,
 						  "examineeId": studentId,
 						  "questionId": $scope.question.id
