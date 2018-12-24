@@ -41,7 +41,7 @@
 					<span class="caption-subject bold uppercase" id="title">题库{{currKP}}</span>
 				</div>
 				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#addQuestion">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
 							<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
@@ -304,7 +304,7 @@
 	    $scope.loadQuestions = function(type) {
 	    	var data = {
 	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
-				"chapterId": $scope.currentNode.id,//章节id
+				"chapterId": localStorage.getItem('currentNodeId'),//章节id
 				"operatorId": localStorage.getItem("userid"),//当前用户id
 				"questionType": type,//题目类型 single multiple trueOrFalse design bigQuestion
 				"page": 0,
@@ -373,6 +373,14 @@
 						console.log(res);
 					}
 		        });
+	    	}
+	    }
+	    
+	    //打开题目添加框
+	    $scope.openQuestionModel = function() {
+	    	var flag = confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建题目吗");
+	    	if(flag) {
+	    		$("#addQuestion").modal("show");
 	    	}
 	    }
 	}

@@ -400,11 +400,25 @@
 		        			this.select = false;
 		        		});
 		        		//如果该题目已有回答，将该题目置为选中状态
-		        		if($scope.currentTiwenQues.answers.length > 0) {
+		        		if($scope.currentTiwenQues.answers && $scope.currentTiwenQues.answers.length > 0) {
 		        			$scope.currentTiwenQues.select = true;
+		        			$scope.showAnswer();//显示回答
+		        		}else {
+		        			//将所有学生隐藏
+		        			$($scope.allStudents).each(function() {
+				        		this.show = false;
+				        	});
 		        		}
-		        		//显示回答
-		        		$scope.showAnswer();
+		        		
+		        		//清除举手信息
+						common.ajax2({
+				        	$scope: $scope,
+							$http: $http,
+							data: {
+								"circleId": localStorage.getItem("circleId")
+							},
+							url: '/interact/launch/raise'
+				        });
 		        	}
 		        };
 		        
@@ -473,6 +487,7 @@
 							"selected": $scope.currentTiwenQues.selectStudents
 						},
 						success: function() {
+							console.log(1234555);
 							//取消接收学生举手定时任务
 							$interval.cancel(raiseFlag);
 						}
@@ -515,7 +530,6 @@
 						$http: $http,
 						url: '/interact/achieve/answer?teacher='+localStorage.getItem('userid')+'&circleId='+localStorage.getItem("circleId")+'&random='+random,
 						success: function(res) {
-							console.log(res);
 							//将学生的回答情况暂存至相对应的题目中
 							$($scope.tiwenQuestionList).each(function() {
 								var that = this;
@@ -546,6 +560,14 @@
 						success: function(res) {
 							console.log(res);
 							//接收全量的已举手学生，将学生显示出来供老师选择
+							$($scope.allStudents).each(function() {
+				        		var that = this;
+				        		$(res.data).each(function() {
+				        			if(this.id == that.id) {
+				        				that.show = true;
+				        			}
+				        		});
+				        	});
 						}
 			        });
 		        }
@@ -556,10 +578,11 @@
 		        	if($scope.currentTiwenQues.examChildren[0].examType == "trueOrFalse") {
 						flag = 1;
 					}
+					
+					$scope.removeAllAnswer();
 					//遍历题目中的answer列表，再遍历学生列表，将学生id与题目中答题学生id对应，显示学生的回答
-	        		$($scope.currentTiwenQues.answers).each(function() {
+					$($scope.currentTiwenQues.answers).each(function() {
 	        			var that = this;
-	        			console.log(that);
 	        			if(flag == 1) {
 	        				if(that.answer == "true") {
 	        					that.answer = "对";
@@ -573,16 +596,19 @@
 	        				}
 	        			});
 	        		});
+	        		
 				};
 				
-				//清除学生的答案和选中状态
+				//清除学生的答案和选中状态,并将所有学生都显示
 		        $scope.removeAllAnswer = function() {
 		        	$($scope.allStudents).each(function() {
 		        		this.select = false;
-		        		this.answer = false
+		        		this.answer = "";
+		        		this.show = true;
 		        	});
 		        };
 			});
+			
 			
 			
 			

@@ -42,7 +42,8 @@
 			  </div>
 		    </div>
 		    
-		    <button class='com_btn mt_100 btn_state_on' style="margin: 0 auto;padding: 10px;" ng-click="sub()">提交</button>
+		    <button ng-if="flag" class='com_btn mt_100 btn_state_on' style="margin: 0 auto;padding: 10px;" ng-click="sub()">提交</button>
+		    <img ng-if="!flag" src="img/z19.png" ng-click="handsUp()" />
 		    <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
 			
 		</div>
@@ -64,6 +65,7 @@
 				}); 
 			}]);
 			app.controller('myCtrl', function($scope, $http, $interval, $location) {
+				$scope.flag = true;
 				var studentId = $location.search().studentId;
 				//接收老师推送问题
 		        var random = Math.random().toString(36).substr(2);//生成随机数
@@ -74,6 +76,7 @@
 						$http: $http,
 						url: '/interact/achieve/questions?examineeId='+studentId+'&circleId='+localStorage.getItem("circleId")+'&random='+random,
 						success: function(res) {
+							console.log(res);
 							if(res) {
 								$scope.answer = "";
 								$scope.cut = res.data.cut;
@@ -83,7 +86,13 @@
 								});
 								$scope.question = res.data.bigQuestion;
 								if(res.data.participate == "raise") {
-									//不能答题，只显示一个举手按钮
+									if($scope.flag) {
+										$scope.flag = false;//不能答题，只显示一个举手按钮
+									}else {
+										$scope.flag = true;//可以答题
+									}
+								}else {
+									$scope.flag = true;//可以答题
 								}
 							}
 						}
@@ -140,6 +149,19 @@
 						success: function(res) {
 							alert("提交成功");
 						}
+			        });
+		        };
+		        
+		        //点击举手
+		        $scope.handsUp = function() {
+		        	common.ajax2({
+			        	$scope: $scope,
+						$http: $http,
+						data: {
+						  "circleId": localStorage.getItem("circleId"),
+						  "examineeId": studentId
+						},
+						url: '/interact/raise'
 			        });
 		        }
 			});

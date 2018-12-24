@@ -132,7 +132,7 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 			url: '/course/findAll',
 			data: {
 				page: 0,
-		    	size: 10,
+		    	size: 100,
 		    	sorting: "cTime"
 			},
 			success: function(data) {
