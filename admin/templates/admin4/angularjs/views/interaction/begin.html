@@ -588,7 +588,7 @@
 						</div>
 					</div>
 					<div class="portlet-body">
-						<img src="images/erweima.png" style="width: 40%;margin-left: 30%;" />
+						<div id="qrcode" style="width: 40%;margin-left: 30%;"></div>
 					</div>
 				</div>
 			</div>
@@ -597,34 +597,35 @@
 		<!-- /.modal-dialog -->
 	</div>
 </div>
-
+<script src="js/jquery-qrcode-master/jquery.qrcode.min.js" type="text/javascript"></script>
 <script>
 	function beginCtrl($scope, $rootScope, $http) {
 		$scope.goUrl = function() {
 			window.open('singleLession.html');
 		}
-		$scope.circleId = "";
-		
+		$scope.circleId = "123";
+		localStorage.setItem("circleId", $scope.circleId);
+		$('#qrcode').qrcode("123");
 		//老师创建临时课堂，获取课堂id
-		$scope.createRoom = function() {
-			common.ajax2({
-	        	$scope: $scope,
-				$http: $http,
-				data: {
-				  "teacherId": localStorage.getItem('userid'),
-    			  "chapterId": localStorage.getItem('currentNodeId')
-				},
-				url: '/classRoom/create/reuse',
-				success: function(res) {
-					$scope.circleId = res.data;
-					localStorage.setItem("circleId", $scope.circleId);
-					$scope.joinRoom("10001");
-					$scope.joinRoom("10002");
-					$scope.joinRoom("10003");
-					$scope.joinRoom("10004");
-				}
-	        });
-		};
+//		$scope.createRoom = function() {
+//			common.ajax2({
+//	        	$scope: $scope,
+//				$http: $http,
+//				data: {
+//				  "teacherId": localStorage.getItem('userid'),
+//  			  "chapterId": localStorage.getItem('currentNodeId')
+//				},
+//				url: '/classRoom/create/reuse',
+//				success: function(res) {
+//					$scope.circleId = res.data;
+//					localStorage.setItem("circleId", $scope.circleId);
+//					$scope.joinRoom("10001");
+//					$scope.joinRoom("10002");
+//					$scope.joinRoom("10003");
+//					$scope.joinRoom("10004");
+//				}
+//	        });
+//		};
 		
 		//学生加入课堂（模拟）
 		$scope.joinRoom = function(examineeId) {
@@ -638,10 +639,13 @@
 				url: '/classRoom/join/interactiveRoom',
 				success: function(res) {
 					console.log(res);
-					$scope.circleId = res.data;
 				}
 	        });
 		}
+		$scope.joinRoom("10001");
+		$scope.joinRoom("10002");
+		$scope.joinRoom("10003");
+		$scope.joinRoom("10004");
 		
 		$scope.students = [
 			{name: "张三" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},

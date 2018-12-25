@@ -25,6 +25,7 @@ var common = {
 			    method: settings.method,
 			    url: common.url2 + settings.url,
 			    data: settings.data,
+			    cache: false,
 			}).then(function successCallback(response) {
 //					console.log("请求："+JSON.stringify(settings.data)+"返回"+JSON.stringify(response));
 					if(response) {
