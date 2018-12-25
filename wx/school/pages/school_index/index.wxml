@@ -29,7 +29,7 @@
     <image src='../../img/z07.png' mode='widthFix'></image>
     <text>问答</text>
   </view>
-    <view class='clm_child' data-url="/pages/students_interaction/students_interaction" bindtap="goUrl">
+    <view class='clm_child' data-url="/pages/students_interaction/students_interaction" bindtap="scanCode">
     <image src='../../img/z08.png' mode='widthFix'></image>
     <text>上课</text>
   </view>

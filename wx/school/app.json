@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/Raise your hand/Raise your hand",
+    
     "pages/school_index/index",
     "pages/nav_deleteAfertText/nav",
     "pages/True or false/True or false",
@@ -9,6 +9,7 @@
     "pages/Raise your hand/TrueOrFalse_h",
     "pages/Raise your hand/choose_h",
     "pages/fill up/fill up",
+    "pages/Raise your hand/Raise your hand",
     "pages/practice/practice",
     "pages/index/index",
     "pages/logs/logs"
