@@ -572,11 +572,11 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="erweima" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-	
+
 				<div class="portlet light" style="min-height: 400px;">
 					<div class="portlet-title tabbable-line">
 						<div class="caption font-green-sharp">
@@ -600,6 +600,34 @@
 <script src="js/jquery-qrcode-master/jquery.qrcode.min.js" type="text/javascript"></script>
 <script>
 	function beginCtrl($scope, $rootScope, $http) {
+		var ws = null;
+		$scope.initWs = function() {
+			//check if your browser supports WebSocket
+			if('WebSocket' in window) {
+				ws = new WebSocket("ws://192.168.13.15:8080/websocket/demo/");
+			} else {
+				alert('对不起，您的浏览器不支持websorket');
+			}
+
+			ws.onopen = function() {
+				console.log("open");
+				ws.send("hello");
+			};
+
+			ws.onmessage = function(evt) {
+				console.log(evt.data);
+			};
+
+			ws.onclose = function(evt) {
+				console.log("WebSocketClosed!");
+			};
+
+			ws.onerror = function(evt) {
+				console.log("WebSocketError!");
+			};
+		};
+		$scope.initWs();
+
 		$scope.goUrl = function() {
 			window.open('singleLession.html');
 		}
@@ -607,57 +635,89 @@
 		localStorage.setItem("circleId", $scope.circleId);
 		$('#qrcode').qrcode("123");
 		//老师创建临时课堂，获取课堂id
-//		$scope.createRoom = function() {
-//			common.ajax2({
-//	        	$scope: $scope,
-//				$http: $http,
-//				data: {
-//				  "teacherId": localStorage.getItem('userid'),
-//  			  "chapterId": localStorage.getItem('currentNodeId')
-//				},
-//				url: '/classRoom/create/reuse',
-//				success: function(res) {
-//					$scope.circleId = res.data;
-//					localStorage.setItem("circleId", $scope.circleId);
-//					$scope.joinRoom("10001");
-//					$scope.joinRoom("10002");
-//					$scope.joinRoom("10003");
-//					$scope.joinRoom("10004");
-//				}
-//	        });
-//		};
-		
+		//		$scope.createRoom = function() {
+		//			common.ajax2({
+		//	        	$scope: $scope,
+		//				$http: $http,
+		//				data: {
+		//				  "teacherId": localStorage.getItem('userid'),
+		//  			  "chapterId": localStorage.getItem('currentNodeId')
+		//				},
+		//				url: '/classRoom/create/reuse',
+		//				success: function(res) {
+		//					$scope.circleId = res.data;
+		//					localStorage.setItem("circleId", $scope.circleId);
+		//					$scope.joinRoom("10001");
+		//					$scope.joinRoom("10002");
+		//					$scope.joinRoom("10003");
+		//					$scope.joinRoom("10004");
+		//				}
+		//	        });
+		//		};
+
 		//学生加入课堂（模拟）
 		$scope.joinRoom = function(examineeId) {
 			common.ajax2({
-	        	$scope: $scope,
+				$scope: $scope,
 				$http: $http,
 				data: {
-				  "examineeId": examineeId,
-    			  "circleId": $scope.circleId
+					"examineeId": examineeId,
+					"circleId": $scope.circleId
 				},
 				url: '/classRoom/join/interactiveRoom',
 				success: function(res) {
+					ws.send(examineeId);
 					console.log(res);
 				}
-	        });
+			});
 		}
 		$scope.joinRoom("10001");
 		$scope.joinRoom("10002");
 		$scope.joinRoom("10003");
 		$scope.joinRoom("10004");
-		
-		$scope.students = [
-			{name: "张三" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "李四" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "王五" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "马六" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "赵琦" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "韩八" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "钱九" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
-			{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"}
+
+		$scope.students = [{
+				name: "张三",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "李四",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "王五",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "马六",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "赵琦",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "韩八",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "钱九",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "李同学",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "李同学",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "李同学",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			}
 		];
+
+		
 	}
 </script>
