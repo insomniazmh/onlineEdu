@@ -112,35 +112,41 @@
 	function basicCtrl($scope, $http, $location, $rootScope) {
 		var courseId = localStorage.getItem('courseId');
 		var path = $location.path();
-		if(path.indexOf("courseAdd") != -1) {
-			$scope.course = {
-				topPicSrc: 'images/zanwu.jpg'
-			};
-		}else {
-			//加载课程信息
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				url: '/course/getCourseId',
-				data: {
-			    	'courseId': courseId
-			    },
-			    success: function(data) {
-			    	//课程信息
-			    	$scope.course = data.data;
-			    	//课程描述
-			    	$('#summernoteMiaoshu').code($scope.course.courseDescribe);
-			    	//授课类型
-//			    	$("input[name='lessonType'][value="++"]").attr("checked","checked");
-					//处理封面
-					if(!$scope.course.topPicSrc) {
-						$scope.course.topPicSrc = 'images/zanwu.jpg';
-					}
-			    }
-			});
+		//加载课程信息(如果为编辑)
+		$scope.loadCourseInfo = function() {
+			if(path.indexOf("courseAdd") != -1) {
+				$scope.course = {
+					topPicSrc: 'images/zanwu.jpg'
+				};
+			}else {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					url: '/course/getCourseId',
+					data: {
+				    	'courseId': localStorage.getItem('courseId')
+				    },
+				    success: function(data) {
+				    	//课程信息
+				    	$scope.course = data.data;
+				    	//课程描述
+				    	$('#summernoteMiaoshu').code($scope.course.courseDescribe);
+				    	//授课类型
+	//			    	$("input[name='lessonType'][value="++"]").attr("checked","checked");
+						//处理封面
+						if(!$scope.course.topPicSrc) {
+							$scope.course.topPicSrc = 'images/zanwu.jpg';
+						}
+				    }
+				});
+			}
 		}
+		$scope.loadCourseInfo();
 		
-		
+		//切换课程回调
+		$scope.$on('course', function(d,data) {
+			$scope.loadCourseInfo();
+		});
 		
 		$scope.sub = function() {
 			//集体备课老师人员
@@ -192,7 +198,7 @@
 				    }
 				});
             }else {
-            	$scope.course.courseId = courseId;
+            	$scope.course.courseId = localStorage.getItem('courseId');
             	//编辑课程
             	common.ajax({
 					$scope: $scope,

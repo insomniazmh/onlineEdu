@@ -142,9 +142,11 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 					}
 				});
 				$scope.courses = data.data.content;
-				//默认选中第一个课程
-				localStorage.setItem('courseId', data.data.content[0].courseId);
-				$rootScope.course = data.data.content[0];
+				if(!localStorage.getItem('courseId')) {
+					//默认选中第一个课程
+					localStorage.setItem('courseId', data.data.content[0].courseId);
+					$rootScope.course = data.data.content[0];
+				}
 			}
 		});
 

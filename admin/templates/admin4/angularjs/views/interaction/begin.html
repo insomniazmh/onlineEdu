@@ -616,6 +616,10 @@
 
 			ws.onmessage = function(evt) {
 				console.log(evt.data);
+				var data = evt.data;
+				if(data.model == "interactiveStudents") {
+					$scope.students.push(data.data);
+				}
 			};
 
 			ws.onclose = function(evt) {
