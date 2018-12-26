@@ -378,6 +378,10 @@
 	    
 	    //打开题目添加框
 	    $scope.openQuestionModel = function() {
+	    	if(!$rootScope.currentNode) {
+	    		alert("请先选择章节");
+	    		return false;
+	    	}
 	    	var flag = confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建题目吗");
 	    	if(flag) {
 	    		$("#addQuestion").modal("show");

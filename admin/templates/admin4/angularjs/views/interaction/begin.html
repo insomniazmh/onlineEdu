@@ -16,7 +16,7 @@
 			<div class="add-portfolio">
 				<span>电子商务基础--电子商务内涵--课堂协助--课堂编号（0731）</span>
 				<button class="btn green" ng-click="goUrl()"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">开始上课</font></font></button>
-				<button class="btn green" id="pulsate-once" data-toggle="modal" href="#erweima" ng-click="createRoom()">
+				<button class="btn green" id="pulsate-once" ng-click="createRoom()">
 					<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">扫码进课堂</font></font>
 				</button>
 			</div>
@@ -631,29 +631,38 @@
 		$scope.goUrl = function() {
 			window.open('singleLession.html');
 		}
-		$scope.circleId = "123";
-		localStorage.setItem("circleId", $scope.circleId);
+		
 		$('#qrcode').qrcode("123");
 		//老师创建临时课堂，获取课堂id
-		//		$scope.createRoom = function() {
-		//			common.ajax2({
-		//	        	$scope: $scope,
-		//				$http: $http,
-		//				data: {
-		//				  "teacherId": localStorage.getItem('userid'),
-		//  			  "chapterId": localStorage.getItem('currentNodeId')
-		//				},
-		//				url: '/classRoom/create/reuse',
-		//				success: function(res) {
-		//					$scope.circleId = res.data;
-		//					localStorage.setItem("circleId", $scope.circleId);
-		//					$scope.joinRoom("10001");
-		//					$scope.joinRoom("10002");
-		//					$scope.joinRoom("10003");
-		//					$scope.joinRoom("10004");
-		//				}
-		//	        });
-		//		};
+		$scope.createRoom = function() {
+			if(!$rootScope.currentNode) {
+	    		alert("请先选择章节");
+	    		return false;
+	    	}
+	    	var flag = confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建二维码吗");
+	    	if(flag) {
+	    		$("#erweima").modal("show");
+				common.ajax2({
+		        	$scope: $scope,
+					$http: $http,
+					data: {
+					    "teacherId": localStorage.getItem('userid'),
+	  			  		"chapterId": localStorage.getItem('currentNodeId')
+					},
+					url: '/classRoom/create/reuse',
+					success: function(res) {
+	//					$scope.circleId = res.data;
+	//					localStorage.setItem("circleId", $scope.circleId);
+						$scope.circleId = "123";
+						localStorage.setItem("circleId", "123");
+						$scope.joinRoom("10001");
+						$scope.joinRoom("10002");
+						$scope.joinRoom("10003");
+						$scope.joinRoom("10004");
+					}
+		        });
+	        }
+		};
 
 		//学生加入课堂（模拟）
 		$scope.joinRoom = function(examineeId) {
@@ -671,10 +680,6 @@
 				}
 			});
 		}
-		$scope.joinRoom("10001");
-		$scope.joinRoom("10002");
-		$scope.joinRoom("10003");
-		$scope.joinRoom("10004");
 
 		$scope.students = [{
 				name: "张三",
