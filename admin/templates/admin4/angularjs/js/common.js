@@ -5,6 +5,8 @@ var common = {
 	//url: 'http://192.168.13.220:8080',//继伟本机
 	url2: 'http://132.232.124.203:8070',//真铭服务
 	//url2: 'http://192.168.13.15:8080',//真铭本机
+	
+	pageSize: 100,
 	//提示框
 	toast: function(settings) {
 		var defaults = {

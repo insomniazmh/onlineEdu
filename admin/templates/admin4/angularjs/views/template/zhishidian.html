@@ -123,9 +123,11 @@
 		
 		//删除知识点
 		$scope.delKNode = function(id) {
-			var flag = confirm("您确定要删除该知识点吗？");
-			if(flag) {
-				common.ajax({
+			layer.confirm('您确定要删除该知识点吗', {
+			  btn: ['确定','取消'] //按钮
+			}, function() {
+				//删除知识点
+			  	common.ajax({
 					$scope: $scope,
 					$http: $http,
 					operate: true,
@@ -137,7 +139,8 @@
 				    	$scope.loadKNode();
 				    }
 				});
-			}
+				layer.closeAll('dialog');
+			});
 		};
 	}
 </script>

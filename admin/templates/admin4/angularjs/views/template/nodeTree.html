@@ -141,9 +141,10 @@
 							"删除章节": {
 								"label": "删除章节",
 								"action": function(data) {
-									var r = confirm("确定要删除该章节吗");
-									if(r) {
-										//删除章节
+									layer.confirm('您确定要删除该章节吗', {
+									  btn: ['确定','取消'] //按钮
+									}, function(){
+									  	//删除章节
 										common.ajax({
 											$scope: $scope,
 											$http: $http,
@@ -162,7 +163,8 @@
 												ref.delete_node(sel);
 										    }
 										});
-									}
+										layer.closeAll('dialog');
+									});
 								}
 							}
 						}
@@ -186,6 +188,9 @@
 			}
 			sel = sel[0];
 			$("#createNodeModal").modal("hide");
+			if(!$scope.currentNode) {
+				layer.alert("请先选择章节");
+			}
 			if($scope.flag == "create") {
 				//创建章节
 				common.ajax({
@@ -238,6 +243,7 @@
 			// 处理代码
 			// 获取当前节点
 			$scope.currentNode = e.node;
+			console.log($scope.currentNode);
 			$rootScope.$emit('currentNode', $scope.currentNode);
 		});
 	}

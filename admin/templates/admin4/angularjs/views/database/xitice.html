@@ -230,13 +230,16 @@
 	    //打开习题册编辑框
 	    $scope.openExercisesBookModel = function() {
 	    	if(!$rootScope.currentNode) {
-	    		alert("请先选择章节");
+	    		layer.alert("请先选择章节");
 	    		return false;
 	    	}
-	    	var flag = confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑习题册吗");
-	    	if(flag) {
-	    		$("#exercisesBookModal").modal("show");
-	    	}
+	    	
+	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑习题册吗", {
+			  btn: ['确定', "取消"] //按钮
+			}, function(){
+			  $("#exercisesBookModal").modal("show");
+			  layer.closeAll('dialog');
+			});
 	    }
 
 	}

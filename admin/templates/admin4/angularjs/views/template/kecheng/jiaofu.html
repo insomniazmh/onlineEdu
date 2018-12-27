@@ -561,13 +561,15 @@
 		//打开备课模态框
 	    $scope.openDataModal = function() {
 	    	if(!$rootScope.currentNode) {
-	    		alert("请先选择章节");
+	    		layer.alert("请先选择章节");
 	    		return false;
 	    	}
-	    	var flag = confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑备课信息吗");
-	    	if(flag) {
-	    		$("#dataModal").modal("show");
-	    	}
+	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑备课信息吗", {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+			  	$("#dataModal").modal("show");
+				layer.closeAll('dialog');
+			});
 	    }
 	}
 </script>

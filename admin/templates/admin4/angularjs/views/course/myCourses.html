@@ -65,17 +65,18 @@
 			$http: $http,
 			url: '/course/findAll',
 			data: {
-				"page": 0,
-		    	"size": 10,
-		    	"sorting": "cTime"
+				"sortVo": {
+					"page":0,
+					"size":common.pageSize
+				}
 			},
 			success: function(data) {
-				$(data.data.content).each(function() {
+				$(data.data).each(function() {
 					if(!this.topPicSrc) {
 						this.topPicSrc = 'images/zanwu.jpg';
 					}
 				});
-				$scope.courses = data.data.content;
+				$scope.courses = data.data;
 			}
 		});
 		
