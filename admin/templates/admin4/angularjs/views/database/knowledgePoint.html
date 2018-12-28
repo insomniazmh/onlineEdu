@@ -362,9 +362,10 @@
 	    
 	    //删除题目
 	    $scope.delQuestion = function(id) {
-	    	var flag = confirm("您确定要删除该题目吗？");
-	    	if(flag) {
-	    		common.ajax2({
+	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑习题册吗", {
+			  btn: ['确定', "取消"] //按钮
+			}, function(){
+			    common.ajax2({
 	    			method: "get",
 		        	$scope: $scope,
 					$http: $http,
@@ -373,15 +374,23 @@
 						console.log(res);
 					}
 		        });
-	    	}
+			  layer.closeAll('dialog');
+			});
 	    }
 	    
 	    //打开题目添加框
 	    $scope.openQuestionModel = function() {
-	    	var flag = confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建题目吗");
-	    	if(flag) {
-	    		$("#addQuestion").modal("show");
+	    	if(!$rootScope.currentNode) {
+	    		layer.alert("请先选择章节");
+	    		return false;
 	    	}
+	    	
+	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建题目吗", {
+			  btn: ['确定', "取消"] //按钮
+			}, function(){
+			  $("#addQuestion").modal("show");
+			  layer.closeAll('dialog');
+			});
 	    }
 	}
 </script>

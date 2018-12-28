@@ -55,7 +55,7 @@
 					<span class="caption-subject bold uppercase">题册{{currKP}}</span>
 				</div>
 				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#exercisesBookModal">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openExercisesBookModel()">
 						<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
@@ -225,6 +225,21 @@
 	    $scope.editExercisesBook = function(id) {
 	    	$scope.$broadcast('editExercisesBookId', id);
 	    	$("#exercisesBookEditModal").modal("show");
+	    }
+	    
+	    //打开习题册编辑框
+	    $scope.openExercisesBookModel = function() {
+	    	if(!$rootScope.currentNode) {
+	    		layer.alert("请先选择章节");
+	    		return false;
+	    	}
+	    	
+	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑习题册吗", {
+			  btn: ['确定', "取消"] //按钮
+			}, function(){
+			  $("#exercisesBookModal").modal("show");
+			  layer.closeAll('dialog');
+			});
 	    }
 
 	}
