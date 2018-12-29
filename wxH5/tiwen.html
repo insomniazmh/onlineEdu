@@ -70,25 +70,35 @@
 				//接收老师推送问题
 		        var random = Math.random().toString(36).substr(2);//生成随机数
 		        localStorage.setItem("circleId", "123");
-		        console.log(123);
 		        console.log(localStorage.getItem("circleId"));
-		        $scope.receiveQuestion = function() {
-		        	common.ajax2({
-		        		method: 'get',
-			        	$scope: $scope,
-						$http: $http,
-						url: '/interact/achieve/questions?examineeId='+studentId+'&circleId='+localStorage.getItem("circleId")+'&random='+random,
-						success: function(res) {
-							console.log(res);
-							if(res) {
+		        
+		        var ws = null;
+				$scope.initWs = function() {
+					//check if your browser supports WebSocket
+					if('WebSocket' in window) {
+						ws = new WebSocket("ws://192.168.13.15:8050/interactive/"+localStorage.getItem("circleId")+"/"+studentId+"/student/"+random);
+					} else {
+						layer.alert('对不起，您的浏览器不支持websorket');
+					}
+		
+					ws.onopen = function() {
+						console.log("open");
+					};
+		
+					ws.onmessage = function(evt) {
+						var data = JSON.parse(evt.data);
+						console.log(data);
+						if(data.model == "questions") {
+							$scope.$apply(function () {
 								$scope.answer = "";
-								$scope.cut = res.data.cut;
-								$scope.questionType = res.data.bigQuestion.examChildren[0].examType;
-								res.data.bigQuestion = common.addTitleForQuestion({
-									questionArr: res.data.bigQuestion
+								$scope.cut = data.cut;
+								$scope.questionType = data.bigQuestion.examChildren[0].examType;
+								data.bigQuestion = common.addTitleForQuestion({
+									questionArr: data.bigQuestion
 								});
-								$scope.question = res.data.bigQuestion;
-								if(res.data.participate == "raise") {
+								$scope.question = data.bigQuestion;
+								console.log($scope.question);
+								if(data.participate == "raise") {
 									if($scope.flag) {
 										$scope.flag = false;//不能答题，只显示一个举手按钮
 									}else {
@@ -97,13 +107,21 @@
 								}else {
 									$scope.flag = true;//可以答题
 								}
-							}
+						    });
+							
 						}
-			        });
-		        };
-		        $scope.receiveQuestion();
-		        $interval($scope.receiveQuestion ,1000);
-		        
+					};
+		
+					ws.onclose = function(evt) {
+						console.log("WebSocketClosed!");
+					};
+		
+					ws.onerror = function(evt) {
+						console.log("WebSocketError!");
+					};
+				};
+				$scope.initWs();
+				
 		        //点击选项
 		        $scope.selectOpt = function(opt) {
 		        	if($scope.questionType == "single") {

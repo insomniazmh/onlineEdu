@@ -601,17 +601,17 @@
 <script>
 	function beginCtrl($scope, $rootScope, $http) {
 		var ws = null;
+		var random = Math.random().toString(36).substr(2);//生成随机数
 		$scope.initWs = function() {
 			//check if your browser supports WebSocket
 			if('WebSocket' in window) {
-				ws = new WebSocket("ws://192.168.13.15:8080/websocket/demo/");
+				ws = new WebSocket("ws://192.168.13.15:8050/interactive/"+$scope.circleId+"/"+localStorage.getItem('userid')+"/teacher/"+random);
 			} else {
 				layer.alert('对不起，您的浏览器不支持websorket');
 			}
 
 			ws.onopen = function() {
 				console.log("open");
-				ws.send("hello");
 			};
 
 			ws.onmessage = function(evt) {
@@ -630,7 +630,7 @@
 				console.log("WebSocketError!");
 			};
 		};
-		$scope.initWs();
+		
 
 		$scope.goUrl = function() {
 			window.open('singleLession.html');
@@ -655,11 +655,13 @@
 					},
 					url: '/classRoom/create/reuse',
 					success: function(res) {
-	//					$scope.circleId = res.data;
-	//					localStorage.setItem("circleId", $scope.circleId);
+//						$scope.circleId = res.data;
+//						localStorage.setItem("circleId", $scope.circleId);
+//						$('#qrcode').qrcode($scope.circleId);
 						$scope.circleId = "123";
 						localStorage.setItem("circleId", "123");
 						$('#qrcode').qrcode("123");
+						$scope.initWs();//开始长连接，获取学生加入情况
 						$scope.joinRoom("10001");
 						$scope.joinRoom("10002");
 						$scope.joinRoom("10003");

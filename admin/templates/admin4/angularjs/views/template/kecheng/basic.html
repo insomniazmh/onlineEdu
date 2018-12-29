@@ -212,6 +212,7 @@
 					url: '/course/edit',
 					data: {
 				    	course: $scope.course,
+				    	oldShareId: $scope.course.shareId,
 				    	teachers: [{
 				    		teacherId: localStorage.getItem('userid')
 				    	}]
