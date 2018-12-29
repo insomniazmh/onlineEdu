@@ -23,7 +23,7 @@ Page({
   onLoad: function (options) {
     wx.request({
       method: "GET",
-      url: 'http://132.232.124.203:8070/interact/achieve/questions', // 仅为示例，并非真实的接口地址
+      url: 'https://e.hnfts.cn/quiz/interact/achieve/questions', // 仅为示例，并非真实的接口地址
       data: {
         "circleId": '123',
         "examineeId": '10005',

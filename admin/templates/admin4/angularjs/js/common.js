@@ -1,11 +1,11 @@
 var common = {
 	
-	url: 'http://132.232.124.203:8090',//永永服务
+	url: 'https://e.hnfts.cn/education',//永永服务
 	//url: 'http://192.168.13.230:8090',//永永本机
 	//url: 'http://192.168.13.220:8080',//继伟本机
-	url2: 'http://132.232.124.203:8070',//真铭服务
+	url2: 'https://e.hnfts.cn/quiz',//真铭服务
 	//url2: 'http://192.168.13.15:8080',//真铭本机
-	
+	uploadUrl: 'https://e.hnfts.cn/upload/upload',//上传接口
 	pageSize: 100,
 	//提示框
 	toast: function(settings) {
@@ -48,7 +48,7 @@ var common = {
 			// swf文件路径
 			swf: '/js/Uploader.swf',
 			// 文件接收服务端。
-			server: 'http://132.232.124.203:8612/upload',
+			server: common.uploadUrl,
 			// 选择文件的按钮。可选。
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 			pick: '#' + settings.id
@@ -87,7 +87,7 @@ var common = {
 			// swf文件路径
 			swf: '/js/Uploader.swf',
 			// 文件接收服务端。
-			server: 'http://132.232.124.203:8612/upload',
+			server: common.uploadUrl,
 			// 选择文件的按钮。可选。
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 			pick: '#' + settings.id

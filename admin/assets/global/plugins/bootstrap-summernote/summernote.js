@@ -3749,7 +3749,7 @@
 		
         formData.append("file", files[0]);
         $.ajax({
-            url: "http://132.232.124.203:8612/upload",//路径是你控制器中上传图片的方法，下面controller里面我会写到
+            url: common.uploadUrl,//路径是你控制器中上传图片的方法，下面controller里面我会写到
             data: formData,
             cache: false,
             contentType: false,
