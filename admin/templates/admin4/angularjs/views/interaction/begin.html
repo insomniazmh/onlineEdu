@@ -601,11 +601,11 @@
 <script>
 	function beginCtrl($scope, $rootScope, $http) {
 		var ws = null;
-		var random = Math.random().toString(36).substr(2);//生成随机数
 		$scope.initWs = function() {
+			var random = Math.random().toString(36).substr(2);//生成随机数
 			//check if your browser supports WebSocket
 			if('WebSocket' in window) {
-				ws = new WebSocket("ws://192.168.13.15:8050/interactive/"+$scope.circleId+"/"+localStorage.getItem('userid')+"/teacher/"+random);
+				ws = new WebSocket("ws://192.168.13.15:8050/interactive/123/"+localStorage.getItem('userid')+"1/teacher/"+random);
 			} else {
 				layer.alert('对不起，您的浏览器不支持websorket');
 			}
@@ -630,7 +630,17 @@
 				console.log("WebSocketError!");
 			};
 		};
+		$scope.initWs();//开始长连接，获取学生加入情况
 		
+		$scope.students = [{
+				name: "张三",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			},
+			{
+				name: "李四",
+				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+			}
+		];
 
 		$scope.goUrl = function() {
 			window.open('singleLession.html');
@@ -645,7 +655,16 @@
 	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建二维码吗", {
 			  btn: ['确定','取消'] //按钮
 			}, function(){
-			  	$("#erweima").modal("show");
+//				$scope.circleId = "123";
+//				localStorage.setItem("circleId", "123");
+//				$('#qrcode').qrcode("123");
+//				$scope.joinRoom("10001");
+//				$scope.joinRoom("10002");
+//				$scope.joinRoom("10003");
+//				$scope.joinRoom("10004");
+//				$("#erweima").modal("show");
+						
+						
 				common.ajax2({
 		        	$scope: $scope,
 					$http: $http,
@@ -661,17 +680,18 @@
 						$scope.circleId = "123";
 						localStorage.setItem("circleId", "123");
 						$('#qrcode').qrcode("123");
-						$scope.initWs();//开始长连接，获取学生加入情况
 						$scope.joinRoom("10001");
 						$scope.joinRoom("10002");
 						$scope.joinRoom("10003");
 						$scope.joinRoom("10004");
+						$("#erweima").modal("show");
 					}
 		        });
 				layer.closeAll('dialog');
 			});
 	    	
 		};
+		
 
 		//学生加入课堂（模拟）
 		$scope.joinRoom = function(examineeId) {
@@ -684,53 +704,12 @@
 				},
 				url: '/classRoom/join/interactiveRoom',
 				success: function(res) {
-					ws.send(examineeId);
 					console.log(res);
 				}
 			});
 		}
 
-		$scope.students = [{
-				name: "张三",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "李四",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "王五",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "马六",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "赵琦",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "韩八",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "钱九",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "李同学",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "李同学",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "李同学",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			}
-		];
+		
 
 		
 	}

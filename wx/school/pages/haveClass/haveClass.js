@@ -21,9 +21,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.connectSocket({
+      url: 'wss://example.qq.com',
+      header: {
+        'content-type': 'application/json'
+      },
+      protocols: ['protocol1'],
+      method: 'GET'
+    })
+
     wx.request({
       method: "GET",
-      url: 'https://e.hnfts.cn/quiz/interact/achieve/questions', // 仅为示例，并非真实的接口地址
+      url: 'https://e.hnfts.cn/quiz/interact/achieve/questions',
       data: {
         "circleId": '123',
         "examineeId": '10005',

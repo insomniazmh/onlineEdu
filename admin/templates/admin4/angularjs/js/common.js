@@ -3,8 +3,8 @@ var common = {
 	url: 'https://e.hnfts.cn/education',//永永服务
 	//url: 'http://192.168.13.230:8090',//永永本机
 	//url: 'http://192.168.13.220:8080',//继伟本机
-	url2: 'https://e.hnfts.cn/quiz',//真铭服务
-	//url2: 'http://192.168.13.15:8080',//真铭本机
+	//url2: 'https://e.hnfts.cn/quiz',//真铭服务
+	url2: 'http://192.168.13.15:8080',//真铭本机
 	uploadUrl: 'https://e.hnfts.cn/upload/upload',//上传接口
 	pageSize: 100,
 	//提示框

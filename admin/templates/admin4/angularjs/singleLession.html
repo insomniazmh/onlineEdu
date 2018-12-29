@@ -424,20 +424,20 @@
 				$scope.currentTiwenQues = {};//当前选中的提问问题				
 				
 				//加载所有扫码进入的学生
-//				common.ajax2({
-//		        	$scope: $scope,
-//					$http: $http,
-//					data: {
-//						"circleId": localStorage.getItem('circleId')
-//					},
-//					url: '/classRoom/find/interactiveStudents',
-//					success: function(res) {
-//						$(res.data).each(function() {
-//							this.show = true;
-//						});
-//						$scope.allStudents = res.data;
-//					}
-//		        });
+				common.ajax2({
+		        	$scope: $scope,
+					$http: $http,
+					data: {
+						"circleId": localStorage.getItem('circleId')
+					},
+					url: '/classRoom/find/interactiveStudents',
+					success: function(res) {
+						$(res.data).each(function() {
+							this.show = true;
+						});
+						$scope.allStudents = res.data;
+					}
+		        });
 				
 				//加载所有的提问题目
 				common.ajax2({

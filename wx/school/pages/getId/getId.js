@@ -1,49 +1,33 @@
-// pages/school_index/index.js
+// pages/getId/getId.js
 Page({
-  // goUrl(e) {
-  //   console.log(e.currentTarget.dataset.url);
-  //   wx.navigateTo({
-  //     url: e.currentTarget.dataset.url
-  //   })
-
-
-
-  
-  //扫描二维码,获取班级id
-  scanCode(e) {
-    wx.scanCode({
-      success(res) {
-        console.log(res);
-        var app = getApp();
-        app.globalData.circleId = res.result;//将班级id存入全局变量中
-        //将页面跳转至上课
-        wx.navigateTo({
-          url: e.currentTarget.dataset.url
-        })
-      }
-    })
-  },
 
   /**
    * 页面的初始数据
    */
   data: {
+    inputValue: ""
+  },
 
+  bindKeyInput(e) {
+    this.setData({
+      inputValue: e.detail.value
+    })
+  },
+
+  subclick(e) {
+    var app = getApp();
+    app.globalData.studentId = this.data.inputValue;//将学生id存入全局变量中
+    //将页面跳转至首页
+    wx.navigateTo({
+      url: '/pages/school_index/index'
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // wx.login({
-    //   success(res) {
-    //     if (res.code) {
-    //       console.log(res.code);
-    //     } else {
-    //       console.log('登录失败！' + res.errMsg)
-    //     }
-    //   }
-    // })
+
   },
 
   /**
