@@ -60,9 +60,11 @@
 			.uppercase.active img {
 				border: 2px solid red;
 			}
+			
 			.htmlWrapper p {
 				display: inline;
 			}
+			
 			..note p {
 				font-size: 16px;
 			}
@@ -122,7 +124,7 @@
 									<h4 class="block htmlWrapper" ng-bind-html="currentTiwenQues.title"></h4>
 									<div ng-if="currentTiwenQues.examChildren[0].examType == 'single' || currentTiwenQues.examChildren[0].examType == 'multiple'">
 										<p ng-repeat="x in currentTiwenQues.examChildren[0].optChildren">
-											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>． 
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
 											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
 										</p>
 									</div>
@@ -343,51 +345,47 @@
 		<!-- END LayerSlider -->
 		<script>
 			var app = angular.module('myApp', [
-			    "ngSanitize"
+				"ngSanitize"
 			]);
 			app.controller('myCtrl', function($scope, $http, $interval) {
-				var random = Math.random().toString(36).substr(2);//生成随机数
+				var random = Math.random().toString(36).substr(2); //生成随机数
 				//建立websocket连接
 				var ws = null;
 				$scope.initWs = function() {
 					//check if your browser supports WebSocket
 					if('WebSocket' in window) {
-						ws = new WebSocket("ws://192.168.13.15:8050/interactive/"+localStorage.getItem('circleId')+"/"+localStorage.getItem('userid')+"/teacher/"+random);
+						ws = new WebSocket("wss://e.hnfts.cn/quiz/interactive/" + localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
 					}
-		
+
 					ws.onopen = function() {
 						console.log("open");
 					};
 					//websocket接收后台参数
 					ws.onmessage = function(evt) {
-						console.log(evt.data);
 						var data = JSON.parse(evt.data);
-						if(data.model == "raise") {
-							//获取学生举手信息
-							$scope.$apply(function () {
+						console.log(data);
+						$scope.$apply(function() {
+							if(data.model == "raise") {
 								//接收全量的已举手学生，将学生显示出来供老师选择
 								$($scope.allStudents).each(function() {
-					        		var that = this;
-					        		$(data).each(function() {
-					        			if(this.id == that.id) {
-					        				that.show = true;
-					        			}
-					        		});
-					        	});
-							});
-						}else if(data.model == "answer") {
-							//获取学生回答信息
-							$scope.$apply(function () {
+									var that = this;
+									$(data.students).each(function() {
+										if(this.id == that.id) {
+											that.show = true;
+										}
+									});
+								});
+							} else if(data.model == "answer") {
 								//将学生的回答情况暂存至相对应的题目中
 								$($scope.tiwenQuestionList).each(function() {
 									var that = this;
 									if(!that.answers) {
 										that.answers = [];
 									}
-									$(data).each(function() {
-										if(that.id == this.askAnswer.questionId) {
+									$(data.students).each(function() {
+										if(this.askAnswer.questionId && that.id==this.askAnswer.questionId) {
 											that.answers.push({
 												studentId: this.id,
 												answer: this.askAnswer.answer
@@ -395,53 +393,31 @@
 										}
 									});
 								});
-							});
-						}else if(data.model == "interactiveStudents") {
-							//获取学生加入班级信息
-							$scope.$apply(function () {
-								$(data).each(function() {
+							} else if(data.model == "interactiveStudents") {
+								$(data.students).each(function() {
 									this.show = true;
 								});
-								$scope.allStudents = data;
-							});
-						}
+								$scope.allStudents = data.students;
+							}
+						})
+
 					};
-		
+
 					ws.onclose = function(evt) {
 						console.log("WebSocketClosed!");
 					};
-		
+
 					ws.onerror = function(evt) {
 						console.log("WebSocketError!");
 					};
 				};
 				$scope.initWs();
-				
-				
-				
-				
-				var raiseFlag;//举手定时器
-				$scope.currentTiwenQues = {};//当前选中的提问问题				
-				
-				//加载所有扫码进入的学生
-				common.ajax2({
-		        	$scope: $scope,
-					$http: $http,
-					data: {
-						"circleId": localStorage.getItem('circleId')
-					},
-					url: '/classRoom/find/interactiveStudents',
-					success: function(res) {
-						$(res.data).each(function() {
-							this.show = true;
-						});
-						$scope.allStudents = res.data;
-					}
-		        });
-				
+			
+				$scope.currentTiwenQues = {}; //当前选中的提问问题				
+
 				//加载所有的提问题目
 				common.ajax2({
-		        	$scope: $scope,
+					$scope: $scope,
 					$http: $http,
 					data: {
 						"chapterId": localStorage.getItem('currentNodeId'),
@@ -452,105 +428,105 @@
 					success: function(res) {
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
-						});//组装题干以供展示
-						$scope.tiwenQuestionList = res.data;//所有题目
-						$scope.currentTiwenQues = res.data[0];//当前选中题目，默认为第一题
+						}); //组装题干以供展示
+						$scope.tiwenQuestionList = res.data; //所有题目
+						$scope.currentTiwenQues = res.data[0]; //当前选中题目，默认为第一题
 					}
-		        });
-		        
-		        //点击题号  type: 1提问，2练习
-		        $scope.chooseQuestion = function(question, type) {
-		        	if(type == 1) {
-		        		$scope.currentTiwenQues = question;
-		        		if(question.select) {
-		        			$("#studentsWrapper").show();
-		        			$("#btns").show();
-		        		}else {
-		        			$("#studentsWrapper").hide();
-		        			$("#btns").hide();
-		        		}
-		        		//清空学生的回答信息
-		        		$($scope.allStudents).each(function() {
-		        			this.answer = "";
-		        			this.select = false;
-		        		});
-		        		//如果该题目已有回答，将该题目置为选中状态
-		        		if($scope.currentTiwenQues.answers && $scope.currentTiwenQues.answers.length > 0) {
-		        			$scope.currentTiwenQues.select = true;
-		        			$scope.showAnswer();//显示回答
-		        		}else {
-		        			//将所有学生隐藏
-		        			$($scope.allStudents).each(function() {
-				        		this.show = false;
-				        	});
-		        		}
-		        		
-		        		//清除举手信息
+				});
+
+				//点击题号  type: 1提问，2练习
+				$scope.chooseQuestion = function(question, type) {
+					if(type == 1) {
+						$scope.currentTiwenQues = question;
+						if(question.select) {
+							$("#studentsWrapper").show();
+							$("#btns").show();
+						} else {
+							$("#studentsWrapper").hide();
+							$("#btns").hide();
+						}
+						//清空学生的回答信息
+						$($scope.allStudents).each(function() {
+							this.answer = "";
+							this.select = false;
+						});
+						//如果该题目已有回答，将该题目置为选中状态
+						if($scope.currentTiwenQues.answers && $scope.currentTiwenQues.answers.length > 0) {
+							$scope.currentTiwenQues.select = true;
+							$scope.showAnswer(); //显示回答
+						} else {
+							//将所有学生隐藏
+							$($scope.allStudents).each(function() {
+								this.show = false;
+							});
+						}
+
+						//清除举手信息
 						common.ajax2({
-				        	$scope: $scope,
+							$scope: $scope,
 							$http: $http,
 							data: {
 								"circleId": localStorage.getItem("circleId")
 							},
 							url: '/interact/launch/raise'
-				        });
-		        	}
-		        };
-		        
-		        //点击选人-选人按钮
-		        $scope.xuanren = function() {
-		        	$scope.currentTiwenQues.chooseType = "select";
-		        	$scope.currentTiwenQues.category = "people";
-		        	$scope.removeAllAnswer();//清除所有学生的答案和选中状态
-		        	$("#studentsWrapper").show();
-		        	$("#btns").show();
-		        };
-		        
-		        //点击选人-抢答按钮
-		        $scope.qiangda = function() {
-		        	$scope.currentTiwenQues.chooseType = "race";
-		        	$scope.currentTiwenQues.category = "people";
-		        	$scope.removeAllAnswer();//清除所有学生的答案和选中状态
-		        	$("#studentsWrapper").show();
-		        	$("#btns").show();
-		        };
-		        
-		        //点击选人-举手按钮
-		        $scope.jushou = function() {
-		        	$scope.currentTiwenQues.chooseType = "raise";
-		        	$scope.currentTiwenQues.category = "people";
-		        	$scope.removeAllAnswer();//清除所有学生的答案和选中状态
-		        	$("#studentsWrapper").show();
-		        	$("#btns").show();
-		        	//发送问题
-		        	$scope.subJushou();
-		        };
-		        
-		        //点击学生头像选中学生
-		        $scope.selectStudent = function(student) {
-		        	student.select = !student.select;
-		        }
-		        
-		        //全选学生
-		        $scope.all = function() {
-		        	$($scope.allStudents).each(function() {
-		        		this.select = true;
-		        	});
-		        };
-		        
-		        //发送问题
-		        $scope.sub = function() {
-		        	var timestamp=new Date().getTime()+"";//时间戳
-		        	var selected = [];//被选中的学生id数组
-		        	$($scope.allStudents).each(function() {
-		        		if(this.select) {
-		        			selected.push(this.id);
-		        		}
-		        	});
-		        	$scope.currentTiwenQues.selectStudents = selected.join(",");//被选中的学生id，用逗号分隔
-		        	$scope.currentTiwenQues.select = true;//将该问题置为已提问状态
-		        	common.ajax2({
-			        	$scope: $scope,
+						});
+					}
+				};
+
+				//点击选人-选人按钮
+				$scope.xuanren = function() {
+					$scope.currentTiwenQues.chooseType = "select";
+					$scope.currentTiwenQues.category = "people";
+					$scope.removeAllAnswer(); //清除所有学生的答案和选中状态
+					$("#studentsWrapper").show();
+					$("#btns").show();
+				};
+
+				//点击选人-抢答按钮
+				$scope.qiangda = function() {
+					$scope.currentTiwenQues.chooseType = "race";
+					$scope.currentTiwenQues.category = "people";
+					$scope.removeAllAnswer(); //清除所有学生的答案和选中状态
+					$("#studentsWrapper").show();
+					$("#btns").show();
+				};
+
+				//点击选人-举手按钮
+				$scope.jushou = function() {
+					$scope.currentTiwenQues.chooseType = "raise";
+					$scope.currentTiwenQues.category = "people";
+					$scope.removeAllAnswer(); //清除所有学生的答案和选中状态
+					$("#studentsWrapper").show();
+					$("#btns").show();
+					//发送问题
+					$scope.subJushou();
+				};
+
+				//点击学生头像选中学生
+				$scope.selectStudent = function(student) {
+					student.select = !student.select;
+				}
+
+				//全选学生
+				$scope.all = function() {
+					$($scope.allStudents).each(function() {
+						this.select = true;
+					});
+				};
+
+				//发送问题
+				$scope.sub = function() {
+					var timestamp = new Date().getTime() + ""; //时间戳
+					var selected = []; //被选中的学生id数组
+					$($scope.allStudents).each(function() {
+						if(this.select) {
+							selected.push(this.id);
+						}
+					});
+					$scope.currentTiwenQues.selectStudents = selected.join(","); //被选中的学生id，用逗号分隔
+					$scope.currentTiwenQues.select = true; //将该问题置为已提问状态
+					common.ajax2({
+						$scope: $scope,
 						$http: $http,
 						url: '/interact/send/question',
 						data: {
@@ -565,15 +541,15 @@
 							//取消接收学生举手定时任务
 							$interval.cancel(raiseFlag);
 						}
-			        });
-		        }
-		        
-		        //发送举手类型的问题
-		        $scope.subJushou = function() {
-		        	var timestamp=new Date().getTime()+"";
-		        	$scope.currentTiwenQues.select = true;
-		        	common.ajax2({
-			        	$scope: $scope,
+					});
+				}
+
+				//发送举手类型的问题
+				$scope.subJushou = function() {
+					var timestamp = new Date().getTime() + "";
+					$scope.currentTiwenQues.select = true;
+					common.ajax2({
+						$scope: $scope,
 						$http: $http,
 						url: '/interact/send/question',
 						data: {
@@ -586,106 +562,52 @@
 						},
 						success: function() {
 							//将所有学生都隐藏
-				        	$($scope.allStudents).each(function() {
-				        		this.show = false;
-				        	});
+							$($scope.allStudents).each(function() {
+								this.show = false;
+							});
 							//开始定时任务，接收学生的举手情况
 							raiseFlag = $interval($scope.receiveRaise, 2000);
 						}
-			        });
-		        }
-		        
-		        //定时任务--接收学生答题情况
-		        
-//		        $scope.receiveAnswer = function() {
-//		        	common.ajax2({
-//		        		method: 'get',
-//			        	$scope: $scope,
-//						$http: $http,
-//						url: '/interact/achieve/answer?teacher='+localStorage.getItem('userid')+'&circleId='+localStorage.getItem("circleId")+'&random='+random,
-//						success: function(res) {
-//							//将学生的回答情况暂存至相对应的题目中
-//							$($scope.tiwenQuestionList).each(function() {
-//								var that = this;
-//								if(!that.answers) {
-//									that.answers = [];
-//								}
-//								$(res.data).each(function() {
-//									if(that.id == this.askAnswer.questionId) {
-//										that.answers.push({
-//											studentId: this.id,
-//											answer: this.askAnswer.answer
-//										});
-//									}
-//								});
-//							});
-//						}
-//			        });
-//		        }
-//		        $interval($scope.receiveAnswer ,1000);
-		        
-		        //定时任务--接收学生举手情况
-//		        $scope.receiveRaise = function() {
-//		        	common.ajax2({
-//		        		method: 'get',
-//			        	$scope: $scope,
-//						$http: $http,
-//						url: '/interact/achieve/raise?teacher='+localStorage.getItem('userid')+'&circleId='+localStorage.getItem("circleId")+'&random='+random,
-//						success: function(res) {
-//							console.log(res);
-//							//接收全量的已举手学生，将学生显示出来供老师选择
-//							$($scope.allStudents).each(function() {
-//				        		var that = this;
-//				        		$(res.data).each(function() {
-//				        			if(this.id == that.id) {
-//				        				that.show = true;
-//				        			}
-//				        		});
-//				        	});
-//						}
-//			        });
-//		        }
-		        
-		        //显示学生回答的答案
-		        $scope.showAnswer = function() {
-		        	var flag = 0;
-		        	if($scope.currentTiwenQues.examChildren[0].examType == "trueOrFalse") {
+					});
+				}
+
+				//显示学生回答的答案
+				$scope.showAnswer = function() {
+					var flag = 0;
+					if($scope.currentTiwenQues.examChildren[0].examType == "trueOrFalse") {
 						flag = 1;
 					}
-					
+
 					$scope.removeAllAnswer();
 					//遍历题目中的answer列表，再遍历学生列表，将学生id与题目中答题学生id对应，显示学生的回答
 					$($scope.currentTiwenQues.answers).each(function() {
-	        			var that = this;
-	        			if(flag == 1) {
-	        				if(that.answer == "true") {
-	        					that.answer = "对";
-	        				}else if(that.answer == "false") {
-	        					that.answer = "错";
-	        				}
-	        			}
-	        			$($scope.allStudents).each(function() {
-	        				if(that.studentId == this.id) {
-	        					this.answer = that.answer;
-	        				}
-	        			});
-	        		});
-	        		
+						var that = this;
+						if(flag == 1) {
+							if(that.answer == "true") {
+								that.answer = "对";
+							} else if(that.answer == "false") {
+								that.answer = "错";
+							}
+						}
+						$($scope.allStudents).each(function() {
+							if(that.studentId == this.id) {
+								this.answer = that.answer;
+							}
+						});
+					});
+
 				};
-				
+
 				//清除学生的答案和选中状态,并将所有学生都显示
-		        $scope.removeAllAnswer = function() {
-		        	$($scope.allStudents).each(function() {
-		        		this.select = false;
-		        		this.answer = "";
-		        		this.show = true;
-		        	});
-		        };
+				$scope.removeAllAnswer = function() {
+					$($scope.allStudents).each(function() {
+						this.select = false;
+						this.answer = "";
+						this.show = true;
+					});
+				};
 			});
-			
-			
-			
-			
+
 			//轮播图集
 			var LayersliderInit = function() {
 				return {

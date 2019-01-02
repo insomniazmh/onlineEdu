@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/haveClass/haveClass",
     "pages/getId/getId",
     "pages/school_index/index",
     "pages/nav_deleteAfertText/nav",
     "pages/True or false/True or false",
-    "pages/haveClass/haveClass",
+    
     "pages/students_interaction/students_interaction",
     "pages/Raise your hand/TrueOrFalse_h",
     "pages/Raise your hand/choose_h",

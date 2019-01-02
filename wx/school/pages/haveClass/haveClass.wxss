@@ -1,1 +1,2 @@
 /* pages/haveClass/haveClass.wxss */
+@import"../../wxParse/wxParse.wxss";

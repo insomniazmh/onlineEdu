@@ -1,13 +1,16 @@
 <!--pages/haveClass/haveClass.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
 <view class='text_typeOne'>
   <image class='text_state dis_none' src='../../img/z17.png' mode='widthFix'></image>
   <image class='text_state dis_none' src='../../img/z18.png' mode='widthFix'></image><!--已回答、已过期标签，添加“dis_none”隐藏-->
-  <text>商家要开展电子商务活动 , 应该用（  ）作为其主要的生意平台。</text>
+  <!-- <text>商家要开展电子商务活动 , 应该用（  ）作为其主要的生意平台。</text> -->
+  <view><template is="wxParse" data="{{wxParseData:article.nodes}}" /></view>
 </view>
-<view class='text_answers '>
+<view class='text_answers'>
   <!--题目是否可用通过添加删除类“opacity”切换-->
   <view class='text_answers_clm' style="{{radioindex==1?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='1'>
-    <text><text class='cl_o e_number'>A.</text>BBS</text>
+    <text class='cl_o e_number'>A.</text>
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
   </view>
   <view class='text_answers_clm' style="{{radioindex==2?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='2'>
     <text><text class='cl_o e_number'>B.</text>电子邮件</text>

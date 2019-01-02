@@ -33,7 +33,7 @@ var common = {
 				        if(data.ret == 0) {
 							settings.success(response.data);
 				        }else {
-				        	if(response.ret == 2000) {
+				        	if(data.ret == 2000) {
 				        		alert(response.msg);
 				        	}
 				        }

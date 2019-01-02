@@ -69,7 +69,7 @@
 				var studentId = $location.search().studentId;
 				//接收老师推送问题
 		        var random = Math.random().toString(36).substr(2);//生成随机数
-		        localStorage.setItem("circleId", "123");
+//		        localStorage.setItem("circleId", "123");
 		        console.log(localStorage.getItem("circleId"));
 		        
 		        var ws = null;
@@ -98,12 +98,8 @@
 								});
 								$scope.question = data.bigQuestion;
 								console.log($scope.question);
-								if(data.participate == "raise") {
-									if($scope.flag) {
-										$scope.flag = false;//不能答题，只显示一个举手按钮
-									}else {
-										$scope.flag = true;//可以答题
-									}
+								if(data.participate == "raise" && $scope.question.selected=="2") {
+									$scope.flag = false;//不能答题，只显示一个举手按钮
 								}else {
 									$scope.flag = true;//可以答题
 								}

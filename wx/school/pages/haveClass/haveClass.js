@@ -1,6 +1,6 @@
 // pages/haveClass/haveClass.js
+var WxParse = require('../../wxParse/wxParse.js');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -21,30 +21,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var random = Math.random().toString(36).substr(2);//生成随机数
+    var that = this;
     wx.connectSocket({
-      url: 'wss://example.qq.com',
+      url: "wss://e.hnfts.cn/websocket/interactive/123/10001/student/"+ random,
       header: {
         'content-type': 'application/json'
       },
       protocols: ['protocol1'],
       method: 'GET'
     })
-
-    wx.request({
-      method: "GET",
-      url: 'https://e.hnfts.cn/quiz/interact/achieve/questions',
-      data: {
-        "circleId": '123',
-        "examineeId": '10005',
-        "random": "123"
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        console.log(res.data)
-      }
+ 
+    wx.onSocketOpen(function() {
+      console.log(123);
     })
+
+    wx.onSocketMessage(function(res){
+      var data = JSON.parse(res.data);
+      console.log(data);
+      WxParse.wxParse('article', 'html', data.bigQuestion.examChildren[0].choiceQstTxt, that, 5);
+    })
+
+    wx.onSocketError(function(res) {
+      console.log(res);
+    })
+
+
   },
 
   /**
