@@ -657,8 +657,9 @@
 					},
 					url: '/classRoom/create/cover',
 					success: function(res) {
-						localStorage.setItem("circleId", $scope.circleId);
-						$('#qrcode').qrcode($scope.circleId);
+						localStorage.setItem("circleId", res.data);
+						$('#qrcode').empty();
+						$('#qrcode').qrcode(res.data);
 //						localStorage.setItem("circleId", "123");
 //						$('#qrcode').qrcode("123");
 //						$scope.joinRoom("10001");
@@ -666,6 +667,7 @@
 //						$scope.joinRoom("10003");
 //						$scope.joinRoom("10004");
 						$("#erweima").modal("show");
+						$scope.students = [];
 						$scope.initWs();//开始长连接，获取学生加入情况
 					}
 		        });

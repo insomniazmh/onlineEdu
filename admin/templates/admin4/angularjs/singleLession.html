@@ -354,7 +354,7 @@
 				$scope.initWs = function() {
 					//check if your browser supports WebSocket
 					if('WebSocket' in window) {
-						ws = new WebSocket("wss://e.hnfts.cn/quiz/interactive/" + localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random);
+						ws = new WebSocket("wss://e.hnfts.cn/websocket/interactive/" + localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
 					}
@@ -539,7 +539,7 @@
 						},
 						success: function() {
 							//取消接收学生举手定时任务
-							$interval.cancel(raiseFlag);
+							//$interval.cancel(raiseFlag);
 						}
 					});
 				}
@@ -566,7 +566,7 @@
 								this.show = false;
 							});
 							//开始定时任务，接收学生的举手情况
-							raiseFlag = $interval($scope.receiveRaise, 2000);
+							//raiseFlag = $interval($scope.receiveRaise, 2000);
 						}
 					});
 				}

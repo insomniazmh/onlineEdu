@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/haveClass/haveClass",
     "pages/getId/getId",
+    "pages/haveClass/haveClass",
+    
     "pages/school_index/index",
     "pages/nav_deleteAfertText/nav",
     "pages/True or false/True or false",
