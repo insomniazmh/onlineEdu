@@ -27,8 +27,8 @@
 <!-- 判断 -->
 <view class='text_answers' wx:if="{{questionType=='trueOrFalse'}}">
   <view class='allow_state '>
-    <image bindtap='imgclick' src="../../img/r_icon.png" data-id='1' mode='widthFix'></image>
-    <image bindtap='imgclick' src="../../img/w_icon.png" data-id='2' mode='widthFix'></image>
+    <image bindtap='bindTOF' src="{{checkTOF?'../../img/r_icon.png':'../../img/r_icon_g.png'}}" data-id='1' mode='widthFix'></image>
+    <image bindtap='bindTOF' src="{{!checkTOF?'../../img/w_icon.png':'../../img/w_icon_g.png'}}" data-id='2' mode='widthFix'></image>
   </view>
 </view>
 <button class='com_btn mt_100 btn_state_on' bindtap='bindSub' wx:if="{{!raiseFlag}}">提交</button>

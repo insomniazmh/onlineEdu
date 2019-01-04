@@ -7,8 +7,9 @@ Page({
   data: {
     radioindex: null,
     checkboxIndex: [],
+    checkTOF: true,
     optsValue: ["A", "B", "C", "D", "E", "F"],
-    answer: null
+    answer: ""
   },
 
   /**点击单选答案选项 */
@@ -47,10 +48,18 @@ Page({
   },
 
   /**点击判断答案选项 */
-  bindradio: function (e) {
-    var that = this;
-    this.setData({ radioindex: e.currentTarget.dataset.id });
-    this.setData({ answer: that.data.optsValue[that.data.radioindex] });
+  bindTOF: function (e) {
+    if (e.currentTarget.dataset.id == 1) {
+      this.setData({ 
+        checkTOF: true,
+        answer: true
+      });
+    } else if (e.currentTarget.dataset.id == 2) {
+      this.setData({ 
+        checkTOF: false,
+        answer: false
+      });
+    }
   },
 
   /**点击确定按钮提交答案 */
@@ -155,14 +164,14 @@ Page({
         that.setData({ 
           radioindex: null,
           checkboxIndex: [],
-          answer: null,
+          answer: "",
 
           questionId: data.bigQuestion.id,
           cut: data.cut
         });
         
-        if (data.bigQuestion.examChildren[0].examType == "single") {//单选的情况
-          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt, that, 5);//拼装问题title
+        if (data.bigQuestion.examChildren[0].examType == "single") {//单选题
+          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（单选）", that, 5);//拼装问题title
           that.setData({ questionType: "single" });
           //拼装选项
           var opts = data.bigQuestion.examChildren[0].optChildren;
@@ -172,8 +181,8 @@ Page({
               WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
             }
           }
-        } else if (data.bigQuestion.examChildren[0].examType == "multiple") {//多选的情况
-          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt, that, 5);//拼装问题title
+        } else if (data.bigQuestion.examChildren[0].examType == "multiple") {//多选题
+          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（多选）", that, 5);//拼装问题title
           that.setData({ questionType: "multiple" });
           //拼装选项
           var opts = data.bigQuestion.examChildren[0].optChildren;
@@ -183,6 +192,9 @@ Page({
               WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
             }
           }
+        } else if (data.bigQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
+          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）", that, 5);//拼装问题title
+          that.setData({ questionType: "trueOrFalse" });
         }
 
         if (data.participate == "raise" && data.bigQuestion.selected=="2") {//需要先举手

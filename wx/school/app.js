@@ -35,7 +35,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    circleId: "0d50cfe3d6cc4708be44db16c65a3e2d",
-    studentId: "10003"
+    circleId: "e2558ff62792487f800ab1950e1a84b0",
+    studentId: "10004"
   }
 })
