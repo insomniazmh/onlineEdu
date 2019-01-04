@@ -405,6 +405,8 @@
 
 					ws.onclose = function(evt) {
 						console.log("WebSocketClosed!");
+						ws = null;
+						$scope.initWs();
 					};
 
 					ws.onerror = function(evt) {
@@ -595,7 +597,6 @@
 							}
 						});
 					});
-
 				};
 
 				//清除学生的答案和选中状态,并将所有学生都显示

@@ -5,34 +5,64 @@ Page({
    * 页面的初始数据
    */
   data: {
-    radioindex: 0,
-    optsValue: ["A", "B", "C", "D", "E", "F"]
+    radioindex: null,
+    checkboxIndex: [],
+    optsValue: ["A", "B", "C", "D", "E", "F"],
+    answer: null
   },
 
-  /**点击答案选项 */
+  /**点击单选答案选项 */
   bindradio: function (e) {
-    var that = this;//作用域
-    that.setData({ radioindex: e.target.dataset.id });
+    var that = this;
+    this.setData({ radioindex: e.currentTarget.dataset.id });
+    this.setData({ answer: that.data.optsValue[that.data.radioindex] });
+  },
+
+  /**点击多选答案选项 */
+  bindCheckbox: function (e) {
+    var id = e.currentTarget.dataset.id;//获取当前dom元素绑定数据：index
+    var that = this;
+    var dataArr = that.data.checkboxIndex;//获取当前多选信息数组
+    var flag = true;
+    if (dataArr.length > 0) {//如果被点击的选项index在数组中存在，则删除之
+      for (var i = 0; i < dataArr.length; i++) {
+        if (dataArr[i] == id) {
+          dataArr.splice(i, 1);
+          flag = false;
+        }
+      }
+    }
+    
+    if (flag && (id || id == 0)) {//如果被点击的选项index在数组中不存在，则push之
+      dataArr.push(id);
+    }
+    
+    that.setData({ checkboxIndex: dataArr });//将更新过的数据重新传人data
+    var answer = "";
+    console.log(dataArr);
+    for (var item in dataArr) {//遍历index,取对应的A，B，C，D保存至答案变量
+      answer += that.data.optsValue[dataArr[item]];
+    }
+    that.setData({ answer: answer });//将答案变量赋入data
+  },
+
+  /**点击判断答案选项 */
+  bindradio: function (e) {
+    var that = this;
+    this.setData({ radioindex: e.currentTarget.dataset.id });
+    this.setData({ answer: that.data.optsValue[that.data.radioindex] });
   },
 
   /**点击确定按钮提交答案 */
   bindSub: function (e) {
     var that =this;
     var postData = {
-      "answer": "",
+      "answer": that.data.answer,
       "circleId": getApp().globalData.circleId,
       "cut": that.data.cut,
       "examineeId": getApp().globalData.studentId,
       "questionId": that.data.questionId
     };
-
-    if (that.data.questionType == 'single') {
-      if (that.data.radioindex) {
-        postData.answer = that.data.optsValue[that.data.radioindex];
-      }else {
-        postData.answer = "A";
-      }
-    }
 
     wx.request({
       method: "post",
@@ -123,13 +153,28 @@ Page({
       //如果推送类型为问题，显示出来
       if (data.model == "questions") {
         that.setData({ 
+          radioindex: null,
+          checkboxIndex: [],
+          answer: null,
+
           questionId: data.bigQuestion.id,
           cut: data.cut
         });
-        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt, that, 5);//拼装问题title
-
+        
         if (data.bigQuestion.examChildren[0].examType == "single") {//单选的情况
+          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt, that, 5);//拼装问题title
           that.setData({ questionType: "single" });
+          //拼装选项
+          var opts = data.bigQuestion.examChildren[0].optChildren;
+          for (let i = 0; i < opts.length; i++) {
+            WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
+            if (i === opts.length - 1) {
+              WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
+            }
+          }
+        } else if (data.bigQuestion.examChildren[0].examType == "multiple") {//多选的情况
+          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt, that, 5);//拼装问题title
+          that.setData({ questionType: "multiple" });
           //拼装选项
           var opts = data.bigQuestion.examChildren[0].optChildren;
           for (let i = 0; i < opts.length; i++) {

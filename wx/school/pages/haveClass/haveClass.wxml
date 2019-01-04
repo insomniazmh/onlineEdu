@@ -17,10 +17,11 @@
 <!-- 多选 -->
 <view class='text_answers' wx:if="{{questionType=='multiple'}}">
   <view wx:for="{{optArray}}" wx:for-index="idx" wx:key="" class='text_answers_clm' data-id='{{idx}}' 
-  style="{{radioindex==idx?'background-color:#dedede;':''}}" bindtap='bindradio'>
+  style="{{checkboxIndex.indexOf(idx)==-1?'background-color:#dedede;':''}}" bindtap='bindCheckbox'>
     <text class='cl_o e_number'>{{optsValue[idx]}}.</text>
     <template is="wxParse" data="{{wxParseData:item}}"/>
   </view>
+  <text>您选择的答案是：{{answer}}</text>
 </view>
 
 <!-- 判断 -->
