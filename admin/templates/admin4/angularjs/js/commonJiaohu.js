@@ -1,8 +1,8 @@
 var common = {
 	
-	url: 'http://132.232.124.203:8090',//永永服务
+	url: 'https://e.hnfts.cn/education',//永永服务
 	//url: 'http://192.168.13.230:8090',//永永本机
-	url2: 'http://132.232.124.203:8070',//真铭服务
+	url2: 'https://e.hnfts.cn/quiz',//真铭服务
 	//url2: 'http://192.168.13.15:8080',//真铭本机
 	
 
@@ -33,7 +33,7 @@ var common = {
 				        if(data.ret == 0) {
 							settings.success(response.data);
 				        }else {
-				        	if(response.ret == 2000) {
+				        	if(data.ret == 2000) {
 				        		alert(response.msg);
 				        	}
 				        }

@@ -1,0 +1,4 @@
+<view class='section'>
+  <input bindinput="bindKeyInput" placeholder="点击这里输入学生id(10001-10100)" auto-focus />
+  <button bindtap='subclick' class='com_btn mt_100 btn_state_on'>提交</button>
+</view>

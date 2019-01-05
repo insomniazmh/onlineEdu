@@ -5,7 +5,6 @@ Page({
   //   wx.navigateTo({
   //     url: e.currentTarget.dataset.url
   //   })
-  // },
 
   //扫描二维码,获取班级id
   scanCode(e) {
@@ -14,9 +13,23 @@ Page({
         console.log(res);
         var app = getApp();
         app.globalData.circleId = res.result;//将班级id存入全局变量中
-        //将页面跳转至上课
-        wx.navigateTo({
-          url: e.currentTarget.dataset.url
+        //学生进入课堂
+        wx.request({
+          method: "post",
+          url: 'https://e.hnfts.cn/quiz/classRoom/join/interactiveRoom',
+          data: {
+            examineeId: getApp().globalData.studentId,
+            circleId: getApp().globalData.circleId
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success(res) {
+            //将页面跳转至上课
+            wx.navigateTo({
+              url: e.currentTarget.dataset.url
+            })
+          }
         })
       }
     })

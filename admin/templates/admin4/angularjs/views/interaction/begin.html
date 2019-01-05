@@ -501,7 +501,7 @@
 				<div class="col-md-12">
 					<div class="col-md-2" ng-repeat="row in students">
 						<div class="uppercase profile-userpic {{row.active ? 'active':''}}" ng-click="clickStudent($index);">
-							<img src="{{row.image}}" class="img-responsive" alt="">
+							<img src="{{row.portrait}}" class="img-responsive" alt="">
 						</div>
 						<div class="uppercase profile-stat-text">
 							{{row.name}}
@@ -601,25 +601,28 @@
 <script>
 	function beginCtrl($scope, $rootScope, $http) {
 		var ws = null;
+		$scope.students = [];
 		$scope.initWs = function() {
+			var random = Math.random().toString(36).substr(2);//生成随机数
 			//check if your browser supports WebSocket
 			if('WebSocket' in window) {
-				ws = new WebSocket("ws://192.168.13.15:8080/websocket/demo/");
+				ws = new WebSocket("wss://e.hnfts.cn/websocket/interactive/"+localStorage.getItem('circleId')+"/"+localStorage.getItem('userid')+"1/teacher/"+random);
 			} else {
 				layer.alert('对不起，您的浏览器不支持websorket');
 			}
 
 			ws.onopen = function() {
 				console.log("open");
-				ws.send("hello");
 			};
 
 			ws.onmessage = function(evt) {
-				console.log(evt.data);
-				var data = evt.data;
-				if(data.model == "interactiveStudents") {
-					$scope.students.push(data.data);
-				}
+				$scope.$apply(function () {
+					var data = JSON.parse(evt.data);
+					console.log(data);
+					if(data.model == "interactiveStudents") {
+						$scope.students = data.students;
+					}
+				});
 			};
 
 			ws.onclose = function(evt) {
@@ -630,8 +633,8 @@
 				console.log("WebSocketError!");
 			};
 		};
-		$scope.initWs();
-
+		
+		
 		$scope.goUrl = function() {
 			window.open('singleLession.html');
 		}
@@ -644,8 +647,7 @@
 	    	}
 	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建二维码吗", {
 			  btn: ['确定','取消'] //按钮
-			}, function(){
-			  	$("#erweima").modal("show");
+			}, function(){	
 				common.ajax2({
 		        	$scope: $scope,
 					$http: $http,
@@ -653,23 +655,27 @@
 					    "teacherId": localStorage.getItem('userid'),
 	  			  		"chapterId": localStorage.getItem('currentNodeId')
 					},
-					url: '/classRoom/create/reuse',
+					url: '/classRoom/create/cover',
 					success: function(res) {
-	//					$scope.circleId = res.data;
-	//					localStorage.setItem("circleId", $scope.circleId);
-						$scope.circleId = "123";
-						localStorage.setItem("circleId", "123");
-						$('#qrcode').qrcode("123");
-						$scope.joinRoom("10001");
-						$scope.joinRoom("10002");
-						$scope.joinRoom("10003");
-						$scope.joinRoom("10004");
+						localStorage.setItem("circleId", res.data);
+						$('#qrcode').empty();
+						$('#qrcode').qrcode(res.data);
+//						localStorage.setItem("circleId", "123");
+//						$('#qrcode').qrcode("123");
+//						$scope.joinRoom("10001");
+//						$scope.joinRoom("10002");
+//						$scope.joinRoom("10003");
+//						$scope.joinRoom("10004");
+						$("#erweima").modal("show");
+						$scope.students = [];
+						$scope.initWs();//开始长连接，获取学生加入情况
 					}
 		        });
 				layer.closeAll('dialog');
 			});
 	    	
 		};
+		
 
 		//学生加入课堂（模拟）
 		$scope.joinRoom = function(examineeId) {
@@ -678,57 +684,16 @@
 				$http: $http,
 				data: {
 					"examineeId": examineeId,
-					"circleId": $scope.circleId
+					"circleId": localStorage.getItem('circleId')
 				},
 				url: '/classRoom/join/interactiveRoom',
 				success: function(res) {
-					ws.send(examineeId);
 					console.log(res);
 				}
 			});
 		}
 
-		$scope.students = [{
-				name: "张三",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "李四",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "王五",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "马六",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "赵琦",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "韩八",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "钱九",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "李同学",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "李同学",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			},
-			{
-				name: "李同学",
-				image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
-			}
-		];
+		
 
 		
 	}

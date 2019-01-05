@@ -138,7 +138,6 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 			url: '/course/findAll',
 			data: pageData,
 			success: function(data) {
-				console.log(data.data);
 				$(data.data).each(function() {
 					if(!this.topPicSrc) {
 						this.topPicSrc = 'images/zanwu.jpg';
@@ -394,6 +393,24 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             url: "/xitice.html",
             templateUrl: "views/database/xitice.html",            
             data: {pageTitle: '资料库', pageSubTitle: '教辅题册'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        	'js/webuploader-0.1.5/webuploader.css'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        //任务和风暴
+        .state('task', {
+            url: "/task.html",
+            templateUrl: "views/database/task.html",            
+            data: {pageTitle: '资料库', pageSubTitle: '任务和风暴'},
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load({
