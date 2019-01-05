@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showSub: false,
     radioindex: null,
     checkboxIndex: [],
     checkTOF: true,
@@ -93,6 +94,13 @@ Page({
     })
   },
 
+  /**点击确定按钮提交答案 */
+  formSubmit: function(e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value);
+    this.setData({ answer: e.detail.value.answer });
+    this.bindSub(null);
+  },
+
   /**点击举手按钮 */
   bindRaise: function (e) {
     wx.request({
@@ -162,6 +170,7 @@ Page({
       //如果推送类型为问题，显示出来
       if (data.model == "questions") {
         that.setData({ 
+          showSub: true,
           radioindex: null,
           checkboxIndex: [],
           answer: "",
@@ -195,6 +204,13 @@ Page({
         } else if (data.bigQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
           WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）", that, 5);//拼装问题title
           that.setData({ questionType: "trueOrFalse" });
+        } else if (data.bigQuestion.examChildren[0].examType == "design") {//主观题
+          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].designQuestion + "（主观）", that, 5);//拼装问题title
+          that.setData({ 
+            questionType: "design",
+            showSub: false
+          });
+          
         }
 
         if (data.participate == "raise" && data.bigQuestion.selected=="2") {//需要先举手

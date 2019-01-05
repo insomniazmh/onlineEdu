@@ -31,7 +31,17 @@
     <image bindtap='bindTOF' src="{{!checkTOF?'../../img/w_icon.png':'../../img/w_icon_g.png'}}" data-id='2' mode='widthFix'></image>
   </view>
 </view>
-<button class='com_btn mt_100 btn_state_on' bindtap='bindSub' wx:if="{{!raiseFlag}}">提交</button>
+
+<!-- 主观 -->
+<!-- <view class='text_answers' wx:if="{{questionType=='design'}}"> -->
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class='allow_state"'>
+    <textarea name="answer" placeholder="请在这里输入您的答案" />
+  </view>
+  <button class='com_btn mt_100 btn_state_on' form-type="submit" wx:if="{{!raiseFlag}}">提交</button>
+</form>
+
+<button class='com_btn mt_100 btn_state_on' bindtap='bindSub' wx:if="{{!raiseFlag && showSub}}">提交</button>
 <image class='raise_hand' bindtap='bindRaise' src="../../img/z19.png" mode='widthFix' wx:if="{{raiseFlag}}"></image>
 <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
 
