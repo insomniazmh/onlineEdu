@@ -109,7 +109,7 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
     
     //切换知识点回调
 	$rootScope.$on('kPointNode', function(d,data) {  
-		localStorage.setItem('kPointNode', data);
+		localStorage.setItem('knodeId', data.knodeId);
         $scope.$broadcast('kPointNode', data);
     });
 }]);

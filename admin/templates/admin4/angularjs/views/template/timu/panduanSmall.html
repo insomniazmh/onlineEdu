@@ -1,0 +1,87 @@
+<div role="form" ng-controller="panduanSmallCtrl">
+	<div class="form-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">					
+					<label style="font-size: 13px; color: #888888;">题干</label>
+					<div id="panduanSmall_title"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-12">
+				<div class="form-group form-md-radios">
+					<label>答案</label>
+					<div class="md-radio-inline">
+						<div class="md-radio">
+							<input type="radio" id="panduanSmallanswer1" name="panduanSmallanswer" class="md-radiobtn" value="1" checked="">
+							<label for="panduanSmallanswer1">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													对 </label>
+						</div>
+						<div class="md-radio">
+							<input type="radio" id="panduanSmallanswer2" name="panduanSmallanswer" class="md-radiobtn" value="2">
+							<label for="panduanSmallanswer2">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													错 </label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
+					<div id="panduanSmall_jiexi"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="form-actions noborder">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
+		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+	</div>
+</div>
+
+<script>
+	function panduanSmallCtrl($scope, $http, $timeout) {	    
+		$('#panduanSmall_title').summernote({
+			height: 100
+		});
+		$('#panduanSmall_jiexi').summernote({
+			height: 100
+		});
+		
+		$scope.sub = function() {
+			var obj = {
+				score: 1,
+				examType: "trueOrFalse",
+				teacherId: localStorage.getItem("userid"),
+				trueOrFalseInfo: $('#panduanSmall_title').code(),
+				trueOrFalseAnalysis: $('#panduanSmall_jiexi').code(),
+				
+				
+				title: $('#panduanSmall_title').code(),
+				analysis: $('#panduanSmall_jiexi').code()
+			};
+			
+			if($("input[name='panduanSmallanswer']:checked").val() == 1) {
+				obj.trueOrFalseAnsw = true;
+				obj.answer = true;
+			}else {
+				obj.trueOrFalseAnsw = false;
+				obj.answer = false;
+			}
+			
+			$scope.$emit('addSmall', obj);
+			
+		}
+		
+	}
+</script>

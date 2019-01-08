@@ -47,28 +47,18 @@
 				knodeId: "",
 				kNodeType: "1",
 				selected: true
-			}, {
-				nodeName: "复合知识点",
-				knodeId: "1",
-				kNodeType: "2"
 			}];
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
-				url: '/kNode/findAllPage',
+				url: '/kNode/findByChapter',
 				data: {
-			    	'chapterId': $scope.currentNode.id,
-			    	"courseId": localStorage.getItem('courseId'),
-			    	"sortVo": {
-					    "page": 0,
-					    "size": 200,
-					    "sort": 1,
-					    "sorting": "cTime"
-					}
+			    	'chapterId': $scope.currentNode.id
 			    },
 			    success: function(data) {
-			    	$scope.kNodes = $scope.kNodes.concat(data.data.content);
+			    	$scope.kNodes = $scope.kNodes.concat(data.data);
 					$rootScope.$emit('kPointNode', {});
+					localStorage.setItem('knodeId', "");
 					$rootScope.kNodes = $scope.kNodes;
 			    }
 			});
@@ -90,7 +80,6 @@
 				data: {
 			    	'chapterId': $scope.currentNode.id,
 			    	"courseId": localStorage.getItem('courseId'),
-			    	"kNodeType": "1",
 			    	"nodeName": $scope.kNodeName
 			    },
 			    success: function(data) {
@@ -105,6 +94,7 @@
         	});
         	row.selected = true;
         	$rootScope.$emit('kPointNode', row);
+        	console.log(row);
         }
         
 //      $("#kpContent").on("click", "a[name='kp']", function() {
