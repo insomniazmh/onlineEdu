@@ -1,0 +1,71 @@
+<div role="form" ng-controller="zhuguanSmallCtrl">
+	<div class="form-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">					
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
+					<div id="zhuguanSmall_title"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">					
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">答案</label>
+					<div id="zhuguanSmall_answer"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
+					<div id="zhuguanSmall_jiexi"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions noborder">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
+		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+	</div>
+</div>
+
+<script>
+	function zhuguanSmallCtrl($scope, $http) {		
+		$('#zhuguanSmall_title').summernote({
+			height: 100
+		});
+		$('#zhuguanSmall_jiexi').summernote({
+			height: 100
+		});
+		
+		$('#zhuguanSmall_answer').summernote({
+			height: 100
+		});
+		
+		$scope.sub = function() {
+			var kPointId = "";
+			
+			var obj = {
+	            "relate": "1",
+	            "score": 1,
+	            "teacherId": localStorage.getItem("userid"),
+	            "designQuestion": $('#zhuguanSmall_title').code(),
+	            "designAnsw": $('#zhuguanSmall_answer').code(),
+	            "designAnalysis": $('#zhuguanSmall_jiexi').code(),
+	            
+	            
+	            "title": $('#zhuguanSmall_title').code(),
+	            "answer": $('#zhuguanSmall_answer').code(),
+	            "analysis": $('#zhuguanSmall_jiexi').code(),
+	            
+	            
+	            "examType": "design"
+	        }
+			
+			$scope.$emit('addSmall', obj);
+		}
+		
+	}
+</script>

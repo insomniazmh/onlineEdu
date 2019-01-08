@@ -1,10 +1,10 @@
-<div role="form" ng-controller="duoxuanCtrl">
+<div role="form" ng-controller="duoxuanSmallCtrl">
 	<div class="form-body">
 		<div class="row" style="">
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">					
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
-					<div id="duoxuan_title"></div>
+					<div id="duoxuanSmall_title"></div>
 				</div>
 			</div>
 		</div>
@@ -12,50 +12,7 @@
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
-					<div id="duoxuan_jiexi"></div>
-				</div>
-			</div>
-		</div>
-		<div class="row" style="margin-top: 20px;">
-			<div class="col-md-6">
-				<div class="form-group form-md-line-input has-info">
-					<select class="form-control" id="form_control_1" ng-model="knowledgeId">
-						<option value="">请选择</option>
-						<option ng-repeat="row in kNodes" value="{{row.knodeId}}">{{row.nodeName}}</option>
-						<!--<option value="">电子商务的概念</option>-->
-					</select>
-					<label for="form_control_1">知识点</label>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group form-md-radios">
-					<label>难易程度</label>
-					<div class="md-radio-inline">
-						<div class="md-radio">
-							<input type="radio" id="duoxuanRadio1" name="duoxuanlevel" class="md-radiobtn" value="1" checked="">
-							<label for="duoxuanRadio1">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													简单 </label>
-						</div>
-						<div class="md-radio">
-							<input type="radio" id="duoxuanRadio2" name="duoxuanlevel" class="md-radiobtn" value="2">
-							<label for="duoxuanRadio2">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													中等 </label>
-						</div>
-						<div class="md-radio">
-							<input type="radio" id="duoxuanRadio3" name="duoxuanlevel" class="md-radiobtn" value="3">
-							<label for="duoxuanRadio3">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span>
-													困难 </label>
-						</div>
-					</div>
+					<div id="duoxuanSmall_jiexi"></div>
 				</div>
 			</div>
 		</div>
@@ -71,8 +28,8 @@
 			<div ng-repeat="row in multi.options" style="height: 250px;">
 				<div class="col-md-1" style="height: 54px;">
 					<div class="md-checkbox" style="margin-top: 27px;">
-						<input type="checkbox" id="checkbox{{$index}}" name="multi" class="md-check" ng-model="row.checked" ng-click="multi.showChecked()">
-						<label for="checkbox{{$index}}">
+						<input type="checkbox" id="checkboxSmall{{$index}}" name="multi" class="md-check" ng-model="row.checked" ng-click="multi.showChecked()">
+						<label for="checkboxSmall{{$index}}">
 							<span></span>
 							<span class="check"></span>
 							<span class="box"></span>
@@ -84,7 +41,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="form-group form-md-line-input">
-						<div class="duoxuan_summernote" id="duoxuan_option{{row.count}}" name="duoxuan_option"></div>
+						<div class="duoxuanSmall_summernote" id="duoxuanSmall_option{{row.count}}" name="duoxuanSmall_option"></div>
 					</div>
 				</div>
 				<div class="col-md-2">
@@ -102,7 +59,7 @@
 </div>
 
 <script>
-	function duoxuanCtrl($scope, $http, $timeout) {
+	function duoxuanSmallCtrl($scope, $http, $timeout) {
 		var count = 4;
 		$scope.multi = {
 			right: "ABCD",
@@ -133,7 +90,7 @@
 				this.rename();
 				
 				$timeout(function() {
-					$('#duoxuan_option'+count).summernote({
+					$('#duoxuanSmall_option'+count).summernote({
 						height: 100
 					});
 					count++;
@@ -174,24 +131,24 @@
 			}
 		};
 		
-		$('#duoxuan_title').summernote({
+		$('#duoxuanSmall_title').summernote({
 			height: 100
 		});
-		$('#duoxuan_jiexi').summernote({
+		$('#duoxuanSmall_jiexi').summernote({
 			height: 100
 		});
 		
 		$timeout(function() {
-			$('#duoxuan_option0').summernote({
+			$('#duoxuanSmall_option0').summernote({
 				height: 100
 			});
-			$('#duoxuan_option1').summernote({
+			$('#duoxuanSmall_option1').summernote({
 				height: 100
 			});
-			$('#duoxuan_option2').summernote({
+			$('#duoxuanSmall_option2').summernote({
 				height: 100
 			});
-			$('#duoxuan_option3').summernote({
+			$('#duoxuanSmall_option3').summernote({
 				height: 100
 			});
 		},300);
@@ -201,47 +158,28 @@
 			var opts = [];
 			$($scope.multi.options).each(function(i) {
 				opts.push({
-					"optTxt": $('[name=duoxuan_option]').eq(i).code(),
+					"optTxt": $('[name=duoxuanSmall_option]').eq(i).code(),
                     "optValue": this.optValue
 				});
 			});
 			
-			if(!$scope.knowledgeId) {
-				$scope.knowledgeId = "";
-			}
-			
 			var obj = {
-				"relate":0,
-				"teacherId": localStorage.getItem("userid"),
-				"levelId":$("input[name='duoxuanlevel']:checked").val(),
-				"knowledgeId": $scope.knowledgeId,
-				"chapterId": localStorage.getItem("currentNodeId"),
-			    "examChildren": [
-			        {
-			            "examType":"multiple",
-			            "score": 1,
-			            "teacherId": localStorage.getItem("userid"),
-			            "choiceQstTxt": $('#duoxuan_title').code(),
-			            "choiceQstAnsw": $scope.multi.right,
-			            "choiceQstAnalysis": $('#duoxuan_jiexi').code(),
-			            "choiceType": "multiple",
-			            "optChildren": opts
-			        }
-			    ]
-			};
+	            "examType":"multiple",
+	            "score": 1,
+	            "teacherId": localStorage.getItem("userid"),
+	            "title": $('#duoxuanSmall_title').code(),
+	            "answer": $scope.multi.right,
+	            "analysis": $('#duoxuanSmall_jiexi').code(),
+	            
+	            
+	            "choiceQstTxt": $('#duoxuanSmall_title').code(),
+	            "choiceQstAnsw": $scope.multi.right,
+	            "choiceQstAnalysis": $('#duoxuanSmall_jiexi').code(),
+	            "choiceType": "multiple",
+	            "optChildren": opts
+	        };
 			
-			//添加题目(单选)
-	        common.ajax2({
-	        	$scope: $scope,
-				$http: $http,
-				operate: true,
-				url: '/question/choiceQst/edit',
-				data: obj,
-				success: function(res) {
-					$scope.$emit('addQuestion', "multiple");
-					$("#addQuestion").modal("hide");
-				}
-	        });
+			$scope.$emit('addSmall', obj);
 		}
 		
 	}

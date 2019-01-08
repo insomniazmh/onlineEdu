@@ -81,13 +81,13 @@
 					<select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
 						<option value="101">胡珊珊</option>
 						<option value="102">张燕</option>
-						<option value="103" selected>李康</option>
-						<option value="104" selected>申琪</option>
+						<option value="103">李康</option>
+						<option value="104">申琪</option>
 						<option value="105">赵红</option>
 						<option value="106">王艳丽</option>
 						<option value="107">梁伟</option>
 						<option value="108">侯卓媛</option>
-						<option value="109" selected>马聪颖</option>
+						<option value="109">马聪颖</option>
 						<option value="110">韩涵</option>
 					</select>
 				</div>
@@ -133,6 +133,36 @@
 				    	$('#summernoteMiaoshu').code($scope.course.courseDescribe);
 				    	//授课类型
 	//			    	$("input[name='lessonType'][value="++"]").attr("checked","checked");
+						//备课类型
+						$("input[name='beikeType'][value="+$scope.course.lessonPreparationType+"]").attr("checked","checked");
+						if($scope.course.lessonPreparationType == "2") {
+							$("#multipleContent").show();
+							//请求分享教师的接口
+							common.ajax({
+								$scope: $scope,
+								$http: $http,
+								url: '/course/selectTeachersByShareId',
+								data: {
+							    	'shareId': $scope.course.shareId
+							    },
+							    success: function(res) {
+							    	console.log(res);
+							    	var arr = [];
+							    	$(res.data).each(function() {
+							    		console.log(this.userId);
+							    		arr.push(this.userId);
+							    	});
+							    	$("#my_multi_select1 option").each(function() {
+							    		//console.log($.inArray($(this).val(), arr));
+							    		if($.inArray($(this).val(), arr) >=0 ) {
+							    			console.log("true");
+							    			$(this).attr("selected", true);
+							    		}
+							    	})
+							    	$('#my_multi_select1').multiSelect('refresh');
+							    }
+							});
+						}
 						//处理封面
 						if(!$scope.course.topPicSrc) {
 							$scope.course.topPicSrc = 'images/zanwu.jpg';
@@ -213,9 +243,7 @@
 					data: {
 				    	course: $scope.course,
 				    	oldShareId: $scope.course.shareId,
-				    	teachers: [{
-				    		teacherId: localStorage.getItem('userid')
-				    	}]
+				    	teachers: teachers
 				    },
 				    success: function(data) {
 				    	console.log(data);

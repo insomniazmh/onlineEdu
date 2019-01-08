@@ -152,7 +152,7 @@
 					</div>
 					<div class="tab-pane" id="tab_1_4"></div>
 					<div class="tab-pane" id="tab_1_5">
-						<div id="accordion5" class="panel-group">
+						<div id="accordionZhuguan" class="panel-group">
 							<div class="panel panel-default" ng-repeat="row in design">
 								<div class="panel-heading">
 									<h4 class="panel-title">
@@ -174,7 +174,33 @@
 							
 						</div>
 					</div>
-					<div class="tab-pane" id="tab_1_6"></div>
+					<div class="tab-pane" id="tab_1_6">
+						<div id="accordionBigQuestion" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in bigQuestion">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionBigQuestion" data-target="#accordionBigQuestion_{{$index}}">
+										<span ng-bind-html="row.paperInfo" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+										</div>
+									</h4>
+								</div>
+								<div id="accordionBigQuestion_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body" ng-repeat="samll in row.examChildren">
+										<p>小题题目：<span ng-bind-html="samll.title" style="display: inline-block;"></span> </p>
+										<p ng-repeat="x in samll.optChildren">
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>． 
+											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+										</p>
+										<p>答案：<span ng-bind-html="samll.answer" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="samll.analysis" style="display: inline-block;"></span> </p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -282,6 +308,11 @@
 		//切换章节回调
 		$scope.$on('currentNode', function(d,data) { 
 	        $scope.currentNode = data;
+	        $scope.loadQuestions('single');
+	        $scope.loadQuestions('multiple');
+	        $scope.loadQuestions('trueOrFalse');
+	        $scope.loadQuestions('design');
+	        $scope.loadQuestions('bigQuestion');
 	    });
 	    
 	    //获取当前选中知识点
@@ -291,6 +322,7 @@
 	        $scope.loadQuestions('multiple');
 	        $scope.loadQuestions('trueOrFalse');
 	        $scope.loadQuestions('design');
+	        $scope.loadQuestions('bigQuestion');
 	    });
 	    
 	    //添加题目完成回调
@@ -333,6 +365,31 @@
 						$scope.trueOrFalse = res.data;
 					}else if(type == 'design') {
 						$scope.design = res.data;
+					}else if(type == 'bigQuestion') {
+						$(res.data).each(function() {
+							$(this.examChildren).each(function() {
+								console.log(this);
+								//选择题
+								if(this.choiceQstTxt) {
+									this.title = this.choiceQstTxt;
+									this.answer = this.choiceQstAnsw;
+									this.analysis = this.choiceQstAnalysis;
+								}
+								//判断题
+								if(this.trueOrFalseInfo) {
+									this.title = this.trueOrFalseInfo;
+									this.answer = this.trueOrFalseAnsw;
+									this.analysis = this.trueOrFalseAnalysis;
+								}
+								//主观题
+								if(this.designQuestion) {
+									this.title = this.designQuestion;
+									this.answer = this.designAnsw;
+									this.analysis = this.designAnalysis;
+								}
+							});
+						});
+						$scope.bigQuestion = res.data;
 					}
 				}
 	        });
@@ -341,6 +398,7 @@
         $scope.loadQuestions('multiple');
         $scope.loadQuestions('trueOrFalse');
         $scope.loadQuestions('design');
+        $scope.loadQuestions('bigQuestion');
 	    
 	    //修改题目
 	    $scope.editQuestion = function(question) {
