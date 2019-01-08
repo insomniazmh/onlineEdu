@@ -100,7 +100,7 @@
 										<label>资料标签</label>
 										<div class="md-checkbox-inline">
 											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox6" class="md-check">
+												<input type="checkbox" id="checkbox6" class="md-check" name="datumArea" value="3">
 												<label for="checkbox6">
 												<span></span>
 												<span class="check"></span>
@@ -108,7 +108,7 @@
 												预习参考 </label>
 											</div>
 											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox7" class="md-check" checked="">
+												<input type="checkbox" id="checkbox7" class="md-check" name="datumArea" checked="" value="4">
 												<label for="checkbox7">
 												<span></span>
 												<span class="check"></span>
@@ -116,7 +116,7 @@
 												课程案例 </label>
 											</div>
 											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox8" class="md-check">
+												<input type="checkbox" id="checkbox8" class="md-check" name="datumArea" value="5">
 												<label for="checkbox8">
 												<span></span>
 												<span class="check"></span>
@@ -124,7 +124,7 @@
 												课堂参考 </label>
 											</div>
 											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox9" class="md-check">
+												<input type="checkbox" id="checkbox9" class="md-check" name="datumArea" value="6">
 												<label for="checkbox9">
 												<span></span>
 												<span class="check"></span>
@@ -170,7 +170,7 @@
 										
 									</div>
 								</div>
-								<div id="filePicker4" class="filePicker" style="text-align: center;">选择文件</div>
+								<div id="filePickerDoc" class="filePicker" style="text-align: center;">选择文件</div>
 							</div>
 						</div>
 						<div class="tab-pane" id="tab_3_2">
@@ -180,16 +180,35 @@
 										<ul class="pics"></ul>
 									</div>
 								</div>
-								<div id="filePicker5" class="filePicker" style="text-align: center;">选择文件</div>
+								<div class="row">
+									<div class="col-md-12" style="margin-bottom: 20px;">
+										<div class="form-group form-md-line-input">
+											<input type="text" class="form-control" id="form_control_1" ng-model="datumName" placeholder="图集名称">
+											<label for="form_control_1">图集名称</label>
+											<span class="help-block">名称不得超过50个字符</span>
+										</div>
+									</div>
+								</div>
+								<div id="filePickerPics" class="filePicker" style="text-align: center;">选择文件</div>
 								<button class="btn btn-default uploadBtn1">开始上传</button>
+								
 							</div>
 						</div>
 						<div class="tab-pane" id="tab_3_3">
 							<div class="fileTab">
 								<div class="row">
+									<div class="col-md-12" style="margin-bottom: 20px;">
+										<div class="form-group form-md-line-input">
+											<input type="text" class="form-control" id="form_control_1" ng-model="linkTitle" placeholder="链接名称">
+											<label for="form_control_1">链接名称</label>
+											<span class="help-block">名称不得超过50个字符</span>
+										</div>
+									</div>
+								</div>
+								<div class="row">
 									<div class="col-md-8">
 										<div class="form-group form-md-line-input">
-											<input type="text" class="form-control" id="form_control_1" placeholder="请输入链接地址" ng-model="lianjie">
+											<input type="text" class="form-control" id="form_control_1" placeholder="请输入链接地址" ng-model="linkUrl">
 											<label for="form_control_1">链接地址</label>
 										</div>
 									</div>
@@ -207,7 +226,7 @@
 										
 									</div>
 								</div>
-								<div id="filePicker7" class="filePicker" style="text-align: center;">选择文件</div>
+								<div id="filePickerVideo" class="filePicker" style="text-align: center;">选择文件</div>
 							</div>
 						</div>
 						<div class="tab-pane" id="tab_3_5">
@@ -217,13 +236,13 @@
 										
 									</div>
 								</div>
-								<div id="filePicker6" class="filePicker" style="text-align: center;">选择文件</div>
+								<div id="filePickerAudio" class="filePicker" style="text-align: center;">选择文件</div>
 							</div>
 						</div>
 					</div>
 					<div class="form-actions noborder" style="text-align: right;">
-						<button type="button" class="btn blue">继续添加</button>
-						<button type="button" class="btn blue" ng-click="sub();">完成</button>
+						<button type="button" class="btn blue" ng-click="sub()">完成并继续添加</button>
+						<button type="button" class="btn blue" ng-click="sub(0)">完成并关闭</button>
 					</div>
 				</div>
 			</div>
@@ -232,56 +251,98 @@
 	</div>
 </div>
 <script>
-	function addJiaofuCtrl($scope) {
-		var wendang = '';
+	function addJiaofuCtrl($scope, $http) {
+		var wendang = [];
 		var pics = [];
-		$scope.lianjie = '';
+		$scope.datumType = "1";
+		$scope.linkUrl = '';
 		//上传文档
 		common.fileUpload({
-			id: 'filePicker4',
+			id: 'filePickerDoc',
 			success: function(file, response, uploader) {
 				var html = '<a href="'+response.filePath+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
 				$("#wendangContent").html(html);
-				wendang = response;
+				$scope.files = [response];
+				$scope.datumType = "1";
 			}
 		});
 		//上传图集
 		common.multiFileUpload({
-			id: 'filePicker5',
+			id: 'filePickerPics',
 			uploadBtn: '.uploadBtn1',
 			success: function(file, response, uploader) {
 				console.log(response);
-				pics.push(response.filePath);
-				wendang = response;
+				pics.push(response);
+				$scope.files = pics;
+				$scope.datumType = "2";
 			}
 		});
 		//上传音频
 		common.fileUpload({
-			id: 'filePicker6',
+			id: 'filePickerAudio',
 			success: function(file, response, uploader) {
 				var html = '<audio src="'+response.filePath+'" controls="controls">您的浏览器不支持 audio 标签。</audio>';
 				$("#audioContent").html(html);
-				wendang = response;
+				$scope.files = [response];
+				$scope.datumType = "4";
 			}
 		});
 		
 		//上传视频
 		common.fileUpload({
-			id: 'filePicker7',
+			id: 'filePickerVideo',
 			success: function(file, response, uploader) {
 				var html = '<video src="'+response.filePath+'" controls="controls" style="height: 300px; width:auto;">您的浏览器不支持 video 标签。</video>';
 				console.log(html);
 				$("#videoContent").html(html);
-				wendang = response;
+				$scope.files = [response];
+				$scope.datumType = "3";
 			}
 		});
-		
+		//链接预览
 		$scope.preview = function() {
-			$("iframe").attr("src", $scope.lianjie);
+			$("iframe").attr("src", $scope.linkUrl);
+			$scope.files = [{
+				fileName: $scope.linkTitle,
+				filePath: $scope.linkUrl
+			}];
+			$scope.datumType = "5";
 		}
 		
-		$scope.sub = function() {
+		//添加资料
+		$scope.sub = function(flag) {
+			var datumArea = [];
+			$("input[name='datumArea']:checked").each(function() {
+				datumArea.push($(this).val());
+			});
 			
+			var data = {
+			  "chapterId": localStorage.getItem('currentNodeId'),
+			  "courseId": localStorage.getItem('courseId'),
+			  "datumArea": datumArea.join(","),
+			  "datumType": $scope.datumType,
+			  "files": $scope.files,
+			  "knodeId": localStorage.getItem('knodeId')
+			};
+			
+			if($scope.datumType == "2") {
+				data.datumName = $scope.datumName;
+			}
+			
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/chapteData/save',
+				data: data,
+			    success: function(data) {
+			    	pics = [];
+			    	if(flag == 0) {
+			    		$("#addJiaofuModal").modal("hide");
+			    	}
+			    }
+			});
 		}
+		
 	}
 </script>

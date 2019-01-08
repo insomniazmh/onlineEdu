@@ -58,6 +58,7 @@
 			    success: function(data) {
 			    	$scope.kNodes = $scope.kNodes.concat(data.data);
 					$rootScope.$emit('kPointNode', {});
+					localStorage.setItem('knodeId', "");
 					$rootScope.kNodes = $scope.kNodes;
 			    }
 			});
@@ -93,6 +94,7 @@
         	});
         	row.selected = true;
         	$rootScope.$emit('kPointNode', row);
+        	console.log(row);
         }
         
 //      $("#kpContent").on("click", "a[name='kp']", function() {
