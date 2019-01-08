@@ -248,36 +248,36 @@ var common = {
 		});
 		
 		settings.$http({
-			    method: settings.method,
-			    url: common.url2 + settings.url,
-			    data: settings.data,
-			}).then(function successCallback(response) {
+		    method: settings.method,
+		    url: common.url2 + settings.url,
+		    data: settings.data,
+		}).then(function successCallback(response) {
 //					console.log("请求："+JSON.stringify(settings.data)+"返回"+JSON.stringify(response));
-					var data = response.data;
-			        if(data.ret == 0) {
-			        	if(settings.operate) {
-			        		common.toast({
-								title: "操作成功"
-							});
-			        	}
-						settings.success(response.data);
-			        }else {
-			        	common.toast({
-			        		type: 2,
-							title: "操作失败",
-							message: data.msg
-						});
-			        }
-			        window.setTimeout(function() {
-						Metronic.unblockUI();
+			var data = response.data;
+	        if(data.ret == 0) {
+	        	if(settings.operate) {
+	        		common.toast({
+						title: "操作成功"
 					});
-			    }, function errorCallback(response) {
-			    	console.log("error");
-			    	window.setTimeout(function() {
-						Metronic.unblockUI();
-					});
-			        settings.error(response);
+	        	}
+				settings.success(response.data);
+	        }else {
+	        	common.toast({
+	        		type: 2,
+					title: "操作失败",
+					message: data.msg
+				});
+	        }
+	        window.setTimeout(function() {
+				Metronic.unblockUI();
 			});
+	    }, function errorCallback(response) {
+	    	console.log("error");
+	    	window.setTimeout(function() {
+				Metronic.unblockUI();
+			});
+	        settings.error(response);
+		});
 	},
 	
 	goUrl: function(url, type) {
