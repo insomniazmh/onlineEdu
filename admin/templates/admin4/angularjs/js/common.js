@@ -1,8 +1,6 @@
 var common = {
 	
-	url: 'https://e.hnfts.cn/education',//永永服务
-	//url: 'http://192.168.13.230:8090',//永永本机
-	
+	url: 'https://e.hnfts.cn/education',//继伟服务
 	//url: 'http://192.168.13.220:8080',//继伟本机
 	
 	url2: 'https://e.hnfts.cn/quiz',//真铭服务
@@ -58,10 +56,22 @@ var common = {
 		});
 		
 		uploader.on('uploadBeforeSend', function (block, data, headers) {
-			Metronic.blockUI({
-				boxed: true,
-				message: "上传中，请耐心等待..."
-			});
+			if(settings.beforeSend) {
+				var result = settings.beforeSend();
+				if(!result.continue) {
+					common.toast({
+						title: result.title,
+						type: 2
+					});
+					uploader.stop(true);
+				}
+			}else {
+				Metronic.blockUI({
+					boxed: true,
+					message: "上传中，请耐心等待..."
+				});
+			}
+			
 		})
 
 		uploader.on('uploadSuccess', function(file, response) {

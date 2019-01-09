@@ -148,7 +148,7 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 					}
 				});
 				$scope.courses = data.data;
-				if(!localStorage.getItem('courseId')) {
+				if(!localStorage.getItem('courseId') && data.data.length>0) {
 					//默认选中第一个课程
 					localStorage.setItem('courseId', data.data[0].courseId);
 					$rootScope.course = data.data[0];

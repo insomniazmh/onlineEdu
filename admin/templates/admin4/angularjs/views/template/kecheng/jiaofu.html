@@ -55,7 +55,7 @@
 									<div class="cont-col2">
 										<div class="desc">
 											<a href="{{jiaoan.filePath}}" target="_blank">{{jiaoan.fileName}}</a>
-											<span id="filePicker3" class="filePicker"> 上传教案 </span>
+											<span id="filePickerJiaoan" class="filePicker"> 上传教案 </span>
 											<span class="exist"> 
 												已有教案（<span style="color: red;">4</span>） 
 											</span>
@@ -294,25 +294,65 @@
 <script>
 	function jiaofuCtrl($scope, $http, $rootScope) {
 		//根据章节id加载章节信息
-		$scope.loadChapterData = function() {
+		$scope.loadChapterData = function(datumArea) {
+			if(datumArea == "general") {
+				datumArea = "3,4,5,6";
+			}
 			//章节资料
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
-				url: '/chapteData/findByChapterId',
+				url: '/chapteData/findDatumList',
 				data: {
-			    	'chapterId': $scope.currentNode.id
-			    },
+					"chapterId": localStorage.getItem('currentNodeId'),
+			  		"courseId": localStorage.getItem('courseId'),
+					"datumType": "1",
+					"datumArea": datumArea,
+					"sortVo": {
+						"isValidated": "0",
+						"page": 0,
+						"size": 15,
+						"sort": 1
+					}
+				},
 			    success: function(data) {
 //			    	console.log(data);
+			    }
+			});
+			
+			//获取章节教案总数
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/chapteData/countJiaoAn',
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+			  		"courseId": localStorage.getItem('courseId'),
+				},
+			    success: function(data) {
+			    	console.log(data);
+			    }
+			});
+			
+			//获取章节课件总数
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/chapteData/countKeJian',
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+			  		"courseId": localStorage.getItem('courseId'),
+				},
+			    success: function(data) {
+			    	console.log(data);
 			    }
 			});
 		}
 		
 		//切换章节回调
-		$scope.$on('currentNode', function(d,data) {  
+		$scope.$on('currentNode', function(d,data) {
 	        $scope.currentNode = data;
-	        $scope.loadChapterData();
+	        $scope.loadChapterData("general");//加载章节资料
 	        $scope.loadTiwenQuestions();//加载提问问题列表
 	        $scope.loadLianxiQuestions();//加载练习题目列表
 	        $scope.loadZuoyeQuestions();//加载作业题目列表
@@ -335,7 +375,7 @@
 		//上传课件回调
 		$scope.$on('kejian', function(d,data) {  
 	        console.log(data);         //父级能得到值  
-	        $scope.loadChapterData();
+	        $scope.loadChapterData("2");
 //	        var html = '';
 //	        if(data.type == 1) {
 //	        	html = '<a href="'+data.content.filePath+'" target="_blank">PPT课件</a>';
@@ -439,7 +479,20 @@
 		
 		//上传教案
 		common.fileUpload({
-			id: 'filePicker3',
+			id: 'filePickerJiaoan',
+			beforeSend: function() {
+				console.log(localStorage.getItem('currentNodeId'));
+				var rtn = {
+					continue: true
+				}
+				if(!localStorage.getItem('currentNodeId')) {
+					rtn = {
+						continue: false,
+						title: "请先选择章节"
+					}
+				}
+				return rtn;
+			},
 			success: function(file, response) {
 				$scope.$apply(function() {　　
 					common.ajax({
@@ -449,15 +502,14 @@
 						url: '/chapteData/save',
 						data: {
 					    	courseId: localStorage.getItem('courseId'),
-					    	chapterId: $scope.currentNode.id,
-					    	datumName: $scope.jiaoan.fileName,
-					    	datumArea: 1,
-					    	datumType: 1,
+					    	chapterId: localStorage.getItem('currentNodeId'),
+					    	datumArea: "1",
+					    	datumType: "1",
 							files: [response]
 					    },
 					    success: function(data) {
-//					   		$scope.jiaoan = response;
-					   		$scope.loadChapterData();
+					    	console.log(data);
+					   		$scope.loadChapterData("1");
 					    }
 					});
 				});

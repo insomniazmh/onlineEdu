@@ -9,7 +9,7 @@
 				<i class="icon-settings font-green-sharp"></i>
 				<span style="color: #4DB3A2;font-size: 16px;margin-left: 5px;font-weight: 600;">课堂提问</span>
 			</div>
-			<span class="badge {{row.select ? 'badge-danger' : 'badge-success'}}" style="margin: 3px;" ng-repeat="row in tiwenQuestionList" ng-click="chooseQuestion(row, 1)"> {{$index+1}} </span>
+			<span class="badge {{row.select ? 'badge-danger' : 'badge-success'}}" style="margin: 3px;" ng-repeat="row in tiwenQuestionList" ng-click="chooseQuestion(row)"> {{$index+1}} </span>
 		</div>
 		<div>
 			<div style="width: 48%;float: left;">
