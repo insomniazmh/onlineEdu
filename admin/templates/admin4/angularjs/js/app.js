@@ -110,8 +110,12 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
     //切换知识点回调
 	$rootScope.$on('kPointNode', function(d,data) {  
 		if(data.knodeId) {
+			$rootScope.knode = data;
 			localStorage.setItem('knodeId', data.knodeId);
 		}else {
+			$rootScope.knode = {
+				nodeName: ""
+			};
 			localStorage.setItem('knodeId', "");
 		}
         $scope.$broadcast('kPointNode', data);

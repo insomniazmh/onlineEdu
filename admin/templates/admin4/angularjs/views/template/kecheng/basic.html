@@ -132,7 +132,11 @@
 				    	//课程描述
 				    	$('#summernoteMiaoshu').code($scope.course.courseDescribe);
 				    	//授课类型
-	//			    	$("input[name='lessonType'][value="++"]").attr("checked","checked");
+				    	$('input[name="lessonType"]').attr("checked", false);
+				    	var teachingType = $scope.course.teachingType.split(",");
+				    	$(teachingType).each(function() {
+				    		$("input[name='lessonType'][value="+this+"]").attr("checked","checked");
+				    	});
 						//备课类型
 						$("input[name='beikeType'][value="+$scope.course.lessonPreparationType+"]").attr("checked","checked");
 						if($scope.course.lessonPreparationType == "2") {
@@ -184,10 +188,10 @@
 			//所属专业
 			$scope.course.specialtyId = "zhuanye001";
 			//授课类型
-			var teachingType = 3;
-//			$.each($('input[name="lessonType"]:checked'),function(){
-//				teachingType.push($(this).val());
-//          });
+			var teachingType = [];
+			$.each($('input[name="lessonType"]:checked'),function(){
+				teachingType.push($(this).val());
+            });
             //备课类型
             var lessonPreparationType = $('input[name="beikeType"]:checked').val();
             //课程描述
@@ -202,7 +206,7 @@
             	});
             });
             
-            $scope.course.teachingType = teachingType;
+            $scope.course.teachingType = teachingType.join(",");
             $scope.course.lessonPreparationType = lessonPreparationType;
             $scope.course.courseDescribe = courseDescribe;
             
