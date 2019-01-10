@@ -57,7 +57,7 @@
 											<a href="{{jiaoan.filePath}}" target="_blank">{{jiaoan.fileName}}</a>
 											<span id="filePickerJiaoan" class="filePicker"> 上传教案 </span>
 											<span class="exist"> 
-												已有教案（<span style="color: red;">4</span>） 
+												已有教案（<span style="color: red;">{{jiaoanCount}}</span>） 
 											</span>
 										</div>
 									</div>
@@ -271,6 +271,26 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">教案列表</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<img src="{{row}}" style="width: 110px;height: 110px;" ng-repeat="row in picsKejian" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 					<h4 class="modal-title">图集</h4>
 				</div>
 				<div class="modal-body">
@@ -293,6 +313,17 @@
 
 <script>
 	function jiaofuCtrl($scope, $http, $rootScope) {
+		$scope.jiaoanList = [];//教案列表
+		$scope.kejianList = [];//课件列表
+		
+		$scope.loadJiaoanList = function() {
+			
+		}
+		
+		$scope.loadKejianList = function() {
+			$scope.loadChapterData();
+		}
+		
 		//根据章节id加载章节信息
 		$scope.loadChapterData = function(datumArea) {
 			if(datumArea == "general") {
@@ -306,7 +337,7 @@
 				data: {
 					"chapterId": localStorage.getItem('currentNodeId'),
 			  		"courseId": localStorage.getItem('courseId'),
-					"datumType": "1",
+					"datumType": "1,2,3,4,5",
 					"datumArea": datumArea,
 					"sortVo": {
 						"isValidated": "0",
@@ -330,7 +361,8 @@
 			  		"courseId": localStorage.getItem('courseId'),
 				},
 			    success: function(data) {
-			    	console.log(data);
+			    	$scope.jiaoanCount = data.data.dcount;
+			    	console.log($scope.jiaoanCount);
 			    }
 			});
 			
@@ -375,20 +407,30 @@
 		//上传课件回调
 		$scope.$on('kejian', function(d,data) {  
 	        console.log(data);         //父级能得到值  
-	        $scope.loadChapterData("2");
-//	        var html = '';
-//	        if(data.type == 1) {
-//	        	html = '<a href="'+data.content.filePath+'" target="_blank">PPT课件</a>';
-//	        }else if(data.type == 2) {
-//	        	html = '<a href="'+data.content.filePath+'" target="_blank">视频课件</a>';
-//	        }else if(data.type == 3){
-//	        	$scope.picsKejian = data.content;
-//	        	html = '<a data-toggle="modal" data-target="#picsModal">图集课件</a>';
-//	        }else if(data.type == 4){
-//	        	html = '<a href="'+data.content.filePath+'" target="_blank">其它课件</a>';
-//	        }
-//	        $("#kejianContent").empty();
-//	        $("#kejianContent").append(html);
+	        if(!localStorage.getItem('currentNodeId')) {
+				common.toast({
+					title: "请先选择章节",
+					type: 2
+				});
+			}
+	        common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/chapteData/save',
+				data: {
+			    	courseId: localStorage.getItem('courseId'),
+			    	chapterId: localStorage.getItem('currentNodeId'),
+			    	datumArea: "2",
+			    	datumType: data.type+"",
+					files: data.content
+			    },
+			    success: function(data) {
+			    	console.log(data);
+			   		$scope.loadChapterData("2");
+			    }
+			});
+	        $scope.loadChapterData("2");//获取已上传的课件列表信息
 	    });
 	    
 		$scope.ziliaoList = [{

@@ -209,15 +209,15 @@
 		$scope.sub = function() {
 			var kejian = {
 				type: type,
-				content: ''
+				content: []
 			};
 			
 			if(type == 1) {
-				kejian.content = pptKejian;
+				kejian.content = [pptKejian];
 			}else if(type == 2) {
 				kejian.content = picsKejian;
 			}else if(type == 3) {
-				kejian.content = videoKejian;
+				kejian.content = [videoKejian];
 			}
 			$scope.$emit('kejian', kejian);
 			$("#uploadKejianModal").modal("hide");

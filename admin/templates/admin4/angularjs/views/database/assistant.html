@@ -97,7 +97,7 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													<a href="" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
 													<div class="label label-sm label-danger sign" title="预习资料">预</div>
 													<div class="label label-sm label-success sign" title="课堂参考">堂</div>
 													<div class="label label-sm label-warning sign" title="课程案例">案</div>
@@ -287,8 +287,10 @@
 		var courseId = localStorage.getItem('courseId');
 		$scope.knowledgePoints = [];
 
-		$scope.$on('to-parent', function(d, data) {
+		//新建资料回调
+		$scope.$on('createZiliao', function(d, data) {
 			console.log(data); //父级能得到值  
+			$scope.loadDatumList(data);
 		});
 		
 		//切换知识点
@@ -317,7 +319,7 @@
 			  		"courseId": localStorage.getItem('courseId'),
 //			  		"knodeId": localStorage.getItem('knodeId'),
 					"datumType": type,
-//					"datumArea": "4",
+					"datumArea": "3,4,5,6",
 					"sortVo": {
 						"isValidated": "0",
 						"page": 0,
