@@ -81,13 +81,13 @@
 												上传课件
 											</span>
 											<span class="exist"> 
-												PPT（<span style="color: red;">1</span>） 
+												PPT（<span style="color: red;">{{PPTKejianCount}}</span>） 
 											</span>
 											<span class="exist" style="margin-left: 100px;"> 
-												图集（<span style="color: red;">1</span>） 
+												图集（<span style="color: red;">{{picsKejianCount}}</span>） 
 											</span>
 											<span class="exist" style="margin-left: 180px;"> 
-												视频（<span style="color: red;">0</span>） 
+												视频（<span style="color: red;">{{videoKejianCount}}</span>） 
 											</span>
 										</div>
 									</div>
@@ -314,22 +314,12 @@
 <script>
 	function jiaofuCtrl($scope, $http, $rootScope) {
 		$scope.jiaoanList = [];//教案列表
-		$scope.kejianList = [];//课件列表
+		$scope.PPTKejianList = [];//PPT课件列表
+		$scope.picsKejianList = [];//图集课件列表
+		$scope.videoKejianList = [];//视频课件列表
 		
-		$scope.loadJiaoanList = function() {
-			
-		}
-		
-		$scope.loadKejianList = function() {
-			$scope.loadChapterData();
-		}
-		
-		//根据章节id加载章节资料
-		$scope.loadChapterData = function(datumArea) {
-			if(datumArea == "general") {
-				datumArea = "3,4,5,6";
-			}
-			//章节资料
+		//根据章节id加载章节教案或课件
+		$scope.loadJiaoanAndKejian = function(datumArea, datumType) {
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -337,7 +327,7 @@
 				data: {
 					"chapterId": localStorage.getItem('currentNodeId'),
 			  		"courseId": localStorage.getItem('courseId'),
-					"datumType": "1",
+					"datumType": datumType,
 					"datumArea": datumArea,
 					"sortVo": {
 						"isValidated": "0",
@@ -347,47 +337,23 @@
 					}
 				},
 			    success: function(data) {
-//			    	console.log(data);
-			    }
-			});
-			
-			//获取章节教案总数
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				url: '/chapteData/countJiaoAn',
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-			  		"courseId": localStorage.getItem('courseId'),
-				},
-			    success: function(data) {
-			    	$scope.jiaoanCount = data.data.dcount;
-			    	console.log($scope.jiaoanCount);
-			    }
-			});
-			
-			//获取章节课件总数
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				url: '/chapteData/countKeJian',
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-			  		"courseId": localStorage.getItem('courseId'),
-				},
-			    success: function(data) {
 			    	console.log(data);
+			    	if(datumArea == "1") {
+			    		$scope.jiaoanCount = data.data.length;
+			    	}else if(datumArea == "2" && datumType == "1") {
+			    		$scope.PPTKejianCount = data.data.length;
+			    	}else if(datumArea == "2" && datumType == "2") {
+			    		$scope.picsKejianCount = data.data.length;
+			    	}else if(datumArea == "2" && datumType == "3") {
+			    		$scope.videoKejianCount = data.data.length;
+			    	}
 			    }
 			});
 		}
 		
 		//切换章节回调
 		$scope.$on('currentNode', function(d,data) {
-	        $scope.currentNode = data;
-	        $scope.loadChapterData("general");//加载章节资料
-	        $scope.loadTiwenQuestions();//加载提问问题列表
-	        $scope.loadLianxiQuestions();//加载练习题目列表
-	        $scope.loadZuoyeQuestions();//加载作业题目列表
+			$scope.initData();
 	    });
 	    
 	    //提问/练习/作业册更新回调
@@ -406,7 +372,7 @@
 		
 		//上传课件回调
 		$scope.$on('kejian', function(d,data) {  
-	        console.log(data);         //父级能得到值  
+	        console.log(data);         
 	        if(!localStorage.getItem('currentNodeId')) {
 				common.toast({
 					title: "请先选择章节",
@@ -427,13 +393,168 @@
 			    },
 			    success: function(data) {
 			    	console.log(data);
-			   		$scope.loadChapterData("2");
+			    	$scope.loadJiaoanAndKejian("2", data.type+"");//加载课件列表
 			    }
 			});
-	        $scope.loadChapterData("2");//获取已上传的课件列表信息
 	    });
 	    
-		$scope.ziliaoList = [{
+		//上传教案
+		common.fileUpload({
+			id: 'filePickerJiaoan',
+			beforeSend: function() {
+				console.log(localStorage.getItem('currentNodeId'));
+				var rtn = {
+					continue: true
+				}
+				if(!localStorage.getItem('currentNodeId')) {
+					rtn = {
+						continue: false,
+						title: "请先选择章节"
+					}
+				}
+				return rtn;
+			},
+			success: function(file, response) {
+				$scope.$apply(function() {　　
+					common.ajax({
+						$scope: $scope,
+						$http: $http,
+						operate: true,
+						url: '/chapteData/save',
+						data: {
+					    	courseId: localStorage.getItem('courseId'),
+					    	chapterId: localStorage.getItem('currentNodeId'),
+					    	datumArea: "1",
+					    	datumType: "1",
+							files: [response]
+					    },
+					    success: function(data) {
+					    	console.log(data);
+					    	$scope.loadJiaoanAndKejian("1", "1");//加载教案列表
+					    }
+					});
+				});
+			}
+		});
+		
+		//加载所有挂接的提问题目
+		$scope.loadTiwenQuestions = function() {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+					"exeBookType": "1"
+				},
+				url: '/exerciseBook/findExerciseBook',
+				success: function(res) {
+					res.data = common.addTitleForQuestion({
+					questionArr: res.data
+				});//组装题干以供展示
+					$scope.tiwenQuestionList = res.data;
+				}
+	        });
+		}
+		
+		//加载所有挂接的练习题目
+		$scope.loadLianxiQuestions = function() {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+					"exeBookType": "2"
+				},
+				url: '/exerciseBook/findExerciseBook',
+				success: function(res) {
+					res.data = common.addTitleForQuestion({
+					questionArr: res.data,
+					select: true
+				});//组装题干以供展示
+					$scope.lianxiQuestionList = res.data;
+				}
+	        });
+		}
+		
+		//加载所有挂接的作业题目
+		$scope.loadZuoyeQuestions = function() {
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+					"exeBookType": "3"
+				},
+				url: '/exerciseBook/findExerciseBook',
+				success: function(res) {
+					res.data = common.addTitleForQuestion({
+					questionArr: res.data,
+					select: true
+				});//组装题干以供展示
+					$scope.zuoyeQuestionList = res.data;
+				}
+	        });
+		}
+		
+		//修改练习的标签
+		$scope.changeLianxiLabel = function(row, type) {
+			if(row.preview) {
+				if(row.preview.indexOf(type)>=0) {
+					row.preview = row.preview.replace(type, '');
+				}else if(row.preview.indexOf(type)<0) {
+					row.preview = row.preview + type;
+				}
+			}else {
+				row.preview = type;
+			}
+			
+			common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: {
+					"preview": row.preview,
+				    "chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+				    "targetId": row.id
+				},
+				url: '/exerciseBook/edit/preview',
+				success: function() {
+					$scope.$broadcast('lianxiLabelChange', true);
+				}
+	        });
+		};
+		
+		//打开备课模态框
+	    $scope.openDataModal = function() {
+	    	if(!$rootScope.currentNode) {
+	    		layer.alert("请先选择章节");
+	    		return false;
+	    	}
+	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑备课信息吗", {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+			  	$("#dataModal").modal("show");
+				layer.closeAll('dialog');
+			});
+	    }
+	    
+	    $scope.initData = function() {
+	    	$scope.loadJiaoanAndKejian("1", "1");//加载教案列表
+			$scope.loadJiaoanAndKejian("2", "1");//加载PPT课件列表
+			$scope.loadJiaoanAndKejian("2", "2");//加载图集课件列表
+			$scope.loadJiaoanAndKejian("2", "3");//加载视频课件列表
+	        $scope.loadTiwenQuestions();//加载提问问题列表
+	        $scope.loadLianxiQuestions();//加载练习题目列表
+	        $scope.loadZuoyeQuestions();//加载作业题目列表
+	    };
+	    
+	    $scope.initData();
+	    
+	    $scope.ziliaoList = [{
 			text: "《电子商务基础》教学大纲.doc",
 			url: "111",
 			yu: true,
@@ -518,152 +639,5 @@
 				}
 			}
 		}
-		
-		//上传教案
-		common.fileUpload({
-			id: 'filePickerJiaoan',
-			beforeSend: function() {
-				console.log(localStorage.getItem('currentNodeId'));
-				var rtn = {
-					continue: true
-				}
-				if(!localStorage.getItem('currentNodeId')) {
-					rtn = {
-						continue: false,
-						title: "请先选择章节"
-					}
-				}
-				return rtn;
-			},
-			success: function(file, response) {
-				$scope.$apply(function() {　　
-					common.ajax({
-						$scope: $scope,
-						$http: $http,
-						operate: true,
-						url: '/chapteData/save',
-						data: {
-					    	courseId: localStorage.getItem('courseId'),
-					    	chapterId: localStorage.getItem('currentNodeId'),
-					    	datumArea: "1",
-					    	datumType: "1",
-							files: [response]
-					    },
-					    success: function(data) {
-					    	console.log(data);
-					   		$scope.loadChapterData("1");
-					    }
-					});
-				});
-			}
-		});
-		
-		//加载所有挂接的提问题目
-		$scope.loadTiwenQuestions = function() {
-			common.ajax2({
-	        	$scope: $scope,
-				$http: $http,
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-					"courseId": localStorage.getItem('courseId'),
-					"exeBookType": "1"
-				},
-				url: '/exerciseBook/findExerciseBook',
-				success: function(res) {
-					res.data = common.addTitleForQuestion({
-					questionArr: res.data
-				});//组装题干以供展示
-					$scope.tiwenQuestionList = res.data;
-				}
-	        });
-		}
-		$scope.loadTiwenQuestions();
-		
-		//加载所有挂接的练习题目
-		$scope.loadLianxiQuestions = function() {
-			common.ajax2({
-	        	$scope: $scope,
-				$http: $http,
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-					"courseId": localStorage.getItem('courseId'),
-					"exeBookType": "2"
-				},
-				url: '/exerciseBook/findExerciseBook',
-				success: function(res) {
-					res.data = common.addTitleForQuestion({
-					questionArr: res.data,
-					select: true
-				});//组装题干以供展示
-					$scope.lianxiQuestionList = res.data;
-				}
-	        });
-		}
-		$scope.loadLianxiQuestions();
-		
-		//加载所有挂接的作业题目
-		$scope.loadZuoyeQuestions = function() {
-			common.ajax2({
-	        	$scope: $scope,
-				$http: $http,
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-					"courseId": localStorage.getItem('courseId'),
-					"exeBookType": "3"
-				},
-				url: '/exerciseBook/findExerciseBook',
-				success: function(res) {
-					res.data = common.addTitleForQuestion({
-					questionArr: res.data,
-					select: true
-				});//组装题干以供展示
-					$scope.zuoyeQuestionList = res.data;
-				}
-	        });
-		}
-		$scope.loadZuoyeQuestions();
-		
-		//修改练习的标签
-		$scope.changeLianxiLabel = function(row, type) {
-			if(row.preview) {
-				if(row.preview.indexOf(type)>=0) {
-					row.preview = row.preview.replace(type, '');
-				}else if(row.preview.indexOf(type)<0) {
-					row.preview = row.preview + type;
-				}
-			}else {
-				row.preview = type;
-			}
-			
-			common.ajax2({
-	        	$scope: $scope,
-				$http: $http,
-				operate: true,
-				data: {
-					"preview": row.preview,
-				    "chapterId": localStorage.getItem('currentNodeId'),
-					"courseId": localStorage.getItem('courseId'),
-				    "targetId": row.id
-				},
-				url: '/exerciseBook/edit/preview',
-				success: function() {
-					$scope.$broadcast('lianxiLabelChange', true);
-				}
-	        });
-		};
-		
-		//打开备课模态框
-	    $scope.openDataModal = function() {
-	    	if(!$rootScope.currentNode) {
-	    		layer.alert("请先选择章节");
-	    		return false;
-	    	}
-	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑备课信息吗", {
-			  btn: ['确定','取消'] //按钮
-			}, function(){
-			  	$("#dataModal").modal("show");
-				layer.closeAll('dialog');
-			});
-	    }
 	}
 </script>
