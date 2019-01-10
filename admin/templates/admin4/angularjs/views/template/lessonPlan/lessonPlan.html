@@ -52,96 +52,13 @@
 								<a data-target="#tab_lessonPlan_6" data-toggle="tab">
 									风暴 </a>
 							</li>
-
 						</ul>
 					</div>
 					<div class="portlet-body">
 						<div class="tab-content">
 							<!-- 描述：资料  -->
 							<div class="tab-pane active" id="tab_lessonPlan_1">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="portlet box grey-cascade">
-											<div class="portlet-title">
-												<div class="caption">
-													<i class="fa fa-gift"></i>资料库列表
-												</div>
-												<div class="inputs" style="float: right;line-height: 37.5px;">
-													<div class="portlet-input input-inline input-small">
-														<div class="input-icon right">
-															<i class="icon-magnifier" style="margin-top: 8px;"></i>
-															<input type="text" class="form-control input-circle" placeholder="搜索..." style="height: 28px;">
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="portlet-body">
-												<ul class="feeds">
-													<li ng-repeat="row in docList">
-														<div class="col1">
-															<div class="cont">
-																<div class="cont-col1">
-																	<div class="md-checkbox">
-																		<input type="checkbox" id="doc{{row.id}}" class="md-check" name="doc" ng-click="chooseZiliao(row)">
-																		<label for="doc{{row.id}}">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																</label>
-																	</div>
-																</div>
-																<div class="cont-col2">
-																	<div class="desc">
-																		{{row.name}}
-																	</div>
-																</div>
-															</div>
-														</div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6" style="text-align: center;">
-										<div class="portlet box grey-cascade">
-											<div class="portlet-title">
-												<div class="caption">
-													<i class="fa fa-gift"></i>已选文件
-												</div>
-												<div class="tools">
-													<a href="javascript:;" class="collapse" data-original-title="" title="">
-													</a>
-												</div>
-											</div>
-											<div class="portlet-body">
-												<ul class="feeds">
-													<li ng-repeat="row in newDocList">
-														<div class="col1">
-															<div class="cont">
-																<div class="cont-col1">
-																	<div class="md-checkbox">
-																		<input type="checkbox" id="newDoc{{row.id}}" class="md-check" name="newDoc" checked="checked">
-																		<label for="newDoc{{row.id}}">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																</label>
-																	</div>
-																</div>
-																<div class="cont-col2">
-																	<div class="desc">
-																		{{row.name}}
-																	</div>
-																</div>
-															</div>
-														</div>
-													</li>
-												</ul>
-												<button type="button" class="btn green" data-toggle="modal" href="#addJiaofuModal" style="margin-top: 40px;">上传</button>
-											</div>
-										</div>
-									</div>
-								</div>
+								<div data-ng-include="'views/template/lessonPlan/ziliao.html'"></div>
 							</div>
 							<!-- 描述：提问  -->
 							<div class="tab-pane" id="tab_lessonPlan_2">
@@ -172,31 +89,6 @@
 
 <script>
 	function lessonPlanCtrl($scope, $rootScope, $http) {
-		$scope.docList = [
-			{id: "1", name: "电子商务基础教学大纲.doc"},
-			{id: "2", name: "电子商务基础教案.doc"},
-			{id: "3", name: "电子商务基础课件.ppt"},
-			{id: "4", name: "新增文件.doc"}
-		];
-		
-		$scope.newDocList = [
-			
-		];
-		
-		$scope.chooseZiliao = function(doc) {
-			var flag = true;
-			console.log(doc);
-			$($scope.newDocList).each(function() {
-				if(this.id == doc.id) {
-					flag = false;
-				}
-			});
-			if(flag) {
-				$scope.newDocList.push(doc);
-			}
-		}
-		
-		
 		
 	}
 </script>

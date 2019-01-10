@@ -150,16 +150,13 @@
 							    	'shareId': $scope.course.shareId
 							    },
 							    success: function(res) {
-							    	console.log(res);
 							    	var arr = [];
 							    	$(res.data).each(function() {
-							    		console.log(this.userId);
 							    		arr.push(this.userId);
 							    	});
 							    	$("#my_multi_select1 option").each(function() {
 							    		//console.log($.inArray($(this).val(), arr));
 							    		if($.inArray($(this).val(), arr) >=0 ) {
-							    			console.log("true");
 							    			$(this).attr("selected", true);
 							    		}
 							    	})
