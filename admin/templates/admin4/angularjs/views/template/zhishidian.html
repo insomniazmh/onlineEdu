@@ -28,7 +28,7 @@
 		</a>-->
 		<a href="javascript:;" class="btn btn-circle btn-sm {{row.selected ? 'btn-danger' : 'btn-info'}}" ng-repeat="row in kNodes" ng-click="selectKPoint(row)">
 			<span>{{row.nodeName}}</span>
-			<i ng-if="row.knodeId != '0' && row.knodeId != '1'" class="fa fa-times" ng-click="delKNode(row.knodeId);"></i>
+			<i ng-if="row.knodeId != ''" class="fa fa-times" ng-click="delKNode(row.knodeId);"></i>
 		</a>
 		<!--<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
 			<span>电子商务的概念</span>
