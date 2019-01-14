@@ -432,6 +432,24 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             }
         })
         
+        //问卷
+        .state('survey', {
+            url: "/survey.html",
+            templateUrl: "views/database/survey.html",            
+            data: {pageTitle: '资料库', pageSubTitle: '问卷'},
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                        	'js/webuploader-0.1.5/webuploader.css'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
         //教辅资料库
         .state('testPaper', {
             url: "/testPaper.html",

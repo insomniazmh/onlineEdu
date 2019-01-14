@@ -1,31 +1,17 @@
 <style>
-	.webuploader-pick {
-		display: block;
-		padding: 0;
-		background: #3598dc;
-	}
-	#createData {
-		min-width: 100px;
-	}
-	.createFile div:nth-child(2){width:100%!important;height:100%!important;}
 	.opreat {
 		font-size: 16px;
 		width:20px;
 		color: #45B6AF;
 		cursor: pointer;
 	}
-	.list-icon {
-		font-size: 18px;
-		width:20px;
-		color: #45B6AF;
-	}
 </style>
-<div class="row" ng-controller="xiticeCtrl">
+<div class="row" ng-controller="kpCtrl">
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
 			<button type="button" class="btn red" onclick="common.goUrl('assistant', true)">备课参考</button>
-			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
+			<button type="button" class="btn green" onclick="common.goUrl('xitice', true)">互动集</button>
 			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
 		</div>
 	</div>
@@ -48,176 +34,148 @@
 
 	<div class="col-md-8">
 		<!-- BEGIN: ACCORDION DEMO -->
-		<div class="portlet light" style="min-height: 100px;">
+		<div class="portlet light" style="min-height: 400px;">
 			<div class="portlet-title tabbable-line">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">任务和风暴{{currKP}}</span>
+					<span class="caption-subject bold uppercase" id="title">题库{{currKP}}</span>
 				</div>
 				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openExercisesBookModel()">
-						<i class="fa fa-plus"></i> 创建 </button>
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
+							<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
-						<a data-target="#tab_task_1" data-toggle="tab"> 任务 </a>
+						<a data-target="#tab_1_task" data-toggle="tab">
+							任务 </a>
 					</li>
 					<li>
-						<a data-target="#tab_task_2" data-toggle="tab"> 风暴 </a>
+						<a data-target="#tab_1_storm" data-toggle="tab">
+							头脑风暴 </a>
 					</li>
 				</ul>
 			</div>
 			<div class="portlet-body">
 				<div class="tab-content">
-					<div class="tab-pane active" id="tab_task_1">
-						<div class="scroller" style="min-height: 200px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-							<ul class="feeds">
-								<!--<li ng-repeat="row in tiwence">
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-danger">问</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													{{row.exeBookName}}
-												</div>
-											</div>
+					<div class="tab-pane" id="tab_1_task">
+						<div id="accordionTask" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in task">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionTask" data-target="#accordionTask_{{$index}}">
+										<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
+									</h4>
+								</div>
+								<div id="accordionTask_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>答案：<span ng-bind-html="row.examChildren[0].designAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].designAnalysis" style="display: inline-block;"></span> </p>
 									</div>
-									<div class="col2">
-										<div class="date">
-											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
-											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
-										</div>
-									</div>
-								</li>-->
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-danger">任</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													任务册1
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col2">
-										<div class="date">
-											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
-											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
-										</div>
-									</div>
-								</li>
-							</ul>
-
+								</div>
+							</div>
+							
 						</div>
 					</div>
-					<div class="tab-pane" id="tab_task_2">
-						<ul class="feeds">
-							<!--<li ng-repeat="row in lianxice">
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-danger">习</div>
+					
+					<div class="tab-pane" id="tab_1_storm">
+						<div id="accordionStorm" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in strom">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionStorm" data-target="#accordionStorm_{{$index}}">
+										<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												{{row.exeBookName}}
-											</div>
-										</div>
+									</h4>
+								</div>
+								<div id="accordionStorm_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>答案：<span ng-bind-html="row.examChildren[0].designAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].designAnalysis" style="display: inline-block;"></span> </p>
 									</div>
 								</div>
-								<div class="col2">
-									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
-									</div>
-								</div>
-							</li>-->
-							<li>
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-danger">暴</div>
-										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												头脑风暴册1
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col2">
-									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
-									</div>
-								</div>
-							</li>
-						</ul>
+							</div>
+							
+						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
 	
-	<!--创建或修改任务和风暴-->
-	<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+	<!--编辑主观题-->
+	<div class="modal fade" id="editDesign" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">创建任务和风暴册</h4>
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">编辑题目</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div data-ng-include="'views/template/timu/zhuguanEdit.html'"></div>
+					</div>
 				</div>
-				<div class="modal-body">
-					<div class="portlet">
-						<div class="portlet-body">
-							<div role="form">
-								<div class="form-body">
-									<div class="row" style="margin-bottom: 40px;">
-										<div class="col-md-6">
-											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" ng-model="list.exeBookName" placeholder="册子名称" />
-												<label for="form_control_1">名称</label>
-												<span class="help-block">名称不得超过50个字符</span>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="addTaskAndStrom" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+	
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">创建题目</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="tab-content">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group form-md-radios">
+										<label>题库类型</label>
+										<div class="md-radio-inline">
+											<div class="md-radio">
+												<input type="radio" id="taskRadio" name="type" class="md-radiobtn" value="task" checked="">
+												<label for="taskRadio">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													任务 </label>
 											</div>
-										</div>
-										
-										<div class="col-md-6">
-											<div class="form-group form-md-radios">
-												<label>册子类型</label>
-												<div class="md-radio-inline">
-													<div class="md-radio">
-														<input type="radio" id="exeBookType1" name="exeBookType" class="md-radiobtn" value="1" checked="">
-														<label for="exeBookType1">
-														<span></span>
-														<span class="check"></span>
-														<span class="box"></span>
-														任务册 </label>
-													</div>
-													<div class="md-radio">
-														<input type="radio" id="exeBookType2" name="exeBookType" class="md-radiobtn" value="2">
-														<label for="exeBookType2">
-														<span></span>
-														<span class="check"></span>
-														<span class="box"></span>
-														头脑风暴册 </label>
-													</div>
-												</div>
+											<div class="md-radio">
+												<input type="radio" id="stromRadio" name="type" class="md-radiobtn" value="strom">
+												<label for="stromRadio">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													头脑风暴 </label>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<div data-ng-include="'views/template/timu/zhuguanSmall.html'"></div>
 						</div>
-					</div>
-					<div class="form-actions noborder" style="text-align: center;margin-bottom: 10px;">
-						<button type="button" class="btn blue" ng-click="sub()">提交</button>
 					</div>
 				</div>
 			</div>
@@ -228,77 +186,153 @@
 
 </div>
 <!-- END MAIN CONTENT -->
-<!-- BEGIN MAIN JS-->
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
-	function xiticeCtrl($scope, $http, $stateParams, $rootScope) {
-		var courseId = localStorage.getItem('courseId');
+	function kpCtrl($scope, $http, $rootScope) {
+		localStorage.setItem('questionType', 'taskAndStrom');
+		$scope.currentNode = {};
+		$scope.kPointNode = {};
 		
-		//添加册子回调
-		$scope.$on('exercisesBookChange', function(d,data) {  
-	        $scope.loadQuestionList("1");
-		    $scope.loadQuestionList("2");
-		    $scope.loadQuestionList("3");
+		//切换章节回调
+		$scope.$on('currentNode', function(d,data) { 
+	        $scope.currentNode = data;
+	        $scope.initQuestions();
 	    });
 	    
-	    //切换章节回调
-		$scope.$on('currentNode', function(d,data) {  
-			$scope.loadQuestionList("1");
-		    $scope.loadQuestionList("2");
-		    $scope.loadQuestionList("3");
+	    //获取当前选中知识点
+		$scope.$on('kPointNode', function(d,data) {  
+	        $scope.kPointNode = data;
+	        $scope.initQuestions();
 	    });
 	    
-	    //加载习题册   type： 1、提问册  2、练习册  3、作业册
-	    $scope.loadQuestionList = function(type) {
+	    //添加题目完成回调
+	    $scope.$on('addSmall', function(d,data) {  
+	        var type = $("input[name='type']:checked").val();
+	        
+	        if(type == 'task') {
+	    		url = '/taskQuestion/design/edit';
+	    	}else if(type == 'strom') {
+	    		url = '/brainstormQuestion/design/edit';
+	    	}
+	        
+	        var obj = {
+				"relate":0,
+				"teacherId": localStorage.getItem("userid"),
+				"knowledgeId": "",
+				"chapterId": localStorage.getItem("currentNodeId"),
+			    "examChildren": [ data ]
+			}
+	        
+	        //添加题目(主观)
+	        common.ajax2({
+	        	$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: url,
+				data: obj,
+				success: function(res) {
+					$scope.loadQuestions(type);
+					$("#addTaskAndStrom").modal("hide");
+				}
+	        });
+	    });
+	    
+	    //加载题目
+	    $scope.loadQuestions = function(type) {
+	    	var data = {
+	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapterId": localStorage.getItem('currentNodeId'),//章节id
+				"operatorId": localStorage.getItem("userid"),//当前用户id
+				"questionType": 'design',//题目类型 single multiple trueOrFalse design bigQuestion
+				"page": 0,
+				"size": 20,
+				"sort": 1,
+				"sorting": "uTime"
+	    	}
+	    	
+	    	//处理知识点查询传参
+	    	if($scope.kPointNode.knodeId) {
+	    		data.knowledgeId = $scope.kPointNode.knodeId;
+	    	}
+	    	
+	    	if(type == 'task') {
+	    		url = '/taskQuestion/findAll/detailed';
+	    	}else if(type == 'strom') {
+	    		url = '/brainstormQuestion/findAll/detailed';
+	    	}
+	    	
+	    	//根据章节和知识点加载题目
 	    	common.ajax2({
 	        	$scope: $scope,
 				$http: $http,
-				data: {
-				  "allOrPart": "part",
-				  "exeBookType": type,
-				  "operatorId": localStorage.getItem('userid'),
-				  "page": 0,
-				  "chapterId": localStorage.getItem('currentNodeId'),
-				  "size": 20,
-				  "sort": 1,
-				  "sorting": "uTime"
-				},
-				url: '/exerciseBook/findAll/detailed',
+				url: url,
+				data: data,
 				success: function(res) {
-					if(type == "1") {
-						$scope.tiwence = res.data;
-					}else if(type == "2") {
-						$scope.lianxice = res.data;
-					}else if(type == "3") {
-						$scope.zuoyece = res.data;
+					var data = res.data;
+					if(type == 'task') {
+						$scope.task = res.data;
+					}else if(type == 'strom') {
+						$scope.strom = res.data;
 					}
 				}
 	        });
 	    };
-	    $scope.loadQuestionList("1");
-	    $scope.loadQuestionList("2");
-	    $scope.loadQuestionList("3");
 	    
-	    //修改提题册
-	    $scope.editExercisesBook = function(id) {
-	    	$scope.$broadcast('editExercisesBookId', id);
-	    	$("#exercisesBookEditModal").modal("show");
+	    $scope.initQuestions = function() {
+	    	$scope.loadQuestions('task');
+	    	$scope.loadQuestions('strom');
 	    }
 	    
-	    //打开习题册编辑框
-	    $scope.openExercisesBookModel = function() {
+	    //修改题目
+	    $scope.editQuestion = function(question) {
+	    	if(question.examChildren[0].choiceType && question.examChildren[0].choiceType=="single") {//单选题
+	    		$scope.$broadcast('questionSingle', question);
+	    		$("#editSingle").modal("show");
+	    	}else if(question.examChildren[0].choiceType && question.examChildren[0].choiceType=="multiple") {
+	    		$scope.$broadcast('questionMulti', question);
+	    		$("#editmulti").modal("show");
+	    	}else if(question.examChildren[0].examType && question.examChildren[0].examType=="trueOrFalse") {
+	    		$scope.$broadcast('questionTrueOrFalse', question);
+	    		$("#editTrueOrFalse").modal("show");
+	    	}else if(question.examChildren[0].examType && question.examChildren[0].examType=="design") {
+	    		$scope.$broadcast('questionDesign', question);
+	    		$("#editDesign").modal("show");
+	    	}
+	    	
+	    }
+	    
+	    //删除题目
+	    $scope.delQuestion = function(id) {
+	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑习题册吗", {
+			  btn: ['确定', "取消"] //按钮
+			}, function(){
+			    common.ajax2({
+	    			method: "get",
+		        	$scope: $scope,
+					$http: $http,
+					url: '/question/delete/'+id,
+					success: function(res) {
+						console.log(res);
+					}
+		        });
+			  layer.closeAll('dialog');
+			});
+	    }
+	    
+	    //打开题目添加框
+	    $scope.openQuestionModel = function() {
 	    	if(!$rootScope.currentNode) {
 	    		layer.alert("请先选择章节");
 	    		return false;
 	    	}
 	    	
-	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节任务或头脑风暴册吗", {
+	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建题目吗", {
 			  btn: ['确定', "取消"] //按钮
 			}, function(){
-			  $("#taskModal").modal("show");
+			  $("#addTaskAndStrom").modal("show");
 			  layer.closeAll('dialog');
 			});
 	    }
-
 	}
 </script>
 <!-- BEGIN MAIN JS -->

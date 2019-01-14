@@ -284,6 +284,7 @@
 <!-- BEGIN MAIN JS-->
 <script>
 	function assistantCtrl($scope, $http) {
+		localStorage.setItem('questionType', 'askAndExercise');
 		var courseId = localStorage.getItem('courseId');
 		$scope.knowledgePoints = [];
 
