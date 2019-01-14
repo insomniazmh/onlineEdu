@@ -44,6 +44,10 @@
 			height: 100
 		});
 		
+		$scope.$on('smallDesign', function(d,data) {  
+			console.log(data);
+	    });
+		
 		$scope.sub = function() {
 			var kPointId = "";
 			
