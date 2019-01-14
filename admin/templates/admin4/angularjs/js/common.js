@@ -169,7 +169,6 @@ var common = {
 
 		uploader.on('uploadError', function(file) {
 			Metronic.unblockUI();
-			console.log(12354);
 			common.toast({
 				title: "上传失败",
 				type: 2
@@ -190,7 +189,6 @@ var common = {
 			data: {},
 			success: function(response) {},
 			error: function(response) {
-				console.log(response);
 				common.toast({
 		        	type: 2,
 		        	title: "网络异常"
@@ -245,7 +243,6 @@ var common = {
 			data: {},
 			success: function(response) {},
 			error: function(response) {
-				console.log(response);
 				common.toast({
 		        	type: 2,
 		        	title: "网络异常"
