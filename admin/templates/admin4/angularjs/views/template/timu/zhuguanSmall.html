@@ -2,19 +2,21 @@
 	<div class="form-body">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="form-group form-md-line-input">					
+				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
 					<div id="zhuguanSmall_title"></div>
 				</div>
+				
 			</div>
 		</div>
 		<div class="row" style="margin-top: 20px;">
 			<div class="col-md-12">
-				<div class="form-group form-md-line-input">					
+				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">答案</label>
 					<div id="zhuguanSmall_answer"></div>
 				</div>
 			</div>
+			
 		</div>
 		<div class="row" style="">
 			<div class="col-md-12">
@@ -23,6 +25,7 @@
 					<div id="zhuguanSmall_jiexi"></div>
 				</div>
 			</div>
+			
 		</div>
 	</div>
 	<div class="form-actions noborder">
@@ -32,7 +35,7 @@
 </div>
 
 <script>
-	function zhuguanSmallCtrl($scope, $http) {		
+	function zhuguanSmallCtrl($scope, $http) {
 		$('#zhuguanSmall_title').summernote({
 			height: 100
 		});
@@ -44,30 +47,25 @@
 			height: 100
 		});
 		
-		$scope.$on('smallDesign', function(d,data) {  
-			console.log(data);
-	    });
-		
 		$scope.sub = function() {
 			var kPointId = "";
 			
 			var obj = {
-	            "relate": "1",
-	            "score": 1,
-	            "teacherId": localStorage.getItem("userid"),
-	            "designQuestion": $('#zhuguanSmall_title').code(),
-	            "designAnsw": $('#zhuguanSmall_answer').code(),
-	            "designAnalysis": $('#zhuguanSmall_jiexi').code(),
-	            
-	            "title": $('#zhuguanSmall_title').code(),
-	            "answer": $('#zhuguanSmall_answer').code(),
-	            "analysis": $('#zhuguanSmall_jiexi').code(),
-	            
-	            "examType": "design"
-	        }
+				"relate": "1",
+				"score": 1,
+				"teacherId": localStorage.getItem("userid"),
+				"examType": "design"
+			}
+			
+			obj.designQuestion = $('#zhuguanSmall_title').code();
+			obj.designAnsw = $('#zhuguanSmall_answer').code();
+			obj.designAnalysis = $('#zhuguanSmall_jiexi').code();
+			obj.title = $('#zhuguanSmall_title').code();
+			obj.answer = $('#zhuguanSmall_answer').code();
+			obj.analysis = $('#zhuguanSmall_jiexi').code();
 			
 			$scope.$emit('addSmall', obj);
 		}
-		
+
 	}
 </script>

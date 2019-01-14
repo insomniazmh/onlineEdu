@@ -42,7 +42,7 @@
 				</div>
 				<div class="actions">
 					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
-							<i class="fa fa-plus"></i> 创建 </button>
+						<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
@@ -57,15 +57,16 @@
 			</div>
 			<div class="portlet-body">
 				<div class="tab-content">
-					<div class="tab-pane" id="tab_1_task">
+					<div class="tab-pane active" id="tab_1_task"> 
 						<div id="accordionTask" class="panel-group">
 							<div class="panel panel-default" ng-repeat="row in task">
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionTask" data-target="#accordionTask_{{$index}}">
-										<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row, 'task')"></i>
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row, 'task')"></i>
 											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
 									</h4>
@@ -77,19 +78,20 @@
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
-					
+
 					<div class="tab-pane" id="tab_1_storm">
 						<div id="accordionStorm" class="panel-group">
 							<div class="panel panel-default" ng-repeat="row in strom">
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionStorm" data-target="#accordionStorm_{{$index}}">
-										<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row, 'strom')"></i>
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row, 'strom')"></i>
 											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
 									</h4>
@@ -101,16 +103,16 @@
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
-	
+
 	<!--编辑主观题-->
 	<div class="modal fade" id="editDesign" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-full">
@@ -126,17 +128,17 @@
 						</div>
 					</div>
 					<div class="portlet-body">
-						<div data-ng-include="'views/template/timu/zhuguanEdit.html'"></div>
+						<!-- <div data-ng-include="'views/template/timu/zhuguanSmallEdit.html'"></div> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="addTaskAndStrom" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-full">
 			<div class="modal-content">
-	
+
 				<div class="portlet light" style="min-height: 400px;">
 					<div class="portlet-title tabbable-line">
 						<div class="caption font-green-sharp">
@@ -192,40 +194,105 @@
 		localStorage.setItem('questionType', 'taskAndStrom');
 		$scope.currentNode = {};
 		$scope.kPointNode = {};
-		
+
 		//切换章节回调
-		$scope.$on('currentNode', function(d,data) { 
-	        $scope.currentNode = data;
-	        $scope.initQuestions();
-	    });
-	    
-	    //获取当前选中知识点
-		$scope.$on('kPointNode', function(d,data) {  
-	        $scope.kPointNode = data;
-	        $scope.initQuestions();
-	    });
-	    
-	    //添加题目完成回调
-	    $scope.$on('addSmall', function(d,data) {  
-	        var type = $("input[name='type']:checked").val();
-	        
-	        if(type == 'task') {
-	    		url = '/taskQuestion/design/edit';
-	    	}else if(type == 'strom') {
-	    		url = '/brainstormQuestion/design/edit';
-	    	}
-	        
-	        var obj = {
-				"relate":0,
+		$scope.$on('currentNode', function(d, data) {
+			$scope.currentNode = data;
+			$scope.initQuestions();
+		});
+
+		//获取当前选中知识点
+		$scope.$on('kPointNode', function(d, data) {
+			$scope.kPointNode = data;
+			$scope.initQuestions();
+		});
+
+		//添加题目完成回调
+		$scope.$on('addSmall', function(d, data) {
+			var type = $("input[name='type']:checked").val();
+			$scope.saveOrEditQuestion(type, data);
+		});
+		
+		//修改题目完成回调
+		$scope.$on('editSmall', function(d, data) {
+			$scope.saveOrEditQuestion($scope.type, data);
+		});
+
+		//加载题目
+		$scope.loadQuestions = function(type) {
+			var data = {
+				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapterId": localStorage.getItem('currentNodeId'), //章节id
+				"operatorId": localStorage.getItem("userid"), //当前用户id
+				"questionType": 'design', //题目类型 single multiple trueOrFalse design bigQuestion
+				"page": 0,
+				"size": 20,
+				"sort": 1,
+				"sorting": "uTime"
+			}
+
+			//处理知识点查询传参
+			if ($scope.kPointNode.knodeId) {
+				data.knowledgeId = $scope.kPointNode.knodeId;
+			}
+
+			if (type == 'task') {
+				url = '/taskQuestion/findAll/detailed';
+			} else if (type == 'strom') {
+				url = '/brainstormQuestion/findAll/detailed';
+			}
+
+			//根据章节和知识点加载题目
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				url: url,
+				data: data,
+				success: function(res) {
+					var data = res.data;
+					if (type == 'task') {
+						$scope.task = res.data;
+					} else if (type == 'strom') {
+						$scope.strom = res.data;
+					}
+				}
+			});
+		};
+
+		$scope.initQuestions = function() {
+			$scope.loadQuestions('task');
+			$scope.loadQuestions('strom');
+		}
+
+		//修改题目
+		$scope.editQuestion = function(question, type) {
+			$scope.type = type;
+			$scope.$broadcast('smallDesign', question);
+			$("#editDesign").modal("show");
+		}
+		
+		$scope.saveOrEditQuestion = function(type, data) {
+			if (type == 'task') {
+				url = '/taskQuestion/design/edit';
+			} else if (type == 'strom') {
+				url = '/brainstormQuestion/design/edit';
+			}
+			
+			var obj = {
+				"relate": 0,
 				"teacherId": localStorage.getItem("userid"),
 				"knowledgeId": "",
 				"chapterId": localStorage.getItem("currentNodeId"),
-			    "examChildren": [ data ]
+				"examChildren": [data]
 			}
-	        
-	        //添加题目(主观)
-	        common.ajax2({
-	        	$scope: $scope,
+			
+			if(data.pid) {
+				obj.id = data.pid;
+			}
+			
+			//添加题目(主观)
+			common.ajax2({
+				$scope: $scope,
 				$http: $http,
 				operate: true,
 				url: url,
@@ -233,96 +300,43 @@
 				success: function(res) {
 					$scope.loadQuestions(type);
 					$("#addTaskAndStrom").modal("hide");
+					$("#editDesign").modal("hide");
 				}
-	        });
-	    });
-	    
-	    //加载题目
-	    $scope.loadQuestions = function(type) {
-	    	var data = {
-	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
-				"chapterId": localStorage.getItem('currentNodeId'),//章节id
-				"operatorId": localStorage.getItem("userid"),//当前用户id
-				"questionType": 'design',//题目类型 single multiple trueOrFalse design bigQuestion
-				"page": 0,
-				"size": 20,
-				"sort": 1,
-				"sorting": "uTime"
-	    	}
-	    	
-	    	//处理知识点查询传参
-	    	if($scope.kPointNode.knodeId) {
-	    		data.knowledgeId = $scope.kPointNode.knodeId;
-	    	}
-	    	
-	    	if(type == 'task') {
-	    		url = '/taskQuestion/findAll/detailed';
-	    	}else if(type == 'strom') {
-	    		url = '/brainstormQuestion/findAll/detailed';
-	    	}
-	    	
-	    	//根据章节和知识点加载题目
-	    	common.ajax2({
-	        	$scope: $scope,
-				$http: $http,
-				url: url,
-				data: data,
-				success: function(res) {
-					var data = res.data;
-					if(type == 'task') {
-						$scope.task = res.data;
-					}else if(type == 'strom') {
-						$scope.strom = res.data;
-					}
-				}
-	        });
-	    };
-	    
-	    $scope.initQuestions = function() {
-	    	$scope.loadQuestions('task');
-	    	$scope.loadQuestions('strom');
-	    }
-	    
-	    //修改题目
-	    $scope.editQuestion = function(question, type) {
-	    	$scope.type = type;
-	    	$scope.$broadcast('smallDesign', question);
-	    	$("#editDesign").modal("show");
-	    	
-	    }
-	    
-	    //删除题目
-	    $scope.delQuestion = function(id) {
-	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑习题册吗", {
-			  btn: ['确定', "取消"] //按钮
-			}, function(){
-			    common.ajax2({
-	    			method: "get",
-		        	$scope: $scope,
+			});
+		}
+
+		//删除题目
+		$scope.delQuestion = function(id) {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax2({
+					method: "get",
+					$scope: $scope,
 					$http: $http,
-					url: '/question/delete/'+id,
+					url: '/question/delete/' + id,
 					success: function(res) {
 						console.log(res);
 					}
-		        });
-			  layer.closeAll('dialog');
+				});
+				layer.closeAll('dialog');
 			});
-	    }
-	    
-	    //打开题目添加框
-	    $scope.openQuestionModel = function() {
-	    	if(!$rootScope.currentNode) {
-	    		layer.alert("请先选择章节");
-	    		return false;
-	    	}
-	    	
-	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建题目吗", {
-			  btn: ['确定', "取消"] //按钮
-			}, function(){
-			  $("#addTaskAndStrom").modal("show");
-			  layer.closeAll('dialog');
+		}
+
+		//打开题目添加框
+		$scope.openQuestionModel = function() {
+			if (!$rootScope.currentNode) {
+				layer.alert("请先选择章节");
+				return false;
+			}
+
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建题目吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				$("#addTaskAndStrom").modal("show");
+				layer.closeAll('dialog');
 			});
-	    }
+		}
 	}
 </script>
 <!-- BEGIN MAIN JS -->

@@ -1,0 +1,88 @@
+<div role="form" ng-controller="zhuguanSmallEditCtrl">
+	<div class="form-body">
+		<div class="row">
+			<div class="col-md-12">
+				
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
+					<div id="zhuguanSmall_title_edit"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">答案</label>
+					<div id="zhuguanSmall_answer_edit"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
+					<div id="zhuguanSmall_jiexi_edit"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions noborder">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
+		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+	</div>
+</div>
+
+<script>
+	function zhuguanSmallEditCtrl($scope, $http) {
+		$('#zhuguanSmall_title_edit').summernote({
+			height: 100
+		});
+		$('#zhuguanSmall_jiexi_edit').summernote({
+			height: 100
+		});
+		
+		$('#zhuguanSmall_answer_edit').summernote({
+			height: 100
+		});
+		$scope.$on('smallDesign', function(d, data) {
+			if(data) {
+				$scope.pid = data.id;
+				
+				$('#zhuguanSmall_title_edit').code(data.examChildren[0].title);
+				$('#zhuguanSmall_answer_edit').code(data.examChildren[0].answer);
+				$('#zhuguanSmall_jiexi_edit').code(data.examChildren[0].analysis);
+				
+			}
+			
+		});
+
+		$scope.sub = function() {
+			var kPointId = "";
+			
+			var title = "";
+			var answer = "";
+			var analysis = "";
+
+			var obj = {
+				"relate": "1",
+				"score": 1,
+				"teacherId": localStorage.getItem("userid"),
+				"examType": "design"
+			}
+			
+			obj.pid = $scope.pid;
+			obj.designQuestion = $('#zhuguanSmall_title_edit').code();
+			obj.designAnsw = $('#zhuguanSmall_answer_edit').code();
+			obj.designAnalysis = $('#zhuguanSmall_jiexi_edit').code();
+			obj.title = $('#zhuguanSmall_title_edit').code();
+			obj.answer = $('#zhuguanSmall_answer_edit').code();
+			obj.analysis = $('#zhuguanSmall_jiexi_edit').code();
+			
+			$scope.$emit('editSmall', obj);
+			
+			
+		}
+
+	}
+</script>
