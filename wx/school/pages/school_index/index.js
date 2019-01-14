@@ -46,15 +46,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // wx.login({
-    //   success(res) {
-    //     if (res.code) {
-    //       console.log(res.code);
-    //     } else {
-    //       console.log('登录失败！' + res.errMsg)
-    //     }
-    //   }
-    // })
+    wx.login({
+      success(res) {
+        if (res.code) {
+          wx.request({
+            method: "get",
+            url: 'https://e.hnfts.cn/wechat/user/wx6b2191f8e374bac8/login?appid=wx6b2191f8e374bac8&code=' + res.code,
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success(res) {
+              console.log(res.data)
+              if (res.data.ret == 0) {
+                
+              }
+            }
+          })
+          console.log(res.code);
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
   },
 
   /**

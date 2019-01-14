@@ -1,9 +1,9 @@
 {
   "pages": [
-    
+    "pages/school_index/index",
     "pages/haveClass/haveClass",
     "pages/getId/getId",
-    "pages/school_index/index",
+    
     "pages/nav_deleteAfertText/nav",
     "pages/True or false/True or false",
     "pages/students_interaction/students_interaction",

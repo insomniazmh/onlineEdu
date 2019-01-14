@@ -56,9 +56,20 @@
 										<div class="desc">
 											<a href="{{jiaoan.filePath}}" target="_blank">{{jiaoan.fileName}}</a>
 											<span id="filePickerJiaoan" class="filePicker"> 上传教案 </span>
-											<span class="exist"> 
-												已有教案（<span style="color: red;">{{jiaoanCount}}</span>） 
-											</span>
+											<div style="display: inline;position: absolute;" class="dropdown">
+												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+													已有教案（<span style="color: red;">{{jiaoanCount}}</span>） 
+												</span>
+												<ul class="dropdown-menu" style="margin-top: 30px;">
+													<li>
+														<a> <i class="icon-user"></i> 修改密码 </a>
+													</li>
+													<li>
+														<a> <i class="icon-key"></i> 退出登录 </a>
+													</li>
+												</ul>
+											</div>
+											
 										</div>
 									</div>
 								</div>
@@ -80,15 +91,47 @@
 											<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
 												上传课件
 											</span>
-											<span class="exist"> 
-												PPT（<span style="color: red;">{{PPTKejianCount}}</span>） 
-											</span>
-											<span class="exist" style="margin-left: 100px;"> 
-												图集（<span style="color: red;">{{picsKejianCount}}</span>） 
-											</span>
-											<span class="exist" style="margin-left: 180px;"> 
-												视频（<span style="color: red;">{{videoKejianCount}}</span>） 
-											</span>
+											<div style="display: inline;position: absolute;" class="dropdown">
+												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+													已有教案（<span style="color: red;">{{PPTKejianCount}}</span>） 
+												</span>
+												<ul class="dropdown-menu" style="margin-top: 30px;">
+													<li>
+														<a> <i class="icon-user"></i> 修改密码 </a>
+													</li>
+													<li>
+														<a> <i class="icon-key"></i> 退出登录 </a>
+													</li>
+												</ul>
+											</div>
+											<div style="display: inline;position: absolute;" class="dropdown">
+												<span class="exist dropdown-toggle" style="margin-left: 120px;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+													图集（<span style="color: red;">{{picsKejianCount}}</span>） 
+												</span>
+												<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 120px;">
+													<li>
+														<a> <i class="icon-user"></i> 修改密码 </a>
+													</li>
+													<li>
+														<a> <i class="icon-key"></i> 退出登录 </a>
+													</li>
+												</ul>
+											</div>
+											
+											<div style="display: inline;position: absolute;" class="dropdown">
+												<span class="exist dropdown-toggle" style="margin-left: 200px;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
+													视频（<span style="color: red;">{{videoKejianCount}}</span>） 
+												</span>
+												<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 200px;">
+													<li>
+														<a> <i class="icon-user"></i> 修改密码 </a>
+													</li>
+													<li>
+														<a> <i class="icon-key"></i> 退出登录 </a>
+													</li>
+												</ul>
+											</div>
+											
 										</div>
 									</div>
 								</div>
