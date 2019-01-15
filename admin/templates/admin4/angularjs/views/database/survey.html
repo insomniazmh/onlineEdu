@@ -78,7 +78,7 @@
 	</div>
 
 	<!--编辑题目-->
-	<div class="modal fade" id="editSurvey" tabindex="-1" role="dialog" aria-hidden="true">
+	<!-- <div class="modal fade" id="editSurvey" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-full">
 			<div class="modal-content">
 				<div class="portlet light" style="min-height: 400px;">
@@ -97,16 +97,17 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	<div class="modal fade" id="addSurvey" tabindex="-1" role="dialog" aria-hidden="true">
+<!--添加或编辑题目-->
+	<div class="modal fade" id="survey" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-full">
 			<div class="modal-content">
 				<div class="portlet light" style="min-height: 400px;">
 					<div class="portlet-title tabbable-line">
 						<div class="caption font-green-sharp">
 							<i class="icon-settings font-green-sharp"></i>
-							<span class="caption-subject bold uppercase" id="title">创建题目</span>
+							<span class="caption-subject bold uppercase" id="title">题目</span>
 						</div>
 						<div class="actions">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -145,12 +146,7 @@
 		});
 
 		//添加题目完成回调
-		$scope.$on('addSmall', function(d, data) {
-			$scope.saveOrEditQuestion(data);
-		});
-
-		//修改题目完成回调
-		$scope.$on('editSmall', function(d, data) {
+		$scope.$on('subSingleSmall', function(d, data) {
 			$scope.saveOrEditQuestion(data);
 		});
 
@@ -165,7 +161,7 @@
 				"size": 20,
 				"sort": 1,
 				"sorting": "uTime"
-			}
+			};
 
 			//处理知识点查询传参
 			if($scope.kPointNode.knodeId) {
@@ -191,7 +187,7 @@
 		//修改题目
 		$scope.editQuestion = function(question) {
 			$scope.$broadcast('smallSingle', question);
-			$("#editSurvey").modal("show");
+			$("#survey").modal("show");
 		}
 
 		$scope.saveOrEditQuestion = function(data) {
@@ -216,8 +212,7 @@
 				data: obj,
 				success: function(res) {
 					$scope.loadQuestions();
-					$("#addSurvey").modal("hide");
-					$("#editSurvey").modal("hide");
+					$("#survey").modal("hide");
 				}
 			});
 		}
@@ -250,7 +245,8 @@
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建题目吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
-				$("#addSurvey").modal("show");
+				$scope.$broadcast('smallSingle', null);
+				$("#survey").modal("show");
 				layer.closeAll('dialog');
 			});
 		}

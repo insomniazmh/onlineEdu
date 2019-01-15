@@ -2,7 +2,7 @@
 	<div class="form-body">
 		<div class="row" style="">
 			<div class="col-md-12">
-				<div class="form-group form-md-line-input">					
+				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
 					<div id="danxuanSmall_title"></div>
 				</div>
@@ -20,8 +20,8 @@
 			<div class="col-md-12">
 				<div class="form-group form-md-line-input">
 					<button class="btn btn-circle green btn-sm" ng-click="single.addOption();">
-												<i class="fa fa-plus"></i> 创建选项 </button>
-					<span>正确答案：  {{single.right}}</span>
+						<i class="fa fa-plus"></i> 创建选项 </button>
+					<span>正确答案： {{single.right}}</span>
 				</div>
 			</div>
 			<div style="margin-top: 50px;"></div>
@@ -31,9 +31,9 @@
 						<div class="md-radio">
 							<input type="radio" id="radioSmall{{$index}}" name="single" ng-value="row.optValue" class="md-radiobtn" ng-model="single.right">
 							<label for="radioSmall{{$index}}">
-													<span></span>
-													<span class="check"></span>
-													<span class="box"></span></label>
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span></label>
 						</div>
 					</div>
 				</div>
@@ -85,13 +85,13 @@
 					count: count
 				});
 				this.rename();
-				
+
 				$timeout(function() {
-					$('#danxuanSmall_option'+count).summernote({
+					$('#danxuanSmall_option' + count).summernote({
 						height: 100
 					});
 					count++;
-				},300);
+				}, 300);
 			},
 
 			delOption: function(index) {
@@ -101,30 +101,30 @@
 
 			rename: function() {
 				$(this.options).each(function(i) {
-					if(i == 0) {
+					if (i == 0) {
 						this.optValue = "A";
-					} else if(i == 1) {
+					} else if (i == 1) {
 						this.optValue = "B";
-					} else if(i == 2) {
+					} else if (i == 2) {
 						this.optValue = "C";
-					} else if(i == 3) {
+					} else if (i == 3) {
 						this.optValue = "D";
-					} else if(i == 4) {
+					} else if (i == 4) {
 						this.optValue = "E";
-					} else if(i == 5) {
+					} else if (i == 5) {
 						this.optValue = "F";
 					}
 				});
 			}
 		};
-		
+
 		$('#danxuanSmall_title').summernote({
 			height: 100
 		});
 		$('#danxuanSmall_jiexi').summernote({
 			height: 100
 		});
-		
+
 		$timeout(function() {
 			$('#danxuanSmall_option0').summernote({
 				height: 100
@@ -138,42 +138,79 @@
 			$('#danxuanSmall_option3').summernote({
 				height: 100
 			});
-		},300);
-		
+		}, 300);
+
+		$scope.$on('smallSingle', function(d, data) { //加载题目信息
+			if (data) {
+				$scope.pid = data.id;
+
+				$scope.question = data;
+				console.log(data);
+				$('#danxuanSmall_title').code(data.examChildren[0].choiceQstTxt); //初始化标题
+				$('#danxuanSmall_jiexi').code(data.examChildren[0].choiceQstAnalysis); //初始化解析
+				$scope.single.right = data.examChildren[0].choiceQstAnsw; //初始化正确答案
+				//初始化选项--开始
+				$(data.examChildren[0].optChildren).each(function(i) {
+					this.count = i;
+				});
+				$scope.single.options = data.examChildren[0].optChildren;
+				count = data.examChildren[0].optChildren.length + 1;
+
+				$timeout(function() {
+					$(data.examChildren[0].optChildren).each(function(i) {
+						$('#danxuanSmall_option' + i).summernote({
+							height: 100
+						});
+						$('#danxuanSmall_option' + i).code(this.optTxt);
+					});
+				}, 300);
+			} else {
+				$scope.pid = null;
+				$('#danxuanSmall_title').code(""); //初始化标题
+				$('#danxuanSmall_jiexi').code(""); //初始化解析
+				$('[name=danxuanSmall_option]').code("");
+			}
+
+		});
+
 		$scope.sub = function() {
 			//拼装选项
 			var opts = [];
 			$($scope.single.options).each(function(i) {
 				opts.push({
 					"optTxt": $('[name=danxuanSmall_option]').eq(i).code(),
-                    "optValue": this.optValue
+					"optValue": this.optValue
 				});
 			});
-			
-			if(!$scope.knowledgeId) {
+
+			if (!$scope.knowledgeId) {
 				$scope.knowledgeId = "";
 			}
-			
+
 			var obj = {
-	            "examType":"single",
-	            "score": 1,
-	            "teacherId": localStorage.getItem("userid"),
-	            "choiceQstTxt": $('#danxuanSmall_title').code(),
-	            "choiceQstAnsw": $scope.single.right,
-	            "choiceQstAnalysis": $('#danxuanSmall_jiexi').code(),
-	            
-	            
-	            "title": $('#danxuanSmall_title').code(),
-	            "answer": $scope.single.right,
-	            "analysis": $('#danxuanSmall_jiexi').code(),
-	            
-	            
-	            "choiceType": "single",
-	            "optChildren": opts
-	        };
+				"examType": "single",
+				"score": 1,
+				"teacherId": localStorage.getItem("userid"),
+				"choiceQstTxt": $('#danxuanSmall_title').code(),
+				"choiceQstAnsw": $scope.single.right,
+				"choiceQstAnalysis": $('#danxuanSmall_jiexi').code(),
+
+
+				"title": $('#danxuanSmall_title').code(),
+				"answer": $scope.single.right,
+				"analysis": $('#danxuanSmall_jiexi').code(),
+
+
+				"choiceType": "single",
+				"optChildren": opts
+			};
 			
-			$scope.$emit('addSmall', obj);
+			if($scope.pid) {
+				obj.pid = $scope.pid;
+			}
+
+			$scope.$emit('subSingleSmall', obj);
 		}
-		
+
 	}
 </script>
