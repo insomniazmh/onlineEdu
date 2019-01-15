@@ -47,6 +47,21 @@
 			height: 100
 		});
 		
+		$scope.$on('smallDesign', function(d, data) {
+			if(data) {
+				$scope.pid = data.id;
+				$('#zhuguanSmall_title').code(data.examChildren[0].title);
+				$('#zhuguanSmall_answer').code(data.examChildren[0].answer);
+				$('#zhuguanSmall_jiexi').code(data.examChildren[0].analysis);
+			}else {
+				$scope.pid = null;
+				$('#zhuguanSmall_title').code("");
+				$('#zhuguanSmall_answer').code("");
+				$('#zhuguanSmall_jiexi').code("");
+			}
+			
+		});
+		
 		$scope.sub = function() {
 			var kPointId = "";
 			
@@ -55,6 +70,10 @@
 				"score": 1,
 				"teacherId": localStorage.getItem("userid"),
 				"examType": "design"
+			}
+			
+			if($scope.pid) {
+				obj.pid = $scope.pid;
 			}
 			
 			obj.designQuestion = $('#zhuguanSmall_title').code();
