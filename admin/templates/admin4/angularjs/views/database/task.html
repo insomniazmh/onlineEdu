@@ -67,7 +67,7 @@
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
 											 ng-click="editQuestion(row, 'task')"></i>
-											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id, 'task')"></i>
 										</div>
 									</h4>
 								</div>
@@ -92,7 +92,7 @@
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
 											 ng-click="editQuestion(row, 'strom')"></i>
-											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id, 'strom')"></i>
 										</div>
 									</h4>
 								</div>
@@ -306,7 +306,13 @@
 		}
 
 		//删除题目
-		$scope.delQuestion = function(id) {
+		$scope.delQuestion = function(id, type) {
+			if (type == 'task') {
+				url = '/taskQuestion/delete/';
+			} else if (type == 'strom') {
+				url = '/brainstormQuestion/delete';
+			}
+			
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
@@ -314,7 +320,7 @@
 					method: "get",
 					$scope: $scope,
 					$http: $http,
-					url: '/question/delete/' + id,
+					url: url + id,
 					success: function(res) {
 						console.log(res);
 					}

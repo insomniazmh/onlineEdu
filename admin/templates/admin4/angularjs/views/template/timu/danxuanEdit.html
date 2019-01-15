@@ -2,7 +2,7 @@
 	<div class="form-body">
 		<div class="row" style="">
 			<div class="col-md-12">
-				<div class="form-group form-md-line-input">					
+				<div class="form-group form-md-line-input">
 					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
 					<div id="danxuanEdit_title"></div>
 				</div>
@@ -115,13 +115,13 @@
 					count: count
 				});
 				this.rename();
-				
+
 				$timeout(function() {
-					$('#danxuanEdit_option'+count).summernote({
+					$('#danxuanEdit_option' + count).summernote({
 						height: 100
 					});
 					count++;
-				},300);
+				}, 300);
 			},
 
 			delOption: function(index) {
@@ -147,64 +147,64 @@
 				});
 			}
 		};
-		
+
 		$('#danxuanEdit_title').summernote({
 			height: 100
 		});
 		$('#danxuanEdit_jiexi').summernote({
 			height: 100
 		});
-		
+
 		//加载题目信息
-	    $scope.$on('questionSingle', function(d,data) { 
-	    	$scope.question = data;
-	    	console.log(data);
-	    	$('#danxuanEdit_title').code(data.examChildren[0].choiceQstTxt);//初始化标题
-	    	$('#danxuanEdit_jiexi').code(data.examChildren[0].choiceQstAnalysis);//初始化解析
-	    	$("input[name='danxuanEditlevel'][value='"+data.levelId+"']").prop("checked","checked");//初始化难易程度
-	    	$scope.single.right = data.examChildren[0].choiceQstAnsw;//初始化正确答案
-	    	//初始化选项--开始
-	    	$(data.examChildren[0].optChildren).each(function(i) {
-	    		this.count = i;
-	    	});
-	    	$scope.single.options = data.examChildren[0].optChildren;
-	    	count = data.examChildren[0].optChildren.length + 1;
-	    	
-	    	$timeout(function() {
-	    		$(data.examChildren[0].optChildren).each(function(i) {
-		    		$('#danxuanEdit_option'+i).summernote({
+		$scope.$on('questionSingle', function(d, data) {
+			$scope.question = data;
+			console.log(data);
+			$('#danxuanEdit_title').code(data.examChildren[0].choiceQstTxt); //初始化标题
+			$('#danxuanEdit_jiexi').code(data.examChildren[0].choiceQstAnalysis); //初始化解析
+			$("input[name='danxuanEditlevel'][value='" + data.levelId + "']").prop("checked", "checked"); //初始化难易程度
+			$scope.single.right = data.examChildren[0].choiceQstAnsw; //初始化正确答案
+			//初始化选项--开始
+			$(data.examChildren[0].optChildren).each(function(i) {
+				this.count = i;
+			});
+			$scope.single.options = data.examChildren[0].optChildren;
+			count = data.examChildren[0].optChildren.length + 1;
+
+			$timeout(function() {
+				$(data.examChildren[0].optChildren).each(function(i) {
+					$('#danxuanEdit_option' + i).summernote({
 						height: 100
 					});
-					$('#danxuanEdit_option'+i).code(this.optTxt);
-		    	});
-			},300);
+					$('#danxuanEdit_option' + i).code(this.optTxt);
+				});
+			}, 300);
 			//初始化选项--结束
-	    });
-		
+		});
+
 		$scope.sub = function() {
 			//拼装选项
 			//var opts = [];
 			$($scope.single.options).each(function(i) {
 				this.optTxt = $('[name=danxuanEdit_option]').eq(i).code();
-//				opts.push({
-//					"optTxt": $('[name=danxuan_option]').eq(i).code(),
-//                  "optValue": this.optValue
-//				});
+				//				opts.push({
+				//					"optTxt": $('[name=danxuan_option]').eq(i).code(),
+				//                  "optValue": this.optValue
+				//				});
 			});
-			
+
 			if(!$scope.knowledgeId) {
 				$scope.knowledgeId = "";
 			}
-			
-			$scope.question.examChildren[0].choiceQstTxt = $('#danxuanEdit_title').code();//题目标题
-			$scope.question.examChildren[0].choiceQstAnsw = $scope.single.right;//正确答案
-			$scope.question.examChildren[0].choiceQstAnalysis = $('#danxuanEdit_jiexi').code();//解析
-			$scope.question.levelId = $("input[name='danxuanEditlevel']:checked").val();//难以程度
-			$scope.question.examChildren[0].optChildren = $scope.single.options;//选项
-			
+
+			$scope.question.examChildren[0].choiceQstTxt = $('#danxuanEdit_title').code(); //题目标题
+			$scope.question.examChildren[0].choiceQstAnsw = $scope.single.right; //正确答案
+			$scope.question.examChildren[0].choiceQstAnalysis = $('#danxuanEdit_jiexi').code(); //解析
+			$scope.question.levelId = $("input[name='danxuanEditlevel']:checked").val(); //难以程度
+			$scope.question.examChildren[0].optChildren = $scope.single.options; //选项
+
 			//编辑题目(单选)
-	        common.ajax2({
-	        	$scope: $scope,
+			common.ajax2({
+				$scope: $scope,
 				$http: $http,
 				operate: true,
 				url: '/question/choiceQst/edit',
@@ -213,8 +213,8 @@
 					$scope.$emit('addQuestion', "single");
 					$("#editSingle").modal("hide");
 				}
-	        });
+			});
 		}
-		
+
 	}
 </script>

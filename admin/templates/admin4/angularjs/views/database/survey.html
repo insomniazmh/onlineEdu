@@ -1,9 +1,259 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-</html>
+<style>
+	.opreat {
+		font-size: 16px;
+		width: 20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+</style>
+<div class="row" ng-controller="kpCtrl">
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn red" onclick="common.goUrl('assistant', true)">备课参考</button>
+			<button type="button" class="btn green" onclick="common.goUrl('xitice', true)">互动集</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
+		</div>
+	</div>
+	<!--<div data-ng-include="'views/template/zhishidian.html'"></div>-->
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'views/template/nodeTree.html'"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase" id="title">题库{{currKP}}</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
+						<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div id="accordionTask" class="panel-group">
+					<div class="panel panel-default" ng-repeat="row in survey">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionSurvey" data-target="#accordionSurvey_{{$index}}">
+									<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
+								<div style="display: inline-block;float: right;">
+									<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+									 ng-click="editQuestion(row)"></i>
+									<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+								</div>
+							</h4>
+						</div>
+						<div id="accordionSurvey_{{$index}}" class="panel-collapse collapse">
+							<div class="panel-body">
+								<p ng-repeat="x in row.examChildren[0].optChildren">
+									<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
+									<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+								</p>
+								<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
+								<p>解析：<span ng-bind-html="row.examChildren[0].choiceQstAnalysis" style="display: inline-block;"></span> </p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<!--编辑题目-->
+	<div class="modal fade" id="editSurvey" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">编辑题目</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div data-ng-include="'views/template/timu/danxuanSmallEdit.html'"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="addSurvey" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">创建题目</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="tab-content">
+							<div data-ng-include="'views/template/timu/danxuanSmall.html'"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+</div>
+<!-- END MAIN CONTENT -->
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<script>
+	function kpCtrl($scope, $http, $rootScope) {
+		$scope.currentNode = {};
+		$scope.kPointNode = {};
+
+		//切换章节回调
+		$scope.$on('currentNode', function(d, data) {
+			$scope.currentNode = data;
+			$scope.initQuestions();
+		});
+
+		//获取当前选中知识点
+		$scope.$on('kPointNode', function(d, data) {
+			$scope.kPointNode = data;
+			$scope.initQuestions();
+		});
+
+		//添加题目完成回调
+		$scope.$on('addSmall', function(d, data) {
+			$scope.saveOrEditQuestion(data);
+		});
+
+		//修改题目完成回调
+		$scope.$on('editSmall', function(d, data) {
+			$scope.saveOrEditQuestion(data);
+		});
+
+		//加载题目
+		$scope.loadQuestions = function() {
+			var data = {
+				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapterId": localStorage.getItem('currentNodeId'), //章节id
+				"operatorId": localStorage.getItem("userid"), //当前用户id
+				"questionType": 'single', //题目类型 single multiple trueOrFalse design bigQuestion
+				"page": 0,
+				"size": 20,
+				"sort": 1,
+				"sorting": "uTime"
+			}
+
+			//处理知识点查询传参
+			if($scope.kPointNode.knodeId) {
+				data.knowledgeId = $scope.kPointNode.knodeId;
+			}
+			
+			//根据章节和知识点加载题目
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				url: "/surveyQuestion/findAll/detailed",
+				data: data,
+				success: function(res) {
+					$scope.survey = res.data;
+				}
+			});
+		};
+
+		$scope.initQuestions = function() {
+			$scope.loadQuestions();
+		}
+
+		//修改题目
+		$scope.editQuestion = function(question) {
+			$scope.$broadcast('smallSingle', question);
+			$("#editSurvey").modal("show");
+		}
+
+		$scope.saveOrEditQuestion = function(data) {
+			var obj = {
+				"relate": 0,
+				"teacherId": localStorage.getItem("userid"),
+				"knowledgeId": "",
+				"chapterId": localStorage.getItem("currentNodeId"),
+				"examChildren": [data]
+			}
+
+			if(data.pid) {
+				obj.id = data.pid;
+			}
+
+			//添加题目(主观)
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: "/surveyQuestion/choiceQst/edit",
+				data: obj,
+				success: function(res) {
+					$scope.loadQuestions();
+					$("#addSurvey").modal("hide");
+					$("#editSurvey").modal("hide");
+				}
+			});
+		}
+
+		//删除题目
+		$scope.delQuestion = function(id) {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax2({
+					method: "get",
+					$scope: $scope,
+					$http: $http,
+					url: '/surveyQuestion/delete/' + id,
+					success: function(res) {
+						console.log(res);
+					}
+				});
+				layer.closeAll('dialog');
+			});
+		}
+
+		//打开题目添加框
+		$scope.openQuestionModel = function() {
+			if(!$rootScope.currentNode) {
+				layer.alert("请先选择章节");
+				return false;
+			}
+
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建题目吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				$("#addSurvey").modal("show");
+				layer.closeAll('dialog');
+			});
+		}
+	}
+</script>
+<!-- BEGIN MAIN JS -->
