@@ -4,19 +4,26 @@
 		padding: 0;
 		background: #3598dc;
 	}
+	
 	#createData {
 		min-width: 100px;
 	}
-	.createFile div:nth-child(2){width:100%!important;height:100%!important;}
+	
+	.createFile div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
 	.opreat {
 		font-size: 16px;
-		width:20px;
+		width: 20px;
 		color: #45B6AF;
 		cursor: pointer;
 	}
+	
 	.list-icon {
 		font-size: 18px;
-		width:20px;
+		width: 20px;
 		color: #45B6AF;
 	}
 </style>
@@ -68,7 +75,7 @@
 					<li>
 						<a data-target="#tab_1_3" data-toggle="tab"> 作业 </a>
 					</li>
-					<!--<li>
+					<li>
 						<a data-target="#tab_1_4" data-toggle="tab"> 任务</a>
 					</li>
 					<li>
@@ -76,7 +83,7 @@
 					</li>
 					<li>
 						<a data-target="#tab_1_6" data-toggle="tab"> 风暴</a>
-					</li>-->
+					</li>
 				</ul>
 			</div>
 			<div class="portlet-body">
@@ -163,7 +170,7 @@
 	</div>
 
 	<div data-ng-include="'views/template/tice/exercisesBook.html'"></div>
-	
+
 	<div data-ng-include="'views/template/tice/exercisesBookEdit.html'"></div>
 
 </div>
@@ -174,73 +181,73 @@
 <script>
 	function xiticeCtrl($scope, $http, $stateParams, $rootScope) {
 		var courseId = localStorage.getItem('courseId');
-		
+
 		//添加册子回调
-		$scope.$on('exercisesBookChange', function(d,data) {  
-	        $scope.loadQuestionList("1");
-		    $scope.loadQuestionList("2");
-		    $scope.loadQuestionList("3");
-	    });
-	    
-	    //切换章节回调
-		$scope.$on('currentNode', function(d,data) {  
+		$scope.$on('exercisesBookChange', function(d, data) {
 			$scope.loadQuestionList("1");
-		    $scope.loadQuestionList("2");
-		    $scope.loadQuestionList("3");
-	    });
-	    
-	    //加载习题册   type： 1、提问册  2、练习册  3、作业册
-	    $scope.loadQuestionList = function(type) {
-	    	
-	    	common.ajax2({
-	        	$scope: $scope,
+			$scope.loadQuestionList("2");
+			$scope.loadQuestionList("3");
+		});
+
+		//切换章节回调
+		$scope.$on('currentNode', function(d, data) {
+			$scope.loadQuestionList("1");
+			$scope.loadQuestionList("2");
+			$scope.loadQuestionList("3");
+		});
+
+		//加载习题册   type： 1、提问册  2、练习册  3、作业册
+		$scope.loadQuestionList = function(type) {
+
+			common.ajax2({
+				$scope: $scope,
 				$http: $http,
 				data: {
-				  "allOrPart": "part",
-				  "exeBookType": type,
-				  "operatorId": localStorage.getItem('userid'),
-				  "page": 0,
-				  "chapterId": localStorage.getItem('currentNodeId'),
-				  "size": 20,
-				  "sort": 1,
-				  "sorting": "uTime"
+					"allOrPart": "part",
+					"exeBookType": type,
+					"operatorId": localStorage.getItem('userid'),
+					"page": 0,
+					"chapterId": localStorage.getItem('currentNodeId'),
+					"size": 20,
+					"sort": 1,
+					"sorting": "uTime"
 				},
 				url: '/exerciseBook/findAll/detailed',
 				success: function(res) {
 					if(type == "1") {
 						$scope.tiwence = res.data;
-					}else if(type == "2") {
+					} else if(type == "2") {
 						$scope.lianxice = res.data;
-					}else if(type == "3") {
+					} else if(type == "3") {
 						$scope.zuoyece = res.data;
 					}
 				}
-	        });
-	    };
-	    $scope.loadQuestionList("1");
-	    $scope.loadQuestionList("2");
-	    $scope.loadQuestionList("3");
-	    
-	    //修改提题册
-	    $scope.editExercisesBook = function(id) {
-	    	$scope.$broadcast('editExercisesBookId', id);
-	    	$("#exercisesBookEditModal").modal("show");
-	    }
-	    
-	    //打开习题册编辑框
-	    $scope.openExercisesBookModel = function() {
-	    	if(!$rootScope.currentNode) {
-	    		layer.alert("请先选择章节");
-	    		return false;
-	    	}
-	    	
-	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑习题册吗", {
-			  btn: ['确定', "取消"] //按钮
-			}, function(){
-			  $("#exercisesBookModal").modal("show");
-			  layer.closeAll('dialog');
 			});
-	    }
+		};
+		$scope.loadQuestionList("1");
+		$scope.loadQuestionList("2");
+		$scope.loadQuestionList("3");
+
+		//修改提题册
+		$scope.editExercisesBook = function(id) {
+			$scope.$broadcast('editExercisesBookId', id);
+			$("#exercisesBookEditModal").modal("show");
+		}
+
+		//打开习题册编辑框
+		$scope.openExercisesBookModel = function() {
+			if(!$rootScope.currentNode) {
+				layer.alert("请先选择章节");
+				return false;
+			}
+
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				$("#exercisesBookModal").modal("show");
+				layer.closeAll('dialog');
+			});
+		}
 
 	}
 </script>
