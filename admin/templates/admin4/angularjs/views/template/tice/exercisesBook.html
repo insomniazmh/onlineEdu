@@ -19,19 +19,46 @@
 <div class="modal fade" id="exercisesBookModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="exercisesBookCtrl">
 	<div class="modal-dialog modal-full">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">创建册子</h4>
-			</div>
 			<div class="modal-body">
-				<div class="portlet">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">创建册子</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a data-target="#tab_book_basic" data-toggle="tab"> 基础题册 </a>
+							</li>
+							<li>
+								<a data-target="#tab_book_task" data-toggle="tab"> 任务册 </a>
+							</li>
+							<li>
+								<a data-target="#tab_book_survey" data-toggle="tab"> 问卷册 </a>
+							</li>
+							<li>
+								<a data-target="#tab_book_strom" data-toggle="tab"> 头脑风暴册 </a>
+							</li>
+						</ul>
+					</div>
 					<div class="portlet-body">
-						<div data-ng-include="'views/template/tice/basicBook.html'"></div>
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab_book_basic">
+								<div data-ng-include="'views/template/tice/basicBook.html'"></div>
+							</div>
+							<div class="tab-pane" id="tab_book_task">
+							</div>
+							<div class="tab-pane" id="tab_book_survey">
+							</div>
+							<div class="tab-pane" id="tab_book_strom">
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="form-actions noborder" style="text-align: center;margin-bottom: 10px;">
-					<button type="button" class="btn blue" ng-click="sub()">提交</button>
-				</div>
+				
 			</div>
 		</div>
 		<!-- /.modal-content -->
