@@ -4,7 +4,7 @@
 		height: 24px;
 		margin: 3px;
 	}
-	
+
 	.search {
 		display: inline-block !important;
 		margin-right: 20px;
@@ -29,36 +29,36 @@
 						<div class="actions">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 						</div>
-						<ul class="nav nav-tabs">
-							<li class="active">
+						<ul class="nav nav-tabs" id="booksTab">
+							<li name="basic">
 								<a data-target="#tab_book_basic" data-toggle="tab"> 基础题册 </a>
 							</li>
-							<li>
+							<li name='task'>
 								<a data-target="#tab_book_task" data-toggle="tab"> 任务册 </a>
 							</li>
-							<li>
+							<li name='survey'>
 								<a data-target="#tab_book_survey" data-toggle="tab"> 问卷册 </a>
 							</li>
-							<li>
+							<li name='strom'>
 								<a data-target="#tab_book_strom" data-toggle="tab"> 头脑风暴册 </a>
 							</li>
 						</ul>
 					</div>
 					<div class="portlet-body">
-						<div class="tab-content">
-							<div class="tab-pane active" id="tab_book_basic">
+						<div class="tab-content" id="book-tab-content">
+							<div class="tab-pane" id="tab_book_basic" name="basic">
 								<div data-ng-include="'views/template/tice/basicBook.html'"></div>
 							</div>
-							<div class="tab-pane" id="tab_book_task">
+							<div class="tab-pane" id="tab_book_task" name="task">
 							</div>
-							<div class="tab-pane" id="tab_book_survey">
+							<div class="tab-pane" id="tab_book_survey" name="survey">
 							</div>
-							<div class="tab-pane" id="tab_book_strom">
+							<div class="tab-pane" id="tab_book_strom" name="strom">
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -67,6 +67,17 @@
 </div>
 <script>
 	function exercisesBookCtrl($scope, $http) {
-		
+		$scope.addBook = true;
+		//用户点击创建或编辑按钮事件接收
+		$scope.$on('exercisesBook', function(d, data) {
+		　　if (data.id) { 
+					$("#booksTab").hide();
+				} else { 
+					$("#booksTab").show();
+				}
+				$("#booksTab li").removeClass("active");
+				$("#book-tab-content .tab-pane").removeClass("active");
+				$('[name="'+data.type+'"]').addClass("active");
+		});
 	}
 </script>

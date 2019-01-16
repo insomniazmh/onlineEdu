@@ -214,7 +214,7 @@
 								<div class="col2">
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
+											title="编辑" ng-click="editExercisesBook(row.id, 'survey')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -240,7 +240,7 @@
 								<div class="col2">
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
+											title="编辑" ng-click="editExercisesBook(row.id, 'strom')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -255,7 +255,7 @@
 
 	<div data-ng-include="'views/template/tice/exercisesBook.html'"></div>
 
-	<div data-ng-include="'views/template/tice/exercisesBookEdit.html'"></div>
+	<!-- <div data-ng-include="'views/template/tice/exercisesBookEdit.html'"></div> -->
 
 </div>
 <!-- END MAIN CONTENT -->
@@ -264,25 +264,38 @@
 <!-- BEGIN MAIN JS-->
 <script>
 	function xiticeCtrl($scope, $http, $stateParams, $rootScope) {
-		var courseId = localStorage.getItem('courseId');
-
-		//添加册子回调
+		//添加或修改基本册子回调
 		$scope.$on('exercisesBookChange', function(d, data) {
-			$scope.loadQuestionList("1");
-			$scope.loadQuestionList("2");
-			$scope.loadQuestionList("3");
+			if(data == 'basic') {
+				$scope.loadQuestionList("1");
+				$scope.loadQuestionList("2");
+				$scope.loadQuestionList("3");
+			}else if(data == 'task') {
+				$scope.loadQuestionList("4");
+			}else if(data == 'survey') {
+				$scope.loadQuestionList("5");
+			}else if(data == 'strom') {
+				$scope.loadQuestionList("6");
+			}
 		});
 
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
-			$scope.loadQuestionList("1");
-			$scope.loadQuestionList("2");
-			$scope.loadQuestionList("3");
+			$scope.initData();
 		});
 
-		//加载习题册   type： 1、提问册  2、练习册  3、作业册
+		//加载习题册   type： 1、提问册  2、练习册  3、作业册  4.任务册  5问卷册  6头脑风暴册
 		$scope.loadQuestionList = function(type) {
-
+			var url = '';
+			if(type == '1' || type == '2' || type == '3') {
+				url = '/exerciseBook/findAll/detailed';
+			}else if(type == "4") {
+				url = '/taskExerciseBook/findAll/detailed';
+			}else if(type == "5") {
+				url = '/surveyExerciseBook/findAll/detailed';
+			}else if(type == "6") {
+				url = '/brainstormExerciseBook/findAll/detailed';
+			}
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
@@ -296,7 +309,7 @@
 					"sort": 1,
 					"sorting": "uTime"
 				},
-				url: '/exerciseBook/findAll/detailed',
+				url: url,
 				success: function(res) {
 					if(type == "1") {
 						$scope.tiwence = res.data;
@@ -304,13 +317,26 @@
 						$scope.lianxice = res.data;
 					} else if(type == "3") {
 						$scope.zuoyece = res.data;
+					} else if(type == "4") {
+						$scope.taskList = res.data;
+					} else if(type == "5") {
+						$scope.surveyList = res.data;
+					} else if(type == "6") {
+						$scope.stromList = res.data;
 					}
 				}
 			});
 		};
-		$scope.loadQuestionList("1");
-		$scope.loadQuestionList("2");
-		$scope.loadQuestionList("3");
+		
+		//加载所有类型册子列表
+		$scope.initData = function() {
+			$scope.loadQuestionList("1");
+			$scope.loadQuestionList("2");
+			$scope.loadQuestionList("3");
+			$scope.loadQuestionList("4");
+			$scope.loadQuestionList("5");
+			$scope.loadQuestionList("6");
+		}
 
 		//修改习题册
 		$scope.editExercisesBook = function(id, type) {
@@ -329,10 +355,10 @@
 				return false;
 			}
 
-			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建习题册吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
-				$scope.$broadcast('exercisesBook', {type: "all"});
+				$scope.$broadcast('exercisesBook', {type: "basic"});
 				$("#exercisesBookModal").modal("show");
 				layer.closeAll('dialog');
 			});

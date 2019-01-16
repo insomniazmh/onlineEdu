@@ -166,15 +166,7 @@
 		$scope.$on('currentNode', function(d, data) {
 			$scope.loadQuestions();
 		});
-
-		//		$scope.select = function(row) {
-		//			if(row.select) {
-		//				row.class = 'badge-danger';
-		//			}else {
-		//				row.class = 'badge-success';
-		//			}
-		//		}
-
+		
 		//提交
 		$scope.sub = function() {
 			$scope.list.exeBookType = $("input[name='exeBookType']:checked").val(); //册子类型
