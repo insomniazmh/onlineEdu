@@ -88,6 +88,7 @@
 			</div>
 			<div class="portlet-body">
 				<div class="tab-content">
+					<!--提问册-->
 					<div class="tab-pane active" id="tab_1_1">
 						<div class="scroller" style="min-height: 200px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 							<ul class="feeds">
@@ -106,7 +107,8 @@
 									</div>
 									<div class="col2">
 										<div class="date">
-											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
+											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+												 title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
 											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 										</div>
 									</div>
@@ -115,6 +117,7 @@
 
 						</div>
 					</div>
+					<!--练习册-->
 					<div class="tab-pane" id="tab_1_2">
 						<ul class="feeds">
 							<li ng-repeat="row in lianxice">
@@ -132,13 +135,15 @@
 								</div>
 								<div class="col2">
 									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+											 title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
 							</li>
 						</ul>
 					</div>
+					<!--作业册-->
 					<div class="tab-pane" id="tab_1_3">
 						<ul class="feeds">
 							<li ng-repeat="row in zuoyece">
@@ -156,7 +161,86 @@
 								</div>
 								<div class="col2">
 									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editExercisesBook(row.id)"></i>
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
+											title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--任务册-->
+					<div class="tab-pane" id="tab_1_4">
+						<ul class="feeds">
+							<li ng-repeat="row in taskList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-danger">作</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												{{row.exeBookName}}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
+											title="编辑" ng-click="editExercisesBook(row.id, 'task')"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--问卷册-->
+					<div class="tab-pane" id="tab_1_5">
+						<ul class="feeds">
+							<li ng-repeat="row in surveyList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-danger">作</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												{{row.exeBookName}}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
+											title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--头脑风暴册-->
+					<div class="tab-pane" id="tab_1_6">
+						<ul class="feeds">
+							<li ng-repeat="row in stromList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-danger">作</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												{{row.exeBookName}}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
+											title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -228,10 +312,14 @@
 		$scope.loadQuestionList("2");
 		$scope.loadQuestionList("3");
 
-		//修改提题册
-		$scope.editExercisesBook = function(id) {
-			$scope.$broadcast('editExercisesBookId', id);
-			$("#exercisesBookEditModal").modal("show");
+		//修改习题册
+		$scope.editExercisesBook = function(id, type) {
+			var exercisesBook = {
+				id: id,
+				type: type
+			}
+			$scope.$broadcast('exercisesBook', exercisesBook);
+			$("#exercisesBookModal").modal("show");
 		}
 
 		//打开习题册编辑框
@@ -244,6 +332,7 @@
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
+				$scope.$broadcast('exercisesBook', {type: "all"});
 				$("#exercisesBookModal").modal("show");
 				layer.closeAll('dialog');
 			});

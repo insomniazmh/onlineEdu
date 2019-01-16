@@ -133,17 +133,16 @@
 </div>
 
 <script>
-	function basicBookCtrl($scope, $http) {
+	function basicBookCtrl($scope, $http, $rootScope) {
 		$scope.list = {}; //册子
-		//根据练习册id加载详细信息
-		$scope.loadData = function(id) {
+		//根据章节加载题目
+		$scope.loadQuestions = function() {
 			var data = {
-				"allOrPart": "all",
-				"chapterId": localStorage.getItem('currentNodeId'),
-				"operatorId": localStorage.getItem('userid'),
+				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapterId": $rootScope.currentNodeId, //章节id
+				"operatorId": localStorage.getItem("userid"), //当前用户id
 				"page": 0,
-				"problemSetId": id,
-				"size": 200,
+				"size": 20,
 				"sort": 1,
 				"sorting": "uTime"
 			};
@@ -151,46 +150,35 @@
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
-				url: '/question/findAll/problemSet',
+				url: '/question/findAll/detailed',
 				data: data,
 				success: function(res) {
-					var data = res.data.bigQuestionList;
-					$(data).each(function() {
-						if(this.examChildren[0].examType == "single") {
-							this.title = this.examChildren[0].choiceQstTxt + "（单选）";
-						} else if(this.examChildren[0].examType == "multiple") {
-							this.title = this.examChildren[0].choiceQstTxt + "（多选）";
-						} else if(this.examChildren[0].examType == "trueOrFalse") {
-							this.title = this.examChildren[0].trueOrFalseInfo + "（判断）";
-						} else if(this.examChildren[0].examType == "design") {
-							this.title = this.examChildren[0].designQuestion + "（主观）";
-						};
-						if(res.data.intersection.indexOf(this.id) >= 0) {
-							this.already = true;
-							this.select = true;
-						}
-					});
+					var data = common.addTitleForQuestion({
+						questionArr: res.data
+					}); //组装题干以供展示					
 					$scope.questionList = data;
-					$scope.list = {
-						id: res.data.problemSet.id,
-						exeBookName: res.data.problemSet.exeBookName,
-					};
-					$("input[name='exeBookTypeEdit'][value='" + res.data.problemSet.exeBookType + "']").prop("checked", "checked"); //初始化册子类型
-					$("input[name='cezilevel'][value='" + res.data.problemSet.levelId + "']").prop("checked", "checked"); //初始化难易程度
 				}
 			});
-		};
+		}
+		$scope.loadQuestions();
 
-		//接收题册id回调
-		$scope.$on('editExercisesBookId', function(d, data) {
-			$scope.loadData(data);
+		//切换章节回调
+		$scope.$on('currentNode', function(d, data) {
+			$scope.loadQuestions();
 		});
+
+		//		$scope.select = function(row) {
+		//			if(row.select) {
+		//				row.class = 'badge-danger';
+		//			}else {
+		//				row.class = 'badge-success';
+		//			}
+		//		}
 
 		//提交
 		$scope.sub = function() {
-			$scope.list.exeBookType = $("input[name='exeBookTypeEdit']:checked").val(); //册子类型
-			$scope.list.levelId = $("input[name='cezilevel']:checked").val(); //难以程度
-			$scope.list.chapterId = localStorage.getItem('currentNodeId'); //章节id
+			$scope.list.exeBookType = $("input[name='exeBookType']:checked").val(); //册子类型
+			$scope.list.chapterId = $rootScope.currentNodeId; //章节id
 			$scope.list.teacherId = localStorage.getItem("userid");
 			$scope.list.questionIds = [];
 			var i = 0;
@@ -203,6 +191,7 @@
 					i++;
 				}
 			});
+			console.log($scope.list);
 
 			common.ajax2({
 				$scope: $scope,
@@ -211,8 +200,8 @@
 				url: '/exerciseBook/build',
 				data: $scope.list,
 				success: function(res) {
-					$("#exercisesBookEditModal").modal("hide");
-					$scope.$emit('exercisesBookChange', $("input[name='exeBookTypeEdit']:checked").val());
+					$("#exercisesBookModal").modal("hide");
+					$scope.$emit('exercisesBookChange', $("input[name='exeBookType']:checked").val());
 				}
 			});
 		}
