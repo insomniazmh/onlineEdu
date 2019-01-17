@@ -34,14 +34,9 @@
 								<a data-target="#tab_book_basic" data-toggle="tab"> 基础题册 </a>
 							</li>
 							<li name='task'>
-								<a data-target="#tab_book_task" data-toggle="tab"> 任务册 </a>
+								<a data-target="#tab_book_other" data-toggle="tab"> 其他题册 </a>
 							</li>
-							<li name='survey'>
-								<a data-target="#tab_book_survey" data-toggle="tab"> 问卷册 </a>
-							</li>
-							<li name='strom'>
-								<a data-target="#tab_book_strom" data-toggle="tab"> 头脑风暴册 </a>
-							</li>
+							
 						</ul>
 					</div>
 					<div class="portlet-body">
@@ -49,11 +44,8 @@
 							<div class="tab-pane" id="tab_book_basic" name="basic">
 								<div data-ng-include="'views/template/tice/basicBook.html'"></div>
 							</div>
-							<div class="tab-pane" id="tab_book_task" name="task">
-							</div>
-							<div class="tab-pane" id="tab_book_survey" name="survey">
-							</div>
-							<div class="tab-pane" id="tab_book_strom" name="strom">
+							<div class="tab-pane" id="tab_book_other" name="other">
+								<!-- <div data-ng-include="'views/template/tice/otherBook.html'"></div> -->
 							</div>
 						</div>
 					</div>
@@ -76,7 +68,10 @@
 					$("#booksTab").show();
 				}
 				$("#booksTab li").removeClass("active");
-				$("#book-tab-content .tab-pane").removeClass("active");
+				$("#book-tab-content > .tab-pane").removeClass("active");
+				if(data.type != "basic") {
+					data.type = 'other';
+				}
 				$('[name="'+data.type+'"]').addClass("active");
 		});
 	}
