@@ -109,7 +109,7 @@
 										<div class="date">
 											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
 												 title="编辑" ng-click="editExercisesBook(row.id, '1')"></i>
-											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '1')"></i>
 										</div>
 									</div>
 								</li>
@@ -137,7 +137,7 @@
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
 											 title="编辑" ng-click="editExercisesBook(row.id, '2')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '2')"></i>
 									</div>
 								</div>
 							</li>
@@ -163,7 +163,7 @@
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
 											title="编辑" ng-click="editExercisesBook(row.id, '3')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '3')"></i>
 									</div>
 								</div>
 							</li>
@@ -189,7 +189,7 @@
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
 											title="编辑" ng-click="editExercisesBook(row.id, '4')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '4')"></i>
 									</div>
 								</div>
 							</li>
@@ -215,7 +215,7 @@
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
 											title="编辑" ng-click="editExercisesBook(row.id, '5')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '5')"></i>
 									</div>
 								</div>
 							</li>
@@ -241,7 +241,7 @@
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
 											title="编辑" ng-click="editExercisesBook(row.id, '6')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
+										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '6')"></i>
 									</div>
 								</div>
 							</li>
@@ -354,7 +354,32 @@
 				layer.closeAll('dialog');
 			});
 		}
+		
+		$scope.del = function(id, type) {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				var url = '/exerciseBook/delete/'+id;
+				if(type == "4") {
+					url = '/taskExerciseBook/delete/'+id;
+				}else if(type == "5") {
+					url = '/surveyExerciseBook/delete/'+id;
+				}else if(type == "6") {
+					url = '/brainstormExerciseBook/delete/'+id;
+				}
+				
+				common.ajax2({
+					$scope: $scope,
+					$http: $http,
+					method: 'get',
+					url: url,
+					success: function(res) {
+						$scope.loadQuestionList(type);
+					}
+				});
+			});
+			
+		}
 
 	}
 </script>
-<!-- BEGIN MAIN JS -->
