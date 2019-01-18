@@ -48,7 +48,7 @@
 					<div class="md-radio-inline">
 						<div class="md-radio">
 							<input type="radio" id="exeBookType1" name="exeBookType" checked="" 
-							ng-model="list.exeBookType" value="1" class="md-radiobtn">
+							ng-model="list.exeBookType" value="1" class="md-radiobtn" ng-change="changeType()">
 							<label for="exeBookType1">
 													<span></span>
 													<span class="check"></span>
@@ -56,7 +56,7 @@
 													提问册 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="exeBookType2" name="exeBookType" 
+							<input type="radio" id="exeBookType2" name="exeBookType" ng-change="changeType()"
 							ng-model="list.exeBookType" value="2" class="md-radiobtn">
 							<label for="exeBookType2">
 													<span></span>
@@ -65,7 +65,7 @@
 													练习册 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="exeBookType3" name="exeBookType" 
+							<input type="radio" id="exeBookType3" name="exeBookType" ng-change="changeType()" 
 							ng-model="list.exeBookType" value="3" class="md-radiobtn">
 							<label for="exeBookType3">
 													<span></span>
@@ -74,7 +74,7 @@
 													作业册 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="exeBookType4" name="exeBookType" 
+							<input type="radio" id="exeBookType4" name="exeBookType" ng-change="changeType()" 
 							ng-model="list.exeBookType" value="4" class="md-radiobtn">
 							<label for="exeBookType4">
 													<span></span>
@@ -83,7 +83,7 @@
 													任务册 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="exeBookType5" name="exeBookType" 
+							<input type="radio" id="exeBookType5" name="exeBookType" ng-change="changeType()" 
 							ng-model="list.exeBookType" value="5" class="md-radiobtn">
 							<label for="exeBookType5">
 													<span></span>
@@ -92,7 +92,7 @@
 													问卷册 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="exeBookType6" name="exeBookType" 
+							<input type="radio" id="exeBookType6" name="exeBookType" ng-change="changeType()" 
 							ng-model="list.exeBookType" value="6" class="md-radiobtn">
 							<label for="exeBookType6">
 													<span></span>
@@ -211,10 +211,12 @@
 
 <script>
 	function basicBookCtrl($scope, $http, $rootScope) {
-		$scope.list = {}; //册子
+		$scope.list = {
+			levelId: "1",
+			exeBookType: "1"
+		};
 		//根据章节和类型加载题目
 		$scope.loadQuestionsForAdd = function(type) {
-			console.log(type);
 			var url = '/question/findAll/detailed';//基础题库
 			if(type == '4') {
 				url = '/taskQuestion/findAll/detailed';//任务题库
@@ -223,10 +225,7 @@
 			}else if(type == '6') {
 				url = '/brainstormQuestion/findAll/detailed';//头脑风暴题库
 			}
-			$scope.list = {
-				levelId: "1",
-				exeBookType: "1"
-			};
+			
 			var data = {
 				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
 				"chapterId": $rootScope.currentNodeId, //章节id
@@ -299,10 +298,9 @@
 		};
 		
 		//用户切换册子类型
-		$scope.$watch('list.exeBookType', function(newValue, oldValue) {
-			console.log(newValue);
-			$scope.loadQuestionsForAdd(newValue);
-		});
+		$scope.changeType = function() {
+			$scope.loadQuestionsForAdd($scope.list.exeBookType);
+		}
 		
 		//用户点击创建或编辑按钮事件接收
 		$scope.$on('exercisesBook', function(d, data) {
@@ -319,7 +317,17 @@
 		
 		//提交
 		$scope.sub = function() {
-			$scope.list.chapterId = $rootScope.currentNodeId; //章节id
+			var url = '/exerciseBook/build';//基础 题册
+			if($scope.list.exeBookType == '4') {
+				url = '/taskExerciseBook/build';//任务题库
+			}else if($scope.list.exeBookType == '5') {
+				url = '/surveyExerciseBook/build';//问卷题库
+			}else if($scope.list.exeBookType == '6') {
+				url = '/brainstormExerciseBook/build';//头脑风暴题库
+			}
+			
+			$scope.list.chapterId = localStorage.getItem("currentNodeId");; //章节id
+			$scope.list.courseId = localStorage.getItem("courseId"); //章节id
 			$scope.list.teacherId = localStorage.getItem("userid");
 			$scope.list.questionIds = [];
 			var i = 0;
@@ -337,11 +345,11 @@
 				$scope: $scope,
 				$http: $http,
 				operate: true,
-				url: '/exerciseBook/build',
+				url: url,
 				data: $scope.list,
 				success: function(res) {
 					$("#exercisesBookModal").modal("hide");
-					$scope.$emit('exercisesBookChange', $("input[name='exeBookType']:checked").val());
+					$scope.$emit('exercisesBookChange', $scope.list.exeBookType);
 				}
 			});
 		}

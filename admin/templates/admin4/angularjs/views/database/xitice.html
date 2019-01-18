@@ -108,7 +108,7 @@
 									<div class="col2">
 										<div class="date">
 											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
-												 title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
+												 title="编辑" ng-click="editExercisesBook(row.id, '1')"></i>
 											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 										</div>
 									</div>
@@ -136,7 +136,7 @@
 								<div class="col2">
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
-											 title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
+											 title="编辑" ng-click="editExercisesBook(row.id, '2')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -162,7 +162,7 @@
 								<div class="col2">
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, 'basic')"></i>
+											title="编辑" ng-click="editExercisesBook(row.id, '3')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -188,7 +188,7 @@
 								<div class="col2">
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, 'task')"></i>
+											title="编辑" ng-click="editExercisesBook(row.id, '4')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -214,7 +214,7 @@
 								<div class="col2">
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, 'survey')"></i>
+											title="编辑" ng-click="editExercisesBook(row.id, '5')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -240,7 +240,7 @@
 								<div class="col2">
 									<div class="date">
 										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, 'strom')"></i>
+											title="编辑" ng-click="editExercisesBook(row.id, '6')"></i>
 										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" id="del(row.id)"></i>
 									</div>
 								</div>
@@ -255,8 +255,6 @@
 
 	<div data-ng-include="'views/template/tice/exercisesBook.html'"></div>
 
-	<!-- <div data-ng-include="'views/template/tice/exercisesBookEdit.html'"></div> -->
-
 </div>
 <!-- END MAIN CONTENT -->
 
@@ -266,17 +264,7 @@
 	function xiticeCtrl($scope, $http, $stateParams, $rootScope) {
 		//添加或修改基本册子回调
 		$scope.$on('exercisesBookChange', function(d, data) {
-			if(data == 'basic') {
-				$scope.loadQuestionList("1");
-				$scope.loadQuestionList("2");
-				$scope.loadQuestionList("3");
-			}else if(data == 'task') {
-				$scope.loadQuestionList("4");
-			}else if(data == 'survey') {
-				$scope.loadQuestionList("5");
-			}else if(data == 'strom') {
-				$scope.loadQuestionList("6");
-			}
+			$scope.loadQuestionList(data);
 		});
 
 		//切换章节回调
@@ -287,8 +275,19 @@
 		//加载习题册   type： 1、提问册  2、练习册  3、作业册  4.任务册  5问卷册  6头脑风暴册
 		$scope.loadQuestionList = function(type) {
 			var url = '';
+			var data = {
+				"allOrPart": "part",
+				"operatorId": localStorage.getItem('userid'),
+				"page": 0,
+				"chapterId": localStorage.getItem('currentNodeId'),
+				"size": 20,
+				"sort": 1,
+				"sorting": "uTime"
+			};
+			
 			if(type == '1' || type == '2' || type == '3') {
 				url = '/exerciseBook/findAll/detailed';
+				data.exeBookType = type;
 			}else if(type == "4") {
 				url = '/taskExerciseBook/findAll/detailed';
 			}else if(type == "5") {
@@ -296,19 +295,11 @@
 			}else if(type == "6") {
 				url = '/brainstormExerciseBook/findAll/detailed';
 			}
+			
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
-				data: {
-					"allOrPart": "part",
-					"exeBookType": type,
-					"operatorId": localStorage.getItem('userid'),
-					"page": 0,
-					"chapterId": localStorage.getItem('currentNodeId'),
-					"size": 20,
-					"sort": 1,
-					"sorting": "uTime"
-				},
+				data: data,
 				url: url,
 				success: function(res) {
 					if(type == "1") {
@@ -358,7 +349,7 @@
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建习题册吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
-				$scope.$broadcast('exercisesBook', {type: "basic"});
+				$scope.$broadcast('exercisesBook', {type: "1"});
 				$("#exercisesBookModal").modal("show");
 				layer.closeAll('dialog');
 			});
