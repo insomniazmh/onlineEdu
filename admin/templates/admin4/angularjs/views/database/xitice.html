@@ -371,10 +371,12 @@
 				common.ajax2({
 					$scope: $scope,
 					$http: $http,
+					operate: true,
 					method: 'get',
 					url: url,
 					success: function(res) {
 						$scope.loadQuestionList(type);
+						layer.closeAll('dialog');
 					}
 				});
 			});
