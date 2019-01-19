@@ -57,8 +57,8 @@
 											<a href="{{jiaoan.filePath}}" target="_blank">{{jiaoan.fileName}}</a>
 											<span id="filePickerJiaoan" class="filePicker"> 上传教案 </span>
 											<div style="display: inline;position: absolute;" class="dropdown">
-												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
-													已有教案（<span style="color: red;">{{jiaoanCount}}</span>） 
+												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+													已有教案（<span style="color: red;">{{jiaoanCount}}</span>）
 												</span>
 												<ul class="dropdown-menu" style="margin-top: 30px;">
 													<li>
@@ -69,7 +69,7 @@
 													</li>
 												</ul>
 											</div>
-											
+
 										</div>
 									</div>
 								</div>
@@ -92,8 +92,8 @@
 												上传课件
 											</span>
 											<div style="display: inline;position: absolute;" class="dropdown">
-												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
-													已有教案（<span style="color: red;">{{PPTKejianCount}}</span>） 
+												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+													已有教案（<span style="color: red;">{{PPTKejianCount}}</span>）
 												</span>
 												<ul class="dropdown-menu" style="margin-top: 30px;">
 													<li>
@@ -105,8 +105,9 @@
 												</ul>
 											</div>
 											<div style="display: inline;position: absolute;" class="dropdown">
-												<span class="exist dropdown-toggle" style="margin-left: 120px;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
-													图集（<span style="color: red;">{{picsKejianCount}}</span>） 
+												<span class="exist dropdown-toggle" style="margin-left: 120px;" data-toggle="dropdown" data-hover="dropdown"
+												 data-close-others="true">
+													图集（<span style="color: red;">{{picsKejianCount}}</span>）
 												</span>
 												<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 120px;">
 													<li>
@@ -117,10 +118,11 @@
 													</li>
 												</ul>
 											</div>
-											
+
 											<div style="display: inline;position: absolute;" class="dropdown">
-												<span class="exist dropdown-toggle" style="margin-left: 200px;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> 
-													视频（<span style="color: red;">{{videoKejianCount}}</span>） 
+												<span class="exist dropdown-toggle" style="margin-left: 200px;" data-toggle="dropdown" data-hover="dropdown"
+												 data-close-others="true">
+													视频（<span style="color: red;">{{videoKejianCount}}</span>）
 												</span>
 												<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 200px;">
 													<li>
@@ -131,7 +133,7 @@
 													</li>
 												</ul>
 											</div>
-											
+
 										</div>
 									</div>
 								</div>
@@ -149,7 +151,7 @@
 				</div>
 				<div class="actions">
 					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openDataModal()">
-					<i class="fa fa-plus"></i> 创建 </button>
+						<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
@@ -180,9 +182,9 @@
 						<a data-target="#tab_2_7" data-toggle="tab">
 							风暴 </a>
 					</li>
-					
-					
-					
+
+
+
 				</ul>
 			</div>
 			<div class="portlet-body">
@@ -213,7 +215,8 @@
 									</div>
 									<div class="col2">
 										<div class="date">
-											<i class="fa fa-link opreat clipboard"  data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+											<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+											 title="复制链接"></i>
 											<i class="fa fa-trash-o opreat" title="删除"></i>
 										</div>
 									</div>
@@ -240,7 +243,8 @@
 								</div>
 								<div class="col2">
 									<div class="date">
-										<i class="fa fa-link opreat clipboard"  data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
 										<i class="fa fa-trash-o opreat" title="删除"></i>
 									</div>
 								</div>
@@ -260,15 +264,18 @@
 										<div class="cont-col2">
 											<div class="desc">
 												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
-												<div class="label label-sm {{row.preview.indexOf('before')>=0 ? 'label-danger' : 'label-default'}} sign" title="预习资料" ng-click="changeLianxiLabel(row, 'before')">预</div>
-												<div class="label label-sm {{row.preview.indexOf('now')>=0 ? 'label-success' : 'label-default'}} sign" title="课堂参考" ng-click="changeLianxiLabel(row, 'now')">堂</div>
+												<div class="label label-sm {{row.preview.indexOf('before')>=0 ? 'label-danger' : 'label-default'}} sign"
+												 title="预习资料" ng-click="changeLianxiLabel(row, 'before')">预</div>
+												<div class="label label-sm {{row.preview.indexOf('now')>=0 ? 'label-success' : 'label-default'}} sign"
+												 title="课堂参考" ng-click="changeLianxiLabel(row, 'now')">堂</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col2">
 									<div class="date">
-										<i class="fa fa-link opreat clipboard"  data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
 										<i class="fa fa-trash-o opreat" title="删除"></i>
 									</div>
 								</div>
@@ -294,7 +301,8 @@
 								</div>
 								<div class="col2">
 									<div class="date">
-										<i class="fa fa-link opreat clipboard"  data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;" title="复制链接"></i>
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
 										<i class="fa fa-trash-o opreat" title="删除"></i>
 									</div>
 								</div>
@@ -308,7 +316,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -328,7 +336,7 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	
+
 	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -348,7 +356,7 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	
+
 	<div data-ng-include="'views/template/lessonPlan/lessonPlan.html'"></div>
 
 	<div data-ng-include="'views/template/uploadKejian.html'"></div>
@@ -356,11 +364,11 @@
 
 <script>
 	function jiaofuCtrl($scope, $http, $rootScope) {
-		$scope.jiaoanList = [];//教案列表
-		$scope.PPTKejianList = [];//PPT课件列表
-		$scope.picsKejianList = [];//图集课件列表
-		$scope.videoKejianList = [];//视频课件列表
-		
+		$scope.jiaoanList = []; //教案列表
+		$scope.PPTKejianList = []; //PPT课件列表
+		$scope.picsKejianList = []; //图集课件列表
+		$scope.videoKejianList = []; //视频课件列表
+
 		//根据章节id加载章节教案或课件
 		$scope.loadJiaoanAndKejian = function(datumArea, datumType) {
 			common.ajax({
@@ -369,7 +377,7 @@
 				url: '/chapteData/findDatumList',
 				data: {
 					"chapterId": localStorage.getItem('currentNodeId'),
-			  		"courseId": localStorage.getItem('courseId'),
+					"courseId": localStorage.getItem('courseId'),
 					"datumType": datumType,
 					"datumArea": datumArea,
 					"sortVo": {
@@ -379,68 +387,68 @@
 						"sort": 1
 					}
 				},
-			    success: function(data) {
-			    	console.log(data);
-			    	if(datumArea == "1") {
-			    		$scope.jiaoanCount = data.data.length;
-			    	}else if(datumArea == "2" && datumType == "1") {
-			    		$scope.PPTKejianCount = data.data.length;
-			    	}else if(datumArea == "2" && datumType == "2") {
-			    		$scope.picsKejianCount = data.data.length;
-			    	}else if(datumArea == "2" && datumType == "3") {
-			    		$scope.videoKejianCount = data.data.length;
-			    	}
-			    }
+				success: function(data) {
+					console.log(data);
+					if (datumArea == "1") {
+						$scope.jiaoanCount = data.data.length;
+					} else if (datumArea == "2" && datumType == "1") {
+						$scope.PPTKejianCount = data.data.length;
+					} else if (datumArea == "2" && datumType == "2") {
+						$scope.picsKejianCount = data.data.length;
+					} else if (datumArea == "2" && datumType == "3") {
+						$scope.videoKejianCount = data.data.length;
+					}
+				}
 			});
 		}
-		
+
 		//切换章节回调
-		$scope.$on('currentNode', function(d,data) {
+		$scope.$on('currentNode', function(d, data) {
 			$scope.initData();
-	    });
-	    
-	    //提问/练习/作业册更新回调
-		$scope.$on('ceziChange', function(d,data) {  
+		});
+
+		//提问/练习/作业册更新回调
+		$scope.$on('ceziChange', function(d, data) {
 			console.log(data);
-	        if(data == 1) {
-	        	$scope.loadTiwenQuestions();//加载提问题目列表
-	        }else if(data == 2) {
-	        	$scope.loadLianxiQuestions();//加载练习题目列表
-	        }else if(data == 3) {
-	        	$scope.loadZuoyeQuestions();//加载作业题目列表
-	        }
-	    });
-		
+			if (data == 1) {
+				$scope.loadTiwenQuestions(); //加载提问题目列表
+			} else if (data == 2) {
+				$scope.loadLianxiQuestions(); //加载练习题目列表
+			} else if (data == 3) {
+				$scope.loadZuoyeQuestions(); //加载作业题目列表
+			}
+		});
+
 		$scope.jiaoan = {};
-		
+
 		//上传课件回调
-		$scope.$on('kejian', function(d,data) {  
-	        console.log(data);         
-	        if(!localStorage.getItem('currentNodeId')) {
+		$scope.$on('kejian', function(d, data) {
+			console.log(data);
+			if (!localStorage.getItem('currentNodeId')) {
 				common.toast({
 					title: "请先选择章节",
 					type: 2
 				});
 			}
-	        common.ajax({
+			common.ajax({
 				$scope: $scope,
 				$http: $http,
 				operate: true,
 				url: '/chapteData/save',
 				data: {
-			    	courseId: localStorage.getItem('courseId'),
-			    	chapterId: localStorage.getItem('currentNodeId'),
-			    	datumArea: "2",
-			    	datumType: data.type+"",
+					courseId: localStorage.getItem('courseId'),
+					chapterId: localStorage.getItem('currentNodeId'),
+					datumArea: "2",
+					datumType: data.type + "",
 					files: data.content
-			    },
-			    success: function(data) {
-			    	console.log(data);
-			    	$scope.loadJiaoanAndKejian("2", data.type+"");//加载课件列表
-			    }
+				},
+				success: function(data) {
+					console.log(data);
+					$scope.loadJiaoanAndKejian("2", data.type + ""); //加载课件列表
+				}
 			});
-	    });
-	    
+		});
+
 		//上传教案
 		common.fileUpload({
 			id: 'filePickerJiaoan',
@@ -449,7 +457,7 @@
 				var rtn = {
 					continue: true
 				}
-				if(!localStorage.getItem('currentNodeId')) {
+				if (!localStorage.getItem('currentNodeId')) {
 					rtn = {
 						continue: false,
 						title: "请先选择章节"
@@ -458,32 +466,32 @@
 				return rtn;
 			},
 			success: function(file, response) {
-				$scope.$apply(function() {　　
+				$scope.$apply(function() {
 					common.ajax({
 						$scope: $scope,
 						$http: $http,
 						operate: true,
 						url: '/chapteData/save',
 						data: {
-					    	courseId: localStorage.getItem('courseId'),
-					    	chapterId: localStorage.getItem('currentNodeId'),
-					    	datumArea: "1",
-					    	datumType: "1",
+							courseId: localStorage.getItem('courseId'),
+							chapterId: localStorage.getItem('currentNodeId'),
+							datumArea: "1",
+							datumType: "1",
 							files: [response]
-					    },
-					    success: function(data) {
-					    	console.log(data);
-					    	$scope.loadJiaoanAndKejian("1", "1");//加载教案列表
-					    }
+						},
+						success: function(data) {
+							console.log(data);
+							$scope.loadJiaoanAndKejian("1", "1"); //加载教案列表
+						}
 					});
 				});
 			}
 		});
-		
+
 		//加载所有挂接的提问题目
 		$scope.loadTiwenQuestions = function() {
 			common.ajax2({
-	        	$scope: $scope,
+				$scope: $scope,
 				$http: $http,
 				data: {
 					"chapterId": localStorage.getItem('currentNodeId'),
@@ -493,17 +501,17 @@
 				url: '/exerciseBook/findExerciseBook',
 				success: function(res) {
 					res.data = common.addTitleForQuestion({
-					questionArr: res.data
-				});//组装题干以供展示
+						questionArr: res.data
+					}); //组装题干以供展示
 					$scope.tiwenQuestionList = res.data;
 				}
-	        });
+			});
 		}
-		
+
 		//加载所有挂接的练习题目
 		$scope.loadLianxiQuestions = function() {
 			common.ajax2({
-	        	$scope: $scope,
+				$scope: $scope,
 				$http: $http,
 				data: {
 					"chapterId": localStorage.getItem('currentNodeId'),
@@ -513,18 +521,18 @@
 				url: '/exerciseBook/findExerciseBook',
 				success: function(res) {
 					res.data = common.addTitleForQuestion({
-					questionArr: res.data,
-					select: true
-				});//组装题干以供展示
+						questionArr: res.data,
+						select: true
+					}); //组装题干以供展示
 					$scope.lianxiQuestionList = res.data;
 				}
-	        });
+			});
 		}
-		
+
 		//加载所有挂接的作业题目
 		$scope.loadZuoyeQuestions = function() {
 			common.ajax2({
-	        	$scope: $scope,
+				$scope: $scope,
 				$http: $http,
 				data: {
 					"chapterId": localStorage.getItem('currentNodeId'),
@@ -534,70 +542,70 @@
 				url: '/exerciseBook/findExerciseBook',
 				success: function(res) {
 					res.data = common.addTitleForQuestion({
-					questionArr: res.data,
-					select: true
-				});//组装题干以供展示
+						questionArr: res.data,
+						select: true
+					}); //组装题干以供展示
 					$scope.zuoyeQuestionList = res.data;
 				}
-	        });
+			});
 		}
-		
+
 		//修改练习的标签
 		$scope.changeLianxiLabel = function(row, type) {
-			if(row.preview) {
-				if(row.preview.indexOf(type)>=0) {
+			if (row.preview) {
+				if (row.preview.indexOf(type) >= 0) {
 					row.preview = row.preview.replace(type, '');
-				}else if(row.preview.indexOf(type)<0) {
+				} else if (row.preview.indexOf(type) < 0) {
 					row.preview = row.preview + type;
 				}
-			}else {
+			} else {
 				row.preview = type;
 			}
-			
+
 			common.ajax2({
-	        	$scope: $scope,
+				$scope: $scope,
 				$http: $http,
 				operate: true,
 				data: {
 					"preview": row.preview,
-				    "chapterId": localStorage.getItem('currentNodeId'),
+					"chapterId": localStorage.getItem('currentNodeId'),
 					"courseId": localStorage.getItem('courseId'),
-				    "targetId": row.id
+					"targetId": row.id
 				},
 				url: '/exerciseBook/edit/preview',
 				success: function() {
 					$scope.$broadcast('lianxiLabelChange', true);
 				}
-	        });
+			});
 		};
-		
+
 		//打开备课模态框
-	    $scope.openDataModal = function() {
-	    	if(!$rootScope.currentNode) {
-	    		layer.alert("请先选择章节");
-	    		return false;
-	    	}
-	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑备课信息吗", {
-			  btn: ['确定','取消'] //按钮
-			}, function(){
-			  	$("#dataModal").modal("show");
+		$scope.openDataModal = function() {
+			if (!$rootScope.currentNode) {
+				layer.alert("请先选择章节");
+				return false;
+			}
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑备课信息吗", {
+				btn: ['确定', '取消'] //按钮
+			}, function() {
+				$("#dataModal").modal("show");
 				layer.closeAll('dialog');
 			});
-	    }
-	    
-	    $scope.initData = function() {
-	    	$scope.loadJiaoanAndKejian("1", "1");//加载教案列表
-			$scope.loadJiaoanAndKejian("2", "1");//加载PPT课件列表
-			$scope.loadJiaoanAndKejian("2", "2");//加载图集课件列表
-			$scope.loadJiaoanAndKejian("2", "3");//加载视频课件列表
-	        $scope.loadTiwenQuestions();//加载提问问题列表
-	        $scope.loadLianxiQuestions();//加载练习题目列表
-	        $scope.loadZuoyeQuestions();//加载作业题目列表
-	    };
-	    
-	    $scope.initData();
-	    
-	    $scope.ziliaoList = [{
+		}
+
+		$scope.initData = function() {
+			$scope.loadJiaoanAndKejian("1", "1"); //加载教案列表
+			$scope.loadJiaoanAndKejian("2", "1"); //加载PPT课件列表
+			$scope.loadJiaoanAndKejian("2", "2"); //加载图集课件列表
+			$scope.loadJiaoanAndKejian("2", "3"); //加载视频课件列表
+			$scope.loadTiwenQuestions(); //加载提问问题列表
+			$scope.loadLianxiQuestions(); //加载练习题目列表
+			$scope.loadZuoyeQuestions(); //加载作业题目列表
+		};
+
+		$scope.initData();
+
+		$scope.ziliaoList = [{
 			text: "《电子商务基础》教学大纲.doc",
 			url: "111",
 			yu: true,
@@ -642,42 +650,42 @@
 			url: "333",
 			color: "label-success"
 		}];
-		
+
 		$scope.changeLabel = function(row, type) {
-			if(type == 1) {
-				if(row.yu) {
+			if (type == 1) {
+				if (row.yu) {
 					row.yu = false;
-				}else {
+				} else {
 					row.yu = true;
 				}
-			}else if(type == 2) {
-				if(row.tang) {
+			} else if (type == 2) {
+				if (row.tang) {
 					row.tang = false;
-				}else {
+				} else {
 					row.tang = true;
 				}
-			}else if(type == 3) {
-				if(row.an) {
+			} else if (type == 3) {
+				if (row.an) {
 					row.an = false;
-				}else {
+				} else {
 					row.an = true;
 				}
-			}else if(type == 4) {
-				if(row.fu) {
+			} else if (type == 4) {
+				if (row.fu) {
 					row.fu = false;
-				}else {
+				} else {
 					row.fu = true;
 				}
-			}else if(type == 5) {
-				if(row.xiang) {
+			} else if (type == 5) {
+				if (row.xiang) {
 					row.xiang = false;
-				}else {
+				} else {
 					row.xiang = true;
 				}
-			}else if(type == 6) {
-				if(row.sheng) {
+			} else if (type == 6) {
+				if (row.sheng) {
 					row.sheng = false;
-				}else {
+				} else {
 					row.sheng = true;
 				}
 			}
