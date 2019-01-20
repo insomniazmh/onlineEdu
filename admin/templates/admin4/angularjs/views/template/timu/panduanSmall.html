@@ -58,6 +58,21 @@
 			height: 100
 		});
 		
+		$scope.$on('smallQuestionDetail', function(d, data) {
+			if(data && data.examChildren[0].examType == "trueOrFalse") {
+				$scope.pid = data.id;
+				$('#panduanSmall_title').code(data.examChildren[0].title);
+				$('#panduanSmall_answer').code(data.examChildren[0].answer);
+				$('#panduanSmall_jiexi').code(data.examChildren[0].analysis);
+			}else {
+				$scope.pid = null;
+				$('#panduanSmall_title').code("");
+				$('#panduanSmall_answer').code("");
+				$('#panduanSmall_jiexi').code("");
+			}
+		});
+		
+		
 		$scope.sub = function() {
 			var obj = {
 				score: 1,

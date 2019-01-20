@@ -42,7 +42,7 @@
 				</div>
 				<div class="actions">
 					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
-							<i class="fa fa-plus"></i> 创建 </button>
+						<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
@@ -79,9 +79,10 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_{{$index}}">
-										<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
 											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
 									</h4>
@@ -89,7 +90,7 @@
 								<div id="accordion1_{{$index}}" class="panel-collapse collapse">
 									<div class="panel-body">
 										<p ng-repeat="x in row.examChildren[0].optChildren">
-											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>． 
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
 											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
 										</p>
 										<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
@@ -105,9 +106,10 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDuoxuan" data-target="#accordionDuoxuan_{{$index}}">
-										<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
 											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
 									</h4>
@@ -115,7 +117,7 @@
 								<div id="accordionDuoxuan_{{$index}}" class="panel-collapse collapse">
 									<div class="panel-body">
 										<p ng-repeat="x in row.examChildren[0].optChildren">
-											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>． 
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
 											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
 										</p>
 										<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
@@ -131,9 +133,10 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionPanduan" data-target="#accordionPanduan_{{$index}}">
-										<span ng-bind-html="row.examChildren[0].trueOrFalseInfo" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.examChildren[0].trueOrFalseInfo" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
 											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
 									</h4>
@@ -157,9 +160,10 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionZhuguan" data-target="#accordionZhuguan_{{$index}}">
-										<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
 											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
 									</h4>
@@ -171,7 +175,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_6">
@@ -180,9 +184,10 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionBigQuestion" data-target="#accordionBigQuestion_{{$index}}">
-										<span ng-bind-html="row.paperInfo" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.paperInfo" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
 											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 										</div>
 									</h4>
@@ -191,7 +196,7 @@
 									<div class="panel-body" ng-repeat="samll in row.examChildren">
 										<p>小题题目：<span ng-bind-html="samll.title" style="display: inline-block;"></span> </p>
 										<p ng-repeat="x in samll.optChildren">
-											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>． 
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
 											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
 										</p>
 										<p>答案：<span ng-bind-html="samll.answer" style="display: inline-block;"></span> </p>
@@ -206,97 +211,9 @@
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
-	
-	<!--编辑单选题-->
-	<div class="modal fade" id="editSingle" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-full">
-			<div class="modal-content">
-				<div class="portlet light" style="min-height: 400px;">
-					<div class="portlet-title tabbable-line">
-						<div class="caption font-green-sharp">
-							<i class="icon-settings font-green-sharp"></i>
-							<span class="caption-subject bold uppercase" id="title">编辑题目</span>
-						</div>
-						<div class="actions">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div data-ng-include="'views/template/timu/danxuanEdit.html'"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<!--编辑多选题-->
-	<div class="modal fade" id="editmulti" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-full">
-			<div class="modal-content">
-				<div class="portlet light" style="min-height: 400px;">
-					<div class="portlet-title tabbable-line">
-						<div class="caption font-green-sharp">
-							<i class="icon-settings font-green-sharp"></i>
-							<span class="caption-subject bold uppercase" id="title">编辑题目</span>
-						</div>
-						<div class="actions">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div data-ng-include="'views/template/timu/duoxuanEdit.html'"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<!--编辑判断题-->
-	<div class="modal fade" id="editTrueOrFalse" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-full">
-			<div class="modal-content">
-				<div class="portlet light" style="min-height: 400px;">
-					<div class="portlet-title tabbable-line">
-						<div class="caption font-green-sharp">
-							<i class="icon-settings font-green-sharp"></i>
-							<span class="caption-subject bold uppercase" id="title">编辑题目</span>
-						</div>
-						<div class="actions">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div data-ng-include="'views/template/timu/panduanEdit.html'"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<!--编辑主观题-->
-	<div class="modal fade" id="editDesign" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-full">
-			<div class="modal-content">
-				<div class="portlet light" style="min-height: 400px;">
-					<div class="portlet-title tabbable-line">
-						<div class="caption font-green-sharp">
-							<i class="icon-settings font-green-sharp"></i>
-							<span class="caption-subject bold uppercase" id="title">编辑题目</span>
-						</div>
-						<div class="actions">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div data-ng-include="'views/template/timu/zhuguanEdit.html'"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div data-ng-include="'views/template/timu/addQuestion.html'"></div>
-	
+	<div data-ng-include="'views/template/timu/addOrEditQuestion.html'"></div>
+
 </div>
 <!-- END MAIN CONTENT -->
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
@@ -304,85 +221,77 @@
 	function kpCtrl($scope, $http, $rootScope) {
 		$scope.currentNode = {};
 		$scope.kPointNode = {};
-		
+
 		//切换章节回调
-		$scope.$on('currentNode', function(d,data) { 
-	        $scope.currentNode = data;
-	        $scope.loadQuestions('single');
-	        $scope.loadQuestions('multiple');
-	        $scope.loadQuestions('trueOrFalse');
-	        $scope.loadQuestions('design');
-	        $scope.loadQuestions('bigQuestion');
-	    });
-	    
-	    //获取当前选中知识点
-		$scope.$on('kPointNode', function(d,data) {  
-	        $scope.kPointNode = data;
-	        $scope.loadQuestions('single');
-	        $scope.loadQuestions('multiple');
-	        $scope.loadQuestions('trueOrFalse');
-	        $scope.loadQuestions('design');
-	        $scope.loadQuestions('bigQuestion');
-	    });
-	    
-	    //添加题目完成回调
-	    $scope.$on('addQuestion', function(d,data) {  
-	        if(data) {
-	        	$scope.loadQuestions(data);
-	        }
-	    });
-	    
-	    //加载题目
-	    $scope.loadQuestions = function(type) {
-	    	var data = {
-	    		"allOrPart": "all",//显示全部详情或者是只返回id all 全部/part 只显示id
-				"chapterId": localStorage.getItem('currentNodeId'),//章节id
-				"operatorId": localStorage.getItem("userid"),//当前用户id
-				"questionType": type,//题目类型 single multiple trueOrFalse design bigQuestion
+		$scope.$on('currentNode', function(d, data) {
+			$scope.currentNode = data;
+			$scope.initData();
+		});
+
+		//获取当前选中知识点
+		$scope.$on('kPointNode', function(d, data) {
+			$scope.initData();
+			$scope.kPointNode = data;
+		});
+
+		//添加题目完成回调
+		$scope.$on('addOrEditQuestion', function(d, data) {
+			if (data) {
+				$scope.loadQuestions(data);
+			}
+		});
+
+		//加载题目
+		$scope.loadQuestions = function(type) {
+			var data = {
+				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapterId": localStorage.getItem('currentNodeId'), //章节id
+				"operatorId": localStorage.getItem("userid"), //当前用户id
+				"questionType": type, //题目类型 single multiple trueOrFalse design bigQuestion
 				"page": 0,
 				"size": 20,
 				"sort": 1,
 				"sorting": "uTime"
-	    	}
-	    	//处理知识点查询传参
-	    	if($scope.kPointNode.knodeId) {
-	    		data.knowledgeId = $scope.kPointNode.knodeId;
-	    	}
-	    	
-	    	//根据章节和知识点加载题目
-	    	common.ajax2({
-	        	$scope: $scope,
+			}
+			//处理知识点查询传参
+			if ($scope.kPointNode.knodeId) {
+				data.knowledgeId = $scope.kPointNode.knodeId;
+			}
+
+			//根据章节和知识点加载题目
+			common.ajax2({
+				$scope: $scope,
 				$http: $http,
 				url: '/question/findAll/detailed',
 				data: data,
 				success: function(res) {
 					var data = res.data;
-					if(type == 'single') {
+					if (type == 'single') {
 						$scope.single = res.data;
-					}else if(type == 'multiple') {
+					} else if (type == 'multiple') {
 						$scope.multiple = res.data;
-					}else if(type == 'trueOrFalse') {
+					} else if (type == 'trueOrFalse') {
 						$scope.trueOrFalse = res.data;
-					}else if(type == 'design') {
+					} else if (type == 'design') {
 						$scope.design = res.data;
-					}else if(type == 'bigQuestion') {
+					} else if (type == 'bigQuestion') {
 						$(res.data).each(function() {
 							$(this.examChildren).each(function() {
 								console.log(this);
 								//选择题
-								if(this.choiceQstTxt) {
+								if (this.choiceQstTxt) {
 									this.title = this.choiceQstTxt;
 									this.answer = this.choiceQstAnsw;
 									this.analysis = this.choiceQstAnalysis;
 								}
 								//判断题
-								if(this.trueOrFalseInfo) {
+								if (this.trueOrFalseInfo) {
 									this.title = this.trueOrFalseInfo;
 									this.answer = this.trueOrFalseAnsw;
 									this.analysis = this.trueOrFalseAnalysis;
 								}
 								//主观题
-								if(this.designQuestion) {
+								if (this.designQuestion) {
 									this.title = this.designQuestion;
 									this.answer = this.designAnsw;
 									this.analysis = this.designAnalysis;
@@ -392,64 +301,55 @@
 						$scope.bigQuestion = res.data;
 					}
 				}
-	        });
-	    };
-	    $scope.loadQuestions('single');
-        $scope.loadQuestions('multiple');
-        $scope.loadQuestions('trueOrFalse');
-        $scope.loadQuestions('design');
-        $scope.loadQuestions('bigQuestion');
-	    
-	    //修改题目
-	    $scope.editQuestion = function(question) {
-	    	if(question.examChildren[0].choiceType && question.examChildren[0].choiceType=="single") {//单选题
-	    		$scope.$broadcast('questionSingle', question);
-	    		$("#editSingle").modal("show");
-	    	}else if(question.examChildren[0].choiceType && question.examChildren[0].choiceType=="multiple") {
-	    		$scope.$broadcast('questionMulti', question);
-	    		$("#editmulti").modal("show");
-	    	}else if(question.examChildren[0].examType && question.examChildren[0].examType=="trueOrFalse") {
-	    		$scope.$broadcast('questionTrueOrFalse', question);
-	    		$("#editTrueOrFalse").modal("show");
-	    	}else if(question.examChildren[0].examType && question.examChildren[0].examType=="design") {
-	    		$scope.$broadcast('questionDesign', question);
-	    		$("#editDesign").modal("show");
-	    	}
-	    	
-	    }
-	    
-	    //删除题目
-	    $scope.delQuestion = function(id) {
-	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建或编辑习题册吗", {
-			  btn: ['确定', "取消"] //按钮
-			}, function(){
-			    common.ajax2({
-	    			method: "get",
-		        	$scope: $scope,
+			});
+		};
+		$scope.initData = function() {
+			$scope.loadQuestions('single');
+			$scope.loadQuestions('multiple');
+			$scope.loadQuestions('trueOrFalse');
+			$scope.loadQuestions('design');
+			$scope.loadQuestions('bigQuestion');
+		}
+
+		//修改题目
+		$scope.editQuestion = function(question) {
+			$scope.$broadcast('smallQuestionDetail', question);
+			$("#addOrEditQuestion").modal("show");
+		}
+
+		//删除题目
+		$scope.delQuestion = function(id) {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax2({
+					method: "get",
+					$scope: $scope,
 					$http: $http,
-					url: '/question/delete/'+id,
+					url: '/question/delete/' + id,
 					success: function(res) {
 						console.log(res);
 					}
-		        });
-			  layer.closeAll('dialog');
+				});
+				layer.closeAll('dialog');
 			});
-	    }
-	    
-	    //打开题目添加框
-	    $scope.openQuestionModel = function() {
-	    	if(!$rootScope.currentNode) {
-	    		layer.alert("请先选择章节");
-	    		return false;
-	    	}
-	    	
-	    	layer.confirm("您确定要为--("+$rootScope.currentNode.text+")--章节创建题目吗", {
-			  btn: ['确定', "取消"] //按钮
-			}, function(){
-			  $("#addQuestion").modal("show");
-			  layer.closeAll('dialog');
+		}
+
+		//打开题目添加框
+		$scope.openQuestionModel = function() {
+			if (!$rootScope.currentNode) {
+				layer.alert("请先选择章节");
+				return false;
+			}
+
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建题目吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				$scope.$broadcast('smallQuestionDetail', null);
+				$("#addOrEditQuestion").modal("show");
+				layer.closeAll('dialog');
 			});
-	    }
+		}
 	}
 </script>
 <!-- BEGIN MAIN JS -->

@@ -47,8 +47,8 @@
 			height: 100
 		});
 		
-		$scope.$on('smallDesign', function(d, data) {
-			if(data) {
+		$scope.$on('smallQuestionDetail', function(d, data) {
+			if(data && data.examChildren[0].examType == "design") {
 				$scope.pid = data.id;
 				$('#zhuguanSmall_title').code(data.examChildren[0].title);
 				$('#zhuguanSmall_answer').code(data.examChildren[0].answer);

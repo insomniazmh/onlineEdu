@@ -140,8 +140,8 @@
 			});
 		}, 300);
 
-		$scope.$on('smallSingle', function(d, data) { //加载题目信息
-			if (data) {
+		$scope.$on('smallQuestionDetail', function(d, data) { //加载题目信息
+			if (data && data.examChildren[0].examType == "single") {
 				$scope.pid = data.id;
 
 				$scope.question = data;
@@ -209,7 +209,7 @@
 				obj.pid = $scope.pid;
 			}
 
-			$scope.$emit('subSingleSmall', obj);
+			$scope.$emit('addSmall', obj);
 		}
 
 	}
