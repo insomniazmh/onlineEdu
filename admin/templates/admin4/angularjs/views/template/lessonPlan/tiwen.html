@@ -127,7 +127,7 @@
 <script>
 	function tiwenCtrl($scope, $rootScope, $http) {
 		//加载所有册子  type： 1提问侧   2练习册   3作业册
-		$scope.loadCeziList = function() {
+		$scope.loadBookList = function() {
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
@@ -147,7 +147,7 @@
 				}
 			});
 		}
-		$scope.loadCeziList();
+		$scope.loadBookList();
 
 		$scope.tiwenExistQuestionList = [];
 		//加载已挂接题目
@@ -174,7 +174,7 @@
 
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
-			$scope.loadCeziList(); //加载所有练习册
+			$scope.loadBookList(); //加载所有练习册
 			$scope.loadTiwenExistQuestion(); //加载已挂载题目列表
 			$scope.tiwenQuestionList = [];
 		});
@@ -254,7 +254,7 @@
 				success: function(res) {
 					$scope.$emit("ceziChange", 1);
 					$("#dataModal").modal("hide");
-					$scope.loadCeziList(); //加载所有练习册
+					$scope.loadBookList(); //加载所有练习册
 					$scope.loadTiwenExistQuestion(); //加载已挂载题目列表
 					$scope.tiwenQuestionList = [];
 				}

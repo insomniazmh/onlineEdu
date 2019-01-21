@@ -368,7 +368,32 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 				pageTitle: '资料库',
 				pageSubTitle: '知识点题库'
 			},
-			controller: "CoursesListController",
+			controller: "",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: [
+							'../../../assets/global/plugins/bootstrap-contextmenu/bootstrap-contextmenu.js',
+							'../../../assets/admin/pages/scripts/components-context-menu.js',
+							'js/controllers/CoursesListController.js'
+
+						]
+					});
+				}]
+			}
+		})
+		
+		//大题
+		.state('bigQuestion', {
+			url: "/bigQuestion.html",
+			templateUrl: "views/database/bigQuestion.html",
+			data: {
+				pageTitle: '大题',
+				pageSubTitle: '大题'
+			},
+			controller: "",
 			resolve: {
 				deps: ['$ocLazyLoad', function($ocLazyLoad) {
 					return $ocLazyLoad.load({

@@ -28,28 +28,28 @@
 								<a data-target="#tab_lessonPlan_1" data-toggle="tab">
 									资料 </a>
 							</li>
-							<li>
+							<li ng-click="changeTab('1')">
 								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
 									提问 </a>
 							</li>
-							<li>
+							<li ng-click="changeTab('2')">
 								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
 									练习 </a>
 							</li>
-							<li>
+							<li ng-click="changeTab('3')">
 								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
 									作业 </a>
 							</li>
-							<li>
-								<a data-target="#tab_lessonPlan_5" data-toggle="tab">
+							<li ng-click="changeTab('4')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
 									任务 </a>
 							</li>
-							<li>
-								<a data-target="#tab_lessonPlan_6" data-toggle="tab">
+							<li ng-click="changeTab('5')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
 									问卷 </a>
 							</li>
-							<li>
-								<a data-target="#tab_lessonPlan_6" data-toggle="tab">
+							<li ng-click="changeTab('6')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
 									风暴 </a>
 							</li>
 						</ul>
@@ -89,6 +89,9 @@
 
 <script>
 	function lessonPlanCtrl($scope, $rootScope, $http) {
-		
+		$scope.changeTab = function(type) {
+			console.log(type);
+			$scope.$broadcast('changeBookTab', type);
+		}
 	}
 </script>

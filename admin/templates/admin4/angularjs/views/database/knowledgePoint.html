@@ -1,7 +1,7 @@
 <style>
 	.opreat {
 		font-size: 16px;
-		width:20px;
+		width: 20px;
 		color: #45B6AF;
 		cursor: pointer;
 	}
@@ -41,8 +41,10 @@
 					<span class="caption-subject bold uppercase" id="title">题库{{currKP}}</span>
 				</div>
 				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel(1)">
 						<i class="fa fa-plus"></i> 创建 </button>
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel(2)">
+						<i class="fa fa-plus"></i> 创建大题 </button>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
@@ -236,7 +238,7 @@
 
 		//添加题目完成回调
 		$scope.$on('addOrEditQuestion', function(d, data) {
-			if (data) {
+			if(data) {
 				$scope.loadQuestions(data);
 			}
 		});
@@ -254,7 +256,7 @@
 				"sorting": "uTime"
 			}
 			//处理知识点查询传参
-			if ($scope.kPointNode.knodeId) {
+			if($scope.kPointNode.knodeId) {
 				data.knowledgeId = $scope.kPointNode.knodeId;
 			}
 
@@ -266,32 +268,32 @@
 				data: data,
 				success: function(res) {
 					var data = res.data;
-					if (type == 'single') {
+					if(type == 'single') {
 						$scope.single = res.data;
-					} else if (type == 'multiple') {
+					} else if(type == 'multiple') {
 						$scope.multiple = res.data;
-					} else if (type == 'trueOrFalse') {
+					} else if(type == 'trueOrFalse') {
 						$scope.trueOrFalse = res.data;
-					} else if (type == 'design') {
+					} else if(type == 'design') {
 						$scope.design = res.data;
-					} else if (type == 'bigQuestion') {
+					} else if(type == 'bigQuestion') {
 						$(res.data).each(function() {
 							$(this.examChildren).each(function() {
 								console.log(this);
 								//选择题
-								if (this.choiceQstTxt) {
+								if(this.choiceQstTxt) {
 									this.title = this.choiceQstTxt;
 									this.answer = this.choiceQstAnsw;
 									this.analysis = this.choiceQstAnalysis;
 								}
 								//判断题
-								if (this.trueOrFalseInfo) {
+								if(this.trueOrFalseInfo) {
 									this.title = this.trueOrFalseInfo;
 									this.answer = this.trueOrFalseAnsw;
 									this.analysis = this.trueOrFalseAnalysis;
 								}
 								//主观题
-								if (this.designQuestion) {
+								if(this.designQuestion) {
 									this.title = this.designQuestion;
 									this.answer = this.designAnsw;
 									this.analysis = this.designAnalysis;
@@ -336,19 +338,39 @@
 		}
 
 		//打开题目添加框
-		$scope.openQuestionModel = function() {
-			if (!$rootScope.currentNode) {
+		$scope.openQuestionModel = function(type) {
+			var settings = {
+
+			}
+			if(type == 1) {
+				settings = {
+					tips: '题目',
+					success: function() {
+						$scope.$broadcast('smallQuestionDetail', null);
+						$("#addOrEditQuestion").modal("show");
+					}
+				}
+			} else {
+				settings = {
+					tips: '大题',
+					success: function() {
+						window.open("index.html#/bigQuestion.html");
+					}
+				}
+			}
+
+			if(!$rootScope.currentNode) {
 				layer.alert("请先选择章节");
 				return false;
 			}
 
-			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建题目吗", {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建" + settings.tips + "吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
-				$scope.$broadcast('smallQuestionDetail', null);
-				$("#addOrEditQuestion").modal("show");
+				settings.success();
 				layer.closeAll('dialog');
 			});
+
 		}
 	}
 </script>

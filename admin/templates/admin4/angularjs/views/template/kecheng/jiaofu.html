@@ -498,7 +498,7 @@
 					"courseId": localStorage.getItem('courseId'),
 					"exeBookType": "1"
 				},
-				url: '/exerciseBook/findExerciseBook',
+				url: '/exerciseBook/findDetailedExerciseBook',
 				success: function(res) {
 					res.data = common.addTitleForQuestion({
 						questionArr: res.data
@@ -518,7 +518,7 @@
 					"courseId": localStorage.getItem('courseId'),
 					"exeBookType": "2"
 				},
-				url: '/exerciseBook/findExerciseBook',
+				url: '/exerciseBook/findDetailedExerciseBook',
 				success: function(res) {
 					res.data = common.addTitleForQuestion({
 						questionArr: res.data,
@@ -539,7 +539,7 @@
 					"courseId": localStorage.getItem('courseId'),
 					"exeBookType": "3"
 				},
-				url: '/exerciseBook/findExerciseBook',
+				url: '/exerciseBook/findDetailedExerciseBook',
 				success: function(res) {
 					res.data = common.addTitleForQuestion({
 						questionArr: res.data,

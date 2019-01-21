@@ -1,12 +1,12 @@
 var common = {
-	
-	url: 'https://e.hnfts.cn/education',//继伟服务
+
+	url: 'https://e.hnfts.cn/education', //继伟服务
 	//url: 'http://192.168.13.220:8080',//继伟本机
-	
-	url2: 'https://e.hnfts.cn/quiz',//真铭服务
-//	url2: 'http://192.168.13.15:8080',//真铭本机
-	
-	uploadUrl: 'https://e.hnfts.cn/upload/upload',//上传接口
+
+	url2: 'https://e.hnfts.cn/quiz', //真铭服务
+	//	url2: 'http://192.168.13.15:8080',//真铭本机
+
+	uploadUrl: 'https://e.hnfts.cn/upload/upload', //上传接口
 	pageSize: 100,
 	//提示框
 	toast: function(settings) {
@@ -54,8 +54,8 @@ var common = {
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 			pick: '#' + settings.id
 		});
-		
-		uploader.on('uploadBeforeSend', function (block, data, headers) {
+
+		uploader.on('uploadBeforeSend', function(block, data, headers) {
 			if(settings.beforeSend) {
 				var result = settings.beforeSend();
 				if(!result.continue) {
@@ -65,20 +65,20 @@ var common = {
 					});
 					uploader.stop(true);
 				}
-			}else {
+			} else {
 				Metronic.blockUI({
 					boxed: true,
 					message: "上传中，请耐心等待..."
 				});
 			}
-			
+
 		})
 
 		uploader.on('uploadSuccess', function(file, response) {
 			Metronic.unblockUI();
-//			common.toast({
-//				title: "上传成功",
-//			});
+			//			common.toast({
+			//				title: "上传成功",
+			//			});
 			settings.success(file, response, uploader);
 		});
 
@@ -90,7 +90,7 @@ var common = {
 			});
 		});
 	},
-	
+
 	//多文件上传
 	multiFileUpload: function(settings) {
 		// 初始化Web Uploader
@@ -105,54 +105,57 @@ var common = {
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 			pick: '#' + settings.id
 		});
-		
-		uploader.onFileQueued = function( file ) {
-			console.log(file);
-	        var $li = $( '<li id="' + file.id + '">' +
-                '<p class="imgWrap"></p>'+
-                '</li>' ),
 
-            $btns = $('<div class="file-panel">' +
-                '<i class="glyphicon glyphicon-trash"></i>' +
-                '</div>').appendTo( $li ),
-            $wrap = $li.find( 'p.imgWrap' );
-                
-            if ( file.getStatus() === 'invalid' ) {
-	            common.toast({
-	            	title: file.statusText
-	            });
-	        } else {
-	            // @todo lazyload
-	            $wrap.text( '预览中' );
-	            uploader.makeThumb( file, function( error, src ) {
-	                if ( error ) {
-	                    $wrap.text( '不能预览' );
-	                    return;
-	                }
-	
-	                var img = $('<img src="'+src+'">');
-	                $wrap.empty().append( img );
-	            }, 110, 110 );
-	        }
-	        
-	        
-	        $li.on( 'mouseenter', function() {
-	            $btns.stop().animate({height: 30});
-	        });
-	
-	        $li.on( 'mouseleave', function() {
-	            $btns.stop().animate({height: 0});
-	        });
-	        
-	        $btns.on( 'click', 'i', function() {
-	            uploader.removeFile( file );
-	            $li.remove();
-	        });
-	        
-	        $li.appendTo('.pics');
-	    };
-		
-		uploader.on('uploadBeforeSend', function (block, data, headers) {
+		uploader.onFileQueued = function(file) {
+			console.log(file);
+			var $li = $('<li id="' + file.id + '">' +
+					'<p class="imgWrap"></p>' +
+					'</li>'),
+
+				$btns = $('<div class="file-panel">' +
+					'<i class="glyphicon glyphicon-trash"></i>' +
+					'</div>').appendTo($li),
+				$wrap = $li.find('p.imgWrap');
+
+			if(file.getStatus() === 'invalid') {
+				common.toast({
+					title: file.statusText
+				});
+			} else {
+				// @todo lazyload
+				$wrap.text('预览中');
+				uploader.makeThumb(file, function(error, src) {
+					if(error) {
+						$wrap.text('不能预览');
+						return;
+					}
+
+					var img = $('<img src="' + src + '">');
+					$wrap.empty().append(img);
+				}, 110, 110);
+			}
+
+			$li.on('mouseenter', function() {
+				$btns.stop().animate({
+					height: 30
+				});
+			});
+
+			$li.on('mouseleave', function() {
+				$btns.stop().animate({
+					height: 0
+				});
+			});
+
+			$btns.on('click', 'i', function() {
+				uploader.removeFile(file);
+				$li.remove();
+			});
+
+			$li.appendTo('.pics');
+		};
+
+		uploader.on('uploadBeforeSend', function(block, data, headers) {
 			Metronic.blockUI({
 				boxed: true,
 				message: "上传中，请耐心等待..."
@@ -174,13 +177,13 @@ var common = {
 				type: 2
 			});
 		});
-		
+
 		$(settings.uploadBtn).click(function() {
 			uploader.upload();
 		})
 	},
-	
-	//网络请求--永永接口
+
+	//网络请求--继伟接口
 	ajax: function(settings) {
 		var defaults = {
 			method: 'post',
@@ -190,50 +193,50 @@ var common = {
 			success: function(response) {},
 			error: function(response) {
 				common.toast({
-		        	type: 2,
-		        	title: "网络异常"
-			    });
+					type: 2,
+					title: "网络异常"
+				});
 			}
 		};
 		settings = $.extend(defaults, settings);
-		
+
 		Metronic.blockUI({
 			boxed: true,
 			message: "加载中，请耐心等待..."
 		});
-		
+
 		settings.$http({
-			    method: settings.method,
-			    url: common.url + settings.url,
-			    data: settings.data,
-			}).then(function successCallback(response) {
-//					console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
-					var data = response.data;
-			        if(data.ret == 0) {
-			        	if(settings.operate) {
-			        		common.toast({
-								title: "操作成功"
-							});
-			        	}
-						settings.success(response.data);
-			        }else {
-			        	common.toast({
-			        		type: 2,
-							title: "操作失败",
-							message: data.msg
-						});
-			        }
-			        window.setTimeout(function() {
-						Metronic.unblockUI();
+			method: settings.method,
+			url: common.url + settings.url,
+			data: settings.data,
+		}).then(function successCallback(response) {
+			//					console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
+			var data = response.data;
+			if(data.ret == 0) {
+				if(settings.operate) {
+					common.toast({
+						title: "操作成功"
 					});
-			    }, function errorCallback(response) {
-			    	window.setTimeout(function() {
-						Metronic.unblockUI();
-					});
-			        settings.error(response);
+				}
+				settings.success(response.data);
+			} else {
+				common.toast({
+					type: 2,
+					title: "操作失败",
+					message: data.msg
+				});
+			}
+			window.setTimeout(function() {
+				Metronic.unblockUI();
 			});
+		}, function errorCallback(response) {
+			window.setTimeout(function() {
+				Metronic.unblockUI();
+			});
+			settings.error(response);
+		});
 	},
-	
+
 	//网络请求--真铭接口
 	ajax2: function(settings) {
 		var defaults = {
@@ -244,69 +247,68 @@ var common = {
 			success: function(response) {},
 			error: function(response) {
 				common.toast({
-		        	type: 2,
-		        	title: "网络异常"
-			    });
+					type: 2,
+					title: "网络异常"
+				});
 			}
 		};
 		settings = $.extend(defaults, settings);
-		
-		
+
 		Metronic.blockUI({
 			boxed: true,
 			message: "加载中，请耐心等待..."
 		});
-		
+
 		settings.$http({
-		    method: settings.method,
-		    url: common.url2 + settings.url,
-		    data: settings.data,
+			method: settings.method,
+			url: common.url2 + settings.url,
+			data: settings.data,
 		}).then(function successCallback(response) {
-//					console.log("请求："+JSON.stringify(settings.data)+"返回"+JSON.stringify(response));
+			//					console.log("请求："+JSON.stringify(settings.data)+"返回"+JSON.stringify(response));
 			var data = response.data;
-	        if(data.ret == 0) {
-	        	if(settings.operate) {
-	        		common.toast({
+			if(data.ret == 0) {
+				if(settings.operate) {
+					common.toast({
 						title: "操作成功"
 					});
-	        	}
+				}
 				settings.success(response.data);
-	        }else {
-	        	common.toast({
-	        		type: 2,
+			} else {
+				common.toast({
+					type: 2,
 					title: "操作失败",
 					message: data.msg
 				});
-	        }
-	        window.setTimeout(function() {
+			}
+			window.setTimeout(function() {
 				Metronic.unblockUI();
 			});
-	    }, function errorCallback(response) {
-	    	console.log("error");
-	    	window.setTimeout(function() {
+		}, function errorCallback(response) {
+			console.log("error");
+			window.setTimeout(function() {
 				Metronic.unblockUI();
 			});
-	        settings.error(response);
+			settings.error(response);
 		});
 	},
-	
+
 	goUrl: function(url, type) {
-		window.location.href = '#/'+url+'.html';
+		window.location.href = '#/' + url + '.html';
 	},
-	
+
 	addTitleForQuestion: function(settings) {
 		$(settings.questionArr).each(function() {
 			if(settings.select) {
 				this.select = true;
 			}
 			if(this.examChildren[0].examType == "single") {
-				this.title = this.examChildren[0].choiceQstTxt+"（单选）";
-			}else if(this.examChildren[0].examType == "multiple") {
-				this.title = this.examChildren[0].choiceQstTxt+"（多选）";
-			}else if(this.examChildren[0].examType == "trueOrFalse") {
-				this.title = this.examChildren[0].trueOrFalseInfo+"（判断）";
-			}else if(this.examChildren[0].examType == "design") {
-				this.title = this.examChildren[0].designQuestion+"（主观）";
+				this.title = this.examChildren[0].choiceQstTxt + "（单选）";
+			} else if(this.examChildren[0].examType == "multiple") {
+				this.title = this.examChildren[0].choiceQstTxt + "（多选）";
+			} else if(this.examChildren[0].examType == "trueOrFalse") {
+				this.title = this.examChildren[0].trueOrFalseInfo + "（判断）";
+			} else if(this.examChildren[0].examType == "design") {
+				this.title = this.examChildren[0].designQuestion + "（主观）";
 			}
 		});
 		return settings.questionArr;
