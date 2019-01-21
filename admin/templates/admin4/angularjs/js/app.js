@@ -94,7 +94,6 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
 	$rootScope.$on('course', function(d, data) {
 		$rootScope.courseId = data.courseId;
 		$rootScope.course = data;
-		console.log(data);
 		localStorage.setItem('courseId', data.courseId);
 		$scope.$broadcast('course', data);
 	});

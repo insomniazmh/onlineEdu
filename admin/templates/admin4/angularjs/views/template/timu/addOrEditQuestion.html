@@ -118,6 +118,9 @@
 					$("#questionTypesContent > .tab-pane").removeClass("active");
 					$("#tab_3_5").addClass("active");
 				}
+				
+				$scope.questionLevel = data.levelId;
+				$scope.knowledgeId = data.knowledgeId;
 			}else {
 				$("#questionTypesTitle").show();
 				$("#questionTypesTitle").children("li").removeClass("active");
@@ -143,9 +146,11 @@
 				"examChildren": [data]
 			};
 			
+			if(data.pid) {
+				obj.id = data.pid;
+			}
+			
 			var url = "";
-
-			console.log(obj)
 			if(data.examType == "single" || data.examType == "multiple") {
 				url = '/question/choiceQst/edit';
 			}else if(data.examType == "trueOrFalse") {

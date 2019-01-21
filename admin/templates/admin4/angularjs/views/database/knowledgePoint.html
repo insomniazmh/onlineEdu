@@ -225,13 +225,13 @@
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
 			$scope.currentNode = data;
-			$scope.initData();
+			//$scope.initData();
 		});
 
 		//获取当前选中知识点
 		$scope.$on('kPointNode', function(d, data) {
-			$scope.initData();
 			$scope.kPointNode = data;
+			$scope.initData();
 		});
 
 		//添加题目完成回调
