@@ -301,15 +301,18 @@ var common = {
 			if(settings.select) {
 				this.select = true;
 			}
-			if(this.examChildren[0].examType == "single") {
-				this.title = this.examChildren[0].choiceQstTxt + "（单选）";
-			} else if(this.examChildren[0].examType == "multiple") {
-				this.title = this.examChildren[0].choiceQstTxt + "（多选）";
-			} else if(this.examChildren[0].examType == "trueOrFalse") {
-				this.title = this.examChildren[0].trueOrFalseInfo + "（判断）";
-			} else if(this.examChildren[0].examType == "design") {
-				this.title = this.examChildren[0].designQuestion + "（主观）";
+			if(this.examChildren) {
+				if(this.examChildren[0].examType == "single") {
+					this.title = this.examChildren[0].choiceQstTxt + "（单选）";
+				} else if(this.examChildren[0].examType == "multiple") {
+					this.title = this.examChildren[0].choiceQstTxt + "（多选）";
+				} else if(this.examChildren[0].examType == "trueOrFalse") {
+					this.title = this.examChildren[0].trueOrFalseInfo + "（判断）";
+				} else if(this.examChildren[0].examType == "design") {
+					this.title = this.examChildren[0].designQuestion + "（主观）";
+				}
 			}
+			
 		});
 		return settings.questionArr;
 	}

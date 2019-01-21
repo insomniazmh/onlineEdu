@@ -1,4 +1,4 @@
-<div class="row" ng-controller="tiwenCtrl">
+<div class="row" ng-controller="questionCtrl">
 	<div class="col-md-6" style="text-align: center;">
 		<ul class="feeds" style="margin-bottom: 30px;">
 			<li ng-repeat="row in tiwence">
@@ -51,7 +51,7 @@
 			<!--<i class="fa fa-search" style="font-size: 18px; color: #1b746c;cursor: pointer;"></i>-->
 		</div>
 		<div style="text-align: left;">
-			<span class="badge {{row.select ? 'badge-danger' : 'badge-success'}}" ng-repeat="row in tiwenQuestionList">
+			<span class="badge {{row.select ? 'badge-danger' : 'badge-success'}}" ng-repeat="row in questionList">
 				{{$index+1}} </span>
 		</div>
 
@@ -79,7 +79,7 @@
 					<div class="tab-pane active" id="tab_tiwenQuestion_1">
 						<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0"
 						 data-handle-color="#D7DCE2">
-							<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in tiwenQuestionList">
+							<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in questionList">
 								<div class="md-checkbox" style="display: inline-block;">
 									<input type="checkbox" id="tiwenQuestion{{$index}}" class="md-check" ng-model="row.select">
 									<label for="tiwenQuestion{{$index}}">
@@ -98,7 +98,7 @@
 					<div class="tab-pane" id="tab_tiwenQuestion_2">
 						<div class="scroller" style="height: 500px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="0"
 						 data-handle-color="#D7DCE2">
-							<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in tiwenExistQuestionList">
+							<div class="well" style="background-color: #d6e9c6;" ng-repeat="row in existQuestionList">
 								<div class="md-checkbox" style="display: inline-block;">
 									<input type="checkbox" id="tiwenExistQuestion{{$index}}" class="md-check" ng-model="row.select">
 									<label for="tiwenExistQuestion{{$index}}">
@@ -125,19 +125,22 @@
 </div>
 
 <script>
-	function tiwenCtrl($scope, $rootScope, $http) {
+	function questionCtrl($scope, $rootScope, $http) {
+		$scope.questionList = [];//本课程未挂载的题目
+		$scope.existQuestionList = [];//本课程已经挂载过的题目
+		
 		//加载所有册子  type： 1提问侧   2练习册   3作业册
-		$scope.loadBookList = function() {
+		$scope.loadBookList = function(type) {
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
 				data: {
 					"allOrPart": "part",
-					"exeBookType": 1,
+					"exeBookType": $scope.type,
 					"operatorId": localStorage.getItem('userid'),
 					"page": 0,
 					"chapterId": localStorage.getItem('currentNodeId'),
-					"size": 20,
+					"size": common.pageSize,
 					"sort": 1,
 					"sorting": "uTime"
 				},
@@ -147,18 +150,16 @@
 				}
 			});
 		}
-		$scope.loadBookList();
-
-		$scope.tiwenExistQuestionList = [];
+		
 		//加载已挂接题目
-		$scope.loadTiwenExistQuestion = function() {
+		$scope.loadExistQuestion = function(type) {
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
 				data: {
 					"chapterId": localStorage.getItem('currentNodeId'),
 					"courseId": localStorage.getItem('courseId'),
-					"exeBookType": "1"
+					"exeBookType": $scope.type
 				},
 				url: '/exerciseBook/findExerciseBook',
 				success: function(res) {
@@ -166,20 +167,24 @@
 						questionArr: res.data,
 						select: true
 					}); //组装题干以供展示
-					$scope.tiwenExistQuestionList = res.data;
+					$scope.existQuestionList = res.data;
 				}
 			});
 		};
-		$scope.loadTiwenExistQuestion();
-
-		//切换章节回调
-		$scope.$on('currentNode', function(d, data) {
+		
+		$scope.initData = function() {
+			$scope.questionList = [];
+			$scope.existQuestionList = [];
 			$scope.loadBookList(); //加载所有练习册
-			$scope.loadTiwenExistQuestion(); //加载已挂载题目列表
-			$scope.tiwenQuestionList = [];
-		});
+			$scope.loadExistQuestion(); //加载已挂载题目列表
+		}
 
-		$scope.tiwenQuestionList = [];
+		//切换册子tab页回调
+		$scope.$on('changeBookTab', function(d, type) {
+			$scope.type = type;
+			$scope.initData();
+		});
+		
 		//根据册子id加载册子中的题目，加载时，先判断有没有在已有题目中，再判断有没有在上面的册子中，都没有则保留
 		$scope.loadQuestionByCezi = function(id) {
 			common.ajax2({
@@ -195,7 +200,7 @@
 						var that = this;
 						var flag = true;
 						//判断有没有在上面的册子中
-						$($scope.tiwenQuestionList).each(function() {
+						$($scope.questionList).each(function() {
 							if (this.id == that.id) {
 								flag = false;
 								return false;
@@ -203,7 +208,7 @@
 						});
 						if (flag) {
 							//再判断有没有在已存在的题目中
-							$($scope.tiwenExistQuestionList).each(function() {
+							$($scope.existQuestionList).each(function() {
 								if (this.id == that.id) {
 									flag = false;
 									return false;
@@ -211,7 +216,7 @@
 							});
 						}
 						if (flag) {
-							$scope.tiwenQuestionList.push(that);
+							$scope.questionList.push(that);
 						}
 					});
 				}
@@ -222,7 +227,7 @@
 		$scope.practiceSub = function() {
 			var questionIds = [];
 			//遍历新增的题目
-			$($scope.tiwenQuestionList).each(function() {
+			$($scope.questionList).each(function() {
 				if (this.select) {
 					questionIds.push({
 						"bigQuestionId": this.id,
@@ -231,7 +236,7 @@
 				}
 			});
 			//遍历已有题目
-			$($scope.tiwenExistQuestionList).each(function() {
+			$($scope.existQuestionList).each(function() {
 				if (this.select) {
 					questionIds.push({
 						"bigQuestionId": this.id,
@@ -244,7 +249,7 @@
 				$http: $http,
 				operate: true,
 				data: {
-					"exeBookType": "1",
+					"exeBookType": $scope.type,
 					"teacherId": localStorage.getItem("userid"),
 					"chapterId": localStorage.getItem('currentNodeId'),
 					"courseId": localStorage.getItem('courseId'),
@@ -252,11 +257,11 @@
 				},
 				url: '/exerciseBook/generate/practice',
 				success: function(res) {
-					$scope.$emit("ceziChange", 1);
+					$scope.$emit("ceziChange", $scope.type);
 					$("#dataModal").modal("hide");
-					$scope.loadBookList(); //加载所有练习册
-					$scope.loadTiwenExistQuestion(); //加载已挂载题目列表
-					$scope.tiwenQuestionList = [];
+					$scope.loadBookList(); //加载所有册子
+					$scope.loadExistQuestion(); //加载已挂载题目列表
+					$scope.questionList = [];
 				}
 			});
 		};

@@ -388,7 +388,6 @@
 					}
 				},
 				success: function(data) {
-					console.log(data);
 					if (datumArea == "1") {
 						$scope.jiaoanCount = data.data.length;
 					} else if (datumArea == "2" && datumType == "1") {
@@ -423,7 +422,6 @@
 
 		//上传课件回调
 		$scope.$on('kejian', function(d, data) {
-			console.log(data);
 			if (!localStorage.getItem('currentNodeId')) {
 				common.toast({
 					title: "请先选择章节",
