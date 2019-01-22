@@ -182,13 +182,11 @@
 						<a data-target="#tab_2_7" data-toggle="tab">
 							风暴 </a>
 					</li>
-
-
-
 				</ul>
 			</div>
 			<div class="portlet-body">
 				<div class="tab-content">
+					<!--资料-->
 					<div class="tab-pane active" id="tab_2_1">
 						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 							<ul class="feeds">
@@ -224,6 +222,7 @@
 							</ul>
 						</div>
 					</div>
+					<!--提问-->
 					<div class="tab-pane" id="tab_2_2">
 						<ul class="feeds">
 							<li ng-repeat="row in tiwenQuestionList">
@@ -251,6 +250,7 @@
 							</li>
 						</ul>
 					</div>
+					<!--练习-->
 					<div class="tab-pane" id="tab_2_3">
 						<ul class="feeds">
 							<li ng-repeat="row in lianxiQuestionList">
@@ -282,6 +282,7 @@
 							</li>
 						</ul>
 					</div>
+					<!--作业-->
 					<div class="tab-pane" id="tab_2_4">
 						<ul class="feeds">
 							<li ng-repeat="row in zuoyeQuestionList">
@@ -309,9 +310,90 @@
 							</li>
 						</ul>
 					</div>
-					<div class="tab-pane" id="tab_2_5"></div>
-					<div class="tab-pane" id="tab_2_6"></div>
-					<div class="tab-pane" id="tab_2_7"></div>
+					<!--任务-->
+					<div class="tab-pane" id="tab_2_5">
+						<ul class="feeds">
+							<li ng-repeat="row in taskQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--问卷-->
+					<div class="tab-pane" id="tab_2_6">
+						<ul class="feeds">
+							<li ng-repeat="row in surveyQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--头脑风暴-->
+					<div class="tab-pane" id="tab_2_7">
+						<ul class="feeds">
+							<li ng-repeat="row in stromQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -406,16 +488,10 @@
 			$scope.initData();
 		});
 
-		//提问/练习/作业册更新回调
-		$scope.$on('ceziChange', function(d, data) {
-			console.log(data);
-			if (data == 1) {
-				$scope.loadTiwenQuestions(); //加载提问题目列表
-			} else if (data == 2) {
-				$scope.loadLianxiQuestions(); //加载练习题目列表
-			} else if (data == 3) {
-				$scope.loadZuoyeQuestions(); //加载作业题目列表
-			}
+		//根据类型不同加载题目type:  1提问   2练习   3作业  4任务  5问卷  6头脑风暴
+		$scope.$on('ceziChange', function(d, type) {
+			console.log(type);
+			$scope.loadQuestions(type); //加载题目列表
 		});
 
 		$scope.jiaoan = {};
@@ -486,67 +562,50 @@
 			}
 		});
 
-		//加载所有挂接的提问题目
-		$scope.loadTiwenQuestions = function() {
+		//加载所有挂接的题目type: 1提问   2练习   3作业  4任务  5问卷  6头脑风暴
+		$scope.loadQuestions = function(type) {
+			var data = {
+				"chapterId": localStorage.getItem('currentNodeId'),
+				"courseId": localStorage.getItem('courseId'),
+			};
+			
+			var url = '/exerciseBook/findExerciseBook';
+			if(type == '1' || type == '2' || type == '3') {
+				data.exeBookType = type;
+			}else if(type == '4') {
+				url = '/taskExerciseBook/findExerciseBook';
+			}else if(type == '5') {
+				url = '/surveyExerciseBook/findExerciseBook';
+			}else if(type == '6') {
+				url = '/brainstormExerciseBook/findExerciseBook';
+			};
+			
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-					"courseId": localStorage.getItem('courseId'),
-					"exeBookType": "1"
-				},
-				url: '/exerciseBook/findDetailedExerciseBook',
+				data: data,
+				url: url,
 				success: function(res) {
 					res.data = common.addTitleForQuestion({
 						questionArr: res.data
 					}); //组装题干以供展示
-					$scope.tiwenQuestionList = res.data;
+					if(type == '1') {
+						$scope.tiwenQuestionList = res.data;
+					}else if(type == '2') {
+						$scope.lianxiQuestionList = res.data;
+					}else if(type == '3') {
+						$scope.zuoyeQuestionList = res.data;
+					}else if(type == '4') {
+						$scope.taskQuestionList = res.data;
+					}else if(type == '5') {
+						$scope.surveyQuestionList = res.data;
+					}else if(type == '6') {
+						$scope.stromQuestionList = res.data;
+					}
+					
 				}
 			});
-		}
-
-		//加载所有挂接的练习题目
-		$scope.loadLianxiQuestions = function() {
-			common.ajax2({
-				$scope: $scope,
-				$http: $http,
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-					"courseId": localStorage.getItem('courseId'),
-					"exeBookType": "2"
-				},
-				url: '/exerciseBook/findDetailedExerciseBook',
-				success: function(res) {
-					res.data = common.addTitleForQuestion({
-						questionArr: res.data,
-						select: true
-					}); //组装题干以供展示
-					$scope.lianxiQuestionList = res.data;
-				}
-			});
-		}
-
-		//加载所有挂接的作业题目
-		$scope.loadZuoyeQuestions = function() {
-			common.ajax2({
-				$scope: $scope,
-				$http: $http,
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-					"courseId": localStorage.getItem('courseId'),
-					"exeBookType": "3"
-				},
-				url: '/exerciseBook/findDetailedExerciseBook',
-				success: function(res) {
-					res.data = common.addTitleForQuestion({
-						questionArr: res.data,
-						select: true
-					}); //组装题干以供展示
-					$scope.zuoyeQuestionList = res.data;
-				}
-			});
-		}
+		};
 
 		//修改练习的标签
 		$scope.changeLianxiLabel = function(row, type) {
@@ -586,6 +645,10 @@
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑备课信息吗", {
 				btn: ['确定', '取消'] //按钮
 			}, function() {
+				$("#lessonPlanTab > li").removeClass("active");
+				$("#lessonPlanTab > li").eq("0").addClass("active");
+				$("#lessonPlanContent > .tab-pane").removeClass("active");
+				$("#tab_lessonPlan_1").eq("0").addClass("active");
 				$("#dataModal").modal("show");
 				layer.closeAll('dialog');
 			});
@@ -596,9 +659,12 @@
 			$scope.loadJiaoanAndKejian("2", "1"); //加载PPT课件列表
 			$scope.loadJiaoanAndKejian("2", "2"); //加载图集课件列表
 			$scope.loadJiaoanAndKejian("2", "3"); //加载视频课件列表
-			$scope.loadTiwenQuestions(); //加载提问问题列表
-			$scope.loadLianxiQuestions(); //加载练习题目列表
-			$scope.loadZuoyeQuestions(); //加载作业题目列表
+			$scope.loadQuestions("1"); //加载提问问题列表
+			$scope.loadQuestions("2"); //加载练习题目列表
+			$scope.loadQuestions("3"); //加载作业题目列表
+			$scope.loadQuestions("4"); //加载任务问题列表
+			$scope.loadQuestions("5"); //加载问卷题目列表
+			$scope.loadQuestions("6"); //加载头脑风暴题目列表
 		};
 
 		$scope.initData();

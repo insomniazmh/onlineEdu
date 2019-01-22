@@ -1,6 +1,6 @@
 <div ng-controller="nodeTreeCtrl">
 	<div id="tree" class="tree-demo"></div>
-	
+
 	<div class="modal fade" id="createNodeModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
@@ -42,12 +42,12 @@
 	function nodeTreeCtrl($scope, $http, $rootScope) {
 		var count = 0;
 		$scope.flag = "";
-		
+
 		//切换课程
-		$scope.$on('course', function(d,data) {
+		$scope.$on('course', function(d, data) {
 			$scope.loadChapter();
 		});
-		
+
 		//根据课程id查询章节树
 		$scope.loadChapter = function() {
 			common.ajax({
@@ -55,50 +55,50 @@
 				$http: $http,
 				url: '/courseChapter/findByCourseId',
 				data: {
-			    	courseId: localStorage.getItem('courseId')
-			    },
-			    success: function(data) {
-			    	//获取初始化时应选中的节点
-//			    	$(data.data).each(function() {
-//			    		if(this.state.selected) {
-//			    			$scope.currentNode  = this;
-////			    			$rootScope.$emit('currentNode', $scope.currentNode);
-//			    			$rootScope.currentNodeId = this.id;
-//							$rootScope.currentNode = this;
-//							localStorage.setItem('currentNodeId', this.id);
-//			    		}
-//			    	});
-			    	
-			    	if(!$rootScope.course) {
-			    		$rootScope.course = {
-			    			courseName: "#"
-			    		}
-			    	};
-			    	
-			    	data.data.unshift({
-			    		'id': '0',
-			    		"parent" : "#",
+					courseId: localStorage.getItem('courseId')
+				},
+				success: function(data) {
+					//获取初始化时应选中的节点
+					//			    	$(data.data).each(function() {
+					//			    		if(this.state.selected) {
+					//			    			$scope.currentNode  = this;
+					////			    			$rootScope.$emit('currentNode', $scope.currentNode);
+					//			    			$rootScope.currentNodeId = this.id;
+					//							$rootScope.currentNode = this;
+					//							localStorage.setItem('currentNodeId', this.id);
+					//			    		}
+					//			    	});
+
+					if(!$rootScope.course) {
+						$rootScope.course = {
+							courseName: "#"
+						}
+					};
+
+					data.data.unshift({
+						'id': '0',
+						"parent": "#",
 						'text': $rootScope.course.courseName,
 						'state': {
 							'opened': true
 						}
-			    	});
-			    	$scope.initTree(data.data);
-			    }
+					});
+					$scope.initTree(data.data);
+				}
 			});
 		};
-		
+
 		//初始化章节
 		if(localStorage.getItem('courseId')) {
 			$scope.loadChapter();
 		}
-				
+
 		//初始化树结构
 		$scope.initTree = function(data) {
 			if(count > 0) {
-				$('#tree').jstree(true).settings.core.data=data;
+				$('#tree').jstree(true).settings.core.data = data;
 				$('#tree').jstree(true).refresh();
-			}else {
+			} else {
 				$('#tree').jstree({
 					'core': {
 						"check_callback": true,
@@ -131,36 +131,36 @@
 							"发布章节": {
 								"label": "发布章节",
 								"action": function(data) {
-	//								var r = confirm("确定要发布该章节吗");
-	//								if(r) {
-	//									
-	//								}
+									//								var r = confirm("确定要发布该章节吗");
+									//								if(r) {
+									//									
+									//								}
 								}
 							},
 							"删除章节": {
 								"label": "删除章节",
 								"action": function(data) {
 									layer.confirm('您确定要删除该章节吗', {
-									  btn: ['确定','取消'] //按钮
-									}, function(){
-									  	//删除章节
+										btn: ['确定', '取消'] //按钮
+									}, function() {
+										//删除章节
 										common.ajax({
 											$scope: $scope,
 											$http: $http,
 											operate: true,
 											url: '/courseChapter/deleteById',
 											data: {
-											  "chapterId": $scope.currentNode.id,
+												"chapterId": $scope.currentNode.id,
 											},
-										    success: function(data) {
-										    	//删除节点
-										    	var ref = $('#tree').jstree(true),
+											success: function(data) {
+												//删除节点
+												var ref = $('#tree').jstree(true),
 													sel = ref.get_selected();
 												if(!sel.length) {
 													return false;
 												}
 												ref.delete_node(sel);
-										    }
+											}
 										});
 										layer.closeAll('dialog');
 									});
@@ -170,10 +170,10 @@
 					}
 				});
 			}
-			
-			$("#tree").bind('ready.jstree',function (obj, e) {
+
+			$("#tree").bind('ready.jstree', function(obj, e) {
 				$("#tree").jstree("deselect_all", true);
-			    $("#tree").jstree('select_node',localStorage.getItem('currentNodeId'))
+				$("#tree").jstree('select_node', localStorage.getItem('currentNodeId'))
 			});
 			count++;
 		}
@@ -198,23 +198,23 @@
 					operate: true,
 					url: '/courseChapter/save',
 					data: {
-					  "chapterName": $scope.nodeName,
-					  "chapterParentId": $scope.currentNode.id,
-					  "courseId": localStorage.getItem('courseId')
+						"chapterName": $scope.nodeName,
+						"chapterParentId": $scope.currentNode.id,
+						"courseId": localStorage.getItem('courseId')
 					},
-				    success: function(data) {
-				    	//创建节点
-				    	sel = ref.create_node(sel, {
-				    		id: data.data.chapterId,
+					success: function(data) {
+						//创建节点
+						sel = ref.create_node(sel, {
+							id: data.data.chapterId,
 							text: $scope.nodeName,
 							'icon': 'fa fa-briefcase icon-state-success',
 							'state': {
 								'opened': true
 							}
 						});
-				    }
+					}
 				});
-				
+
 			} else if($scope.flag == "rename") {
 				//修改章节名称
 				common.ajax({
@@ -223,24 +223,23 @@
 					operate: true,
 					url: '/courseChapter/edit',
 					data: {
-					  "chapterName": $scope.nodeName,
-					  "chapterId": $scope.currentNode.id
+						"chapterName": $scope.nodeName,
+						"chapterId": $scope.currentNode.id
 					},
-				    success: function(data) {
-				    	//修改节点名称
-				    	ref.rename_node(sel, $scope.nodeName);
-				    }
+					success: function(data) {
+						//修改节点名称
+						ref.rename_node(sel, $scope.nodeName);
+					}
 				});
-				
+
 			}
 		};
-		
+
 		//点击树节点触发事件，获取被选中节点
 		$('#tree').bind("activate_node.jstree", function(obj, e) {
 			// 处理代码
 			// 获取当前节点
 			$scope.currentNode = e.node;
-			console.log($scope.currentNode);
 			$rootScope.$emit('currentNode', $scope.currentNode);
 		});
 	}

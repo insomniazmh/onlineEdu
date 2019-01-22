@@ -23,7 +23,7 @@
 						<div class="actions">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 						</div>
-						<ul class="nav nav-tabs">
+						<ul class="nav nav-tabs" id="lessonPlanTab">
 							<li class="active">
 								<a data-target="#tab_lessonPlan_1" data-toggle="tab">
 									资料 </a>
@@ -55,7 +55,7 @@
 						</ul>
 					</div>
 					<div class="portlet-body">
-						<div class="tab-content">
+						<div class="tab-content" id="lessonPlanContent">
 							<!-- 描述：资料  -->
 							<div class="tab-pane active" id="tab_lessonPlan_1">
 								<div data-ng-include="'views/template/lessonPlan/ziliao.html'"></div>
@@ -90,7 +90,6 @@
 <script>
 	function lessonPlanCtrl($scope, $rootScope, $http) {
 		$scope.changeTab = function(type) {
-			console.log(type);
 			$scope.$broadcast('changeBookTab', type);
 		}
 	}
