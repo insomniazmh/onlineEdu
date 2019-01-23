@@ -134,24 +134,25 @@ Page({
     var that = this;
 
     //模拟学生扫码进入
-    wx.request({
-      method: "post",
-      url: 'https://e.hnfts.cn/quiz/classRoom/join/interactiveRoom',
-      data: {
-        examineeId: getApp().globalData.studentId,
-        circleId: getApp().globalData.circleId
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        console.log(res.data)
-      }
-    })
+    // wx.request({
+    //   method: "post",
+    //   url: 'https://e.hnfts.cn/quiz/classRoom/join/interactiveRoom',
+    //   data: {
+    //     examineeId: getApp().globalData.studentId,
+    //     circleId: getApp().globalData.circleId
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success(res) {
+    //     console.log(res.data)
+    //   }
+    // })
 
     //开启websocket连接
     wx.connectSocket({
-      url: "wss://e.hnfts.cn/websocket/interactive/" + getApp().globalData.circleId + "/" + getApp().globalData.studentId+"/student/"+ random,
+      url: "wss://e.hnfts.cn/websocket/interactive/" + getApp().globalData.circleId 
+      + "/" + getApp().globalData.studentId+"/student/"+ random,
       header: {
         'content-type': 'application/json'
       },

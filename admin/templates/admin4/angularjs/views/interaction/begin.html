@@ -601,8 +601,8 @@
 	function beginCtrl($scope, $rootScope, $http) {
 		var ws = null;
 		$scope.students = [];
+		var random = Math.random().toString(36).substr(2); //生成随机数
 		$scope.initWs = function() {
-			var random = Math.random().toString(36).substr(2); //生成随机数
 			//check if your browser supports WebSocket
 			if('WebSocket' in window) {
 				ws = new WebSocket("wss://e.hnfts.cn/websocket/interactive/" 
@@ -627,6 +627,7 @@
 
 			ws.onclose = function(evt) {
 				console.log("WebSocketClosed!");
+				$scope.initWs();
 			};
 
 			ws.onerror = function(evt) {
@@ -654,7 +655,7 @@
 						"teacherId": localStorage.getItem('userid'),
 						"chapterId": localStorage.getItem('currentNodeId')
 					},
-					url: '/classRoom/create/cover',
+					url: '/classRoom/create/reuse',
 					success: function(res) {
 						localStorage.setItem("circleId", res.data);
 						$('#qrcode').empty();
@@ -664,7 +665,7 @@
 						//						$scope.joinRoom("10001");
 						//						$scope.joinRoom("10002");
 						//						$scope.joinRoom("10003");
-						//						$scope.joinRoom("10004");
+												$scope.joinRoom("10004");
 						$("#qrcodeModal").modal("show");
 						$scope.students = [];
 						$scope.initWs(); //开始长连接，获取学生加入情况
