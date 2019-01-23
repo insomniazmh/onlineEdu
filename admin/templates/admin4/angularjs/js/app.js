@@ -150,7 +150,7 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 						this.topPicSrc = 'images/zanwu.jpg';
 					}
 				});
-				$scope.courses = data.data;
+				$rootScope.courses = data.data;
 				if(!localStorage.getItem('courseId') && data.data.length > 0) {
 					//默认选中第一个课程
 					localStorage.setItem('courseId', data.data[0].courseId);
@@ -417,6 +417,44 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			data: {
 				pageTitle: '教辅资料库',
 				pageSubTitle: '课程列表'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
+		// 课程列表4-课程总览
+		.state('cl4', {
+			url: "/cl4.html",
+			templateUrl: "views/interaction/cl4.html",
+			data: {
+				pageTitle: '教学互动',
+				pageSubTitle: '课程总览'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
+		// 课程列表6-上课
+		.state('cl6', {
+			url: "/cl6.html",
+			templateUrl: "views/interaction/cl6.html",
+			data: {
+				pageTitle: '教学互动',
+				pageSubTitle: '上课'
 			},
 			resolve: {
 				deps: ['$ocLazyLoad', function($ocLazyLoad) {

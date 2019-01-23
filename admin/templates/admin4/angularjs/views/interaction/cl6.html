@@ -9,15 +9,15 @@
 <!-- BEGIN PAGE BREADCRUMB -->
 <ul class="page-breadcrumb breadcrumb hide">
 	<li>
-		<a href="#">Home</a><i class="fa fa-circle"></i>
+		<a href="#">教学互动</a><i class="fa fa-circle"></i>
 	</li>
 	<li class="active">
-		Dashboard
+		课程总览
 	</li>
 </ul>
 <!-- END PAGE BREADCRUMB -->
 <!-- BEGIN MAIN CONTENT -->
-<div ng-controller="cl4Ctrl" class="margin-top-10">
+<div ng-controller="cl6Ctrl" class="margin-top-10">
 	<div class="portlet light">
 		<div class="portlet-body">
 			<div data-ng-include="'views/template/courseListTpl.html'"></div>
@@ -28,9 +28,9 @@
 <!-- END MAIN CONTENT -->
 
 <script>
-	function cl4Ctrl($scope, $http, $interval) {
+	function cl6Ctrl($scope, $http, $interval) {
 		$interval(function(){
-	    $scope.$broadcast('goUrl', 'begin');
+	    $scope.$broadcast('goUrl', 'courseOverview');
 	  }, 500);
 	}
 </script>

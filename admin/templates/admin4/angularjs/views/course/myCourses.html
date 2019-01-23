@@ -20,38 +20,7 @@
 <div ng-controller="myCoursesCtrl" class="margin-top-10">
 	<div class="portlet light">
 		<div class="portlet-body">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="owl-carousel owl-carousel5 owl-theme" style="opacity: 1; display: block;">
-						<div class="owl-wrapper-outer">
-							<div class="owl-wrapper" style="width: 100%; left: 0px; display: block;">
-								<div class="owl-item active" style="width: 228px;" ng-repeat="row in courses">
-									<div>
-										<div class="product-item">
-											<div class="pi-img-wrapper">
-												<img src="{{row.topPicSrc}}" class="img-responsive" style="width: 194px;height: 194px;" alt="暂无图片">
-											</div>
-											<h3 style="text-align: center;">
-												<!--<a href="#/prepareLessons.html">{{row.courseName}}(讲师：<span style="color: red;">张帅</span>)</a>-->
-												<a href="" ng-click="goUrl(row)">{{row.courseName}}(讲师：<span style="color: red;">张帅</span>)</a>
-												
-											</h3>
-											<div class="pi-price" style="width: 100%;margin-bottom: 20px;text-align: center;">课程编号：{{row.courseNumber}}</div>
-											<div style="text-align: center;">
-												<button class="btn btn-sm btn-primary">发布课程</button>
-												<button class="btn btn-sm btn-danger">删除课程</button>
-											</div>
-											
-											
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-			</div>
+			<div data-ng-include="'views/template/courseListTpl.html'"></div>
 		</div>
 	</div>
 
@@ -59,32 +28,9 @@
 <!-- END MAIN CONTENT -->
 
 <script>
-	function myCoursesCtrl($scope, $http, $rootScope) {
-		//加载课程列表
-		common.ajax({
-			$scope: $scope,
-			$http: $http,
-			url: '/course/findAll',
-			data: {
-				"sortVo": {
-					"page":0,
-					"size":common.pageSize
-				}
-			},
-			success: function(data) {
-				$(data.data).each(function() {
-					if(!this.topPicSrc) {
-						this.topPicSrc = 'images/zanwu.jpg';
-					}
-				});
-				$scope.courses = data.data;
-			}
-		});
-		
-		$scope.goUrl = function(course) {
-			localStorage.setItem('courseId', course.courseId);
-			$rootScope.$emit("course", course);
-			window.location.href = '#/courseEdit.html';
-		}
+	function myCoursesCtrl($scope, $http, $interval) {
+		$scope.timer = $interval( function(){
+	    $scope.$broadcast('goUrl', 'courseEdit');
+	  }, 500);
 	}
 </script>
