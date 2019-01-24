@@ -601,12 +601,20 @@
 	function beginCtrl($scope, $rootScope, $http) {
 		var ws = null;
 		$scope.students = [];
-		var random = Math.random().toString(36).substr(2); //生成随机数
+		//		var random = Math.random().toString(36).substr(2); //生成随机数
+		var random = new Date().getTime();
 		$scope.initWs = function() {
+			console.log(localStorage.getItem('circleId'));
+			if(!localStorage.getItem('circleId')) {
+				alert("wrong");
+				return false;
+			}
 			//check if your browser supports WebSocket
 			if('WebSocket' in window) {
-				ws = new WebSocket("wss://e.hnfts.cn/websocket/interactive/" 
-				+ localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "1/teacher/" + random);
+				console.log("wss://e.hnfts.cn/websocket/interactive/" +
+					localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "123456/teacher/" + random);
+				ws = new WebSocket("wss://e.hnfts.cn/websocket/interactive/" +
+					localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "123456/teacher/" + random);
 			} else {
 				layer.alert('对不起，您的浏览器不支持websorket');
 			}
@@ -627,7 +635,7 @@
 
 			ws.onclose = function(evt) {
 				console.log("WebSocketClosed!");
-				$scope.initWs();
+				//$scope.initWs();
 			};
 
 			ws.onerror = function(evt) {
@@ -636,6 +644,7 @@
 		};
 
 		$scope.goUrl = function() {
+			ws.close();
 			window.open('singleLession.html');
 		}
 
@@ -655,7 +664,7 @@
 						"teacherId": localStorage.getItem('userid'),
 						"chapterId": localStorage.getItem('currentNodeId')
 					},
-					url: '/classRoom/create/reuse',
+					url: '/classRoom/create/cover',
 					success: function(res) {
 						localStorage.setItem("circleId", res.data);
 						$('#qrcode').empty();
@@ -665,7 +674,7 @@
 						//						$scope.joinRoom("10001");
 						//						$scope.joinRoom("10002");
 						//						$scope.joinRoom("10003");
-												$scope.joinRoom("10004");
+						//												$scope.joinRoom("10004");
 						$("#qrcodeModal").modal("show");
 						$scope.students = [];
 						$scope.initWs(); //开始长连接，获取学生加入情况

@@ -1,5 +1,7 @@
 // pages/haveClass/haveClass.js
 var WxParse = require('../../wxParse/wxParse.js');
+const webSocket = require('../../utils/websocket.js'); 
+
 Page({
   /**
    * 页面的初始数据
@@ -73,7 +75,7 @@ Page({
       "examineeId": getApp().globalData.studentId,
       "questionId": that.data.questionId
     };
-
+    console.log(postData);
     wx.request({
       method: "post",
       url: 'https://e.hnfts.cn/quiz/interact/send/answer',
@@ -130,47 +132,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var random = Math.random().toString(36).substr(2);//生成随机数
+    
+
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  // socket收到的信息回调
+  onSocketMessageCallback: function (res) {
     var that = this;
-
-    //模拟学生扫码进入
-    // wx.request({
-    //   method: "post",
-    //   url: 'https://e.hnfts.cn/quiz/classRoom/join/interactiveRoom',
-    //   data: {
-    //     examineeId: getApp().globalData.studentId,
-    //     circleId: getApp().globalData.circleId
-    //   },
-    //   header: {
-    //     'content-type': 'application/json' // 默认值
-    //   },
-    //   success(res) {
-    //     console.log(res.data)
-    //   }
-    // })
-
-    //开启websocket连接
-    wx.connectSocket({
-      url: "wss://e.hnfts.cn/websocket/interactive/" + getApp().globalData.circleId 
-      + "/" + getApp().globalData.studentId+"/student/"+ random,
-      header: {
-        'content-type': 'application/json'
-      },
-      protocols: ['protocol1'],
-      method: 'GET'
-    })
- 
-    wx.onSocketOpen(function() {
-      console.log(123);
-    })
-
-    //接收服务器返回信息
-    wx.onSocketMessage(function(res){
-      var data = JSON.parse(res.data);
-      console.log(data);
+    var data = JSON.parse(res);
+    console.log('收到消息回调', res)
+    if (data.model == 'pong') {
+      console.log('******pong*********');
+    }else {
       //如果推送类型为问题，显示出来
       if (data.model == "questions") {
-        that.setData({ 
+        that.setData({
           showSub: true,
           radioindex: null,
           checkboxIndex: [],
@@ -179,7 +163,7 @@ Page({
           questionId: data.bigQuestion.id,
           cut: data.cut
         });
-        
+
         if (data.bigQuestion.examChildren[0].examType == "single") {//单选题
           WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（单选）", that, 5);//拼装问题title
           that.setData({ questionType: "single" });
@@ -207,41 +191,47 @@ Page({
           that.setData({ questionType: "trueOrFalse" });
         } else if (data.bigQuestion.examChildren[0].examType == "design") {//主观题
           WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].designQuestion + "（主观）", that, 5);//拼装问题title
-          that.setData({ 
+          that.setData({
             questionType: "design",
             showSub: false
           });
-          
+
         }
 
-        if (data.participate == "raise" && data.bigQuestion.selected=="2") {//需要先举手
+        if (data.participate == "raise" && data.bigQuestion.selected == "2") {//需要先举手
           that.setData({ raiseFlag: true });
-        }else {
+        } else {
           that.setData({ raiseFlag: false });
         }
       }
-      
-    })
-
-    wx.onSocketError(function(res) {
-      console.log(res);
-    })
-
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+    }
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var random = Math.random().toString(36).substr(2);//生成随机数
+    var that = this;
+    console.log(random);
+    console.log(getApp().globalData.circleId);
+    if (getApp().globalData.circleId && getApp().globalData.studentId && random) {
+      // 创建连接
+      webSocket.connectSocket({
+        url: "wss://e.hnfts.cn/websocket/interactive/" + getApp().globalData.circleId
+          + "/" + getApp().globalData.studentId + "/student/" + random
+      });
+      // 设置接收消息回调
+      webSocket.onSocketMessageCallback = this.onSocketMessageCallback;
+    }else {
+      wx.showToast({
+        title: '网络异常，请退出重试',
+        icon: 'none',
+        duration: 2000
+      });
+    }
+    
   },
 
   /**
@@ -255,7 +245,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    console.log('unload');
+    // 页面销毁时关闭连接
+    webSocket.closeSocket();
   },
 
   /**
