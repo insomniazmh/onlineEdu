@@ -224,6 +224,7 @@
 		<!-- LayerSlider script files -->
 		<script src="js/commonJiaohu.js" type="text/javascript"></script>
 		<script src="js/layer-v3.1.1/layer/layer.js" type="text/javascript"></script>
+		<script src="js/websocket.js" type="text/javascript"></script>
 
 		<!-- END LayerSlider -->
 		<script>
@@ -231,41 +232,39 @@
 				"ngSanitize"
 			]);
 			app.controller('myCtrl', function($scope, $http, $interval) {
-//				var random = Math.random().toString(36).substr(2); //生成随机数
-				var random=new Date().getTime();//生成随机数
+				var random = new Date().getTime(); //生成随机数
 				//建立websocket连接
-				var ws = null;
+				var wsobj = null;
 				$scope.initWs = function() {
 					//check if your browser supports WebSocket
 					if('WebSocket' in window) {
-						ws = new WebSocket("wss://e.hnfts.cn/websocket/interactive/" + localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "qqq/teacher/" + random);
+						var url = "wss://e.hnfts.cn/websocket/interactive/" +
+							localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
+						wsobj = $sesWebSocket(url);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
 					}
 
-					ws.onopen = function() {
-						console.log("open");
-						
-					};
-					//websocket接收后台参数
-					ws.onmessage = function(evt) {
-						var data = JSON.parse(evt.data);
-						console.log(data);
-						$scope.$apply(function() {
-							$scope.$broadcast('tiwenMessage', evt.data);
-						})
-
-					};
-
-					ws.onclose = function(evt) {
-						console.log("WebSocketClosed!");
-						ws = null;
-						$scope.initWs();
-					};
-
-					ws.onerror = function(evt) {
-						console.log("WebSocketError!");
-					};
+					var opt = {
+						onopen: function(event) {
+							wsobj.heartStart(5000, 'ping');
+						},
+						onmessage: function(event) {
+							wsobj.heartReset();
+							var data = JSON.parse(event.data);
+							console.log(data);
+							$scope.$apply(function() {
+								if(data.model == "interactiveStudents") {
+									$(data.students).each(function() {
+										this.show = true;
+									});
+									$scope.allStudents = data.students;
+								}
+								$scope.$broadcast('tiwenMessage', event.data);
+							})
+						}
+					}
+					wsobj.create(opt);
 				};
 				$scope.initWs();
 
@@ -274,7 +273,6 @@
 			//专门负责助理提问的controller
 			app.controller('tiwenCtrl', function($scope, $http, $interval) {
 				$scope.$on('tiwenMessage', function(event, data) {
-					console.log(data);
 					data = JSON.parse(data);
 					if(data.model == "raise") {
 						//接收全量的已举手学生，将学生显示出来供老师选择
