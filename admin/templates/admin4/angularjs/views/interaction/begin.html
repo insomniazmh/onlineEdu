@@ -597,12 +597,15 @@
 	</div>
 </div>
 <script src="js/jquery-qrcode-master/jquery.qrcode.min.js" type="text/javascript"></script>
+<script src="js/websocket.js" type="text/javascript"></script>
 <script>
 	function beginCtrl($scope, $rootScope, $http) {
-		var ws = null;
+		var flag = true;
+		var wsobj = null;
 		$scope.students = [];
-		//		var random = Math.random().toString(36).substr(2); //生成随机数
-		var random = new Date().getTime();
+		var random = new Date().getTime();//生成随机数
+		
+		//初始化websocket长连接
 		$scope.initWs = function() {
 			console.log(localStorage.getItem('circleId'));
 			if(!localStorage.getItem('circleId')) {
@@ -611,40 +614,34 @@
 			}
 			//check if your browser supports WebSocket
 			if('WebSocket' in window) {
-				console.log("wss://e.hnfts.cn/websocket/interactive/" +
-					localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "123456/teacher/" + random);
-				ws = new WebSocket("wss://e.hnfts.cn/websocket/interactive/" +
-					localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "123456/teacher/" + random);
+				var url = "wss://e.hnfts.cn/websocket/interactive/" +
+					localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "123456/teacher/" + random;
+				wsobj = $sesWebSocket(url);
 			} else {
 				layer.alert('对不起，您的浏览器不支持websorket');
 			}
-
-			ws.onopen = function() {
-				console.log("open");
-			};
-
-			ws.onmessage = function(evt) {
-				$scope.$apply(function() {
-					var data = JSON.parse(evt.data);
-					console.log(data);
-					if(data.model == "interactiveStudents") {
-						$scope.students = data.students;
-					}
-				});
-			};
-
-			ws.onclose = function(evt) {
-				console.log("WebSocketClosed!");
-				//$scope.initWs();
-			};
-
-			ws.onerror = function(evt) {
-				console.log("WebSocketError!");
-			};
+			
+			var opt ={
+        onopen:function(event){
+          wsobj.heartStart(5000,'ping');
+        },
+        onmessage:function(event){
+          wsobj.heartReset();
+          $scope.$apply(function() {
+						var data = JSON.parse(event.data);
+						console.log(data);
+						if(data.model == "interactiveStudents") {
+							$scope.students = data.students;
+						}
+					});
+        } 
+	    }
+	    wsobj.create(opt); 
 		};
 
 		$scope.goUrl = function() {
-			ws.close();
+			wsobj.destroy(); 
+			flag = false;
 			window.open('singleLession.html');
 		}
 
@@ -669,37 +666,15 @@
 						localStorage.setItem("circleId", res.data);
 						$('#qrcode').empty();
 						$('#qrcode').qrcode(res.data);
-						//						localStorage.setItem("circleId", "123");
-						//						$('#qrcode').qrcode("123");
-						//						$scope.joinRoom("10001");
-						//						$scope.joinRoom("10002");
-						//						$scope.joinRoom("10003");
-						//												$scope.joinRoom("10004");
 						$("#qrcodeModal").modal("show");
 						$scope.students = [];
-						$scope.initWs(); //开始长连接，获取学生加入情况
+						if(flag) {
+							$scope.initWs(); //开始长连接，获取学生加入情况
+						}
 					}
 				});
 				layer.closeAll('dialog');
 			});
-
 		};
-
-		//学生加入课堂（模拟）
-		$scope.joinRoom = function(examineeId) {
-			common.ajax2({
-				$scope: $scope,
-				$http: $http,
-				data: {
-					"examineeId": examineeId,
-					"circleId": localStorage.getItem('circleId')
-				},
-				url: '/classRoom/join/interactiveRoom',
-				success: function(res) {
-					console.log(res);
-				}
-			});
-		}
-
 	}
 </script>
