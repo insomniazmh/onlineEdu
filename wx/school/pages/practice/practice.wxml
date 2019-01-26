@@ -1,31 +1,46 @@
 <!--pages/practice/practice.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
 <view class='choosen_box'>
   <view class='slide_box'>
-    <text class="{{tabindex==1?'color_state_on':'color_state_off'}}" bindtap='bindtab' data-id='1'>1</text>
-    <text class="{{tabindex==2?'color_state_on':'color_state_off'}}" bindtap='bindtab' data-id='2'>2</text>
-    <text class="{{tabindex==3?'color_state_on':'color_state_off'}}" bindtap='bindtab' data-id='3'>3</text>
+    <text wx:for="{{questionList}}" class="{{item.done?'color_state_on':'color_state_off'}}" 
+    bindtap='bindtab' data-id='{{item.id}}'>{{index+1}}</text>
   </view>
   <view class='cfx'></view>
 </view>
-
-<view style='background:white;' class='text_typeOne'>
-  <text>商家要开展电子商务活动 , 应该用（  ）作为其主要的生意平台。</text>
+<!-- 单选 -->
+<view class='text_answers' wx:if="{{questionType=='single'}}">
+  <view wx:for="{{optArray}}" wx:for-index="idx" wx:key="idx" class='text_answers_clm' data-id='{{idx}}' 
+  style="{{radioindex==idx?'background-color:#dedede;':''}}" bindtap='bindradio'>
+    <text class='cl_o e_number'>{{optsValue[idx]}}.</text>
+    <template is="wxParse" data="{{wxParseData:item}}"/>
+  </view>
+</view>
+<!-- 多选 -->
+<view class='text_answers' wx:if="{{questionType=='multiple'}}">
+  <view wx:for="{{optArray}}" wx:for-index="idx" wx:key="" class='text_answers_clm' data-id='{{idx}}' 
+  style="{{checkboxIndex.indexOf(idx)==-1?'background-color:#dedede;':''}}" bindtap='bindCheckbox'>
+    <text class='cl_o e_number'>{{optsValue[idx]}}.</text>
+    <template is="wxParse" data="{{wxParseData:item}}"/>
+  </view>
+  <text>您选择的答案是：{{answer}}</text>
 </view>
 
-<view class='text_answers '>
-  <!--题目是否可用通过添加删除类“opacity”切换-->
-  <view class='text_answers_clm' style="{{radioindex==1?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='1'>
-    <text><text class='cl_o e_number'>A.</text>BBS</text>
+<!-- 判断 -->
+<view class='text_answers' wx:if="{{questionType=='trueOrFalse'}}">
+  <view class='allow_state '>
+    <image bindtap='bindTOF' src="{{checkTOF?'../../img/r_icon.png':'../../img/r_icon_g.png'}}" data-id='1' mode='widthFix'></image>
+    <image bindtap='bindTOF' src="{{!checkTOF?'../../img/w_icon.png':'../../img/w_icon_g.png'}}" data-id='2' mode='widthFix'></image>
   </view>
-  <view class='text_answers_clm' style="{{radioindex==2?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='2'>
-    <text><text class='cl_o e_number'>B.</text>电子邮件</text>
-  </view>
-  <view class='text_answers_clm' style="{{radioindex==3?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='3'>
-    <text><text class='cl_o e_number'>C.</text>在线商店</text>
-  </view>
-  <view class='text_answers_clm' style="{{radioindex==4?'background-color:#dedede;':''}}" bindtap='bindradio' data-id='4'>
-    <text><text class='cl_o e_number'>D.</text>电话定购</text>
-  </view>
-  <button class='com_btn mt_100 btn_state_on'>提交</button>
-  <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
 </view>
+
+<!-- 主观 -->
+<view class='text_answers' wx:if="{{questionType=='design'}}">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class='allow_state"'>
+      <textarea name="answer" placeholder="请在这里输入您的答案" />
+    </view>
+    <button class='com_btn mt_100 btn_state_on' form-type="submit">提交</button>
+  </form>
+</view>
+<button class='com_btn mt_100 btn_state_on' bindtap='bindSub' wx:if="{{showSub}}">提交</button>
+<!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/practice/practice",
     "pages/getId/getId",
     "pages/school_index/index",
     "pages/haveClass/haveClass",
@@ -10,7 +11,7 @@
     "pages/Raise your hand/choose_h",
     "pages/fill up/fill up",
     "pages/Raise your hand/Raise your hand",
-    "pages/practice/practice",
+    
     "pages/index/index",
     "pages/logs/logs"
   ],

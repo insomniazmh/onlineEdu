@@ -640,15 +640,26 @@
 		};
 
 		$scope.goUrl = function() {
-			wsobj.destroy(); 
-			flag = false;
-			window.open('singleLession.html');
+			if(wsobj) {
+				wsobj.destroy();
+				flag = false;
+				window.open('singleLession.html');
+			}else {
+				common.toast({
+					type: 2,
+					title: "请先点击扫码进课堂创建课程"
+				});
+			}
+			
 		}
 
 		//老师创建临时课堂，获取课堂id
 		$scope.createRoom = function() {
 			if(!$rootScope.currentNode) {
-				layer.alert("请先选择章节");
+				common.toast({
+					type: 2,
+					title: "请先选择章节"
+				});
 				return false;
 			}
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建二维码吗", {
