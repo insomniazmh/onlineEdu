@@ -3,7 +3,7 @@
   <image src='../../img/z11.png' mode='widthFix'></image>
   <text>答题</text>
 </view>
-<view class='stud_int_clm'>
+<view class='stud_int_clm' data-url="/pages/practice/practice" bindtap="goUrl">
   <image src='../../img/z12.png' mode='widthFix'></image>
   <text>练习</text>
 </view>

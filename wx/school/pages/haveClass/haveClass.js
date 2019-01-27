@@ -78,7 +78,7 @@ Page({
     console.log(postData);
     wx.request({
       method: "post",
-      url: 'https://e.hnfts.cn/quiz/interact/send/answer',
+      url: 'https://' + getApp().globalData.url + '/quiz/interact/send/answer',
       data: postData,
       header: {
         'content-type': 'application/json' // 默认值
@@ -107,7 +107,7 @@ Page({
   bindRaise: function (e) {
     wx.request({
       method: "post",
-      url: 'https://e.hnfts.cn/quiz/interact/raise',
+      url: 'https://' + getApp().globalData.url + '/quiz/interact/raise',
       data: {
         "circleId": getApp().globalData.circleId,
         "examineeId": getApp().globalData.studentId
@@ -219,7 +219,7 @@ Page({
     if (getApp().globalData.circleId && getApp().globalData.studentId && random) {
       // 创建连接
       webSocket.connectSocket({
-        url: "wss://e.hnfts.cn/websocket/interactive/" + getApp().globalData.circleId
+        url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
           + "/" + getApp().globalData.studentId + "/student/" + random
       });
       // 设置接收消息回调

@@ -82,7 +82,7 @@
 							</a>
 						</li>
 						<li title="练习">
-							<a href="javascript:;">
+							<a href="javascript:;" onclick="showBookQuestion()">
 								<i class="icon-pencil"></i>
 							</a>
 						</li>
@@ -96,7 +96,7 @@
 								<i class="icon-envelope-letter"></i>
 							</a>
 						</li>
-						<li title="问卷">
+						<li title="问卷" onclick="showSurveyQuestion()">
 							<a href="javascript:;">
 								<i class="icon-disc"></i>
 							</a>
@@ -107,7 +107,9 @@
 
 			</div>
 			<div style="float: right;width: 97%;height: 100%;">
-				<div data-ng-include="'singles/template/singleTiwen.html'" id="question" style="display: none;"></div>
+				<div data-ng-include="'singles/template/singleTiwen.html'" id="question" style="display: none;"></div> <!--提问-->
+				<div data-ng-include="'singles/template/singleBook.html'" id="bookQuestion" style="display: none;"></div> <!--练习-->
+				<div data-ng-include="'singles/template/singleSurvey.html'" id="surveyQuestion" style="display: none;"></div> <!--问卷-->
 
 				<div style="width: 19%;float: right;">
 					<div class="portlet light" style="min-height: 200px;">
@@ -240,6 +242,7 @@
 					if('WebSocket' in window) {
 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
 							localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
+//						var url = "wss://e.hnfts.cn/websocket/interactive/bd4a84e4a61943e6b07e02947ecc85f1/123a/teacher/" + random;
 						wsobj = $sesWebSocket(url);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
@@ -251,16 +254,18 @@
 						},
 						onmessage: function(event) {
 							wsobj.heartReset();
+							console.log(event.data);
 							var data = JSON.parse(event.data);
-							console.log(data);
 							$scope.$apply(function() {
 								if(data.model == "interactiveStudents") {
-									$(data.students).each(function() {
-										this.show = true;
-									});
-									$scope.allStudents = data.students;
+									$scope.$broadcast('allStudents', data);
+								}else if(data.model == "answer" || data.model == "raise") {//返回提问的回答或举手信息
+									$scope.$broadcast('tiwenMessage', data);
+								}else if(data.model == "answerBook") {//返回练习的学生回答
+									$scope.$broadcast('bookMessage', data);
+								}else if(data.model == "answerSurvey") {//返回问卷的学生回答
+									$scope.$broadcast('surveyMessage', data);
 								}
-								$scope.$broadcast('tiwenMessage', event.data);
 							})
 						}
 					}
@@ -270,10 +275,28 @@
 
 			});
 
-			//专门负责助理提问的controller
+			//专门负责处理提问的controller
 			app.controller('tiwenCtrl', function($scope, $http, $interval) {
+				//加载所有的提问题目
+				common.ajax2({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						"chapterId": localStorage.getItem('currentNodeId'),
+						"courseId": localStorage.getItem('courseId'),
+						"exeBookType": "1"
+					},
+					url: '/exerciseBook/findExerciseBook',
+					success: function(res) {
+						res.data = common.addTitleForQuestion({
+							questionArr: res.data
+						}); //组装题干以供展示
+						$scope.tiwenQuestionList = res.data; //所有题目
+						$scope.currentTiwenQues = res.data[0]; //当前选中题目，默认为第一题
+					}
+				});
+				
 				$scope.$on('tiwenMessage', function(event, data) {
-					data = JSON.parse(data);
 					if(data.model == "raise") {
 						//接收全量的已举手学生，将学生显示出来供老师选择
 						$($scope.allStudents).each(function() {
@@ -300,34 +323,17 @@
 								}
 							});
 						});
-					} else if(data.model == "interactiveStudents") {
-						$(data.students).each(function() {
-							this.show = true;
-						});
-						$scope.allStudents = data.students;
 					}
 				});
+				
+				$scope.$on('allStudents', function(event, data) {
+					$(data.students).each(function() {
+						this.show = true;
+					});
+					$scope.allStudents = data.students;
+				})
 
 				$scope.currentTiwenQues = {}; //当前选中的提问问题				
-
-				//加载所有的提问题目
-				common.ajax2({
-					$scope: $scope,
-					$http: $http,
-					data: {
-						"chapterId": localStorage.getItem('currentNodeId'),
-						"courseId": localStorage.getItem('courseId'),
-						"exeBookType": "1"
-					},
-					url: '/exerciseBook/findExerciseBook',
-					success: function(res) {
-						res.data = common.addTitleForQuestion({
-							questionArr: res.data
-						}); //组装题干以供展示
-						$scope.tiwenQuestionList = res.data; //所有题目
-						$scope.currentTiwenQues = res.data[0]; //当前选中题目，默认为第一题
-					}
-				});
 
 				//点击题号 
 				$scope.chooseQuestion = function(question) {
@@ -495,6 +501,192 @@
 					});
 				};
 			});
+			
+			
+			
+			
+			//专门负责处理练习的controller
+			app.controller('bookCtrl', function($scope, $http, $interval) {
+				$scope.currentBookQues = {}; //当前选中的提问问题		
+				//加载所有的练习题目
+				common.ajax2({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						"chapterId": localStorage.getItem('currentNodeId'),
+						"courseId": localStorage.getItem('courseId'),
+						"exeBookType": "2"
+					},
+					url: '/exerciseBook/findExerciseBook',
+					success: function(res) {
+						res.data = common.addTitleForQuestion({
+							questionArr: res.data
+						}); //组装题干以供展示
+						$scope.bookQuestionList = res.data; //所有题目
+						$scope.currentBookQues = res.data[0]; //当前选中题目，默认为第一题
+					}
+				});
+				
+				$scope.$on('bookMessage', function(event, data) {
+					console.log(data);
+					//将学生的回答情况暂存至相对应的题目中
+//					$($scope.bookQuestionList).each(function() {
+//						var that = this;
+//						if(!that.answers) {
+//							that.answers = [];
+//						}
+//						$(data.students).each(function() {
+//							if(this.askAnswer.questionId && that.id == this.askAnswer.questionId) {
+//								that.answers.push({
+//									studentId: this.id,
+//									answer: this.askAnswer.answer
+//								});
+//							}
+//						});
+//					});
+				});
+				
+				$scope.$on('allStudents', function(event, data) {
+					$scope.allStudents = data.students;
+				});
+				
+				//点击题号 
+				$scope.chooseQuestion = function(question) {
+					$scope.currentBookQues = question;
+					//清空学生的回答信息
+					$($scope.allStudents).each(function() {
+						this.answer = "";
+					});
+					//请求接口，返回该问题学生回答情况
+				};
+
+				//发送问题
+				$scope.publicQues = function(allFlag) {
+					var timestamp = new Date().getTime() + ""; //时间戳
+					var selectedArr = []; //被选中的学生id数组
+					var selected = ''; //被选中的学生id
+					$($scope.allStudents).each(function() {
+						selectedArr.push(this.id);
+					});
+					var selQuestionIdArr = [];//被选中的题目id数组
+					var selQuestionId = '';//被选中的题目id
+					if(allFlag == 'all') {
+						$($scope.bookQuestionList).each(function() {
+							selQuestionIdArr.push(this.id);
+						});
+						selQuestionId = selQuestionIdArr.join(",");
+					}else {
+						selQuestionId = $scope.currentBookQues.id;
+					}
+					selected = selectedArr.join(","); //被选中的学生id，用逗号分隔
+					$scope.currentBookQues.select = true; //将该问题置为已提问状态
+					common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						url: '/interact/send/book',
+						data: {
+							"category": 'people',
+							"circleId": localStorage.getItem("circleId"),
+							"cut": timestamp,
+							"interactive": 'select',
+							"questionId": selQuestionId,
+							"selected": selected
+						},
+						success: function() {
+							layer.alert("发送成功");
+							if(allFlag == 'all') {
+								$($scope.bookQuestionList).each(function() {
+									this.select = true;
+								});
+							}else {
+								$scope.currentBookQues.select = true;
+							}
+						}
+					});
+				}
+			});
+			
+			
+			
+			//专门负责处理问卷的controller
+			app.controller('surveyCtrl', function($scope, $http, $interval) {
+				//加载所有的问卷题目
+				common.ajax2({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						"chapterId": localStorage.getItem('currentNodeId'),
+						"courseId": localStorage.getItem('courseId'),
+						"exeBookType": "2"
+					},
+					url: '/surveyExerciseBook/findExerciseBook',
+					success: function(res) {
+						res.data = common.addTitleForQuestion({
+							questionArr: res.data
+						}); //组装题干以供展示
+						$scope.bookQuestionList = res.data; //所有题目
+						$scope.currentBookQues = res.data[0]; //当前选中题目，默认为第一题
+					}
+				});
+				
+				//接收学生回答
+				$scope.$on('surveyMessage', function(event, data) {
+					console.log(data);
+				});
+				
+				//接收学生加入课堂
+				$scope.$on('allStudents', function(event, data) {
+					$scope.allStudents = data.students;
+				});
+				
+				//点击学生头像选中学生
+				$scope.selectStudent = function(student) {
+					student.select = !student.select;
+				}
+
+				//全选学生
+				$scope.all = function() {
+					$($scope.allStudents).each(function() {
+						this.select = true;
+					});
+				};
+
+				//发送问题
+				$scope.publicQues = function() {
+					var timestamp = new Date().getTime() + ""; //时间戳
+					var selectedArr = []; //被选中的学生id数组
+					var selected = ''; //被选中的学生id
+					$($scope.allStudents).each(function() {
+						if(this.select) {
+							selected.push(this.id);
+						}
+					});
+					var selQuestionIdArr = [];//被选中的题目id数组
+					var selQuestionId = '';//被选中的题目id
+					$($scope.bookQuestionList).each(function() {
+						selQuestionIdArr.push(this.id);
+					});
+					selected = selectedArr.join(","); //被选中的学生id，用逗号分隔
+					common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						url: '/interactSurvey/send',
+						data: {
+							"category": 'people',
+							"circleId": localStorage.getItem("circleId"),
+							"cut": timestamp,
+							"interactive": 'select',
+							"questionId": selQuestionId,
+							"selected": selected
+						},
+						success: function() {
+							layer.alert("发送成功");
+						}
+					});
+				}
+			});
+			
+			
 
 			//轮播图集
 			var LayersliderInit = function() {
@@ -514,13 +706,29 @@
 			}();
 			//初始化轮播图集
 			LayersliderInit.initLayerSlider();
-			//显示提问/练习/作业等交互
+			//显示提问交互
 			function showQuestion() {
 				$("#question").show("slow");
 			}
-			//关闭提问/练习/作业等交互
+			//关闭提问交互
 			function closeQuestion() {
 				$("#question").hide("slow");
+			}
+			//显示练习交互
+			function showBookQuestion() {
+				$("#bookQuestion").show("slow");
+			}
+			//关闭练习交互
+			function closeBookQuestion() {
+				$("#bookQuestion").hide("slow");
+			}
+			//显示问卷交互
+			function showSurveyQuestion() {
+				$("#surveyQuestion").show("slow");
+			}
+			//关闭问卷交互
+			function closeSurveyQuestion() {
+				$("#surveyQuestion").hide("slow");
 			}
 		</script>
 	</body>

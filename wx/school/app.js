@@ -34,8 +34,9 @@ App({
     })
   },
   globalData: {
+    url: 'e.hnfts.cn',
     userInfo: null,
-    circleId: null,
-    studentId: null
+    circleId: "interactionQrf9c73d263e484d319830d5bba377cae4",
+    studentId: "10088"
   }
 })
