@@ -7,6 +7,9 @@
   </view>
   <view class='cfx'></view>
 </view>
+<view class='text_typeOne'>
+  <view><template is="wxParse" data="{{wxParseData:title.nodes}}" /></view>
+</view>
 <!-- 单选 -->
 <view class='text_answers' wx:if="{{questionType=='single'}}">
   <view wx:for="{{optArray}}" wx:for-index="idx" wx:key="idx" class='text_answers_clm' data-id='{{idx}}' 

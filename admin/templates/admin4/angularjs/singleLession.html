@@ -82,7 +82,7 @@
 							</a>
 						</li>
 						<li title="练习">
-							<a href="javascript:;"  onclick="showBookQuestion()">
+							<a href="javascript:;" onclick="showBookQuestion()">
 								<i class="icon-pencil"></i>
 							</a>
 						</li>
@@ -96,7 +96,7 @@
 								<i class="icon-envelope-letter"></i>
 							</a>
 						</li>
-						<li title="问卷">
+						<li title="问卷" onclick="showSurveyQuestion()">
 							<a href="javascript:;">
 								<i class="icon-disc"></i>
 							</a>
@@ -107,8 +107,9 @@
 
 			</div>
 			<div style="float: right;width: 97%;height: 100%;">
-				<div data-ng-include="'singles/template/singleTiwen.html'" id="question" style="display: none;"></div>
-				<div data-ng-include="'singles/template/singleBook.html'" id="bookQuestion" style="display: none;"></div>
+				<div data-ng-include="'singles/template/singleTiwen.html'" id="question" style="display: none;"></div> <!--提问-->
+				<div data-ng-include="'singles/template/singleBook.html'" id="bookQuestion" style="display: none;"></div> <!--练习-->
+				<div data-ng-include="'singles/template/singleSurvey.html'" id="surveyQuestion" style="display: none;"></div> <!--问卷-->
 
 				<div style="width: 19%;float: right;">
 					<div class="portlet light" style="min-height: 200px;">
@@ -241,6 +242,7 @@
 					if('WebSocket' in window) {
 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
 							localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
+//						var url = "wss://e.hnfts.cn/websocket/interactive/bd4a84e4a61943e6b07e02947ecc85f1/123a/teacher/" + random;
 						wsobj = $sesWebSocket(url);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
@@ -261,6 +263,8 @@
 									$scope.$broadcast('tiwenMessage', data);
 								}else if(data.model == "answerBook") {//返回练习的学生回答
 									$scope.$broadcast('bookMessage', data);
+								}else if(data.model == "answerSurvey") {//返回问卷的学生回答
+									$scope.$broadcast('surveyMessage', data);
 								}
 							})
 						}
@@ -505,13 +509,6 @@
 			
 			
 			
-			
-			
-			
-			
-			
-			
-			
 			//专门负责处理练习的controller
 			app.controller('bookCtrl', function($scope, $http, $interval) {
 				$scope.currentBookQues = {}; //当前选中的提问问题		
@@ -612,6 +609,88 @@
 					});
 				}
 			});
+			
+			
+			
+			//专门负责处理问卷的controller
+			app.controller('surveyCtrl', function($scope, $http, $interval) {
+				//加载所有的问卷题目
+				common.ajax2({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						"chapterId": localStorage.getItem('currentNodeId'),
+						"courseId": localStorage.getItem('courseId'),
+						"exeBookType": "2"
+					},
+					url: '/surveyExerciseBook/findExerciseBook',
+					success: function(res) {
+						res.data = common.addTitleForQuestion({
+							questionArr: res.data
+						}); //组装题干以供展示
+						$scope.bookQuestionList = res.data; //所有题目
+						$scope.currentBookQues = res.data[0]; //当前选中题目，默认为第一题
+					}
+				});
+				
+				//接收学生回答
+				$scope.$on('surveyMessage', function(event, data) {
+					console.log(data);
+				});
+				
+				//接收学生加入课堂
+				$scope.$on('allStudents', function(event, data) {
+					$scope.allStudents = data.students;
+				});
+				
+				//点击学生头像选中学生
+				$scope.selectStudent = function(student) {
+					student.select = !student.select;
+				}
+
+				//全选学生
+				$scope.all = function() {
+					$($scope.allStudents).each(function() {
+						this.select = true;
+					});
+				};
+
+				//发送问题
+				$scope.publicQues = function() {
+					var timestamp = new Date().getTime() + ""; //时间戳
+					var selectedArr = []; //被选中的学生id数组
+					var selected = ''; //被选中的学生id
+					$($scope.allStudents).each(function() {
+						if(this.select) {
+							selected.push(this.id);
+						}
+					});
+					var selQuestionIdArr = [];//被选中的题目id数组
+					var selQuestionId = '';//被选中的题目id
+					$($scope.bookQuestionList).each(function() {
+						selQuestionIdArr.push(this.id);
+					});
+					selected = selectedArr.join(","); //被选中的学生id，用逗号分隔
+					common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						url: '/interactSurvey/send',
+						data: {
+							"category": 'people',
+							"circleId": localStorage.getItem("circleId"),
+							"cut": timestamp,
+							"interactive": 'select',
+							"questionId": selQuestionId,
+							"selected": selected
+						},
+						success: function() {
+							layer.alert("发送成功");
+						}
+					});
+				}
+			});
+			
+			
 
 			//轮播图集
 			var LayersliderInit = function() {
@@ -646,6 +725,14 @@
 			//关闭练习交互
 			function closeBookQuestion() {
 				$("#bookQuestion").hide("slow");
+			}
+			//显示问卷交互
+			function showSurveyQuestion() {
+				$("#surveyQuestion").show("slow");
+			}
+			//关闭问卷交互
+			function closeSurveyQuestion() {
+				$("#surveyQuestion").hide("slow");
 			}
 		</script>
 	</body>

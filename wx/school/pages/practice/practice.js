@@ -13,13 +13,8 @@ Page({
     checkTOF: true,
     optsValue: ["A", "B", "C", "D", "E", "F"],
     answer: "",
-    questionList: [{
-      id: 1,
-      text: 'question1'
-    }, {
-        id: 2,
-        text: 'question2'
-    }]
+    currentQuestion: {},
+    questionList: []
   },
 
   /**
@@ -33,7 +28,7 @@ Page({
     if (getApp().globalData.circleId && getApp().globalData.studentId && random) {
       // 创建连接
       webSocket.connectSocket({
-        url: "wss://e.hnfts.cn/websocket/interactive/" + getApp().globalData.circleId
+        url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
           + "/" + getApp().globalData.studentId + "/student/" + random
       });
       // 设置接收消息回调
@@ -62,7 +57,8 @@ Page({
     var questionList = this.data.questionList;
     for (let i = 0; i < questionList.length; i++) {
       if (e.currentTarget.dataset.id == questionList[i].id) {
-        questionList[i].done = true;
+        this.setData({ currentQuestion: questionList[i] });
+        this.changeQuestion();
       }
     }
     this.setData({ questionList: questionList });
@@ -123,16 +119,18 @@ Page({
   bindSub: function (e) {
     var that = this;
     var postData = {
-      "answer": that.data.answer,
+      "answ": {
+        "questionId": that.data.currentQuestion.id,
+        "answer": that.data.answer
+      },
       "circleId": getApp().globalData.circleId,
-      "cut": that.data.cut,
-      "examineeId": getApp().globalData.studentId,
-      "questionId": that.data.questionId
+      "cut": that.data.currentQuestion.cut,
+      "examineeId": getApp().globalData.studentId
     };
     console.log(postData);
     wx.request({
       method: "post",
-      url: 'https://e.hnfts.cn/quiz/interact/send/answer',
+      url: 'https://' + getApp().globalData.url + '/quiz/interact/sendBook/answer',
       data: postData,
       header: {
         'content-type': 'application/json' // 默认值
@@ -140,6 +138,16 @@ Page({
       success(res) {
         console.log(res.data)
         if (res.data.ret == 0) {
+          var questionList = that.data.questionList;
+          for (let i = 0; i < questionList.length; i++) {
+            if (questionList[i].id == that.data.currentQuestion.id) {
+              questionList[i].done = true;
+              questionList[i].answer = that.data.answer;
+            }
+          }
+          that.setData({
+            questionList: questionList
+          });
           wx.showToast({
             title: '提交成功',
             icon: 'success',
@@ -155,62 +163,82 @@ Page({
     console.log('form发生了submit事件，携带数据为：', e.detail.value);
     this.setData({ answer: e.detail.value.answer });
     this.bindSub(null);
+  }, 
+
+  /**切换题目 */
+  changeQuestion: function() {
+    var that = this;
+    if (this.data.currentQuestion.examChildren[0].examType == "single") {//单选题
+      WxParse.wxParse('title', 'html', this.data.currentQuestion.examChildren[0].choiceQstTxt + "（单选）", that, 5);//拼装问题title
+      that.setData({ questionType: "single" });
+      //拼装选项
+      var opts = this.data.currentQuestion.examChildren[0].optChildren;
+      for (let i = 0; i < opts.length; i++) {
+        WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
+        if (i === opts.length - 1) {
+          WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
+        }
+      }
+    } else if (this.data.currentQuestion.examChildren[0].examType == "multiple") {//多选题
+      WxParse.wxParse('title', 'html', this.data.currentQuestion.examChildren[0].choiceQstTxt + "（多选）", that, 5);//拼装问题title
+      that.setData({ questionType: "multiple" });
+      //拼装选项
+      var opts = this.data.currentQuestion.examChildren[0].optChildren;
+      for (let i = 0; i < opts.length; i++) {
+        WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
+        if (i === opts.length - 1) {
+          WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
+        }
+      }
+    } else if (this.data.currentQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
+      WxParse.wxParse('title', 'html', this.data.currentQuestion.examChildren[0].trueOrFalseInfo + "（判断）", that, 5);//拼装问题title
+      that.setData({ questionType: "trueOrFalse" });
+    } else if (this.data.currentQuestion.examChildren[0].examType == "design") {//主观题
+      WxParse.wxParse('title', 'html', this.data.currentQuestion.examChildren[0].designQuestion + "（主观）", that, 5);//拼装问题title
+      that.setData({
+        questionType: "design",
+        showSub: false
+      });
+    }
   },
 
   // socket收到的信息回调
   onSocketMessageCallback: function (res) {
     var that = this;
     var data = JSON.parse(res);
-    console.log('收到消息回调', res)
     if (data.model == 'pong') {
       console.log('******pong*********');
     } else {
       //如果推送类型为问题，显示出来
       if (data.model == "bookQuestion") {
-        that.setData({
-          showSub: true,
-          radioindex: null,
-          checkboxIndex: [],
-          answer: "",
-
-          questionId: data.bigQuestion.id,
-          cut: data.cut
-        });
-
-        if (data.bigQuestion.examChildren[0].examType == "single") {//单选题
-          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（单选）", that, 5);//拼装问题title
-          that.setData({ questionType: "single" });
-          //拼装选项
-          var opts = data.bigQuestion.examChildren[0].optChildren;
-          for (let i = 0; i < opts.length; i++) {
-            WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
-            if (i === opts.length - 1) {
-              WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
-            }
-          }
-        } else if (data.bigQuestion.examChildren[0].examType == "multiple") {//多选题
-          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（多选）", that, 5);//拼装问题title
-          that.setData({ questionType: "multiple" });
-          //拼装选项
-          var opts = data.bigQuestion.examChildren[0].optChildren;
-          for (let i = 0; i < opts.length; i++) {
-            WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
-            if (i === opts.length - 1) {
-              WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
-            }
-          }
-        } else if (data.bigQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
-          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）", that, 5);//拼装问题title
-          that.setData({ questionType: "trueOrFalse" });
-        } else if (data.bigQuestion.examChildren[0].examType == "design") {//主观题
-          WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].designQuestion + "（主观）", that, 5);//拼装问题title
-          that.setData({
-            questionType: "design",
-            showSub: false
-          });
+        //拼装cut
+        for (let i = 0; i < data.bookQuestions.length; i++) {
+          data.bookQuestions[i].cut = data.cut;
         }
+        //如果为第一次收到题目，则直接赋值，如果不是第一次，则将收到题目与现有题目合并
+        if(that.data.questionList.length > 0) {
+          var quesArr = that.data.questionList;
+          for (let i = 0; i < data.bookQuestions.length; i++) {
+            quesArr.push(data.bookQuestions[i]);
+          }
+          that.setData({
+            questionList: quesArr
+          });
+        }else {
+          that.setData({
+            showSub: true,
+            radioindex: null,
+            checkboxIndex: [],
+            answer: "",
+            questionList: data.bookQuestions,
+            currentQuestion: data.bookQuestions[0]
+          });
+          //初始化当前题目
+          that.changeQuestion();
+        }
+        
       }
     }
-
   }
+
 })
