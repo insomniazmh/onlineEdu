@@ -431,8 +431,6 @@
 							"selected": $scope.currentTiwenQues.selectStudents
 						},
 						success: function() {
-							//取消接收学生举手定时任务
-							//$interval.cancel(raiseFlag);
 						}
 					});
 				}
@@ -458,8 +456,6 @@
 							$($scope.allStudents).each(function() {
 								this.show = false;
 							});
-							//开始定时任务，接收学生的举手情况
-							//raiseFlag = $interval($scope.receiveRaise, 2000);
 						}
 					});
 				}
