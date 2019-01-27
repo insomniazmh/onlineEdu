@@ -13,13 +13,13 @@ Page({
     checkTOF: true,
     optsValue: ["A", "B", "C", "D", "E", "F"],
     answer: "",
-      questionList: [{
-        id: 1,
-        text: 'question1'
-      }, {
-          id: 2,
-          text: 'question2'
-      }]
+    questionList: [{
+      id: 1,
+      text: 'question1'
+    }, {
+        id: 2,
+        text: 'question2'
+    }]
   },
 
   /**
