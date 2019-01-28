@@ -617,15 +617,15 @@
 					data: {
 						"chapterId": localStorage.getItem('currentNodeId'),
 						"courseId": localStorage.getItem('courseId'),
-						"exeBookType": "2"
+						"exeSurveyType": "2"
 					},
 					url: '/surveyExerciseBook/findExerciseBook',
 					success: function(res) {
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
 						}); //组装题干以供展示
-						$scope.bookQuestionList = res.data; //所有题目
-						$scope.currentBookQues = res.data[0]; //当前选中题目，默认为第一题
+						$scope.surveyQuestionList = res.data; //所有题目
+						$scope.currentSurveyQues = res.data[0]; //当前选中题目，默认为第一题
 					}
 				});
 				
@@ -658,15 +658,16 @@
 					var selected = ''; //被选中的学生id
 					$($scope.allStudents).each(function() {
 						if(this.select) {
-							selected.push(this.id);
+							selectedArr.push(this.id);
 						}
 					});
 					var selQuestionIdArr = [];//被选中的题目id数组
 					var selQuestionId = '';//被选中的题目id
-					$($scope.bookQuestionList).each(function() {
+					$($scope.surveyQuestionList).each(function() {
 						selQuestionIdArr.push(this.id);
 					});
 					selected = selectedArr.join(","); //被选中的学生id，用逗号分隔
+					selQuestionId = selQuestionIdArr.join(",");//被选中的题目id，用逗号分隔
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,

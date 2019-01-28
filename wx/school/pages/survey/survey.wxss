@@ -1,0 +1,19 @@
+/* pages/practice/practice.wxss */
+@import"../../wxParse/wxParse.wxss";
+
+.choosen_box{background:#F8F8F8;padding:20rpx 0;width:760rpx;overflow:scroll;}
+
+.choosen_box text{border-radius:50%;display:block;width:60rpx;height:60rpx;text-align:center;line-height:60rpx;float:left;font-size:32rpx;margin-left:25rpx;margin-bottom:15rpx;}
+.color_state_off{background:white;color:#F3A84B;border:1px solid #F3A84B;}
+.color_state_on{background:#F3A84B;color:white;border:1px solid white;}
+
+.text_answers_clm .wxParse-p {
+  display: inline
+}
+
+.allow_state{padding:40rpx 0;position:relative;height:100rpx;}
+.allow_state image{width:150rpx;margin-left:160rpx;}
+.allow_state image:nth-of-type(1){position:absolute;left:0;}
+.allow_state image:nth-of-type(2){position:absolute;right:120rpx;}
+.allow_state image:nth-of-type(3){position:absolute;left:0;}
+.allow_state image:nth-of-type(4){position:absolute;right:120rpx;}
