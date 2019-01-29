@@ -25,20 +25,20 @@
 			</div>
 			<div style="width: 48%;float: left;">
 				<div style="text-align: right;margin-top: 15px;">
-					<div class="btn-group">
+					<!--<div class="btn-group">
 						<button class="btn blue" type="button" ng-click="publicQues('one')"> 发布 </button>
-					</div>
+					</div>-->
 					<div class="btn-group">
-						<button class="btn blue" type="button" ng-click="publicQues('all')"> 全部发布 </button>
+						<button class="btn blue" type="button" ng-click="publicQues('all')"> 发布练习 </button>
 					</div>
-					<button class="btn btn-success" ng-click="showAnswer()">显示回答</button>
+					<!--<button class="btn btn-success" ng-click="showAnswer()">显示回答</button>-->
 				</div>
 			</div>
 
 			<div style="clear: both;"></div>
 		</div>
 
-		<div style="height: 140px; display: none;" id="bookStudentsWrapper">
+		<div style="height: 140px;" id="bookStudentsWrapper">
 			<div style="width:80px;float:left;" ng-repeat="row in allStudents">
 				<div class="uppercase profile-userpic" ng-click="selectStudent(row)">
 					<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">

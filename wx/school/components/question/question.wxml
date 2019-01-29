@@ -1,15 +1,3 @@
-<!--pages/practice/practice.wxml-->
-<import src="../../wxParse/wxParse.wxml"/>
-<view class='choosen_box'>
-  <view class='slide_box'>
-    <text wx:for="{{questionList}}" class="{{item.done?'color_state_on':'color_state_off'}}" 
-    bindtap='bindtab' data-id='{{item.id}}'>{{index+1}}</text>
-  </view>
-  <view class='cfx'></view>
-</view>
-
-<question singleQuestion="{{currentQuestion}}"></question>
-
 <view class='text_typeOne'>
   <view><template is="wxParse" data="{{wxParseData:title.nodes}}" /></view>
 </view>
@@ -50,3 +38,4 @@
 </view>
 <button class='com_btn mt_100 btn_state_on' bindtap='bindSub' wx:if="{{showSub}}">提交</button>
 <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
+<slot></slot>

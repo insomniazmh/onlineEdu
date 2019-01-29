@@ -107,9 +107,9 @@
 
 			</div>
 			<div style="float: right;width: 97%;height: 100%;">
-				<div data-ng-include="'singles/template/singleTiwen.html'" id="question" style="display: none;"></div> <!--提问-->
-				<div data-ng-include="'singles/template/singleBook.html'" id="bookQuestion" style="display: none;"></div> <!--练习-->
-				<div data-ng-include="'singles/template/singleSurvey.html'" id="surveyQuestion" style="display: none;"></div> <!--问卷-->
+				<div data-ng-include="'singles/template/singleTiwen.html'" id="question" class="interSingle" style="display: none;"></div> <!--提问-->
+				<div data-ng-include="'singles/template/singleBook.html'" id="bookQuestion" class="interSingle" style="display: none;"></div> <!--练习-->
+				<div data-ng-include="'singles/template/singleSurvey.html'" id="surveyQuestion" class="interSingle" style="display: none;"></div> <!--问卷-->
 
 				<div style="width: 19%;float: right;">
 					<div class="portlet light" style="min-height: 200px;">
@@ -709,6 +709,7 @@
 			LayersliderInit.initLayerSlider();
 			//显示提问交互
 			function showQuestion() {
+				$(".interSingle").hide("slow");
 				$("#question").show("slow");
 			}
 			//关闭提问交互
@@ -717,6 +718,7 @@
 			}
 			//显示练习交互
 			function showBookQuestion() {
+				$(".interSingle").hide("slow");
 				$("#bookQuestion").show("slow");
 			}
 			//关闭练习交互
@@ -725,6 +727,7 @@
 			}
 			//显示问卷交互
 			function showSurveyQuestion() {
+				$(".interSingle").hide("slow");
 				$("#surveyQuestion").show("slow");
 			}
 			//关闭问卷交互
