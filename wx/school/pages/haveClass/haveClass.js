@@ -154,6 +154,7 @@ Page({
     }else {
       //如果推送类型为问题，显示出来
       if (data.model == "questions") {
+        
         that.setData({
           showSub: true,
           radioindex: null,

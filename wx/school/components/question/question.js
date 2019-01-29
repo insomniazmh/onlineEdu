@@ -10,6 +10,7 @@ Component({
         // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
         // 通常 newVal 就是新设置的数据， oldVal 是旧数据
         console.log(newVal);
+        this.loadQuestion(newVal);
       }
     }
   },
@@ -143,6 +144,60 @@ Component({
           }
         }
       })
-    }
+    },
+
+    /**load题目 */
+    loadQuestion: function (data) {
+      console.log(data);
+      that.setData({
+        showSub: true,
+        radioindex: null,
+        checkboxIndex: [],
+        answer: "",
+
+        questionId: data.bigQuestion.id,
+        cut: data.cut
+      });
+
+      if (data.bigQuestion.examChildren[0].examType == "single") {//单选题
+        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（单选）", that, 5);//拼装问题title
+        that.setData({ questionType: "single" });
+        //拼装选项
+        var opts = data.bigQuestion.examChildren[0].optChildren;
+        for (let i = 0; i < opts.length; i++) {
+          WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
+          if (i === opts.length - 1) {
+            WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
+          }
+        }
+      } else if (data.bigQuestion.examChildren[0].examType == "multiple") {//多选题
+        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（多选）", that, 5);//拼装问题title
+        that.setData({ questionType: "multiple" });
+        //拼装选项
+        var opts = data.bigQuestion.examChildren[0].optChildren;
+        for (let i = 0; i < opts.length; i++) {
+          WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
+          if (i === opts.length - 1) {
+            WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
+          }
+        }
+      } else if (data.bigQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
+        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）", that, 5);//拼装问题title
+        that.setData({ questionType: "trueOrFalse" });
+      } else if (data.bigQuestion.examChildren[0].examType == "design") {//主观题
+        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].designQuestion + "（主观）", that, 5);//拼装问题title
+        that.setData({
+          questionType: "design",
+          showSub: false
+        });
+
+      }
+
+      if (data.participate == "raise" && data.bigQuestion.selected == "2") {//需要先举手
+        that.setData({ raiseFlag: true });
+      } else {
+        that.setData({ raiseFlag: false });
+      }
+    },
   }
 })
