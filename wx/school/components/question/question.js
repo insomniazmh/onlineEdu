@@ -10,12 +10,15 @@ Component({
         // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
         // 通常 newVal 就是新设置的数据， oldVal 是旧数据
         console.log(newVal);
-        this.loadQuestion(newVal);
+        if (newVal && newVal.bigQuestion) {
+          this.loadQuestion(newVal);
+        }
+        
       }
     }
   },
   data: {
-    // 这里是一些组件内部数据
+    //这里是一些组件内部数据
     showSub: false,
     radioindex: null,
     checkboxIndex: [],
@@ -23,15 +26,19 @@ Component({
     optsValue: ["A", "B", "C", "D", "E", "F"],
     answer: ""
   },
-  lifetimes: {
-    attached() {
-      
-    },
-    detached() {
-      // 在组件实例被从页面节点树移除时执行
-    },
-  },
   methods: {
+    onTap() {
+      var that = this;
+      var postData = {
+        "answer": that.data.answer,
+        "circleId": getApp().globalData.circleId,
+        "cut": that.data.cut,
+        "examineeId": getApp().globalData.studentId,
+        "questionId": that.data.questionId
+      };
+      this.triggerEvent('onSubQuestion', postData);
+    },
+
     /**点击单选答案选项 */
     bindradio: function (e) {
       var that = this;
@@ -93,25 +100,7 @@ Component({
         "questionId": that.data.questionId
       };
       console.log(postData);
-      return false;
-      wx.request({
-        method: "post",
-        url: 'https://' + getApp().globalData.url + '/quiz/interact/send/answer',
-        data: postData,
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success(res) {
-          console.log(res.data)
-          if (res.data.ret == 0) {
-            wx.showToast({
-              title: '提交成功',
-              icon: 'success',
-              duration: 2000
-            });
-          }
-        }
-      })
+      this.triggerEvent('subQuestion', postData);
     },
 
     /**点击确定按钮提交答案 */
@@ -123,32 +112,12 @@ Component({
 
     /**点击举手按钮 */
     bindRaise: function (e) {
-      wx.request({
-        method: "post",
-        url: 'https://' + getApp().globalData.url + '/quiz/interact/raise',
-        data: {
-          "circleId": getApp().globalData.circleId,
-          "examineeId": getApp().globalData.studentId
-        },
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success(res) {
-          console.log(res.data)
-          if (res.data.ret == 0) {
-            wx.showToast({
-              title: '举手成功，等待老师选人',
-              icon: 'none',
-              duration: 2000
-            });
-          }
-        }
-      })
+      this.triggerEvent('raise', true);
     },
 
     /**load题目 */
     loadQuestion: function (data) {
-      console.log(data);
+      var that = this;
       that.setData({
         showSub: true,
         radioindex: null,
@@ -194,9 +163,15 @@ Component({
       }
 
       if (data.participate == "raise" && data.bigQuestion.selected == "2") {//需要先举手
-        that.setData({ raiseFlag: true });
+        that.setData({ 
+          raiseFlag: true,
+          showSub: false
+        });
       } else {
-        that.setData({ raiseFlag: false });
+        that.setData({ 
+          raiseFlag: false,
+          showSub: true
+        });
       }
     },
   }

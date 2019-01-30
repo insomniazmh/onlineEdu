@@ -1,3 +1,4 @@
+<import src="../../wxParse/wxParse.wxml"/>
 <view class='text_typeOne'>
   <view><template is="wxParse" data="{{wxParseData:title.nodes}}" /></view>
 </view>
@@ -36,6 +37,8 @@
     <button class='com_btn mt_100 btn_state_on' form-type="submit">提交</button>
   </form>
 </view>
-<button class='com_btn mt_100 btn_state_on' bindtap='bindSub' wx:if="{{showSub}}">提交</button>
+<button class='com_btn mt_100 btn_state_on' bindtap="bindSub" wx:if="{{showSub}}">提交</button>
+<image class='raise_hand' bindtap='bindRaise' src="../../img/z19.png" 
+mode='widthFix' wx:if="{{raiseFlag}}"></image>
 <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
 <slot></slot>
