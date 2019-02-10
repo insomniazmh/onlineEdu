@@ -1,15 +1,1 @@
 /* pages/haveClass/haveClass.wxss */
-@import"../../wxParse/wxParse.wxss";
-
-.text_answers_clm .wxParse-p {
-  display: inline
-}
-
-.allow_state{padding:40rpx 0;position:relative;height:100rpx;}
-.allow_state image{width:150rpx;margin-left:160rpx;}
-.allow_state image:nth-of-type(1){position:absolute;left:0;}
-.allow_state image:nth-of-type(2){position:absolute;right:120rpx;}
-.allow_state image:nth-of-type(3){position:absolute;left:0;}
-.allow_state image:nth-of-type(4){position:absolute;right:120rpx;}
-
-.raise_hand{display:block;width:160rpx;margin:40rpx auto;}

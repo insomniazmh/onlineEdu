@@ -1,5 +1,4 @@
 // pages/haveClass/haveClass.js
-var WxParse = require('../../wxParse/wxParse.js');
 const webSocket = require('../../utils/websocket.js'); 
 
 Page({

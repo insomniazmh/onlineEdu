@@ -9,7 +9,6 @@ Component({
       observer(newVal, oldVal, changedPath) {
         // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
         // 通常 newVal 就是新设置的数据， oldVal 是旧数据
-        console.log(newVal);
         if (newVal && newVal.bigQuestion) {
           this.loadQuestion(newVal);
         }
@@ -27,18 +26,6 @@ Component({
     answer: ""
   },
   methods: {
-    onTap() {
-      var that = this;
-      var postData = {
-        "answer": that.data.answer,
-        "circleId": getApp().globalData.circleId,
-        "cut": that.data.cut,
-        "examineeId": getApp().globalData.studentId,
-        "questionId": that.data.questionId
-      };
-      this.triggerEvent('onSubQuestion', postData);
-    },
-
     /**点击单选答案选项 */
     bindradio: function (e) {
       var that = this;
@@ -93,13 +80,16 @@ Component({
     bindSub: function (e) {
       var that = this;
       var postData = {
+        "answ": {
+          "questionId": that.data.questionId,
+          "answer": that.data.answer
+        },
         "answer": that.data.answer,
         "circleId": getApp().globalData.circleId,
         "cut": that.data.cut,
         "examineeId": getApp().globalData.studentId,
         "questionId": that.data.questionId
       };
-      console.log(postData);
       this.triggerEvent('subQuestion', postData);
     },
 
@@ -131,6 +121,9 @@ Component({
       if (data.bigQuestion.examChildren[0].examType == "single") {//单选题
         WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（单选）", that, 5);//拼装问题title
         that.setData({ questionType: "single" });
+        if (data.bigQuestion.myAnswer) {
+          that.setData({ radioindex: data.bigQuestion.myAnswer });
+        }
         //拼装选项
         var opts = data.bigQuestion.examChildren[0].optChildren;
         for (let i = 0; i < opts.length; i++) {
@@ -142,6 +135,9 @@ Component({
       } else if (data.bigQuestion.examChildren[0].examType == "multiple") {//多选题
         WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（多选）", that, 5);//拼装问题title
         that.setData({ questionType: "multiple" });
+        // if (data.bigQuestion.myAnswer) {
+        //   that.setData({ checkboxIndex: data.bigQuestion.myAnswer.split('') });
+        // }
         //拼装选项
         var opts = data.bigQuestion.examChildren[0].optChildren;
         for (let i = 0; i < opts.length; i++) {
@@ -153,6 +149,11 @@ Component({
       } else if (data.bigQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
         WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）", that, 5);//拼装问题title
         that.setData({ questionType: "trueOrFalse" });
+        console.log(data.bigQuestion);
+        if (data.bigQuestion.myAnswer != undefined) {
+          console.log(data.bigQuestion.myAnswer);
+          that.setData({ checkTOF: data.bigQuestion.myAnswer });
+        }
       } else if (data.bigQuestion.examChildren[0].examType == "design") {//主观题
         WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].designQuestion + "（主观）", that, 5);//拼装问题title
         that.setData({
@@ -172,6 +173,10 @@ Component({
           raiseFlag: false,
           showSub: true
         });
+      }
+
+      if (data.bigQuestion.myAnswer) {
+        that.setData({ answer: data.bigQuestion.myAnswer });
       }
     },
   }
