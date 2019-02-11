@@ -1,8 +1,8 @@
 {
   "pages": [
-    
-    "pages/practice/practice",
     "pages/survey/survey",
+    "pages/practice/practice",
+    
     "pages/getId/getId",
     "pages/school_index/index",
     "pages/haveClass/haveClass",
