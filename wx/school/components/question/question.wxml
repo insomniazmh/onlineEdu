@@ -35,6 +35,7 @@
       <textarea name="answer" placeholder="请在这里输入您的答案" />
     </view>
     <button class='com_btn mt_100 btn_state_on' form-type="submit">提交</button>
+    <button class='com_btn mt_100 btn_state_on' form-type="reset">重置</button>
   </form>
 </view>
 <button class='com_btn mt_100 btn_state_on' bindtap="bindSub" wx:if="{{showSub}}">提交</button>

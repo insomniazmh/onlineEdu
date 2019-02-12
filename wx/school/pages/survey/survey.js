@@ -62,7 +62,7 @@ Page({
     var that = this;
     wx.request({
       method: "post",
-      url: 'https://' + getApp().globalData.url + '/quiz/interact/sendBook/answer',
+      url: 'https://' + getApp().globalData.url + '/quiz/interactSurvey/send/answer',
       data: postData,
       header: {
         'content-type': 'application/json' // 默认值
@@ -100,22 +100,22 @@ Page({
       //如果推送类型为问题，显示出来
       if (data.model == "surveyQuestion") {
         //拼装cut
-        for (let i = 0; i < data.bookQuestions.length; i++) {
-          data.bookQuestions[i].cut = data.cut;
+        for (let i = 0; i < data.surveyQuestions.length; i++) {
+          data.surveyQuestions[i].cut = data.cut;
         }
         //如果为第一次收到题目，则直接赋值，如果不是第一次，则将收到题目与现有题目合并
         if (that.data.questionList.length > 0) {
           var quesArr = that.data.questionList;
-          for (let i = 0; i < data.bookQuestions.length; i++) {
-            quesArr.push(data.bookQuestions[i]);
+          for (let i = 0; i < data.surveyQuestions.length; i++) {
+            quesArr.push(data.surveyQuestions[i]);
           }
           that.setData({
             questionList: quesArr
           });
         } else {
           that.setData({
-            questionList: data.bookQuestions,
-            currentQuestion: data.bookQuestions[0]
+            questionList: data.surveyQuestions,
+            currentQuestion: data.surveyQuestions[0]
           });
           that.wrapQuestion();
         }

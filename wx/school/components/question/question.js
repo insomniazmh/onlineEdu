@@ -168,11 +168,6 @@ Component({
           raiseFlag: true,
           showSub: false
         });
-      } else {
-        that.setData({ 
-          raiseFlag: false,
-          showSub: true
-        });
       }
 
       if (data.bigQuestion.myAnswer) {
