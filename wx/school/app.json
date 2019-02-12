@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/class/strom/strom",
     "pages/class/task/task",
     "pages/survey/survey",
     "pages/practice/practice",

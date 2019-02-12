@@ -87,7 +87,7 @@
 							</a>
 						</li>
 						<li title="头脑风暴">
-							<a href="javascript:;">
+							<a href="javascript:;" onclick="showStromQuestion()">
 								<i class="icon-fire"></i>
 							</a>
 						</li>
@@ -111,6 +111,7 @@
 				<div data-ng-include="'singles/template/singleBook.html'" id="bookQuestion" class="interSingle" style="display: none;"></div> <!--练习-->
 				<div data-ng-include="'singles/template/singleSurvey.html'" id="surveyQuestion" class="interSingle" style="display: none;"></div> <!--问卷-->
 				<div data-ng-include="'singles/template/singleTask.html'" id="taskQuestion" class="interSingle" style="display: none;"></div> <!--任务-->
+				<div data-ng-include="'singles/template/singleStrom.html'" id="stromQuestion" class="interSingle" style="display: none;"></div> <!--头脑风暴-->
 
 				<div style="width: 19%;float: right;">
 					<div class="portlet light" style="min-height: 200px;">
@@ -268,6 +269,8 @@
 									$scope.$broadcast('surveyMessage', data);
 								}else if(data.model == "answerTask") {//返回任务的学生回答
 									$scope.$broadcast('taskMessage', data);
+								}else if(data.model == "answerStrom") {//返回任务的学生回答
+									$scope.$broadcast('stromMessage', data);
 								}
 							})
 						}
@@ -818,6 +821,138 @@
 					});
 				};
 			});
+			
+			
+			
+			
+			//专门负责处理头脑风暴的controller
+			app.controller('stromCtrl', function($scope, $http, $interval) {
+				//加载所有的提问题目
+				common.ajax2({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						"chapterId": localStorage.getItem('currentNodeId'),
+						"courseId": localStorage.getItem('courseId'),
+						"exeBookType": "1"
+					},
+					url: '/brainstormExerciseBook/findExerciseBook',
+					success: function(res) {
+						res.data = common.addTitleForQuestion({
+							questionArr: res.data
+						}); //组装题干以供展示
+						$scope.stromQuestionList = res.data; //所有题目
+						$scope.currentStromQues = res.data[0]; //当前选中题目，默认为第一题
+					}
+				});
+				
+				$scope.$on('stromMessage', function(event, data) {
+					//将学生的回答情况暂存至相对应的题目中
+					$($scope.stromQuestionList).each(function() {
+						var that = this;
+						if(!that.answers) {
+							that.answers = [];
+						}
+						$(data.students).each(function() {
+							if(this.askAnswer.questionId && that.id == this.askAnswer.questionId) {
+								that.answers.push({
+									studentId: this.id,
+									answer: this.askAnswer.answer
+								});
+							}
+						});
+					});
+				});
+				
+				$scope.$on('allStudents', function(event, data) {
+					$(data.students).each(function() {
+						this.show = true;
+					});
+					$scope.allStudents = data.students;
+				})
+			
+				$scope.currentStromQues = {}; //当前选中的提问问题				
+			
+				//点击题号 
+				$scope.chooseQuestion = function(question) {
+					$scope.currentStromQues = question;
+					//清空学生的回答信息
+					$($scope.allStudents).each(function() {
+						this.answer = "";
+						this.select = false;
+					});
+					//如果该题目已有回答，将该题目置为选中状态
+					if($scope.currentStromQues.answers && $scope.currentStromQues.answers.length > 0) {
+						$scope.currentStromQues.select = true;
+						$scope.showAnswer(); //显示回答
+					}
+				};
+			
+				//点击学生头像选中学生
+				$scope.selectStudent = function(student) {
+					student.select = !student.select;
+				}
+			
+				//全选学生
+				$scope.all = function() {
+					$($scope.allStudents).each(function() {
+						this.select = true;
+					});
+				};
+			
+				//发送问题
+				$scope.sub = function() {
+					var timestamp = new Date().getTime() + ""; //时间戳
+					var selected = []; //被选中的学生id数组
+					$($scope.allStudents).each(function() {
+						if(this.select) {
+							selected.push(this.id);
+						}
+					});
+					$scope.currentStromQues.selectStudents = selected.join(","); //被选中的学生id，用逗号分隔
+					$scope.currentStromQues.select = true; //将该问题置为已提问状态
+					common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						operate: true,
+						url: '/brainstormInteract/send',
+						data: {
+							"category": 'people',
+							"circleId": localStorage.getItem("circleId"),
+							"cut": timestamp,
+							"questionId": $scope.currentStromQues.id,
+							"selected": $scope.currentStromQues.selectStudents
+						},
+						success: function() {
+						}
+					});
+				}
+			
+				//显示学生回答的答案
+				$scope.showAnswer = function() {
+					$scope.removeAllAnswer();
+					//遍历题目中的answer列表，再遍历学生列表，将学生id与题目中答题学生id对应，显示学生的回答
+					$($scope.currentStromQues.answers).each(function() {
+						var that = this;
+						$($scope.allStudents).each(function() {
+							if(that.studentId == this.id) {
+								this.answer = that.answer;
+							}
+						});
+					});
+				};
+			
+				//清除学生的答案和选中状态,并将所有学生都显示
+				$scope.removeAllAnswer = function() {
+					$($scope.allStudents).each(function() {
+						this.select = false;
+						this.answer = "";
+						this.show = true;
+					});
+				};
+			});
+			
+			
 
 
 
@@ -874,6 +1009,15 @@
 			//关闭任务交互
 			function closeTaskQuestion() {
 				$("#taskQuestion").hide("slow");
+			}
+			//显示头脑风暴交互
+			function showStromQuestion() {
+				$(".interSingle").hide("slow");
+				$("#stromQuestion").show("slow");
+			}
+			//关闭头脑风暴交互
+			function closeStromQuestion() {
+				$("#stromQuestion").hide("slow");
 			}
 		</script>
 	</body>
