@@ -237,6 +237,7 @@
 			]);
 			app.controller('myCtrl', function($scope, $http, $interval) {
 				var random = new Date().getTime(); //生成随机数
+				console.log(random);
 				//建立websocket连接
 				var wsobj = null;
 				$scope.initWs = function() {
@@ -321,11 +322,13 @@
 								that.answers = [];
 							}
 							$(data.students).each(function() {
-								if(this.askAnswer.questionId && that.id == this.askAnswer.questionId) {
-									that.answers.push({
-										studentId: this.id,
-										answer: this.askAnswer.answer
-									});
+								if(this.askAnswer) {
+									if(this.askAnswer.questionId && that.id == this.askAnswer.questionId) {
+										that.answers.push({
+											studentId: this.id,
+											answer: this.askAnswer.answer
+										});
+									}
 								}
 							});
 						});
@@ -429,10 +432,10 @@
 						}
 					});
 					$scope.currentTiwenQues.selectStudents = selected.join(","); //被选中的学生id，用逗号分隔
-					$scope.currentTiwenQues.select = true; //将该问题置为已提问状态
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
+						operate: false,
 						url: '/interact/send/question',
 						data: {
 							"category": $scope.currentTiwenQues.category,
@@ -443,6 +446,7 @@
 							"selected": $scope.currentTiwenQues.selectStudents
 						},
 						success: function() {
+							$scope.currentTiwenQues.select = true; //将该问题置为已提问状态
 						}
 					});
 				}

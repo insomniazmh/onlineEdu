@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/getId/getId",
     "pages/class/strom/strom",
     "pages/class/task/task",
     "pages/survey/survey",
     "pages/practice/practice",
-    "pages/getId/getId",
+    
     "pages/school_index/index",
     "pages/haveClass/haveClass",
     "pages/True or false/True or false",
