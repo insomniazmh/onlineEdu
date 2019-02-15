@@ -3,8 +3,7 @@ var common = {
 	url: 'https://e.hnfts.cn/education', //继伟服务
 	//url: 'http://192.168.13.220:8080',//继伟本机
 
-	url2: 'https://e.hnfts.cn/quiz', //真铭服务
-//	url2: 'http://192.168.13.15:8080',//真铭本机
+	url2: 'https://e.hnfts.cn/quiz', //永永服务
 
 	uploadUrl: 'https://e.hnfts.cn/upload/upload', //上传接口
 	pageSize: 100,
@@ -190,13 +189,7 @@ var common = {
 			operate: false,
 			url: '',
 			data: {},
-			success: function(response) {},
-			error: function(response) {
-				common.toast({
-					type: 2,
-					title: "网络异常"
-				});
-			}
+			success: function(response) {}
 		};
 		settings = $.extend(defaults, settings);
 
@@ -225,6 +218,9 @@ var common = {
 					title: "操作失败",
 					message: data.msg
 				});
+				if(settings.error) {
+					settings.error(response);
+				}
 			}
 			window.setTimeout(function() {
 				Metronic.unblockUI();
@@ -233,24 +229,21 @@ var common = {
 			window.setTimeout(function() {
 				Metronic.unblockUI();
 			});
-			settings.error(response);
+			common.toast({
+				type: 2,
+				title: "网络异常"
+			});
 		});
 	},
 
-	//网络请求--真铭接口
+	//网络请求--永永接口
 	ajax2: function(settings) {
 		var defaults = {
 			method: 'post',
 			operate: false,
 			url: '',
 			data: {},
-			success: function(response) {},
-			error: function(response) {
-				common.toast({
-					type: 2,
-					title: "网络异常"
-				});
-			}
+			success: function(response) {}
 		};
 		settings = $.extend(defaults, settings);
 
@@ -279,6 +272,9 @@ var common = {
 					title: "操作失败",
 					message: data.msg
 				});
+				if(settings.error) {
+					settings.error(response);
+				}
 			}
 			window.setTimeout(function() {
 				Metronic.unblockUI();
@@ -288,7 +284,10 @@ var common = {
 			window.setTimeout(function() {
 				Metronic.unblockUI();
 			});
-			settings.error(response);
+			common.toast({
+				type: 2,
+				title: "网络异常"
+			});
 		});
 	},
 

@@ -25,6 +25,10 @@
 		color: #45B6AF;
 		cursor: pointer;
 	}
+	
+	.label-ziColor {
+		background-color: #8e5fa2;
+	}
 </style>
 <div class="row" ng-controller="assistantCtrl">
 	<div style="position: absolute;right: 10px; top: 35px;">
@@ -99,12 +103,18 @@
 											<div class="cont-col2">
 												<div class="desc">
 													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
-													<div class="label label-sm label-danger sign" title="预习资料">预</div>
-													<div class="label label-sm label-success sign" title="课堂参考">堂</div>
-													<div class="label label-sm label-warning sign" title="课程案例">案</div>
-													<div class="label label-sm label-info sign" title="复习参考">复</div>
-													<div class="label label-sm label-primary sign" title="资料共享">享</div>
-													<div class="label label-sm sign" style="background-color: #8e5fa2;" title="学生可见">生</div>
+													<div class="label label-sm {{row.datumArea.indexOf('3')>=0 ? 'label-danger' : 'label-default'}} sign" 
+														title="预习资料" ng-click="changeLable(row, '3')">预</div>
+													<div class="label label-sm {{row.datumArea.indexOf('4')>=0 ? 'label-success' : 'label-default'}} sign" 
+														title="课堂参考" ng-click="changeLable(row, '4')">堂</div>
+													<div class="label label-sm {{row.datumArea.indexOf('5')>=0 ? 'label-warning' : 'label-default'}} sign" 
+														title="课程案例" ng-click="changeLable(row, '5')">案</div>
+													<div class="label label-sm {{row.datumArea.indexOf('6')>=0 ? 'label-info' : 'label-default'}} sign" 
+														title="复习参考" ng-click="changeLable(row, '6')">复</div>
+													<div class="label label-sm {{row.teachShare=='1' ? 'label-primary' : 'label-default'}} sign"
+														 title="资料共享" ng-click="changeLable(row, 'share')">享</div>
+													<div class="label label-sm {{row.stuShare=='1' ? 'label-ziColor' : 'label-default'}} sign " 
+														title="学生可见" ng-click="changeLable(row, 'student')">生{{row.stuShare}}</div>
 												</div>
 											</div>
 										</div>
@@ -298,7 +308,7 @@
 		//切换知识点
 		$scope.$on('kPointNode', function(d,data) {  
 			$scope.loadDatumList("1");
-			$scope.loadDatumList("2");
+//			$scope.loadDatumList("2");
 			$scope.loadDatumList("3");
 			$scope.loadDatumList("4");
 			$scope.loadDatumList("5");
@@ -318,7 +328,7 @@
 				url: '/chapteData/findDatumList',
 				data: {
 					"chapterId": localStorage.getItem('currentNodeId'),
-			  		"courseId": localStorage.getItem('courseId'),
+			  	"courseId": localStorage.getItem('courseId'),
 //			  		"knodeId": localStorage.getItem('knodeId'),
 					"datumType": type,
 					"datumArea": "3,4,5,6",
@@ -343,6 +353,47 @@
 						$scope.links = res.data;
 					}
 					console.log($scope.links);
+				}
+			});
+		}
+		
+		$scope.changeLable = function(obj, type) {
+			var success;
+			var file=$.extend(true,{},obj);
+			if(type == 'share') {
+				if(file.teachShare == '1') {
+					file.teachShare = '0';
+					success = function() {
+						obj.teachShare = '0';
+					}
+				}else {
+					file.teachShare = '1';
+					success = function() {
+						obj.teachShare = '1';
+					}
+				}
+			}else if(type == 'student') {
+				if(file.stuShare == '1') {
+					file.stuShare = '0';
+					success = function() {
+						obj.stuShare = '0';
+					}
+				}else {
+					file.stuShare = '1';
+					success = function() {
+						obj.stuShare = '1';
+					}
+				}
+			}else {
+				
+			}
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/chapteData/updateAreaAndShare',
+				data: file,
+				success: function() {
+					success();
 				}
 			});
 		}
