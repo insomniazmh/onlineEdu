@@ -450,35 +450,62 @@
 		$scope.PPTKejianList = []; //PPT课件列表
 		$scope.picsKejianList = []; //图集课件列表
 		$scope.videoKejianList = []; //视频课件列表
+		//初始化教案和课件数量
+		$scope.jiaoanCount = 0;
+		$scope.PPTKejianCount = 0;
+		$scope.picsKejianCount = 0;
+		$scope.videoKejianCount = 0;
 
-		//根据章节id加载章节教案或课件
-		$scope.loadJiaoanAndKejian = function(datumArea, datumType) {
+		/*
+		 * 根据章节id加载章节教案或课件
+		 * datumArea  1教案   2课件   3预习参考  4教学参考  5授课案例   6复习参考
+		 * datumType  1文档　2图册　3视频　4音频　5链接
+		 * */
+		$scope.loadDatumData = function(datumArea, datumType) {
+			var postData = {
+				"chapterId": localStorage.getItem('currentNodeId'),
+				"courseId": localStorage.getItem('courseId'),
+				"sortVo": {
+					"isValidated": "0",
+					"page": 0,
+					"size": 15,
+					"sort": 1
+				}
+			};
+			var url = '/chapteData/findDatumList';
+			if(datumArea == '1' || datumArea == '2') {
+				if(datumType == '2') {
+					url = '/courseware/getCourseArlitsList';
+				}else {
+					url = '/courseware/getImpCourseware';
+				}
+				postData.datumType = datumType;
+				postData.datumArea = datumArea;
+			}else if(datumArea == 'dutum') {
+//				postData.datumArea = '3,4,5,6';
+//				postData.datumType = '1,3,4,5';
+			}
+			
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
-				url: '/chapteData/findDatumList',
-				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-					"courseId": localStorage.getItem('courseId'),
-					"datumType": datumType,
-					"datumArea": datumArea,
-					"sortVo": {
-						"isValidated": "0",
-						"page": 0,
-						"size": 15,
-						"sort": 1
-					}
-				},
+				url: url,
+				data: postData,
 				success: function(data) {
-					if (datumArea == "1") {
-						$scope.jiaoanCount = data.data.length;
-					} else if (datumArea == "2" && datumType == "1") {
-						$scope.PPTKejianCount = data.data.length;
-					} else if (datumArea == "2" && datumType == "2") {
-						$scope.picsKejianCount = data.data.length;
-					} else if (datumArea == "2" && datumType == "3") {
-						$scope.videoKejianCount = data.data.length;
+					if(data.data) {//如果有数据
+						if (datumArea == "1") {//教案
+							$scope.jiaoanCount = data.data.fileCount;
+						} else if (datumArea == "2" && datumType == "1") {//文档课件
+							$scope.PPTKejianCount = data.data.fileCount;
+						} else if (datumArea == "2" && datumType == "2") {//图集课件
+							$scope.picsKejianCount = data.data.fileCount;
+						} else if (datumArea == "2" && datumType == "3") {//视频课件
+							$scope.videoKejianCount = data.data.fileCount;
+						}else if(datumArea = 'dutum') {//资料
+							$scope.ziliaoList = data.data;
+						}
 					}
+					
 				}
 			});
 		}
@@ -518,7 +545,7 @@
 				},
 				success: function(data) {
 					console.log(data);
-					$scope.loadJiaoanAndKejian("2", data.type + ""); //加载课件列表
+					$scope.loadDatumData("2", data.type + ""); //加载课件列表
 				}
 			});
 		});
@@ -555,7 +582,7 @@
 						},
 						success: function(data) {
 							console.log(data);
-							$scope.loadJiaoanAndKejian("1", "1"); //加载教案列表
+							$scope.loadDatumData("1", "1"); //加载教案列表
 						}
 					});
 				});
@@ -655,10 +682,11 @@
 		}
 
 		$scope.initData = function() {
-			$scope.loadJiaoanAndKejian("1", "1"); //加载教案列表
-			$scope.loadJiaoanAndKejian("2", "1"); //加载PPT课件列表
-			$scope.loadJiaoanAndKejian("2", "2"); //加载图集课件列表
-			$scope.loadJiaoanAndKejian("2", "3"); //加载视频课件列表
+			$scope.loadDatumData("1", "1"); //加载教案列表
+			$scope.loadDatumData("2", "1"); //加载PPT课件列表
+			$scope.loadDatumData("2", "2"); //加载图集课件列表
+			$scope.loadDatumData("2", "3"); //加载视频课件列表
+			$scope.loadDatumData("dutum", "dutum"); //加载资料列表
 			$scope.loadQuestions("1"); //加载提问问题列表
 			$scope.loadQuestions("2"); //加载练习题目列表
 			$scope.loadQuestions("3"); //加载作业题目列表
@@ -696,23 +724,6 @@
 			fu: true,
 			xiang: true,
 			sheng: true
-		}];
-
-		$scope.tiwenList = [{
-			icon: "堂",
-			text: "商家要开展电子商务活动 , 应该用( )作为其主要的生意平台。",
-			url: "111",
-			color: "label-success"
-		}, {
-			icon: "堂",
-			text: "Intranet和Internet的区别是 ( )",
-			url: "222",
-			color: "label-success"
-		}, {
-			icon: "堂",
-			text: "电子数据交换的简称是 ( )",
-			url: "333",
-			color: "label-success"
 		}];
 
 		$scope.changeLabel = function(row, type) {

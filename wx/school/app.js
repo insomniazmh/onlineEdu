@@ -1,4 +1,6 @@
 //app.js
+
+import agriknow from './apis/agriknow.js'
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -34,9 +36,13 @@ App({
     })
   },
   globalData: {
+    binding: '0',
+    token: null,
     url: 'e.hnfts.cn',
     userInfo: null,
     circleId: "interactionQra2c8bb4cba2f45ecac5cdc8af0238f18",
     studentId: "10088"
-  }
+  },
+
+  agriknow: new agriknow()
 })

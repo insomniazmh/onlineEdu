@@ -81,8 +81,6 @@ Page({
         }
       })
     }
-    
-
   },
 
   /**
@@ -96,28 +94,55 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.login({
-      success(res) {
-        if (res.code) {
-          wx.request({
-            method: "get",
-            url: 'https://e.hnfts.cn/wechat/user/wx6b2191f8e374bac8/login?appid=wx6b2191f8e374bac8&code=' + res.code,
-            header: {
-              'content-type': 'application/json' // 默认值
-            },
-            success(res) {
-              console.log(res.data)
-              if (res.data.ret == 0) {
-                
+    if (!getApp().globalData.token) {
+      wx.login({
+        success(res) {
+          if (res.code) {
+            wx.request({
+              method: "get",
+              url: 'https://e.hnfts.cn/wechat/user/login?code=' + res.code,
+              header: {
+                'content-type': 'application/json' // 默认值
+              },
+              success(res) {
+                if (res.data.ret == 0) {
+                  wx.setStorageSync('token', res.data.data.token)//将token信息存入本地
+                  if (res.data.data.binding && res.data.data.binding == '0') {
+                  }else {
+                    //将页面跳转至绑定页
+                    wx.showModal({
+                      title: '未找到身份信息',
+                      content: '您的身份还未验证，请先绑定身份信息',
+                      showCancel: false,
+                      duration: 2000,
+                      success: function() {
+                        getApp().globalData.binding = '1';
+                        wx.navigateTo({
+                          url: '/pages/getId/getId'
+                        });
+                      }
+                    });
+                   
+                  }
+                } else {
+                  wx.showToast({
+                    title: '登录失败！',
+                    icon: 'none',
+                    duration: 2000
+                  });
+                }
               }
-            }
-          })
-          console.log(res.code);
-        } else {
-          console.log('登录失败！' + res.errMsg)
+            });
+          } else {
+            wx.showToast({
+              title: '网络异常',
+              icon: 'none',
+              duration: 2000
+            });
+          }
         }
-      }
-    })
+      })
+    }
   },
 
   /**
@@ -131,7 +156,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (getApp().globalData.binding == '1') {
+      //将页面跳转至绑定页
+      wx.showModal({
+        title: '未找到身份信息',
+        content: '您的身份还未验证，请先绑定身份信息',
+        showCancel: false,
+        duration: 2000,
+        success: function () {
+          wx.navigateTo({
+            url: '/pages/getId/getId'
+          });
+        }
+      });
+    }
   },
 
   /**

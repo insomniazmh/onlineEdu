@@ -5,22 +5,55 @@ Page({
    * 页面的初始数据
    */
   data: {
-    inputValue: ""
+    realName: "",//学生姓名
+    idNumber: ""//学生身份证号码
   },
 
-  bindKeyInput(e) {
+  /**
+   * 用户姓名
+   */
+  bindKeyName(e) {
     this.setData({
-      inputValue: e.detail.value
+      realName: e.detail.value
     })
   },
 
-  subclick(e) {
-    var app = getApp();
-    app.globalData.studentId = this.data.inputValue;//将学生id存入全局变量中
-    //将页面跳转至首页
-    wx.navigateTo({
-      url: '/pages/school_index/index'
+  /**
+   * 用户身份证号码
+   */
+  bindKeyId(e) {
+    this.setData({
+      idNumber: e.detail.value
     })
+  },
+  
+  subclick(e) {
+    console.log(this.data.realName);
+    console.log(this.data.idNumber);
+    this.bindUser();
+    //var app = getApp();
+    //app.globalData.studentId = this.data.realName;//将学生id存入全局变量中
+    //将页面跳转至首页
+    // wx.navigateTo({
+    //   url: '/pages/school_index/index'
+    // })
+  },
+
+  //绑定学生信息
+  bindUser() {
+    getApp().agriknow.bindUser(this.data.realName, this.data.idNumber)
+      .then(res => {
+        wx.showToast({
+          title: '绑定成功！',
+        });
+        getApp().globalData.binding = '0';
+        wx.navigateTo({
+          url: '/pages/school_index/index'
+        })
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      })
   },
 
   /**
