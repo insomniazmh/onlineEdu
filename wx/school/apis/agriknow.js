@@ -20,6 +20,7 @@ class agriknow {
       title: '网络错误',
       icon: 'none'
     })
+    
   }
 
   /**
@@ -31,11 +32,71 @@ class agriknow {
   }
 
   /**
-   * 获取所有课程
+   * 提交任务回答
    */
-  getCourseList(page = 1, size = 10, key = null) {
-    let data = key != null ? { page: page, size: size, queryValue: key } : { page: page, size: size }
-    return this._request.getRequest(this._baseUrl + '/course/mobile', data).then(res => res.data)
+  answerTask(postData = {}) {
+    return this._request.postRequest(this._baseUrl + '/quiz/TaskInteract/send/answer', postData).then(res => res.data)
   }
+
+  /**
+   * 提交头脑风暴回答
+   */
+  answerStrom(postData = {}) {
+    return this._request.postRequest(this._baseUrl + '/quiz/brainstormInteract/send/answer', postData).then(res => res.data)
+  }
+
+  /**
+   * 微信登录
+   */
+  wxLogin() {
+    wx.login({
+      success(res) {
+        if (res.code) {
+          wx.request({
+            method: "get",
+            url: 'https://e.hnfts.cn/wechat/user/login?code=' + res.code,
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success(data) {
+              if (data.data.ret == 0) {
+                var resData = data.data.data;
+                wx.setStorageSync('token', resData.token)//将token信息存入本地
+                if (resData.binding && resData.binding == '0') {
+                } else {
+                  //将页面跳转至绑定页
+                  wx.showModal({
+                    title: '未找到身份信息',
+                    content: '您的身份还未验证，请先绑定身份信息',
+                    showCancel: false,
+                    duration: 2000,
+                    success: function () {
+                      getApp().globalData.alreadyBind = false;
+                      wx.navigateTo({
+                        url: '/pages/getId/getId'
+                      });
+                    }
+                  });
+                }
+              } else {
+                wx.showToast({
+                  title: '登录失败！',
+                  icon: 'none',
+                  duration: 2000
+                });
+              }
+            }
+          });
+        } else {
+          wx.showToast({
+            title: '网络异常',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      }
+    })
+  }
+
 }
 export default agriknow

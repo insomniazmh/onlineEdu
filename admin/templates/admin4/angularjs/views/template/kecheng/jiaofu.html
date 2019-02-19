@@ -482,6 +482,7 @@
 				postData.datumType = datumType;
 				postData.datumArea = datumArea;
 			}else if(datumArea == 'dutum') {
+				url = '/courseData/findDatumList';
 //				postData.datumArea = '3,4,5,6';
 //				postData.datumType = '1,3,4,5';
 			}
@@ -539,7 +540,7 @@
 				data: {
 					courseId: localStorage.getItem('courseId'),
 					chapterId: localStorage.getItem('currentNodeId'),
-					datumArea: "2",
+					importantType: "2",
 					datumType: data.type + "",
 					files: data.content
 				},
@@ -567,16 +568,20 @@
 				return rtn;
 			},
 			success: function(file, response) {
+//				if(response.filePath) {
+//					response.fileUrl = response.filePath;
+//				}
+				
 				$scope.$apply(function() {
 					common.ajax({
 						$scope: $scope,
 						$http: $http,
 						operate: true,
-						url: '/chapteData/save',
+						url: '/courseware/savefile',
 						data: {
 							courseId: localStorage.getItem('courseId'),
 							chapterId: localStorage.getItem('currentNodeId'),
-							datumArea: "1",
+							importantType: "1",
 							datumType: "1",
 							files: [response]
 						},

@@ -1,5 +1,5 @@
 // pages/practice/practice.js
-const webSocket = require('../../utils/websocket.js'); 
+const webSocket = require('../../../utils/websocket.js'); 
 
 Page({
   /**

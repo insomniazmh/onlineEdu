@@ -36,7 +36,7 @@ App({
     })
   },
   globalData: {
-    binding: '0',
+    alreadyBind: true,
     token: null,
     url: 'e.hnfts.cn',
     userInfo: null,

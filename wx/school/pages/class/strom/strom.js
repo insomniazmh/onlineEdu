@@ -62,15 +62,9 @@ Page({
   onSubQuestion(e) {
     //e.detail // 自定义组件触发事件时提供的detail对象
     var postData = e.detail;
-    wx.request({
-      method: "post",
-      url: 'https://' + getApp().globalData.url + '/quiz/brainstormInteract/send/answer',
-      data: postData,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        console.log(res.data)
+
+    getApp().agriknow.answerStrom(postData)
+      .then(res => {
         if (res.data.ret == 0) {
           wx.showToast({
             title: '提交成功',
@@ -78,8 +72,10 @@ Page({
             duration: 2000
           });
         }
-      }
-    })
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
   },
 
   /**

@@ -381,6 +381,7 @@
 		//点击列表中标签切换状态
 		$scope.changeLable = function(obj, type) {
 			var success;
+			//obj.courseId = localStorage.getItem('courseId');
 			var file=$.extend(true,{},obj);
 			if(type == 'share') {//点击“享”按钮时
 				if(file.teachShare == '1') {

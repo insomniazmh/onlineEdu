@@ -1,5 +1,5 @@
 /* pages/practice/practice.wxss */
-@import"../../wxParse/wxParse.wxss";
+@import"../../../wxParse/wxParse.wxss";
 
 .choosen_box{background:#F8F8F8;padding:20rpx 0;width:760rpx;overflow:scroll;}
 

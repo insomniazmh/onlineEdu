@@ -1,11 +1,5 @@
 // pages/school_index/index.js
 Page({
-  // goUrl(e) {
-  //   console.log(e.currentTarget.dataset.url);
-  //   wx.navigateTo({
-  //     url: e.currentTarget.dataset.url
-  //   })
-
   joinRoom: function(e) {
     //学生进入课堂
     wx.request({
@@ -63,10 +57,8 @@ Page({
         }
       })
     }else {
-      console.log(12344);
       wx.scanCode({
         success(res) {
-          console.log(res);
           if (res.result && res.result.indexOf("interactionQr") == 0) {
             app.globalData.circleId = res.result;//将班级id存入全局变量中
             that.joinRoom(e);
@@ -95,53 +87,7 @@ Page({
    */
   onLoad: function (options) {
     if (!getApp().globalData.token) {
-      wx.login({
-        success(res) {
-          if (res.code) {
-            wx.request({
-              method: "get",
-              url: 'https://e.hnfts.cn/wechat/user/login?code=' + res.code,
-              header: {
-                'content-type': 'application/json' // 默认值
-              },
-              success(res) {
-                if (res.data.ret == 0) {
-                  wx.setStorageSync('token', res.data.data.token)//将token信息存入本地
-                  if (res.data.data.binding && res.data.data.binding == '0') {
-                  }else {
-                    //将页面跳转至绑定页
-                    wx.showModal({
-                      title: '未找到身份信息',
-                      content: '您的身份还未验证，请先绑定身份信息',
-                      showCancel: false,
-                      duration: 2000,
-                      success: function() {
-                        getApp().globalData.binding = '1';
-                        wx.navigateTo({
-                          url: '/pages/getId/getId'
-                        });
-                      }
-                    });
-                   
-                  }
-                } else {
-                  wx.showToast({
-                    title: '登录失败！',
-                    icon: 'none',
-                    duration: 2000
-                  });
-                }
-              }
-            });
-          } else {
-            wx.showToast({
-              title: '网络异常',
-              icon: 'none',
-              duration: 2000
-            });
-          }
-        }
-      })
+      getApp().agriknow.wxLogin();
     }
   },
 
@@ -156,7 +102,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (getApp().globalData.binding == '1') {
+    if (!getApp().globalData.alreadyBind) {
       //将页面跳转至绑定页
       wx.showModal({
         title: '未找到身份信息',

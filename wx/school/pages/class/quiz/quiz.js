@@ -1,5 +1,5 @@
-// pages/haveClass/haveClass.js
-const webSocket = require('../../utils/websocket.js'); 
+// pages/class/quiz/quiz.js
+const webSocket = require('../../../utils/websocket.js');
 
 Page({
   /**
@@ -16,7 +16,7 @@ Page({
     console.log('收到消息回调', res)
     if (data.model == 'pong') {
       console.log('******pong*********');
-    }else {
+    } else {
       //如果推送类型为问题，显示出来
       if (data.model == "questions") {
         that.setData({
@@ -42,7 +42,7 @@ Page({
       });
       // 设置接收消息回调
       webSocket.onSocketMessageCallback = this.onSocketMessageCallback;
-    }else {
+    } else {
       wx.showToast({
         title: '网络异常，请退出重试',
         icon: 'none',
