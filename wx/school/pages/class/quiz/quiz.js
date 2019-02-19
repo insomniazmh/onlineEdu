@@ -57,15 +57,9 @@ Page({
   onSubQuestion(e) {
     //e.detail // 自定义组件触发事件时提供的detail对象
     var postData = e.detail;
-    wx.request({
-      method: "post",
-      url: 'https://' + getApp().globalData.url + '/quiz/interact/send/answer',
-      data: postData,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        console.log(res.data)
+
+    getApp().agriknow.answerStrom(postData)
+      .then(res => {
         if (res.data.ret == 0) {
           wx.showToast({
             title: '提交成功',
@@ -73,28 +67,22 @@ Page({
             duration: 2000
           });
         }
-      }
-    })
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
   },
 
   /**
    * 接收question组件举手信息
    */
   onRaise(e) {
-    //e.detail // 自定义组件触发事件时提供的detail对象
-    var postData = e.detail;
-    wx.request({
-      method: "post",
-      url: 'https://' + getApp().globalData.url + '/quiz/interact/raise',
-      data: {
-        "circleId": getApp().globalData.circleId,
-        "examineeId": getApp().globalData.studentId
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        console.log(res.data)
+    var postData = {
+      "circleId": getApp().globalData.circleId,
+      "examineeId": getApp().globalData.studentId
+    }
+    getApp().agriknow.raise(postData)
+      .then(res => {
         if (res.data.ret == 0) {
           wx.showToast({
             title: '举手成功，等待老师选人',
@@ -102,8 +90,10 @@ Page({
             duration: 2000
           });
         }
-      }
-    })
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
   },
 
   /**

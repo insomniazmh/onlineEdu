@@ -60,6 +60,32 @@ Page({
   onSubQuestion: function (e) {
     var postData = e.detail;
     var that = this;
+
+    getApp().agriknow.answerSurvey(postData)
+      .then(res => {
+        if (res.data.ret == 0) {
+          var questionList = that.data.questionList;
+          for (let i = 0; i < questionList.length; i++) {
+            if (questionList[i].id == that.data.currentQuestion.id) {
+              questionList[i].done = true;
+              questionList[i].myAnswer = postData.answer;
+            }
+          }
+          that.setData({
+            questionList: questionList
+          });
+
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          });
+        }
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
+
     wx.request({
       method: "post",
       url: 'https://' + getApp().globalData.url + '/quiz/interactSurvey/send/answer',

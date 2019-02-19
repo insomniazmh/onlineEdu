@@ -60,15 +60,9 @@ Page({
   onSubQuestion: function (e) {
     var postData = e.detail;
     var that = this;
-    wx.request({
-      method: "post",
-      url: 'https://' + getApp().globalData.url + '/quiz/interact/sendBook/answer',
-      data: postData,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        console.log(res.data)
+
+    getApp().agriknow.answerPractice(postData)
+      .then(res => {
         if (res.data.ret == 0) {
           var questionList = that.data.questionList;
           for (let i = 0; i < questionList.length; i++) {
@@ -80,14 +74,17 @@ Page({
           that.setData({
             questionList: questionList
           });
+
           wx.showToast({
             title: '提交成功',
             icon: 'success',
             duration: 2000
           });
         }
-      }
-    })
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
   },
 
   // socket收到的信息回调

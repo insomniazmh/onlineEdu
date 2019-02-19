@@ -32,6 +32,34 @@ class agriknow {
   }
 
   /**
+   * 提交提问回答
+   */
+  answerquiz(postData = {}) {
+    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/answer', postData).then(res => res.data)
+  }
+
+  /**
+   * 提交提问举手
+   */
+  raise(postData = {}) {
+    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/raise', postData).then(res => res.data)
+  }
+
+  /**
+   * 提交练习回答
+   */
+  answerPractice(postData = {}) {
+    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/answer', postData).then(res => res.data)
+  }
+
+  /**
+   * 提交问卷回答
+   */
+  answerSurvey(postData = {}) {
+    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/answer', postData).then(res => res.data)
+  }
+
+  /**
    * 提交任务回答
    */
   answerTask(postData = {}) {
