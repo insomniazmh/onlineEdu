@@ -54,7 +54,7 @@
 									</div>
 									<div class="cont-col2">
 										<div class="desc">
-											<a href="{{jiaoan.filePath}}" target="_blank">{{jiaoan.fileName}}</a>
+											<a href="{{jiaoan.fileUrl}}" target="_blank">{{jiaoan.fileName}}</a>
 											<span id="filePickerJiaoan" class="filePicker"> 上传教案 </span>
 											<div style="display: inline;position: absolute;" class="dropdown">
 												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -568,10 +568,6 @@
 				return rtn;
 			},
 			success: function(file, response) {
-//				if(response.filePath) {
-//					response.fileUrl = response.filePath;
-//				}
-				
 				$scope.$apply(function() {
 					common.ajax({
 						$scope: $scope,

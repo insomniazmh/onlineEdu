@@ -3756,9 +3756,9 @@
             processData: false,
             type: 'POST',
             success: function (data) {
-            	console.log($.parseJSON(data).filePath);
+            	console.log($.parseJSON(data).fileUrl);
             	data = $.parseJSON(data);
-                editor.insertImage($editable, data.filePath, data.filename);
+                editor.insertImage($editable, data.fileUrl, data.filename);
             }
         });
       }

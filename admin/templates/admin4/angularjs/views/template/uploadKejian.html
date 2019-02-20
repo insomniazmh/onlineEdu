@@ -179,7 +179,7 @@
 		common.fileUpload({
 			id: 'filePicker4',
 			success: function(file, response, uploader) {
-				var html = '<a href="'+response.filePath+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
+				var html = '<a href="'+response.fileUrl+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
 				$("#PPTKejian").html(html);
 				pptKejian = response;
 			}
@@ -189,7 +189,7 @@
 		common.fileUpload({
 			id: 'filePicker5',
 			success: function(file, response, uploader) {
-				var html = '<video src="'+response.filePath+'" controls="controls" style="height: 300px; width:auto;">'+response.fileName+'</video>';
+				var html = '<video src="'+response.fileUrl+'" controls="controls" style="height: 300px; width:auto;">'+response.fileName+'</video>';
 				$("#videoKejian").html(html);
 				videoKejian = response;
 			}
@@ -201,7 +201,7 @@
 			uploadBtn: '.uploadBtn1',
 			success: function(file, response, uploader) {
 				console.log(response);
-				picsKejian.push(response.filePath);
+				picsKejian.push(response.fileUrl);
 			}
 		});
 		

@@ -264,7 +264,7 @@
 		common.fileUpload({
 			id: 'filePickerDoc',
 			success: function(file, response, uploader) {
-				var html = '<a href="'+response.filePath+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
+				var html = '<a href="'+response.fileUrl+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
 				$("#wendangContent").html(html);
 				$scope.files = [response];
 				$scope.datumType = "1";
@@ -285,7 +285,7 @@
 		common.fileUpload({
 			id: 'filePickerAudio',
 			success: function(file, response, uploader) {
-				var html = '<audio src="'+response.filePath+'" controls="controls">您的浏览器不支持 audio 标签。</audio>';
+				var html = '<audio src="'+response.fileUrl+'" controls="controls">您的浏览器不支持 audio 标签。</audio>';
 				$("#audioContent").html(html);
 				$scope.files = [response];
 				$scope.datumType = "4";
@@ -296,7 +296,7 @@
 		common.fileUpload({
 			id: 'filePickerVideo',
 			success: function(file, response, uploader) {
-				var html = '<video src="'+response.filePath+'" controls="controls" style="height: 300px; width:auto;">您的浏览器不支持 video 标签。</video>';
+				var html = '<video src="'+response.fileUrl+'" controls="controls" style="height: 300px; width:auto;">您的浏览器不支持 video 标签。</video>';
 				console.log(html);
 				$("#videoContent").html(html);
 				$scope.files = [response];
@@ -308,7 +308,7 @@
 			$("iframe").attr("src", $scope.linkUrl);
 			$scope.files = [{
 				fileName: $scope.linkTitle,
-				filePath: $scope.linkUrl
+				fileUrl: $scope.linkUrl
 			}];
 			$scope.datumType = "5";
 		}
