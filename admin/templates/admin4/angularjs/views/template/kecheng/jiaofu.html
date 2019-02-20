@@ -110,11 +110,8 @@
 													图集（<span style="color: red;">{{picsKejianCount}}</span>）
 												</span>
 												<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 120px;">
-													<li>
-														<a> <i class="icon-user"></i> 修改密码 </a>
-													</li>
-													<li>
-														<a> <i class="icon-key"></i> 退出登录 </a>
+													<li ng-repeat="row in picsKejianList">
+														<a> <i class="icon-user"></i> {{row.fileName}} </a>
 													</li>
 												</ul>
 											</div>
@@ -457,7 +454,7 @@
 		$scope.videoKejianCount = 0;
 
 		/*
-		 * 根据章节id加载章节教案或课件
+		 * 根据章节id加载章节教案、课件或已挂载的资料
 		 * datumArea  1教案   2课件   3预习参考  4教学参考  5授课案例   6复习参考
 		 * datumType  1文档　2图册　3视频　4音频　5链接
 		 * */
@@ -473,7 +470,7 @@
 				}
 			};
 			var url = '/chapteData/findDatumList';
-			if(datumArea == '1' || datumArea == '2') {
+			if(datumArea == '1' || datumArea == '2') {//教案或课件
 				if(datumType == '2') {
 					url = '/courseware/getCourseArlitsList';
 				}else {
@@ -481,10 +478,8 @@
 				}
 				postData.datumType = datumType;
 				postData.datumArea = datumArea;
-			}else if(datumArea == 'dutum') {
+			}else if(datumArea == 'dutum') {//已挂载的资料
 				url = '/courseData/findDatumList';
-//				postData.datumArea = '3,4,5,6';
-//				postData.datumType = '1,3,4,5';
 			}
 			
 			common.ajax({
@@ -500,6 +495,7 @@
 							$scope.PPTKejianCount = data.data.fileCount;
 						} else if (datumArea == "2" && datumType == "2") {//图集课件
 							$scope.picsKejianCount = data.data.fileCount;
+							$scope.picsKejianList = data.data.list;
 						} else if (datumArea == "2" && datumType == "3") {//视频课件
 							$scope.videoKejianCount = data.data.fileCount;
 						}else if(datumArea = 'dutum') {//资料
