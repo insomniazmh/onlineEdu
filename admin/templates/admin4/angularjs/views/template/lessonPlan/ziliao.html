@@ -30,7 +30,8 @@
 										<div class="cont">
 											<div class="cont-col1">
 												<div class="md-checkbox">
-													<input type="checkbox" id="doc{{row.fileId}}" class="md-check" name="ziliao" value="{{row.fileId}}">
+													<input ng-if="!row.disable" type="checkbox" id="doc{{row.fileId}}" class="md-check"  ng-model="row.select">
+													<input ng-if="row.disable" type="checkbox" id="doc{{row.fileId}}" class="md-check" checked="checked" disabled="disabled">
 													<label for="doc{{row.fileId}}">
 												<span></span>
 												<span class="check"></span>
@@ -55,7 +56,7 @@
 										<div class="cont">
 											<div class="cont-col1">
 												<div class="md-checkbox">
-													<input type="checkbox" id="link{{row.fileId}}" class="md-check" name="ziliao" value="{{row.fileId}}">
+													<input type="checkbox" id="link{{row.fileId}}" class="md-check" ng-model="row.select">
 													<label for="link{{row.fileId}}">
 												<span></span>
 												<span class="check"></span>
@@ -80,7 +81,7 @@
 										<div class="cont">
 											<div class="cont-col1">
 												<div class="md-checkbox">
-													<input type="checkbox" id="video{{row.fileId}}" class="md-check" name="ziliao" value="{{row.fileId}}">
+													<input type="checkbox" id="video{{row.fileId}}" class="md-check" ng-model="row.select">
 													<label for="video{{row.fileId}}">
 												<span></span>
 												<span class="check"></span>
@@ -105,7 +106,7 @@
 										<div class="cont">
 											<div class="cont-col1">
 												<div class="md-checkbox">
-													<input type="checkbox" id="audio{{row.fileId}}" class="md-check" name="ziliao" value="{{row.fileId}}">
+													<input type="checkbox" id="audio{{row.fileId}}" class="md-check" ng-model="row.select">
 													<label for="audio{{row.fileId}}">
 												<span></span>
 												<span class="check"></span>
@@ -146,8 +147,8 @@
 								<div class="cont">
 									<div class="cont-col1">
 										<div class="md-checkbox">
-											<input type="checkbox" id="already{{row.id}}" class="md-check" name="ziliao" checked="checked">
-											<label for="already{{row.id}}">
+											<input type="checkbox" id="already{{row.fileId}}" class="md-check" ng-model="row.select">
+											<label for="already{{row.fileId}}">
 										<span></span>
 										<span class="check"></span>
 										<span class="box"></span>
@@ -156,7 +157,7 @@
 									</div>
 									<div class="cont-col2">
 										<div class="desc">
-											{{row.name}}
+											{{row.fileName}}
 										</div>
 									</div>
 								</div>
@@ -181,82 +182,112 @@
 			var postData = {
 				"chapterId": localStorage.getItem('currentNodeId'),
 				"courseId": localStorage.getItem('courseId'),
-				"datumType": datumType,
-				"datumArea": "3,4,5,6",
 				"sortVo": {
 					"isValidated": "0",
 					"page": 0,
-					"size": 15,
+					"size": common.pageSize,
 					"sort": 1
 				}
 			};
-			
+
 			if(datumType == 'already') {
 				url = '/courseData/findDatumList';
-			}else {
+			} else {
 				postData.datumType = datumType;
 				postData.datumArea = "3,4,5,6";
 			}
-			
+
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
 				url: url,
 				data: postData,
 				success: function(data) {
+					if(datumType != "already") {
+						$(data.data).each(function() {
+							var that = this;
+							$($scope.alreadyList).each(function() {
+								if(that.fileId == this.fileId) {
+									that.disable = true;
+								}
+							});
+						});
+					}
 					if(datumType == "1") {
 						$scope.docList = data.data;
 					} else if(datumType == "3") {
-						$scope.linkList = data.data;
-					} else if(datumType == "4") {
 						$scope.videoList = data.data;
-					} else if(datumType == "5") {
+					} else if(datumType == "4") {
 						$scope.audioList = data.data;
+					} else if(datumType == "5") {
+						$scope.linkList = data.data;
 					} else if(datumType == "already") {
+						$(data.data).each(function() {
+							this.select = true;
+						});
 						$scope.alreadyList = data.data;
+						$scope.initZiliao();
 					}
 				}
 			});
 		};
+		//已挂载资料
+		$scope.loadChapterData("already");
 
-		//初始化所有未挂载和已挂载的资料
+		//初始化所有未挂载的资料
 		$scope.initZiliao = function() {
 			//未挂载资料
-			$scope.loadChapterData("1");//文档资料
-			$scope.loadChapterData("3");//链接资料
-			$scope.loadChapterData("4");//视频资料
-			$scope.loadChapterData("5");//音频资料
-
-			//已挂载资料
-			$scope.loadChapterData("already");
+			$scope.loadChapterData("1"); //文档资料
+			$scope.loadChapterData("3"); //视频资料
+			$scope.loadChapterData("4"); //音频资料
+			$scope.loadChapterData("5"); //链接资料
 		}
-		$scope.initZiliao();
+		
 
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
-			$scope.initZiliao();
+			$scope.loadChapterData("already");
 		});
-		
+
 		$scope.sub = function() {
-			var filesIdArr = [];
-			$("input[name='ziliao']:checked").each(function() {
-				console.log($(this).val());
-				filesIdArr.push($(this).val());
-			});
+			var filesSelArr = [];
+			var a = $scope.docList.concat($scope.linkList);
+			var b = a.concat($scope.videoList);
+			var c = b.concat($scope.audioList);
+			var result = c.concat($scope.alreadyList);
 			
+			$(result).each(function() {
+				if(this.select) {
+					filesSelArr.push({
+						"chapterId": this.chapterId,
+						"courseId": localStorage.getItem('courseId'),
+						"dataId": this.fileId ? this.fileId : '',
+						"datumArea": this.datumArea ? this.datumArea : '3',
+						"datumName": this.fileName ? this.fileName : 'none',
+						"datumType": this.datumType ? this.datumType : '1',
+						"datumUrl": this.fileUrl ? this.fileUrl : '',
+						"knodeId": this.knodeId ? this.knodeId : '',
+						"stuShare": this.stuShare ? this.stuShare : '0',
+						"teachShare": this.teachShare ? this.teachShare : '0'
+					});
+				}
+			});
+			console.log(filesSelArr);
+
 			var postData = {
 				"chapterId": localStorage.getItem('currentNodeId'),
 				"courseId": localStorage.getItem('courseId'),
-				"files": filesIdArr
+				"files": filesSelArr
 			};
-			
+
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
+				operate: true,
 				url: '/courseData/save',
 				data: postData,
 				success: function(data) {
-					console.log(data);
+					$scope.loadChapterData("already");
 				}
 			});
 		};

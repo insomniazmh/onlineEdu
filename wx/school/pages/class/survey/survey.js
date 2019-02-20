@@ -16,11 +16,11 @@ Page({
   onShow: function () {
     var random = Math.random().toString(36).substr(2);//生成随机数
     var that = this;
-    if (getApp().globalData.circleId && getApp().globalData.studentId && random) {
+    if (getApp().globalData.circleId && random) {
       // 创建连接
       webSocket.connectSocket({
         url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
-          + "/" + getApp().globalData.studentId + "/student/" + random
+           + "/student/" + random
       });
       // 设置接收消息回调
       webSocket.onSocketMessageCallback = this.onSocketMessageCallback;

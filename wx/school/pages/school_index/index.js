@@ -2,23 +2,19 @@
 Page({
   joinRoom: function(e) {
     //学生进入课堂
-    wx.request({
-      method: "post",
-      url: 'https://e.hnfts.cn/quiz/classRoom/join/interactiveRoom',
-      data: {
-        examineeId: getApp().globalData.studentId,
-        circleId: getApp().globalData.circleId
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
-        //将页面跳转至上课
-        wx.navigateTo({
-          url: e.currentTarget.dataset.url
-        })
-      }
-    });
+    getApp().agriknow.joinClass({
+      circleId: getApp().globalData.circleId
+    }).then(res => {
+        if (res.ret == 0) {
+          //将页面跳转至上课
+          wx.navigateTo({
+            url: '/pages/class/students_interaction/students_interaction'
+          })
+        }
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
   },
 
   //扫描二维码,获取班级id

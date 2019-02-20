@@ -32,6 +32,13 @@ class agriknow {
   }
 
   /**
+   *  学生进入课堂
+   */
+  joinClass(postData = {}) {
+    return this._request.postRequest(this._baseUrl + '/quiz/classRoom/join/interactiveRoom', postData).then(res => res.data)
+  }
+
+  /**
    * 提交提问回答
    */
   answerquiz(postData = {}) {

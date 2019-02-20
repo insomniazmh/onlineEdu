@@ -34,11 +34,11 @@ Page({
     var that = this;
     console.log(random);
     console.log(getApp().globalData.circleId);
-    if (getApp().globalData.circleId && getApp().globalData.studentId && random) {
+    if (getApp().globalData.circleId && random) {
       // 创建连接
       webSocket.connectSocket({
         url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
-          + "/" + getApp().globalData.studentId + "/student/" + random
+          + "/student/" + random
       });
       // 设置接收消息回调
       webSocket.onSocketMessageCallback = this.onSocketMessageCallback;
@@ -78,8 +78,7 @@ Page({
    */
   onRaise(e) {
     var postData = {
-      "circleId": getApp().globalData.circleId,
-      "examineeId": getApp().globalData.studentId
+      "circleId": getApp().globalData.circleId
     }
     getApp().agriknow.raise(postData)
       .then(res => {

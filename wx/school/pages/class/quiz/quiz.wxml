@@ -1,7 +1,7 @@
 <!--pages/class/quiz/quiz.wxml-->
 <view class='text_typeOne'>
-  <image class='text_state dis_none' src='../../img/z17.png' mode='widthFix'></image>
-  <image class='text_state dis_none' src='../../img/z18.png' mode='widthFix'></image><!--已回答、已过期标签，添加“dis_none”隐藏-->
+  <image class='text_state dis_none' src='../../../img/z17.png' mode='widthFix'></image>
+  <image class='text_state dis_none' src='../../../img/z18.png' mode='widthFix'></image><!--已回答、已过期标签，添加“dis_none”隐藏-->
 </view>
 
 <question singleQuestion="{{currentQuestion}}" 

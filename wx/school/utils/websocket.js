@@ -38,6 +38,9 @@ var webSocket = {
     console.log(options.url);
     if (options && options.url) {
       wx.connectSocket({
+        header: {
+          'token': wx.getStorageSync('token')
+        },
         url: options.url,
         success: function (res) {
           if (options) {
