@@ -38,7 +38,7 @@ Page({
       // 创建连接
       webSocket.connectSocket({
         url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
-          + "/student/" + random
+          + "/10088/student/" + random
       });
       // 设置接收消息回调
       webSocket.onSocketMessageCallback = this.onSocketMessageCallback;

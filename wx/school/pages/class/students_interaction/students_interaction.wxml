@@ -12,11 +12,11 @@
   <text>问卷</text>
 </view>
 <view class='cfx'></view>
-<view class='stud_int_clm opacity' data-url="/pages/class/task/task" bindtap="goUrl">
+<view class='stud_int_clm' data-url="/pages/class/task/task" bindtap="goUrl">
   <image src='../../../img/z14.png' mode='widthFix'></image>
   <text>任务</text>
 </view>
-<view class='stud_int_clm opacity' data-url="/pages/class/strom/strom" bindtap="goUrl">
+<view class='stud_int_clm' data-url="/pages/class/strom/strom" bindtap="goUrl">
   <image src='../../../img/z15.png' mode='widthFix'></image>
   <text>风暴</text>
 </view>
