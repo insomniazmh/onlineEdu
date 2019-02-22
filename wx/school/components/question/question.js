@@ -96,13 +96,17 @@ Component({
     /**点击确定按钮提交答案 */
     formSubmit: function (e) {
       console.log('form发生了submit事件，携带数据为：', e.detail.value);
-      this.setData({ answer: e.detail.value.answer });
+      this.setData({ 
+        answer: e.detail.value.answer,
+        showSub: false
+      });
       this.bindSub(null);
     },
 
     /**点击举手按钮 */
     bindRaise: function (e) {
       this.triggerEvent('raise', true);
+      this.setData({ raiseFlag: false });
     },
 
     /**load题目 */
@@ -110,6 +114,7 @@ Component({
       var that = this;
       that.setData({
         showSub: true,
+        raiseFlag: false,
         radioindex: null,
         checkboxIndex: [],
         answer: "",

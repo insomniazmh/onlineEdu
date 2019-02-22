@@ -41,7 +41,7 @@ class agriknow {
   /**
    * 提交提问回答
    */
-  answerquiz(postData = {}) {
+  answerQuiz(postData = {}) {
     return this._request.postRequest(this._baseUrl + '/quiz/interact/send/answer', postData).then(res => res.data)
   }
 

@@ -199,6 +199,9 @@ var common = {
 		});
 
 		settings.$http({
+			headers: {
+				token: localStorage.getItem("token")
+			},
 			method: settings.method,
 			url: common.url + settings.url,
 			data: settings.data,
@@ -253,6 +256,9 @@ var common = {
 		});
 
 		settings.$http({
+			headers: {
+				token: localStorage.getItem("token")
+			},
 			method: settings.method,
 			url: common.url2 + settings.url,
 			data: settings.data,

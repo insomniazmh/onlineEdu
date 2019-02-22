@@ -38,7 +38,7 @@ Page({
       // 创建连接
       webSocket.connectSocket({
         url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
-          + "/10088/student/" + random
+          + "/" + wx.getStorageSync("token") + "/" + random
       });
       // 设置接收消息回调
       webSocket.onSocketMessageCallback = this.onSocketMessageCallback;
@@ -58,9 +58,10 @@ Page({
     //e.detail // 自定义组件触发事件时提供的detail对象
     var postData = e.detail;
 
-    getApp().agriknow.answerStrom(postData)
+    getApp().agriknow.answerQuiz(postData)
       .then(res => {
-        if (res.data.ret == 0) {
+        console.log(res);
+        if (res.ret == 0) {
           wx.showToast({
             title: '提交成功',
             icon: 'success',
