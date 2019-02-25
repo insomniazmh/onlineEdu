@@ -97,6 +97,7 @@ class agriknow {
               if (data.data.ret == 0) {
                 var resData = data.data.data;
                 wx.setStorageSync('token', resData.token)//将token信息存入本地
+                console.log(wx.getStorageSync('token'));
                 if (resData.binding && resData.binding == '0') {
                 } else {
                   //将页面跳转至绑定页
