@@ -364,6 +364,11 @@
 				layer.alert("请先选择章节");
 				return false;
 			}
+			
+			if($rootScope.currentNode.id == '0') {
+				layer.alert("题目不能加到课程上");
+				return false;
+			}
 
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建" + settings.tips + "吗", {
 				btn: ['确定', "取消"] //按钮
