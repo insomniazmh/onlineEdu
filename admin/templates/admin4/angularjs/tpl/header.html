@@ -155,6 +155,7 @@
 <script>
 	function signOut() {
 		localStorage.removeItem("username");
+		localStorage.removeItem("token");
 		window.location.href = "login.html";
 	}
 	

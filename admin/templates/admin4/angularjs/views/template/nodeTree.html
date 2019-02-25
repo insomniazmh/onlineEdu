@@ -191,29 +191,34 @@
 				layer.alert("请先选择章节");
 			}
 			if($scope.flag == "create") {
-				//创建章节
-				common.ajax({
-					$scope: $scope,
-					$http: $http,
-					operate: true,
-					url: '/courseChapter/save',
-					data: {
-						"chapterName": $scope.nodeName,
-						"chapterParentId": $scope.currentNode.id,
-						"courseId": localStorage.getItem('courseId')
-					},
-					success: function(data) {
-						//创建节点
-						sel = ref.create_node(sel, {
-							id: data.data.chapterId,
-							text: $scope.nodeName,
-							'icon': 'fa fa-briefcase icon-state-success',
-							'state': {
-								'opened': true
-							}
-						});
-					}
-				});
+				setTimeout(function() {
+					console.log($scope.currentNode);
+					// return false;
+					//创建章节
+					common.ajax({
+						$scope: $scope,
+						$http: $http,
+						operate: true,
+						url: '/courseChapter/save',
+						data: {
+							"chapterName": $scope.nodeName,
+							"chapterParentId": $scope.currentNode.id,
+							"courseId": localStorage.getItem('courseId')
+						},
+						success: function(data) {
+							//创建节点
+							sel = ref.create_node(sel, {
+								id: data.data.chapterId,
+								text: $scope.nodeName,
+								'icon': 'fa fa-briefcase icon-state-success',
+								'state': {
+									'opened': true
+								}
+							});
+						}
+					});
+				}, 1000);
+				
 
 			} else if($scope.flag == "rename") {
 				//修改章节名称

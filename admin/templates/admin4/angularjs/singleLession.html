@@ -229,6 +229,7 @@
 		<script src="js/commonJiaohu.js" type="text/javascript"></script>
 		<script src="js/layer-v3.1.1/layer/layer.js" type="text/javascript"></script>
 		<script src="js/websocket.js" type="text/javascript"></script>
+		<script src="js/echarts.js" type="text/javascript"></script>
 
 		<!-- END LayerSlider -->
 		<script>
@@ -694,6 +695,46 @@
 						}
 					});
 				}
+				
+				// 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        var option = {
+					tooltip : {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+					},
+					legend: {
+							x : 'center',
+							y : 'top',
+							data: ['A','B','C','D','E']
+					},
+					series : [
+							{
+									name: '访问来源',
+									type: 'pie',
+									radius : '55%',
+									center: ['50%', '60%'],
+									data:[
+											{value:335, name:'A'},
+											{value:310, name:'B'},
+											{value:234, name:'C'},
+											{value:135, name:'D'},
+											{value:1548, name:'E'}
+									],
+									itemStyle: {
+											emphasis: {
+													shadowBlur: 10,
+													shadowOffsetX: 0,
+													shadowColor: 'rgba(0, 0, 0, 0.5)'
+											}
+									}
+							}
+					]
+			};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
 			});
 			
 			
