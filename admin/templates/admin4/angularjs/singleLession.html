@@ -214,6 +214,8 @@
 					<!-- LayerSlider end -->
 				</div>
 			</div>
+			
+			
 		</div>
 		<script src="../../../assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>
 		<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
@@ -270,7 +272,7 @@
 									$scope.$broadcast('surveyMessage', data);
 								}else if(data.model == "answerTask") {//返回任务的学生回答
 									$scope.$broadcast('taskMessage', data);
-								}else if(data.model == "answerStrom") {//返回任务的学生回答
+								}else if(data.model == "answerBrainstorm") {//返回任务的学生回答
 									$scope.$broadcast('stromMessage', data);
 								}
 							})
@@ -897,15 +899,16 @@
 						if(!that.answers) {
 							that.answers = [];
 						}
-						$(data.students).each(function() {
-							if(this.askAnswer.questionId && that.id == this.askAnswer.questionId) {
+						$(data.students).each(function(i) {
+							if(this.askAnswer[0].questionId && that.id == this.askAnswer[0].questionId) {
 								that.answers.push({
 									studentId: this.id,
-									answer: this.askAnswer.answer
+									answer: this.askAnswer[0].answer
 								});
 							}
 						});
 					});
+					console.log($scope.stromQuestionList);
 				});
 				
 				$scope.$on('allStudents', function(event, data) {
@@ -994,6 +997,14 @@
 						this.show = true;
 					});
 				};
+				
+				//显示学生回答详情
+				$scope.answerDetail = function(answer) {
+					$scope.answer = answer;
+					console.log(answer);
+					$("#answerModal").modal("show");
+				}
+				
 			});
 			
 			
