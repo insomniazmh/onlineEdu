@@ -63,7 +63,7 @@ class agriknow {
    * 提交问卷回答
    */
   answerSurvey(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + '/quiz/interactSurvey/send/answer', postData).then(res => res.data)
   }
 
   /**
