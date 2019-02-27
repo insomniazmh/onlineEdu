@@ -63,7 +63,12 @@ Page({
 
     getApp().agriknow.answerPractice(postData)
       .then(res => {
-        if (res.data.ret == 0) {
+        if (res.ret == 0) {
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          });
           var questionList = that.data.questionList;
           for (let i = 0; i < questionList.length; i++) {
             if (questionList[i].id == that.data.currentQuestion.id) {

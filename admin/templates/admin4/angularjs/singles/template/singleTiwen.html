@@ -38,9 +38,6 @@
 							<li>
 								<a href="javascript:;" ng-click="xuanren()">选人</a>
 							</li>
-							<!--<li>
-											<a href="javascript:;" onclick="toupiao()">投票</a>
-										</li>-->
 						</ul>
 					</div>
 					<div class="btn-group">
@@ -57,42 +54,10 @@
 							<li>
 								<a href="javascript:;" ng-click="xuanrenzu()">选人</a>
 							</li>
-							<!--<li>
-										<a href="javascript:;" ng-click="toupiaozu()">投票</a>
-									</li>-->
 						</ul>
 					</div>
 					<button class="btn btn-success" ng-click="showAnswer()">显示回答</button>
 				</div>
-				<!--<div id="answerrenDetail" class="detail">
-									<div class="col-md-2" ng-repeat="row in students">
-										<div class="uppercase profile-userpic">
-											<img src="{{row.image}}" class="img-responsive" alt="">
-										</div>
-										<div class="uppercase profile-stat-text">
-											{{row.name}}&nbsp;&nbsp;
-											<span ng-if="$index%2==0">已回答</span>
-											<span ng-if="$index%2==1" style="color: red;">未回答</span>
-										</div>
-									</div>
-								</div>
-								<div id="answerzuDetail" class="detail">
-
-								</div>
-								<div id="toupiaorenDetail" class="detail">
-									<div class="col-md-2" ng-repeat="row in students">
-										<div class="uppercase profile-userpic">
-											<img src="{{row.image}}" class="img-responsive" alt="">
-										</div>
-										<div class="uppercase profile-stat-text">
-											{{row.name}}&nbsp;&nbsp;18票
-										</div>
-									</div>
-								</div>
-								<div id="toupiaozuDetail" class="detail">
-									<p>第一组得票数： 18</p>
-									<p>第二组得票数： 21</p>
-								</div>-->
 			</div>
 
 			<div style="clear: both;"></div>
@@ -102,7 +67,7 @@
 			</div>-->
 		</div>
 
-		<div style="height: 140px; display: none;" id="studentsWrapper">
+		<div style="height: 140px;">
 			<div style="width:80px;float:left;" ng-repeat="row in allStudents" ng-show="row.show">
 				<div class="uppercase profile-userpic {{row.select ? 'active' : ''}}" ng-click="selectStudent(row)">
 					<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">
@@ -111,7 +76,7 @@
 				<div class="uppercase profile-stat-text answer" style="color: orangered;" ng-bind-html="row.answer"></div>
 			</div>
 		</div>
-		<div style="height: 40px;text-align: center; display: none;" id="btns">
+		<div style="height: 40px;text-align: center;display: none;" id="btns">
 			<button class="btn btn-primary" ng-click="all()">全选</button>
 			<button class="btn btn-primary" ng-click="sub()">确定</button>
 		</div>

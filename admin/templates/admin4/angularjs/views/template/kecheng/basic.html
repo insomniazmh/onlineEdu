@@ -191,11 +191,15 @@
 			});
 			//备课类型
 			var lessonPreparationType = $('input[name="beikeType"]:checked').val();
+			
 			//课程描述
 			var courseDescribe = $('#summernoteMiaoshu').code();
 			//集体备课老师人员数组
 			var teacherArr = $("#my_multi_select1").val();
-			console.log(teacherArr);
+			if(lessonPreparationType == '2' && (!teacherArr || teacherArr.length == 0)) {
+				layer.alert("集体备课必须选择备课老师");
+				return false;
+			}
 			$(teacherArr).each(function() {
 				teachers.push({
 					teacherId: this,
@@ -215,8 +219,8 @@
 					operate: true,
 					url: '/course/save',
 					data: {
-						course: $scope.course,
-						teachers: teachers
+// 						course: $scope.course,
+// 						teachers: teachers
 					},
 					success: function(data) {
 						if (data.ret == 0) {

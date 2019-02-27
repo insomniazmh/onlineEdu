@@ -63,7 +63,7 @@ Page({
 
     getApp().agriknow.answerSurvey(postData)
       .then(res => {
-        if (res.data.ret == 0) {
+        if (res.ret == 0) {
           var questionList = that.data.questionList;
           for (let i = 0; i < questionList.length; i++) {
             if (questionList[i].id == that.data.currentQuestion.id) {
