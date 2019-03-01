@@ -672,7 +672,7 @@
 						"teacherId": localStorage.getItem('userid'),
 						"chapterId": localStorage.getItem('currentNodeId')
 					},
-					url: '/classRoom/create/cover',
+					url: '/classRoom/create/reuse',
 					success: function(res) {
 						localStorage.setItem("circleId", res.data);
 						$('#qrcode').empty();

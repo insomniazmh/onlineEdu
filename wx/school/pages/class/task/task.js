@@ -64,7 +64,7 @@ Page({
     var postData = e.detail;
     getApp().agriknow.answerTask(postData)
       .then(res => {
-        if (res.data.ret == 0) {
+        if (res.ret == 0) {
           wx.showToast({
             title: '提交成功',
             icon: 'success',

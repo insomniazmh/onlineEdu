@@ -24,34 +24,34 @@
 						<div class="md-checkbox">
 							<input type="checkbox" id="lessonType1" class="md-check" name="lessonType" value="1">
 							<label for="lessonType1">
-							<span></span>
-							<span class="check"></span>
-							<span class="box"></span>
-							录播课程 </label>
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								录播课程 </label>
 						</div>
 						<div class="md-checkbox">
 							<input type="checkbox" id="lessonType2" class="md-check" name="lessonType" value="2">
 							<label for="lessonType2">
-							<span></span>
-							<span class="check"></span>
-							<span class="box"></span>
-							直播课程 </label>
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								直播课程 </label>
 						</div>
 						<div class="md-checkbox">
 							<input type="checkbox" id="lessonType3" class="md-check" name="lessonType" value="3" checked="">
 							<label for="lessonType3">
-							<span></span>
-							<span class="check"></span>
-							<span class="box"></span>
-							线下课堂 </label>
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								线下课堂 </label>
 						</div>
 					</div>
 				</div>
 				<div class="form-group form-md-checkboxes">
 					<label>封面图片</label>
-						<a href="javascript:;" class="thumbnail" style="width: 160px;">
-							<img src="{{course.topPicSrc}}" alt="100%x180" style="height: 180px; width: 100%; display: block;">
-						</a>
+					<a href="javascript:;" class="thumbnail" style="width: 160px;">
+						<img src="{{course.topPicSrc}}" alt="100%x180" style="height: 180px; width: 100%; display: block;">
+					</a>
 					<div id="topPicSrc" class="filePicker">选择文件</div>
 				</div>
 			</div>
@@ -62,18 +62,18 @@
 						<div class="md-radio">
 							<input type="radio" id="beikeType1" name="beikeType" class="md-radiobtn" value="1" checked="">
 							<label for="beikeType1">
-							<span></span>
-							<span class="check"></span>
-							<span class="box"></span>
-							单人备课 </label>
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								单人备课 </label>
 						</div>
 						<div class="md-radio">
 							<input type="radio" id="beikeType2" name="beikeType" class="md-radiobtn" value="2">
 							<label for="beikeType2">
-							<span></span>
-							<span class="check"></span>
-							<span class="box"></span>
-							集体备课 </label>
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								集体备课 </label>
 						</div>
 					</div>
 				</div>
@@ -114,32 +114,32 @@
 		var path = $location.path();
 		//加载课程信息(如果为编辑)
 		$scope.loadCourseInfo = function() {
-			if(path.indexOf("courseAdd") != -1) {
+			if (path.indexOf("courseAdd") != -1) {
 				$scope.course = {
 					topPicSrc: 'images/zanwu.jpg'
 				};
-			}else {
+			} else {
 				common.ajax({
 					$scope: $scope,
 					$http: $http,
 					url: '/course/getCourse',
 					data: {
-				    	'courseId': localStorage.getItem('courseId')
-				    },
-				    success: function(data) {
-				    	//课程信息
-				    	$scope.course = data.data;
-				    	//课程描述
-				    	$('#summernoteMiaoshu').code($scope.course.courseDescribe);
-				    	//授课类型
-				    	$('input[name="lessonType"]').attr("checked", false);
-				    	var teachingType = $scope.course.teachingType.split(",");
-				    	$(teachingType).each(function() {
-				    		$("input[name='lessonType'][value="+this+"]").attr("checked","checked");
-				    	});
+						'courseId': localStorage.getItem('courseId')
+					},
+					success: function(data) {
+						//课程信息
+						$scope.course = data.data;
+						//课程描述
+						$('#summernoteMiaoshu').code($scope.course.courseDescribe);
+						//授课类型
+						$('input[name="lessonType"]').attr("checked", false);
+						var teachingType = $scope.course.teachingType.split(",");
+						$(teachingType).each(function() {
+							$("input[name='lessonType'][value=" + this + "]").attr("checked", "checked");
+						});
 						//备课类型
-						$("input[name='beikeType'][value="+$scope.course.lessonPreparationType+"]").attr("checked","checked");
-						if($scope.course.lessonPreparationType == "2") {
+						$("input[name='beikeType'][value=" + $scope.course.lessonPreparationType + "]").attr("checked", "checked");
+						if ($scope.course.lessonPreparationType == "2") {
 							$("#multipleContent").show();
 							//请求分享教师的接口
 							common.ajax({
@@ -147,38 +147,38 @@
 								$http: $http,
 								url: '/course/selectTeachersByShareId',
 								data: {
-							    	'shareId': $scope.course.shareId
-							    },
-							    success: function(res) {
-							    	var arr = [];
-							    	$(res.data).each(function() {
-							    		arr.push(this.userId);
-							    	});
-							    	$("#my_multi_select1 option").each(function() {
-							    		//console.log($.inArray($(this).val(), arr));
-							    		if($.inArray($(this).val(), arr) >=0 ) {
-							    			$(this).attr("selected", true);
-							    		}
-							    	})
-							    	$('#my_multi_select1').multiSelect('refresh');
-							    }
+									'shareId': $scope.course.shareId
+								},
+								success: function(res) {
+									var arr = [];
+									$(res.data).each(function() {
+										arr.push(this.userId);
+									});
+									$("#my_multi_select1 option").each(function() {
+										//console.log($.inArray($(this).val(), arr));
+										if ($.inArray($(this).val(), arr) >= 0) {
+											$(this).attr("selected", true);
+										}
+									})
+									$('#my_multi_select1').multiSelect('refresh');
+								}
 							});
 						}
 						//处理封面
-						if(!$scope.course.topPicSrc) {
+						if (!$scope.course.topPicSrc) {
 							$scope.course.topPicSrc = 'images/zanwu.jpg';
 						}
-				    }
+					}
 				});
 			}
 		}
 		$scope.loadCourseInfo();
-		
+
 		//切换课程回调
-		$scope.$on('course', function(d,data) {
+		$scope.$on('course', function(d, data) {
 			$scope.loadCourseInfo();
 		});
-		
+
 		$scope.sub = function() {
 			//集体备课老师人员
 			var teachers = []
@@ -186,98 +186,130 @@
 			$scope.course.specialtyId = "zhuanye001";
 			//授课类型
 			var teachingType = [];
-			$.each($('input[name="lessonType"]:checked'),function(){
+			$.each($('input[name="lessonType"]:checked'), function() {
 				teachingType.push($(this).val());
-            });
-            //备课类型
-            var lessonPreparationType = $('input[name="beikeType"]:checked').val();
-            //课程描述
-            var courseDescribe = $('#summernoteMiaoshu').code();
-            //集体备课老师人员数组
-            var teacherArr = $("#my_multi_select1").val();
-            console.log(teacherArr);
-            $(teacherArr).each(function() {
-            	teachers.push({
-            		teacherId: this,
-            		teacherName: "张三"
-            	});
-            });
-            
-            $scope.course.teachingType = teachingType.join(",");
-            $scope.course.lessonPreparationType = lessonPreparationType;
-            $scope.course.courseDescribe = courseDescribe;
-            
-            if(path.indexOf("courseAdd") != -1) {
-            	//添加课程
+			});
+			//备课类型
+			var lessonPreparationType = $('input[name="beikeType"]:checked').val();
+			
+			//课程描述
+			var courseDescribe = $('#summernoteMiaoshu').code();
+			//集体备课老师人员数组
+			var teacherArr = $("#my_multi_select1").val();
+			if(lessonPreparationType == '2' && (!teacherArr || teacherArr.length == 0)) {
+				layer.alert("集体备课必须选择备课老师");
+				return false;
+			}
+			$(teacherArr).each(function() {
+				teachers.push({
+					teacherId: this,
+					teacherName: "张三"
+				});
+			});
+
+			$scope.course.teachingType = teachingType.join(",");
+			$scope.course.lessonPreparationType = lessonPreparationType;
+			$scope.course.courseDescribe = courseDescribe;
+
+			if (path.indexOf("courseAdd") != -1) {
+				//添加课程
 				common.ajax({
 					$scope: $scope,
 					$http: $http,
 					operate: true,
 					url: '/course/save',
 					data: {
-				    	course: $scope.course,
-				    	teachers: teachers
-				    },
-				    success: function(data) {
-				    	if(data.ret == 0) {
-				    		$rootScope.$emit("course", data.data);
-				    		localStorage.setItem('currentNodeId', data.data.courseId);
-				    		$rootScope.currentNodeId = data.data.courseId;
-				    		layer.confirm('提交成功，即将转到教辅资料库添加资料', {
-							  btn: ['确定'] //按钮
-							}, function(){
-							  	window.location.href = "#/assistant.html";
-								layer.closeAll('dialog');
+// 						course: $scope.course,
+// 						teachers: teachers
+					},
+					success: function(data) {
+						if (data.ret == 0) {
+							$rootScope.$emit("course", data.data);
+							localStorage.setItem('currentNodeId', data.data.courseId);
+							$rootScope.currentNodeId = data.data.courseId;
+							layer.confirm('提交成功，即将转到教辅资料库添加资料', {
+								btn: ['确定'] //按钮
+							}, function() {
+								//加载课程列表
+								common.ajax({
+									$scope: $scope,
+									$http: $http,
+									url: '/course/findAll',
+									data: {
+										sortVo: {
+											page: 0,
+											size: common.pageSize
+										}
+									},
+									success: function(res) {
+										$(res.data).each(function() {
+											if(!this.topPicSrc) {
+												this.topPicSrc = 'images/zanwu.jpg';
+											}
+										});
+										$rootScope.courses = res.data;
+										localStorage.setItem('courseId', data.data.courseId);
+										$($rootScope.courses).each(function() {
+											if(this.courseId == data.data.courseId) {
+												$rootScope.course = this;
+												$rootScope.$emit("course", this);
+											}
+										});
+										window.location.href = "#/assistant.html";
+										layer.closeAll('dialog');
+									}
+								});
+								
 							});
-			    			
-				    	}
-				    }
+
+						}
+					}
 				});
-            }else {
-            	$scope.course.courseId = localStorage.getItem('courseId');
-            	//编辑课程
-            	common.ajax({
+			} else {
+				$scope.course.courseId = localStorage.getItem('courseId');
+				//编辑课程
+				common.ajax({
 					$scope: $scope,
 					$http: $http,
 					operate: true,
 					url: '/course/edit',
 					data: {
-				    	course: $scope.course,
-				    	oldShareId: $scope.course.shareId,
-				    	teachers: teachers
-				    },
-				    success: function(data) {
-				    	console.log(data);
-				    }
+						course: $scope.course,
+						oldShareId: $scope.course.shareId,
+						teachers: teachers
+					},
+					success: function(data) {
+						console.log(data);
+					}
 				});
-            }
+			}
 		}
-		
+
 		//初始化富文本编辑器
 		$('#summernoteMiaoshu').summernote({
 			height: 300
 		});
-		
+
 		//上传封面图片
 		common.fileUpload({
 			id: 'topPicSrc',
 			success: function(file, response) {
-				$scope.$apply(function() {　
+				$scope.$apply(function() {
 					$scope.course.topPicSrc = response.fileUrl;
 				});
 			}
 		});
-		
+
 		//集体备课
 		$('#my_multi_select1').multiSelect();
 		$('input:radio[name="beikeType"]').change(function() {
 			console.log($(this).val());
-			if($(this).val() == 2) {
+			if ($(this).val() == 2) {
 				$("#multipleContent").show();
-			}else {
+			} else {
 				$("#multipleContent").hide();
 			}
 		});
-		
+
 	}
 </script>

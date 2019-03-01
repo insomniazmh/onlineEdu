@@ -56,14 +56,14 @@ class agriknow {
    * 提交练习回答
    */
   answerPractice(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + '/quiz/interact/sendBook/answer', postData).then(res => res.data)
   }
 
   /**
    * 提交问卷回答
    */
   answerSurvey(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + '/quiz/interactSurvey/send/answer', postData).then(res => res.data)
   }
 
   /**
@@ -96,6 +96,7 @@ class agriknow {
             success(data) {
               if (data.data.ret == 0) {
                 var resData = data.data.data;
+                console.log(resData.token);
                 wx.setStorageSync('token', resData.token)//将token信息存入本地
                 console.log(wx.getStorageSync('token'));
                 if (resData.binding && resData.binding == '0') {
