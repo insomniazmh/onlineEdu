@@ -37,6 +37,7 @@ class request {
    * PUT类型的网络请求
    */
   putRequest(url, data, header = this._header) {
+    
     return this.requestAll(url, data, header, 'PUT')
   }
 
@@ -44,6 +45,7 @@ class request {
    * POST类型的网络请求
    */
   postRequest(url, data, header = this._header) {
+    
     return this.requestAll(url, data, header, 'POST')
   }
 
@@ -52,6 +54,11 @@ class request {
    */
   requestAll(url, data, header, method) {
     return new Promise((resolve, reject) => {
+      header = {
+        'content-type': 'application/json',
+        'token': wx.getStorageSync('token')
+      }
+      console.log(header);
       wx.request({
         url: url,
         data: data,
@@ -64,7 +71,7 @@ class request {
               resolve(res)
             }else {
               wx.showToast({
-                title: res.data.msg,
+                title: res.msg,
                 icon: 'none'
               })
             }

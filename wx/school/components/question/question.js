@@ -79,6 +79,7 @@ Component({
     /**点击确定按钮提交答案 */
     bindSub: function (e) {
       var that = this;
+      console.log(wx.getStorageSync('token'));
       var postData = {
         "answ": {
           "questionId": that.data.questionId,
@@ -88,7 +89,8 @@ Component({
         "circleId": getApp().globalData.circleId,
         "cut": that.data.cut,
         "examineeId": getApp().globalData.studentId,
-        "questionId": that.data.questionId
+        "questionId": that.data.questionId,
+        "token": wx.getStorageSync('token')
       };
       this.triggerEvent('subQuestion', postData);
     },
