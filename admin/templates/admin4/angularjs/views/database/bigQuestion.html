@@ -1,3 +1,15 @@
+<style>
+	.opreat {
+		font-size: 16px;
+		width: 20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+	.nbsp {
+		padding-right: 3px;
+		border-right: 1px solid #45B6AF;
+	}
+</style>
 <div class="row" ng-controller="bigQuestionCtrl">
 	<div class="col-md-12" style="background-color: white;">
 		<div class="form-group form-md-line-input">
@@ -98,10 +110,11 @@
 						<h4 class="panel-title">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionBig" data-target="#accordionBig_{{$index}}">
 								<span ng-bind-html="row.title" style="display: inline-block;"></span> </a>
-							<!--<div style="display: inline-block;float: right;">
-															<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑" ng-click="editQuestion(row)"></i>
-															<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion($index)"></i>
-														</div>-->
+							<div style="display: inline-block;float: right;">
+								<i class="fa fa-arrow-up opreat nbsp" title="上移" ng-click="changeLoction($index, 1)"></i>
+								<i class="fa fa-arrow-down opreat nbsp" title="下移" ng-click="changeLoction($index, 2)"></i>
+								<i class="fa fa-trash-o opreat" title="删除" ng-click="delSmall($index)"></i>
+							</div>
 						</h4>
 					</div>
 					<div id="accordionBig_{{$index}}" class="panel-collapse collapse">
@@ -144,6 +157,36 @@
 			$scope.smallList.push(data);
 			console.log(data);
 		});
+		
+		//删除大题中的某个小题
+		$scope.delSmall = function(index) {
+			layer.confirm('您确定要删除该小题吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(i){
+				$scope.$apply(function() {
+					$scope.smallList.splice(index, 1);
+				});
+				layer.close(i);
+			}, function() {
+				
+			});
+		}
+		
+		$scope.changeLoction = function(index, flag) {
+			if(flag == 1) {
+				if(index == 0) {
+					layer.alert("已经是第一个了，无法上移");
+					return false;
+				}
+				[$scope.smallList[index], $scope.smallList[index-1]]=[$scope.smallList[index-1], $scope.smallList[index]];
+			}else {
+				if(index == ($scope.smallList.length-1)) {
+					layer.alert("已经是最后一个了，无法下移");
+					return false;
+				}
+				[$scope.smallList[index], $scope.smallList[index+1]]=[$scope.smallList[index+1], $scope.smallList[index]];
+			}
+		}
 
 		if (!$scope.knowledgeId) {
 			$scope.knowledgeId = "";
@@ -176,4 +219,3 @@
 
 	}
 </script>
-
