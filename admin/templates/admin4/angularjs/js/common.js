@@ -216,6 +216,7 @@ var common = {
 				}
 				settings.success(response.data);
 			} else {
+				layer.closeAll('dialog');
 				common.toast({
 					type: 2,
 					title: "操作失败",
@@ -229,6 +230,7 @@ var common = {
 				Metronic.unblockUI();
 			});
 		}, function errorCallback(response) {
+			layer.closeAll('dialog');
 			window.setTimeout(function() {
 				Metronic.unblockUI();
 			});
@@ -273,6 +275,7 @@ var common = {
 				}
 				settings.success(response.data);
 			} else {
+				layer.closeAll('dialog');
 				common.toast({
 					type: 2,
 					title: "操作失败",
@@ -286,6 +289,7 @@ var common = {
 				Metronic.unblockUI();
 			});
 		}, function errorCallback(response) {
+			layer.closeAll('dialog');
 			console.log("error");
 			window.setTimeout(function() {
 				Metronic.unblockUI();

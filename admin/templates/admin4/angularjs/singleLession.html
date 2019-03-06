@@ -733,7 +733,9 @@
 							//如果该题已经发送过,则标志为已选,否则为未选
 							if(!data.data.selectId || data.data.selectId.length == 0) {
 								$scope.currentSurveyQues.select = false;
-								$scope.removeAllAnswer();
+								$($scope.allStudents).each(function() {
+									this.answer = "";
+								});
 								return false;
 							}else {
 								$scope.currentSurveyQues.select = true;
@@ -949,7 +951,7 @@
 				$scope.answerDetail = function(answer) {
 					$scope.answer = answer;
 					console.log(answer);
-					$("#answerModal").modal("show");
+					$("#taskAnswerModal").modal("show");
 				}
 			});
 			
@@ -1096,7 +1098,7 @@
 				$scope.answerDetail = function(answer) {
 					$scope.answer = answer;
 					console.log(answer);
-					$("#answerModal").modal("show");
+					$("#stromAnswerModal").modal("show");
 				}
 				
 			});

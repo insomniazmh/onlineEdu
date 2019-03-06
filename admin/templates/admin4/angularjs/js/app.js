@@ -1130,3 +1130,13 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settings, $state) {
 	$rootScope.$state = $state; // state to be accessed from view
 }]);
+
+MetronicApp.directive('repeatFinish',function(){
+    return {
+        link: function(scope,element,attr){
+            if(scope.$last == true){
+                scope.$eval( attr.repeatFinish )
+            }
+        }
+    }
+})
