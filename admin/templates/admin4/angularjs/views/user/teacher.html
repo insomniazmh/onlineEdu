@@ -1,5 +1,5 @@
 <link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/select2/select2.css" />
 <div class="row" ng-controller="teacherCtrl">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -130,20 +130,36 @@
 				$scope.teachers = data.data;
 			}
 		});
-		
+
+		//加载所有已添加到本系统中的教师信息
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			data: {
+				"isValidated": 0,
+				"page": 0,
+				"size": 15,
+				"sort": 1
+			},
+			url: '/teacher/findAll',
+			success: function(data) {
+				
+			}
+		});
+
 		$scope.renderFinish = function() {
 			$('.select2_category').select2({
-			    placeholder: "Select an option",
-			    allowClear: true
+				placeholder: "Select an option",
+				allowClear: true
 			});
 		}
-		
+
 		$scope.sub = function() {
-			if(!$scope.teacherCode) {
+			if (!$scope.teacherCode) {
 				layer.alert('请先选择教师');
 				return false;
 			}
-				
+
 			layer.confirm("您确定要创建该用户吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
@@ -162,6 +178,6 @@
 				});
 			});
 		}
-		
+
 	}
 </script>

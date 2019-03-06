@@ -75,19 +75,19 @@
 					</div>
 					<ul class="nav nav-tabs">
 						<li class="active">
-							<a data-target="#tab_3_1" data-toggle="tab"> 文档 </a>
+							<a data-target="#tab_3_1" data-toggle="tab" ng-click="changeTab('1')"> 文档 </a>
 						</li>
 						<!--<li>
 							<a data-target="#tab_3_2" data-toggle="tab"> 图集 </a>
 						</li>-->
 						<li>
-							<a data-target="#tab_3_3" data-toggle="tab"> 链接 </a>
+							<a data-target="#tab_3_3" data-toggle="tab" ng-click="changeTab('5')"> 链接 </a>
 						</li>
 						<li>
-							<a data-target="#tab_3_4" data-toggle="tab"> 视频 </a>
+							<a data-target="#tab_3_4" data-toggle="tab" ng-click="changeTab('3')"> 视频 </a>
 						</li>
 						<li>
-							<a data-target="#tab_3_5" data-toggle="tab"> 音频 </a>
+							<a data-target="#tab_3_5" data-toggle="tab" ng-click="changeTab('4')"> 音频 </a>
 						</li>
 					</ul>
 				</div>
@@ -175,27 +175,6 @@
 								<div id="filePickerDoc" class="filePicker" style="text-align: center;">选择文件</div>
 							</div>
 						</div>
-						<!--<div class="tab-pane" id="tab_3_2">
-							<div class="fileTab">
-								<div class="row">
-									<div class="col-md-12" id="pics">
-										<ul class="pics"></ul>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12" style="margin-bottom: 20px;">
-										<div class="form-group form-md-line-input">
-											<input type="text" class="form-control" id="form_control_1" ng-model="datumName" placeholder="图集名称">
-											<label for="form_control_1">图集名称</label>
-											<span class="help-block">名称不得超过50个字符</span>
-										</div>
-									</div>
-								</div>
-								<div id="filePickerPics" class="filePicker" style="text-align: center;">选择文件</div>
-								<button class="btn btn-default uploadBtn1">开始上传</button>
-								
-							</div>
-						</div>-->
 						<div class="tab-pane" id="tab_3_3">
 							<div class="fileTab">
 								<div class="row">
@@ -266,29 +245,16 @@
 			success: function(file, response, uploader) {
 				var html = '<a href="'+response.fileUrl+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
 				$("#wendangContent").html(html);
-				$scope.files = [response];
-				$scope.datumType = "1";
+				$scope.docFiles = [response];
 			}
 		});
-		//上传图集
-//		common.multiFileUpload({
-//			id: 'filePickerPics',
-//			uploadBtn: '.uploadBtn1',
-//			success: function(file, response, uploader) {
-//				console.log(response);
-//				pics.push(response);
-//				$scope.files = pics;
-//				$scope.datumType = "2";
-//			}
-//		});
 		//上传音频
 		common.fileUpload({
 			id: 'filePickerAudio',
 			success: function(file, response, uploader) {
 				var html = '<audio src="'+response.fileUrl+'" controls="controls">您的浏览器不支持 audio 标签。</audio>';
 				$("#audioContent").html(html);
-				$scope.files = [response];
-				$scope.datumType = "4";
+				$scope.audioFiles = [response];
 			}
 		});
 		
@@ -299,18 +265,21 @@
 				var html = '<video src="'+response.fileUrl+'" controls="controls" style="height: 300px; width:auto;">您的浏览器不支持 video 标签。</video>';
 				console.log(html);
 				$("#videoContent").html(html);
-				$scope.files = [response];
-				$scope.datumType = "3";
+				$scope.videoFiles = [response];
 			}
 		});
 		//链接预览
 		$scope.preview = function() {
 			$("iframe").attr("src", $scope.linkUrl);
-			$scope.files = [{
+			$scope.linkFiles = [{
 				fileName: $scope.linkTitle,
 				fileUrl: $scope.linkUrl
 			}];
-			$scope.datumType = "5";
+		}
+		
+		$scope.changeTab = function(type) {
+			console.log(type);
+			$scope.datumType = type;
 		}
 		
 		//添加资料
@@ -331,9 +300,20 @@
 			  "teachShare": $scope.teachShare
 			};
 			
-//			if($scope.datumType == "2") {
-//				data.datumName = $scope.datumName;
-//			}
+			if($scope.datumType == '1') {
+				data.files = $scope.docFiles;
+			}else if($scope.datumType == '3') {
+				data.files = $scope.videoFiles;
+			}else if($scope.datumType == '4') {
+				data.files = $scope.audioFiles;
+			}else if($scope.datumType == '5') {
+				data.files = $scope.linkFiles;
+			}
+			
+			if(!data.files) {
+				layer.alert('请先上传文件');
+				return false;
+			}
 			
 			common.ajax({
 				$scope: $scope,

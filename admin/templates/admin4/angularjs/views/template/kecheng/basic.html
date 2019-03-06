@@ -180,6 +180,18 @@
 		});
 
 		$scope.sub = function() {
+			//校验课程名称
+			if(!$scope.course.courseName || $scope.course.courseName == "") {
+				layer.alert("课程名称不能为空");
+				return false;
+			}
+			
+			//校验课程名称
+			if(!$scope.course.courseNumber || $scope.course.courseNumber == "") {
+				layer.alert("课程编号不能为空");
+				return false;
+			}
+			
 			//集体备课老师人员
 			var teachers = []
 			//所属专业
