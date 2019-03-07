@@ -63,6 +63,16 @@
 		});
 		
 		$scope.sub = function() {
+			if ($('#zhuguanSmall_title').code() == "") {
+				layer.alert("题干不能为空");
+				return false;
+			}
+			
+			if ($('#zhuguanSmall_answer').code() == "") {
+				layer.alert("答案不能为空");
+				return false;
+			}
+			
 			var kPointId = "";
 			
 			var obj = {

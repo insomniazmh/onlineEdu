@@ -74,6 +74,11 @@
 		
 		
 		$scope.sub = function() {
+			if ($('#panduanSmall_title').code() == "") {
+				layer.alert("题干不能为空");
+				return false;
+			}
+			
 			var obj = {
 				score: 1,
 				examType: "trueOrFalse",

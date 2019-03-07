@@ -176,15 +176,36 @@
 		$scope.sub = function() {
 			//拼装选项
 			var opts = [];
+			var flag = true;
+			
+			if($scope.single.options.length < 2) {
+				layer.alert("单选题至少需要两个选项");
+				return false;
+			}
+			
 			$($scope.single.options).each(function(i) {
+				if($('[name=danxuanSmall_option]').eq(i).code() == "") {
+					flag = false;
+				}
 				opts.push({
 					"optTxt": $('[name=danxuanSmall_option]').eq(i).code(),
 					"optValue": this.optValue
 				});
 			});
-
-			if (!$scope.knowledgeId) {
-				$scope.knowledgeId = "";
+			
+			if(!flag) {
+				layer.alert("不能出现内容为空的选项");
+				return false;
+			}
+			
+			if ($('#danxuanSmall_title').code() == "") {
+				layer.alert("题干不能为空");
+				return false;
+			}
+			
+			if(!$scope.single.right || $scope.single.right == "") {
+				layer.alert("请选择正确答案");
+				return false;
 			}
 
 			var obj = {
