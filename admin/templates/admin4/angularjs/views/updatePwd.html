@@ -1,0 +1,89 @@
+<div class="row" ng-controller="updatePwdCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>修改密码
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="row" style="margin-bottom: 40px;">
+					<div class="col-md-offset-3 col-md-6">
+						<div class="form-group form-md-line-input">
+							<input type="password" class="form-control" id="form_control_1" ng-model="pwd.oldPassWord" placeholder="请输入旧密码">
+							<label for="form_control_1">旧密码</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" style="margin-bottom: 40px;">
+					<div class="col-md-offset-3 col-md-6">
+						<div class="form-group form-md-line-input has-success">
+							<input type="password" class="form-control" id="form_control_2" ng-model="pwd.newPassWord" placeholder="请输入新密码">
+							<label for="form_control_2">新密码</label>
+							<span class="help-block"></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row" style="margin-bottom: 40px;">
+					<div class="col-md-offset-3 col-md-6">
+						<div class="form-group form-md-line-input has-success">
+							<input type="password" class="form-control" id="form_control_3" ng-model="pwd.newPassWordAgain" placeholder="请输入新密码">
+							<label for="form_control_3">确认新密码</label>
+							<span class="help-block"></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-actions noborder" style="text-align: center;">
+					<button type="button" class="btn blue" ng-click="sub()">提交</button>
+				</div>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+
+</div>
+<script>
+	function updatePwdCtrl($scope, $http) {
+		$scope.pwd = {};
+		$scope.sub = function() {
+			if (!$scope.pwd.oldPassWord) {
+				layer.alert("请输入旧密码");
+				return false;
+			}
+			if (!$scope.pwd.newPassWord) {
+				layer.alert("请输入新密码");
+				return false;
+			}
+			if (!$scope.pwd.newPassWord) {
+				layer.alert("请输入新密码");
+				return false;
+			}
+			if ($scope.pwd.newPassWord != $scope.pwd.newPassWordAgain) {
+				layer.alert("两次新密码输入不一致");
+				return false;
+			}
+
+			layer.confirm('您确定要修改密码吗？', {
+				btn: ['确定', '取消'] //按钮
+			}, function() {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					data: $scope.pwd,
+					url: '/auth/updatePassWord',
+					success: function(data) {
+						layer.confirm('修改成功，请重新登录', {
+							btn: ['确定'] //按钮
+						}, function() {
+							window.location.href = "login.html";
+						});
+					}
+				});
+			});
+		}
+	}
+</script>

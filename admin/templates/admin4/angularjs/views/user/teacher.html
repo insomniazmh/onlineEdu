@@ -29,46 +29,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX">
-							<td>学生1</td>
+						<tr class="odd gradeX" ng-repeat="row in existTeachers">
+							<td>{{row.userName}}</td>
 							<td>
-								<span class="label label-sm label-success" data-toggle="modal" href="#lg">
+								<span class="label label-sm label-success" ng-click="resetPwd(row.teacherId)">
 									重置密码
 								</span>
 								&nbsp;&nbsp;&nbsp;
-								<span class="label label-sm label-success">删除</span>
+								<span class="label label-sm label-success" ng-click="del(row.teacherId)">删除</span>
 							</td>
 						</tr>
-						<tr class="odd gradeX">
-							<td>学生2</td>
-							<td>
-								<span class="label label-sm label-success" data-toggle="modal" href="#fenshuModal">
-									修改
-								</span>
-								&nbsp;&nbsp;&nbsp;
-								<span class="label label-sm label-success">删除</span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>学生3</td>
-							<td>
-								<span class="label label-sm label-success" data-toggle="modal" href="#fenshuModal">
-									修改
-								</span>
-								&nbsp;&nbsp;&nbsp;
-								<span class="label label-sm label-success">删除</span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>学生4</td>
-							<td>
-								<span class="label label-sm label-success" data-toggle="modal" href="#fenshuModal">
-									修改
-								</span>
-								&nbsp;&nbsp;&nbsp;
-								<span class="label label-sm label-success">删除</span>
-							</td>
-						</tr>
+						
 					</tbody>
 				</table>
 			</div>
@@ -141,9 +112,9 @@
 				"size": 15,
 				"sort": 1
 			},
-			url: '/teacher/findAll',
+			url: '/auth/users',
 			success: function(data) {
-				
+				$scope.existTeachers = data.data.content;
 			}
 		});
 
@@ -177,6 +148,33 @@
 					}
 				});
 			});
+		}
+		
+		$scope.resetPwd = function(id) {
+			layer.confirm("您确定要为该用户重置密码吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					data: {
+						teacherCode: id
+					},
+					url: '/auth/resetPassWord',
+					success: function(data) {
+						layer.closeAll('dialog');
+					}
+				});
+			});
+		}
+		
+		$scope.del = function(id) {
+// 			layer.confirm("您确定要删除该用户吗", {
+// 				btn: ['确定', "取消"] //按钮
+// 			}, function() {
+// 				
+// 			});
 		}
 
 	}

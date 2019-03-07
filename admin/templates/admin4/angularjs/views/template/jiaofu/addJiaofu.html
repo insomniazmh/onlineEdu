@@ -289,6 +289,11 @@
 				datumArea.push($(this).val());
 			});
 			
+			if(datumArea.length == 0) {
+				layer.alert('请至少选择一个资料标签');
+				return false;
+			}
+			
 			var data = {
 			  "chapterId": localStorage.getItem('currentNodeId'),
 			  "courseId": localStorage.getItem('courseId'),

@@ -146,6 +146,11 @@
 				"examChildren": [data]
 			};
 			
+			if(!obj.levelId || obj.levelId=="") {
+				layer.alert("请选择难易程度");
+				return false;
+			}
+				
 			if(data.pid) {
 				obj.id = data.pid;
 			}

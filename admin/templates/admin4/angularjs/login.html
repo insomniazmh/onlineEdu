@@ -478,7 +478,6 @@ jQuery(document).ready(function() {
 				'passWord': $("#password").val()
 			}),
 			success: function(data) {
-				console.log(data);
 				if(data.ret == 0) {
 					localStorage.setItem("token", data.data.token);
 					localStorage.setItem("userid", data.data.userId);

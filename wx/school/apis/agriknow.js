@@ -84,55 +84,7 @@ class agriknow {
    * 微信登录
    */
   wxLogin() {
-    wx.login({
-      success(res) {
-        if (res.code) {
-          wx.request({
-            method: "get",
-            url: 'https://e.hnfts.cn/wechat/user/login?code=' + res.code,
-            header: {
-              'content-type': 'application/json' // 默认值
-            },
-            success(data) {
-              if (data.data.ret == 0) {
-                var resData = data.data.data;
-                console.log(resData.token);
-                wx.setStorageSync('token', resData.token)//将token信息存入本地
-                console.log(wx.getStorageSync('token'));
-                if (resData.binding && resData.binding == '0') {
-                } else {
-                  //将页面跳转至绑定页
-                  wx.showModal({
-                    title: '未找到身份信息',
-                    content: '您的身份还未验证，请先绑定身份信息',
-                    showCancel: false,
-                    duration: 2000,
-                    success: function () {
-                      getApp().globalData.alreadyBind = false;
-                      wx.navigateTo({
-                        url: '/pages/getId/getId'
-                      });
-                    }
-                  });
-                }
-              } else {
-                wx.showToast({
-                  title: '登录失败！',
-                  icon: 'none',
-                  duration: 2000
-                });
-              }
-            }
-          });
-        } else {
-          wx.showToast({
-            title: '网络异常',
-            icon: 'none',
-            duration: 2000
-          });
-        }
-      }
-    })
+    return this._request.wxLogin()
   }
 
 }

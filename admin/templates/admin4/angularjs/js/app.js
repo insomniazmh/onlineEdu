@@ -741,28 +741,20 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			}
 		})
 
-		// UI Select
-		.state('uiselect', {
-			url: "/ui_select.html",
-			templateUrl: "views/ui_select.html",
+		// 修改密码
+		.state('updatePwd', {
+			url: "/updatePwd.html",
+			templateUrl: "views/updatePwd.html",
 			data: {
-				pageTitle: 'AngularJS Ui Select',
-				pageSubTitle: 'select2 written in angularjs'
+				pageTitle: '修改密码',
+				pageSubTitle: '修改密码'
 			},
-			controller: "UISelectController",
+			controller: "",
 			resolve: {
 				deps: ['$ocLazyLoad', function($ocLazyLoad) {
 					return $ocLazyLoad.load([{
-						name: 'ui.select',
-						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-						files: [
-							'../../../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
-							'../../../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
-						]
-					}, {
 						name: 'MetronicApp',
 						files: [
-							'js/controllers/UISelectController.js'
 						]
 					}]);
 				}]
