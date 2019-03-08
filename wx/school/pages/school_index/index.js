@@ -32,9 +32,9 @@ Page({
             console.log('用户点击确定')
             wx.scanCode({
               success(res) {
-                console.log(res);
                 if (res.result && res.result.indexOf("interactionQr") == 0) {
-                  app.globalData.circleId = res.result;//将班级id存入全局变量中
+                  var circleId = res.result.slice(13);
+                  app.globalData.circleId = circleId;//将班级id存入全局变量中
                   that.joinRoom(e);
                 } else {
                   wx.showToast({
@@ -56,7 +56,8 @@ Page({
       wx.scanCode({
         success(res) {
           if (res.result && res.result.indexOf("interactionQr") == 0) {
-            app.globalData.circleId = res.result;//将班级id存入全局变量中
+            var circleId = res.result.slice(13);
+            app.globalData.circleId = circleId;//将班级id存入全局变量中
             that.joinRoom(e);
           } else {
             wx.showToast({

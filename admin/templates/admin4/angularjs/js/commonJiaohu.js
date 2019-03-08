@@ -34,10 +34,10 @@ var common = {
 				var data = response.data;
 				if (data.ret == 0) {
 					settings.success(response.data);
-				} else {
-					if (data.ret == 2000) {
-						alert(response.msg);
-					}
+				} else if(data.ret == 2000) {
+					alert(response.msg);
+				} else if(data.ret == 4) {
+					alert('登录信息失效，请重新登录');
 				}
 			}
 		}, function errorCallback(response) {

@@ -665,18 +665,22 @@
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建二维码吗", {
 				btn: ['确定', '取消'] //按钮
 			}, function() {
+				var postData = {
+					"teacherId": localStorage.getItem('userid'),
+					"chapterId": localStorage.getItem('currentNodeId'),
+				}
+				if(localStorage.getItem("circleId")) {
+					postData.circleId = localStorage.getItem("circleId");
+				}
 				common.ajax2({
 					$scope: $scope,
 					$http: $http,
-					data: {
-						"teacherId": localStorage.getItem('userid'),
-						"chapterId": localStorage.getItem('currentNodeId')
-					},
+					data: postData,
 					url: '/classRoom/create/reuse',
 					success: function(res) {
 						localStorage.setItem("circleId", res.data);
 						$('#qrcode').empty();
-						$('#qrcode').qrcode(res.data);
+						$('#qrcode').qrcode("interactionQr"+res.data);
 						$("#qrcodeModal").modal("show");
 						$scope.students = [];
 						if(flag) {

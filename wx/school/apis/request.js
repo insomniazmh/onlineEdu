@@ -65,6 +65,7 @@ class request {
         header: header,
         method: method,
         success: (res => {
+          //console.log(res);
           if (res.statusCode === 200) {
             //200: 服务端业务处理正常结束
             if (res.data.ret == 0) {

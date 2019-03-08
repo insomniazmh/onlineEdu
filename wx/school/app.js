@@ -39,7 +39,7 @@ App({
     alreadyBind: true,
     url: 'e.hnfts.cn',
     userInfo: null,
-    circleId: "interactionQra2c8bb4cba2f45ecac5cdc8af0238f18",
+    circleId: "",
     studentId: "10088"
   },
 

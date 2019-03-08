@@ -215,7 +215,14 @@ var common = {
 					});
 				}
 				settings.success(response.data);
-			} else {
+			} else if(data.ret == 4) {
+				common.toast({
+					type: 2,
+					title: "操作失败",
+					message: '登录信息已过期，请重新登录'
+				});
+				common.signOut();
+			}else {
 				layer.closeAll('dialog');
 				common.toast({
 					type: 2,
@@ -274,6 +281,13 @@ var common = {
 					});
 				}
 				settings.success(response.data);
+			} else if(data.ret == 4) {
+				common.toast({
+					type: 2,
+					title: "操作失败",
+					message: '登录信息已过期，请重新登录'
+				});
+				common.signOut();
 			} else {
 				layer.closeAll('dialog');
 				common.toast({
@@ -324,6 +338,12 @@ var common = {
 			
 		});
 		return settings.questionArr;
+	},
+	
+	signOut: function() {
+		localStorage.removeItem("username");
+		localStorage.removeItem("token");
+		window.location.href = "login.html";
 	}
 }
 

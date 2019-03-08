@@ -138,7 +138,7 @@
 							<i class="icon-user"></i> 修改密码 </a>
 						</li>
 						<li>
-							<a href="#" onclick="signOut();">
+							<a href="#" onclick="common.signOut();">
 							<i class="icon-key"></i> 退出登录 </a>
 						</li>
 					</ul>
@@ -153,11 +153,5 @@
 </div>
 <!-- END HEADER INNER -->
 <script>
-	function signOut() {
-		localStorage.removeItem("username");
-		localStorage.removeItem("token");
-		window.location.href = "login.html";
-	}
-	
 	$("#LoginName").html(localStorage.getItem('username'));
 </script>
