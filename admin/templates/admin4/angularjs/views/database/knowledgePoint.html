@@ -101,6 +101,7 @@
 									</div>
 								</div>
 							</div>
+							<div ng-click='loadMore("single")'>加载更多</div>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_2">
@@ -128,6 +129,7 @@
 									</div>
 								</div>
 							</div>
+							<div ng-click='loadMore("multiple")'>加载更多</div>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_1_3">
@@ -222,9 +224,42 @@
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
 	function kpCtrl($scope, $http, $rootScope) {
-		$scope.currentNode = {};
+		$scope.currentNode = {};//当前章节
 		$scope.kPointNode = {};
-
+		
+		$scope.single = [];//单选题列表
+		$scope.multiple = [];//多选题列表
+		$scope.trueOrFalse = [];//判断题列表
+		$scope.design = [];//主观题列表
+		$scope.bigQuestion = [];//大题列表
+		
+		//分页信息-页数
+		$scope.singlePage = 0;
+		$scope.multiplePage = 0;
+		$scope.trueOrFalsePage = 0;
+		$scope.designPage = 0;
+		$scope.bigQuestionPage = 0;
+		
+		//加载更多
+		$scope.loadMore = function(type) {
+			if(type == 'single') {
+				$scope.singlePage++;
+				$scope.loadQuestions('single', $scope.singlePage);
+			}else if(type == 'multiple') {
+				$scope.multiplePage++;
+				$scope.loadQuestions('multiple', $scope.multiplePage);
+			}else if(type == 'trueOrFalse') {
+				$scope.trueOrFalsePage++;
+				$scope.loadQuestions('trueOrFalse', $scope.trueOrFalsePage);
+			}else if(type == 'design') {
+				$scope.designPage++;
+				$scope.loadQuestions('design', $scope.designPage);
+			}else if(type == 'bigQuestion') {
+				$scope.bigQuestionPage++;
+				$scope.loadQuestions('bigQuestion', $scope.bigQuestionPage);
+			}
+		}
+		
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
 			$scope.currentNode = data;
@@ -240,22 +275,22 @@
 		//添加题目完成回调
 		$scope.$on('addOrEditQuestion', function(d, data) {
 			if(data) {
-				$scope.loadQuestions(data);
+				$scope.loadQuestions(data, 0);
 			}
 		});
 
 		//加载题目
-		$scope.loadQuestions = function(type) {
+		$scope.loadQuestions = function(type, page) {
 			var data = {
 				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
 				"chapterId": localStorage.getItem('currentNodeId'), //章节id
 				"operatorId": localStorage.getItem("userid"), //当前用户id
 				"questionType": type, //题目类型 single multiple trueOrFalse design bigQuestion
-				"page": 0,
-				"size": 20,
+				"page": page,
+				"size": 2,
 				"sort": 1,
 				"sorting": "uTime"
-			}
+			};
 			//处理知识点查询传参
 			if($scope.kPointNode.knodeId) {
 				data.knowledgeId = $scope.kPointNode.knodeId;
@@ -270,17 +305,31 @@
 				success: function(res) {
 					var data = res.data;
 					if(type == 'single') {
-						$scope.single = res.data;
+						if(page == 0) {
+							$scope.single = [];
+						}
+						$scope.single = $scope.single.concat(res.data);
 					} else if(type == 'multiple') {
-						$scope.multiple = res.data;
+						if(page == 0) {
+							$scope.multiple = [];
+						}
+						$scope.multiple = $scope.multiple.concat(res.data);
 					} else if(type == 'trueOrFalse') {
-						$scope.trueOrFalse = res.data;
+						if(page == 0) {
+							$scope.trueOrFalse = [];
+						}
+						$scope.trueOrFalse = $scope.trueOrFalse.concat(res.data);
 					} else if(type == 'design') {
-						$scope.design = res.data;
+						if(page == 0) {
+							$scope.design = [];
+						}
+						$scope.design = $scope.design.concat(res.data);
 					} else if(type == 'bigQuestion') {
+						if(page == 0) {
+							$scope.bigQuestion = [];
+						}
 						$(res.data).each(function() {
 							$(this.examChildren).each(function() {
-								console.log(this);
 								//选择题
 								if(this.choiceQstTxt) {
 									this.title = this.choiceQstTxt;
@@ -301,17 +350,24 @@
 								}
 							});
 						});
-						$scope.bigQuestion = res.data;
+						$scope.bigQuestion = $scope.bigQuestion.concat(res.data);
 					}
 				}
 			});
 		};
+		
+		//初始化信息,加载页面和切换章节或知识点时调用
 		$scope.initData = function() {
-			$scope.loadQuestions('single');
-			$scope.loadQuestions('multiple');
-			$scope.loadQuestions('trueOrFalse');
-			$scope.loadQuestions('design');
-			$scope.loadQuestions('bigQuestion');
+			$scope.singlePage = 0;
+			$scope.multiplePage = 0;
+			$scope.trueOrFalsePage = 0;
+			$scope.designPage = 0;
+			$scope.bigQuestionPage = 0;
+			$scope.loadQuestions('single', 0);
+			$scope.loadQuestions('multiple', 0);
+			$scope.loadQuestions('trueOrFalse', 0);
+			$scope.loadQuestions('design', 0);
+			$scope.loadQuestions('bigQuestion', 0);
 		}
 
 		//修改题目
