@@ -29,7 +29,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX" ng-repeat="row in existTeachers">
+						<tr class="odd gradeX" ng-repeat="row in existTeachers" repeat-finish="tableFinish()">
 							<td>{{row.userName}}</td>
 							<td>
 								<span class="label label-sm label-success" ng-click="resetPwd(row.teacherId)">
@@ -39,7 +39,7 @@
 								<span class="label label-sm label-success" ng-click="del(row.teacherId)">删除</span>
 							</td>
 						</tr>
-						
+
 					</tbody>
 				</table>
 			</div>
@@ -125,6 +125,32 @@
 			});
 		}
 
+		$scope.tableFinish = function() {
+			$('#sample_1').dataTable({
+				"searching": false,
+				"language": {
+					"aria": {
+						"sortAscending": ": activate to sort column ascending",
+						"sortDescending": ": activate to sort column descending"
+					},
+					"emptyTable": "暂无数据",
+					"info": "显示 _START_ - _END_ 条数据，共 _TOTAL_ 条数据",
+					"infoEmpty": "",
+					"infoFiltered": "",
+					"lengthMenu": "",
+					"search": "查询信息:",
+					"zeroRecords": "没有找到匹配的数据",
+					"paginate": {
+						"last": "最后一页",
+						"first": "第一页"
+					}
+				},
+
+				"pageLength": 5,
+				"pagingType": "full_numbers"
+			});
+		}
+
 		$scope.sub = function() {
 			if (!$scope.teacherCode) {
 				layer.alert('请先选择教师');
@@ -149,7 +175,7 @@
 				});
 			});
 		}
-		
+
 		$scope.resetPwd = function(id) {
 			layer.confirm("您确定要为该用户重置密码吗", {
 				btn: ['确定', "取消"] //按钮
@@ -168,13 +194,13 @@
 				});
 			});
 		}
-		
+
 		$scope.del = function(id) {
-// 			layer.confirm("您确定要删除该用户吗", {
-// 				btn: ['确定', "取消"] //按钮
-// 			}, function() {
-// 				
-// 			});
+			// 			layer.confirm("您确定要删除该用户吗", {
+			// 				btn: ['确定', "取消"] //按钮
+			// 			}, function() {
+			// 				
+			// 			});
 		}
 
 	}
