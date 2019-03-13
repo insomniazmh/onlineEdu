@@ -71,7 +71,7 @@
 							</div>
 						</div>
 					</div>
-
+					<div ng-click='loadMore()'>加载更多</div>
 				</div>
 			</div>
 		</div>
@@ -111,6 +111,15 @@
 	function kpCtrl($scope, $http, $rootScope) {
 		$scope.currentNode = {};
 		$scope.kPointNode = {};
+		
+		//分页信息-页数
+		$scope.page = 0;
+		
+		//加载更多
+		$scope.loadMore = function() {
+			$scope.page++;
+			$scope.loadQuestions($scope.page);
+		};
 
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
@@ -137,7 +146,7 @@
 				"operatorId": localStorage.getItem("userid"), //当前用户id
 				"questionType": 'single', //题目类型 single multiple trueOrFalse design bigQuestion
 				"page": page,
-				"size": 20,
+				"size": 2,
 				"sort": 1,
 				"sorting": "uTime"
 			};
@@ -154,13 +163,16 @@
 				url: "/surveyQuestion/findAll/detailed",
 				data: data,
 				success: function(res) {
-					$scope.survey = res.data;
+					if(page == 0) {
+						$scope.survey = [];
+					}
+					$scope.survey = $scope.survey.concat(res.data);
 				}
 			});
 		};
 
 		$scope.initQuestions = function() {
-			$scope.loadQuestions();
+			$scope.loadQuestions(0);
 		}
 
 		//修改题目
@@ -182,7 +194,7 @@
 				obj.id = data.pid;
 			}
 
-			//添加题目(主观)
+			//添加题目(问卷)
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
@@ -190,7 +202,7 @@
 				url: "/surveyQuestion/choiceQst/edit",
 				data: obj,
 				success: function(res) {
-					$scope.loadQuestions();
+					$scope.loadQuestions(0);
 					$("#survey").modal("hide");
 				}
 			});
