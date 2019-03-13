@@ -79,7 +79,7 @@
 									</div>
 								</div>
 							</div>
-
+							<div ng-click='loadMore("task")'>加载更多</div>
 						</div>
 					</div>
 
@@ -104,7 +104,7 @@
 									</div>
 								</div>
 							</div>
-
+							<div ng-click='loadMore("strom")'>加载更多</div>
 						</div>
 					</div>
 
@@ -173,6 +173,24 @@
 		localStorage.setItem('questionType', 'taskAndStrom');
 		$scope.currentNode = {};
 		$scope.kPointNode = {};
+		
+		$scope.task = [];//任务题列表
+		$scope.strom = [];//头脑风暴题列表
+		
+		//分页信息-页数
+		$scope.taskPage = 0;
+		$scope.stromPage = 0;
+		
+		//加载更多
+		$scope.loadMore = function(type) {
+			if(type == 'task') {
+				$scope.taskPage++;
+				$scope.loadQuestions(type, $scope.taskPage);
+			}else if(type == 'strom') {
+				$scope.stromPage++;
+				$scope.loadQuestions(type, $scope.stromPage);
+			}
+		};
 
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
@@ -198,14 +216,14 @@
 		});
 
 		//加载题目
-		$scope.loadQuestions = function(type) {
+		$scope.loadQuestions = function(type, page) {
 			var data = {
 				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
 				"chapterId": localStorage.getItem('currentNodeId'), //章节id
 				"operatorId": localStorage.getItem("userid"), //当前用户id
 				"questionType": 'design', //题目类型 single multiple trueOrFalse design bigQuestion
-				"page": 0,
-				"size": 20,
+				"page": page,
+				"size": 2,
 				"sort": 1,
 				"sorting": "uTime"
 			}
@@ -229,18 +247,26 @@
 				data: data,
 				success: function(res) {
 					var data = res.data;
-					if (type == 'task') {
-						$scope.task = res.data;
-					} else if (type == 'strom') {
-						$scope.strom = res.data;
+					if(type == 'task') {
+						if(page == 0) {
+							$scope.task = [];
+						}
+						$scope.task = $scope.task.concat(res.data);
+					} else if(type == 'strom') {
+						if(page == 0) {
+							$scope.strom = [];
+						}
+						$scope.strom = $scope.strom.concat(res.data);
 					}
 				}
 			});
 		};
 
 		$scope.initQuestions = function() {
-			$scope.loadQuestions('task');
-			$scope.loadQuestions('strom');
+			$scope.taskPage = 0;
+			$scope.stromPage = 0;
+			$scope.loadQuestions('task', 0);
+			$scope.loadQuestions('strom', 0);
 		}
 
 		//修改题目
@@ -277,7 +303,7 @@
 				url: url,
 				data: obj,
 				success: function(res) {
-					$scope.loadQuestions(type);
+					$scope.loadQuestions(type, 0);
 					$("#taskAndStrom").modal("hide");
 				}
 			});

@@ -130,13 +130,13 @@
 		});
 
 		//加载题目
-		$scope.loadQuestions = function() {
+		$scope.loadQuestions = function(page) {
 			var data = {
 				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
 				"chapterId": localStorage.getItem('currentNodeId'), //章节id
 				"operatorId": localStorage.getItem("userid"), //当前用户id
 				"questionType": 'single', //题目类型 single multiple trueOrFalse design bigQuestion
-				"page": 0,
+				"page": page,
 				"size": 20,
 				"sort": 1,
 				"sorting": "uTime"
