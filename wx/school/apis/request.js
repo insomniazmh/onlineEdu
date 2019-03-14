@@ -119,7 +119,7 @@ class request {
                 var resData = data.data.data;
                 console.log(resData.token);
                 wx.setStorageSync('token', resData.token)//将token信息存入本地
-                console.log(wx.getStorageSync('token'));
+                wx.setStorageSync('studentId', resData.studentId)//将studentId信息存入本地
                 if (resData.binding && resData.binding == '0') {
                 } else {
                   //将页面跳转至绑定页

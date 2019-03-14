@@ -67,7 +67,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-5">
+									<div class="col-md-5" ng-show="typeFlag">
 										<div class="form-group form-md-radios">
 											<label>册子类型</label>
 											<div class="md-radio-inline">
@@ -197,7 +197,7 @@
 																<span class="htmlWrapper" ng-bind-html="row.title"></span>
 																</span>
 															</div>
-															<p style="text-align: center; color: blue;font-size: 14px;display: block;">加载更多</p>
+															<p style="text-align: center; color: blue;font-size: 14px;display: block;" ng-click='loadMore()'>加载更多</p>
 														</div>
 													</div>
 													<div class="tab-pane" id="tab_question_2">
@@ -241,12 +241,28 @@
 </div>
 <script>
 	function exercisesBookCtrl($scope, $http) {
+		$scope.typeFlag = true;//是否显示册子类型,添加时显示,编辑时不显示
 		$scope.list = {
 			levelId: "1",
 			exeBookType: "1"
 		};
+		
+		//分页信息-页数
+		$scope.questionPage = 0;//基础题库
+		$scope.taskQuestionPage = 0;//任务
+		$scope.surveyQuestionPage = 0;//问卷
+		$scope.brainstormQuestionPage = 0;//头脑风暴
+		
+		//重置页数
+		$scope.initPage = function() {
+			$scope.questionPage = 0;//基础题库
+			$scope.taskQuestionPage = 0;//任务
+			$scope.surveyQuestionPage = 0;//问卷
+			$scope.brainstormQuestionPage = 0;//头脑风暴
+		}
+		
 		//根据章节和类型加载题目
-		$scope.loadQuestionsForAdd = function(type) {
+		$scope.loadQuestionsForAdd = function(type, page) {
 			var url = '/question/findAll/detailed'; //基础题库
 			if(type == '4') {
 				url = '/taskQuestion/findAll/detailed'; //任务题库
@@ -260,8 +276,8 @@
 				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
 				"chapterId": localStorage.getItem('currentNodeId'), //章节id
 				"operatorId": localStorage.getItem("userid"), //当前用户id
-				"page": 0,
-				"size": 20,
+				"page": page,
+				"size": 2,
 				"sort": 1,
 				"sorting": "uTime"
 			};
@@ -274,10 +290,33 @@
 				success: function(res) {
 					var data = common.addTitleForQuestion({
 						questionArr: res.data
-					}); //组装题干以供展示					
-					$scope.questionList = data;
+					}); //组装题干以供展示			
+					
+					if(page == 0) {
+						$scope.questionList = [];
+					}
+					$scope.questionList = $scope.questionList.concat(res.data);
 				}
 			});
+		}
+		
+		$scope.loadMore = function() {
+			console.log($scope.list.exeBookType);
+			var page = 0;
+			if($scope.list.exeBookType == 1 || $scope.list.exeBookType == 2 || $scope.list.exeBookType == 3) {
+				$scope.questionPage++;
+				page = $scope.questionPage;
+			}else if($scope.list.exeBookType == 4) {
+				$scope.taskQuestionPage++;
+				page = $scope.taskQuestionPage;
+			}else if($scope.list.exeBookType == 5) {
+				$scope.surveyQuestionPage++;
+				page = $scope.surveyQuestionPage;
+			}else if($scope.list.exeBookType == 6) {
+				$scope.brainstormQuestionPage++;
+				page = $scope.brainstormQuestionPage;
+			}
+			$scope.loadQuestionsForAdd($scope.list.exeBookType, page);
 		}
 
 		//根据练习册id加载详细信息
@@ -337,7 +376,8 @@
 
 		//用户切换册子类型
 		$scope.changeType = function() {
-			$scope.loadQuestionsForAdd($scope.list.exeBookType);
+			$scope.initPage();
+			$scope.loadQuestionsForAdd($scope.list.exeBookType, 0);
 		}
 
 		//用户点击创建或编辑按钮事件接收
@@ -346,9 +386,11 @@
 				//有id表示为编辑
 				$scope.loadQuestionsForEdit(data.id, data.type);
 				$scope.list.exeBookType = data.type;
+				$scope.typeFlag = false;
 			} else {
 				//没有id表示为新增
-				$scope.loadQuestionsForAdd(data.type);
+				$scope.loadQuestionsForAdd(data.type, 0);
+				$scope.typeFlag = true;
 			}
 		});
 
@@ -388,6 +430,7 @@
 				data: $scope.list,
 				success: function(res) {
 					$("#exercisesBookModal").modal("hide");
+					$scope.initPage();
 					$scope.$emit('exercisesBookChange', $scope.list.exeBookType);
 				}
 			});

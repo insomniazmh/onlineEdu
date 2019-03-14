@@ -40,7 +40,7 @@ App({
     url: 'e.hnfts.cn',
     userInfo: null,
     circleId: "",
-    studentId: "10088"
+    studentId: ""
   },
 
   agriknow: new agriknow()

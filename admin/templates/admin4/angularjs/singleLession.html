@@ -246,8 +246,10 @@
 				$scope.initWs = function() {
 					//check if your browser supports WebSocket
 					if('WebSocket' in window) {
+// 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
+// 						localStorage.getItem('circleId') + "/" + localStorage.getItem('token') + "/" + random;
 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
-						localStorage.getItem('circleId') + "/" + localStorage.getItem('token') + "/" + random;
+						localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
 						wsobj = $sesWebSocket(url);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
@@ -286,6 +288,9 @@
 
 			//专门负责处理提问的controller
 			app.controller('tiwenCtrl', function($scope, $http, $interval) {
+				$scope.currentTiwenQues = {}; //当前选中的提问问题
+				$scope.currentPublicQues = {}; //当前发布的提问问题
+				
 				//加载所有的提问题目
 				common.ajax2({
 					$scope: $scope,
@@ -328,9 +333,7 @@
 					$scope.allStudents = data.students;
 					// console.log($scope.allStudents);
 				});
-
-				$scope.currentTiwenQues = {}; //当前选中的提问问题				
-
+				
 				//点击题号 
 				$scope.chooseQuestion = function(question) {
 					$scope.currentTiwenQues = question;
@@ -407,6 +410,7 @@
 							"cut": timestamp,
 							"interactive": $scope.currentTiwenQues.chooseType,
 							"questionId": $scope.currentTiwenQues.id,
+							"teacherId": localStorage.getItem("userid"),
 							"selected": $scope.currentTiwenQues.selectStudents
 							// "selected": '410221199706224226'
 						},

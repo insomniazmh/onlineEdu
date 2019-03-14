@@ -81,14 +81,10 @@ Component({
       var that = this;
       console.log(wx.getStorageSync('token'));
       var postData = {
-        "answ": {
-          "questionId": that.data.questionId,
-          "answer": that.data.answer
-        },
         "answer": that.data.answer,
         "circleId": getApp().globalData.circleId,
         "cut": that.data.cut,
-        "examineeId": getApp().globalData.studentId,
+        "examineeId": wx.getStorageSync("studentId"),
         "questionId": that.data.questionId,
         "token": wx.getStorageSync('token')
       };

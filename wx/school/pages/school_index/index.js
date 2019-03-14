@@ -3,7 +3,8 @@ Page({
   joinRoom: function(e) {
     //学生进入课堂
     getApp().agriknow.joinClass({
-      circleId: getApp().globalData.circleId
+      circleId: getApp().globalData.circleId,
+      examineeId: wx.getStorageSync("studentId")
     }).then(res => {
         if (res.ret == 0) {
           //将页面跳转至上课
