@@ -164,6 +164,10 @@
 				$scope.multi.right = data.examChildren[0].choiceQstAnsw; //初始化正确答案
 				//初始化选项--开始
 				$(data.examChildren[0].optChildren).each(function(i) {
+					console.log(this);
+					if($scope.multi.right.indexOf(this.optValue)>=0) {
+						this.checked = true;
+					}
 					this.count = i;
 				});
 				$scope.multi.options = data.examChildren[0].optChildren;
@@ -236,6 +240,10 @@
 				"choiceType": "multiple",
 				"optChildren": opts
 			};
+			
+			if($scope.pid) {
+				obj.pid = $scope.pid;
+			}
 
 			$scope.$emit('addSmall', obj);
 		}

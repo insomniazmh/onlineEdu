@@ -37,10 +37,10 @@ Page({
     if (getApp().globalData.circleId && random) {
       // 创建连接
       webSocket.connectSocket({
-        // url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
-        //   + "/" + wx.getStorageSync("token") + "/" + random
         url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
-          + "/" + wx.getStorageSync("studentId") + "/student/" + random
+          + "/" + wx.getStorageSync("token") + "/" + random
+        // url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
+        //   + "/" + wx.getStorageSync("studentId") + "/student/" + random
       });
       // 设置接收消息回调
       webSocket.onSocketMessageCallback = this.onSocketMessageCallback;

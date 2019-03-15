@@ -47,35 +47,29 @@
 					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel(2)">
 						<i class="fa fa-plus"></i> 创建大题 </button>
 				</div>
-				<ul class="nav nav-tabs">
+				<ul class="nav nav-tabs" id="typesTitle">
 					<li class="active">
-						<a data-target="#tab_1_1" data-toggle="tab">
-							单选 </a>
+						<a data-target="#tab_1_1" data-toggle="tab" ng-click="changeType(0)"> 单选 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_2" data-toggle="tab">
-							多选 </a>
+						<a data-target="#tab_1_2" data-toggle="tab" ng-click="changeType(1)"> 多选 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_3" data-toggle="tab">
-							判断 </a>
+						<a data-target="#tab_1_3" data-toggle="tab" ng-click="changeType(2)"> 判断 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_4" data-toggle="tab">
-							填空 </a>
+						<a data-target="#tab_1_4" data-toggle="tab" ng-click="changeType(3)"> 填空 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_5" data-toggle="tab">
-							主观 </a>
+						<a data-target="#tab_1_5" data-toggle="tab" ng-click="changeType(4)"> 主观 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_6" data-toggle="tab">
-							大题 </a>
+						<a data-target="#tab_1_6" data-toggle="tab" ng-click="changeType(0)"> 大题 </a>
 					</li>
 				</ul>
 			</div>
 			<div class="portlet-body">
-				<div class="tab-content">
+				<div class="tab-content" id="typesContents">
 					<div class="tab-pane active" id="tab_1_1">
 						<div id="accordion1" class="panel-group">
 							<div class="panel panel-default" ng-repeat="row in single">
@@ -433,6 +427,14 @@
 				layer.closeAll('dialog');
 			});
 
+		}
+		
+		$scope.changeType = function(type) {
+			console.log($("#questionTypesTitle > li").length);
+			$("#questionTypesTitle > li").removeClass("active");
+			$("#questionTypesTitle > li").eq(type).addClass("active");
+			$("#questionTypesContent > .tab-pane").removeClass("active");
+			$("#questionTypesContent > .tab-pane").eq(type).addClass("active");
 		}
 	}
 </script>

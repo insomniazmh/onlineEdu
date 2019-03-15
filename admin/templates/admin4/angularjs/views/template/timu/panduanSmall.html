@@ -99,6 +99,10 @@
 				obj.answer = false;
 			}
 			
+			if($scope.pid) {
+				obj.pid = $scope.pid;
+			}
+			
 			$scope.$emit('addSmall', obj);
 			
 		}

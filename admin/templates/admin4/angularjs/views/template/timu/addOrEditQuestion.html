@@ -13,19 +13,19 @@
 					</div>
 					<ul class="nav nav-tabs" id="questionTypesTitle">
 						<li class="active">
-							<a data-target="#tab_3_1" data-toggle="tab"> 单选 </a>
+							<a data-target="#tab_3_1" data-toggle="tab" ng-click="changeType(0)"> 单选 </a>
 						</li>
 						<li>
-							<a data-target="#tab_3_2" data-toggle="tab"> 多选 </a>
+							<a data-target="#tab_3_2" data-toggle="tab" ng-click="changeType(1)"> 多选 </a>
 						</li>
 						<li>
-							<a data-target="#tab_3_3" data-toggle="tab"> 判断 </a>
+							<a data-target="#tab_3_3" data-toggle="tab" ng-click="changeType(2)"> 判断 </a>
 						</li>
 						<li>
-							<a data-target="#tab_3_4" data-toggle="tab"> 填空 </a>
+							<a data-target="#tab_3_4" data-toggle="tab" ng-click="changeType(3)"> 填空 </a>
 						</li>
 						<li>
-							<a data-target="#tab_3_5" data-toggle="tab"> 主观 </a>
+							<a data-target="#tab_3_5" data-toggle="tab" ng-click="changeType(4)"> 主观 </a>
 						</li>
 					</ul>
 				</div>
@@ -105,28 +105,10 @@
 			if(data) {
 				$("#questionTypesTitle").hide();
 				var type = data.examChildren[0].examType;
-				if(type == 'single') {
-					$("#questionTypesContent > .tab-pane").removeClass("active");
-					$("#tab_3_1").addClass("active");
-				}else if(type == 'multiple') {
-					$("#questionTypesContent > .tab-pane").removeClass("active");
-					$("#tab_3_2").addClass("active");
-				}else if(type == 'trueOrFalse') {
-					$("#questionTypesContent > .tab-pane").removeClass("active");
-					$("#tab_3_3").addClass("active");
-				}else if(type == 'design') {
-					$("#questionTypesContent > .tab-pane").removeClass("active");
-					$("#tab_3_5").addClass("active");
-				}
-				
 				$scope.questionLevel = data.levelId;
 				$scope.knowledgeId = data.knowledgeId;
 			}else {
 				$("#questionTypesTitle").show();
-				$("#questionTypesTitle").children("li").removeClass("active");
-				$("#questionTypesTitle").children("li").eq(0).addClass("active");
-				$("#questionTypesContent > .tab-pane").removeClass("active");
-				$("#tab_3_1").addClass("active");
 			}
 			
 		})
@@ -178,7 +160,12 @@
 			});
 		});
 
-
+		$scope.changeType = function(type) {
+			$("#typesTitle > li").removeClass("active");
+			$("#typesTitle > li").eq(type).addClass("active");
+			$("#typesContents > .tab-pane").removeClass("active");
+			$("#typesContents > .tab-pane").eq(type).addClass("active");
+		}
 
 	}
 </script>
