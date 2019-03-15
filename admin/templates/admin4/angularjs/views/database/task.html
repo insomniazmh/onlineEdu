@@ -47,12 +47,10 @@
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
-						<a data-target="#tab_1_task" data-toggle="tab">
-							任务 </a>
+						<a data-target="#tab_1_task" data-toggle="tab" ng-click="changeType('taskRadio')"> 任务 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_storm" data-toggle="tab">
-							头脑风暴 </a>
+						<a data-target="#tab_1_storm" data-toggle="tab" ng-click="changeType('stromRadio')"> 头脑风暴 </a>
 					</li>
 				</ul>
 			</div>
@@ -136,7 +134,7 @@
 										<label>题库类型</label>
 										<div class="md-radio-inline">
 											<div class="md-radio">
-												<input type="radio" id="taskRadio" name="type" class="md-radiobtn" value="task" checked="">
+												<input type="radio" id="taskRadio" name="type" class="md-radiobtn" value="task">
 												<label for="taskRadio">
 													<span></span>
 													<span class="check"></span>
@@ -347,6 +345,10 @@
 				$("#taskAndStrom").modal("show");
 				layer.closeAll('dialog');
 			});
+		}
+		
+		$scope.changeType = function(type) {
+			$("#"+type).attr("checked", "checked");
 		}
 	}
 </script>
