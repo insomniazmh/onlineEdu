@@ -21,7 +21,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">创建册子</h4>
+				<h4 class="modal-title">创建/编辑册子</h4>
 			</div>
 			<div class="modal-body">
 				<div class="portlet" style="min-height: 400px;">
@@ -291,7 +291,7 @@
 					var data = common.addTitleForQuestion({
 						questionArr: res.data
 					}); //组装题干以供展示			
-					
+					console.log(res.data);
 					if(page == 0) {
 						$scope.questionList = [];
 					}
@@ -379,17 +379,23 @@
 			$scope.initPage();
 			$scope.loadQuestionsForAdd($scope.list.exeBookType, 0);
 		}
+		
+		//用户点击tab页事件接收
+		$scope.$on('changeType', function(d, data) {
+			$scope.list.exeBookType = data;
+			$scope.changeType();
+		});
 
 		//用户点击创建或编辑按钮事件接收
 		$scope.$on('exercisesBook', function(d, data) {
 			if(data.id) {
 				//有id表示为编辑
 				$scope.loadQuestionsForEdit(data.id, data.type);
-				$scope.list.exeBookType = data.type;
+				// $scope.list.exeBookType = data.type;
 				$scope.typeFlag = false;
 			} else {
 				//没有id表示为新增
-				$scope.loadQuestionsForAdd(data.type, 0);
+				// $scope.loadQuestionsForAdd(data.type, 0);
 				$scope.typeFlag = true;
 			}
 		});

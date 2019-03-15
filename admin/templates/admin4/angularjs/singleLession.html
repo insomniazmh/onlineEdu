@@ -410,6 +410,7 @@
 							"cut": timestamp,
 							"interactive": $scope.currentTiwenQues.chooseType,
 							"questionId": $scope.currentTiwenQues.id,
+							"questionType": 'TiWen',
 							"teacherId": localStorage.getItem("userid"),
 							"selected": $scope.currentTiwenQues.selectStudents
 							// "selected": '410221199706224226'
@@ -575,6 +576,7 @@
 							"cut": timestamp,
 							"interactive": 'select',
 							"questionId": selQuestionId,
+							"questionType": 'LianXi',
 							"selected": selected
 						},
 						success: function() {
@@ -705,6 +707,7 @@
 							"cut": timestamp,
 							"interactive": 'select',
 							"questionId": selQuestionId,
+							"questionType": 'WenJuan',
 							"selected": selected
 						},
 						success: function() {
@@ -889,6 +892,7 @@
 							"circleId": localStorage.getItem("circleId"),
 							"cut": timestamp,
 							"questionId": $scope.currentTaskQues.id,
+							"questionType": 'RenWu',
 							"selected": $scope.currentTaskQues.selectStudents
 						},
 						success: function() {
@@ -1036,6 +1040,7 @@
 							"circleId": localStorage.getItem("circleId"),
 							"cut": timestamp,
 							"questionId": $scope.currentStromQues.id,
+							"questionType": 'FengBao',
 							"selected": $scope.currentStromQues.selectStudents
 						},
 						success: function() {

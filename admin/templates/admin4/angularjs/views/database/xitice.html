@@ -68,22 +68,22 @@
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
-						<a data-target="#tab_1_1" data-toggle="tab"> 提问 </a>
+						<a data-target="#tab_1_1" data-toggle="tab" ng-click="changeType(1)"> 提问 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_2" data-toggle="tab"> 练习 </a>
+						<a data-target="#tab_1_2" data-toggle="tab" ng-click="changeType(2)"> 练习 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_3" data-toggle="tab"> 作业 </a>
+						<a data-target="#tab_1_3" data-toggle="tab" ng-click="changeType(3)"> 作业 </a>
 					</li>
 					<li>
-						<a data-target="#tab_1_4" data-toggle="tab"> 任务</a>
+						<a data-target="#tab_1_4" data-toggle="tab" ng-click="changeType(4)"> 任务</a>
 					</li>
 					<li>
-						<a data-target="#tab_1_5" data-toggle="tab"> 问卷</a>
+						<a data-target="#tab_1_5" data-toggle="tab" ng-click="changeType(5)"> 问卷</a>
 					</li>
 					<li>
-						<a data-target="#tab_1_6" data-toggle="tab"> 风暴</a>
+						<a data-target="#tab_1_6" data-toggle="tab" ng-click="changeType(6)"> 风暴</a>
 					</li>
 				</ul>
 			</div>
@@ -382,6 +382,10 @@
 				});
 			});
 			
+		}
+		
+		$scope.changeType = function(type) {
+			$scope.$broadcast('changeType', type);
 		}
 
 	}
