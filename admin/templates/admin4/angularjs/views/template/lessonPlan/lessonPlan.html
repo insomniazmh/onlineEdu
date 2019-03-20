@@ -24,7 +24,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 						</div>
 						<ul class="nav nav-tabs" id="lessonPlanTab">
-							<li class="active">
+							<li class="active" ng-click="changeTab('0')">
 								<a data-target="#tab_lessonPlan_1" data-toggle="tab">
 									资料 </a>
 							</li>
@@ -82,7 +82,14 @@
 <script>
 	function lessonPlanCtrl($scope, $rootScope, $http) {
 		$scope.changeTab = function(type) {
-			$scope.$broadcast('changeBookTab', type);
+			var typeInt = Number(type);
+			$("#teachAssTab > li").removeClass("active");
+			$("#teachAssTab > li").eq(typeInt).addClass("active");
+			$("#teachAssContent > .tab-pane").removeClass("active");
+			$("#teachAssContent > .tab-pane").eq(typeInt).addClass("active");
+			if(typeInt > 0) {
+				$scope.$broadcast('changeBookTab', type);
+			}
 		}
 	}
 </script>

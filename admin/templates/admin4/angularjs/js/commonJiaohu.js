@@ -38,6 +38,8 @@ var common = {
 					alert(response.msg);
 				} else if(data.ret == 4) {
 					alert('登录信息失效，请重新登录');
+				}else {
+					alert(data.msg);
 				}
 			}
 		}, function errorCallback(response) {

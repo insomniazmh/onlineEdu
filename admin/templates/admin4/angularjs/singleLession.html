@@ -239,6 +239,7 @@
 				"ngSanitize"
 			]);
 			app.controller('myCtrl', function($scope, $http, $interval) {
+				var stuLen = 0;
 				var random = new Date().getTime(); //生成随机数
 				console.log(random);
 				//建立websocket连接
@@ -265,7 +266,10 @@
 							var data = JSON.parse(event.data);
 							$scope.$apply(function() {
 								if(data.model == "interactiveStudents") {
-									$scope.$broadcast('allStudents', data);
+									if(stuLen != data.students.length) {
+										stuLen = data.students.length;
+										$scope.$broadcast('allStudents', data);
+									}
 								}else if(data.model == "answer" || data.model == "raise") {//返回提问的回答或举手信息
 									$scope.$broadcast('tiwenMessage', data);
 								}else if(data.model == "answerBook") {//返回练习的学生回答
@@ -307,8 +311,25 @@
 						}); //组装题干以供展示
 						$scope.tiwenQuestionList = res.data; //所有题目
 						$scope.chooseQuestion(res.data[0]);//当前选中题目，默认为第一题
+						$scope.loadAlreadyQues();
 					}
 				});
+				
+				$scope.loadAlreadyQues = function() {
+					common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						data: {
+							"circleId": localStorage.getItem('circleId'),
+							'QuestType': '',
+							'interactive': ''
+						},
+						url: '/interact/fabu/questList',
+						success: function(res) {
+							
+						}
+					});
+				}
 				
 				$scope.$on('tiwenMessage', function(event, data) {
 					if(data.model == "raise") {
@@ -341,14 +362,14 @@
 					$scope.showAnswer(); //显示回答
 
 					//清除举手信息
-					common.ajax2({
-						$scope: $scope,
-						$http: $http,
-						data: {
-							"circleId": localStorage.getItem("circleId")
-						},
-						url: '/interact/launch/raise'
-					});
+// 					common.ajax2({
+// 						$scope: $scope,
+// 						$http: $http,
+// 						data: {
+// 							"circleId": localStorage.getItem("circleId")
+// 						},
+// 						url: '/interact/launch/raise'
+// 					});
 				};
 
 				//点击选人-选人按钮

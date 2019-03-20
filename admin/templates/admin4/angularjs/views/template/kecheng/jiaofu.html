@@ -16,9 +16,6 @@
 	.htmlWrapper p {
 		display: inline;
 	}
-	.label-ziColor {
-		background-color: #8e5fa2;
-	}
 </style>
 <div class="row" ng-controller="jiaofuCtrl">
 	<div class="col-md-4" style="height: 600px;border-right: 1px solid #4DB3A2;">
@@ -144,39 +141,39 @@
 					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openDataModal()">
 						<i class="fa fa-plus"></i> 挂载 </button>
 				</div>
-				<ul class="nav nav-tabs">
+				<ul class="nav nav-tabs" id="teachAssTab">
 					<li class="active">
-						<a data-target="#tab_2_1" data-toggle="tab">
+						<a data-target="#tab_2_1" data-toggle="tab" ng-click="changeType(0)">
 							资料 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_2" data-toggle="tab">
+						<a data-target="#tab_2_2" data-toggle="tab" ng-click="changeType(1)">
 							提问 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_3" data-toggle="tab">
+						<a data-target="#tab_2_3" data-toggle="tab" ng-click="changeType(2)">
 							练习 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_4" data-toggle="tab">
+						<a data-target="#tab_2_4" data-toggle="tab" ng-click="changeType(3)">
 							作业 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_5" data-toggle="tab">
+						<a data-target="#tab_2_5" data-toggle="tab" ng-click="changeType(4)">
 							任务 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_6" data-toggle="tab">
+						<a data-target="#tab_2_6" data-toggle="tab" ng-click="changeType(5)">
 							问卷 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_7" data-toggle="tab">
+						<a data-target="#tab_2_7" data-toggle="tab" ng-click="changeType(6)">
 							风暴 </a>
 					</li>
 				</ul>
 			</div>
 			<div class="portlet-body">
-				<div class="tab-content">
+				<div class="tab-content" id="teachAssContent">
 					<!--资料-->
 					<div class="tab-pane active" id="tab_2_1">
 						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
@@ -202,7 +199,7 @@
 														title="复习参考" ng-click="changeLable(row, '6')">复</div>
 													<div class="label label-sm {{row.teachShare=='1' ? 'label-primary' : 'label-default'}} sign"
 														 title="资料共享" ng-click="changeLable(row, 'share')">享</div>
-													<div class="label label-sm {{row.stuShare=='1' ? 'label-ziColor' : 'label-default'}} sign " 
+													<div class="label label-sm {{row.stuShare=='1' ? 'label-violet' : 'label-default'}} sign " 
 														title="学生可见" ng-click="changeLable(row, 'student')">生</div>
 												</div>
 											</div>
@@ -689,10 +686,6 @@
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑备课信息吗", {
 				btn: ['确定', '取消'] //按钮
 			}, function() {
-				$("#lessonPlanTab > li").removeClass("active");
-				$("#lessonPlanTab > li").eq("0").addClass("active");
-				$("#lessonPlanContent > .tab-pane").removeClass("active");
-				$("#tab_lessonPlan_1").eq("0").addClass("active");
 				$("#dataModal").modal("show");
 				layer.closeAll('dialog');
 			});
@@ -768,6 +761,17 @@
 					success();
 				}
 			});
+		}
+		
+		$scope.changeType = function(type) {
+			$scope.$broadcast('changeBookTab', type);
+			$("#lessonPlanTab > li").removeClass("active");
+			$("#lessonPlanTab > li").eq(type).addClass("active");
+			$("#lessonPlanContent > .tab-pane").removeClass("active");
+			if(type > 1) {
+				type = 1;
+			}
+			$("#lessonPlanContent > .tab-pane").eq(type).addClass("active");
 		}
 	}
 </script>
