@@ -310,6 +310,7 @@
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
 						}); //组装题干以供展示
+						console.log(res.data);
 						$scope.tiwenQuestionList = res.data; //所有题目
 						$scope.loadAlreadyQues();
 					}
@@ -328,8 +329,18 @@
 						url: '/interact/fabu/questList',
 						success: function(res) {
 							if(res.data.fabuQuest) {
-								
+								$($scope.tiwenQuestionList).each(function() {
+									let i = res.data.fabuQuest.indexOf(this.id);
+									if(i>=0) {
+										this.published = true;
+									}
+									if(res.data.nowQuestId == this.id) {
+										$scope.chooseQuestion(this);
+										$scope.currentPublicQues = this;
+									}
+								});
 							}else {
+								$scope.currentPublicQues = $scope.tiwenQuestionList[0];
 								$scope.chooseQuestion($scope.tiwenQuestionList[0]);//当前选中题目，默认为第一题
 							}
 						}
@@ -350,7 +361,10 @@
 							如果当前题目不是正在发布的题目，则不做处理
 						*/
 						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
-							$scope.answerStudents.concat(data.students);
+							$scope.answerStudents = $scope.answerStudents.concat(data.students);
+							$($scope.answerStudents).each(function() {
+								this.answer = this.askAnswerInfo;
+							});
 							$scope.students = $scope.answerStudents;
 						}
 					}
@@ -359,7 +373,6 @@
 				//接收学生加入事件
 				$scope.$on('allStudents', function(event, data) {
 					$scope.allStudents = $scope.allStudents.concat(data.students);
-					console.log($scope.allStudents);
 				});
 				
 				//点击题号 
@@ -369,6 +382,9 @@
 					if($scope.currentTiwenQues.published) {
 						$scope.showAnswer(); //如果该题已发布,则显示回答
 					}else {
+						$($scope.allStudents).each(function() {
+							this.select = false;
+						})
 						$scope.students = $scope.allStudents;//如果该题未发布,则显示所有学生
 					}
 				};
@@ -456,6 +472,8 @@
 							"cut": timestamp,
 							"interactive": $scope.currentTiwenQues.chooseType,
 							"questionId": $scope.currentTiwenQues.id,
+							"teacherId": localStorage.getItem("userid"),
+							"questionType": 'TiWen',
 							"selected": ""
 						},
 						success: function() {

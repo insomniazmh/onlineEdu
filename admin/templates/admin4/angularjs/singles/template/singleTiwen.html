@@ -68,7 +68,7 @@
 		</div>
 
 		<div style="height: 140px;">
-			<div style="width:80px;float:left;" ng-repeat="row in students" ng-show="!row.unShow">
+			<div style="width:80px;float:left;" ng-repeat="row in students">
 				<div class="uppercase profile-userpic {{row.select ? 'active' : ''}}" ng-click="selectStudent(row)">
 					<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">
 				</div>
