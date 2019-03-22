@@ -58,7 +58,6 @@ class request {
         'content-type': 'application/json',
         'token': wx.getStorageSync('token')
       }
-      console.log(header);
       wx.request({
         url: url,
         data: data,
@@ -77,23 +76,24 @@ class request {
               });
               that.wxLogin();
             }else {
+              console.log(res);
               wx.showToast({
-                title: res.msg,
+                title: res.data.msg,
                 icon: 'none'
               })
             }
           } else {
             //其它错误，提示用户错误信息
-            if (this._errorHandler != null) {
+            if (that._errorHandler != null) {
               //如果有统一的异常处理，就先调用统一异常处理函数对异常进行处理
-              this._errorHandler(res)
+              that._errorHandler(res)
             }
             reject(res)
           }
         }),
         fail: (res => {
-          if (this._errorHandler != null) {
-            this._errorHandler(res)
+          if (that._errorHandler != null) {
+            that._errorHandler(res)
           }
           reject(res)
         })

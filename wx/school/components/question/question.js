@@ -88,7 +88,14 @@ Component({
         "questionId": that.data.questionId,
         "token": wx.getStorageSync('token')
       };
-      this.triggerEvent('subQuestion', postData);
+      if (that.data.answer == "") {
+        wx.showToast({
+          title: '答案不能为空',
+          icon: 'none'
+        })
+      }else {
+        this.triggerEvent('subQuestion', postData);
+      }
     },
 
     /**点击确定按钮提交答案 */
@@ -103,7 +110,12 @@ Component({
 
     /**点击举手按钮 */
     bindRaise: function (e) {
-      this.triggerEvent('raise', true);
+      var postData = {
+        "circleId": getApp().globalData.circleId,
+        "examineeId": wx.getStorageSync("studentId"),
+        "questionId": this.data.questionId,
+      }
+      this.triggerEvent('raise', postData);
       this.setData({ raiseFlag: false });
     },
 
@@ -166,7 +178,7 @@ Component({
 
       }
 
-      if (data.participate == "raise" && data.bigQuestion.selected == "2") {//需要先举手
+      if (data.participate == "raise") {//需要先举手
         that.setData({ 
           raiseFlag: true,
           showSub: false

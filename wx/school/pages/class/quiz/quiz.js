@@ -80,9 +80,7 @@ Page({
    * 接收question组件举手信息
    */
   onRaise(e) {
-    var postData = {
-      "circleId": getApp().globalData.circleId
-    }
+    var postData = e.detail;
     getApp().agriknow.raise(postData)
       .then(res => {
         if (res.data.ret == 0) {

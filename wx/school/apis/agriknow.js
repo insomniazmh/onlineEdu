@@ -49,7 +49,7 @@ class agriknow {
    * 提交提问举手
    */
   raise(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/raise', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + '/quiz/interact/raise', postData).then(res => res.data)
   }
 
   /**

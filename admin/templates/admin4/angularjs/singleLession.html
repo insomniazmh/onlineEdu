@@ -247,10 +247,10 @@
 				$scope.initWs = function() {
 					//check if your browser supports WebSocket
 					if('WebSocket' in window) {
-						var url = "wss://e.hnfts.cn/websocket/interactive/" +
-						localStorage.getItem('circleId') + "/" + localStorage.getItem('token') + "/" + random;
 // 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
-// 						localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
+// 						localStorage.getItem('circleId') + "/" + localStorage.getItem('token') + "/" + random;
+						var url = "wss://e.hnfts.cn/websocket/interactive/" +
+						localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
 						wsobj = $sesWebSocket(url);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
@@ -295,6 +295,8 @@
 				$scope.students = [];//当前需要显示的学生
 				$scope.currentTiwenQues = {}; //当前选中的提问问题
 				$scope.currentPublicQues = {}; //当前发布的提问问题
+				
+				$scope.scene = "general";
 				
 				//加载所有的提问题目
 				common.ajax2({
@@ -348,14 +350,14 @@
 				}
 				
 				$scope.$on('tiwenMessage', function(event, data) {
-					if(data.model == "raise") {
+					if(data.model == "raise" && $scope.scene == "raise") {
 						//接收新增已举手学生
 						$scope.raiseStudents = $scope.raiseStudents.concat(data.students);
 						//如果当前题目不是正在发布的题目，则不做处理
 						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
 							$scope.students = $scope.raiseStudents;
 						}
-					} else if(data.model == "answer") {
+					} else if(data.model == "answer" && $scope.scene == "general") {
 						/*
 							接收学生回答情况
 							如果当前题目不是正在发布的题目，则不做处理
@@ -436,16 +438,22 @@
 						}
 					});
 					var publishedStudents = selected.join(","); //被选中的学生id，用逗号分隔
+					
+					var interactive = $scope.currentTiwenQues.chooseType;
+					if($scope.currentTiwenQues.chooseType == 'raise') {
+						interactive = 'select';
+					}
+					
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						operate: false,
+						operate: true,
 						url: '/interact/send/question',
 						data: {
 							"category": $scope.currentTiwenQues.category,
 							"circleId": localStorage.getItem("circleId"),
 							"cut": timestamp,
-							"interactive": $scope.currentTiwenQues.chooseType,
+							"interactive": interactive,
 							"questionId": $scope.currentTiwenQues.id,
 							"questionType": 'TiWen',
 							"teacherId": localStorage.getItem("userid"),
@@ -453,8 +461,11 @@
 							// "selected": '410221199706224226'
 						},
 						success: function() {
+							$scope.scene = "general";
 							$scope.currentTiwenQues.published = true; //将该问题置为已提问状态
 							$scope.currentPublicQues = $scope.currentTiwenQues;//更新当前发布问题
+							$scope.answerStudents = [];//清空学生回答情况
+							$scope.raiseStudents = [];//清空学生举手情况
 						}
 					});
 				}
@@ -465,7 +476,7 @@
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/interact/send/question',
+						url: '/interact/send/raise/question',
 						data: {
 							"category": $scope.currentTiwenQues.category,
 							"circleId": localStorage.getItem("circleId"),
@@ -474,13 +485,14 @@
 							"questionId": $scope.currentTiwenQues.id,
 							"teacherId": localStorage.getItem("userid"),
 							"questionType": 'TiWen',
-							"selected": ""
 						},
 						success: function() {
+							$scope.scene = "raise";
 							$scope.currentTiwenQues.published = true;//将该问题置为已提问状态
-							$scope.raiseStudents = [];//将所有已举手学生清空
 							$scope.students = $scope.raiseStudents;
 							$scope.currentPublicQues = $scope.currentTiwenQues;//更新当前发布问题
+							$scope.answerStudents = [];//清空学生回答情况
+							$scope.raiseStudents = [];//清空学生举手情况
 						}
 					});
 				}
