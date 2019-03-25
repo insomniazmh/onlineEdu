@@ -52,6 +52,14 @@ class agriknow {
     return this._request.postRequest(this._baseUrl + '/quiz/interact/raise', postData).then(res => res.data)
   }
 
+
+  /**
+   * 收到问题后回调服务器
+   */
+  delSelectStu(postData = {}) {
+    return this._request.postRequest(this._baseUrl + '/quiz/interact/fabu/delSelectStu', postData).then(res => res.data)
+  }
+
   /**
    * 提交练习回答
    */

@@ -247,10 +247,10 @@
 				$scope.initWs = function() {
 					//check if your browser supports WebSocket
 					if('WebSocket' in window) {
-// 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
-// 						localStorage.getItem('circleId') + "/" + localStorage.getItem('token') + "/" + random;
 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
-						localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
+						localStorage.getItem('circleId') + "/" + localStorage.getItem('token') + "/" + random;
+// 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
+// 						localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
 						wsobj = $sesWebSocket(url);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
@@ -312,7 +312,7 @@
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
 						}); //组装题干以供展示
-						console.log(res.data);
+						// console.log(res.data);
 						$scope.tiwenQuestionList = res.data; //所有题目
 						$scope.loadAlreadyQues();
 					}
