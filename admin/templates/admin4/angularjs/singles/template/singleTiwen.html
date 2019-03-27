@@ -56,7 +56,7 @@
 							</li>
 						</ul>
 					</div>
-					<button class="btn btn-success" ng-click="showAnswer()">显示回答</button>
+					<button ng-show="!answerShowFlag" class="btn btn-success" ng-click="showAnswer()">显示回答</button>
 				</div>
 			</div>
 
@@ -73,7 +73,19 @@
 					<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">
 				</div>
 				<div class="uppercase profile-stat-text">{{row.name}}</div>
-				<div class="uppercase profile-stat-text answer" style="color: {{row.piGaiResult=='true' ? 'blue' : 'orangered'}};" ng-bind-html="row.answer"></div>
+				<!-- <div class="uppercase profile-stat-text answer" 
+					ng-if="scene=='general' && currentPublicQues.id == currentTiwenQues.id && !answerShowFlag" 
+					style="color: blue;">已回答
+				</div>
+				<div class="uppercase profile-stat-text answer" 
+					ng-if="scene !='general' || currentPublicQues.id != currentTiwenQues.id && answerShowFlag" 
+					style="color: {{row.piGaiResult=='true' ? 'blue' : 'orangered'}};" 
+					ng-bind-html="row.answer">
+				</div> -->
+				<div class="uppercase profile-stat-text answer" 
+					style="color: {{row.piGaiResult=='true' ? 'blue' : 'orangered'}};" 
+					ng-bind-html="row.answer">
+				</div>
 			</div>
 		</div>
 		<div style="height: 40px;text-align: center;display: none;" id="btns">

@@ -296,7 +296,8 @@
 				$scope.currentTiwenQues = {}; //当前选中的提问问题
 				$scope.currentPublicQues = {}; //当前发布的提问问题
 				
-				$scope.scene = "general";
+				$scope.scene = "general";//场景 general:一般    raise:举手
+				$scope.answerShowFlag = false;
 				
 				//加载所有的提问题目
 				common.ajax2({
@@ -382,7 +383,7 @@
 					$scope.currentTiwenQues = question;
 					$("#btns").hide();
 					if($scope.currentTiwenQues.published) {
-						$scope.showAnswer(); //如果该题已发布,则显示回答
+						$scope.loadAnswer(); //如果该题已发布,则加载回答
 					}else {
 						$($scope.allStudents).each(function() {
 							this.select = false;
@@ -462,6 +463,7 @@
 						},
 						success: function() {
 							$scope.scene = "general";
+							$scope.answerShowFlag = false;//初始化显示标志
 							$scope.currentTiwenQues.published = true; //将该问题置为已提问状态
 							$scope.currentPublicQues = $scope.currentTiwenQues;//更新当前发布问题
 							$scope.answerStudents = [];//清空学生回答情况
@@ -488,6 +490,7 @@
 						},
 						success: function() {
 							$scope.scene = "raise";
+							$scope.answerShowFlag = false;//初始化显示标志
 							$scope.currentTiwenQues.published = true;//将该问题置为已提问状态
 							$scope.students = $scope.raiseStudents;
 							$scope.currentPublicQues = $scope.currentTiwenQues;//更新当前发布问题
@@ -497,8 +500,8 @@
 					});
 				}
 
-				//请求接口，显示学生过往回答的情况
-				$scope.showAnswer = function() {
+				//请求接口，加载学生过往回答的情况
+				$scope.loadAnswer = function() {
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
@@ -511,6 +514,11 @@
 							
 						}
 					});
+				};
+				
+				//将隐藏的学生的回答情况显示出来
+				$scope.showAnswer = function() {
+					$scope.answerShowFlag = true;
 				};
 			});
 			
@@ -555,7 +563,7 @@
 						this.answer = "";
 					});
 					//请求接口，返回该问题学生回答情况
-					$scope.showAnswer();
+					$scope.loadAnswer();
 				};
 
 				//发送问题
@@ -604,7 +612,7 @@
 				};
 				
 				//显示学生回答的答案
-				$scope.showAnswer = function() {
+				$scope.loadAnswer = function() {
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
@@ -735,11 +743,11 @@
 						this.answer = "";
 					});
 					//请求接口，返回该问题学生回答情况
-					$scope.showAnswer();
+					$scope.loadAnswer();
 				};
 				
 				//显示学生回答的答案
-				$scope.showAnswer = function() {
+				$scope.loadAnswer = function() {
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
@@ -867,7 +875,7 @@
 				//点击题号 
 				$scope.chooseQuestion = function(question) {
 					$scope.currentTaskQues = question;
-					$scope.showAnswer(); //显示回答
+					$scope.loadAnswer(); //显示回答
 				};
 
 				//点击学生头像选中学生
@@ -912,7 +920,7 @@
 				}
 
 				//显示学生回答的答案
-				$scope.showAnswer = function() {
+				$scope.loadAnswer = function() {
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
@@ -1015,7 +1023,7 @@
 				//点击题号 
 				$scope.chooseQuestion = function(question) {
 					$scope.currentStromQues = question;
-					$scope.showAnswer(); //显示回答
+					$scope.loadAnswer(); //显示回答
 				};
 			
 				//点击学生头像选中学生
@@ -1060,7 +1068,7 @@
 				}
 			
 				//显示学生回答的答案
-				$scope.showAnswer = function() {
+				$scope.loadAnswer = function() {
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
