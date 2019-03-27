@@ -633,7 +633,7 @@
 						var data = JSON.parse(event.data);
 						console.log(data);
 						if(data.model == "interactiveStudents") {
-							$scope.students = data.students;
+							$scope.students = $scope.students.concat(data.students);
 						}
 					});
         } 
