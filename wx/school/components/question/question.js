@@ -66,12 +66,12 @@ Component({
       if (e.currentTarget.dataset.id == 1) {
         this.setData({
           checkTOF: true,
-          answer: true
+          answer: 1
         });
       } else if (e.currentTarget.dataset.id == 2) {
         this.setData({
           checkTOF: false,
-          answer: false
+          answer: 0
         });
       }
     },

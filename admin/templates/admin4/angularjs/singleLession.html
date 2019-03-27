@@ -297,7 +297,8 @@
 				$scope.currentPublicQues = {}; //当前发布的提问问题
 				
 				$scope.scene = "general";//场景 general:一般    raise:举手
-				$scope.answerShowFlag = false;
+				$scope.answerShowFlag = false;//是否显示学生回答情况标志
+				$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志
 				
 				//加载所有的提问题目
 				common.ajax2({
@@ -342,9 +343,13 @@
 										$scope.currentPublicQues = this;
 									}
 								});
+								$scope.answerShowFlag = false;//是否显示学生回答情况标志
+								$scope.showButtonFlag = true;//显示"显示回答"按钮
 							}else {
 								$scope.currentPublicQues = $scope.tiwenQuestionList[0];
 								$scope.chooseQuestion($scope.tiwenQuestionList[0]);//当前选中题目，默认为第一题
+								$scope.answerShowFlag = false;//是否显示学生回答情况标志
+								$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志
 							}
 						}
 					});
@@ -364,10 +369,14 @@
 							如果当前题目不是正在发布的题目，则不做处理
 						*/
 						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
-							$scope.answerStudents = $scope.answerStudents.concat(data.students);
-							$($scope.answerStudents).each(function() {
-								this.answer = this.askAnswerInfo;
-							});
+							for (let value of data.students) {
+								for (let value2 of $scope.answerStudents) {
+									if(value.id == value2.id) {
+										value2.answer == value.askAnswerInfo;
+									}
+								}
+							}
+							
 							$scope.students = $scope.answerStudents;
 						}
 					}
@@ -376,6 +385,7 @@
 				//接收学生加入事件
 				$scope.$on('allStudents', function(event, data) {
 					$scope.allStudents = $scope.allStudents.concat(data.students);
+					console.log(typeof($scope.allStudents[0].answer) == 'undefined');
 				});
 				
 				//点击题号 
@@ -384,11 +394,20 @@
 					$("#btns").hide();
 					if($scope.currentTiwenQues.published) {
 						$scope.loadAnswer(); //如果该题已发布,则加载回答
+						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
+							$scope.answerShowFlag = false;//是否显示学生回答情况标志
+							$scope.showButtonFlag = true;//是否显示"显示回答"按钮标志
+						}else {
+							$scope.answerShowFlag = true;//是否显示学生回答情况标志
+							$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志
+						}
 					}else {
 						$($scope.allStudents).each(function() {
 							this.select = false;
 						})
 						$scope.students = $scope.allStudents;//如果该题未发布,则显示所有学生
+						$scope.answerShowFlag = false;//是否显示学生回答情况标志
+						$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志
 					}
 				};
 
@@ -465,9 +484,16 @@
 							$scope.scene = "general";
 							$scope.answerShowFlag = false;//初始化显示标志
 							$scope.currentTiwenQues.published = true; //将该问题置为已提问状态
+							$scope.answerShowFlag = false;//是否显示学生回答情况标志
+							$scope.showButtonFlag = true;//是否显示"显示回答"按钮标志
 							$scope.currentPublicQues = $scope.currentTiwenQues;//更新当前发布问题
 							$scope.answerStudents = [];//清空学生回答情况
 							$scope.raiseStudents = [];//清空学生举手情况
+							
+							for (let value of $scope.students) {
+								$scope.answerStudents.push(value);
+							}
+							$scope.students = $scope.answerStudents;
 						}
 					});
 				}
@@ -492,10 +518,12 @@
 							$scope.scene = "raise";
 							$scope.answerShowFlag = false;//初始化显示标志
 							$scope.currentTiwenQues.published = true;//将该问题置为已提问状态
-							$scope.students = $scope.raiseStudents;
-							$scope.currentPublicQues = $scope.currentTiwenQues;//更新当前发布问题
+							$scope.answerShowFlag = false;//是否显示学生回答情况标志
+							$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志
 							$scope.answerStudents = [];//清空学生回答情况
 							$scope.raiseStudents = [];//清空学生举手情况
+							$scope.students = $scope.raiseStudents;
+							$scope.currentPublicQues = $scope.currentTiwenQues;//更新当前发布问题
 						}
 					});
 				}
@@ -511,7 +539,8 @@
 							"questionsId": $scope.currentTiwenQues.id
 						},
 						success: function(data) {
-							
+							$scope.answerStudents = data.data.answerRecordList;
+							$scope.students = $scope.answerStudents;
 						}
 					});
 				};
@@ -519,6 +548,7 @@
 				//将隐藏的学生的回答情况显示出来
 				$scope.showAnswer = function() {
 					$scope.answerShowFlag = true;
+					$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志
 				};
 			});
 			
