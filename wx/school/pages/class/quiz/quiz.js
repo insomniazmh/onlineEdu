@@ -28,11 +28,8 @@ Page({
           circleId: getApp().globalData.circleId,
           stuId: wx.getStorageSync("studentId")
         }).then(res => {
-            console.log(res);
-          })
-          .catch(res => {
-            //wx.stopPullDownRefresh()
-          });
+          console.log(res);
+        });
       }
     }
   },
