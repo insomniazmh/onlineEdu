@@ -296,7 +296,6 @@
 	    });
 
 		$("ul.feeds").on("click", "a", function() {
-			console.log($(this).html());
 			var html = $(this).html();
 			$(this).closest(".btn-group").find("span").html(html);
 		});
@@ -333,7 +332,6 @@
 					}else if(type == "5") {
 						$scope.links = res.data;
 					}
-					console.log($scope.links);
 				}
 			});
 		}
@@ -342,6 +340,7 @@
 			var success;
 			//obj.courseId = localStorage.getItem('courseId');
 			var file=$.extend(true,{},obj);
+			file.courseId = localStorage.getItem('courseId');
 			if(type == 'share') {//点击“享”按钮时
 				if(file.teachShare == '1') {
 					file.teachShare = '0';
@@ -373,7 +372,7 @@
 				var labelArr = file.datumArea.split(',');
 				var index = labelArr.indexOf(type);
 				if(index >=0) {
-					labelArr.splice(index);
+					labelArr.splice(index, 1);
 				}else {
 					labelArr.push(type);
 				}
