@@ -40,8 +40,6 @@ Page({
   onShow: function () {
     var random = Math.random().toString(36).substr(2);//生成随机数
     var that = this;
-    console.log(random);
-    console.log(getApp().globalData.circleId);
     if (getApp().globalData.circleId && random) {
       // 创建连接
       webSocket.connectSocket({

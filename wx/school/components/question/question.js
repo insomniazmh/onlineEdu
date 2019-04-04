@@ -66,12 +66,12 @@ Component({
       if (e.currentTarget.dataset.id == 1) {
         this.setData({
           checkTOF: true,
-          answer: 1
+          answer: "Y"
         });
       } else if (e.currentTarget.dataset.id == 2) {
         this.setData({
           checkTOF: false,
-          answer: 0
+          answer: "N"
         });
       }
     },
@@ -79,7 +79,6 @@ Component({
     /**点击确定按钮提交答案 */
     bindSub: function (e) {
       var that = this;
-      console.log(wx.getStorageSync('token'));
       var postData = {
         "answer": that.data.answer,
         "circleId": getApp().globalData.circleId,
@@ -88,6 +87,7 @@ Component({
         "questionId": that.data.questionId,
         "token": wx.getStorageSync('token')
       };
+      console.log(that.data.answer);
       if (that.data.answer == "") {
         wx.showToast({
           title: '答案不能为空',

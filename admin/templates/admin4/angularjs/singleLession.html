@@ -284,6 +284,8 @@
 					wsobj.create(opt);
 				};
 				$scope.initWs();
+				
+				
 
 			});
 
@@ -372,11 +374,16 @@
 							for (let value of data.students) {
 								for (let value2 of $scope.answerStudents) {
 									if(value.id == value2.id) {
-										value2.answer = value.askAnswerInfo;
+										if(value.askAnswerInfo == "Y") {
+											value2.answer = '对';
+										}else if(value.askAnswerInfo == "N") {
+											value2.answer = '错';
+										}else {
+											value2.answer = value.askAnswerInfo;
+										}
 									}
 								}
 							}
-							
 							$scope.students = $scope.answerStudents;
 						}
 					}
