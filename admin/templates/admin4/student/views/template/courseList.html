@@ -1,0 +1,75 @@
+<link href="../../../assets/admin/pages/css/blog.css" rel="stylesheet" type="text/css"/>
+<link href="../../../assets/admin/pages/css/news.css" rel="stylesheet" type="text/css"/>
+<style>
+	.img-responsive {
+		max-height: 200px;
+		width: auto;
+		margin: 0 auto;
+	}
+	p {
+		font-size: 14px;
+		color: #858585;
+		display: inline-block;
+		margin-right: 40px;
+	}
+	p span {
+		color: #4CC443;
+		font-size: 16px;
+	}
+</style>
+<div class="profile-content" ng-controller="courseListController">
+	<div class="portlet light">
+		<div class="portlet-title tabbable-line">
+			<div class="caption caption-md">
+				<i class="icon-globe theme-font hide"></i>
+				<span class="caption-subject font-blue-madison bold uppercase">课程学习</span>
+			</div>
+		</div>
+		<div class="portlet-body">
+			<div class="row">
+				<div class="col-md-3 blog-img blog-tag-data">
+					<img src="images/1.jpg" alt="" class="img-responsive">
+				</div>
+				<div class="col-md-9 blog-article">
+					<h3><a ng-click="goUrl('course')">电子商务基础</a></h3>
+					<div>
+						<p>学习进度： <span> 100%</span></p>
+						<p>当前平时总成绩： <span> 98分</span></p>
+					</div>
+					<div>
+						<p>考勤分： 5分</p><p>互动交流分： 5分</p><p>在线学习分： 30分</p><p>课堂练习分： 29分</p><p>期末考试分： 29分</p>
+					</div>
+					<a class="btn blue" ng-click="goUrl('course')">
+						继续学习 <i class="m-icon-swapright m-icon-white"></i>
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 blog-img blog-tag-data">
+					<img src="images/4.jpg" alt="" class="img-responsive">
+				</div>
+				<div class="col-md-9 blog-article">
+					<h3><a ng-click="goUrl('course')">商务英语基础</a></h3>
+					<div>
+						<p>学习进度： <span> 100%</span></p>
+						<p>当前平时总成绩： <span> 98分</span></p>
+					</div>
+					<div>
+						<p>考勤分： 5分</p><p>互动交流分： 5分</p><p>在线学习分： 30分</p><p>课堂练习分： 29分</p><p>期末考试分： 29分</p>
+					</div>
+					<a class="btn blue" ng-click="goUrl('course')">
+						继续学习 <i class="m-icon-swapright m-icon-white"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function courseListController($scope) {
+		$scope.goUrl = function(url) {
+			window.location.href = '#/course.html';
+		}
+	}
+</script>

@@ -1,0 +1,95 @@
+<style>
+	.badge {
+		padding: 6px 9px;
+		height: 24px;
+		margin: 3px;
+	}
+	.search {
+		display: inline-block !important;
+		margin-right: 20px;
+		width: auto !important;
+	}
+</style>
+<div ng-controller="lessonPlanCtrl">
+	<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">教案 - {{currentNode.text}} - {{knode.nodeName}}</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+						<ul class="nav nav-tabs" id="lessonPlanTab">
+							<li class="active" ng-click="changeTab('0')">
+								<a data-target="#tab_lessonPlan_1" data-toggle="tab">
+									资料 </a>
+							</li>
+							<li ng-click="changeTab('1')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
+									提问 </a>
+							</li>
+							<li ng-click="changeTab('2')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
+									练习 </a>
+							</li>
+							<li ng-click="changeTab('3')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
+									作业 </a>
+							</li>
+							<li ng-click="changeTab('4')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
+									任务 </a>
+							</li>
+							<li ng-click="changeTab('5')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
+									问卷 </a>
+							</li>
+							<li ng-click="changeTab('6')">
+								<a data-target="#tab_lessonPlan_2" data-toggle="tab">
+									风暴 </a>
+							</li>
+						</ul>
+					</div>
+					<div class="portlet-body">
+						<div class="tab-content" id="lessonPlanContent">
+							<!-- 描述：资料  -->
+							<div class="tab-pane active" id="tab_lessonPlan_1">
+								<div data-ng-include="'views/template/lessonPlan/ziliao.html'"></div>
+							</div>
+							<!-- 描述：提问  -->
+							<div class="tab-pane" id="tab_lessonPlan_2">
+								<div data-ng-include="'views/template/lessonPlan/question.html'"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div data-ng-include="'views/template/jiaofu/addJiaofu.html'"></div>
+	
+	<div data-ng-include="'views/template/timu/addOrEditQuestion.html'"></div>
+</div>
+
+<script>
+	function lessonPlanCtrl($scope, $rootScope, $http) {
+		$scope.changeTab = function(type) {
+			var typeInt = Number(type);
+			$("#teachAssTab > li").removeClass("active");
+			$("#teachAssTab > li").eq(typeInt).addClass("active");
+			$("#teachAssContent > .tab-pane").removeClass("active");
+			$("#teachAssContent > .tab-pane").eq(typeInt).addClass("active");
+			if(typeInt > 0) {
+				$scope.$broadcast('changeBookTab', type);
+			}
+		}
+	}
+</script>

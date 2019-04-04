@@ -1,0 +1,137 @@
+<style>
+	#kpContent a {
+		margin-bottom: 10px;
+	}
+</style>
+<div class="portlet light" ng-controller="zhishidianCtrl">
+	<div class="portlet-title">
+		<div class="caption" style="font-size: 14px;">
+			<i class="icon-settings" style="font-size: 12px;"></i>知识点
+		</div>
+		<div class="actions">
+			<button class="btn btn-circle btn-info btn-sm" ng-click="createKp();">创建 </button>
+		</div>
+		<div class="inputs">
+			<div class="portlet-input input-small input-inline">
+				<div class="input-icon right">
+					<input type="text" id="kp" class="form-control form-control-solid" placeholder="请输入知识点" ng-model="kNodeName">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="portlet-body" id="kpContent">
+		<!--<a href="javascript:;" class="btn btn-circle btn-sm btn-danger" name="kp" id="zhangjie">
+			<span>章节</span>
+		</a>
+		<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
+			<span>复合知识点</span>
+		</a>-->
+		<a href="javascript:;" class="btn btn-circle btn-sm {{row.selected ? 'btn-danger' : 'btn-info'}}" ng-repeat="row in kNodes" ng-click="selectKPoint(row)">
+			<span>{{row.nodeName}}</span>
+			<i ng-if="row.knodeId != ''" class="fa fa-times" ng-click="delKNode(row.knodeId);"></i>
+		</a>
+		<!--<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
+			<span>电子商务的概念</span>
+			<i class="fa fa-times" name="remove"></i>
+		</a>-->
+	</div>
+</div>
+	
+<script>
+	function zhishidianCtrl($scope, $http, $rootScope) {
+//		$scope.currentNode = {};
+		//获取章节知识点
+		$scope.loadKNode = function() {
+			$scope.kNodes = [{
+				nodeName: "章节",
+				knodeId: "",
+				kNodeType: "1",
+				selected: true
+			}];
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/kNode/findByChapter',
+				data: {
+			    	'chapterId': $scope.currentNode.id
+			    },
+			    success: function(data) {
+			    	$scope.kNodes = $scope.kNodes.concat(data.data);
+					$rootScope.$emit('kPointNode', {});
+					localStorage.setItem('knodeId', "");
+					$rootScope.kNodes = $scope.kNodes;
+			    }
+			});
+		};
+		
+		//切换章节回调
+		$scope.$on('currentNode', function(d,data) {  
+			$scope.currentNode = data;
+	        $scope.loadKNode();
+	    });
+		
+		//创建知识点
+        $scope.createKp = function() {
+        	common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/kNode/save',
+				data: {
+			    	'chapterId': $scope.currentNode.id,
+			    	"courseId": localStorage.getItem('courseId'),
+			    	"nodeName": $scope.kNodeName
+			    },
+			    success: function(data) {
+			    	$scope.kNodes.push(data.data);
+			    }
+			});
+        };
+        
+        $scope.selectKPoint = function(row) {
+        	$($scope.kNodes).each(function() {
+        		this.selected = false;
+        	});
+        	row.selected = true;
+        	$rootScope.$emit('kPointNode', row);
+        	console.log(row);
+        }
+        
+//      $("#kpContent").on("click", "a[name='kp']", function() {
+//			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
+//			$(this).removeClass("btn-info").addClass("btn-danger");
+//			var html = $(this).children("span").html();
+//			$scope.$apply(function() {　　
+//				if(html != "章节") {
+//					$rootScope.currKP = '-' + html;
+//				} else {
+//					$rootScope.currKP = '';
+//				}
+//			});
+//
+//		});
+		
+		//删除知识点
+		$scope.delKNode = function(id) {
+			layer.confirm('您确定要删除该知识点吗', {
+			  btn: ['确定','取消'] //按钮
+			}, function() {
+				//删除知识点
+			  	common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					url: '/kNode/deleteByKNodeId',
+					data: {
+				    	'kNodeId': id
+				    },
+				    success: function(data) {
+				    	$scope.loadKNode();
+				    }
+				});
+				layer.closeAll('dialog');
+			});
+		};
+	}
+</script>
+<!-- BEGIN MAIN JS -->

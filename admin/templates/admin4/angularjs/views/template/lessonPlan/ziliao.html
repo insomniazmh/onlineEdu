@@ -1,0 +1,295 @@
+<div ng-controller="ziliaoCtrl">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="portlet box grey-cascade">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="fa fa-gift"></i>资料库列表
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-target="#portlet_tab_doc" data-toggle="tab"> 文档 </a>
+						</li>
+						<li>
+							<a data-target="#portlet_tab_link" data-toggle="tab"> 链接 </a>
+						</li>
+						<li>
+							<a data-target="#portlet_tab_video" data-toggle="tab"> 视频 </a>
+						</li>
+						<li>
+							<a data-target="#portlet_tab_audio" data-toggle="tab"> 音频 </a>
+						</li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="portlet_tab_doc">
+							<ul class="feeds">
+								<li ng-repeat="row in docList">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="md-checkbox">
+													<input ng-if="!row.disable" type="checkbox" id="doc{{row.fileId}}" class="md-check"  ng-model="row.select">
+													<input ng-if="row.disable" type="checkbox" id="doc{{row.fileId}}" class="md-check" checked="checked" disabled="disabled">
+													<label for="doc{{row.fileId}}">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												</label>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													{{row.fileName}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane" id="portlet_tab_link">
+							<ul class="feeds">
+								<li ng-repeat="row in linkList">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="md-checkbox">
+													<input type="checkbox" id="link{{row.fileId}}" class="md-check" ng-model="row.select">
+													<label for="link{{row.fileId}}">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												</label>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													{{row.fileName}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane" id="portlet_tab_video">
+							<ul class="feeds">
+								<li ng-repeat="row in videoList">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="md-checkbox">
+													<input type="checkbox" id="video{{row.fileId}}" class="md-check" ng-model="row.select">
+													<label for="video{{row.fileId}}">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												</label>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													{{row.fileName}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane" id="portlet_tab_audio">
+							<ul class="feeds">
+								<li ng-repeat="row in audioList">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="md-checkbox">
+													<input type="checkbox" id="audio{{row.fileId}}" class="md-check" ng-model="row.select">
+													<label for="audio{{row.fileId}}">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												</label>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													{{row.fileName}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6" style="text-align: center;">
+			<div class="portlet box grey-cascade">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="fa fa-gift"></i>已选文件
+					</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse" data-original-title="" title="">
+						</a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<ul class="feeds">
+						<li ng-repeat="row in alreadyList">
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="md-checkbox">
+											<input type="checkbox" id="already{{row.fileId}}" class="md-check" ng-model="row.select">
+											<label for="already{{row.fileId}}">
+										<span></span>
+										<span class="check"></span>
+										<span class="box"></span>
+										</label>
+										</div>
+									</div>
+									<div class="cont-col2">
+										<div class="desc">
+											{{row.fileName}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<button type="button" class="btn green" data-toggle="modal" href="#addJiaofuModal" style="margin-top: 40px;">上传</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn default" data-dismiss="modal">关闭</button>
+		<button type="button" class="btn blue" ng-click="sub()">确定</button>
+	</div>
+</div>
+<script>
+	function ziliaoCtrl($scope, $rootScope, $http) {
+		//根据章节id加载章节资料
+		$scope.loadChapterData = function(datumType) {
+			var url = '/chapteData/findDatumList';
+			var postData = {
+				"chapterId": localStorage.getItem('currentNodeId'),
+				"courseId": localStorage.getItem('courseId'),
+				"sortVo": {
+					"isValidated": "0",
+					"page": 0,
+					"size": common.pageSize,
+					"sort": 1
+				}
+			};
+
+			if(datumType == 'already') {
+				url = '/courseData/findDatumList';
+			} else {
+				postData.datumType = datumType;
+				postData.datumArea = "3,4,5,6";
+			}
+
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: url,
+				data: postData,
+				success: function(data) {
+					if(datumType != "already") {
+						$(data.data).each(function() {
+							var that = this;
+							$($scope.alreadyList).each(function() {
+								if(that.fileId == this.fileId) {
+									that.disable = true;
+								}
+							});
+						});
+					}
+					if(datumType == "1") {
+						$scope.docList = data.data;
+					} else if(datumType == "3") {
+						$scope.videoList = data.data;
+					} else if(datumType == "4") {
+						$scope.audioList = data.data;
+					} else if(datumType == "5") {
+						$scope.linkList = data.data;
+					} else if(datumType == "already") {
+						$(data.data).each(function() {
+							this.select = true;
+						});
+						$scope.alreadyList = data.data;
+						$scope.initZiliao();
+					}
+				}
+			});
+		};
+		//已挂载资料
+		$scope.loadChapterData("already");
+
+		//初始化所有未挂载的资料
+		$scope.initZiliao = function() {
+			//未挂载资料
+			$scope.loadChapterData("1"); //文档资料
+			$scope.loadChapterData("3"); //视频资料
+			$scope.loadChapterData("4"); //音频资料
+			$scope.loadChapterData("5"); //链接资料
+		}
+		
+
+		//切换章节回调
+		$scope.$on('currentNode', function(d, data) {
+			$scope.loadChapterData("already");
+		});
+
+		$scope.sub = function() {
+			var filesSelArr = [];
+			var a = $scope.docList.concat($scope.linkList);
+			var b = a.concat($scope.videoList);
+			var c = b.concat($scope.audioList);
+			var result = c.concat($scope.alreadyList);
+			
+			$(result).each(function() {
+				if(this.select) {
+					filesSelArr.push({
+						"chapterId": this.chapterId,
+						"courseId": localStorage.getItem('courseId'),
+						"dataId": this.fileId ? this.fileId : '',
+						"datumArea": this.datumArea ? this.datumArea : '3',
+						"datumName": this.fileName ? this.fileName : 'none',
+						"datumType": this.datumType ? this.datumType : '1',
+						"datumUrl": this.fileUrl ? this.fileUrl : '',
+						"knodeId": this.knodeId ? this.knodeId : '',
+						"stuShare": this.stuShare ? this.stuShare : '0',
+						"teachShare": this.teachShare ? this.teachShare : '0'
+					});
+				}
+			});
+			console.log(filesSelArr);
+
+			var postData = {
+				"chapterId": localStorage.getItem('currentNodeId'),
+				"courseId": localStorage.getItem('courseId'),
+				"files": filesSelArr
+			};
+
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/courseData/save',
+				data: postData,
+				success: function(data) {
+					$scope.loadChapterData("already");
+				}
+			});
+		};
+	}
+</script>

@@ -3727,22 +3727,39 @@
      * @param {File[]} files
      */
     var insertImages = function ($editable, files) {
+    	console.log(files);
       var callbacks = $editable.data('callbacks');
-
       // If onImageUpload options setted
       if (callbacks.onImageUpload) {
         callbacks.onImageUpload(files, editor, $editable);
       // else insert Image as dataURL
       } else {
-        $.each(files, function (idx, file) {
-          var filename = file.name;
-          async.readFileAsDataURL(file).then(function (sDataURL) {
-            editor.insertImage($editable, sDataURL, filename);
-          }).fail(function () {
-            if (callbacks.onImageUploadError) {
-              callbacks.onImageUploadError();
+//      $.each(files, function (idx, file) {
+//        var filename = file.name;
+//        async.readFileAsDataURL(file).then(function (sDataURL) {
+//          editor.insertImage($editable, sDataURL, filename);
+//        }).fail(function () {
+//          if (callbacks.onImageUploadError) {
+//            callbacks.onImageUploadError();
+//          }
+//        });
+//      });
+
+		var formData = new FormData();
+		
+        formData.append("file", files[0]);
+        $.ajax({
+            url: common.uploadUrl,//路径是你控制器中上传图片的方法，下面controller里面我会写到
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function (data) {
+            	console.log($.parseJSON(data).fileUrl);
+            	data = $.parseJSON(data);
+                editor.insertImage($editable, data.fileUrl, data.filename);
             }
-          });
         });
       }
     };
@@ -3780,7 +3797,6 @@
         editor.saveRange($editable);
         dialog.showImageDialog($editable, $dialog).then(function (data) {
           editor.restoreRange($editable);
-
           if (typeof data === 'string') {
             // image url
             editor.insertImage($editable, data);
@@ -3969,7 +3985,6 @@
 
       var item = list.head(clipboardData.items);
       var isClipboardImage = item.kind === 'file' && item.type.indexOf('image/') !== -1;
-
       if (isClipboardImage) {
         insertImages($editable, [item.getAsFile()]);
       }
@@ -4200,7 +4215,6 @@
       // attach dropImage
       $dropzone.on('drop', function (event) {
         event.preventDefault();
-
         var dataTransfer = event.originalEvent.dataTransfer;
         if (dataTransfer && dataTransfer.files) {
           var layoutInfo = makeLayoutInfo(event.currentTarget || event.target);

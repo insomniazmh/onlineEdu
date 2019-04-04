@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<link href="css/app.css" rel="stylesheet" type="text/css" />
+		<style>
+			.htmlWrapper p {
+				display: inline;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="text-align: center;" ng-app="myApp" ng-controller="myCtrl">
+			<div class='p_typeOne'>
+			  <img class='p_state dis_none' src='img/z17.png' mode='widthFix' />
+			  <img class='p_state dis_none' src='img/z18.png' mode='widthFix' /><!--已回答、已过期标签，添加“dis_none”隐藏-->
+			  <p style="font-size: 16px;" class="htmlWrapper" ng-bind-html="question.title"></p>
+			</div>
+			<!--单选或多选-->
+			<div class='p_answers' ng-if="questionType == 'single' || questionType == 'multiple'">
+			  <!--题目是否可用通过添加删除类“opacity”切换-->
+			  <div class='p_answers_clm' ng-repeat="row in question.examChildren[0].optChildren" ng-click="selectOpt(row)" style="background-color: {{row.select ? '#d2d2d2' : '#ffffff'}};">
+			    <p><span class='cl_o e_number'>{{row.optValue}}.</span><span class="htmlWrapper" ng-bind-html="row.optTxt"></span></p>
+			  </div>
+		    </div>
+		    
+		    <!--主观-->
+		    <div class='p_answers' ng-if="questionType == 'design'">
+			  <!--题目是否可用通过添加删除类“opacity”切换-->
+			  <textarea style="width: 80%;height: 300px;margin: 0 auto;" ng-model="$parent.answer"></textarea>
+		    </div>
+		    
+		     <!--判断-->
+		    <div class='p_answers' ng-if="questionType == 'trueOrFalse'">
+			  <div class='p_answers_clm' ng-click="selectTOF(1)" style="background-color: {{answer ? '#d2d2d2' : '#ffffff'}};">
+			    <p><span class='cl_o e_number'>正确</p>
+			  </div>
+			  <div class='p_answers_clm' ng-click="selectTOF(0)" style="background-color: {{!answer ? '#d2d2d2' : '#ffffff'}};">
+			    <p><span class='cl_o e_number'>错误</p>
+			  </div>
+		    </div>
+		    
+		    <button ng-if="flag" class='com_btn mt_100 btn_state_on' style="margin: 0 auto;padding: 10px;" ng-click="sub()">提交</button>
+		    <img ng-if="!flag" src="img/z19.png" ng-click="handsUp()" />
+		    <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
+			
+		</div>
+		
+		<script src="js/jquery.min.js" type="text/javascript"></script>
+		<script src="js/angularjs/angular.min.js" type="text/javascript"></script>
+		<script src="js/angularjs/angular-sanitize.min.js" type="text/javascript"></script>
+		<script src="js/commonJiaohu.js" type="text/javascript"></script>
+		<script>
+			var app = angular.module('myApp', [
+			    "ngSanitize"
+			]);
+			app.config([ '$locationProvider', function($locationProvider) { 
+				$locationProvider.html5Mode({ 
+				     //设置为html5Mode(模式)，当为false时为Hashbang模式 
+				enabled : true, 
+				     //是否需要加入base标签，这里设置为false，设置为true时，需在html的head配置<base href="" />标签 
+				requireBase : false
+				}); 
+			}]);
+			app.controller('myCtrl', function($scope, $http, $interval, $location) {
+				$scope.flag = true;
+				var studentId = $location.search().studentId;
+				//接收老师推送问题
+		        var random = Math.random().toString(36).substr(2);//生成随机数
+//		        localStorage.setItem("circleId", "123");
+		        console.log(localStorage.getItem("circleId"));
+		        
+		        var ws = null;
+				$scope.initWs = function() {
+					//check if your browser supports WebSocket
+					if('WebSocket' in window) {
+						ws = new WebSocket("ws://192.168.13.15:8050/interactive/"+localStorage.getItem("circleId")+"/"+studentId+"/student/"+random);
+					} else {
+						layer.alert('对不起，您的浏览器不支持websorket');
+					}
+		
+					ws.onopen = function() {
+						console.log("open");
+					};
+		
+					ws.onmessage = function(evt) {
+						var data = JSON.parse(evt.data);
+						console.log(data);
+						if(data.model == "questions") {
+							$scope.$apply(function () {
+								$scope.answer = "";
+								$scope.cut = data.cut;
+								$scope.questionType = data.bigQuestion.examChildren[0].examType;
+								data.bigQuestion = common.addTitleForQuestion({
+									questionArr: data.bigQuestion
+								});
+								$scope.question = data.bigQuestion;
+								console.log($scope.question);
+								if(data.participate == "raise" && $scope.question.selected=="2") {
+									$scope.flag = false;//不能答题，只显示一个举手按钮
+								}else {
+									$scope.flag = true;//可以答题
+								}
+						    });
+							
+						}
+					};
+		
+					ws.onclose = function(evt) {
+						console.log("WebSocketClosed!");
+					};
+		
+					ws.onerror = function(evt) {
+						console.log("WebSocketError!");
+					};
+				};
+				$scope.initWs();
+				
+		        //点击选项
+		        $scope.selectOpt = function(opt) {
+		        	if($scope.questionType == "single") {
+		        		$($scope.question.examChildren[0].optChildren).each(function() {
+		        			this.select = false;
+		        		});
+		        		opt.select = true;
+		        	}else if($scope.questionType == "multiple") {
+		        		opt.select = !opt.select;
+		        	}else {
+		        		alert("网络异常");
+		        	}
+		        }
+		        
+		        //点击正确错误
+		        $scope.selectTOF = function(type) {
+		        	if(type == 1) {
+		        		$scope.answer = true;
+		        	}else {
+		        		$scope.answer = false;
+		        	}
+		        }
+		        
+		        //点击提交
+		        $scope.sub = function() {
+		        	if($scope.questionType == "single" || $scope.questionType == "multiple") {
+		        		var answerArr = [];
+			        	$($scope.question.examChildren[0].optChildren).each(function() {
+			        		if(this.select) {
+			        			answerArr.push(this.optValue);
+			        		}
+		        		});
+		        		$scope.answer = answerArr.join(",");
+		        	}		        	
+		        	common.ajax2({
+			        	$scope: $scope,
+						$http: $http,
+						data: {
+						  "answer": $scope.answer,
+						  "circleId": localStorage.getItem("circleId"),
+						  "cut": $scope.cut,
+						  "examineeId": studentId,
+						  "questionId": $scope.question.id
+						},
+						url: '/interact/send/answer',
+						success: function(res) {
+							alert("提交成功");
+						}
+			        });
+		        };
+		        
+		        //点击举手
+		        $scope.handsUp = function() {
+		        	common.ajax2({
+			        	$scope: $scope,
+						$http: $http,
+						data: {
+						  "circleId": localStorage.getItem("circleId"),
+						  "examineeId": studentId
+						},
+						url: '/interact/raise'
+			        });
+		        }
+			});
+		</script>
+	</body>
+</html>

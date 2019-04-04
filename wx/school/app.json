@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "pages/school_index/index",
+    "pages/getId/getId",
+    "pages/class/students_interaction/students_interaction",
+    "pages/class/strom/strom",
+    "pages/class/task/task",
+    "pages/class/survey/survey",
+    "pages/class/practice/practice",
+    "pages/class/quiz/quiz",
+    "pages/True or false/True or false",
+    "pages/Raise your hand/TrueOrFalse_h",
+    "pages/Raise your hand/choose_h",
+    "pages/fill up/fill up",
+    "pages/Raise your hand/Raise your hand",
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  }
+}

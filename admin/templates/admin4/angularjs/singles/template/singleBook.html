@@ -1,0 +1,52 @@
+
+
+<div style="background-color: #fcf8e3;" ng-controller="bookCtrl">
+	<div class="alert alert-block fade in">
+		<button type="button" class="close" onclick="closeBookQuestion()"></button>
+
+		<div>
+			<div style="display: inline-block;margin-right: 20px;">
+				<i class="icon-settings font-green-sharp"></i>
+				<span style="color: #4DB3A2;font-size: 16px;margin-left: 5px;font-weight: 600;">课堂练习</span>
+			</div>
+			<span class="badge {{row.select ? 'badge-danger' : 'badge-success'}}" style="margin: 3px;" ng-repeat="row in bookQuestionList" ng-click="chooseQuestion(row)"> {{$index+1}} </span>
+		</div>
+		<div>
+			<div style="width: 48%;float: left;">
+				<div class="note" style="border-left: 0;border-bottom: 1px solid #eee;">
+					<h4 class="block htmlWrapper" ng-bind-html="currentBookQues.title"></h4>
+					<div ng-if="currentBookQues.examChildren[0].examType == 'single' || currentBookQues.examChildren[0].examType == 'multiple'">
+						<p ng-repeat="x in currentBookQues.examChildren[0].optChildren">
+							<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
+							<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div style="width: 48%;float: left;">
+				<div style="text-align: right;margin-top: 15px;">
+					<!--<div class="btn-group">
+						<button class="btn blue" type="button" ng-click="publicQues('one')"> 发布 </button>
+					</div>-->
+					<div class="btn-group">
+						<button class="btn blue" type="button" ng-click="publicQues('all')"> 发布练习 </button>
+					</div>
+					<button class="btn btn-success" ng-click="showAnswer()">显示回答</button>
+				</div>
+			</div>
+
+			<div style="clear: both;"></div>
+		</div>
+
+		<div style="height: 140px;" id="bookStudentsWrapper">
+			<div style="width:80px;float:left;" ng-repeat="row in allStudents">
+				<div class="uppercase profile-userpic" ng-click="selectStudent(row)">
+					<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">
+				</div>
+				<div class="uppercase profile-stat-text">{{row.name}}</div>
+				<div class="uppercase profile-stat-text answer" style="color: orangered;" ng-bind-html="row.answer"></div>
+			</div>
+		</div>
+	</div>
+</div>
+

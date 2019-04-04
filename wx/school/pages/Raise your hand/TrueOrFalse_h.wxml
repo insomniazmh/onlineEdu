@@ -1,0 +1,15 @@
+<!--pages/Raise your hand/TrueOrFalse_h.wxml-->
+<view class='text_typeOne'>
+  <text>网上洽谈由于双方不能直接见面，所以受到很多限制，不如面对面洽谈方便。</text>
+</view>
+<view class='text_answers '><!--题目是否可用通过添加删除类“opacity”切换-->
+
+  <view class='allow_state '><!--是否可用通过添加“dis_none”切换/彩色-->
+
+    <image bindtap='imgclick' src="{{imgclick==1?'../../img/r_icon.png':'../../img/r_icon_g.png'}}" data-id='1'  mode='widthFix'></image>
+    <image bindtap='imgclick' src="{{imgclick==2?'../../img/w_icon.png':'../../img/w_icon_g.png'}}" data-id='2'  mode='widthFix'></image>
+  </view>
+</view>
+<image class='raise_hand' bindtap='imgclick2' src="{{imgclick2==false?'../../img/z19.png':'../../img/z20.png'}}"   mode='widthFix'></image>
+<button class='com_btn mt_100 btn_state_off dis_none'>提交</button><!--按钮的状态通过添加删除类“btn_state”切换-->
+

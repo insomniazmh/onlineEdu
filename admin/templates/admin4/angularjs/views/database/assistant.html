@@ -1,16 +1,46 @@
 <style>
-	.webuploader-pick {
-		display: block;
-		padding: 0;
-		background: #3598dc;
-	}
 	#createData {
 		min-width: 100px;
 	}
-	.createFile div:nth-child(2){width:100%!important;height:100%!important;}
+	
+	.createFile div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
+	.filePicker div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
+	.sign {
+		padding: 3px 3px 3px 4px;
+		margin-right: 5px;
+		cursor: pointer;
+	}
+	
+	.opreat {
+		font-size: 16px;
+		width: 20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+	
+	.label-ziColor {
+		background-color: #8e5fa2;
+	}
 </style>
 <div class="row" ng-controller="assistantCtrl">
-
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn red" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
+			<button type="button" class="btn green" onclick="common.goUrl('xitice', true)">互动集</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
+		</div>
+	</div>
+	<div data-ng-include="'views/template/title.html'"></div>
+	<div data-ng-include="'views/template/zhishidian.html'"></div>
 	<div class="col-md-4">
 		<div class="portlet light" style="min-height: 500px;">
 			<div class="portlet-title">
@@ -36,87 +66,30 @@
 					<span class="caption-subject bold uppercase">教学资料{{currKP}}</span>
 				</div>
 				<div class="actions">
-					<div class="btn-group btn-group-circle">
-						<button type="button" class="btn btn-danger">创建</button>
-						<button type="button" class="btn btn-circle-right btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-angle-down"></i></button>
-						<ul class="dropdown-menu" role="menu" id="createData">
-							<li>
-								<a href="javascript:;" class="createFile">
-									文档 </a>
-							</li>
-							<li>
-								<a href="javascript:;" class="createFile">
-									音频 </a>
-							</li>
-							<li>
-								<a href="javascript:;" class="createFile">
-									视频 </a>
-							</li>
-							<li>
-								<a href="javascript:;" class="createFile">
-									链接 </a>
-							</li>
-						</ul>
-					</div>
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#addJiaofuModal">
+							<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
 					<li class="active">
-						<a data-target="#tab_2_1" data-toggle="tab">
-							文档 </a>
+						<a data-target="#tab_2_1" data-toggle="tab"> 文档 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_2" data-toggle="tab">
-							音频 </a>
+						<a data-target="#tab_2_3" data-toggle="tab"> 链接 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_3" data-toggle="tab">
-							视频 </a>
+						<a data-target="#tab_2_4" data-toggle="tab"> 视频 </a>
 					</li>
 					<li>
-						<a data-target="#tab_2_4" data-toggle="tab">
-							链接 </a>
+						<a data-target="#tab_2_5" data-toggle="tab"> 音频 </a>
 					</li>
 				</ul>
 			</div>
 			<div class="portlet-body">
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_2_1">
-						<div class="scroller" style="min-height: 100px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+						<div class="" style="min-height: 408px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 							<ul class="feeds" style="margin-bottom: 50px;">
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-danger">
-													<i class="fa fa-bolt"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
-
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-info">
-													<i class="fa fa-bullhorn"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务基础教案.doc
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li>
+								<li ng-repeat="row in docs">
 									<div class="col1">
 										<div class="cont">
 											<div class="cont-col1">
@@ -126,92 +99,76 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													电子商务基础课件.ppt
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<div class="label label-sm {{row.datumArea.indexOf('3')>=0 ? 'label-danger' : 'label-default'}} sign" 
+														title="预习资料" ng-click="changeLable(row, '3')">预</div>
+													<div class="label label-sm {{row.datumArea.indexOf('4')>=0 ? 'label-success' : 'label-default'}} sign" 
+														title="课堂参考" ng-click="changeLable(row, '4')">堂</div>
+													<div class="label label-sm {{row.datumArea.indexOf('5')>=0 ? 'label-warning' : 'label-default'}} sign" 
+														title="课程案例" ng-click="changeLable(row, '5')">案</div>
+													<div class="label label-sm {{row.datumArea.indexOf('6')>=0 ? 'label-info' : 'label-default'}} sign" 
+														title="复习参考" ng-click="changeLable(row, '6')">复</div>
+													<div class="label label-sm {{row.teachShare=='1' ? 'label-primary' : 'label-default'}} sign"
+														 title="资料共享" ng-click="changeLable(row, 'share')">享</div>
+													<div class="label label-sm {{row.stuShare=='1' ? 'label-ziColor' : 'label-default'}} sign " 
+														title="学生可见" ng-click="changeLable(row, 'student')">生</div>
 												</div>
 											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-trash-o opreat" title="删除"></i>
 										</div>
 									</div>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div class="tab-pane" id="tab_2_2">
-
-					</div>
+					
 					<div class="tab-pane" id="tab_2_3">
-
+						<div class="" style="min-height: 408px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li ng-repeat="row in links">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<div class="label label-sm {{row.datumArea.indexOf('3')>=0 ? 'label-danger' : 'label-default'}} sign" 
+														title="预习资料" ng-click="changeLable(row, '3')">预</div>
+													<div class="label label-sm {{row.datumArea.indexOf('4')>=0 ? 'label-success' : 'label-default'}} sign" 
+														title="课堂参考" ng-click="changeLable(row, '4')">堂</div>
+													<div class="label label-sm {{row.datumArea.indexOf('5')>=0 ? 'label-warning' : 'label-default'}} sign" 
+														title="课程案例" ng-click="changeLable(row, '5')">案</div>
+													<div class="label label-sm {{row.datumArea.indexOf('6')>=0 ? 'label-info' : 'label-default'}} sign" 
+														title="复习参考" ng-click="changeLable(row, '6')">复</div>
+													<div class="label label-sm {{row.teachShare=='1' ? 'label-primary' : 'label-default'}} sign"
+														 title="资料共享" ng-click="changeLable(row, 'share')">享</div>
+													<div class="label label-sm {{row.stuShare=='1' ? 'label-ziColor' : 'label-default'}} sign " 
+														title="学生可见" ng-click="changeLable(row, 'student')">生</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-trash-o opreat" title="删除"></i>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</div>
 					<div class="tab-pane" id="tab_2_4">
-
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- END: ACCORDION DEMO -->
-		<!-- BEGIN: ACCORDION DEMO -->
-		<div class="portlet light" style="min-height: 100px;">
-			<div class="portlet-title tabbable-line">
-				<div class="caption font-green-sharp">
-					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">习题集{{currKP}}</span>
-				</div>
-				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#exercisesBookModal">
-						<i class="fa fa-plus"></i> 创建 </button>
-				</div>
-				<ul class="nav nav-tabs">
-					<li class="active">
-						<a data-target="#tab_1_1" data-toggle="tab">
-							提问 </a>
-					</li>
-					<li>
-						<a data-target="#tab_1_2" data-toggle="tab">
-							课堂练习 </a>
-					</li>
-					<li>
-						<a data-target="#tab_1_3" data-toggle="tab">
-							课后作业 </a>
-					</li>
-				</ul>
-			</div>
-			<div class="portlet-body">
-				<div class="tab-content">
-					<div class="tab-pane active" id="tab_1_1">
-						<div class="scroller" style="min-height: 200px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-							<ul class="feeds">
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-danger">
-													<i class="fa fa-bolt"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务的定义1
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-info">
-													<i class="fa fa-bullhorn"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务的定义2
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li>
+						<div class="" style="min-height: 408px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li ng-repeat="row in videos">
 									<div class="col1">
 										<div class="cont">
 											<div class="cont-col1">
@@ -221,37 +178,70 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													电子商务的概念1
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<div class="label label-sm {{row.datumArea.indexOf('3')>=0 ? 'label-danger' : 'label-default'}} sign" 
+														title="预习资料" ng-click="changeLable(row, '3')">预</div>
+													<div class="label label-sm {{row.datumArea.indexOf('4')>=0 ? 'label-success' : 'label-default'}} sign" 
+														title="课堂参考" ng-click="changeLable(row, '4')">堂</div>
+													<div class="label label-sm {{row.datumArea.indexOf('5')>=0 ? 'label-warning' : 'label-default'}} sign" 
+														title="课程案例" ng-click="changeLable(row, '5')">案</div>
+													<div class="label label-sm {{row.datumArea.indexOf('6')>=0 ? 'label-info' : 'label-default'}} sign" 
+														title="复习参考" ng-click="changeLable(row, '6')">复</div>
+													<div class="label label-sm {{row.teachShare=='1' ? 'label-primary' : 'label-default'}} sign"
+														 title="资料共享" ng-click="changeLable(row, 'share')">享</div>
+													<div class="label label-sm {{row.stuShare=='1' ? 'label-ziColor' : 'label-default'}} sign " 
+														title="学生可见" ng-click="changeLable(row, 'student')">生</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</li>
-								<li>
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-warning">
-													<i class="fa fa-plus"></i>
-												</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													电子商务的概念2
-												</div>
-											</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-trash-o opreat" title="删除"></i>
 										</div>
 									</div>
 								</li>
 							</ul>
-
 						</div>
 					</div>
-					<div class="tab-pane" id="tab_1_2">
-
-					</div>
-					<div class="tab-pane" id="tab_1_3">
-
+					<div class="tab-pane" id="tab_2_5">
+						<div class="" style="min-height: 408px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li ng-repeat="row in audios">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<div class="label label-sm {{row.datumArea.indexOf('3')>=0 ? 'label-danger' : 'label-default'}} sign" 
+														title="预习资料" ng-click="changeLable(row, '3')">预</div>
+													<div class="label label-sm {{row.datumArea.indexOf('4')>=0 ? 'label-success' : 'label-default'}} sign" 
+														title="课堂参考" ng-click="changeLable(row, '4')">堂</div>
+													<div class="label label-sm {{row.datumArea.indexOf('5')>=0 ? 'label-warning' : 'label-default'}} sign" 
+														title="课程案例" ng-click="changeLable(row, '5')">案</div>
+													<div class="label label-sm {{row.datumArea.indexOf('6')>=0 ? 'label-info' : 'label-default'}} sign" 
+														title="复习参考" ng-click="changeLable(row, '6')">复</div>
+													<div class="label label-sm {{row.teachShare=='1' ? 'label-primary' : 'label-default'}} sign"
+														 title="资料共享" ng-click="changeLable(row, 'share')">享</div>
+													<div class="label label-sm {{row.stuShare=='1' ? 'label-ziColor' : 'label-default'}} sign " 
+														title="学生可见" ng-click="changeLable(row, 'student')">生</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-trash-o opreat" title="删除"></i>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -259,68 +249,149 @@
 		<!-- END: ACCORDION DEMO -->
 	</div>
 
-	<div data-ng-include="'views/template/exercisesBook.html'"></div>
+	<!-- 显示图集图片 -->
+	<!--<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">图集</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<img src="{{row}}" style="width: 150px;height: 150px;margin: 10px;" ng-repeat="row in pics" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>-->
 
+	<div data-ng-include="'views/template/jiaofu/addJiaofu.html'"></div>
 </div>
 <!-- END MAIN CONTENT -->
 
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function assistantCtrl($scope) {
+	function assistantCtrl($scope, $http) {
+		localStorage.setItem('questionType', 'askAndExercise');
+		var courseId = localStorage.getItem('courseId');
 		$scope.knowledgePoints = [];
-		
-		$scope.$on('to-parent', function(d,data) {  
-	        console.log(data);         //父级能得到值  
-	    });
-		
-		$("#kpContent").on("click", "a[name='kp']", function() {
-			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
-			$(this).removeClass("btn-info").addClass("btn-danger");
 
+		//新建资料回调
+		$scope.$on('createZiliao', function(d, data) {
+			console.log(data); //父级能得到值  
+			$scope.loadDatumList(data);
 		});
+		
+		//切换知识点
+		$scope.$on('kPointNode', function(d,data) {  
+			$scope.loadDatumList("1");
+//			$scope.loadDatumList("2");
+			$scope.loadDatumList("3");
+			$scope.loadDatumList("4");
+			$scope.loadDatumList("5");
+	    });
 
 		$("ul.feeds").on("click", "a", function() {
-			console.log($(this).html());
 			var html = $(this).html();
 			$(this).closest(".btn-group").find("span").html(html);
 		});
 
-		var uploader = WebUploader.create({
-			// swf文件路径
-			swf: 'js/Uploader.swf',
-			// 文件接收服务端。
-			server: 'http://webuploader.duapp.com/server/fileupload.php',
-			// 选择文件的按钮。可选。
-			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
-			pick: '.createFile',
-			// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-			resize: false
-		});
+		//加载资料列表
+		$scope.loadDatumList = function(type) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/chapteData/findDatumList',
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+			  	"courseId": localStorage.getItem('courseId'),
+//			  		"knodeId": localStorage.getItem('knodeId'),
+					"datumType": type,
+					"datumArea": "3,4,5,6",
+					"sortVo": {
+						"isValidated": "0",
+						"page": 0,
+						"size": common.pageSize,
+						"sort": 1
+					}
+				},
+				success: function(res) {
+					console.log(type);
+					if(type == "1") {
+						$scope.docs = res.data;
+					}else if(type == "2") {
+						$scope.pics = res.data;
+					}else if(type == "3") {
+						$scope.videos = res.data;
+					}else if(type == "4") {
+						$scope.audios = res.data;
+					}else if(type == "5") {
+						$scope.links = res.data;
+					}
+				}
+			});
+		}
+		//点击列表中标签切换状态
+		$scope.changeLable = function(obj, type) {
+			var success;
+			//obj.courseId = localStorage.getItem('courseId');
+			var file=$.extend(true,{},obj);
+			file.courseId = localStorage.getItem('courseId');
+			if(type == 'share') {//点击“享”按钮时
+				if(file.teachShare == '1') {
+					file.teachShare = '0';
+					success = function() {
+						obj.teachShare = '0';
+					}
+				}else {
+					file.teachShare = '1';
+					success = function() {
+						obj.teachShare = '1';
+					}
+				}
+			}else if(type == 'student') {//点击“生”按钮时
+				if(file.stuShare == '1') {
+					file.stuShare = '0';
+					success = function() {
+						obj.stuShare = '0';
+					}
+				}else {
+					file.stuShare = '1';
+					success = function() {
+						obj.stuShare = '1';
+					}
+				}
+			}else {//点击前四个按钮时
+				if(!file.datumArea) {
+					file.datumArea = '';
+				}
+				var labelArr = file.datumArea.split(',');
+				var index = labelArr.indexOf(type);
+				if(index >=0) {
+					labelArr.splice(index, 1);
+				}else {
+					labelArr.push(type);
+				}
+				file.datumArea = labelArr.join(",");
+				success = function() {
+					obj.datumArea = labelArr.join(",");
+				}
+			}
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/chapteData/updateAreaAndShare',
+				data: file,
+				success: function() {
+					success();
+				}
+			});
+		}
 
-		// 当有文件被添加进队列的时候
-//		uploader.on('fileQueued', function(file) {
-//			console.log(file.name);
-//			var html = `
-//			<li>
-//				<div class="col1">
-//					<div class="cont">
-//						<div class="cont-col1">
-//							<div class="label label-sm label-warning">
-//								<i class="fa fa-plus"></i>
-//							</div>
-//						</div>
-//						<div class="cont-col2">
-//							<div class="desc">
-//								${file.name}
-//							</div>
-//						</div>
-//					</div>
-//				</div>
-//			</li>
-//			`;
-//			$("#tab_2_1 ul").append(html);
-//		});
 	}
 </script>
 <!-- BEGIN MAIN JS -->

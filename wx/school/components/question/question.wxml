@@ -1,0 +1,45 @@
+<import src="../../wxParse/wxParse.wxml"/>
+<view class='text_typeOne'>
+  <view><template is="wxParse" data="{{wxParseData:title.nodes}}" /></view>
+</view>
+<!-- 单选 -->
+<view class='text_answers' wx:if="{{questionType=='single'}}">
+  <view wx:for="{{optArray}}" wx:for-index="idx" wx:key="idx" class='text_answers_clm' data-id='{{idx}}' 
+  style="{{radioindex==idx?'background-color:#dedede;':''}}" bindtap='bindradio'>
+    <text class='cl_o e_number'>{{optsValue[idx]}}.</text>
+    <template is="wxParse" data="{{wxParseData:item}}"/>
+  </view>
+</view>
+<!-- 多选 -->
+<view class='text_answers' wx:if="{{questionType=='multiple'}}">
+  <view wx:for="{{optArray}}" wx:for-index="idx" wx:key="" class='text_answers_clm' data-id='{{idx}}' 
+  style="{{checkboxIndex.indexOf(idx)==-1?'background-color:#dedede;':''}}" bindtap='bindCheckbox'>
+    <text class='cl_o e_number'>{{optsValue[idx]}}.</text>
+    <template is="wxParse" data="{{wxParseData:item}}"/>
+  </view>
+  <text>您选择的答案是：{{answer}}</text>
+</view>
+
+<!-- 判断 -->
+<view class='text_answers' wx:if="{{questionType=='trueOrFalse'}}">
+  <view class='allow_state '>
+    <image bindtap='bindTOF' src="{{checkTOF?'../../img/r_icon.png':'../../img/r_icon_g.png'}}" data-id='1' mode='widthFix'></image>
+    <image bindtap='bindTOF' src="{{!checkTOF?'../../img/w_icon.png':'../../img/w_icon_g.png'}}" data-id='2' mode='widthFix'></image>
+  </view>
+</view>
+
+<!-- 主观 -->
+<view class='text_answers' wx:if="{{questionType=='design'}}">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class='allow_state"'>
+      <textarea name="answer" placeholder="请在这里输入您的答案" />
+    </view>
+    <button class='com_btn mt_100 btn_state_on' form-type="submit">提交</button>
+    <button class='com_btn mt_100 btn_state_on' form-type="reset">重置</button>
+  </form>
+</view>
+<button class='com_btn mt_100 btn_state_on' bindtap="bindSub" wx:if="{{showSub}}">提交</button>
+<image class='raise_hand' bindtap='bindRaise' src="../../img/z19.png" 
+mode='widthFix' wx:if="{{raiseFlag}}"></image>
+<!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
+<slot></slot>

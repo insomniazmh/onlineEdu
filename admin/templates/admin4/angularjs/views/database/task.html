@@ -1,0 +1,355 @@
+<style>
+	.opreat {
+		font-size: 16px;
+		width:20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+</style>
+<div class="row" ng-controller="kpCtrl">
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn red" onclick="common.goUrl('assistant', true)">备课参考</button>
+			<button type="button" class="btn green" onclick="common.goUrl('xitice', true)">互动集</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
+		</div>
+	</div>
+	<div data-ng-include="'views/template/title.html'"></div>
+	<!--<div data-ng-include="'views/template/zhishidian.html'"></div>-->
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'views/template/nodeTree.html'"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase" id="title">题库{{currKP}}</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
+						<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_1_task" data-toggle="tab" ng-click="changeType('taskRadio')"> 任务 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_storm" data-toggle="tab" ng-click="changeType('stromRadio')"> 头脑风暴 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_1_task"> 
+						<div id="accordionTask" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in task">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionTask" data-target="#accordionTask_{{$index}}">
+											<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row, 'task')"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id, 'task')"></i>
+										</div>
+									</h4>
+								</div>
+								<div id="accordionTask_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>答案：<span ng-bind-html="row.examChildren[0].designAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].designAnalysis" style="display: inline-block;"></span> </p>
+									</div>
+								</div>
+							</div>
+							<div ng-click='loadMore("task")'>加载更多</div>
+						</div>
+					</div>
+
+					<div class="tab-pane" id="tab_1_storm">
+						<div id="accordionStorm" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in strom">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionStorm" data-target="#accordionStorm_{{$index}}">
+											<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row, 'strom')"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id, 'strom')"></i>
+										</div>
+									</h4>
+								</div>
+								<div id="accordionStorm_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>答案：<span ng-bind-html="row.examChildren[0].designAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].designAnalysis" style="display: inline-block;"></span> </p>
+									</div>
+								</div>
+							</div>
+							<div ng-click='loadMore("strom")'>加载更多</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<div class="modal fade" id="taskAndStrom" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">题目</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="tab-content">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group form-md-radios">
+										<label>题库类型</label>
+										<div class="md-radio-inline">
+											<div class="md-radio">
+												<input type="radio" id="taskRadio" name="type" class="md-radiobtn" value="task">
+												<label for="taskRadio">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													任务 </label>
+											</div>
+											<div class="md-radio">
+												<input type="radio" id="stromRadio" name="type" class="md-radiobtn" value="strom">
+												<label for="stromRadio">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													头脑风暴 </label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div data-ng-include="'views/template/timu/zhuguanSmall.html'"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+</div>
+<!-- END MAIN CONTENT -->
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<script>
+	function kpCtrl($scope, $http, $rootScope) {
+		localStorage.setItem('questionType', 'taskAndStrom');
+		$scope.currentNode = {};
+		$scope.kPointNode = {};
+		
+		$scope.task = [];//任务题列表
+		$scope.strom = [];//头脑风暴题列表
+		
+		//分页信息-页数
+		$scope.taskPage = 0;
+		$scope.stromPage = 0;
+		
+		//加载更多
+		$scope.loadMore = function(type) {
+			if(type == 'task') {
+				$scope.taskPage++;
+				$scope.loadQuestions(type, $scope.taskPage);
+			}else if(type == 'strom') {
+				$scope.stromPage++;
+				$scope.loadQuestions(type, $scope.stromPage);
+			}
+		};
+
+		//切换章节回调
+		$scope.$on('currentNode', function(d, data) {
+			$scope.currentNode = data;
+			$scope.initQuestions();
+		});
+
+		//获取当前选中知识点
+		$scope.$on('kPointNode', function(d, data) {
+			$scope.kPointNode = data;
+			$scope.initQuestions();
+		});
+
+		//添加题目完成回调
+		$scope.$on('addSmall', function(d, data) {
+			var type = $("input[name='type']:checked").val();
+			$scope.saveOrEditQuestion(type, data);
+		});
+		
+		//修改题目完成回调
+		$scope.$on('editSmall', function(d, data) {
+			$scope.saveOrEditQuestion($scope.type, data);
+		});
+
+		//加载题目
+		$scope.loadQuestions = function(type, page) {
+			var data = {
+				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapterId": localStorage.getItem('currentNodeId'), //章节id
+				"operatorId": localStorage.getItem("userid"), //当前用户id
+				"questionType": 'design', //题目类型 single multiple trueOrFalse design bigQuestion
+				"page": page,
+				"size": common.pageSize,
+				"sort": 1,
+				"sorting": "uTime"
+			}
+
+			//处理知识点查询传参
+			if ($scope.kPointNode.knodeId) {
+				data.knowledgeId = $scope.kPointNode.knodeId;
+			}
+
+			if (type == 'task') {
+				url = '/taskQuestion/findAll/detailed';
+			} else if (type == 'strom') {
+				url = '/brainstormQuestion/findAll/detailed';
+			}
+
+			//根据章节和知识点加载题目
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				url: url,
+				data: data,
+				success: function(res) {
+					var data = res.data;
+					if(type == 'task') {
+						if(page == 0) {
+							$scope.task = [];
+						}
+						$scope.task = $scope.task.concat(res.data);
+					} else if(type == 'strom') {
+						if(page == 0) {
+							$scope.strom = [];
+						}
+						$scope.strom = $scope.strom.concat(res.data);
+					}
+				}
+			});
+		};
+
+		$scope.initQuestions = function() {
+			$scope.taskPage = 0;
+			$scope.stromPage = 0;
+			$scope.loadQuestions('task', 0);
+			$scope.loadQuestions('strom', 0);
+		}
+
+		//修改题目
+		$scope.editQuestion = function(question, type) {
+			$scope.type = type;
+			$scope.$broadcast('smallQuestionDetail', question);
+			$("#taskAndStrom").modal("show");
+		}
+		
+		$scope.saveOrEditQuestion = function(type, data) {
+			if (type == 'task') {
+				url = '/taskQuestion/design/edit';
+			} else if (type == 'strom') {
+				url = '/brainstormQuestion/design/edit';
+			}
+			
+			var obj = {
+				"relate": 0,
+				"teacherId": localStorage.getItem("userid"),
+				"knowledgeId": "",
+				"chapterId": localStorage.getItem("currentNodeId"),
+				"examChildren": [data]
+			}
+			
+			if(data.pid) {
+				obj.id = data.pid;
+			}
+			
+			//添加题目(主观)
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: url,
+				data: obj,
+				success: function(res) {
+					$scope.loadQuestions(type, 0);
+					$("#taskAndStrom").modal("hide");
+				}
+			});
+		}
+
+		//删除题目
+		$scope.delQuestion = function(id, type) {
+			if (type == 'task') {
+				url = '/taskQuestion/delete/';
+			} else if (type == 'strom') {
+				url = '/brainstormQuestion/delete/';
+			}
+			
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax2({
+					method: "get",
+					$scope: $scope,
+					$http: $http,
+					url: url + id,
+					success: function(res) {
+						console.log(res);
+					}
+				});
+				layer.closeAll('dialog');
+			});
+		}
+
+		//打开题目添加框
+		$scope.openQuestionModel = function() {
+			if (!$rootScope.currentNode) {
+				layer.alert("请先选择章节");
+				return false;
+			}
+
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建题目吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				$scope.$broadcast('smallQuestionDetail', null);
+				$("#taskAndStrom").modal("show");
+				layer.closeAll('dialog');
+			});
+		}
+		
+		$scope.changeType = function(type) {
+			$("#"+type).attr("checked", "checked");
+		}
+	}
+</script>
+<!-- BEGIN MAIN JS -->

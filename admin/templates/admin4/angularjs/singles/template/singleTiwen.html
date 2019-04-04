@@ -1,0 +1,97 @@
+
+
+<div style="background-color: #fcf8e3;" ng-controller="tiwenCtrl">
+	<div class="alert alert-block fade in">
+		<button type="button" class="close" onclick="closeQuestion()"></button>
+		<div>
+			<div style="display: inline-block;margin-right: 20px;">
+				<i class="icon-settings font-green-sharp"></i>
+				<span style="color: #4DB3A2;font-size: 16px;margin-left: 5px;font-weight: 600;">课堂提问</span>
+			</div>
+			<span class="badge {{row.published ? 'badge-danger' : 'badge-success'}}" style="margin: 3px;" ng-repeat="row in tiwenQuestionList" ng-click="chooseQuestion(row)"> {{$index+1}} </span>
+		</div>
+		<div>
+			<div style="width: 48%;float: left;">
+				<div class="note" style="border-left: 0;border-bottom: 1px solid #eee;">
+					<h4 class="block htmlWrapper" ng-bind-html="currentTiwenQues.title"></h4>
+					<div ng-if="currentTiwenQues.examChildren[0].examType == 'single' || currentTiwenQues.examChildren[0].examType == 'multiple'">
+						<p ng-repeat="x in currentTiwenQues.examChildren[0].optChildren">
+							<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
+							<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div style="width: 48%;float: left;">
+				<div style="text-align: right;margin-top: 15px;">
+					<div class="btn-group">
+						<button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+											选人 <i class="fa fa-angle-down"></i>
+										</button>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<a href="javascript:;" ng-click="qiangda()">抢答 </a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="jushou()">举手 </a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="xuanren()">选人</a>
+							</li>
+						</ul>
+					</div>
+					<div class="btn-group">
+						<button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+											选组 <i class="fa fa-angle-down"></i>
+										</button>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<a href="javascript:;" ng-click="qiangdazu()">抢答 </a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="jushouzu()">举手 </a>
+							</li>
+							<li>
+								<a href="javascript:;" ng-click="xuanrenzu()">选人</a>
+							</li>
+						</ul>
+					</div>
+					<button ng-show="showButtonFlag" class="btn btn-success" ng-click="showAnswer()">显示回答</button>
+				</div>
+			</div>
+
+			<div style="clear: both;"></div>
+			<!--<div style="text-align: center;">
+				<button class="btn btn-info">上一题</button>
+				<button class="btn btn-info">上一题</button>
+			</div>-->
+		</div>
+
+		<div style="height: 140px;">
+			<div style="width:80px;float:left;" ng-repeat="row in students">
+				<div class="uppercase profile-userpic {{row.select ? 'active' : ''}}" ng-click="selectStudent(row)">
+					<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">
+				</div>
+				<div class="uppercase profile-stat-text">{{row.name}}</div>
+				<div class="uppercase profile-stat-text answer" 
+					ng-if="!answerShowFlag && !row.answer" 
+					style="color: blue;">
+				</div>
+				<div class="uppercase profile-stat-text answer" 
+					ng-if="!answerShowFlag && row.answer" 
+					style="color: blue;">已回答
+				</div>
+				<div class="uppercase profile-stat-text answer" 
+					ng-if="answerShowFlag" 
+					style="color: {{row.piGaiResult=='true' ? 'blue' : 'orangered'}};" 
+					ng-bind-html="row.answer">
+				</div>
+			</div>
+		</div>
+		<div style="height: 40px;text-align: center;display: none;" id="btns">
+			<button class="btn btn-primary" ng-click="all()">全选</button>
+			<button class="btn btn-primary" ng-click="sub()">确定</button>
+		</div>
+	</div>
+</div>
+

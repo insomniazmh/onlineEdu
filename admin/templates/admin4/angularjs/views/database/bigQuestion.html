@@ -1,0 +1,221 @@
+<style>
+	.opreat {
+		font-size: 16px;
+		width: 20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+	.nbsp {
+		padding-right: 3px;
+		border-right: 1px solid #45B6AF;
+	}
+</style>
+<div class="row" ng-controller="bigQuestionCtrl">
+	<div class="col-md-12" style="background-color: white;">
+		<div class="form-group form-md-line-input">
+			<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
+			<div name="summernote" id="summernote_dati"></div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group form-md-line-input has-info">
+				<select class="form-control" id="form_control_1" ng-model="knowledgeId">
+					<option value="">请选择</option>
+					<option ng-repeat="row in kNodes" value="{{row.knodeId}}">{{row.nodeName}}</option>
+					<!--<option value="">电子商务的概念</option>-->
+				</select>
+				<label for="form_control_1">知识点</label>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group form-md-radios">
+				<label>难易程度</label>
+				<div class="md-radio-inline">
+					<div class="md-radio">
+						<input type="radio" id="directorRadio1" name="directorlevel" class="md-radiobtn" value="1" checked="">
+						<label for="directorRadio1">
+							<span></span>
+							<span class="check"></span>
+							<span class="box"></span>
+							简单 </label>
+					</div>
+					<div class="md-radio">
+						<input type="radio" id="directorRadio2" name="directorlevel" class="md-radiobtn" value="2">
+						<label for="directorRadio2">
+							<span></span>
+							<span class="check"></span>
+							<span class="box"></span>
+							中等 </label>
+					</div>
+					<div class="md-radio">
+						<input type="radio" id="directorRadio3" name="directorlevel" class="md-radiobtn" value="3">
+						<label for="directorRadio3">
+							<span></span>
+							<span class="check"></span>
+							<span class="box"></span>
+							困难 </label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6" style="background-color: white;margin-top: 15px;width: 49%; margin-right: 1%;">
+		<div class="form-group form-md-radios">
+			<label>题目类型</label>
+			<div class="md-radio-inline">
+				<div class="md-radio">
+					<input type="radio" id="timuradio6" name="timuType" class="md-radiobtn" value="single" checked="">
+					<label for="timuradio6">
+						<span></span>
+						<span class="check"></span>
+						<span class="box"></span>
+						单选 </label>
+				</div>
+				<div class="md-radio">
+					<input type="radio" id="timuradio7" name="timuType" class="md-radiobtn" value="multiple">
+					<label for="timuradio7">
+						<span></span>
+						<span class="check"></span>
+						<span class="box"></span>
+						多选 </label>
+				</div>
+				<div class="md-radio">
+					<input type="radio" id="timuradio8" name="timuType" class="md-radiobtn" value="trueOrFalse">
+					<label for="timuradio8">
+						<span></span>
+						<span class="check"></span>
+						<span class="box"></span>
+						判断 </label>
+				</div>
+				<div class="md-radio">
+					<input type="radio" id="timuradio9" name="timuType" class="md-radiobtn" value="design">
+					<label for="timuradio9">
+						<span></span>
+						<span class="check"></span>
+						<span class="box"></span>
+						主观 </label>
+				</div>
+			</div>
+		</div>
+		<div data-ng-include="'views/template/timu/danxuanSmall.html'" ng-show="questionType == 'single'"></div>
+		<div data-ng-include="'views/template/timu/duoxuanSmall.html'" ng-show="questionType == 'multiple'"></div>
+		<div data-ng-include="'views/template/timu/panduanSmall.html'" ng-show="questionType == 'trueOrFalse'"></div>
+		<div data-ng-include="'views/template/timu/zhuguanSmall.html'" ng-show="questionType == 'design'"></div>
+	</div>
+	<div class="col-md-6" style="background-color: white;margin-top: 15px;width: 49%; margin-right: 1%;">
+		<div style="margin-top: 10px;">
+			<div id="accordionBig" class="panel-group">
+				<div class="panel panel-default" ng-repeat="row in smallList">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionBig" data-target="#accordionBig_{{$index}}">
+								<span ng-bind-html="row.title" style="display: inline-block;"></span> </a>
+							<div style="display: inline-block;float: right;">
+								<i class="fa fa-arrow-up opreat nbsp" title="上移" ng-click="changeLoction($index, 1)"></i>
+								<i class="fa fa-arrow-down opreat nbsp" title="下移" ng-click="changeLoction($index, 2)"></i>
+								<i class="fa fa-trash-o opreat" title="删除" ng-click="delSmall($index)"></i>
+							</div>
+						</h4>
+					</div>
+					<div id="accordionBig_{{$index}}" class="panel-collapse collapse">
+						<div class="panel-body">
+							<p ng-repeat="x in row.optChildren" ng-if="row.examType=='single' || row.examType=='multiple'">
+								<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
+								<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+							</p>
+							<p>答案：<span ng-bind-html="row.answer" style="display: inline-block;"></span> </p>
+							<p>解析：<span ng-bind-html="row.analysis" style="display: inline-block;"></span> </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions noborder" style="padding: 20px; background-color: white;text-align: center;">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
+		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+	</div>
+</div>
+<script>
+	function bigQuestionCtrl($scope, $http, $rootScope) {
+		$('#summernote_dati').summernote({
+			height: 100
+		});
+
+		$scope.smallList = [];
+		$scope.questionType = "single";
+
+		$("input[name='timuType']").change(function() {
+			var type = $(this).val();
+			$scope.$apply(function() {
+				$scope.questionType = type;
+			});
+		});
+
+		//添加小题完成回调
+		$scope.$on('addSmall', function(d, data) {
+			$scope.smallList.push(data);
+			console.log(data);
+		});
+		
+		//删除大题中的某个小题
+		$scope.delSmall = function(index) {
+			layer.confirm('您确定要删除该小题吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(i){
+				$scope.$apply(function() {
+					$scope.smallList.splice(index, 1);
+				});
+				layer.close(i);
+			}, function() {
+				
+			});
+		}
+		
+		$scope.changeLoction = function(index, flag) {
+			if(flag == 1) {
+				if(index == 0) {
+					layer.alert("已经是第一个了，无法上移");
+					return false;
+				}
+				[$scope.smallList[index], $scope.smallList[index-1]]=[$scope.smallList[index-1], $scope.smallList[index]];
+			}else {
+				if(index == ($scope.smallList.length-1)) {
+					layer.alert("已经是最后一个了，无法下移");
+					return false;
+				}
+				[$scope.smallList[index], $scope.smallList[index+1]]=[$scope.smallList[index+1], $scope.smallList[index]];
+			}
+		}
+
+		if (!$scope.knowledgeId) {
+			$scope.knowledgeId = "";
+		}
+
+		$scope.sub = function() {
+			var obj = {
+				"relate": 0,
+				"teacherId": localStorage.getItem("userid"),
+				"levelId": $("input[name='directorlevel']:checked").val(),
+				"knowledgeId": $scope.knowledgeId,
+				"paperInfo": $('#summernote_dati').code(),
+				"chapterId": localStorage.getItem("currentNodeId"),
+				"examChildren": $scope.smallList
+			};
+			console.log(JSON.stringify(obj));
+			//添加题目(大题)
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/question/bigQuestion/edit',
+				data: obj,
+				success: function(res) {
+					$scope.$emit('addQuestion', "bigQuestion");
+					$("#addQuestion").modal("hide");
+				}
+			});
+		}
+
+	}
+</script>

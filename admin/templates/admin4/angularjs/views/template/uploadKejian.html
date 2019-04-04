@@ -1,0 +1,233 @@
+<style>
+	#filePicker4 .webuploader-pick {
+		padding: 10px 15px;
+	}
+	#filePicker5 .webuploader-pick {
+		padding: 10px 15px;
+	}
+	#filePicker6 .webuploader-pick {
+		padding: 10px 15px;
+	}
+	.blockOverlay {
+		z-index: 21000 !important;
+	}
+	.blockMsg {
+		z-index: 21011 !important;
+	}
+	
+	.pics {
+		list-style: none;
+	    margin: 0;
+	    padding: 0;
+	}
+	
+	.pics li {
+		width: 110px;
+	    height: 110px;
+	    text-align: center;
+	    margin: 0 8px 20px 0;
+	    position: relative;
+	    display: inline;
+	    float: left;
+	    overflow: hidden;
+	    font-size: 12px;
+	}
+	
+	.pics li p.imgWrap {
+		position: relative;
+	    z-index: 2;
+	    line-height: 110px;
+	    vertical-align: middle;
+	    overflow: hidden;
+	    width: 110px;
+	    height: 110px;
+	}
+	
+	.pics div.file-panel {
+		position: absolute;
+	    height: 0;
+	    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
+	    background: rgba( 0, 0, 0, 0.5 );
+	    width: 100%;
+	    top: 0;
+	    left: 0;
+	    overflow: hidden;
+	    z-index: 300;
+	}
+	
+	.pics div.file-panel i {
+		font-size: 16px;
+	    display: inline;
+	    float: right;
+	    margin: 5px 1px 1px;
+	    color: white;
+	    cursor: pointer;
+	}
+	
+	.pics div.file-panel i.cancel {
+		background-position: -48px -24px;
+	}
+</style>
+
+<!--上传课件-->
+<div class="modal fade" id="uploadKejianModal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="uploadKejianCtrl">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">上传课件</h4>
+			</div>
+			<div class="modal-body">
+				<div class="portlet">
+					<div class="portlet-body">
+						<div role="form">
+							<div class="form-body">
+								<div class="row" style="margin-bottom: 40px;">
+									<div class="col-md-12">
+										<div class="form-group form-md-radios">
+											<label>课件类型</label>
+											<div class="md-radio-inline">
+												<div class="md-radio">
+													<input type="radio" id="radio6" name="kejianType" class="md-radiobtn" value="1" checked="">
+													<label for="radio6">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													PPT </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio8" name="kejianType" class="md-radiobtn" value="2">
+													<label for="radio8">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													图集 </label>
+												</div>
+												<div class="md-radio">
+													<input type="radio" id="radio7" name="kejianType" class="md-radiobtn" value="3">
+													<label for="radio7">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													视频 </label>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row" style="margin-bottom: 40px;">
+									<div class="fileTab">
+										<div class="row">
+											<div class="col-md-12" id="PPTKejian" style="text-align: center;margin-bottom: 20px;height: 50px;">
+												
+											</div>
+										</div>
+										<div id="filePicker4" class="filePicker" style="text-align: center;">选择文件</div>
+									</div>
+									<div class="fileTab" style="display: none;">
+										<div class="row">
+											<div class="col-md-12" id="picsKejian">
+												<ul class="pics"></ul>
+											</div>
+											<div class="col-md-12">
+												<input type="text" class="form-control" ng-model="photoDatumName" placeholder="请输入图集名称">
+											</div>
+										</div>
+										<div id="filePicker6" class="filePicker" style="text-align: center;">选择文件</div>
+										<button class="btn btn-default uploadBtn1">开始上传</button>
+									</div>
+									<div class="fileTab" style="display: none;">
+										<div class="row">
+											<div class="col-md-12" id="videoKejian" style="text-align: center;margin-bottom: 20px;">
+												
+											</div>
+										</div>
+										<div id="filePicker5" class="filePicker" style="text-align: center;">选择文件</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn blue" ng-click="sub()">确定</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<script>
+	function uploadKejianCtrl($scope) {
+		var type = 1;
+		var pptKejian = {};
+		var videoKejian = {};
+		var picsKejian = [];
+		$('input:radio[name="kejianType"]').change(function() {
+			type = $(this).val();
+			$(".fileTab").hide();
+			if($(this).val() == 1) {
+				$("#PPTKejian").closest(".fileTab").show();
+			}else if($(this).val() == 2) {
+				$("#picsKejian").closest(".fileTab").show();
+			}else if($(this).val() == 3) {
+				$("#videoKejian").closest(".fileTab").show();
+			}
+		});
+
+		//文档类型课件
+		common.fileUpload({
+			id: 'filePicker4',
+			success: function(file, response, uploader) {
+				console.log(file);
+				console.log(response);
+				console.log(uploader);
+				var html = '<a href="'+response.fileUrl+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
+				$("#PPTKejian").html(html);
+				pptKejian = response;
+			}
+		});
+		
+		//视频类型课件
+		common.fileUpload({
+			id: 'filePicker5',
+			success: function(file, response, uploader) {
+				var html = '<video src="'+response.fileUrl+'" controls="controls" style="height: 300px; width:auto;">'+response.fileName+'</video>';
+				$("#videoKejian").html(html);
+				videoKejian = response;
+			}
+		});
+		
+		//图集类型课件
+		common.multiFileUpload({
+			id: 'filePicker6',
+			uploadBtn: '.uploadBtn1',
+			success: function(file, response, uploader) {
+				console.log(response);
+				picsKejian.push(response);
+			}
+		});
+		
+		//提交，将数据传至父页面
+		$scope.sub = function() {
+			var kejian = {
+				type: type,
+				content: [],
+				photoDatumName: $scope.photoDatumName
+			};
+			
+			if(type == 1) {
+				kejian.content = [pptKejian];
+			}else if(type == 2) {
+				kejian.content = picsKejian;
+			}else if(type == 3) {
+				kejian.content = [videoKejian];
+			}
+			$scope.$emit('kejian', kejian);
+			$("#uploadKejianModal").modal("hide");
+		};
+	}
+</script>

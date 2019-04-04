@@ -1,0 +1,71 @@
+<link href="../../../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
+<link href="../../../assets/frontend/pages/css/style-shop.css" rel="stylesheet" type="text/css">
+<style>
+	.pi-price {
+		color: #2386ca;
+	}
+</style>
+	
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb hide">
+	<li>
+		<a href="#">Home</a><i class="fa fa-circle"></i>
+	</li>
+	<li class="active">
+		Dashboard
+	</li>
+</ul>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="prepareLessonsListCtrl" class="margin-top-10">
+	<div class="portlet light">
+		<div class="portlet-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="owl-carousel owl-carousel5 owl-theme" style="opacity: 1; display: block;">
+						<div class="owl-wrapper-outer">
+							<div class="owl-wrapper" style="width: 3192px; left: 0px; display: block;">
+								<div class="owl-item active" style="width: 228px;" ng-repeat="row in coursePrepare">
+									<div>
+										<div class="product-item">
+											<div class="pi-img-wrapper">
+												<img src="{{row.image}}" class="img-responsive" alt="Berry Lace Dress">
+											</div>
+											<h3><a href="#/prepareLessons.html">{{row.text}}(讲师：<span style="color: red;">{{row.teacher}}</span>)</a></h3>
+											<div class="pi-price"><span style="color: #3e4d5c;">班级：</span>{{row.num}}</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- END MAIN CONTENT -->
+
+<script>
+	function prepareLessonsListCtrl($scope) {
+		$scope.coursePrepare = [{
+			image: 'images/1.jpg',
+			text: "电子商务基础",
+			num: "18级1班",
+			teacher: "张帅"
+		}, {
+			image: 'images/1.jpg',
+			text: "电子商务基础",
+			num: "18级2班",
+			teacher: "李思"
+		}, {
+			image: 'images/1.jpg',
+			text: "电子商务基础",
+			num: "18级3班",
+			teacher: "王武"
+		}];
+	}
+</script>

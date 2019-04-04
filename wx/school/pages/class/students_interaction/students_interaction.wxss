@@ -1,0 +1,4 @@
+/* pages/students_interaction/students_interaction.wxss */
+.stud_int_clm{text-align:center;width:120rpx;float:left;margin-left:100rpx;margin-top:50rpx;}
+.stud_int_clm image{width:120rpx;display:block;margin-bottom:10rpx;}
+.stud_int_clm text{font-size:34rpx;font-weight:400;}

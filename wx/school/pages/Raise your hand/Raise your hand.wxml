@@ -1,0 +1,10 @@
+<!--pages/Raise your hand/Raise your hand.wxml-->
+<view class='text_typeOne'>
+  <text>请根据所学知识进行填空。</text>
+</view>
+    <view class='text_answers '><!--题目是否可用通过添加删除类“opacity”切换-->
+      电子商务的任何一笔交易,都包含四种基本得流，即商流、物流、资金流和信息流。其中物流是<input></input>信息流是<input></input>，商流是           <input></input>，资金流是<input></input>。
+    </view>
+
+<image class='raise_hand' bindtap='imgclick' src="{{checkimg==1?'../../img/z20.png':'../../img/z19.png'}}" data-id='1'  mode='widthFix'></image>
+<button class='com_btn mt_100 btn_state_on dis_none'>提交</button><!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->

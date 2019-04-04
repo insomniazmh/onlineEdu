@@ -1,0 +1,114 @@
+<style>
+	.uppercase {
+		cursor: pointer;
+	}
+	.uppercase.active img {
+		border: 2px solid red;
+	}
+</style>
+
+<div class="modal fade" id="students" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="xuanrenModalCtrl">
+	<div class="modal-dialog modal-full">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">请选择学生
+					<button type="button" class="btn blue" style="margin-left: 20px;" ng-click="all()">全选</button>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-1" ng-repeat="row in students">
+							<div class="uppercase profile-userpic {{row.active ? 'active':''}}" ng-click="clickStudent($index);">
+								<img src="{{row.image}}" class="img-responsive" alt="">
+							</div>
+							<div class="uppercase profile-stat-text">
+								{{row.name}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn blue" ng-click="sub()">确定</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<script>
+	function xuanrenModalCtrl($scope, $rootScope, $interval) {
+		$scope.students = [];
+		$scope.type = '';
+		$scope.$on("type", function(event, data) {
+			console.log(data);
+			$scope.type = data;
+			if(data == 'xuanren' || data == 'toupiao') {
+				$scope.students = [
+					{name: "张三" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "李四" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "王五" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "马六" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "赵琦" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "韩八" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "钱九" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"},
+					{name: "李同学" , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"}
+				];
+			}else if(data == 'jushou') {
+				$scope.students = [];
+				var studentsName = ['张三','李四','王五','马六'];
+				var i = 0;
+				$interval(function () {
+					if(i < 4) {
+						$scope.students.push({
+							name: studentsName[i] , image: "../../../assets/admin/pages/media/profile/profile_user.jpg"
+						});
+						i++;
+					}
+			    }, 500);
+			}
+		});
+		
+		$scope.clickStudent = function(index) {
+			var obj = $scope.students[index];
+			if(obj.active) {
+				obj.active = false;
+			} else {
+				obj.active = true;
+			}
+		};
+		
+		$scope.all = function() {
+			$($scope.students).each(function() {
+				this.active = true;
+			})
+		}
+		
+		$scope.sub = function() {
+			var studentsArr = [];
+			$($scope.students).each(function() {
+				if(this.active) {
+					studentsArr.push(this);
+				}
+			});
+			common.toast({
+				title: "选择成功"
+			});
+			$("#students").modal("hide");
+			$("#groups").modal("hide");
+			if($scope.type == 'toupiao') {
+				$scope.$emit('toupiaoStudent', studentsArr);
+			}else {
+				$scope.$emit('answerStudents', studentsArr);
+			}
+			
+		}
+	}
+</script>
+

@@ -1,0 +1,777 @@
+<style>
+	.sign {
+		padding: 3px 3px 3px 4px;
+		margin-right: 5px;
+		cursor: pointer;
+	}
+	.opreat {
+		font-size: 16px;
+		width:20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+	.label-violet {
+	  background-color: #8e5fa2;
+	}
+	.htmlWrapper p {
+		display: inline;
+	}
+</style>
+<div class="row" ng-controller="jiaofuCtrl">
+	<div class="col-md-4" style="height: 600px;border-right: 1px solid #4DB3A2;">
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption" style="font-size: 14px;">
+					<i class="icon-settings" style="font-size: 12px;"></i>章节目录
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'views/template/nodeTree.html'"></div>
+			</div>
+		</div>
+
+		<div data-ng-include="'views/template/zhishidian2.html'"></div>
+
+	</div>
+
+	<div class="col-md-8">
+		<div class="portlet light">
+			<div class="portlet-title tabbable-line">
+				<div class="caption" style="font-size: 14px;">
+					<i class="icon-settings" style="font-size: 12px;"></i>教案和课件{{currKP}}
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<ul class="feeds" style="width: 48%; display: inline-block;">
+						<li>
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="label label-sm label-danger">
+											<i class="fa fa-bolt"></i>
+										</div>
+									</div>
+									<div class="cont-col2">
+										<div class="desc">
+											<a href="{{jiaoan.fileUrl}}" target="_blank">{{jiaoan.fileName}}</a>
+											<span id="filePickerJiaoan" class="filePicker"> 上传教案 </span>
+											<div style="display: inline;position: absolute;" class="dropdown">
+												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+													已有教案（<span style="color: red;">{{jiaoanCount}}</span>）
+												</span>
+												<ul class="dropdown-menu" style="margin-top: 30px;">
+													<li ng-repeat="row in jiaoanList">
+														<a ng-href="{{row.fileUrl}}" target="_blank"> {{row.fileName}} </a>
+													</li>
+												</ul>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="feeds" style="width: 48%; display: inline-block;">
+						<li>
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="label label-sm label-info">
+											<i class="fa fa-bullhorn"></i>
+										</div>
+									</div>
+									<div class="cont-col2">
+										<div class="desc">
+											<div id="kejianContent" style="display: inline-block;"></div>
+											<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
+												上传课件
+											</span>
+											<div style="display: inline;position: absolute;" class="dropdown">
+												<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+													文档（<span style="color: red;">{{PPTKejianCount}}</span>）
+												</span>
+												<ul class="dropdown-menu" style="margin-top: 30px;">
+													<li ng-repeat="row in PPTKejianList">
+														<a ng-href="{{row.fileUrl}}" target="_blank"> {{row.fileName}} </a>
+													</li>
+												</ul>
+											</div>
+											<div style="display: inline;position: absolute;" class="dropdown">
+												<span class="exist dropdown-toggle" style="margin-left: 100px;" data-toggle="dropdown" data-hover="dropdown"
+												 data-close-others="true">
+													图集（<span style="color: red;">{{picsKejianCount}}</span>）
+												</span>
+												<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 120px;">
+													<li ng-repeat="row in picsKejianList">
+														<a ng-click="previewPics(row.id)"> {{row.fileName}} </a>
+													</li>
+												</ul>
+											</div>
+
+											<div style="display: inline;position: absolute;" class="dropdown">
+												<span class="exist dropdown-toggle" style="margin-left: 180px;" data-toggle="dropdown" data-hover="dropdown"
+												 data-close-others="true">
+													视频（<span style="color: red;">{{videoKejianCount}}</span>）
+												</span>
+												<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 200px;">
+													<li ng-repeat="row in videoKejianList">
+														<a ng-href="{{row.fileUrl}}" target="_blank"> {{row.fileName}} </a>
+													</li>
+												</ul>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="portlet light" style="height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption" style="font-size: 14px;">
+					<i class="icon-settings" style="font-size: 12px;"></i>课堂互动{{currKP}}
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openDataModal()">
+						<i class="fa fa-plus"></i> 挂载 </button>
+				</div>
+				<ul class="nav nav-tabs" id="teachAssTab">
+					<li class="active">
+						<a data-target="#tab_2_1" data-toggle="tab" ng-click="changeType(0)">
+							资料 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_2" data-toggle="tab" ng-click="changeType(1)">
+							提问 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_3" data-toggle="tab" ng-click="changeType(2)">
+							练习 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_4" data-toggle="tab" ng-click="changeType(3)">
+							作业 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_5" data-toggle="tab" ng-click="changeType(4)">
+							任务 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_6" data-toggle="tab" ng-click="changeType(5)">
+							问卷 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_7" data-toggle="tab" ng-click="changeType(6)">
+							风暴 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content" id="teachAssContent">
+					<!--资料-->
+					<div class="tab-pane active" id="tab_2_1">
+						<div class="scroller" style="height: 400px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds">
+								<li ng-repeat="row in ziliaoList">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<div class="label label-sm {{row.datumArea.indexOf('3')>=0 ? 'label-danger' : 'label-default'}} sign" 
+														title="预习资料" ng-click="changeLable(row, '3')">预</div>
+													<div class="label label-sm {{row.datumArea.indexOf('4')>=0 ? 'label-success' : 'label-default'}} sign" 
+														title="课堂参考" ng-click="changeLable(row, '4')">堂</div>
+													<div class="label label-sm {{row.datumArea.indexOf('5')>=0 ? 'label-warning' : 'label-default'}} sign" 
+														title="课程案例" ng-click="changeLable(row, '5')">案</div>
+													<div class="label label-sm {{row.datumArea.indexOf('6')>=0 ? 'label-info' : 'label-default'}} sign" 
+														title="复习参考" ng-click="changeLable(row, '6')">复</div>
+													<div class="label label-sm {{row.teachShare=='1' ? 'label-primary' : 'label-default'}} sign"
+														 title="资料共享" ng-click="changeLable(row, 'share')">享</div>
+													<div class="label label-sm {{row.stuShare=='1' ? 'label-violet' : 'label-default'}} sign " 
+														title="学生可见" ng-click="changeLable(row, 'student')">生</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+											 title="复制链接"></i>
+											<i class="fa fa-trash-o opreat" title="删除"></i>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--提问-->
+					<div class="tab-pane" id="tab_2_2">
+						<ul class="feeds">
+							<li ng-repeat="row in tiwenQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--练习-->
+					<div class="tab-pane" id="tab_2_3">
+						<ul class="feeds">
+							<li ng-repeat="row in lianxiQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+												<div class="label label-sm {{row.preview.indexOf('before')>=0 ? 'label-danger' : 'label-default'}} sign"
+												 title="预习资料" ng-click="changeLianxiLabel(row, 'before')">预</div>
+												<div class="label label-sm {{row.preview.indexOf('now')>=0 ? 'label-success' : 'label-default'}} sign"
+												 title="课堂参考" ng-click="changeLianxiLabel(row, 'now')">堂</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--作业-->
+					<div class="tab-pane" id="tab_2_4">
+						<ul class="feeds">
+							<li ng-repeat="row in zuoyeQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--任务-->
+					<div class="tab-pane" id="tab_2_5">
+						<ul class="feeds">
+							<li ng-repeat="row in taskQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--问卷-->
+					<div class="tab-pane" id="tab_2_6">
+						<ul class="feeds">
+							<li ng-repeat="row in surveyQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--头脑风暴-->
+					<div class="tab-pane" id="tab_2_7">
+						<ul class="feeds">
+							<li ng-repeat="row in stromQuestionList">
+								<div class="col1">
+									<div class="cont">
+										<div class="cont-col1">
+											<div class="label label-sm label-success">
+												<i class="fa fa-bullhorn"></i>
+											</div>
+										</div>
+										<div class="cont-col2">
+											<div class="desc">
+												<span style="line-height: 25px;" ng-bind-html="row.title" class="htmlWrapper"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col2">
+									<div class="date">
+										<i class="fa fa-link opreat clipboard" data-clipboard-text="{{row.url}}" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
+										 title="复制链接"></i>
+										<i class="fa fa-trash-o opreat" title="删除"></i>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">图集</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<img src="{{row.fileUrl}}" style="width: 110px;height: 110px;" ng-repeat="row in currPics" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<div data-ng-include="'views/template/lessonPlan/lessonPlan.html'"></div>
+
+	<div data-ng-include="'views/template/uploadKejian.html'"></div>
+</div>
+
+<script>
+	function jiaofuCtrl($scope, $http, $rootScope) {
+		$scope.jiaoanList = []; //教案列表
+		$scope.PPTKejianList = []; //PPT课件列表
+		$scope.picsKejianList = []; //图集课件列表
+		$scope.videoKejianList = []; //视频课件列表
+		//初始化教案和课件数量
+		$scope.jiaoanCount = 0;
+		$scope.PPTKejianCount = 0;
+		$scope.picsKejianCount = 0;
+		$scope.videoKejianCount = 0;
+
+		/*
+		 * 根据章节id加载章节教案、课件或已挂载的资料
+		 * datumArea  1教案   2课件   3预习参考  4教学参考  5授课案例   6复习参考
+		 * datumType  1文档　2图册　3视频　4音频　5链接
+		 * */
+		$scope.loadDatumData = function(datumArea, datumType) {
+			var postData = {
+				"chapterId": localStorage.getItem('currentNodeId'),
+				"courseId": localStorage.getItem('courseId'),
+				"sortVo": {
+					"isValidated": "0",
+					"page": 0,
+					"size": common.pageSize,
+					"sort": 1
+				}
+			};
+			var url = '/chapteData/findDatumList';
+			if(datumArea == '1' || datumArea == '2') {//教案或课件
+				if(datumType == '2') {
+					url = '/courseware/getCourseArlitsList';
+				}else {
+					url = '/courseware/getImpCourseware';
+				}
+				postData.datumType = datumType;
+				postData.importantType = datumArea;
+			}else if(datumArea == 'dutum') {//已挂载的资料
+				url = '/courseData/findDatumList';
+			}
+			
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: url,
+				data: postData,
+				success: function(data) {
+					if(data.data) {//如果有数据
+						if (datumArea == "1") {//教案
+							$scope.jiaoanCount = data.data.fileCount;
+							$scope.jiaoanList = data.data.files;
+						} else if (datumArea == "2" && datumType == "1") {//文档课件
+							$scope.PPTKejianCount = data.data.fileCount;
+							$scope.PPTKejianList = data.data.files;
+						} else if (datumArea == "2" && datumType == "2") {//图集课件
+							$scope.picsKejianCount = data.data.fileCount;
+							$scope.picsKejianList = data.data.list;
+						} else if (datumArea == "2" && datumType == "3") {//视频课件
+							$scope.videoKejianCount = data.data.fileCount;
+							$scope.videoKejianList = data.data.files;
+						}else if(datumArea = 'dutum') {//资料
+							$scope.ziliaoList = data.data;
+						}
+					}
+					
+				}
+			});
+		}
+
+		//切换章节回调
+		$scope.$on('currentNode', function(d, data) {
+			$scope.initData();
+		});
+
+		//根据类型不同加载题目type:  1提问   2练习   3作业  4任务  5问卷  6头脑风暴
+		$scope.$on('ceziChange', function(d, type) {
+			console.log(type);
+			$scope.loadQuestions(type); //加载题目列表
+		});
+
+		$scope.jiaoan = {};
+
+		//上传课件回调
+		$scope.$on('kejian', function(d, data) {
+			if (!localStorage.getItem('currentNodeId')) {
+				common.toast({
+					title: "请先选择章节",
+					type: 2
+				});
+			}
+			var url = '/courseware/savefile';
+			var postData = {
+				courseId: localStorage.getItem('courseId'),
+				chapterId: localStorage.getItem('currentNodeId'),
+				importantType: "2",
+				datumType: data.type + "",
+				files: data.content
+			}
+			if(data.type == 2) {
+				url = '/courseware/saveCourseAtlit';
+				postData.photoDatumName = data.photoDatumName;
+			}
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: url,
+				data: postData,
+				success: function(res) {
+					console.log(res);
+					if(data.type == 1) {
+						$scope.PPTKejianCount = res.data.fileCount;
+						$scope.PPTKejianList = res.data.files;
+					}else if(data.type == 2) {
+						$scope.picsKejianCount = res.data.fileCount;
+						$scope.picsKejianList = res.data.list;
+					}else if(data.type == 3) {
+						$scope.videoKejianCount = res.data.fileCount;
+						$scope.videoKejianList = res.data.files;
+					}
+					
+					//$scope.loadDatumData("2", res.type + ""); //加载课件列表
+				}
+			});
+		});
+
+		//上传教案
+		common.fileUpload({
+			id: 'filePickerJiaoan',
+			beforeSend: function() {
+				console.log(localStorage.getItem('currentNodeId'));
+				var rtn = {
+					continue: true
+				}
+				if (!localStorage.getItem('currentNodeId')) {
+					rtn = {
+						continue: false,
+						title: "请先选择章节"
+					}
+				}
+				return rtn;
+			},
+			success: function(file, response) {
+				$scope.$apply(function() {
+					common.ajax({
+						$scope: $scope,
+						$http: $http,
+						operate: true,
+						url: '/courseware/savefile',
+						data: {
+							courseId: localStorage.getItem('courseId'),
+							chapterId: localStorage.getItem('currentNodeId'),
+							importantType: "1",
+							datumType: "1",
+							files: [response]
+						},
+						success: function(data) {
+							console.log(data);
+							$scope.jiaoanCount = data.data.fileCount;
+							$scope.jiaoanList = data.data.files;
+							//$scope.loadDatumData("1", "1"); //加载教案列表
+						}
+					});
+				});
+			}
+		});
+		
+		//预览图集
+		$scope.previewPics = function(id) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/courseware/getPhotoList',
+				data: {
+					arlitId: id
+				},
+				success: function(data) {
+					console.log(data);
+					$scope.currPics = data.data;
+					$("#picsModal").modal("show");
+				}
+			});
+		}
+
+		//加载所有挂接的题目type: 1提问   2练习   3作业  4任务  5问卷  6头脑风暴
+		$scope.loadQuestions = function(type) {
+			var data = {
+				"chapterId": localStorage.getItem('currentNodeId'),
+				"courseId": localStorage.getItem('courseId'),
+			};
+			
+			var url = '/exerciseBook/findExerciseBook';
+			if(type == '1' || type == '2' || type == '3') {
+				data.exeBookType = type;
+			}else if(type == '4') {
+				url = '/taskExerciseBook/findExerciseBook';
+			}else if(type == '5') {
+				url = '/surveyExerciseBook/findExerciseBook';
+			}else if(type == '6') {
+				url = '/brainstormExerciseBook/findExerciseBook';
+			};
+			
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				data: data,
+				url: url,
+				success: function(res) {
+					res.data = common.addTitleForQuestion({
+						questionArr: res.data
+					}); //组装题干以供展示
+					if(type == '1') {
+						$scope.tiwenQuestionList = res.data;
+					}else if(type == '2') {
+						$scope.lianxiQuestionList = res.data;
+					}else if(type == '3') {
+						$scope.zuoyeQuestionList = res.data;
+					}else if(type == '4') {
+						$scope.taskQuestionList = res.data;
+					}else if(type == '5') {
+						$scope.surveyQuestionList = res.data;
+					}else if(type == '6') {
+						$scope.stromQuestionList = res.data;
+					}
+					
+				}
+			});
+		};
+
+		//修改练习的标签
+		$scope.changeLianxiLabel = function(row, type) {
+			if (row.preview) {
+				if (row.preview.indexOf(type) >= 0) {
+					row.preview = row.preview.replace(type, '');
+				} else if (row.preview.indexOf(type) < 0) {
+					row.preview = row.preview + type;
+				}
+			} else {
+				row.preview = type;
+			}
+
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: {
+					"preview": row.preview,
+					"chapterId": localStorage.getItem('currentNodeId'),
+					"courseId": localStorage.getItem('courseId'),
+					"targetId": row.id
+				},
+				url: '/exerciseBook/edit/preview',
+				success: function() {
+					$scope.$broadcast('lianxiLabelChange', true);
+				}
+			});
+		};
+
+		//打开备课模态框
+		$scope.openDataModal = function() {
+			if (!$rootScope.currentNode) {
+				layer.alert("请先选择章节");
+				return false;
+			}
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑备课信息吗", {
+				btn: ['确定', '取消'] //按钮
+			}, function() {
+				$("#dataModal").modal("show");
+				layer.closeAll('dialog');
+			});
+		}
+
+		$scope.initData = function() {
+			$scope.loadDatumData("1", "1"); //加载教案列表
+			$scope.loadDatumData("2", "1"); //加载PPT课件列表
+			$scope.loadDatumData("2", "2"); //加载图集课件列表
+			$scope.loadDatumData("2", "3"); //加载视频课件列表
+			$scope.loadDatumData("dutum", "dutum"); //加载已挂载资料列表
+			$scope.loadQuestions("1"); //加载提问问题列表
+			$scope.loadQuestions("2"); //加载练习题目列表
+			$scope.loadQuestions("3"); //加载作业题目列表
+			$scope.loadQuestions("4"); //加载任务问题列表
+			$scope.loadQuestions("5"); //加载问卷题目列表
+			$scope.loadQuestions("6"); //加载头脑风暴题目列表
+		};
+
+		$scope.initData();
+
+		//点击列表中标签切换状态
+		$scope.changeLable = function(obj, type) {
+			var success;
+			obj.courseId = localStorage.getItem('courseId');
+			var file=$.extend(true,{},obj);
+			if(type == 'share') {//点击“享”按钮时
+				if(file.teachShare == '1') {
+					file.teachShare = '0';
+					success = function() {
+						obj.teachShare = '0';
+					}
+				}else {
+					file.teachShare = '1';
+					success = function() {
+						obj.teachShare = '1';
+					}
+				}
+			}else if(type == 'student') {//点击“生”按钮时
+				if(file.stuShare == '1') {
+					file.stuShare = '0';
+					success = function() {
+						obj.stuShare = '0';
+					}
+				}else {
+					file.stuShare = '1';
+					success = function() {
+						obj.stuShare = '1';
+					}
+				}
+			}else {//点击前四个按钮时
+				if(!file.datumArea) {
+					file.datumArea = '';
+				}
+				var labelArr = file.datumArea.split(',');
+				var index = labelArr.indexOf(type);
+				if(index >=0) {
+					labelArr.splice(index);
+				}else {
+					labelArr.push(type);
+				}
+				file.datumArea = labelArr.join(",");
+				success = function() {
+					obj.datumArea = labelArr.join(",");
+				}
+			}
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/courseData/updateAreaAndShare',
+				data: file,
+				success: function() {
+					success();
+				}
+			});
+		}
+		
+		$scope.changeType = function(type) {
+			$scope.$broadcast('changeBookTab', type);
+			$("#lessonPlanTab > li").removeClass("active");
+			$("#lessonPlanTab > li").eq(type).addClass("active");
+			$("#lessonPlanContent > .tab-pane").removeClass("active");
+			if(type > 1) {
+				type = 1;
+			}
+			$("#lessonPlanContent > .tab-pane").eq(type).addClass("active");
+		}
+	}
+</script>
