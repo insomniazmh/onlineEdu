@@ -6,7 +6,7 @@ var common = {
 	url2: 'https://e.hnfts.cn/quiz', //永永服务
 
 	uploadUrl: 'https://e.hnfts.cn/upload/upload', //上传接口
-	pageSize: 100,
+	pageSize: 10,
 	//提示框
 	toast: function(settings) {
 		var defaults = {

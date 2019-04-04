@@ -404,7 +404,8 @@
 					}else {
 						$($scope.allStudents).each(function() {
 							this.select = false;
-						})
+							this.answer = null;
+						});
 						$scope.students = $scope.allStudents;//如果该题未发布,则显示所有学生
 						$scope.answerShowFlag = false;//是否显示学生回答情况标志
 						$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志

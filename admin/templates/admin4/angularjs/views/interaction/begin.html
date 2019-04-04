@@ -672,14 +672,13 @@
 					"chapterId": localStorage.getItem('currentNodeId'),
 				}
 				if(localStorage.getItem("circleId")) {
-					postData.circleId = localStorage.getItem("circleId");
-					// postData.circleId = "";
+//					postData.circleId = localStorage.getItem("circleId");
+					 postData.circleId = "";
 				}
 				common.ajax2({
 					$scope: $scope,
 					$http: $http,
 					data: postData,
-					// url: '/classRoom/create/cover',
 					url: '/classRoom/create/reuse',
 					success: function(res) {
 						localStorage.setItem("circleId", res.data);
