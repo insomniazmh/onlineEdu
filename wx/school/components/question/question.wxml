@@ -34,11 +34,14 @@
     <view class='allow_state"'>
       <textarea name="answer" placeholder="请在这里输入您的答案" />
     </view>
-    <button class='com_btn mt_100 btn_state_on' form-type="submit">提交</button>
-    <button class='com_btn mt_100 btn_state_on' form-type="reset">重置</button>
+    <button class='com_btn mt_100 btn_state_on' 
+    form-type="submit" wx:if="{{designFlag}}">提交</button>
+    <button class='com_btn mt_100 btn_state_on' 
+    form-type="reset" wx:if="{{designFlag}}">重置</button>
   </form>
 </view>
-<button class='com_btn mt_100 btn_state_on' bindtap="bindSub" wx:if="{{showSub}}">提交</button>
+<button class='com_btn mt_100 btn_state_on' bindtap="bindSub" 
+wx:if="{{showSub}}">提交</button>
 <image class='raise_hand' bindtap='bindRaise' src="../../img/z19.png" 
 mode='widthFix' wx:if="{{raiseFlag}}"></image>
 <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->

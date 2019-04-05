@@ -123,8 +123,9 @@ Component({
     loadQuestion: function (data) {
       var that = this;
       that.setData({
-        showSub: true,
-        raiseFlag: false,
+        showSub: true,//提交按钮是否显示
+        raiseFlag: false,//举手按钮是否显示
+        designFlag: false,//主观题的提交和重置按钮是否显示
         radioindex: null,
         checkboxIndex: [],
         answer: "",
@@ -173,6 +174,7 @@ Component({
         WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].designQuestion + "（主观）", that, 5);//拼装问题title
         that.setData({
           questionType: "design",
+          designFlag: true,
           showSub: false
         });
 
@@ -181,7 +183,8 @@ Component({
       if (data.participate == "raise") {//需要先举手
         that.setData({ 
           raiseFlag: true,
-          showSub: false
+          showSub: false,
+          designFlag: false
         });
       }
 

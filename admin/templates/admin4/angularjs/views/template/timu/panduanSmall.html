@@ -14,7 +14,8 @@
 					<label>答案</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="panduanSmallanswer1" name="panduanSmallanswer" class="md-radiobtn" value="1" checked="">
+							<input type="radio" id="panduanSmallanswer1" name="panduanSmallanswer" 
+								class="md-radiobtn" value="Y" checked="" ng-model="answer">
 							<label for="panduanSmallanswer1">
 													<span></span>
 													<span class="check"></span>
@@ -22,7 +23,8 @@
 													对 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="panduanSmallanswer2" name="panduanSmallanswer" class="md-radiobtn" value="2">
+							<input type="radio" id="panduanSmallanswer2" name="panduanSmallanswer" 
+								class="md-radiobtn" value="N" ng-model="answer">
 							<label for="panduanSmallanswer2">
 													<span></span>
 													<span class="check"></span>
@@ -62,12 +64,11 @@
 			if(data && data.examChildren[0].examType == "trueOrFalse") {
 				$scope.pid = data.id;
 				$('#panduanSmall_title').code(data.examChildren[0].title);
-				$('#panduanSmall_answer').code(data.examChildren[0].answer);
 				$('#panduanSmall_jiexi').code(data.examChildren[0].analysis);
+				$scope.answer = data.examChildren[0].answer;
 			}else {
 				$scope.pid = null;
 				$('#panduanSmall_title').code("");
-				$('#panduanSmall_answer').code("");
 				$('#panduanSmall_jiexi').code("");
 			}
 		});
@@ -85,19 +86,11 @@
 				teacherId: localStorage.getItem("userid"),
 				trueOrFalseInfo: $('#panduanSmall_title').code(),
 				trueOrFalseAnalysis: $('#panduanSmall_jiexi').code(),
-				
-				
+				trueOrFalseAnsw: $scope.answer,
+				answer: $scope.answer,
 				title: $('#panduanSmall_title').code(),
 				analysis: $('#panduanSmall_jiexi').code()
 			};
-			
-			if($("input[name='panduanSmallanswer']:checked").val() == 1) {
-				obj.trueOrFalseAnsw = true;
-				obj.answer = true;
-			}else {
-				obj.trueOrFalseAnsw = false;
-				obj.answer = false;
-			}
 			
 			if($scope.pid) {
 				obj.pid = $scope.pid;
