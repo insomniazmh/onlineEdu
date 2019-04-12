@@ -840,6 +840,48 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 				}]
 			}
 		})
+		
+		//笔记
+		.state('notes', {
+			url: "/notes.html",
+			templateUrl: "views/gainAndNotes/notes.html",
+			data: {
+				pageTitle: '笔记',
+				btn_taps: true
+			},
+			controller: "GeneralPageController",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'MetronicApp',
+						files: [
+							'js/controllers/GeneralPageController.js',
+						]
+					}]);
+				}]
+			}
+		})
+		
+		//笔记详情
+		.state('notes_item', {
+			url: "/notes_item.html",
+			templateUrl: "views/gainAndNotes/notes_item.html",
+			data: {
+				pageTitle: '笔记详情',
+				btn_taps: true
+			},
+			controller: "GeneralPageController",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'MetronicApp',
+						files: [
+							'js/controllers/GeneralPageController.js',
+						]
+					}]);
+				}]
+			}
+		})
 
 		// User Profile Dashboard
 		.state("profile.dashboard", {
