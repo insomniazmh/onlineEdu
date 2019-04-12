@@ -20,11 +20,21 @@
 	<div class="col-md-12 blog-page">
 		<div class="row">
 			<div class="col-md-12 col-sm-11 article-block">
-				<div>
-					<span>查询条件：</span>
-					<input type="text" class="form-control search" placeholder="请输入学生姓名" />
-					<input type="text" class="form-control search" placeholder="请输入课程名称" />
-					<button class="btn btn-primary">确定</button>
+				<div class="row">
+					<div class="col-md-9">
+						<span>查询条件：</span>
+						<input type="text" class="form-control search" placeholder="请输入学生姓名" />
+						<input type="text" class="form-control search" placeholder="请输入课程名称" />
+						<button class="btn btn-primary">确定</button>
+						<div style="float: right;">
+							<label>请选择排序方式</label>
+							<select class="form-control search">
+								<option>发布时间</option>
+								<option>评论数</option>
+								<option>点赞数</option>
+							</select>
+						</div>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-1 blog-img blog-tag-data" style="text-align: center;">
@@ -40,6 +50,7 @@
 					<div class="col-md-8 blog-article">
 						<h3>
 							<a href="index.html#/notes_item.html">Js原型的理解 </a>
+							<a class="btn yellow-crusta">精华帖</a>
 							<span style="float: right;font-size: 16px;color: #5b9bd1;">所属课程：电子商务基础 </span>
 						</h3>
 						<p>
@@ -47,8 +58,10 @@
 						    在参考了多方面的资料后，发现解释都太过专业，对于很多还没有接触过面向对象
 						    语言的小白来说，有理解不了里面的专有名词！如果你没学过c++或者Java之类的更接触底层的语言，那就不要太深究，理解会用自然可以了，当接触到更多语言时慢慢的会理解越来越深刻！
 						</p>
-						<a class="btn blue" href="index.html#/notes_item.html"> 查看详情 <i class="m-icon-swapright m-icon-white"></i>
+						<a class="btn blue" href="index.html#/notes_item.html"> 
+							查看详情 <i class="m-icon-swapright m-icon-white"></i>
 						</a>
+						<button ng-click="del()" class="btn btn-danger">删除</button>
 					</div>
 				</div>
 				<hr>
@@ -75,6 +88,7 @@
 						</p>
 						<a class="btn blue" href="index.html#/notes_item.html"> 查看详情 <i class="m-icon-swapright m-icon-white"></i>
 						</a>
+						<button ng-click="del()" class="btn btn-danger">删除</button>
 					</div>
 				</div>
 				<hr><div class="row">
@@ -100,6 +114,7 @@
 						</p>
 						<a class="btn blue" href="index.html#/notes_item.html"> 查看详情 <i class="m-icon-swapright m-icon-white"></i>
 						</a>
+						<button ng-click="del()" class="btn btn-danger">删除</button>
 					</div>
 				</div>
 			</div>
@@ -111,6 +126,12 @@
 </div>
 <script>
 	function notesCtrl($scope, $http, $rootScope) {		
+		$scope.del = function() {
+			layer.confirm('您确定要删除该贴吗', {
+				btn: ['确定','取消'] //按钮
+			}, function() {
+				layer.alert('删除成功');
+			});
+		}
 	}
-	
 </script>

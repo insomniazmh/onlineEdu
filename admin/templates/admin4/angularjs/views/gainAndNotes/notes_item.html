@@ -6,7 +6,7 @@
 		border: 1px #cedae1 solid;
 		width: 75%;
 	}
-	ul > li > span {
+	.blue-color {
 		color: #5b9bd1;
 	}
 	.media-heading > span {
@@ -20,21 +20,29 @@
 </style>
 <div class="row" style="background-color: #fff;padding: 12px 20px 15px 20px;" ng-controller="notesItemCtrl">
 	<div class="col-md-9 article-block">
-		<h4 style="margin-top:0;">Js原型的理解</h4>
+		<h3 style="margin-top:0;">
+			Js原型的理解
+			<button class="btn btn-danger">设为精华帖</button>
+		</h3>
+		
 		<div class="blog-tag-data">
 			<div class="row">
 				<div class="col-md-12 blog-tag-data-inner" style="text-align: right;">
 					<ul class="list-inline">
 						<li>
-							<span href="javascript:;"> 作者：张三 </span>
+							<span class="blue-color"> 作者：张三 </span>
 						</li>
 						<li>
 							<i class="fa fa-calendar"></i>
-							<span href="javascript:;"> 2019-4-12 13:46 </span>
+							<span class="blue-color"> 2019-4-12 13:46 </span>
 						</li>
 						<li>
 							<i class="fa fa-comments"></i>
-							<span href="javascript:;"> 38 评论 </span>
+							<span class="blue-color"> 38 评论 </span>
+						</li>
+						<li>
+							<i class="fa fa-thumbs-up"></i>
+							<span class="blue-color"> 16赞 </span>
 						</li>
 					</ul>
 				</div>
@@ -50,10 +58,27 @@
 		<h4>评论</h4>
 		<div class="media">
 			<a href="javascript:;" class="pull-left">
+				<img alt="" src="images/avatar3.jpg" class="media-object">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">
+					<p class="blue-color" style="display: inline-block;">王老师</p>
+					<button class="btn btn-xs btn-success">教师</button>
+					<span> 2019-4-12 14:02 </span>
+				</h4>
+				<p>
+					该学生积极思考，值得表扬
+				</p>
+			</div>
+		</div>
+		<hr />
+		<div class="media">
+			<a href="javascript:;" class="pull-left">
 				<img alt="" src="images/avatar2.jpg" class="media-object">
 			</a>
 			<div class="media-body">
-				<h4 class="media-heading">李四
+				<h4 class="media-heading">
+					<p class="blue-color" style="display: inline-block;">李四</p>
 					<span> 2019-4-12 14:02 </span>
 				</h4>
 				<p>
@@ -67,7 +92,8 @@
 				<img alt="" src="images/avatar2.jpg" class="media-object">
 			</a>
 			<div class="media-body">
-				<h4 class="media-heading">李四
+				<h4 class="media-heading">
+					<p class="blue-color" style="display: inline-block;">李四</p>
 					<span> 2019-4-12 14:02 </span>
 				</h4>
 				<p>
@@ -81,7 +107,8 @@
 				<img alt="" src="images/avatar2.jpg" class="media-object">
 			</a>
 			<div class="media-body">
-				<h4 class="media-heading">李四
+				<h4 class="media-heading">
+					<p class="blue-color" style="display: inline-block;">李四</p>
 					<span> 2019-4-12 14:02 </span>
 				</h4>
 				<p>
@@ -90,9 +117,19 @@
 			</div>
 		</div>
 		<hr />
+		<div class="post-comment">
+				<div class="form-group">
+					<label class="control-label">留个言吧 </label>
+					<textarea class="col-md-10 form-control" rows="8"></textarea>
+				</div>
+				<button class="margin-top-20 btn blue" type="submit">提交</button>
+			</form>
+		</div>
 	</div>
 	
 </div>
 <script>
-	function notesItemCtrl($scope, $http, $rootScope) {}
+	function notesItemCtrl($scope, $http, $rootScope) {
+		
+	}
 </script>
