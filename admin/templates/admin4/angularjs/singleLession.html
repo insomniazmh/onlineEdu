@@ -114,17 +114,17 @@
 				<div data-ng-include="'singles/template/singleStrom.html'" id="stromQuestion" class="interSingle" style="display: none;"></div> <!--头脑风暴-->
 
 				<div style="width: 19%;float: right;">
-					<div class="portlet light" style="min-height: 200px;">
+					<div class="portlet light">
 						<div class="portlet-title tabbable-line">
 							<div class="caption font-green-sharp">
 								<i class="icon-settings font-green-sharp"></i>
-								<span class="caption-subject bold uppercase">教学资料</span>
+								<span class="caption-subject bold uppercase">教案</span>
 							</div>
 						</div>
 						<div class="portlet-body">
-							<div class="scroller" style="min-height: 100px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<div class="scroller" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
 								<ul class="feeds" style="margin-bottom: 50px;">
-									<li>
+									<li ng-repeat="row in teacPlan">
 										<div class="col1">
 											<div class="cont">
 												<div class="cont-col1">
@@ -134,26 +134,7 @@
 												</div>
 												<div class="cont-col2">
 													<div class="desc">
-														<a href="file/201801.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
-														<span class="label label-danger label-sm clipboard">课前预习</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</li>
-
-									<li>
-										<div class="col1">
-											<div class="cont">
-												<div class="cont-col1">
-													<div class="label label-sm label-success">
-														<i class="fa fa-bullhorn"></i>
-													</div>
-												</div>
-												<div class="cont-col2">
-													<div class="desc">
-														<a href="file/201802.pptx" type="application/vnd.ms-powerpoint" target=_blank>电子商务基础课件.ppt</a>
-														<span class="label label-danger label-sm clipboard">课程案例</span>
+														<a href="{{row.fileUrl}}" target=_blank>{{row.fileName}}</a>
 													</div>
 												</div>
 											</div>
@@ -163,38 +144,48 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="portlet light">
+						<div class="portlet-title tabbable-line">
+							<div class="caption font-green-sharp">
+								<i class="icon-settings font-green-sharp"></i>
+								<span class="caption-subject bold uppercase">课件</span>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="scroller" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+								<ul class="feeds" style="margin-bottom: 50px;">
+									<li ng-repeat="row in courseware">
+										<div class="col1">
+											<div class="cont">
+												<div class="cont-col1">
+													<div class="label label-sm label-success">
+														<i class="fa fa-bullhorn"></i>
+													</div>
+												</div>
+												<div class="cont-col2">
+													<div class="desc">
+														<a href="{{row.fileUrl}}" target=_blank>{{row.fileName}}</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 
 				<div style="width: 80%;float: left;">
 
 					<!-- LayerSlider start -->
 					<div id="layerslider" style="width: 960px; height: 720px; margin: 0 auto;">
-						
 						<div class="ls-slide ls-slide{{$index+1}}" data-ls="offsetxin: right; slidedelay: 7000;" 
 							ng-repeat="photo in currPics" repeat-finish="renderFinish()">
 							<img src="{{photo.fileUrl}}" class="ls-bg" alt="Slide background">
 						</div>
-
-						<!--<div class="ls-slide ls-slide1" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;">
-							<img src="images/ppt/幻灯片1.PNG" class="ls-bg" alt="Slide background">
-						</div>
-
-						<div class="ls-slide ls-slide2" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 110,111,112,113;">
-							<img src="images/ppt/幻灯片2.PNG" class="ls-bg" alt="Slide background">
-						</div>
-
-						<div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">
-							<img src="images/ppt/幻灯片3.PNG" class="ls-bg" alt="Slide background">
-						</div>
-
-						<div class="ls-slide ls-slide4" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 110,111,112,113;">
-							<img src="images/ppt/幻灯片4.PNG" class="ls-bg" alt="Slide background">
-						</div>
-
-						<div class="ls-slide ls-slide5" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;">
-							<img src="images/ppt/幻灯片5.PNG" class="ls-bg" alt="Slide background">
-						</div>-->
-
 					</div>
 					<!-- LayerSlider end -->
 				</div>
@@ -227,6 +218,7 @@
 				var stuLen = 0;
 				var random = new Date().getTime(); //生成随机数
 				var transitions = ['24,25,27,28', '110,111,112,113', '92,93,105'];//图集显示动画
+				$scope.courseware = [];
 				
 				console.log(random);
 				//建立websocket连接
@@ -305,18 +297,16 @@
 						success: function(data) {
 							if(data.data) {//如果有数据
 								if (datumArea == "1") {//教案
-									$scope.jiaoanList = data.data.files;
+									$scope.teacPlan = data.data.files;
 								} else if (datumArea == "2" && datumType == "1") {//文档课件
-									$scope.PPTKejianList = data.data.files;
+									$scope.courseware = $scope.courseware.concat(data.data.files);
 								} else if (datumArea == "2" && datumType == "2") {//图集课件
 									var artId = data.data.list[0].id;
 									$scope.gitPhotosById(artId);
-									$scope.picsKejianList = data.data.list;
 								} else if (datumArea == "2" && datumType == "3") {//视频课件
-									$scope.videoKejianList = data.data.files;
+									$scope.courseware = $scope.courseware.concat(data.data.files);
 								}
 							}
-							
 						}
 					});
 				};
@@ -332,7 +322,6 @@
 							arlitId: id
 						},
 						success: function(data) {
-							console.log(data.data);
 							$scope.currPics = data.data;
 							$("#picsModal").modal("show");
 						}
@@ -340,7 +329,6 @@
 				}
 				
 				$scope.renderFinish = function() {
-					console.log(12345);
 					$('#layerslider').layerSlider({
 						skinsPath: '../../../assets/global/plugins/slider-layer-slider/skins/',
 						skin: 'fullwidth',
@@ -352,19 +340,21 @@
 					});
 				}
 				
-				//获取图集课件
-				$scope.loadDatumData('2', '2');
+				$scope.loadDatumData('1', '1');//获取教案
+				$scope.loadDatumData('2', '2');//获取图集课件
+				$scope.loadDatumData('2', '1');//获取图集课件
+				$scope.loadDatumData('2', '3');//获取图集课件
 
 			});
 			
 			app.directive('repeatFinish',function(){
-			    return {
-			        link: function(scope,element,attr){
-			            if(scope.$last == true){
-			                scope.$eval( attr.repeatFinish )
-			            }
-			        }
-			    }
+		    return {
+	        link: function(scope,element,attr){
+            if(scope.$last == true){
+              scope.$eval( attr.repeatFinish )
+            }
+	        }
+		    }
 			})
 
 			//专门负责处理提问的controller
