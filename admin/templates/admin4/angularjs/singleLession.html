@@ -168,47 +168,32 @@
 				<div style="width: 80%;float: left;">
 
 					<!-- LayerSlider start -->
-					<div id="layerslider" style="width: 100%; height: 759px; margin: 0;">
+					<div id="layerslider" style="width: 960px; height: 720px; margin: 0 auto;">
+						
+						<div class="ls-slide ls-slide{{$index+1}}" data-ls="offsetxin: right; slidedelay: 7000;" 
+							ng-repeat="photo in currPics" repeat-finish="renderFinish()">
+							<img src="{{photo.fileUrl}}" class="ls-bg" alt="Slide background">
+						</div>
 
-						<!-- slide one start -->
-						<div class="ls-slide ls-slide1" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;">
-
+						<!--<div class="ls-slide ls-slide1" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;">
 							<img src="images/ppt/幻灯片1.PNG" class="ls-bg" alt="Slide background">
-
 						</div>
-						<!-- slide one end -->
 
-						<!-- slide two start -->
 						<div class="ls-slide ls-slide2" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 110,111,112,113;">
-
 							<img src="images/ppt/幻灯片2.PNG" class="ls-bg" alt="Slide background">
-
 						</div>
-						<!-- slide two end -->
 
-						<!-- slide three start -->
 						<div class="ls-slide ls-slide3" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">
-
 							<img src="images/ppt/幻灯片3.PNG" class="ls-bg" alt="Slide background">
-
 						</div>
-						<!-- slide three end -->
 
-						<!-- slide four start -->
 						<div class="ls-slide ls-slide4" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 110,111,112,113;">
-
 							<img src="images/ppt/幻灯片4.PNG" class="ls-bg" alt="Slide background">
-
 						</div>
-						<!-- slide four end -->
 
-						<!-- slide one start -->
 						<div class="ls-slide ls-slide5" data-ls="offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;">
-
 							<img src="images/ppt/幻灯片5.PNG" class="ls-bg" alt="Slide background">
-
-						</div>
-						<!-- slide one end -->
+						</div>-->
 
 					</div>
 					<!-- LayerSlider end -->
@@ -241,6 +226,8 @@
 			app.controller('myCtrl', function($scope, $http, $interval) {
 				var stuLen = 0;
 				var random = new Date().getTime(); //生成随机数
+				var transitions = ['24,25,27,28', '110,111,112,113', '92,93,105'];//图集显示动画
+				
 				console.log(random);
 				//建立websocket连接
 				var wsobj = null;
@@ -285,9 +272,100 @@
 				};
 				$scope.initWs();
 				
+				/*
+				 * 根据章节id加载章节教案、课件或已挂载的资料
+				 * datumArea  1教案   2课件
+				 * datumType  1文档　2图册　3视频　4音频　5链接
+				 * */
+				$scope.loadDatumData = function(datumArea, datumType) {
+					var postData = {
+						"chapterId": localStorage.getItem('currentNodeId'),
+						"courseId": localStorage.getItem('courseId'),
+						"sortVo": {
+							"isValidated": "0",
+							"page": 0,
+							"size": 100,
+							"sort": 1
+						}
+					};
+					var url = '/chapteData/findDatumList';
+					if(datumType == '2') {
+						url = '/courseware/getCourseArlitsList';
+					}else {
+						url = '/courseware/getImpCourseware';
+					}
+					postData.datumType = datumType;
+					postData.importantType = datumArea;
+					
+					common.ajax({
+						$scope: $scope,
+						$http: $http,
+						url: url,
+						data: postData,
+						success: function(data) {
+							if(data.data) {//如果有数据
+								if (datumArea == "1") {//教案
+									$scope.jiaoanList = data.data.files;
+								} else if (datumArea == "2" && datumType == "1") {//文档课件
+									$scope.PPTKejianList = data.data.files;
+								} else if (datumArea == "2" && datumType == "2") {//图集课件
+									var artId = data.data.list[0].id;
+									$scope.gitPhotosById(artId);
+									$scope.picsKejianList = data.data.list;
+								} else if (datumArea == "2" && datumType == "3") {//视频课件
+									$scope.videoKejianList = data.data.files;
+								}
+							}
+							
+						}
+					});
+				};
 				
+				//根据图集id获取图集详情
+				$scope.gitPhotosById = function(id) {
+					common.ajax({
+						$scope: $scope,
+						$http: $http,
+						operate: true,
+						url: '/courseware/getPhotoList',
+						data: {
+							arlitId: id
+						},
+						success: function(data) {
+							console.log(data.data);
+							$scope.currPics = data.data;
+							$("#picsModal").modal("show");
+						}
+					});
+				}
+				
+				$scope.renderFinish = function() {
+					console.log(12345);
+					$('#layerslider').layerSlider({
+						skinsPath: '../../../assets/global/plugins/slider-layer-slider/skins/',
+						skin: 'fullwidth',
+						thumbnailNavigation: 'hover',
+						hoverPrevNext: false,
+						responsive: false,
+						responsiveUnder: 760,
+						layersContainer: 760
+					});
+				}
+				
+				//获取图集课件
+				$scope.loadDatumData('2', '2');
 
 			});
+			
+			app.directive('repeatFinish',function(){
+			    return {
+			        link: function(scope,element,attr){
+			            if(scope.$last == true){
+			                scope.$eval( attr.repeatFinish )
+			            }
+			        }
+			    }
+			})
 
 			//专门负责处理提问的controller
 			app.controller('tiwenCtrl', function($scope, $http, $interval) {
@@ -392,7 +470,6 @@
 				//接收学生加入事件
 				$scope.$on('allStudents', function(event, data) {
 					$scope.allStudents = $scope.allStudents.concat(data.students);
-					console.log(typeof($scope.allStudents[0].answer) == 'undefined');
 				});
 				
 				//点击题号 
@@ -1175,23 +1252,23 @@
 
 
 			//轮播图集
-			var LayersliderInit = function() {
-				return {
-					initLayerSlider: function() {
-						$('#layerslider').layerSlider({
-							skinsPath: '../../../assets/global/plugins/slider-layer-slider/skins/',
-							skin: 'fullwidth',
-							thumbnailNavigation: 'hover',
-							hoverPrevNext: false,
-							responsive: false,
-							responsiveUnder: 960,
-							layersContainer: 960
-						});
-					}
-				};
-			}();
-			//初始化轮播图集
-			LayersliderInit.initLayerSlider();
+//			var LayersliderInit = function() {
+//				return {
+//					initLayerSlider: function() {
+//						$('#layerslider').layerSlider({
+//							skinsPath: '../../../assets/global/plugins/slider-layer-slider/skins/',
+//							skin: 'fullwidth',
+//							thumbnailNavigation: 'hover',
+//							hoverPrevNext: false,
+//							responsive: false,
+//							responsiveUnder: 960,
+//							layersContainer: 960
+//						});
+//					}
+//				};
+//			}();
+//			//初始化轮播图集
+//			LayersliderInit.initLayerSlider();
 			//显示提问交互
 			function showQuestion() {
 				$(".interSingle").hide("slow");

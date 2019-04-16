@@ -1,0 +1,135 @@
+<link href="../../../assets/admin/pages/css/blog.css" rel="stylesheet" type="text/css" />
+<style>
+	.userpic {
+		margin-top: 20px;
+		border-radius: 50% !important;
+		border: 1px #cedae1 solid;
+		width: 75%;
+	}
+	.blue-color {
+		color: #5b9bd1;
+	}
+	.media-heading > span {
+		color: #777777;
+    font-size: 12px;
+    float: right;
+	}
+	.blog-page hr {
+    margin-top: 30px !important;
+}
+</style>
+<div class="row" style="background-color: #fff;padding: 12px 20px 15px 20px;" ng-controller="notesItemCtrl">
+	<div class="col-md-9 article-block">
+		<h3 style="margin-top:0;">
+			Js原型的理解
+			<button class="btn btn-danger">设为精华帖</button>
+		</h3>
+		
+		<div class="blog-tag-data">
+			<div class="row">
+				<div class="col-md-12 blog-tag-data-inner" style="text-align: right;">
+					<ul class="list-inline">
+						<li>
+							<span class="blue-color"> 作者：张三 </span>
+						</li>
+						<li>
+							<i class="fa fa-calendar"></i>
+							<span class="blue-color"> 2019-4-12 13:46 </span>
+						</li>
+						<li>
+							<i class="fa fa-comments"></i>
+							<span class="blue-color"> 38 评论 </span>
+						</li>
+						<li>
+							<i class="fa fa-thumbs-up"></i>
+							<span class="blue-color"> 16赞 </span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--end news-tag-data-->
+		<div>
+			<p>
+				一、js中的原型毫无疑问一个难点，学习如果不深入很容易就晕了！ 在参考了多方面的资料后，发现解释都太过专业，对于很多还没有接触过面向对象 语言的小白来说，有理解不了里面的专有名词！如果你没学过c++或者Java之类的更接触底层的语言，那就不要太深究，理解会用自然可以了，当接触到更多语言时慢慢的会理解越来越深刻！
+			</p>
+		</div>
+		<hr>
+		<h4>评论</h4>
+		<div class="media">
+			<a href="javascript:;" class="pull-left">
+				<img alt="" src="images/avatar3.jpg" class="media-object">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">
+					<p class="blue-color" style="display: inline-block;">王老师</p>
+					<button class="btn btn-xs btn-success">教师</button>
+					<span> 2019-4-12 14:02 </span>
+				</h4>
+				<p>
+					该学生积极思考，值得表扬
+				</p>
+			</div>
+		</div>
+		<hr />
+		<div class="media">
+			<a href="javascript:;" class="pull-left">
+				<img alt="" src="images/avatar2.jpg" class="media-object">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">
+					<p class="blue-color" style="display: inline-block;">李四</p>
+					<span> 2019-4-12 14:02 </span>
+				</h4>
+				<p>
+					谢谢楼主分享
+				</p>
+			</div>
+		</div>
+		<hr />
+		<div class="media">
+			<a href="javascript:;" class="pull-left">
+				<img alt="" src="images/avatar2.jpg" class="media-object">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">
+					<p class="blue-color" style="display: inline-block;">李四</p>
+					<span> 2019-4-12 14:02 </span>
+				</h4>
+				<p>
+					谢谢楼主分享
+				</p>
+			</div>
+		</div>
+		<hr />
+		<div class="media">
+			<a href="javascript:;" class="pull-left">
+				<img alt="" src="images/avatar2.jpg" class="media-object">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading">
+					<p class="blue-color" style="display: inline-block;">李四</p>
+					<span> 2019-4-12 14:02 </span>
+				</h4>
+				<p>
+					谢谢楼主分享
+				</p>
+			</div>
+		</div>
+		<hr />
+		<div class="post-comment">
+				<div class="form-group">
+					<label class="control-label">留个言吧 </label>
+					<textarea class="col-md-10 form-control" rows="8"></textarea>
+				</div>
+				<button class="margin-top-20 btn blue" type="submit">提交</button>
+			</form>
+		</div>
+	</div>
+	
+</div>
+<script>
+	function notesItemCtrl($scope, $http, $rootScope) {
+		
+	}
+</script>

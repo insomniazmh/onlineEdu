@@ -5,6 +5,32 @@ var common = {
 	url2: 'https://e.hnfts.cn/quiz', //真铭服务
 	//url2: 'http://192.168.13.15:8080',//真铭本机
 
+	//网络请求--继伟接口
+	ajax: function(settings) {
+		var defaults = {
+			method: 'post',
+			operate: false,
+			url: '',
+			data: {},
+			success: function(response) {}
+		};
+		settings = $.extend(defaults, settings);
+
+		settings.$http({
+			headers: {
+				token: localStorage.getItem("token")
+			},
+			method: settings.method,
+			url: common.url + settings.url,
+			data: settings.data,
+		}).then(function successCallback(response) {
+			//					console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
+			var data = response.data;
+			settings.success(response.data);
+		}, function errorCallback(response) {
+			layer.closeAll('dialog');
+		});
+	},
 
 	//网络请求--真铭接口
 	ajax2: function(settings) {
