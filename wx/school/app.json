@@ -1,3 +1,4 @@
+
 {
   "pages": [
     "pages/school_index/index",
@@ -18,7 +19,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "外贸学校",
     "navigationBarTextStyle": "black"
   }
 }

@@ -12,7 +12,6 @@ Component({
         if (newVal && newVal.bigQuestion) {
           this.loadQuestion(newVal);
         }
-        
       }
     }
   },
@@ -47,11 +46,9 @@ Component({
           }
         }
       }
-
       if (flag && (id || id == 0)) {//如果被点击的选项index在数组中不存在，则push之
         dataArr.push(id);
       }
-
       that.setData({ checkboxIndex: dataArr });//将更新过的数据重新传人data
       var answer = "";
       console.log(dataArr);
@@ -60,7 +57,6 @@ Component({
       }
       that.setData({ answer: answer });//将答案变量赋入data
     },
-
     /**点击判断答案选项 */
     bindTOF: function (e) {
       if (e.currentTarget.dataset.id == 1) {
@@ -75,7 +71,6 @@ Component({
         });
       }
     },
-
     /**点击确定按钮提交答案 */
     bindSub: function (e) {
       var that = this;

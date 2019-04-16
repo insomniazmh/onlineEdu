@@ -223,14 +223,15 @@ Page Header
   font-family: "Open Sans", sans-serif;
   margin: -6px 0 0 0;
   font-weight: 600;
-  padding: 6px 9px;
+  padding: 5px 9px;
   height: 24px;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:focus {
   background: none;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu {
-  margin-top: 9px;
+  /* margin-top: 9px; */
+  margin-right: 13px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
