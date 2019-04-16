@@ -18,6 +18,12 @@ Page({
       });
   },
 
+  goTo(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url
+    })
+  },
+
   //扫描二维码,获取班级id
   scanCode(e) {
     var that = this;

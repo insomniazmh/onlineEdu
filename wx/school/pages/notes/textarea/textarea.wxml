@@ -1,0 +1,5 @@
+<!--pages/textarea/textarea.wxml-->
+<view class='textare'>
+  <textarea placeholder='请输入您要回复的内容...'></textarea>
+  <button>提交</button>
+</view>

@@ -1,0 +1,12 @@
+/* pages/textarea/textarea.wxss */
+.textare{
+  font-size: 30rpx;
+  padding: 110rpx 23rpx;
+}
+textarea{
+  border-bottom: 1px solid #dcdcdc;
+  margin-bottom: 50rpx;
+}
+.textare button{
+  background: #0aa1ed;
+}

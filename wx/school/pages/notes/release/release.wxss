@@ -1,0 +1,28 @@
+/* pages/reply/reply.wxss */
+.warp{
+  position: relative;
+  top: 80rpx;
+}
+.intitle{
+  background: transparent;
+  color: #196dbb;
+  padding: 0 35rpx;
+  font-size: 45rpx;
+  font-weight: bold;
+}
+.area-content {
+  position: relative;
+  top: 50rpx;
+  /* border: 1px solid red; */
+  font-size: 32rpx;
+  background: #fdfcfc;
+  padding: 0 35rpx;
+}
+.area-content textarea{
+  padding-top: 20rpx;
+}
+.fotbtn{
+  top: 50rpx;
+  background: #0aa1ed;
+  color: #796209;
+}

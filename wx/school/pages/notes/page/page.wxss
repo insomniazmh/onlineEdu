@@ -1,0 +1,260 @@
+.warp{
+  position: relative;
+  max-width: 640px;
+}
+.warp .container{
+  width: 100%;
+  margin: 0 auto;
+}
+.content-block{
+  padding: 50rpx 25rpx 0;
+  margin: 0 30rpx;
+}
+
+.content-block .contxt{
+  font-size: 34rpx;
+}
+text{
+    line-height: 1.8rem;
+    margin: 10px 0;
+}
+.content-block .contxt text{
+    margin: 30rpx 0;
+}
+.content-block .date{
+  margin-top: 15rpx;
+  font-size: 30rpx;
+  color: #aaaaaa;
+}
+.content-block image{
+  border-radius: 5px;
+  border: none;
+  padding: 0;
+  max-width: 100%;
+  height: 400rpx;
+}
+.blockquote {
+    padding-top: 5rpx;
+    margin-top: 35rpx;
+    padding-bottom: 5rpx;
+    padding-left: 15rpx;
+    border-left: 4px solid #ddd;
+    font-family: Georgia,"Times New Roman",Times,Kai,"Kaiti SC",KaiTi,BiauKai,FontAwesome,serif;
+}
+/* 点赞 */
+.like-block{
+    width: 100%;
+    padding: 25rpx 115rpx 50rpx;
+    /* overflow: hidden; */
+    font-size: 29rpx;
+    display: flex;
+}
+.like-block .like-i{
+  width: 27.26%;
+  padding: 5px;
+  float: left;
+}
+.like-block .like-btn{
+    color: #979797;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    display: block;
+    border-radius: 20px;
+    border: 1px solid #dcdcdc;
+}
+.like-block .like{
+  color: red;
+  padding: 10rpx;
+}
+.like-block .chat{
+  color:rgb(248, 248, 20);
+  padding: 20rpx;
+}
+.red{
+  color: red;
+}
+/* 分割块 */
+.cut-off{
+  width: 100%;
+  height: 40rpx;
+  background: #ececec;
+}
+/* 评论 */
+.comment-warp{
+  width: 100%;
+}
+.comment{
+  background: #fff;
+  padding: 38rpx;
+  position: relative;
+}
+.comment .cmt-head{
+  position: relative;
+  font-weight: bold;
+  color: #222;
+  width: 100%;
+  border-bottom: 1px solid #ececec;
+  padding-bottom: 35rpx;
+}
+.nav-list{
+  margin: 0;
+}
+/*  */
+.warp .news-warp{
+  width: 100%;
+  height: auto;
+  background: white;
+}
+.warp .news-warp .news-list{
+  padding: 0rpx 30rpx;  
+}
+.warp .news-warp .news-list .news-item{
+  border-bottom: 1px solid #fff;
+  position: inherit;
+}
+.warp .news-warp .news-list .news-item .item-head{
+  width: 100%;
+  clear:both;
+  height: 90rpx;
+  margin-bottom:20rpx;
+ }
+.warp .news-warp .news-list .news-item .item-head .head-left{
+  float: left;
+} 
+.warp .news-warp .news-list .news-item .item-head .head-left .hleft-img{
+  width: 90rpx;
+  float: left;
+}
+.warp .news-warp .news-list .news-item .item-head .head-left .hleft-img image{
+  width: 100%;
+  height: 90rpx;
+  border-radius: 50%;
+}
+.warp .news-warp .news-list .news-item .item-head .head-left .hleft-text{
+  color: #757575;
+  font-size: 30rpx;
+  line-height: 85rpx;
+  float: left;
+  height: 45rpx;
+  text-indent: 20rpx;
+  padding-left: 12rpx;
+}
+/*  新闻内容  */
+.warp .news-warp .news-list .news-item .item-content{
+  float: left;
+  position: relative;
+}
+.warp .news-warp .news-list .news-item .item-content .content-title{
+   font-size: 31rpx;
+   padding: 20rpx 20rpx 100rpx;
+   border-bottom: 1px solid #f1f1f1;
+   margin-bottom: 50rpx;
+   position: relative;
+   bottom: 20rpx;
+}
+.warp .news-warp .news-list .news-item .item-content .content-menu{
+  position: relative;
+  padding-top: 15rpx;
+}
+.warp .news-warp .news-list .news-item .item-content .content-menu .c-date{
+  font-size: 30rpx;
+  color: #dcdcdc;
+  position: relative;
+  float: left;
+}
+.warp .news-warp .news-list .news-item .item-content .content-menu .c-praise{
+  position: relative;
+  text-align: right;
+}
+.warp .news-warp .news-list .news-item .item-content .content-menu .c-praise .c-fire{
+  position: absolute;
+  right: 135rpx;
+}
+.warp .news-warp .news-list .news-item .item-content .content-menu .c-praise .fire{
+  color: red;
+  text-align: right;
+}
+.warp .news-warp .news-list .news-item .item-content .content-menu .replybox{
+  position: relative;
+  top: 20rpx;
+  height: 80rpx;
+  background: #dcdcdc;
+  border-radius: 10rpx;
+}
+.warp .news-warp .news-list .news-item .item-content .content-menu .replybox .sanjiao{
+  width: 0;
+  height: 0;
+  border-width: 15rpx;
+  border-style: solid;
+  border-color: transparent transparent #dcdcdc transparent;
+  position: absolute;
+  margin-top: -26rpx;
+  margin-left: 30rpx;
+}
+.warp .news-warp .news-list .news-item .item-content .content-menu .replybox .reply-text{
+  padding: 10rpx 20rpx;
+  font-size: 30rpx;
+  color: #0aa1ed;
+  line-height: 2.5;
+}
+/* reply */
+.warp .news-warp .news-list .news-item .item-content .content-menu .reply-btn{
+    width: 100%;
+    position: relative;
+    height: 60rpx;
+    font-size: 31rpx;
+    bottom: 5rpx;
+}
+/* btn */
+.fixed-sli{
+  height: 50rpx;
+}
+.fixed-btn{
+  width: 100%;
+  position: fixed;
+  bottom: 0rpx;
+}
+.fixed-btn :nth-child(1){
+  width: 50%;
+}
+
+/* 点赞 */
+.imgList{
+ height: 60rpx;
+ width: 60rpx;
+ margin-top: 5rpx;
+}
+/* .img-px,.img-ps{
+  width: 245rpx;
+} */
+.img-px image{
+  bottom: -2rpx;
+  position: relative;
+}
+.img-ps image{
+  bottom: -9rpx;
+  position: relative;
+}
+.like-zan{
+  width: 26%;
+  padding: 0 10rpx;
+  float: left;
+  border: 1px solid #efefef;
+  border-radius: 35rpx;
+  text-align: center;
+  box-shadow: 1.5rpx 1.5rpx 1.5rpx #979797;
+}
+.like-cang{
+  width: 26%;
+  padding: 0 10rpx;
+  float: left;
+  border: 1px solid #efefef;
+  border-radius: 35rpx;
+  text-align: center;
+  box-shadow: 1.5rpx 1.5rpx 1.5rpx #979797;
+}
+.like-zan{
+  margin-right: 85rpx;
+}

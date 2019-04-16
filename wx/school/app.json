@@ -1,4 +1,3 @@
-
 {
   "pages": [
     "pages/school_index/index",
@@ -14,12 +13,17 @@
     "pages/Raise your hand/choose_h",
     "pages/fill up/fill up",
     "pages/Raise your hand/Raise your hand",
-    "pages/index/index"
+    "pages/notes/index/index",
+    "pages/notes/page/page",
+    "pages/notes/reply/reply",
+    "pages/notes/release/release",
+    "pages/notes/textarea/textarea"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "外贸学校",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

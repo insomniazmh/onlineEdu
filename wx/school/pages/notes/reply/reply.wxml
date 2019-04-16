@@ -1,0 +1,37 @@
+<view class='warp'>
+  
+<!-- <view class='list-msg'> -->
+<!--下拉框  -->
+    <!-- <view class='list-msg2' bindtap='bindShowMsg'>
+        <text>{{tihuoWay}}</text>
+        <van-icon name="arrow-down" />
+    </view> -->
+<!-- 下拉需要显示的列表 -->
+    <!-- <view class="select_box" wx:if="{{select}}">
+        <view class="select_one" bindtap="mySelect" data-name="猫和老鼠">猫和老鼠</view>
+        <view class="select_one" bindtap="mySelect" data-name="你变秃了">你变秃了</view>
+        <view class="select_one" bindtap="mySelect" data-name="也变强了">也变强了</view>
+    </view>
+  </view> -->
+  <!-- selection -->
+<view class="section">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+      当前选择：{{array[index]}}
+        <van-icon name="arrow-down" />
+
+    </view>
+  </picker>
+</view>
+
+  <view class='title-warp'>
+    <input class='title' type='title' placeholder='请输入您的标题'></input>
+    <view class='area-content'><textarea maxlength='900' placeholder='请输入您的内容'></textarea></view>
+  </view>
+  <!-- switch -->
+  <view class="body-view">
+      <text>是否公开</text>
+      <switch style='zoom:.8' value="关" checked bindchange="switch1Change" />
+  </view>
+  <button class='fotbtn'>立即发帖</button>
+</view>

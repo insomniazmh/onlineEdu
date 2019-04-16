@@ -1,0 +1,74 @@
+/* pages/reply/reply.wxss */
+.warp{
+  position: relative;
+  top: 80rpx;
+}
+.title-warp{
+  position: relative;
+  margin-top: 200rpx;
+}
+.title{
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #f1f1f1;
+  height: 40rpx;
+  width: 450rpx;
+  color: #196dbb;
+  padding: 0 35rpx;
+  font-size: 32rpx;
+}
+.area-content {
+  position: relative;
+  top: 50rpx;
+  font-size: 32rpx;
+  background: #fdfcfc;
+  padding: 0 35rpx;
+}
+.area-content textarea{
+  padding-top: 20rpx;
+}
+.fotbtn{
+  top: 30rpx;
+  color:#f1f1f1;
+  background:cornflowerblue;
+  border-radius: 5rpx;
+}
+
+/* swich */
+.body-view{
+    height: 80rpx;
+    font-size: 30rpx;
+    color:#196dbb;
+    display: flex;
+    width: 97%;
+    margin-top: 60rpx;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #f1f1f1;
+    padding: 0 10rpx;
+    border-radius: 10rpx;
+}
+.body-view text{
+  font-size: 35rpx;
+  color:cornflowerblue;
+}
+
+
+/* selection */
+.section{
+  padding:0 20rpx;
+  background-color:#fff;
+  position:relative;
+}
+.section picker{
+    height: 60rpx;
+    font-size: 30rpx;
+    color:#196dbb;
+    display: flex;
+    width: 34%;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 0 10rpx;
+    border-radius: 10rpx;
+}

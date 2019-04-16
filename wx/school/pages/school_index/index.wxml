@@ -37,7 +37,7 @@
     <image src='../../img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
-  <view class='clm_child opacity'>
+  <view class='clm_child' bindtap="goTo" data-url='/pages/notes/index/index'>
     <image src='../../img/z02.png' mode='widthFix'></image>
     <text>心得</text>
   </view>
