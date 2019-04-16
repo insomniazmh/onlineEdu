@@ -1,7 +1,7 @@
 <!--pages/school_index/index.wxml-->
 <image class='banner' src='../../img/banner_1.jpg' mode='widthFix'></image>
 <view class="index_clm">
-  <view class='clm_child opacity'>
+  <!-- <view class='clm_child opacity'>
     <image src='../../img/z01.png' mode='widthFix'></image>
     <text>选课</text>
   </view>
@@ -28,11 +28,24 @@
     <view class='clm_child opacity'>
     <image src='../../img/z07.png' mode='widthFix'></image>
     <text>问答</text>
-  </view>
-    <view class='clm_child' bindtap="scanCode">
+  </view> -->
+  <view class='clm_child' bindtap="scanCode">
     <image src='../../img/z08.png' mode='widthFix'></image>
     <text>上课</text>
   </view>
+  <view class='clm_child opacity'>
+    <image src='../../img/z05.png' mode='widthFix'></image>
+    <text>课程</text>
+  </view>
+  <view class='clm_child opacity'>
+    <image src='../../img/z02.png' mode='widthFix'></image>
+    <text>心得</text>
+  </view>
+  <view class='clm_child opacity'>
+    <image src='../../img/z03.png' mode='widthFix'></image>
+    <text>公告</text>
+  </view>
+
   <view class='cfx'></view>
 </view>
 
