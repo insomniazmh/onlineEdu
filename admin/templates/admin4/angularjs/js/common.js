@@ -1,12 +1,16 @@
 var common = {
 
-	url: 'https://e.hnfts.cn/education',
-//	url: 'http://192.168.10.2:8080',
+	//正式服
+//	url: 'https://e.hnfts.cn/education',
+//	url2: 'https://e.hnfts.cn/quiz',
+//	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
-	url2: 'https://e.hnfts.cn/quiz',
-//	url2: 'http://192.168.10.10:8080',
-
-	uploadUrl: 'https://e.hnfts.cn/upload/upload', //上传接口
+	//测试服
+	url: 'http://192.168.10.2:8080',
+	url2: 'http://192.168.10.2:8081',
+	uploadUrl: 'http://192.168.10.2:8612/upload',
+	
+	
 	pageSize: 10,
 	//提示框
 	toast: function(settings) {
@@ -345,6 +349,18 @@ var common = {
 		localStorage.removeItem("username");
 		localStorage.removeItem("token");
 		window.location.href = "login.html";
+	},
+	
+	var compare = function(obj1,obj2){
+    var val1 = obj1.age;
+    var val2 = obj2.age;
+    if(val1 < val2){
+       return 1;
+    }else if(val1 > val2){
+       return -1;
+    }else{
+       return 0;
+    }
 	}
 }
 

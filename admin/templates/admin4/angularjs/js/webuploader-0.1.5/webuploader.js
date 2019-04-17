@@ -2374,6 +2374,10 @@
         function gid() {
             return idPrefix + idSuffix++;
         }
+        
+        function gsort() {
+            return idSuffix;
+        }
     
         /**
          * 文件类
@@ -2421,6 +2425,13 @@
              * @type {string}
              */
             this.id = gid();
+            
+            /**
+             * 文件ID，每个对象具有唯一ID，与文件名无关
+             * @property sort
+             * @type {int}
+             */
+            this.sort = gsort();
     
             /**
              * 文件扩展名，通过文件名获取，例如test.png的扩展名为png
@@ -4068,6 +4079,7 @@
                     id: file.id,
                     name: file.name,
                     type: file.type,
+                    sort: file.sort,
                     lastModifiedDate: file.lastModifiedDate,
                     size: file.size
                 });
