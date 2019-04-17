@@ -221,8 +221,8 @@
 			if(type == 1) {
 				kejian.content = [pptKejian];
 			}else if(type == 2) {
-				
-				kejian.content = picsKejian;
+				var sortArr = picsKejian.sort(common.compare('sort'));
+				kejian.content = sortArr;
 			}else if(type == 3) {
 				kejian.content = [videoKejian];
 			}
