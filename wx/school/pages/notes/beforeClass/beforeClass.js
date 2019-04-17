@@ -1,4 +1,4 @@
-// pages/page/page.js
+// pages/notes/beforeClass/beforeClass.js
 Page({
 
   /**

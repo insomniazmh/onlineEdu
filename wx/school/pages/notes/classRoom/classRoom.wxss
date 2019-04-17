@@ -1,0 +1,72 @@
+/* 头部 */
+.room-warp{
+  position: relative;
+  width: 100%;
+}
+.room-warp image{
+  width: 100%;
+  height: 400rpx;
+  display: block;
+}
+.room-warp .beforeList{
+  position: relative;
+  height: 115rpx;
+  background:ghostwhite;
+}
+.room-warp van-row van-col{
+  text-align: center;
+}
+.room-warp van-row van-col .col-8{
+  margin-right: 20rpx;
+  padding: 20rpx 50rpx;
+  line-height: 2rem;
+}
+.room-warp van-row van-col .col-last{
+  /* margin-right: 0; */
+}
+.room-warp van-row van-col navigator{
+    color: #0aa1ed;
+    font-weight: 600;
+    font-size: 35rpx;
+}
+.room-warp van-row van-col .classBottom{
+  border-bottom: 3px solid #0aa1de;
+  padding-bottom: 8rpx;
+}
+.room-warp .know-content{
+}
+.room-warp .know{
+  margin-left: 20rpx;
+  font-weight: 600;
+  border-left: 10px solid blanchedalmond;
+  padding-left: 15rpx;
+  margin-top:50rpx;
+}
+.room-warp .know-list{
+  padding: 40rpx 100rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.room-warp .know-list text{
+  color: #dcdcdc;
+  display: block;
+  margin-top: -1rpx;
+  margin-right: 20rpx;
+}
+.room-warp .know-list .know-1{
+  border-bottom: 1px solid #dcdcdc;
+  padding-bottom: 20rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+}
+.room-warp .know-list .know-2{
+  display: flex;
+}
+.room-warp .know-list .know-2 text{
+  margin-top: -3rpx;
+}
+.room-warp .cut-off{
+  width: 100%;
+  height: 25rpx;
+  background: #ddd;
+}

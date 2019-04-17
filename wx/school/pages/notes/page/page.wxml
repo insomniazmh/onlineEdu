@@ -1,5 +1,5 @@
 <view class='warp'>
-  <view class='container'>
+  <view class='container-t'>
       <view class='content-block'>
         <text class='ctext'>你认识萌萌的小熊猫吗?</text>
         <view class='date'>发表于:2015-9-25</view>
@@ -36,7 +36,9 @@
           </view>
         </view>
       </view>
+      <!-- 分割线 -->
       <view class='cut-off'></view>
+
       <view class='comment-warp'>
         <view class='comment'>
           <view class='cmt-head'>精彩评论</view>
