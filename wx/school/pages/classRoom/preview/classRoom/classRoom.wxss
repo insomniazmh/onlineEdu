@@ -5,8 +5,11 @@
 }
 .room-warp image{
   width: 100%;
+  height: 100%;
+}
+.room-warp .headImg{
+  position: relative;
   height: 400rpx;
-  display: block;
 }
 .room-warp .beforeList{
   position: relative;
@@ -21,9 +24,6 @@
   padding: 20rpx 50rpx;
   line-height: 2rem;
 }
-.room-warp van-row van-col .col-last{
-  /* margin-right: 0; */
-}
 .room-warp van-row van-col navigator{
     color: #0aa1ed;
     font-weight: 600;
@@ -32,8 +32,6 @@
 .room-warp van-row van-col .classBottom{
   border-bottom: 3px solid #0aa1de;
   padding-bottom: 8rpx;
-}
-.room-warp .know-content{
 }
 .room-warp .know{
   margin-left: 20rpx;
@@ -69,4 +67,23 @@
   width: 100%;
   height: 25rpx;
   background: #ddd;
+}
+.room-warp .know-swiper{
+  padding: 40rpx 40rpx;
+}
+.room-warp swiper{
+  border-bottom: 1px solid #0aa1de;
+  padding-bottom: 50rpx;
+}
+.room-warp .data-list{
+  padding: 30rpx 80rpx;
+}
+.room-warp .data-list .data-item{
+  margin-bottom: 15rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  display: flex;
+}
+.room-warp .data-list .data-item van-icon{
+  margin: 6rpx 15rpx;
 }

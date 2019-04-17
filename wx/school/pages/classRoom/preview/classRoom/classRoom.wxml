@@ -1,0 +1,78 @@
+<!--          课前           -->
+
+<!-- 头部 -->
+<view class='room-warp'>
+  <view class='headImg'>
+    <image src='../image/banner/header.png'></image>
+  </view>
+    <view class='beforeList'>
+      <van-row>
+        <van-col span="12">
+          <view class='col-8'>
+            <navigator hover-class='classBottom' active>课前</navigator>
+          </view>
+        </van-col>
+        <van-col span="12">
+          <view class='col-8 col-last'>
+            <navigator  url='../afterClass/afterClass' hover-class='classBottom'>课后</navigator>
+          </view>
+        </van-col>
+      </van-row>
+    </view>
+    <view class='know-content'>
+      <view class='know'>知识点</view>
+      <view class='know-list'>
+        <view class='know-1'><text>①</text> 电子商务的定义</view>
+        <view class='know-2'><text>②</text> 电子商务的概念</view>
+      </view>
+      <!-- 分割线 -->
+      <view class='cut-off'></view>
+      
+      <view class='know'>电子商务的定义</view>
+      <view class='know-swiper' style='margin-top:50rpx;'>
+        <swiper autoplay indicator-dots indicator-color='ghostwhite'>
+          <swiper-item>
+            <image src='../image/news/list1.png'></image> 
+           </swiper-item>
+          <swiper-item>
+            <image src='../image/banner/header.png'></image> 
+           </swiper-item>
+        </swiper>
+      </view>
+
+      <view class='know'>电子商务的概念</view>
+      <view class='know-swiper' style='margin-top:50rpx;'>
+        <swiper autoplay indicator-dots indicator-color='ghostwhite'>
+          <swiper-item>
+            <image src='../image/news/list1.png'></image> 
+           </swiper-item>
+          <swiper-item>
+            <image src='../image/banner/header.png'></image> 
+           </swiper-item>
+        </swiper>
+      </view>
+
+      <view class='know'>参考资料</view>
+      <view class='data-list'>
+        <view class='data-item'>
+          <van-icon name='label-o' />
+          <navigator>猫吃鱼狗吃肉啊</navigator>
+        </view>
+        <view class='data-item'>
+          <van-icon name='label-o' />
+          <navigator>猫吃鱼狗吃肉啊</navigator>
+        </view>
+        <view class='data-item'>
+          <van-icon name='label-o' />
+          <navigator>猫吃鱼狗吃肉啊</navigator>
+        </view>
+        <view class='data-item'>
+          <van-icon name='label-o' />
+          <navigator>猫吃鱼狗吃肉啊</navigator>
+        </view>
+      </view>
+
+      <!-- 占位 -->
+
+    </view>
+</view>
