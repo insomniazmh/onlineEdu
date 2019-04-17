@@ -1,4 +1,4 @@
-// pages/reply/reply.js
+// pages/notes/classRoom/classRoom.js
 Page({
 
   /**

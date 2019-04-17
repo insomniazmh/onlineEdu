@@ -1,0 +1,41 @@
+<!--          课前           -->
+
+<!-- 头部 -->
+<view class='room-warp'>
+  <image src='../image/banner/header.png'></image>
+    <view class='beforeList'>
+      <van-row>
+        <van-col span="8">
+          <view class='col-8'>
+            <navigator hover-class='classBottom'>课前</navigator>
+          </view>
+        </van-col>
+        <van-col span="8">
+          <view class='col-8'>
+            <navigator hover-class='classBottom'>课堂</navigator>
+          </view>
+        </van-col>
+        <van-col span="8">
+          <view class='col-8 col-last'>
+            <navigator hover-class='classBottom'>课后</navigator>
+          </view>
+        </van-col>
+      </van-row>
+    </view>
+    <view class='know-content'>
+      <view class='know'>知识点</view>
+      <view class='know-list'>
+        <view class='know-1'><text>①</text> 电子商务的定义</view>
+        <view class='know-2'><text>②</text> 电子商务的概念</view>
+      </view>
+      <!-- 分割线 -->
+      <view class='cut-off'></view>
+      <view class='know'>电子商务的定义</view>
+      <view style='margin-top:50rpx;'>
+        <swiper autoplay>
+          <swiper-item> <image src='../image/news/list1.png'></image> </swiper-item>
+          <swiper-item> <image src='../image/banner/header.png'></image> </swiper-item>
+        </swiper>
+      </view>
+    </view>
+</view>

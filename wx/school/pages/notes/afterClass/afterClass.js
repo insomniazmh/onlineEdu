@@ -1,4 +1,4 @@
-// pages/release/release.js
+// pages/notes/afterClass/afterClass.js
 Page({
 
   /**

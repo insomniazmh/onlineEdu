@@ -5,21 +5,26 @@
 }
 .title-warp{
   position: relative;
-  margin-top: 200rpx;
+  margin-top: 40rpx;
+}
+.reply-input{
+  position: relative;
+  top: 50rpx;
+  padding: 0 15rpx 15rpx;
 }
 .title{
   background: transparent;
   border: none;
   border-bottom: 1px solid #f1f1f1;
-  height: 40rpx;
+  height: 70rpx;
   width: 450rpx;
   color: #196dbb;
-  padding: 0 35rpx;
+  padding: 0 25rpx 0 30rpx;
   font-size: 32rpx;
 }
 .area-content {
   position: relative;
-  top: 50rpx;
+  top: 60rpx;
   font-size: 32rpx;
   background: #fdfcfc;
   padding: 0 35rpx;
