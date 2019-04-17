@@ -1,10 +1,10 @@
 var common = {
 
-	//url: 'https://e.hnfts.cn/education',
-	url: 'http://192.168.10.10:8090',
+	url: 'https://e.hnfts.cn/education',
+//	url: 'http://192.168.10.2:8080',
 
-	//url2: 'https://e.hnfts.cn/quiz',
-	url2: 'http://192.168.10.10:8080',
+	url2: 'https://e.hnfts.cn/quiz',
+//	url2: 'http://192.168.10.10:8080',
 
 	uploadUrl: 'https://e.hnfts.cn/upload/upload', //上传接口
 	pageSize: 10,

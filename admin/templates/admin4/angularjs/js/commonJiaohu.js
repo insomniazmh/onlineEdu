@@ -1,9 +1,10 @@
 var common = {
 
-	url: 'https://e.hnfts.cn/education', //永永服务
-	//url: 'http://192.168.13.230:8090',//永永本机
-	url2: 'https://e.hnfts.cn/quiz', //真铭服务
-	//url2: 'http://192.168.13.15:8080',//真铭本机
+//	url: 'https://e.hnfts.cn/education',
+	url: 'http://192.168.10.2:8080',
+
+//	url2: 'https://e.hnfts.cn/quiz',
+	url2: 'http://192.168.10.2:8081',
 
 	//网络请求--继伟接口
 	ajax: function(settings) {
