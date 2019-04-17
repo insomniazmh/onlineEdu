@@ -1,0 +1,141 @@
+/* 头部 */
+.room-warp{
+  position: relative;
+  width: 100%;
+}
+.room-warp image{
+  width: 100%;
+  height: 100%;
+}
+.room-warp .headImg{
+  position: relative;
+  height: 400rpx;
+}
+.room-warp .beforeList{
+  position: relative;
+  height: 115rpx;
+  background:ghostwhite;
+}
+.room-warp van-row van-col{
+  text-align: center;
+}
+.room-warp van-row van-col .col-8{
+  margin-right: 20rpx;
+  padding: 20rpx 50rpx;
+  line-height: 2rem;
+}
+.room-warp van-row van-col navigator{
+    color: #0aa1ed;
+    font-weight: 600;
+    font-size: 35rpx;
+}
+.room-warp van-row van-col .classBottom{
+  border-bottom: 3px solid #0aa1de;
+  padding-bottom: 8rpx;
+}
+.room-warp .know{
+  margin-left: 20rpx;
+  font-weight: 600;
+  border-left: 10px solid blanchedalmond;
+  padding-left: 15rpx;
+  margin-top:50rpx;
+}
+.room-warp .know-list{
+  padding: 40rpx 100rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.room-warp .know-list text{
+  color: #dcdcdc;
+  display: block;
+  margin-top: -1rpx;
+  margin-right: 20rpx;
+}
+.room-warp .know-list .know-1{
+  border-bottom: 1px solid #dcdcdc;
+  padding-bottom: 20rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+}
+.room-warp .know-list .know-2{
+  display: flex;
+}
+.room-warp .know-list .know-2 text{
+  margin-top: -3rpx;
+}
+.room-warp .cut-off{
+  width: 100%;
+  height: 25rpx;
+  background: #ddd;
+}
+.room-warp .know-swiper{
+  padding: 40rpx 40rpx;
+}
+.room-warp swiper{
+  border-bottom: 1px solid #0aa1de;
+  padding-bottom: 50rpx;
+}
+.room-warp .data-list{
+  padding: 30rpx 80rpx;
+}
+.room-warp .data-list .data-item{
+  margin-bottom: 15rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  display: flex;
+}
+.room-warp .data-list .data-item van-icon{
+  margin: 6rpx 15rpx;
+}
+
+/* 课后 */
+.room-warp .know-card{
+  padding: 65rpx 60rpx 30rpx;
+  display: flex;
+}
+.room-warp .know-card .card-img{
+  width: 90rpx;
+  height: 90rpx;
+}
+.room-warp .know-card .card-img image{
+  border-radius: 50%;
+}
+.room-warp .know-card .card-title{
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+.room-warp .konw-contet{
+  padding: 0rpx 60rpx;
+  font-size: 30rpx;
+}
+.room-warp .know-btn{
+  text-align: center;
+  padding: 40rpx 50rpx;
+  font-weight: 600;
+}
+.room-warp .know-btn :nth-child(1){
+  margin-right: 50rpx;
+  height: 50rpx;
+  font-size: 25rpx;
+  line-height: 49rpx;
+}
+.room-warp .know-btn :nth-child(2){
+  margin-right: 50rpx;
+  height: 50rpx;
+  font-size: 25rpx;
+  line-height: 49rpx;
+}
+/* 评价 */
+.right{
+  margin-left: 100rpx;
+}
+.right .star{
+  float: left;
+}
+.star image{
+  width: 35rpx;
+  height: 35rpx;
+}
+.know-warp{
+  padding: 0 0 0 55rpx;
+}

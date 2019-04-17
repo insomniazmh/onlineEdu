@@ -1,11 +1,11 @@
-// pages/notes/beforeClass/beforeClass.js
+// pages/notes/classRoom/classRoom.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    
   },
 
   /**

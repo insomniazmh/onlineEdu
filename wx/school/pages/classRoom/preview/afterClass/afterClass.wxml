@@ -1,0 +1,61 @@
+<view class='room-warp'>
+  <view class='headImg'>
+    <image src='../image/banner/header.png'></image>
+  </view>
+    <view class='beforeList'>
+      <van-row>
+        <van-col span="12">
+          <view class='col-8'>
+            <navigator url='../classRoom/classRoom' hover-class='classBottom'>课前</navigator>
+          </view>
+        </van-col>
+        <van-col span="12">
+          <view class='col-8 col-last'>
+            <navigator hover-class='classBottom'>课后</navigator>
+          </view>
+        </van-col>
+      </van-row>
+    </view>
+    <view class='know-content'>
+      <view class='know'>知识点</view>
+      <view class='know-list'>
+        <view class='know-1'><text>①</text> 竜子商务的定义</view>
+        <view class='know-2'><text>②</text> 电子商务的概念</view>
+      </view>
+      <!-- 分割线 -->
+      <view class='cut-off'></view>
+       
+      <view class='know'>课程评价
+        <text style='margin-left:30rpx;font-size:30rpx;'>4.8分</text>
+      </view>
+        <view class='know-warp'>
+          <view class='know-card'>
+            <view class='card-img'>
+              <image src='../image/floor/up1.png'></image>
+            </view>
+            <view class='card-title'>
+                <view class='title-name'>张小倩</view>
+                <text style='font-size:25rpx;color:gold'>2018级8班</text>
+            </view>
+      
+              <view class="right">
+                <view bindtap="starTap"
+                data-index="{{index}}"
+                class="star" wx:for="{{userStars}}"
+                wx:key="index">
+                <image src="{{item}}"></image>
+              </view>
+            </view>
+
+          </view>
+          <view class='konw-contet'>
+              我是呼浩浩特的，早上放牧听这个，马惊到了，现在我他妈快到俄罗斯了···
+          </view>
+          <view class='know-btn'>
+            <van-button plain size='small' type="warning">我也要评价</van-button>
+            <van-button plain size='small' type="warning">查看全部评价</van-button>
+          </view>
+        </view>
+      <view class='know'>作业</view>
+  </view>
+</view>
