@@ -111,6 +111,7 @@ class request {
           wx.request({
             method: "get",
             url: 'https://e.hnfts.cn/wechat/user/login?code=' + res.code,
+            // url: 'http://192.168.10.2:8090/user/login?code=' + res.code,
             header: {
               'content-type': 'application/json' // 默认值
             },

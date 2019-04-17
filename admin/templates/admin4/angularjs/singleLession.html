@@ -228,8 +228,8 @@
 					if('WebSocket' in window) {
 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
 						localStorage.getItem('circleId') + "/" + localStorage.getItem('token') + "/" + random;
-// 						var url = "wss://e.hnfts.cn/websocket/interactive/" +
-// 						localStorage.getItem('circleId') + "/" + localStorage.getItem('userid') + "/teacher/" + random;
+// 						var url = "ws://192.168.10.10:8081/interactive/" +
+// 					localStorage.getItem('circleId') + "/" + localStorage.getItem('token') + "/" + random;
 						wsobj = $sesWebSocket(url);
 					} else {
 						layer.alert('对不起，您的浏览器不支持websorket');
@@ -697,10 +697,9 @@
 						data: {
 							"category": 'people',
 							"circleId": localStorage.getItem("circleId"),
-							"cut": timestamp,
-							"interactive": 'select',
+//							"cut": timestamp,
 							"questionId": selQuestionId,
-							"questionType": 'LianXi',
+//							"questionType": 'LianXi',
 							"selected": selected
 						},
 						success: function() {
@@ -1237,28 +1236,6 @@
 				
 			});
 			
-			
-
-
-
-			//轮播图集
-//			var LayersliderInit = function() {
-//				return {
-//					initLayerSlider: function() {
-//						$('#layerslider').layerSlider({
-//							skinsPath: '../../../assets/global/plugins/slider-layer-slider/skins/',
-//							skin: 'fullwidth',
-//							thumbnailNavigation: 'hover',
-//							hoverPrevNext: false,
-//							responsive: false,
-//							responsiveUnder: 960,
-//							layersContainer: 960
-//						});
-//					}
-//				};
-//			}();
-//			//初始化轮播图集
-//			LayersliderInit.initLayerSlider();
 			//显示提问交互
 			function showQuestion() {
 				$(".interSingle").hide("slow");

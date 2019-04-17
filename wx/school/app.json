@@ -19,9 +19,7 @@
     "pages/notes/page/page",
     "pages/notes/reply/reply",
     "pages/notes/release/release",
-    "pages/notes/textarea/textarea",
-    "pages/notes/beforeClass/beforeClass",
-    "pages/notes/afterClass/afterClass"
+    "pages/notes/textarea/textarea"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -8,6 +8,11 @@ import request from './request.js'
 class agriknow {
   constructor() {
     this._baseUrl = 'https://e.hnfts.cn'
+    this._quiz = '/quiz'
+
+    // this._baseUrl = 'http://192.168.10.2:8081'
+    // this._quiz = ''
+    
     this._request = new request
     this._request.setErrorHandler(this.errorHander)
   }
@@ -35,21 +40,21 @@ class agriknow {
    *  学生进入课堂
    */
   joinClass(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/classRoom/join/interactiveRoom', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/classRoom/join/interactiveRoom', postData).then(res => res.data)
   }
 
   /**
    * 提交提问回答
    */
   answerQuiz(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interact/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/send/answer', postData).then(res => res.data)
   }
 
   /**
    * 提交提问举手
    */
   raise(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interact/raise', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/raise', postData).then(res => res.data)
   }
 
 
@@ -57,35 +62,35 @@ class agriknow {
    * 收到问题后回调服务器
    */
   delSelectStu(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interact/fabu/delSelectStu', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/fabu/delSelectStu', postData).then(res => res.data)
   }
 
   /**
    * 提交练习回答
    */
   answerPractice(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interact/sendBook/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/sendBook/answer', postData).then(res => res.data)
   }
 
   /**
    * 提交问卷回答
    */
   answerSurvey(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/interactSurvey/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/interactSurvey/send/answer', postData).then(res => res.data)
   }
 
   /**
    * 提交任务回答
    */
   answerTask(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/TaskInteract/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/TaskInteract/send/answer', postData).then(res => res.data)
   }
 
   /**
    * 提交头脑风暴回答
    */
   answerStrom(postData = {}) {
-    return this._request.postRequest(this._baseUrl + '/quiz/brainstormInteract/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/brainstormInteract/send/answer', postData).then(res => res.data)
   }
 
   /**
