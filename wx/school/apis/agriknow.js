@@ -7,7 +7,8 @@
 import request from './request.js'
 class agriknow {
   constructor() {
-    this._baseUrl = 'https://e.hnfts.cn'
+    //this._baseUrl = 'https://e.hnfts.cn'
+    this._baseUrl = '192.168.10.10:8080'
     this._request = new request
     this._request.setErrorHandler(this.errorHander)
   }

@@ -110,7 +110,8 @@ class request {
         if (res.code) {
           wx.request({
             method: "get",
-            url: 'https://e.hnfts.cn/wechat/user/login?code=' + res.code,
+            //url: 'https://e.hnfts.cn/wechat/user/login?code=' + res.code,
+            url: 'https://forteachwechat.ngrok.xiaomiqiu.cn/user/login?code=' + res.code,
             header: {
               'content-type': 'application/json' // 默认值
             },
