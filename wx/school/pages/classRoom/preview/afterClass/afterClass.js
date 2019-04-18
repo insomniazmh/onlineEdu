@@ -6,11 +6,11 @@ Page({
    */
   data: {
     userStars: [
-      '../image/icon/star-active.png',
-      '../image/icon/star-active.png',
-      '../image/icon/star-active.png',
-      '../image/icon/star-active.png',
-      '../image/icon/star.png'
+      '/../../../img/icon/star-active.png',
+      '/../../../img/icon/star-active.png',
+      '/../../../img/icon/star-active.png',
+      '/../../../img/icon/star-active.png',
+      '/../../../img/icon/star.png'
     ],
   },
   // 星星点击事件
@@ -20,9 +20,9 @@ Page({
     var len = tempUserStars.length; // 获取星星数组的长度
     for (var i = 0; i < len; i++) {
       if (i <= index) { // 小于等于index的是满心
-        tempUserStars[i] = '../image/star-active.png'
+        tempUserStars[i] = '/../../../img/star-active.png'
       } else { // 其他是空心
-        tempUserStars[i] = '../image/star.png'
+        tempUserStars[i] = '/../../../img/star.png'
       }
     }
     // 重新赋值就可以显示了

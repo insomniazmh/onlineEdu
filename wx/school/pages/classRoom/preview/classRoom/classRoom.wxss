@@ -74,6 +74,7 @@
 .room-warp swiper{
   border-bottom: 1px solid #0aa1de;
   padding-bottom: 50rpx;
+  height: 440rpx;
 }
 .room-warp .data-list{
   padding: 30rpx 80rpx;
