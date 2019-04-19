@@ -55,24 +55,38 @@
       <view class='know'>参考资料</view>
       <view class='data-list'>
         <view class='data-item'>
-          <van-icon name='label-o' />
+          <image src='/../../../img/icon/新闻列表点缀.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <van-icon name='label-o' />
+          <image src='/../../../img/icon/新闻列表点缀.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <van-icon name='label-o' />
+          <image src='/../../../img/icon/新闻列表点缀.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <van-icon name='label-o' />
+          <image src='/../../../img/icon/新闻列表点缀.png'></image>
+          <navigator>猫吃鱼狗吃肉啊</navigator>
+        </view>
+        <view class='data-item'>
+          <image src='/../../../img/icon/新闻列表点缀.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
       </view>
-
-      <!-- 占位 -->
-
+      <view class='know'>预习自测</view>
+      <view class='data-list'>
+        <view></view>
+        <view style='border:1px solid #dcdcdc;'>
+          <text class='self-title'>1、电子商务真正的发展是建立在 （ \t ）的基础上的。</text>
+          <view class='self-item'>
+            <navigator>A.<text>internet</text> </navigator>
+            <navigator>B.<text>internet</text> </navigator>
+            <navigator>C.<text>internet</text> </navigator>
+            <navigator>D.<text>internet</text> </navigator>
+          </view>
+        </view>
+      </view>
     </view>
 </view>

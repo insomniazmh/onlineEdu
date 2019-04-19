@@ -19,7 +19,7 @@
     <view class='know-content'>
       <view class='know'>知识点</view>
       <view class='know-list'>
-        <view class='know-1'><text>①</text> 竜子商务的定义</view>
+        <view class='know-1'><text>①</text> 电子商务的定义</view>
         <view class='know-2'><text>②</text> 电子商务的概念</view>
       </view>
       <!-- 分割线 -->
@@ -27,6 +27,7 @@
        
       <view class='know'>课程评价
         <text style='margin-left:30rpx;font-size:30rpx;'>4.8分</text>
+        <text class='right-title'>24人评价</text>
       </view>
         <view class='know-warp'>
           <view class='know-card'>
@@ -35,7 +36,7 @@
             </view>
             <view class='card-title'>
                 <view class='title-name'>张小倩</view>
-                <text style='font-size:25rpx;color:gold'>2018级8班</text>
+                <text>2018级8班</text>
             </view>
       
               <view class="right">
@@ -52,10 +53,49 @@
               我是呼浩浩特的，早上放牧听这个，马惊到了，现在我他妈快到俄罗斯了···
           </view>
           <view class='know-btn'>
-            <van-button plain size='small' type="warning">我也要评价</van-button>
-            <van-button plain size='small' type="warning">查看全部评价</van-button>
+           <navigator style='margin-right:100rpx;'>我也要评价</navigator> 
+           <navigator>查看全部评价</navigator> 
           </view>
         </view>
       <view class='know'>作业</view>
+      <view class='data-list'>
+        <view></view>
+        <view class='task-item'>
+          <text>一、选择题</text>
+          <text class='self-title'>1、不属于电子商务的特性的选项是 （ \t ）。</text>
+          <view class='self-item'>
+            <navigator>A.<text>个体性</text> </navigator>
+            <navigator>B.<text>普遍性</text> </navigator>
+            <navigator>C.<text>安全性</text> </navigator>
+            <navigator>D.<text>方便性</text> </navigator>
+          </view>
+        </view>
+        <view class='task-item'>
+          <text>二、选择题</text>
+          <text class='self-title'>
+            1、网上洽谈由于双方不能直接见面，所以受到很多限制，不如面对面洽谈方便
+          </text>
+          <view class='self-item img-item'>
+            <view class='self-img mgr'>
+              <image src='/../../../img/icon/r_icon.png'></image>
+            </view>
+            <view class='self-img'>
+              <image src='/../../../img/icon/w_icon.png'></image>
+            </view>
+          </view>
+        </view>
+        <view class='task-item'>
+          <text>三、简答题</text>
+          <text class='self-title'>
+            1、说说为什么电子商务能使买卖双方的交易成本大大降低
+          </text>
+          <view class='task-textarea'>
+            <textarea maxlength='200'></textarea>
+          </view>
+          <view class='task-btn'>
+          <button>提交作业</button>
+          </view>      
+        </view>
+      </view>
   </view>
 </view>
