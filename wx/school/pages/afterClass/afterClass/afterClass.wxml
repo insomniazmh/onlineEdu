@@ -1,6 +1,6 @@
 <view class='room-warp'>
   <view class='headImg'>
-    <image src='/../../../img/banner/header.png'></image>
+    <image src='/img/banner/header.png'></image>
   </view>
     <view class='beforeList'>
       <van-row>
