@@ -38,7 +38,6 @@
   background:cornflowerblue;
   border-radius: 5rpx;
 }
-
 /* swich */
 .body-view{
     height: 80rpx;
@@ -61,7 +60,7 @@
 
 /* selection */
 .section{
-  padding:0 20rpx;
+  padding:0 10rpx;
   background-color:#fff;
   position:relative;
 }

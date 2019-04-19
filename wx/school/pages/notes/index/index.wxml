@@ -15,7 +15,7 @@
           <view class='item-head'>
             <view class='head-left'>
               <view class='hleft-img'>
-                <image src='../image/news/up1.png'></image>
+                <image src='../../../img/news/up1.png'></image>
               </view>
               <view class='hleft-text'>Super invincible 涵 </view>
             </view>
@@ -32,19 +32,17 @@
             </view>
           </view>
           <view class='item-rimg'>
-            <image src='../image/news/list1.png'></image>
+            <image src='../../../img/news/list1.png'></image>
           </view>
       </view>
     </view>
     <!-- 评论收藏 -->
     <view class='footer-comment'>
       <view  hover-class='clkColor' class='reply'>
-        <!-- <image style='color:red;' src='../image/icon/zzan.png' /> -->
         <van-icon custom-style='color:red;' color='red' size='45rpx' name="like-o" />
         <text class='text-top'>20</text>
       </view>
       <view class='collection'>
-       <!-- <image src='../image/icon/pl.png' /> -->
         <van-icon color='#0aa1ed' size='45rpx' name="comment-o" />
        <text class='text-top'>20</text>
       </view>
