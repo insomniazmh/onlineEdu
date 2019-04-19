@@ -25,28 +25,30 @@
   line-height: 2rem;
 }
 .room-warp van-row van-col navigator{
-    color: #0aa1ed;
+    color: #c28b39;
     font-weight: 600;
-    font-size: 35rpx;
+    font-size: 36rpx;
 }
 .room-warp van-row van-col .classBottom{
-  border-bottom: 3px solid #0aa1de;
+  border-bottom: 3px solid #c28b39;
   padding-bottom: 8rpx;
 }
 .room-warp .know{
   margin-left: 20rpx;
   font-weight: 600;
-  border-left: 10px solid blanchedalmond;
+  font-size: 36rpx;
+  border-left: 10px solid #c28b39;
   padding-left: 15rpx;
   margin-top:50rpx;
 }
 .room-warp .know-list{
   padding: 40rpx 100rpx;
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 600;
+  color: #373636;
 }
 .room-warp .know-list text{
-  color: #dcdcdc;
+  color: #b9b9b9;
   display: block;
   margin-top: -1rpx;
   margin-right: 20rpx;
@@ -85,6 +87,28 @@
   font-weight: 600;
   display: flex;
 }
-.room-warp .data-list .data-item van-icon{
-  margin: 6rpx 15rpx;
+.room-warp .data-list .data-item image{
+  height: 40rpx;
+  width: 40rpx;
+  margin-right: 20rpx;
+}
+.room-warp .data-list .self-title{
+  font-size: 35rpx;
+  font-weight: 600;
+  padding: 25rpx 50rpx 5rpx;
+  display: block;
+}
+.room-warp .data-list .self-item{
+  padding: 50rpx 35rpx 20rpx;
+}
+.room-warp .data-list .self-item navigator{
+    border: 1px solid #dcdcdc;
+    border-radius: 15rpx;
+    padding: 5rpx 35rpx;
+    color:darkorange;
+    margin-bottom: 35rpx;
+}
+.room-warp .data-list .self-item navigator text{
+  color: #cac7c7;
+  margin-left: 35rpx;
 }

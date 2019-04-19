@@ -225,9 +225,11 @@ text{
  width: 60rpx;
  margin-top: 5rpx;
 }
-/* .img-px,.img-ps{
-  width: 245rpx;
-} */
+.like-text{
+  position: relative;
+  top: -2rpx;
+  margin: 5rpx 15rpx;
+}
 .img-px{
   color: #979797;
   height: 55rpx;
@@ -245,6 +247,6 @@ text{
   line-height: 2;
 }
 .l-btn{
-  width: 33%;
-  padding: 0 15rpx;
+  width: 26%;
+  padding: 0 35rpx;
 }

@@ -20,13 +20,13 @@
         <view  class='like-zan l-btn'>
           <view class='img-px'>
             <van-icon name='fire' />
-            <text>1321</text>
+            <text class='like-text'>1321</text>
           </view>
         </view>
         <view class='like-cang l-btn'>
           <view class='img-ps'>
             <van-icon name='like' />
-            <text>555</text>
+            <text class='like-text'>555</text>
           </view>
         </view>
       </view>
