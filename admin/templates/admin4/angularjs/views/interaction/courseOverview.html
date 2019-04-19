@@ -1,7 +1,5 @@
-
+<link href="../../../assets/admin/pages/css/profile.css" rel="stylesheet">
 <style>
-	
-	
 	.note p {
 		display: inline-block;
 		margin-right: 10px;
@@ -30,6 +28,21 @@
 	.class-active {
 		box-shadow: #6699FF 0px 0px 10px 5px !important;
 	}
+	
+	.profile-userpic img {
+		width: 75%;
+		height: 75%;
+	}
+	
+	.user-wrapper {
+		width: 100px;
+		text-align: center;
+		float: left;
+	}
+	
+	.connectedSortable {
+		min-height: 90px;
+	}
 </style>
 <div ng-controller="courseOverviewCtrl">
 	<div class="row profile">
@@ -54,7 +67,7 @@
 						<span class="caption-helper hide"></span>
 					</div>
 					<div class="actions">
-						<button class="btn btn-circle btn-info btn-sm" ng-click="createKp();">编辑 </button>
+						<button class="btn btn-circle btn-info btn-sm" data-toggle="modal" data-target="#groupModal">编辑 </button>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -743,7 +756,118 @@
 			<!--end row-->
 		</div>
 	</div>
+	
+	<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">修改分组信息</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="note note-success">
+							<h4 class="block">第一组&nbsp;&nbsp;&nbsp;<button class="btn btn-success btn-sm">修改名称</button></h4>
+							<div id="sortable1" class="connectedSortable">
+								<div class="user-wrapper" id="sel1">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar1.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">张三</p>
+								</div>
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar1.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">李四</p>
+								</div>
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar1.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">王五</p>
+								</div>
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar1.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">赵六</p>
+								</div>
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar1.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">冯七</p>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+						</div>
+						<div class="note note-info">
+							<h4 class="block">第二组</h4>
+							<div id="sortable2" class="connectedSortable">
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar4.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">张三</p>
+								</div>
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar4.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">李四</p>
+								</div>
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar4.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">王五</p>
+								</div>
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar4.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">赵六</p>
+								</div>
+								<div class="user-wrapper">
+									<div class="uppercase profile-userpic">
+										<img ng-src="images/avatar4.jpg" class="img-responsive" alt="学生头像">
+									</div>
+									<p style="margin-right: 0;">冯七</p>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+						</div>
+						<div class="note note-danger">
+							<h4 class="block">第一组</h4>
+							<p>张三</p>
+							<p>李四</p>
+							<p>王五</p>
+							<p>赵六</p>
+							<p>六七</p>
+						</div>
+						<div class="note note-warning">
+							<h4 class="block">第一组</h4>
+							<p>张三</p>
+							<p>李四</p>
+							<p>王五</p>
+							<p>赵六</p>
+							<p>六七</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 </div>
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script>
 	function courseOverviewCtrl($scope) {
 		$scope.classes = [{
@@ -771,5 +895,14 @@
 			});
 			row.active = true;
 		}
+		
+		$( "#sortable1, #sortable2" ).sortable({
+      connectWith: ".connectedSortable",
+      receive: function( event, ui ) {
+      	console.log(ui.sender[0].id);//移出组id
+      	console.log(ui.item[0].id);//改变的学生id
+      	console.log(event.target.id);//移入组id
+      }
+    }).disableSelection();
 	}
 </script>

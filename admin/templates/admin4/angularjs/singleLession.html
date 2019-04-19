@@ -76,28 +76,28 @@
 			<div style="float: left;width: 3%;height: 600px;">
 				<div class="page-sidebar navbar-collapse collapse" style="width: 100%;">
 					<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
-						<li class="start" title="提问">
+						<li title="提问" id="TiWen">
 							<a href="javascript:;" onclick="showQuestion()">
 								<i class="icon-question"></i>
 							</a>
 						</li>
-						<li title="练习">
+						<li title="练习" id="LianXi">
 							<a href="javascript:;" onclick="showBookQuestion()">
 								<i class="icon-pencil"></i>
 							</a>
 						</li>
-						<li title="头脑风暴">
+						<li title="头脑风暴" id="FengBao">
 							<a href="javascript:;" onclick="showStromQuestion()">
 								<i class="icon-fire"></i>
 							</a>
 						</li>
-						<li title="任务" onclick="showTaskQuestion()">
-							<a href="javascript:;">
+						<li title="任务" id="RenWu">
+							<a href="javascript:;" onclick="showTaskQuestion()">
 								<i class="icon-envelope-letter"></i>
 							</a>
 						</li>
-						<li title="问卷" onclick="showSurveyQuestion()">
-							<a href="javascript:;">
+						<li title="问卷" id="WenJuan">
+							<a href="javascript:;" onclick="showSurveyQuestion()">
 								<i class="icon-disc"></i>
 							</a>
 						</li>
@@ -381,6 +381,11 @@
 					},
 					url: '/exerciseBook/findExerciseBook',
 					success: function(res) {
+						//如果没有挂载提问的问题，则隐藏提问弹出按钮
+						if(res.data == "") {
+							$("#TiWen").hide();
+							return false;
+						}
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
 						}); //组装题干以供展示
@@ -534,7 +539,7 @@
 					});
 					var publishedStudents = selected.join(","); //被选中的学生id，用逗号分隔
 					
-					var interactive = $scope.currentTiwenQues.chooseType;
+					var interactive = $scope.currentTiwenQues.chooseType;//选人类型：  选人=select  抢答=race  举手=raise
 					if($scope.currentTiwenQues.chooseType == 'raise') {
 						interactive = 'select';
 					}
@@ -565,10 +570,19 @@
 							$scope.answerStudents = [];//清空学生回答情况
 							$scope.raiseStudents = [];//清空学生举手情况
 							
-							for (let value of $scope.students) {
-								$scope.answerStudents.push(value);
+							/*
+							 * 如果选人类型为select，将被选中的学生显示，其余隐藏
+							 * 如果不是select（race），则将所有学生隐藏
+							 * */
+							if(interactive == 'select') {
+								for (let value of $scope.students) {
+									$scope.answerStudents.push(value);
+								}
+								$scope.students = $scope.answerStudents;
+							}else {
+								$scope.students = [];
 							}
-							$scope.students = $scope.answerStudents;
+							
 						}
 					});
 				}
@@ -644,6 +658,11 @@
 					},
 					url: '/exerciseBook/findExerciseBook',
 					success: function(res) {
+						//如果没有挂载练习题，则隐藏练习弹出按钮
+						if(res.data == "") {
+							$("#LianXi").hide();
+							return false;
+						}
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
 						}); //组装题干以供展示
@@ -773,6 +792,11 @@
 					},
 					url: '/surveyExerciseBook/findExerciseBook',
 					success: function(res) {
+						//如果没有挂载问卷的问题，则隐藏问卷弹出按钮
+						if(res.data == "") {
+							$("#WenJuan").hide();
+							return false;
+						}
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
 						}); //组装题干以供展示
@@ -955,6 +979,11 @@
 					},
 					url: '/taskExerciseBook/findExerciseBook',
 					success: function(res) {
+						//如果没有挂载任务，则隐藏任务弹出按钮
+						if(res.data == "") {
+							$("#RenWu").hide();
+							return false;
+						}
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
 						}); //组装题干以供展示
@@ -1103,6 +1132,11 @@
 					},
 					url: '/brainstormExerciseBook/findExerciseBook',
 					success: function(res) {
+						//如果没有挂载头脑风暴，则隐藏风暴弹出按钮
+						if(res.data == "") {
+							$("#FengBao").hide();
+							return false;
+						}
 						res.data = common.addTitleForQuestion({
 							questionArr: res.data
 						}); //组装题干以供展示
