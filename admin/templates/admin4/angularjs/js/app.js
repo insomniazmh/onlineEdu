@@ -841,12 +841,12 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			}
 		})
 		
-		//笔记
+		//心得
 		.state('notes', {
 			url: "/notes.html",
 			templateUrl: "views/gainAndNotes/notes.html",
 			data: {
-				pageTitle: '笔记',
+				pageTitle: '心得',
 				btn_taps: true
 			},
 			controller: "GeneralPageController",
@@ -862,12 +862,12 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			}
 		})
 		
-		//笔记详情
+		//心得详情
 		.state('notes_item', {
 			url: "/notes_item.html",
 			templateUrl: "views/gainAndNotes/notes_item.html",
 			data: {
-				pageTitle: '笔记详情',
+				pageTitle: '心得详情',
 				btn_taps: true
 			},
 			controller: "GeneralPageController",
