@@ -1,0 +1,76 @@
+1.根据班级id和课程id查询分组情况
+输入： 班级id，课程id
+输出：
+[
+	{
+		groupId: "123",
+		groupName: "第一组",
+		students: [
+			{
+				id: "学生id",
+				name: "学生姓名",
+				portrait: "学生头像"
+			}, {
+				id: "学生id",
+				name: "学生姓名",
+				portrait: "学生头像"
+			}, {
+				...
+			}
+		]
+	}, {
+		groupId: "1234",
+		groupName: "第二组",
+		students: [
+			{
+				id: "学生id",
+				name: "学生姓名",
+				portrait: "学生头像"
+			}, {
+				id: "学生id",
+				name: "学生姓名",
+				portrait: "学生头像"
+			}, {
+				...
+			}
+		]
+	}, {
+		groupId: "",
+		groupName: "未分组",
+		students: [
+			{
+				id: "学生id",
+				name: "学生姓名",
+				portrait: "学生头像"
+			}, {
+				id: "学生id",
+				name: "学生姓名",
+				portrait: "学生头像"
+			}, {
+				...
+			}
+		]
+	}
+]
+
+
+2.随机分组
+输入： 班级id，课程id,组数,类型（永久/临时）
+输出：同上
+
+
+3.添加组
+输入： 班级id，课程id,组名,类型（永久/临时）
+输出：
+{
+	groupId: "",
+	groupName: "第三组"
+}
+
+4.移动人员
+输入： 被移出组id,移入组id,学生id,类型（永久/临时）
+输出：
+
+5.删除组
+输入： 班级id，课程id,组id,类型（永久/临时）
+输出：
