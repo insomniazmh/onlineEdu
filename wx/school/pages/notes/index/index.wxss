@@ -151,7 +151,7 @@ ul li{margin: 0;padding: 0}
   width: 50rpx;
   height: 50rpx;
 }
-.footer-comment view .text-top{
+.footer-comment view text{
   float: right;
   display: block;
   margin-top: 7rpx;
@@ -164,4 +164,15 @@ ul li{margin: 0;padding: 0}
   background: #0aa1ed;
   color: #f1f1f1;
   bottom: 0;
+}
+
+.footer-comment .item {
+}
+ 
+.footer-comment .wish_list_box_collection image {
+  width: 35rpx;
+  height: 35rpx;
+  overflow: hidden;
+  margin-right: 12rpx;
+  margin-top: 9rpx;
 }

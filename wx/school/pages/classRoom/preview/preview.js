@@ -5,19 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentSelectTripType:'pinche',
+    currentSelectTripType: 'pinche',
   },
 
-    selectedPinche: function (e){
-      this.setData({
-        currentSelectTripType:e.currentTarget.dataset.id
-      })
-    },
-    selectedBaoche: function (e) {
-      this.setData({
-        currentSelectTripType: e.currentTarget.dataset.id
-      })
-    },
+  selectedPinche: function (e) {
+    this.setData({
+      currentSelectTripType: e.currentTarget.dataset.id
+    })
+  },
+  selectedBaoche: function (e) {
+    this.setData({
+      currentSelectTripType: e.currentTarget.dataset.id
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

@@ -38,14 +38,32 @@
     </view>
     <!-- 评论收藏 -->
     <view class='footer-comment'>
-      <view  hover-class='clkColor' class='reply'>
+      <!-- <view  hover-class='clkColor' class='reply'>
         <van-icon custom-style='color:red;' color='red' size='45rpx' name="like-o" />
         <text class='text-top'>20</text>
-      </view>
+      </view> -->
       <view class='collection'>
         <van-icon color='#0aa1ed' size='45rpx' name="comment-o" />
        <text class='text-top'>20</text>
       </view>
+      
+      <block wx:for="{{wishList}}" wx:key="{{index}}">
+        <view class="item" data-index='{{item.id}}'>
+          <view class='wish_list_box_collection' wx:if="{{item.collected==1}}">
+            <!-- 点赞过 -->
+            <image catchtap='onCollectionTap'
+              src="/img/icon/rgood.png"
+              data-index='{{index}}'></image>
+            <text>{{item.dzzs}}</text>
+          </view>
+          <view class='wish_list_box_collection' wx:else>
+            <image src='/img/icon/good.png' 
+              catchtap='onCollectionTap' 
+              data-index='{{index}}'></image>
+            <text>{{item.dzzs}}</text>
+          </view>
+        </view>
+      </block>
     </view>
   </view>
     <button class='rule' bindtap='release'>我要发帖</button>

@@ -33,7 +33,7 @@
     <image src='../../img/z08.png' mode='widthFix'></image>
     <text>上课</text>
   </view>
-  <view class='clm_child' bindtap='goOn' data-url='/pages/classRoom/preview/classRoom/classRoom'>
+  <view class='clm_child' bindtap='goOn' data-url='/pages/classRoom/preview/preview'>
     <image src='../../img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>

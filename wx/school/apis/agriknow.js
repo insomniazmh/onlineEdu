@@ -25,7 +25,6 @@ class agriknow {
       title: '网络错误',
       icon: 'none'
     })
-    
   }
 
   /**
@@ -43,6 +42,12 @@ class agriknow {
     return this._request.postRequest(this._baseUrl + this._quiz + '/classRoom/join/interactiveRoom', postData).then(res => res.data)
   }
 
+  /**
+   *  学生进入课堂
+   */
+  saveOrUPdate(postData = {}){
+    return this._request.postRequest()
+  }
   /**
    * 提交提问回答
    */
