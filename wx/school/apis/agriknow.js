@@ -9,11 +9,15 @@ class agriknow {
   constructor() {
     // this._baseUrl = 'https://e.hnfts.cn'
     // this._quiz = '/quiz'
-    //this._wx = 'wechat'
+    //this._wx = '/wechat'
+    //this._education = '/education'
 
     this._baseUrl = 'http://192.168.10.2:'
     this._quiz = '8081'
     this._wx = '8090'
+    this._education = '8080'
+
+    //this._baseUrlXD = 'http://192.168.10.10:8090'
     
     this._request = new request
     this._request.setErrorHandler(this.errorHander)
@@ -44,12 +48,7 @@ class agriknow {
     return this._request.postRequest(this._baseUrl + this._quiz + '/classRoom/join/interactiveRoom', postData).then(res => res.data)
   }
 
-  /**
-   *  学生进入课堂
-   */
-  saveOrUPdate(postData = {}){
-    return this._request.postRequest()
-  }
+  
   /**
    * 提交提问回答
    */
@@ -105,6 +104,34 @@ class agriknow {
    */
   wxLogin(postData = {}) {
     return this._request.getRequest(this._baseUrl + this._wx + '/user/login', postData).then(res => res.data)
+  }
+
+  /**
+   *  发布心得
+   */
+  saveNote(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/article/saveOrUpdate', postData).then(res => res.data)
+  }
+
+  /**
+   *  列表详情
+   */
+  notesList(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/article/findAllDesc', postData).then(res => res.data)
+  }
+
+  /**
+   *  内容详情
+   */
+  notesContent(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/article/findId', postData).then(res => res.data)
+  }
+
+  /**
+   *  内容详情
+   */
+  notesPosted(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/article/saveOrUpdate', postData).then(res => res.data) 
   }
 
 }

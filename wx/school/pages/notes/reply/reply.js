@@ -26,7 +26,9 @@ Page({
         name: '日本'
       }
     ],
-    index:1
+    index:1,
+    posTed:{},
+    inputValue:"",
   },
   switch1Change(e){
     console.log('swtch发生改变,')
@@ -49,11 +51,47 @@ Page({
     })
   },
 
+/**
+   * 发帖
+   */
+  bindKeyinput(e) {
+    this.setData({
+      inputValue: e.detail.value
+    })
+  },
+  //  textarea
+  bindFormSubmit(e) {
+    this.saveNote(e.detail.value.textarea);
+  },
+  saveNote: function (content) {
+    var that = this;
+    var postData = {
+      articleConten: content,
+      articleType:"xd",
+      classId:22,
+      courseId:"2c9180846827407401682b57f4a60000",
+      description:"文章描述",
+      imgUrl:"titleUrl",
+      title: this.data.inputValue
+    };
+    console.log(postData)
+    //  return false;
+    getApp().agriknow.notesPosted(postData).then(res => {
+      that.setData({
+        posTed: res.data
+      });
+      // console.log(that.data.posTed);
+    })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
   bindShowMsg(){
     this.setData({

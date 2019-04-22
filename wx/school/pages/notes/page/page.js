@@ -11,6 +11,7 @@ Page({
     asg: [
       { 'whow': '' },
     ],
+    pageContent:{}
   },
   jumpRep(){
     wx.navigateTo({
@@ -58,7 +59,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    var postData = {
+      id:"29512c44cb704629a9de547528ead313"
+    };
+    console.log(postData)
+    getApp().agriknow.notesContent(postData).then(res => {
+      that.setData({
+        pageContent: res.data
+      });
+      console.log(that.data.pageContent);
+    })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
   },
 
   /**

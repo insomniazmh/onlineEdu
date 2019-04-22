@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/notes/index/index",
     "pages/school_index/index",
+    "pages/notes/index/index",
+    "pages/notes/page/page",
     "pages/classRoom/review/review",
     "pages/classRoom/preview/preview",
-    "pages/notes/page/page",
     "pages/getId/getId",
     "pages/class/students_interaction/students_interaction",
     "pages/class/strom/strom",

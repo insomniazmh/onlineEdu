@@ -3,5 +3,5 @@
     <view class='intitle'>标题自己看着办吧</view>
     <view class='area-content'><textarea maxlength='900' placeholder='请输入您的内容'></textarea></view>
   </view>
-  <button class='fotbtn'>立即提交</button>
+  <button bindtap='reLease' class='fotbtn'>立即提交</button>
 </view>
