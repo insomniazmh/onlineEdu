@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" ng-repeat="note in notes">
 					<div class="col-md-1 blog-img blog-tag-data" style="text-align: center;">
 						<img src="images/avatar1.jpg" alt="" class="userpic">
 						<div style="margin: 0 auto;">
@@ -49,7 +49,7 @@
 					</div>
 					<div class="col-md-8 blog-article">
 						<h3>
-							<a href="index.html#/notes_item.html">Js原型的理解 </a>
+							<a href="index.html#/notes_item.html">{{note.title}} </a>
 							<a class="btn yellow-crusta">精华帖</a>
 							<span style="float: right;font-size: 16px;color: #5b9bd1;">所属课程：电子商务基础 </span>
 						</h3>
@@ -126,6 +126,25 @@
 </div>
 <script>
 	function notesCtrl($scope, $http, $rootScope) {		
+		$scope.loadNotesList = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/article/findAllDesc',
+				data: {
+					"sortVo": {
+						"page":0,
+						"size":15
+					}
+				},
+				success: function(data) {
+					$scope.notes = data.data;
+					console.log($scope.notes);
+				}
+			});
+		};
+		$scope.loadNotesList();
+		
 		$scope.del = function() {
 			layer.confirm('您确定要删除该贴吗', {
 				btn: ['确定','取消'] //按钮
