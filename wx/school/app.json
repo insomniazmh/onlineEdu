@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/school_index/index",
     "pages/notes/index/index",
+    "pages/school_index/index",
     "pages/classRoom/review/review",
     "pages/classRoom/preview/preview",
     "pages/notes/page/page",

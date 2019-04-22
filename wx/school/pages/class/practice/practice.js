@@ -19,10 +19,8 @@ Page({
     if (getApp().globalData.circleId && random) {
       // 创建连接
       webSocket.connectSocket({
-        url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
-          + "/" + wx.getStorageSync("token") + "/" + random
-        // url: "ws://192.168.10.2:9000/interactive/" + getApp().globalData.circleId
-        //    + "/" + wx.getStorageSync("token") + "/" + random
+        url: getApp().globalData.websocketUrl + "/interactive/" + getApp().globalData.circleId
+           + "/" + wx.getStorageSync("token") + "/" + random
       });
       // 设置接收消息回调
       webSocket.onSocketMessageCallback = this.onSocketMessageCallback;

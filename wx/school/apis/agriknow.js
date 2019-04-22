@@ -7,11 +7,13 @@
 import request from './request.js'
 class agriknow {
   constructor() {
-    this._baseUrl = 'https://e.hnfts.cn'
-    this._quiz = '/quiz'
+    // this._baseUrl = 'https://e.hnfts.cn'
+    // this._quiz = '/quiz'
+    //this._wx = 'wechat'
 
-    // this._baseUrl = 'http://192.168.10.2:8081'
-    // this._quiz = ''
+    this._baseUrl = 'http://192.168.10.2:'
+    this._quiz = '8081'
+    this._wx = '8090'
     
     this._request = new request
     this._request.setErrorHandler(this.errorHander)
@@ -101,8 +103,8 @@ class agriknow {
   /**
    * 微信登录
    */
-  wxLogin() {
-    return this._request.wxLogin()
+  wxLogin(postData = {}) {
+    return this._request.getRequest(this._baseUrl + this._wx + '/user/login', postData).then(res => res.data)
   }
 
 }
