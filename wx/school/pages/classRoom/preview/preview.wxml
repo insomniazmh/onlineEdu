@@ -9,12 +9,12 @@
       <van-row>
         <van-col span="12">
           <view class='col-8'>
-            <navigator hover-class="classBottom" class="{{currentSelectTripType == 'pinche' ? 'active' : ''}}" bindtap='selectedPinche' data-id='pinche'>课前</navigator>
+            <navigator hover-class="classBottom">课前</navigator>
           </view>
         </van-col>
         <van-col span="12">
           <view class='col-8 col-last'>
-            <navigator  url='../afterClass/afterClass' hover-class='classBottom' class="{{currentSelectTripType == 'baoche' ? 'active' : ''}}" bindtap='selectedBaoche' data-id='baoche'>课后</navigator>
+            <navigator  url='../review/review' hover-class='classBottom'>课后</navigator>
           </view>
         </van-col>
       </van-row>
@@ -32,10 +32,10 @@
       <view class='know-swiper' style='margin-top:50rpx;'>
         <swiper autoplay indicator-dots indicator-color='ghostwhite'>
           <swiper-item>
-            <image src='/../../../img/news/list1.png'></image> 
+            <image src='/img/news/list1.png'></image> 
            </swiper-item>
           <swiper-item>
-            <image src='/../../../img/banner/header.png'></image> 
+            <image src='/img/banner/header.png'></image> 
            </swiper-item>
         </swiper>
       </view>
@@ -44,10 +44,10 @@
       <view class='know-swiper' style='margin-top:50rpx;'>
         <swiper autoplay indicator-dots indicator-color='ghostwhite'>
           <swiper-item>
-            <image src='/../../../img/news/list1.png'></image> 
+            <image src='/img/news/list1.png'></image> 
            </swiper-item>
           <swiper-item>
-            <image src='/../../../img/banner/header.png'></image> 
+            <image src='/img/banner/header.png'></image> 
            </swiper-item>
         </swiper>
       </view>
@@ -55,23 +55,23 @@
       <view class='know'>参考资料</view>
       <view class='data-list'>
         <view class='data-item'>
-          <image src='/../../../img/icon/新闻列表点缀.png'></image>
+          <image src='/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <image src='/../../../img/icon/新闻列表点缀.png'></image>
+          <image src='/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <image src='/../../../img/icon/新闻列表点缀.png'></image>
+          <image src='/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <image src='/../../../img/icon/新闻列表点缀.png'></image>
+          <image src='/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <image src='/../../../img/icon/新闻列表点缀.png'></image>
+          <image src='/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
       </view>

@@ -182,12 +182,15 @@
 .room-warp .data-list .task-item text{
   font-size: 28rpx;
 }
-.room-warp .data-list .self-item .self-img{
-  width: 140rpx;
-  height: 100rpx;
-}
 .room-warp .data-list .self-item .mgr{
+  display: flex;
+}
+.room-warp .data-list .self-item .mgr .test{
   margin-right: 150rpx;
+}
+.room-warp .data-list .self-item .mgr image{
+  width: 120rpx;
+  height: 90rpx;
 }
 .room-warp .data-list .img-item{
   display: flex;
@@ -201,15 +204,22 @@
   width: auto;
   padding: 20rpx 20rpx 20rpx;
   border-radius: 10rpx;
+  font-size: 30rpx;
 }
 .room-warp .data-list .task-btn{
   padding: 15rpx 80rpx 5rpx;
   color: #fff;
-}
+} 
 .room-warp .data-list .task-btn button{
   background: #0aa1de;
   color: #fff;
   height: 65rpx;
   font-size: 33rpx;
   line-height: 2;
+}
+.currentWordNumber{
+  color: gray;
+  position: absolute;
+  left: 470rpx;
+  bottom: 0;
 }

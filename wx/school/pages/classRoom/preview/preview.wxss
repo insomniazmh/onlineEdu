@@ -84,7 +84,6 @@
 .room-warp .data-list .data-item{
   margin-bottom: 15rpx;
   font-size: 32rpx;
-  font-weight: 600;
   display: flex;
 }
 .room-warp .data-list .data-item image{

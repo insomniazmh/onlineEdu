@@ -6,7 +6,7 @@
       <van-row>
         <van-col span="12">
           <view class='col-8'>
-            <navigator url='../classRoom/classRoom' hover-class='classBottom'>课前</navigator>
+            <navigator url='../preview/preview' hover-class='classBottom'>课前</navigator>
           </view>
         </van-col>
         <van-col span="12">
@@ -32,7 +32,7 @@
         <view class='know-warp'>
           <view class='know-card'>
             <view class='card-img'>
-              <image src='/../../../img/floor/up1.png'></image>
+              <image src='/img/floor/up1.png'></image>
             </view>
             <view class='card-title'>
                 <view class='title-name'>张小倩</view>
@@ -77,11 +77,15 @@
           </text>
           <view class='self-item img-item'>
             <view class='self-img mgr'>
-              <image src='/../../../img/icon/r_icon.png'></image>
+              <block wx:for='{{imgLIst}}' wx:key='img'>
+                <view class='test' bindtap='chooseThis' data-index='{{index}}'>
+                    <image src='{{imgHoverIndex == index ?item.hoverUrl:item.url}}'></image>
+                </view>
+              </block>
             </view>
-            <view class='self-img'>
-              <image src='/../../../img/icon/w_icon.png'></image>
-            </view>
+            <!-- <view class='self-img'>
+              <image src='/img/icon/w_icon_g.png'></image>
+            </view> -->
           </view>
         </view>
         <view class='task-item'>
@@ -90,7 +94,13 @@
             1、说说为什么电子商务能使买卖双方的交易成本大大降低
           </text>
           <view class='task-textarea'>
-            <textarea maxlength='200'></textarea>
+            <textarea maxlength='200' 
+              bindinput='count' 
+              minLength='{{min}}' 
+              maxLength='{{max}}'>
+                <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
+                <text class="hint">{{texts}}</text>
+              </textarea>
           </view>
           <view class='task-btn'>
           <button>提交作业</button>

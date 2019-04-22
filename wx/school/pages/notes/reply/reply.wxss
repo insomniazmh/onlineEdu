@@ -69,7 +69,7 @@
     font-size: 30rpx;
     color:#196dbb;
     display: flex;
-    width: 34%;
+    width: 70%;
     align-items: center;
     justify-content: space-between;
     border: 1px solid #ccc;

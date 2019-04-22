@@ -1,9 +1,10 @@
 {
   "pages": [
     "pages/school_index/index",
-    "pages/afterClass/afterClass/afterClass",
-    "pages/classRoom/preview/classRoom/classRoom",
+    "pages/notes/index/index",
     "pages/notes/page/page",
+    "pages/classRoom/review/review",
+    "pages/classRoom/preview/preview",
     "pages/getId/getId",
     "pages/class/students_interaction/students_interaction",
     "pages/class/strom/strom",
@@ -16,7 +17,6 @@
     "pages/Raise your hand/choose_h",
     "pages/fill up/fill up",
     "pages/Raise your hand/Raise your hand",
-    "pages/notes/index/index",
     "pages/notes/reply/reply",
     "pages/notes/release/release",
     "pages/notes/textarea/textarea"

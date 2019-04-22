@@ -8,15 +8,21 @@
   </picker>
 </view>
   <view class='reply-input'>
-    <input class='title' type='title' placeholder='请输入您的标题'></input>
+    <input bindinput='bindKeyinput' class='title' type='title' placeholder='请输入您的标题'></input>
   </view>
-  <view class='title-warp'>
-    <view class='area-content'><textarea maxlength='900' placeholder='请输入您的内容'></textarea></view>
+  <view class='section'>
+    <form bindsubmit='bindFormSubmit'>
+      <view class='title-warp'>
+        <view class='area-content'>
+         <textarea name='textarea' maxlength='900' placeholder='请输入您的内容'></textarea>
+        </view>
+        <button form-type='submit' class='fotbtn'>立即发帖</button>
+      </view>
+    </form>
   </view>
-  <!-- switch -->
+    <!-- switch -->
   <view class="body-view">
       <text>是否公开</text>
       <switch style='zoom:.8' value="关" checked bindchange="switch1Change" />
   </view>
-  <button class='fotbtn'>立即发帖</button>
 </view>

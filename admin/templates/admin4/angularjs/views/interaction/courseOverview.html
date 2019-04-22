@@ -735,7 +735,7 @@
 					<div class="portlet-title tabbable-line">
 						<div class="caption font-green-sharp">
 							<i class="icon-settings font-green-sharp"></i>
-							<span class="caption-subject bold uppercase" id="title">修改分组信息</span>
+							<span class="caption-subject bold uppercase" id="title">修改分组信息(拖动学生头像改变分组)</span>
 						</div>
 						<div class="actions">
 							<button type="button" class="btn btn-success" ng-click="randomBuild()">随机分组</button>
@@ -803,6 +803,28 @@
 				data: {
 					classId: "123",
 					circleId: "5ca6ce9b1890960001896a4d",
+				},
+				url: '/classRoom/team/nowTeam',
+				success: function(res) {
+					$scope.teamList = res.data;
+					$scope.teamList.forEach(( item, i ) => {
+					  console.log( item, i );
+					  item.bgColor = bgColor[i%4];
+					});
+					console.log($scope.teamList);
+				}
+			});
+		}
+		$scope.loadTeamList();
+		
+		//随机分组
+		$scope.teamRandomBuild = function() {
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					classId: "123",
+					circleId: "5ca6ce9b1890960001896a4d",
 					expType: 'forever',
 					number: 4
 				},
@@ -817,7 +839,6 @@
 				}
 			});
 		}
-		$scope.loadTeamList();
 		
 		//随机分组
 		$scope.randomBuild = function() {
@@ -827,7 +848,7 @@
 					layer.alert("只能输入大于0的数字");
 					return false;
 				}
-				$scope.loadTeamList();
+				$scope.teamRandomBuild();
 			  layer.close(index);
 			});
 		}
@@ -839,6 +860,20 @@
 	      	console.log(ui.sender[0].id);//移出组id
 	      	console.log(ui.item[0].id);//改变的学生id
 	      	console.log(event.target.id);//移入组id
+	      	
+	      	common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						data: {
+							addTeamId: event.target.id,
+							removeTeamId: ui.sender[0].id,
+							students: ui.item[0].id
+						},
+						url: '/classRoom/team/teamChange',
+						success: function(res) {
+							$scope.loadTeamList();
+						}
+					});
 	      }
 	    }).disableSelection();
 		}
