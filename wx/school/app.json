@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/school_index/index",
     "pages/afterClass/afterClass/afterClass",
     "pages/classRoom/preview/classRoom/classRoom",
-    "pages/school_index/index",
     "pages/notes/page/page",
     "pages/getId/getId",
     "pages/class/students_interaction/students_interaction",
