@@ -38,10 +38,6 @@
     </view>
     <!-- 评论收藏 -->
     <view class='footer-comment'>
-      <!-- <view  hover-class='clkColor' class='reply'>
-        <van-icon custom-style='color:red;' color='red' size='45rpx' name="like-o" />
-        <text class='text-top'>20</text>
-      </view> -->
       <view class='collection'>
         <van-icon color='#0aa1ed' size='45rpx' name="comment-o" />
        <text class='text-top'>20</text>

@@ -64,8 +64,10 @@ Page({
   onLoad: function (options) {
     var that = this;
       var postData = {
+        isValidated:0,
         page: 0,
-        size: 15
+        size: 15,
+        sort:1
       };
     getApp().agriknow.notesList(postData).then(res => {
         that.setData({

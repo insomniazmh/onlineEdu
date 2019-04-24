@@ -5,12 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msg: [
-      { 'show':''},
-    ],
-    asg: [
-      { 'whow': '' },
-    ],
     likeFlag: '',
     likeCount: 1321,
     collectFlag: '',
@@ -32,7 +26,6 @@ Page({
       url: '../reply/reply',
     })
   },
-
   changelike: function () {
     let count = this.data.likeCount;
     if (this.data.likeFlag == '') {
@@ -92,7 +85,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     var postData = {
-      id:"29512c44cb704629a9de547528ead313"
+      id:"43f6cc2ab62a44cd8f76cde19de0a4d8"
     };
     console.log(postData)
     getApp().agriknow.notesContent(postData).then(res => {

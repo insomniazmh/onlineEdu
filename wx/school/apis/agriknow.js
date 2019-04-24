@@ -128,11 +128,17 @@ class agriknow {
   }
 
   /**
-   *  内容详情
+   *  帖子添加
    */
   notesPosted(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._education + '/article/saveOrUpdate', postData).then(res => res.data) 
+    return this._request.postRequest(this._baseUrl + this._education + '/article/saveOrUpdate', postData).then(res => res.data)
   }
 
+  /**
+   *  分页列表
+   */
+  notesPageList(postData = {}){
+    return this._request.postRequest(this._baseUrl + this._education + '/article/findStuAllDesc', postData).then(res => res.data)
+  }
 }
 export default agriknow
