@@ -11,38 +11,16 @@ Page({
     asg: [
       { 'whow': '' },
     ],
+    likeFlag: '',
+    likeCount: 1321,
+    collectFlag: '',
+    collectCount:200,
     pageContent:{}
   },
   jumpRep(){
     wx.navigateTo({
       url: '../textarea/textarea',
     })
-  },
-  zan: function (e) {
-    const vm = this;
-
-    const _index = e.currentTarget.dataset.index;
-
-    let _msg = [...vm.data.msg]; // msg的引用
-
-    _msg[_index]['show'] = !vm.data.msg[_index]['show'];
-    vm.setData({
-      msg: _msg
-    })
-
-  },
-  cang: function (e) {
-    const vm = this;
-
-    const _index = e.currentTarget.dataset.index;
-
-    let _asg = [...vm.data.asg]; // msg的引用
-
-    _asg[_index]['whow'] = !vm.data.asg[_index]['whow'];
-    vm.setData({
-      asg: _asg
-    })
-
   },
     reply:function(){
       wx.navigateTo({
@@ -53,6 +31,59 @@ Page({
     wx.navigateTo({
       url: '../reply/reply',
     })
+  },
+
+  changelike: function () {
+    let count = this.data.likeCount;
+    if (this.data.likeFlag == '') {
+      count++;
+      this.setData({
+        likeFlag: 'red',
+        likeCount: count
+      });
+      wx.showToast({
+        title: '点赞成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }else {
+      count--;
+      this.setData({
+        likeFlag: '',
+        likeCount:count
+      });
+      wx.showToast({
+        title: '取消点赞',
+        icon: 'success',
+        duration: 2000
+      })
+    }
+  },
+  changeCollect(){
+    let number = this.data.collectCount;
+    if (this.data.collectFlag == ''){
+      number++;
+      this.setData({
+        collectFlag:'yellow',
+        collectCount:number
+      })
+      wx.showToast({
+        title: '收藏成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }else{
+      number--;
+      this.setData({
+        collectFlag:'',
+        collectCount:number
+      })
+      wx.showToast({
+        title: '取消收藏',
+        icon: 'success',
+        duration: 2000
+      })
+    }
   },
 
   /**

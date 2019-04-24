@@ -18,15 +18,15 @@
       </view>
       <view class='like-block'>
         <view  class='like-zan l-btn'>
-          <view class='img-px'>
-            <van-icon name='fire' />
-            <text class='like-text'>1321</text>
+          <view class='img-px' bindtap='changelike'>
+            <van-icon name='fire' style='color: {{likeFlag}};' />
+            <text class='like-text' style='color: {{likeFlag}};'>{{likeCount}}</text>
           </view>
         </view>
         <view class='like-cang l-btn'>
-          <view class='img-ps'>
-            <van-icon name='like' />
-            <text class='like-text'>555</text>
+          <view class='img-ps' bindtap='changeCollect'>
+            <van-icon name='like' style='color:{{collectFlag}}'/>
+            <text class='like-text' style='color:{{collectFlag}}'>{{collectCount}}</text>
           </view>
         </view>
       </view>
