@@ -1,6 +1,4 @@
 /* pages/practice/practice.wxss */
-@import"../../../wxParse/wxParse.wxss";
-
 .choosen_box{background:#F8F8F8;padding:20rpx 0;width:760rpx;overflow:scroll;}
 
 .choosen_box text{border-radius:50%;display:block;width:60rpx;height:60rpx;text-align:center;line-height:60rpx;float:left;font-size:32rpx;margin-left:25rpx;margin-bottom:15rpx;}

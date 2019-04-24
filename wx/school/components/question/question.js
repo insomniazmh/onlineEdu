@@ -18,45 +18,45 @@ Component({
   data: {
     //这里是一些组件内部数据
     showSub: false,
-    radioindex: null,
-    checkboxIndex: [],
     checkTOF: true,
-    optsValue: ["A", "B", "C", "D", "E", "F"],
     answer: ""
   },
   methods: {
     /**点击单选答案选项 */
     bindradio: function (e) {
-      var that = this;
-      this.setData({ radioindex: e.currentTarget.dataset.id });
-      this.setData({ answer: that.data.optsValue[that.data.radioindex] });
+      var id = e.currentTarget.dataset.id;//获取当前dom元素绑定数据：index
+      var opts = this.data.opts;//获取所有选项
+      //循环选项，将所有的选项的选中状态都去除
+      for (var item in opts) {
+        opts[item].selected = false;
+      }
+      opts[id].selected = true;//给当前点击的选中加上选中状态
+      //将答案和修改姑的选项重新赋予data中
+      this.setData({ 
+        opts: opts,
+        answer: opts[id].optValue
+     });
     },
 
     /**点击多选答案选项 */
     bindCheckbox: function (e) {
+      var answer = '';
       var id = e.currentTarget.dataset.id;//获取当前dom元素绑定数据：index
-      var that = this;
-      var dataArr = that.data.checkboxIndex;//获取当前多选信息数组
-      var flag = true;
-      if (dataArr.length > 0) {//如果被点击的选项index在数组中存在，则删除之
-        for (var i = 0; i < dataArr.length; i++) {
-          if (dataArr[i] == id) {
-            dataArr.splice(i, 1);
-            flag = false;
-          }
-        }
+      var opts = this.data.opts;//获取所有选项
+      opts[id].selected = !opts[id].selected;//改变被点击的选项的选中状态
+      console.log(opts[id]);
+      //将改变的后的选项赋予data中
+      this.setData({
+        opts: opts
+      });
+      //循环选项，将被选中的选项拼装成答案
+      for (var item in opts) {
+        if (opts[item].selected)
+          answer += opts[item].optValue;
       }
-      if (flag && (id || id == 0)) {//如果被点击的选项index在数组中不存在，则push之
-        dataArr.push(id);
-      }
-      that.setData({ checkboxIndex: dataArr });//将更新过的数据重新传人data
-      var answer = "";
-      console.log(dataArr);
-      for (var item in dataArr) {//遍历index,取对应的A，B，C，D保存至答案变量
-        answer += that.data.optsValue[dataArr[item]];
-      }
-      that.setData({ answer: answer });//将答案变量赋入data
+      this.setData({ answer: answer });//将答案变量赋入data
     },
+
     /**点击判断答案选项 */
     bindTOF: function (e) {
       if (e.currentTarget.dataset.id == 1) {
@@ -71,6 +71,7 @@ Component({
         });
       }
     },
+    
     /**点击确定按钮提交答案 */
     bindSub: function (e) {
       var that = this;
@@ -121,8 +122,6 @@ Component({
         showSub: true,//提交按钮是否显示
         raiseFlag: false,//举手按钮是否显示
         designFlag: false,//主观题的提交和重置按钮是否显示
-        radioindex: null,
-        checkboxIndex: [],
         answer: "",
 
         questionId: data.bigQuestion.id,
@@ -130,49 +129,29 @@ Component({
       });
 
       if (data.bigQuestion.examChildren[0].examType == "single") {//单选题
-        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（单选）", that, 5);//拼装问题title
-        that.setData({ questionType: "single" });
-        if (data.bigQuestion.myAnswer) {
-          that.setData({ radioindex: data.bigQuestion.myAnswer });
-        }
-        //拼装选项
-        var opts = data.bigQuestion.examChildren[0].optChildren;
-        for (let i = 0; i < opts.length; i++) {
-          WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
-          if (i === opts.length - 1) {
-            WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
-          }
-        }
+        that.setData({ 
+          questionType: "single",
+          title: data.bigQuestion.examChildren[0].choiceQstTxt + "（单选）",//标题
+          opts: data.bigQuestion.examChildren[0].optChildren//选项
+        });
       } else if (data.bigQuestion.examChildren[0].examType == "multiple") {//多选题
-        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].choiceQstTxt + "（多选）", that, 5);//拼装问题title
-        that.setData({ questionType: "multiple" });
-        // if (data.bigQuestion.myAnswer) {
-        //   that.setData({ checkboxIndex: data.bigQuestion.myAnswer.split('') });
-        // }
-        //拼装选项
-        var opts = data.bigQuestion.examChildren[0].optChildren;
-        for (let i = 0; i < opts.length; i++) {
-          WxParse.wxParse('opt' + i, 'html', opts[i].optTxt, that);
-          if (i === opts.length - 1) {
-            WxParse.wxParseTemArray("optArray", 'opt', opts.length, that)
-          }
-        }
+        that.setData({ 
+          questionType: "multiple",
+          title: data.bigQuestion.examChildren[0].choiceQstTxt,//标题
+          opts: data.bigQuestion.examChildren[0].optChildren//选项
+        });
       } else if (data.bigQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
-        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）", that, 5);//拼装问题title
-        that.setData({ questionType: "trueOrFalse" });
-        console.log(data.bigQuestion);
-        if (data.bigQuestion.myAnswer != undefined) {
-          console.log(data.bigQuestion.myAnswer);
-          that.setData({ checkTOF: data.bigQuestion.myAnswer });
-        }
+        that.setData({ 
+          questionType: "trueOrFalse",
+          title: data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）"
+        });
       } else if (data.bigQuestion.examChildren[0].examType == "design") {//主观题
-        WxParse.wxParse('title', 'html', data.bigQuestion.examChildren[0].designQuestion + "（主观）", that, 5);//拼装问题title
         that.setData({
           questionType: "design",
+          title: data.bigQuestion.examChildren[0].designQuestion + "（主观）",
           designFlag: true,
           showSub: false
         });
-
       }
 
       if (data.participate == "raise") {//需要先举手
