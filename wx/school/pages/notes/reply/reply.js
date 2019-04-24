@@ -9,26 +9,14 @@ Page({
     tihuoWay:'不明觉厉',
     array: ['美国', '中国', '巴西', '日本'],
     objectArray: [
-      {
-        id: 0,
-        name: '美国'
-      },
-      {
-        id: 1,
-        name: '中国'
-      },
-      {
-        id: 2,
-        name: '巴西'
-      },
-      {
-        id: 3,
-        name: '日本'
-      }
+          {id: 0,name: '美国'},
+          {id: 1,name: '中国'},
+          {id: 2,name: '巴西'},
+          {id: 3,name: '日本'}
     ],
     index:1,
     posTed:{},
-    inputValue:"",
+    inputValue:"啊啊",
   },
   switch1Change(e){
     console.log('swtch发生改变,')
@@ -68,11 +56,12 @@ Page({
     var postData = {
       articleConten: content,
       articleType:"xd",
-      classId:22,
+      classId:'1611',
       courseId:"2c9180846827407401682b57f4a60000",
       description:"文章描述",
       imgUrl:"titleUrl",
-      title: this.data.inputValue
+      title: this.data.inputValue,
+      userId:'130133199203182776'
     };
     console.log(postData)
     //  return false;
