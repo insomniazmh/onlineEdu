@@ -130,6 +130,17 @@
 </div>
 <script>
 	function notesItemCtrl($scope, $http, $rootScope) {
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			url: '/article/findId',
+			data: {
+				id: '29512c44cb704629a9de547528ead313'
+			},
+			success: function(data) {
+				
+			}
+		});
 		
 	}
 </script>

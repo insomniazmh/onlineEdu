@@ -1,28 +1,28 @@
 <!--pages/students_interaction/students_interaction.wxml-->
 <view class='stud_int_clm' data-url="/pages/class/quiz/quiz" bindtap="goUrl">
-  <image src='../../../img/z11.png' mode='widthFix'></image>
+  <image src='http://118.24.120.43:8611/img/z11.png' mode='widthFix'></image>
   <text>答题</text>
 </view>
 <view class='stud_int_clm' data-url="/pages/class/practice/practice" bindtap="goUrl">
-  <image src='../../../img/z12.png' mode='widthFix'></image>
+  <image src='http://118.24.120.43:8611/img/z12.png' mode='widthFix'></image>
   <text>练习</text>
 </view>
 <view class='stud_int_clm' data-url="/pages/class/survey/survey" bindtap="goUrl">
-  <image src='../../../img/z13.png' mode='widthFix'></image>
+  <image src='http://118.24.120.43:8611/img/z13.png' mode='widthFix'></image>
   <text>问卷</text>
 </view>
 <view class='cfx'></view>
 <view class='stud_int_clm' data-url="/pages/class/task/task" bindtap="goUrl">
-  <image src='../../../img/z14.png' mode='widthFix'></image>
+  <image src='http://118.24.120.43:8611/img/z14.png' mode='widthFix'></image>
   <text>任务</text>
 </view>
 <view class='stud_int_clm' data-url="/pages/class/strom/strom" bindtap="goUrl">
-  <image src='../../../img/z15.png' mode='widthFix'></image>
+  <image src='http://118.24.120.43:8611/img/z15.png' mode='widthFix'></image>
   <text>风暴</text>
 </view>
 <view class='stud_int_clm opacity' data-url="" bindtap="goUrl">
-  <image src='../../../img/z16.png' mode='widthFix'></image>
+  <image src='http://118.24.120.43:8611/img/z16.png' mode='widthFix'></image>
   <text>更多</text>
 </view>
 <view class='cfx'></view>
-<image class='logo_min' src='../../../img/logo.png' mode='widthFix'></image>
+<image class='logo_min' src='http://118.24.120.43:8611/img/logo.png' mode='widthFix'></image>
