@@ -34,7 +34,7 @@
     <text>上课</text>
   </view>
   <view class='clm_child' bindtap='goOn' data-url='/pages/classRoom/preview/preview'>
-    <image src='../../img/z05.png' mode='widthFix'></image>
+    <image src='http://118.24.120.43:8611/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
   <view class='clm_child' bindtap="goTo" data-url='/pages/notes/index/index'>
