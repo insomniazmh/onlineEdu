@@ -15,7 +15,7 @@
           <view class='item-head'>
             <view class='head-left'>
               <view class='hleft-img'>
-                <image src='../../../img/news/up1.png'></image>
+                <image src='http://118.24.120.43:8611/img/news/up1.png'></image>
               </view>
               <view class='hleft-text'>{{item.userId}} </view>
             </view>
@@ -32,7 +32,7 @@
             </view>
           </view>
           <view class='item-rimg'>
-            <image src='../../../img/news/list1.png'></image>
+            <image src='http://118.24.120.43:8611/img/news/list1.png'></image>
           </view>
       </view>
     </view>

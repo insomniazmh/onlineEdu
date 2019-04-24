@@ -3,7 +3,7 @@
 <!-- 头部 -->
 <view class='room-warp'>
   <view class='headImg'>
-    <image src='/img/banner/header.png'></image>
+    <image src='http://118.24.120.43:8611/img/banner/header.png'></image>
   </view>
     <view class='beforeList'>
       <van-row>
@@ -32,10 +32,10 @@
       <view class='know-swiper' style='margin-top:50rpx;'>
         <swiper autoplay indicator-dots indicator-color='ghostwhite'>
           <swiper-item>
-            <image src='/img/news/list1.png'></image> 
+            <image src='http://118.24.120.43:8611/img/news/list1.png'></image> 
            </swiper-item>
           <swiper-item>
-            <image src='/img/banner/header.png'></image> 
+            <image src='http://118.24.120.43:8611/img/banner/header.png'></image> 
            </swiper-item>
         </swiper>
       </view>
@@ -44,10 +44,10 @@
       <view class='know-swiper' style='margin-top:50rpx;'>
         <swiper autoplay indicator-dots indicator-color='ghostwhite'>
           <swiper-item>
-            <image src='/img/news/list1.png'></image> 
+            <image src='http://118.24.120.43:8611/img/news/list1.png'></image> 
            </swiper-item>
           <swiper-item>
-            <image src='/img/banner/header.png'></image> 
+            <image src='http://118.24.120.43:8611/img/banner/header.png'></image> 
            </swiper-item>
         </swiper>
       </view>
@@ -55,23 +55,23 @@
       <view class='know'>参考资料</view>
       <view class='data-list'>
         <view class='data-item'>
-          <image src='/img/icon/newslisticon.png'></image>
+          <image src='http://118.24.120.43:8611/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <image src='/img/icon/newslisticon.png'></image>
+          <image src='http://118.24.120.43:8611/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <image src='/img/icon/newslisticon.png'></image>
+          <image src='http://118.24.120.43:8611/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <image src='/img/icon/newslisticon.png'></image>
+          <image src='http://118.24.120.43:8611/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
         <view class='data-item'>
-          <image src='/img/icon/newslisticon.png'></image>
+          <image src='http://118.24.120.43:8611/img/icon/newslisticon.png'></image>
           <navigator>猫吃鱼狗吃肉啊</navigator>
         </view>
       </view>

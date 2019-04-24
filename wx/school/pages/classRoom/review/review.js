@@ -6,20 +6,20 @@ Page({
    */
   data: {
     userStars: [
-      '/img/icon/star-active.png',
-      '/img/icon/star-active.png',
-      '/img/icon/star-active.png',
-      '/img/icon/star-active.png',
-      '/img/icon/star.png'
+      'http://118.24.120.43:8611/img/icon/star-active.png',
+      'http://118.24.120.43:8611/img/icon/star-active.png',
+      'http://118.24.120.43:8611/img/icon/star-active.png',
+      'http://118.24.120.43:8611/img/icon/star-active.png',
+      'http://118.24.120.43:8611/img/icon/star.png'
     ],
     imgLIst: [
       {
-        url: `/img/icon/r_icon_g.png`,
-        hoverUrl: `/img/icon/r_icon.png`
+        url: `http://118.24.120.43:8611/img/icon/r_icon_g.png`,
+        hoverUrl: `http://118.24.120.43:8611/img/icon/r_icon.png`
       },
       {
-        url: `/img/icon/w_icon_g.png`,
-        hoverUrl: `/img/icon/w_icon.png`
+        url: `http://118.24.120.43:8611/img/icon/w_icon_g.png`,
+        hoverUrl: `http://118.24.120.43:8611/img/icon/w_icon.png`
       },
     ],
     imgHoverIndex: 0,
@@ -62,9 +62,9 @@ Page({
     var len = tempUserStars.length; // 获取星星数组的长度
     for (var i = 0; i < len; i++) {
       if (i <= index) { // 小于等于index的是满心
-        tempUserStars[i] = '/img/star-active.png'
+        tempUserStars[i] = 'http://118.24.120.43:8611/img/star-active.png'
       } else { // 其他是空心
-        tempUserStars[i] = '/img/star.png'
+        tempUserStars[i] = 'http://118.24.120.43:8611/img/star.png'
       }
     }
     // 重新赋值就可以显示了
