@@ -1,7 +1,28 @@
 <view class='warp'>
-  <view class='title-warp'>
-    <view class='intitle'>标题自己看着办吧</view>
-    <view class='area-content'><textarea maxlength='900' placeholder='请输入您的内容'></textarea></view>
+<view class="section">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+      当前选择：{{array[index]}}
+        <van-icon name="arrow-down" />
+    </view>
+  </picker>
+</view>
+  <view class='reply-input'>
+    <input bindinput='bindKeyinput' class='title' type='title' placeholder='请输入您的标题'></input>
   </view>
-  <button bindtap='reLease' class='fotbtn'>立即提交</button>
+  <view class='section'>
+    <form bindsubmit='bindFormSubmit'>
+      <view class='title-warp'>
+        <view class='area-content'>
+         <textarea name='textarea' maxlength='900' placeholder='请输入您的内容'></textarea>
+        </view>
+        <button form-type='submit' class='fotbtn'>立即发帖</button>
+      </view>
+    </form>
+  </view>
+    <!-- switch -->
+  <view class="body-view">
+      <text>是否公开</text>
+      <switch style='zoom:.8' value="关" checked bindchange="switch1Change" />
+  </view>
 </view>

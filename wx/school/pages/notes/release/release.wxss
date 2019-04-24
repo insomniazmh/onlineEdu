@@ -3,17 +3,28 @@
   position: relative;
   top: 80rpx;
 }
-.intitle{
+.title-warp{
+  position: relative;
+  margin-top: 40rpx;
+}
+.reply-input{
+  position: relative;
+  top: 50rpx;
+  padding: 0 15rpx 15rpx;
+}
+.title{
   background: transparent;
+  border: none;
+  border-bottom: 1px solid #f1f1f1;
+  height: 70rpx;
+  width: 450rpx;
   color: #196dbb;
-  padding: 0 35rpx;
-  font-size: 45rpx;
-  font-weight: bold;
+  padding: 0 25rpx 0 30rpx;
+  font-size: 32rpx;
 }
 .area-content {
   position: relative;
-  top: 50rpx;
-  /* border: 1px solid red; */
+  top: 60rpx;
   font-size: 32rpx;
   background: #fdfcfc;
   padding: 0 35rpx;
@@ -22,7 +33,46 @@
   padding-top: 20rpx;
 }
 .fotbtn{
-  top: 50rpx;
-  background: #0aa1ed;
-  color: #796209;
+  top: 30rpx;
+  color:#f1f1f1;
+  background:cornflowerblue;
+  border-radius: 5rpx;
+}
+/* swich */
+.body-view{
+    height: 80rpx;
+    font-size: 30rpx;
+    color:#196dbb;
+    display: flex;
+    width: 97%;
+    margin-top: 60rpx;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #f1f1f1;
+    padding: 0 10rpx;
+    border-radius: 10rpx;
+}
+.body-view text{
+  font-size: 35rpx;
+  color:cornflowerblue;
+}
+
+
+/* selection */
+.section{
+  padding:0 10rpx;
+  background-color:#fff;
+  position:relative;
+}
+.section picker{
+    height: 60rpx;
+    font-size: 30rpx;
+    color:#196dbb;
+    display: flex;
+    width: 70%;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 0 10rpx;
+    border-radius: 10rpx;
 }

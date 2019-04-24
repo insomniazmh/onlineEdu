@@ -140,5 +140,21 @@ class agriknow {
   notesPageList(postData = {}){
     return this._request.postRequest(this._baseUrl + this._education + '/article/findStuAllDesc', postData).then(res => res.data)
   }
+
+  /**
+   *  点赞
+   */
+  notesContentLike(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/article/addGood', postData).then(res => res.data)
+  }
+
+  /**
+   *  收藏
+   */
+  notesContentCollect(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/article/addCollect', postData).then(res => res.data)
+  }
+
 }
+
 export default agriknow

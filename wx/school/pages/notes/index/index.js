@@ -39,7 +39,7 @@ Page({
   },
   release: function(){
     wx.navigateTo({
-      url: '../reply/reply',
+      url: '../release/release',
     })
   },
   showToast(){

@@ -9,7 +9,8 @@ Page({
     likeCount: 1321,
     collectFlag: '',
     collectCount:200,
-    pageContent:{}
+    pageContent:{},
+    
   },
   jumpRep(){
     wx.navigateTo({
@@ -18,12 +19,12 @@ Page({
   },
     reply:function(){
       wx.navigateTo({
-        url: '../release/release',
+        url: '../reply/reply',
       })
     },
     release: function () {
     wx.navigateTo({
-      url: '../reply/reply',
+      url: '../release/release',
     })
   },
   changelike: function () {
@@ -54,6 +55,21 @@ Page({
   },
   changeCollect(){
     let number = this.data.collectCount;
+    var that = this;
+    var postData = {
+      id: "43f6cc2ab62a44cd8f76cde19de0a4d8"
+    };
+    console.log(postData)
+    getApp().agriknow.notesContentLike(postData).then(res => {
+      that.setData({
+        pageContent: res.data
+      });
+      console.log(that.data.pageContent);
+    })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
+      
     if (this.data.collectFlag == ''){
       number++;
       this.setData({

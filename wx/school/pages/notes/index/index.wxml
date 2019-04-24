@@ -48,12 +48,12 @@
           <view class='wish_list_box_collection' wx:if="{{item.collected==1}}">
             <!-- 点赞过 -->
             <image catchtap='onCollectionTap'
-              src="/img/icon/rgood.png"
+              src="http://118.24.120.43:8611/img/icon/rgood.png"
               data-index='{{index}}'></image>
             <text>{{item.dzzs}}</text>
           </view>
           <view class='wish_list_box_collection' wx:else>
-            <image src='/img/icon/good.png' 
+            <image src='http://118.24.120.43:8611/img/icon/good.png' 
               catchtap='onCollectionTap' 
               data-index='{{index}}'></image>
             <text>{{item.dzzs}}</text>
