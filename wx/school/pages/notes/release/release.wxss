@@ -24,7 +24,7 @@
 }
 .area-content {
   position: relative;
-  top: 60rpx;
+  margin-top: 80rpx;
   font-size: 32rpx;
   background: #fdfcfc;
   padding: 0 35rpx;
@@ -33,7 +33,7 @@
   padding-top: 20rpx;
 }
 .fotbtn{
-  top: 30rpx;
+  margin-top: 40rpx;
   color:#f1f1f1;
   background:cornflowerblue;
   border-radius: 5rpx;
@@ -75,4 +75,32 @@
     border: 1px solid #ccc;
     padding: 0 10rpx;
     border-radius: 10rpx;
+}
+.loadBtn{
+  width: 100%
+}
+.loadImg{
+  position: relative;
+  padding: 30rpx 30rpx 0rpx 40rpx;
+  height: 200rpx;
+}
+.loadImg .uploadImage{
+  border: 2px dashed #ddd;
+  font-size: 70rpx;
+  line-height: 2.8;
+  text-align: center;
+  color: #ddd;
+}
+.loadImg .uploadImage,.loadImgItem{
+  width: 200rpx;
+  height: 200rpx;
+  float: left;
+  margin: 10rpx;
+}
+.loadImg .imgDelete{
+  width: 50rpx;
+  height: 50rpx;
+  float: left;
+  margin-left: -62rpx;
+  margin-top: 15rpx;
 }

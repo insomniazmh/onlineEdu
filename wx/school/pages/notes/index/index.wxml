@@ -4,63 +4,55 @@
     <van-icon class='v-icon' name="search" />
   </view>
   <view class='cmt-nav'>
-            <view class='nav-hot'><navigator class='nh'>全部</navigator></view>
-            <view class='nav-new'><navigator class='nw'>收藏</navigator></view>
-            <view class='nav-old'><navigator class='nd'>我的</navigator></view>
+    <view class='nav-hot'>
+      <navigator class='nh'>全部</navigator>
+    </view>
+    <view class='nav-new'>
+      <navigator class='nw'>收藏</navigator>
+    </view>
+    <view class='nav-old'>
+      <navigator class='nd'>我的</navigator>
+    </view>
   </view>
   <!-- 新闻列表  -->
   <view class='news-warp'>
     <view class='news-list' wx:for='{{pageList}}' wx:key='idx'>
       <view class='news-item'>
-          <view class='item-head'>
-            <view class='head-left'>
-              <view class='hleft-img'>
-                <image src='http://118.24.120.43:8611/img/news/up1.png'></image>
-              </view>
-              <view class='hleft-text'>{{item.userId}} </view>
+        <view class='item-head'>
+          <view class='head-left'>
+            <view class='hleft-img'>
+              <image src='{{item.userTortrait}}'></image>
             </view>
-            <view class='head-right'>
-              <van-button bindtap='showToast' round type="info" size='mini'>收藏</van-button>     
-            </view>
+            <view class='hleft-text'>{{item.userName}} </view>
           </view>
-          <view bindtap='topage' class='item-content'>
-            <view class='content-title'>
-              {{item.title}}
-            </view>
-            <view class='content-text'>
-            每逢长假，总有那么一群人选择远离人山人海，静静地呆在家，坐在电脑电视前。长时间的工作学习让他们              感 觉很疲惫，对什么都提不起劲，打开电脑却不知道干什么好…
-            </view>
-          </view>
-          <view class='item-rimg'>
-            <image src='http://118.24.120.43:8611/img/news/list1.png'></image>
-          </view>
-      </view>
-    </view>
-    <!-- 评论收藏 -->
-    <view class='footer-comment'>
-      <view class='collection'>
-        <van-icon color='#0aa1ed' size='45rpx' name="comment-o" />
-       <text class='text-top'>20</text>
-      </view>
-      
-      <block wx:for="{{wishList}}" wx:key="{{index}}">
-        <view class="item" data-index='{{item.id}}'>
-          <view class='wish_list_box_collection' wx:if="{{item.collected==1}}">
-            <!-- 点赞过 -->
-            <image catchtap='onCollectionTap'
-              src="http://118.24.120.43:8611/img/icon/rgood.png"
-              data-index='{{index}}'></image>
-            <text>{{item.dzzs}}</text>
-          </view>
-          <view class='wish_list_box_collection' wx:else>
-            <image src='http://118.24.120.43:8611/img/icon/good.png' 
-              catchtap='onCollectionTap' 
-              data-index='{{index}}'></image>
-            <text>{{item.dzzs}}</text>
+          <view class='head-right'>
+            <van-button bindtap='showToast' type='{{item.isCollect=="true" ? "info" : "default"}}' round size='mini'>收藏</van-button>
           </view>
         </view>
-      </block>
+        <view bindtap='topage' class='item-content' data-id='{{item.articleId}}'>
+          <view class='content-title'>
+            {{item.title}}
+          </view>
+          <view class='content-text'>
+            {{item.description}}
+          </view>
+        </view>
+        <view class='item-rimg'>
+          <image src='{{item.imgUrl}}'></image>
+        </view>
+      </view>
+      <!-- 评论收藏 -->
+      <view class='footer-comment'>
+        <view class='collection'>
+          <van-icon size='45rpx' name="comment-o" />
+          <text class='text-top'>{{item.commentCount}}</text>
+        </view>
+        <view class='collection'>
+          <van-icon size='45rpx' name="like-o" />
+          <text class='text-top'>{{item.clickGood}}</text>
+        </view>
+      </view>
     </view>
   </view>
-    <button class='rule' bindtap='release'>我要发帖</button>
+  <button class='rule' bindtap='release'>我要发帖</button>
 </view>

@@ -6,11 +6,11 @@ Page({
    */
   data: {
     likeFlag: '',
-    likeCount: 1321,
     collectFlag: '',
-    collectCount:200,
     pageContent:{},
-    
+    pageLike:{},
+    pageCollect:{},
+    pageCommentary:{}
   },
   jumpRep(){
     wx.navigateTo({
@@ -20,6 +20,7 @@ Page({
     reply:function(){
       wx.navigateTo({
         url: '../reply/reply',
+        
       })
     },
     release: function () {
@@ -27,82 +28,104 @@ Page({
       url: '../release/release',
     })
   },
+  // 点赞
   changelike: function () {
     let count = this.data.likeCount;
-    if (this.data.likeFlag == '') {
-      count++;
-      this.setData({
-        likeFlag: 'red',
-        likeCount: count
+    var that = this;
+    var postData = {
+      articleId:that.data.id,
+      userId: wx.getStorageSync('studentId')
+    };
+    // console.log(postData)
+    getApp().agriknow.notesContentLike(postData).then(res => {
+      var con = that.data.pageContent;
+      con.clickGood++;
+      that.setData({
+        pageContent: con
       });
       wx.showToast({
         title: '点赞成功',
         icon: 'success',
         duration: 2000
       })
-    }else {
-      count--;
-      this.setData({
-        likeFlag: '',
-        likeCount:count
-      });
-      wx.showToast({
-        title: '取消点赞',
-        icon: 'success',
-        duration: 2000
+    })
+    .catch(res => {
+      //wx.stopPullDownRefresh()
+    });
+  },
+  // 收藏
+  changeCollect(){
+    var that = this;
+    if (this.data.pageContent.isCollect == 'false'){
+      var postData = {
+        articleId: that.data.id,
+        userId: wx.getStorageSync('studentId')
+      };
+      getApp().agriknow.notesContentCollect(postData).then(res => {
+        var note = that.data.pageContent;
+        note.isCollect = "true";
+        that.setData({
+          pageContent: note
+        });
+        wx.showToast({
+          title: '收藏成功',
+          icon: 'success',
+          duration: 2000
+        })
       })
+        .catch(res => {
+          //wx.stopPullDownRefresh()
+        });
+    } else if (this.data.pageContent.isCollect == 'true'){
+      var postData = {
+        articleId: that.data.id,
+        userId: wx.getStorageSync('studentId')
+      };
+      getApp().agriknow.notesDeleContentCollect(postData).then(res => {
+        var note = that.data.pageContent;
+        note.isCollect = "false";
+        that.setData({
+          pageContent: note
+        });
+        wx.showToast({
+          title: '取消收藏',
+          icon: 'success',
+          duration: 2000
+        })
+      })
+        .catch(res => {
+          //wx.stopPullDownRefresh()
+        });
     }
   },
-  changeCollect(){
-    let number = this.data.collectCount;
+  // 评论点赞
+  likeCommentary:function() {
     var that = this;
     var postData = {
-      id: "43f6cc2ab62a44cd8f76cde19de0a4d8"
+      commentId: "7a938c2f79054b0788ff87e64cedaa87"
     };
     console.log(postData)
-    getApp().agriknow.notesContentLike(postData).then(res => {
+    getApp().agriknow.notesCommentary(postData).then(res => {
       that.setData({
-        pageContent: res.data
+        pageCommentary: res.data
       });
-      console.log(that.data.pageContent);
+      console.log(that.data.pageCommentary);
     })
       .catch(res => {
         //wx.stopPullDownRefresh()
       });
-      
-    if (this.data.collectFlag == ''){
-      number++;
-      this.setData({
-        collectFlag:'yellow',
-        collectCount:number
-      })
-      wx.showToast({
-        title: '收藏成功',
-        icon: 'success',
-        duration: 2000
-      })
-    }else{
-      number--;
-      this.setData({
-        collectFlag:'',
-        collectCount:number
-      })
-      wx.showToast({
-        title: '取消收藏',
-        icon: 'success',
-        duration: 2000
-      })
-    }
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this;
     var postData = {
-      id:"43f6cc2ab62a44cd8f76cde19de0a4d8"
+      id:options.id
     };
+    that.setData({
+      id: options.id
+    })
     console.log(postData)
     getApp().agriknow.notesContent(postData).then(res => {
       that.setData({
@@ -114,7 +137,6 @@ Page({
         //wx.stopPullDownRefresh()
       });
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

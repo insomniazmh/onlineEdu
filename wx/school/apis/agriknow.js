@@ -117,7 +117,7 @@ class agriknow {
    *  列表详情
    */
   notesList(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._education + '/article/findAllDesc', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._education + '/article/findStuAllDesc', postData).then(res => res.data)
   }
 
   /**
@@ -138,23 +138,56 @@ class agriknow {
    *  分页列表
    */
   notesPageList(postData = {}){
-    return this._request.postRequest(this._baseUrl + this._education + '/article/findStuAllDesc', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._education + '/article/findStuAllDesc',postData).then(res => res.data)
   }
 
   /**
    *  点赞
    */
   notesContentLike(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._education + '/article/addGood', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._education + '/article/addGood',postData).then(res => res.data)
   }
 
   /**
    *  收藏
    */
   notesContentCollect(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._education + '/article/addCollect', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._education + '/article/addCollect',postData).then(res => res.data)
   }
 
+  /**
+   *  取消收藏
+   */
+  notesDeleContentCollect(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/article/delCollect', postData).then(res => res.data)
+  }
+
+  /**
+   *  评论添加
+   */
+  notesCommentadded(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/articleComment/saveOrUpdate',postData).then(res => res.data)
+  }
+
+  /**
+   *  评论回复
+   */
+
+
+  /**
+   *  评论点赞
+   */
+  notesCommentary(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/articleComment/addGood',postData).then(res => res.data)
+  }
+
+
+  /**
+   *  评论列表
+   */
+  notesComponents(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/articleComment/findArticleId',postData).then(res => res.data)
+  }
 }
 
 export default agriknow

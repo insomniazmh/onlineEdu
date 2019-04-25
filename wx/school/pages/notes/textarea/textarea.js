@@ -5,9 +5,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    commentAdd:{}
   },
 
+  commentAdded(){
+    var that = this;
+    var postData = {
+      articleId: 'fc26d5f13e3746e9995d9c51f822f819',
+      content:'ok!!!!!',
+      userId: '1301331992031827761'
+    };
+    console.log(postData)
+    getApp().agriknow.notesCommentadded(postData).then(res => {
+      that.setData({
+        commentAdd: res.data
+      });
+      console.log(that.data.commentAdd);
+    })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
+  },
   /**
    * 生命周期函数--监听页面加载
    */

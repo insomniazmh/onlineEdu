@@ -59,10 +59,11 @@ ul li{margin: 0;padding: 0}
 /*  新闻头部  */
 .warp .news-warp{
   width: 100%;
+  margin-bottom: 280rpx;
   background: white;
 }
 .warp .news-warp .news-list{
-  padding: 70rpx 30rpx;  
+  padding: 0rpx 50rpx;  
 }
 .warp .news-warp .news-list .news-item{
   padding-bottom: 110rpx;
@@ -137,9 +138,9 @@ ul li{margin: 0;padding: 0}
 .footer-comment{
   position: relative;
   width: 100%;
-  padding: 15rpx 50rpx 20rpx;
+  padding:15rpx 0rpx 50rpx;
   height: 50rpx;
-  border-bottom: 10px solid #f1f1f1;
+  float: left;
 }
 .footer-comment view{
   float: left;

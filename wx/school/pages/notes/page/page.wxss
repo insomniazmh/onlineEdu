@@ -164,7 +164,8 @@ text{
   float: left;
 }
 .warp .news-warp .news-list .news-item .item-content .content-menu .c-praise{
-  position: relative;
+  /* position: relative; */
+  width: 20%;
   text-align: right;
 }
 .warp .news-warp .news-list .news-item .item-content .content-menu .c-praise .c-fire{
@@ -179,7 +180,7 @@ text{
   position: relative;
   top: 20rpx;
   height: 80rpx;
-  background: #dcdcdc;
+  background: #ececec;
   border-radius: 10rpx;
 }
 .warp .news-warp .news-list .news-item .item-content .content-menu .replybox .sanjiao{
@@ -187,7 +188,7 @@ text{
   height: 0;
   border-width: 15rpx;
   border-style: solid;
-  border-color: transparent transparent #dcdcdc transparent;
+  border-color: transparent transparent #ececec transparent;
   position: absolute;
   margin-top: -26rpx;
   margin-left: 30rpx;
@@ -205,6 +206,7 @@ text{
     height: 60rpx;
     font-size: 31rpx;
     bottom: 5rpx;
+    margin-left: 526rpx;
 }
 /* btn */
 .fixed-sli{
