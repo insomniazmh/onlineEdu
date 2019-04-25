@@ -36,87 +36,34 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" ng-repeat="note in notes">
-					<div class="col-md-1 blog-img blog-tag-data" style="text-align: center;">
-						<img src="images/avatar1.jpg" alt="" class="userpic">
-						<div style="margin: 0 auto;">
-							<a href="javascript:;" class="username"> 张三 </a>
+				<div ng-repeat="note in notes">
+					<div class="row">
+						<div class="col-md-1 blog-img blog-tag-data" style="text-align: center;">
+							<img src="{{note.userTortrait}}" alt="" class="userpic">
+							<div style="margin: 0 auto;">
+								<a href="javascript:;" class="username"> {{note.userName}} </a>
+							</div>
+							<div style="margin: 0 auto;">
+								<a href="javascript:;">
+									2019-4-11  15:52 </a>
+							</div>
 						</div>
-						<div style="margin: 0 auto;">
-							<a href="javascript:;">
-								2019-4-11  15:52 </a>
+						<div class="col-md-8 blog-article">
+							<h3>
+								<a href="index.html#/notes_item.html?id={{note.articleId}}">{{note.title}} </a>
+								<a ng-if="note.isNice == 'true'" class="btn yellow-crusta">精华帖</a>
+								<span style="float: right;font-size: 16px;color: #5b9bd1;">所属课程：{{note.courseName}} </span>
+							</h3>
+							<p>{{note.description}}</p>
+							<a class="btn blue" href="index.html#/notes_item.html"> 
+								查看详情 <i class="m-icon-swapright m-icon-white"></i>
+							</a>
+							<button ng-click="del()" class="btn btn-danger">删除</button>
 						</div>
 					</div>
-					<div class="col-md-8 blog-article">
-						<h3>
-							<a href="index.html#/notes_item.html">{{note.title}} </a>
-							<a class="btn yellow-crusta">精华帖</a>
-							<span style="float: right;font-size: 16px;color: #5b9bd1;">所属课程：电子商务基础 </span>
-						</h3>
-						<p>
-							一、js中的原型毫无疑问一个难点，学习如果不深入很容易就晕了！
-						    在参考了多方面的资料后，发现解释都太过专业，对于很多还没有接触过面向对象
-						    语言的小白来说，有理解不了里面的专有名词！如果你没学过c++或者Java之类的更接触底层的语言，那就不要太深究，理解会用自然可以了，当接触到更多语言时慢慢的会理解越来越深刻！
-						</p>
-						<a class="btn blue" href="index.html#/notes_item.html"> 
-							查看详情 <i class="m-icon-swapright m-icon-white"></i>
-						</a>
-						<button ng-click="del()" class="btn btn-danger">删除</button>
-					</div>
+					<hr>
 				</div>
-				<hr>
-				<div class="row">
-					<div class="col-md-1 blog-img blog-tag-data" style="text-align: center;">
-						<img src="images/avatar1.jpg" alt="" class="userpic">
-						<div style="margin: 0 auto;">
-							<a href="index.html#/notes_item.html" class="username"> 张三 </a>
-						</div>
-						<div style="margin: 0 auto;">
-							<a href="javascript:;">
-								2019-4-11  15:52 </a>
-						</div>
-					</div>
-					<div class="col-md-8 blog-article">
-						<h3>
-							<a href="index.html#/notes_item.html">Js原型的理解 </a>
-							<span style="float: right;font-size: 16px;color: #5b9bd1;">所属课程：电子商务基础 </span>
-						</h3>
-						<p>
-							一、js中的原型毫无疑问一个难点，学习如果不深入很容易就晕了！
-						    在参考了多方面的资料后，发现解释都太过专业，对于很多还没有接触过面向对象
-						    语言的小白来说，有理解不了里面的专有名词！如果你没学过c++或者Java之类的更接触底层的语言，那就不要太深究，理解会用自然可以了，当接触到更多语言时慢慢的会理解越来越深刻！
-						</p>
-						<a class="btn blue" href="index.html#/notes_item.html"> 查看详情 <i class="m-icon-swapright m-icon-white"></i>
-						</a>
-						<button ng-click="del()" class="btn btn-danger">删除</button>
-					</div>
-				</div>
-				<hr><div class="row">
-					<div class="col-md-1 blog-img blog-tag-data" style="text-align: center;">
-						<img src="images/avatar1.jpg" alt="" class="userpic">
-						<div style="margin: 0 auto;">
-							<a href="index.html#/notes_item.html" class="username"> 张三 </a>
-						</div>
-						<div style="margin: 0 auto;">
-							<a href="javascript:;">
-								2019-4-11  15:52 </a>
-						</div>
-					</div>
-					<div class="col-md-8 blog-article">
-						<h3>
-							<a href="index.html#/notes_item.html">Js原型的理解 </a>
-							<span style="float: right;font-size: 16px;color: #5b9bd1;">所属课程：电子商务基础 </span>
-						</h3>
-						<p>
-							一、js中的原型毫无疑问一个难点，学习如果不深入很容易就晕了！
-						    在参考了多方面的资料后，发现解释都太过专业，对于很多还没有接触过面向对象
-						    语言的小白来说，有理解不了里面的专有名词！如果你没学过c++或者Java之类的更接触底层的语言，那就不要太深究，理解会用自然可以了，当接触到更多语言时慢慢的会理解越来越深刻！
-						</p>
-						<a class="btn blue" href="index.html#/notes_item.html"> 查看详情 <i class="m-icon-swapright m-icon-white"></i>
-						</a>
-						<button ng-click="del()" class="btn btn-danger">删除</button>
-					</div>
-				</div>
+				
 			</div>
 			<!--end col-md-9-->
 			<!--end col-md-3-->
@@ -151,6 +98,6 @@
 			}, function() {
 				layer.alert('删除成功');
 			});
-		}
+		};
 	}
 </script>

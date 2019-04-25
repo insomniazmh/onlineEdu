@@ -13,7 +13,7 @@
     </view>
   </picker>
 </view>
-<view class="section">
+<!-- <view class="section">
   <view class="section__title">时间选择器</view>
   <picker
     mode="time"
@@ -54,4 +54,4 @@
       当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
     </view>
   </picker>
-</view>
+</view> -->
