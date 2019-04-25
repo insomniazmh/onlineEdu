@@ -745,7 +745,9 @@
 					</div>
 					<div class="portlet-body">
 						<div class="note note-{{team.bgColor}}" ng-repeat="team in teamList" repeat-finish="renderFinish()">
-							<h4 class="block">{{team.teamName}}&nbsp;&nbsp;&nbsp;<button class="btn btn-success btn-sm">修改名称</button></h4>
+							<h4 class="block">{{team.teamName}}&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-success btn-sm" ng-click="updateTeanName(team)">修改名称</button>
+							</h4>
 							<div id="{{team.teamId}}" class="connectedSortable">
 								<div class="user-wrapper" id="{{student.id}}" ng-repeat="student in team.students">
 									<div class="uppercase profile-userpic">
@@ -818,15 +820,16 @@
 		$scope.loadTeamList();
 		
 		//随机分组
-		$scope.teamRandomBuild = function() {
+		$scope.teamRandomBuild = function(num) {
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
+				operate: true,
 				data: {
 					classId: "123",
 					circleId: "5ca6ce9b1890960001896a4d",
 					expType: 'forever',
-					number: 4
+					number: num
 				},
 				url: '/classRoom/team/randomBuild',
 				success: function(res) {
@@ -848,8 +851,29 @@
 					layer.alert("只能输入大于0的数字");
 					return false;
 				}
-				$scope.teamRandomBuild();
+				$scope.teamRandomBuild(value);
 			  layer.close(index);
+			});
+		}
+		
+		//修改组名
+		$scope.updateTeanName = function(team) {
+			layer.prompt({title: '请输入组名', value: team.teamName}, function(value, index, elem){
+				common.ajax2({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					data: {
+						teamId: team.teamId,
+						teamName: value
+					},
+					url: '/classRoom/team/updateTeamName',
+					success: function(res) {
+						team.teamName = value;
+						layer.close(index);
+					}
+				});
+			  
 			});
 		}
 		
