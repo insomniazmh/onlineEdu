@@ -882,6 +882,27 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 				}]
 			}
 		})
+		
+		//公告管理
+		.state('notice', {
+			url: "/notice.html",
+			templateUrl: "views/notice.html",
+			data: {
+				pageTitle: '公告管理',
+				btn_taps: true
+			},
+			controller: "GeneralPageController",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'MetronicApp',
+						files: [
+							'js/controllers/GeneralPageController.js',
+						]
+					}]);
+				}]
+			}
+		})
 
 		// User Profile Dashboard
 		.state("profile.dashboard", {

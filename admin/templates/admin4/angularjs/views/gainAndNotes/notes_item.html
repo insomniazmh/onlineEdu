@@ -16,7 +16,14 @@
 	}
 	.blog-page hr {
     margin-top: 30px !important;
-}
+	}
+	.triangle {
+		border-width: 10px;
+		border-style: solid;
+		display: inline-block;
+		margin: 0 0 -5px 10px;
+		border-color: transparent transparent  #ececec transparent;
+	}
 </style>
 <div class="row" style="background-color: #fff;padding: 12px 20px 15px 20px;" ng-controller="notesItemCtrl">
 	<div class="col-md-9 article-block">
@@ -54,71 +61,28 @@
 			<p>{{article.articleConten}}</p>
 		</div>
 		<hr>
-		<h4>评论</h4>
-		<div class="media">
-			<a href="javascript:;" class="pull-left">
-				<img alt="" src="images/avatar3.jpg" class="media-object">
-			</a>
-			<div class="media-body">
-				<h4 class="media-heading">
-					<p class="blue-color" style="display: inline-block;">王老师</p>
-					<button class="btn btn-xs btn-success">教师</button>
-					<span> 2019-4-12 14:02 </span>
-				</h4>
-				<p>
-					该学生积极思考，值得表扬
-				</p>
-			</div>
-		</div>
-		<hr />
-		<div ng-repeat="">
+		<h4 ng-if="commentList">评论</h4>
+		<div ng-repeat="comment in commentList">
 			<div class="media">
 				<a href="javascript:;" class="pull-left">
-					<img alt="" src="images/avatar2.jpg" class="media-object">
+					<img alt="" src="images/avatar3.jpg" class="media-object" ng-if="comment.userType=='T'">
+					<img alt="" src="{{comment.userTortrait}}" class="media-object" ng-if="comment.userType=='S'">
 				</a>
 				<div class="media-body">
 					<h4 class="media-heading">
-						<p class="blue-color" style="display: inline-block;">李四</p>
-						<span> 2019-4-12 14:02 </span>
+						<p class="blue-color" style="display: inline-block;" ng-if="comment.userType=='S'">{{comment.userName}}</p>
+						<button class="btn btn-xs btn-success" ng-if="comment.userType=='T'">教师评论</button>
+						<span> {{comment.createTime}} </span>
 					</h4>
-					<p>
-						谢谢楼主分享
-					</p>
+					<p>{{comment.content}}</p>
 				</div>
+				<div class="triangle" ng-if="comment.reContent"></div>
+				<p style="background-color: #ececec;padding: 10px;" ng-if="comment.reContent">
+					楼主回复：{{comment.reContent}}
+				</p>
 			</div>
 			<hr />
 		</div>
-		
-		<div class="media">
-			<a href="javascript:;" class="pull-left">
-				<img alt="" src="images/avatar2.jpg" class="media-object">
-			</a>
-			<div class="media-body">
-				<h4 class="media-heading">
-					<p class="blue-color" style="display: inline-block;">李四</p>
-					<span> 2019-4-12 14:02 </span>
-				</h4>
-				<p>
-					谢谢楼主分享
-				</p>
-			</div>
-		</div>
-		<hr />
-		<div class="media">
-			<a href="javascript:;" class="pull-left">
-				<img alt="" src="images/avatar2.jpg" class="media-object">
-			</a>
-			<div class="media-body">
-				<h4 class="media-heading">
-					<p class="blue-color" style="display: inline-block;">李四</p>
-					<span> 2019-4-12 14:02 </span>
-				</h4>
-				<p>
-					谢谢楼主分享
-				</p>
-			</div>
-		</div>
-		<hr />
 		<div class="post-comment">
 				<div class="form-group">
 					<label class="control-label">留个言吧 </label>
@@ -133,36 +97,44 @@
 <script>
 	function notesItemCtrl($scope, $http, $rootScope, $location) {
 		//心得详情
-		common.ajax({
-			$scope: $scope,
-			$http: $http,
-			url: '/article/findId',
-			data: {
-				id: $location.search().id
-			},
-			success: function(data) {
-				console.log(data.data);
-				$scope.article = data.data;
-			}
-		});
+		$scope.loadNote = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/article/findId',
+				data: {
+					id: $location.search().id
+				},
+				success: function(data) {
+					console.log(data.data);
+					$scope.article = data.data;
+				}
+			});
+		}
+		$scope.loadNote();
 		
 		//评论列表
-		common.ajax({
-			$scope: $scope,
-			$http: $http,
-			url: '/articleComment/findArticleId',
-			data: {
-				articleId: $location.search().id,
-				sortVo: {
-					page: 0,
-					size: 15
+		$scope.loadComment = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/articleComment/findArticleId',
+				data: {
+					articleId: $location.search().id,
+					sortVo: {
+						page: 0,
+						size: 15
+					}
+				},
+				success: function(data) {
+					console.log(data.data);
+					if(data.data.length>0) {
+						$scope.commentList = data.data;
+					}
 				}
-			},
-			success: function(data) {
-				console.log(data.data);
-				$scope.comment = data.data;
-			}
-		});
+			});
+		}
+		$scope.loadComment();
 		
 		//老师发布评论
 		$scope.sendComment = function() {
@@ -176,11 +148,14 @@
 					content: $scope.content,
 					userId: localStorage.getItem("userid"),
 					userType: 'T'
+				},
+				success: function(data) {
+					$scope.loadComment();
 				}
 			});
 		}
 		
-		//加精
+		//加精或取消精华
 		$scope.addNice = function(flag) {
 			common.ajax({
 				$scope: $scope,
@@ -192,7 +167,7 @@
 					value: flag
 				},
 				success: function(data) {
-					
+					$scope.loadNote();
 				}
 			});
 		}
