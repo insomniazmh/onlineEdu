@@ -189,6 +189,19 @@ class agriknow {
   notesComponents(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._education + '/articleComment/findArticleId',postData).then(res => res.data)
   }
-}
 
+/*------------------------------------------------------------------------------------------------------------*/
+  /**
+   *  公告列表
+   */
+noticeFind(postData = {}) {
+  return this._request.postRequest(this._baseUrl + this._education + '/notice/findById', postData).then(res => res.data)
+  }
+    /**
+   *  公告详情
+   */
+  noticeFindAll(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/notice/findAll', postData).then(res => res.data)
+  }
+}
 export default agriknow

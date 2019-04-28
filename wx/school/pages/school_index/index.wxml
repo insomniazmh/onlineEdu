@@ -42,7 +42,7 @@
     <image src='http://118.24.120.43:8611/img/z02.png' mode='widthFix'></image>
     <text>心得</text>
   </view>
-  <view class='clm_child opacity'>
+  <view class='clm_child' bindtap="goWo" data-url='/pages/Notice/NoticeIndex/NoticeIndex'>
     <image src='http://118.24.120.43:8611/img/z03.png' mode='widthFix'></image>
     <text>公告</text>
   </view>

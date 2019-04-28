@@ -11,9 +11,6 @@ Page({
       url: '../release/release',
     })
   },
-  showToast(){
-    
-  },
   topage:function(e){
     var articleId = e.currentTarget.dataset.id
     wx.navigateTo({

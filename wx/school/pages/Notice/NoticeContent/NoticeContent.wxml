@@ -1,0 +1,10 @@
+<view class='warp'>
+  <view style='margin-top:100rpx;padding:80rpx;'>
+      <view>
+        <text>{{noticeContent.content}}</text>
+        <view style='margin-top:80rpx;'>
+          <text>{{noticeContent.createTime}}</text>
+        </view>
+      </view>
+  </view>
+</view>
