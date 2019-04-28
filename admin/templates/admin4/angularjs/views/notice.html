@@ -1,0 +1,183 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/select2/select2.css" />
+<div class="row" ng-controller="teacherCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>公告管理
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="btn-group">
+								<button class="btn green" data-toggle="modal" href="#createNoticeModal">
+									新增公告 <i class="fa fa-plus"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-bordered table-hover" id="notice">
+					<thead>
+						<tr>
+							<th>内容</th>
+							<th>发布时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX" ng-repeat="row in noticeList" repeat-finish="tableFinish()">
+							<td>{{row.content}}</td>
+							<td>{{row.createTime}}</td>
+							<td>
+								<span class="label label-sm label-success" ng-click="del(row.noticeId)">删除</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+
+	<div class="modal fade" id="createNoticeModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">添加公告</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="form-group">
+											<label class="control-label col-md-1">内容</label>
+											<div class="col-md-11">
+												<textarea ng-model="content" style="width: 100%;height: 300px;"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="sub()">提交</button>
+									<button type="button" class="btn default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
+<script type="text/javascript" src="../../../assets/global/plugins/select2/select2.min.js"></script>
+
+<script type="text/javascript" src="../../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<!--<script src="../../../assets/admin/pages/scripts/table-managed.js"></script>-->
+<script>
+	function teacherCtrl($scope, $http) {
+		//加载公告信息
+		$scope.loadNoticeList = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/notice/findAll',
+				success: function(data) {
+					$scope.noticeList = data.data;
+				}
+			});
+		}
+		$scope.loadNoticeList();
+
+		$scope.renderFinish = function() {
+			$('.select2_category').select2({
+				placeholder: "Select an option",
+				allowClear: true
+			});
+		}
+
+		$scope.tableFinish = function() {
+			$('#notice').dataTable({
+				"searching": false,
+				"language": {
+					"aria": {
+						"sortAscending": ": activate to sort column ascending",
+						"sortDescending": ": activate to sort column descending"
+					},
+					"emptyTable": "暂无数据",
+					"info": "显示 _START_ - _END_ 条数据，共 _TOTAL_ 条数据",
+					"infoEmpty": "",
+					"infoFiltered": "",
+					"lengthMenu": "",
+					"search": "查询信息:",
+					"zeroRecords": "没有找到匹配的数据",
+					"paginate": {
+						"last": "最后一页",
+						"first": "第一页"
+					}
+				},
+
+				"pageLength": 5,
+				"pagingType": "full_numbers"
+			});
+		}
+
+		$scope.sub = function() {
+			if ($scope.content == "") {
+				layer.alert('请先输入公告内容');
+				return false;
+			}
+
+			layer.confirm("您确定要发布该公告吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					data: {
+						"area":"P",
+						"content": $scope.content
+					},
+					url: '/notice/save',
+					success: function(data) {
+						layer.closeAll('dialog');
+						$("#createNoticeModal").modal("hide");
+						$scope.loadNoticeList();
+					}
+				});
+			});
+		}
+
+		$scope.del = function(id) {
+			layer.confirm("您确定要删除该公告吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					data: {
+						noticeId: id
+					},
+					url: '/notice/delNotice',
+					success: function(data) {
+						layer.closeAll('dialog');
+						$scope.loadNoticeList();
+					}
+				});
+			});
+		}
+
+	}
+</script>
