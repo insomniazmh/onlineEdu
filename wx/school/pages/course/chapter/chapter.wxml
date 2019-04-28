@@ -1,57 +1,33 @@
-<!--pages/course/chapter/chapter.wxml-->
-<view class="section">
-  <view class="section__title">多列选择器</view>
-  <picker
-    mode="multiSelector"
-    bindchange="bindMultiPickerChange"
-    bindcolumnchange="bindMultiPickerColumnChange"
-    value="{{multiIndex}}"
-    range="{{multiArray}}"
-  >
-    <view class="picker">
-      当前选择：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
+<view class="page">
+  <view class="page__hd">
+    <text class="page__title">请选择章节</text>
+    <text class="page__desc">选择器</text>
+  </view>
+  <view class="page__bd">
+    <view class="section">
+      <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{objectArray1}}" range-key='name'>
+        <view class="picker">
+          请选择章：{{objectArray1[index1].name}}
+        </view>
+      </picker>
     </view>
-  </picker>
-</view>
-<!-- <view class="section">
-  <view class="section__title">时间选择器</view>
-  <picker
-    mode="time"
-    value="{{time}}"
-    start="09:01"
-    end="21:01"
-    bindchange="bindTimeChange"
-  >
-    <view class="picker">
-      当前选择: {{time}}
-    </view>
-  </picker>
-</view>
 
-<view class="section">
-  <view class="section__title">日期选择器</view>
-  <picker
-    mode="date"
-    value="{{date}}"
-    start="2015-09-01"
-    end="2017-09-01"
-    bindchange="bindDateChange"
-  >
-    <view class="picker">
-      当前选择: {{date}}
+    <view class="section">
+      <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{objectArray2}}" range-key='name'>
+        <view class="picker">
+          请选择节：{{objectArray2[index2].name}}
+        </view>
+      </picker>
     </view>
-  </picker>
+
+    <view class="section">
+      <picker bindchange="bindPickerChange3" value="{{index3}}" range="{{objectArray3}}" range-key='name'>
+        <view class="picker">
+          请选择小节：{{objectArray3[index3].name}}
+        </view>
+      </picker>
+    </view>
+    <button bindtap="release" class="rule">确定</button>
+  </view>
+  
 </view>
-<view class="section">
-  <view class="section__title">省市区选择器</view>
-  <picker
-    mode="region"
-    bindchange="bindRegionChange"
-    value="{{region}}"
-    custom-item="{{customItem}}"
-  >
-    <view class="picker">
-      当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
-    </view>
-  </picker>
-</view> -->

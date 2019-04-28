@@ -23,8 +23,8 @@
 <!-- 判断 -->
 <view class='text_answers' wx:if="{{questionType=='trueOrFalse'}}">
   <view class='allow_state '>
-    <image bindtap='bindTOF' src="{{checkTOF?'../../img/r_icon.png':'../../img/r_icon_g.png'}}" data-id='1' mode='widthFix'></image>
-    <image bindtap='bindTOF' src="{{!checkTOF?'../../img/w_icon.png':'../../img/w_icon_g.png'}}" data-id='2' mode='widthFix'></image>
+    <image bindtap='bindTOF' src="{{checkTOF?'https://e.hnfts.cn/img/icon/r_icon.png':'https://e.hnfts.cn/img/icon/r_icon_g.png'}}" data-id='1' mode='widthFix'></image>
+    <image bindtap='bindTOF' src="{{!checkTOF?'https://e.hnfts.cn/img/icon/w_icon.png':'https://e.hnfts.cn/img/icon/w_icon_g.png'}}" data-id='2' mode='widthFix'></image>
   </view>
 </view>
 
@@ -42,7 +42,7 @@
 </view>
 <button class='com_btn mt_100 btn_state_on' bindtap="bindSub" 
 wx:if="{{showSub}}">提交</button>
-<image class='raise_hand' bindtap='bindRaise' src="../../img/z19.png" 
+<image class='raise_hand' bindtap='bindRaise' src="https://e.hnfts.cn/img/z19.png" 
 mode='widthFix' wx:if="{{raiseFlag}}"></image>
 <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
 <slot></slot>

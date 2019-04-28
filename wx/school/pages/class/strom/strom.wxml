@@ -1,7 +1,7 @@
 <!--pages/class/strom/strom.wxml-->
 <view class='text_typeOne'>
-  <image class='text_state dis_none' src='http://118.24.120.43:8611/img/z17.png' mode='widthFix'></image>
-  <image class='text_state dis_none' src='http://118.24.120.43:8611/img/z18.png' mode='widthFix'></image><!--已回答、已过期标签，添加“dis_none”隐藏-->
+  <image class='text_state dis_none' src='https://e.hnfts.cn/img/z17.png' mode='widthFix'></image>
+  <image class='text_state dis_none' src='https://e.hnfts.cn/img/z18.png' mode='widthFix'></image><!--已回答、已过期标签，添加“dis_none”隐藏-->
 </view>
 
 <question singleQuestion="{{currentQuestion}}" 
