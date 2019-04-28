@@ -28,6 +28,11 @@ Page({
       url: e.currentTarget.dataset.url
     })
   },
+  goWo(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url
+    })
+  },
 
   //扫描二维码,获取班级id
   scanCode(e) {

@@ -7,15 +7,15 @@
 import request from './request.js'
 class agriknow {
   constructor() {
-    this._baseUrl = 'https://e.hnfts.cn'
-    this._quiz = '/quiz'
-    this._wx = '/wechat'
-    this._education = '/education'
+    // this._baseUrl = 'https://e.hnfts.cn'
+    // this._quiz = '/quiz'
+    // this._wx = '/wechat'
+    // this._education = '/education'
 
-    // this._baseUrl = 'http://192.168.10.2:'
-    // this._quiz = '8081'
-    // this._wx = '8090'
-    // this._education = '8080'
+    this._baseUrl = 'http://192.168.10.2:'
+    this._quiz = '8081'
+    this._wx = '8090'
+    this._education = '8080'
 
     //this._baseUrlXD = 'http://192.168.10.10:8090'
     
@@ -189,6 +189,19 @@ class agriknow {
   notesComponents(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._education + '/articleComment/findArticleId',postData).then(res => res.data)
   }
-}
 
+/*------------------------------------------------------------------------------------------------------------*/
+  /**
+   *  公告列表
+   */
+noticeFind(postData = {}) {
+  return this._request.postRequest(this._baseUrl + this._education + '/notice/findById', postData).then(res => res.data)
+  }
+    /**
+   *  公告详情
+   */
+  noticeFindAll(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/notice/findAll', postData).then(res => res.data)
+  }
+}
 export default agriknow

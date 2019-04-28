@@ -1,0 +1,17 @@
+/* pages/Notice/Notice.wxss */
+.warp{
+  padding: 60rpx;
+}
+.list{
+  margin-top: 100rpx;
+  border: 1px solid black;
+  border-radius: 10rpx;
+}
+.nticeBar{
+  margin-top: 60rpx;
+}
+.nticeBar view{
+  margin-bottom: 30rpx;
+  overflow:inherit;
+  line-height: 2.8;
+}
