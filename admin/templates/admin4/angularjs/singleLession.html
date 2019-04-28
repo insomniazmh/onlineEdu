@@ -359,12 +359,13 @@
 			app.controller('tiwenCtrl', function($scope, $http, $interval) {
 				$scope.allStudents = [];//所有加入课堂的学生
 				$scope.answerStudents = [];//所有被提问的学生
+				$scope.raceStudents = [];//所有抢答回答的学生
 				$scope.raiseStudents = [];//所有已举手的学生
 				$scope.students = [];//当前需要显示的学生
 				$scope.currentTiwenQues = {}; //当前选中的提问问题
 				$scope.currentPublicQues = {}; //当前发布的提问问题
 				
-				$scope.scene = "general";//场景 general:一般    raise:举手
+				$scope.scene = "select";//场景 select:选人  race:抢答    raise:举手
 				$scope.answerShowFlag = false;//是否显示学生回答情况标志
 				$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志
 				
@@ -436,9 +437,9 @@
 						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
 							$scope.students = $scope.raiseStudents;
 						}
-					} else if(data.model == "answer" && $scope.scene == "general") {
+					} else if(data.model == "answer" && $scope.scene == "select") {
 						/*
-							接收学生回答情况
+							接收学生回答情况（选人）
 							如果当前题目不是正在发布的题目，则不做处理
 						*/
 						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
@@ -456,6 +457,25 @@
 								}
 							}
 							$scope.students = $scope.answerStudents;
+						}
+					} else if(data.model == "answer" && $scope.scene == "race") {
+						/*
+							接收学生回答情况（抢答）
+							如果当前题目不是正在发布的题目，则不做处理
+						*/
+						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
+							for (let value of data.students) {
+								if(value.askAnswerInfo == "Y") {
+									value.answer = '对';
+								}else if(value.askAnswerInfo == "N") {
+									value.answer = '错';
+								}else {
+									value.answer = value.askAnswerInfo;
+								}
+								$scope.raceStudents.push(value);
+								
+							}
+							$scope.students = $scope.raceStudents;
 						}
 					}
 				});
@@ -559,7 +579,7 @@
 							// "selected": '410221199706224226'
 						},
 						success: function() {
-							$scope.scene = "general";
+							$scope.scene = interactive;
 							$scope.answerShowFlag = false;//初始化显示标志
 							$scope.currentTiwenQues.published = true; //将该问题置为已提问状态
 							$scope.answerShowFlag = false;//是否显示学生回答情况标志
@@ -567,6 +587,7 @@
 							$scope.currentPublicQues = $scope.currentTiwenQues;//更新当前发布问题
 							$scope.answerStudents = [];//清空学生回答情况
 							$scope.raiseStudents = [];//清空学生举手情况
+							$scope.raceStudents = [];//清空学生抢答情况
 							
 							/*
 							 * 如果选人类型为select，将被选中的学生显示，其余隐藏
@@ -578,7 +599,7 @@
 								}
 								$scope.students = $scope.answerStudents;
 							}else {
-								$scope.students = [];
+								$scope.students = $scope.raceStudents;
 							}
 							
 						}

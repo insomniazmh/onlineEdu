@@ -46,6 +46,11 @@ Page({
     index2: 0,
     index3: 0
   },
+  goOn: function(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url
+    })
+  },
   bindPickerChange1: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({

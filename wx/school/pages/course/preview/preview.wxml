@@ -42,14 +42,14 @@
 
       <view class='know'>电子商务的概念</view>
       <view class='know-swiper' style='margin-top:50rpx;'>
-        <swiper autoplay indicator-dots indicator-color='ghostwhite'>
-          <swiper-item>
-            <image src='https://e.hnfts.cn/img/news/list1.png'></image> 
-           </swiper-item>
-          <swiper-item>
-            <image src='https://e.hnfts.cn/img/banner/header.png'></image> 
-           </swiper-item>
-        </swiper>
+        <audio name="{{name}}" src="{{src}}" id="myAudio" controls loop bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror" style='margin 0 auto;'></audio>
+      </view>
+      <view class='know-swiper' style='margin-top:50rpx;'>
+        <video
+    id="myVideo"
+    src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"
+    controls
+  ></video>
       </view>
 
       <view class='know'>参考资料</view>

@@ -27,7 +27,7 @@
         </view>
       </picker>
     </view>
-    <button bindtap="release" class="rule">确定</button>
+    <button bindtap="goOn" class="rule" data-url='/pages/course/preview/preview'>确定</button>
   </view>
   
 </view>
