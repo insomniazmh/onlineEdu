@@ -17,7 +17,7 @@ Page({
     upLoadImg:[],
     index:1,
     posTed:{},
-    inputValue:"啊啊",
+    inputValue:"",
   },
   switch1Change(e){
     console.log('swtch发生改变,')
