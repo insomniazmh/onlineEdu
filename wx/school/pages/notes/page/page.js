@@ -10,18 +10,20 @@ Page({
     pageContent:{},
     pageLike:{},
     pageCollect:{},
-    pageCommentary:{}
+    pageCommentList:[]
   },
   jumpRep(){
     wx.navigateTo({
       url: '../textarea/textarea',
     })
   },
-    reply:function(){
+  // 评论回复
+    reply:function(e){
+      var commentId = e.currentTarget.dataset.id
       wx.navigateTo({
-        url: '../reply/reply',
-        
+        url: '../reply/reply?id=' + commentId,
       })
+      console.log(e)
     },
     release: function () {
     wx.navigateTo({
@@ -99,17 +101,23 @@ Page({
     }
   },
   // 评论点赞
-  likeCommentary:function() {
+  likeCommentary:function(e) {
     var that = this;
     var postData = {
-      commentId: "7a938c2f79054b0788ff87e64cedaa87"
+      commentId: e.currentTarget.id
     };
-    console.log(postData)
     getApp().agriknow.notesCommentary(postData).then(res => {
+      var list = that.data.pageCommentList;
+      console.log(list.length);
+      for(var i=0;i<2;i++){
+        if (list[i].commentId === e.currentTarget.id){
+          list[i].goodCount++;
+        }
+      }
       that.setData({
-        pageCommentary: res.data
+        pageCommentList: list
       });
-      console.log(that.data.pageCommentary);
+      // console.log(that.data.pageCommentary);
     })
       .catch(res => {
         //wx.stopPullDownRefresh()
@@ -121,21 +129,43 @@ Page({
   onLoad: function (options) {
     var that = this;
     var postData = {
-      id:options.id
+      id:options.id,
+      userId: wx.getStorageSync('studentId')
     };
     that.setData({
       id: options.id
     })
-    console.log(postData)
+    // console.log(postData)
     getApp().agriknow.notesContent(postData).then(res => {
       that.setData({
         pageContent: res.data
       });
-      console.log(that.data.pageContent);
+      // console.log(that.data.pageContent);
     })
       .catch(res => {
         //wx.stopPullDownRefresh()
       });
+
+    // 评论列表
+    var postData = {
+      articleId: options.id,
+      sortVo:{
+        isValidated:0,
+        page:0,
+        size:'15',
+        sort:1
+      }
+    };
+    getApp().agriknow.notesComponents(postData).then(res => {
+      that.setData({
+        pageCommentList: res.data
+      });
+      // console.log(that.data.pageCommentList);
+    })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
+      
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

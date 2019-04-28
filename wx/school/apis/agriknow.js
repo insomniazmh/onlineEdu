@@ -172,8 +172,9 @@ class agriknow {
   /**
    *  评论回复
    */
-
-
+  notesCommentSavaReply(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/articleComment/saveReply', postData).then(res => res.data)
+  }
   /**
    *  评论点赞
    */
