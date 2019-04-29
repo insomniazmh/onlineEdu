@@ -24,12 +24,12 @@ Page({
         });
 
         //回调接口，告诉服务器已经收到信息
-        getApp().agriknow.delSelectStu({
-          circleId: getApp().globalData.circleId,
-          stuId: wx.getStorageSync("studentId")
-        }).then(res => {
-          console.log(res);
-        });
+        // getApp().agriknow.delSelectStu({
+        //   circleId: getApp().globalData.circleId,
+        //   stuId: wx.getStorageSync("studentId")
+        // }).then(res => {
+        //   console.log(res);
+        // });
       }
     }
   },
