@@ -1,8 +1,8 @@
 <view class='warp'>
-  <view style='margin-top:100rpx;padding:80rpx;'>
+  <view class='noticeTi'>
       <view>
         <text>{{noticeContent.content}}</text>
-        <view style='margin-top:80rpx;'>
+        <view class='noticeText'>
           <text>{{noticeContent.createTime}}</text>
         </view>
       </view>
