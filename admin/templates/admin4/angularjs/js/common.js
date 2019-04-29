@@ -4,11 +4,13 @@ var common = {
 //	url: 'https://e.hnfts.cn/education',
 //	url2: 'https://e.hnfts.cn/quiz',
 //	uploadUrl: 'https://e.hnfts.cn/upload/upload',
+//	webSocketUrl: 'wss://e.hnfts.cn/websocket',
 
 	//测试服
 	url: 'http://192.168.10.2:8080',
 	url2: 'http://192.168.10.2:8081',
 	uploadUrl: 'http://192.168.10.2:8612/upload',
+	webSocketUrl: 'ws://192.168.10.2:9000',
 	
 	
 	pageSize: 10,

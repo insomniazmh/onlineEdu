@@ -1,49 +1,49 @@
 <!--pages/school_index/index.wxml-->
-<image class='banner' src='http://118.24.120.43:8611/img/banner_1.jpg' mode='widthFix'></image>
+<image class='banner' src='https://e.hnfts.cn/img/banner_1.jpg' mode='widthFix'></image>
 <view class="index_clm">
   <!-- <view class='clm_child opacity'>
-    <image src='http://118.24.120.43:8611/img/z01.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z01.png' mode='widthFix'></image>
     <text>选课</text>
   </view>
   <view class='clm_child opacity'>
-    <image src='http://118.24.120.43:8611/img/z02.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cnS/img/z02.png' mode='widthFix'></image>
     <text>心得</text>
   </view>
     <view class='clm_child opacity'>
-    <image src='http://118.24.120.43:8611/img/z03.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z03.png' mode='widthFix'></image>
     <text>笔记</text>
   </view>
     <view class='clm_child opacity'>
-    <image src='http://118.24.120.43:8611/img/z04.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z04.png' mode='widthFix'></image>
     <text>调查</text>
   </view>
     <view class='clm_child opacity'>
-    <image src='http://118.24.120.43:8611/img/z05.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
     <view class='clm_child opacity'>
-    <image src='http://118.24.120.43:8611/img/z06.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z06.png' mode='widthFix'></image>
     <text>测试</text>
   </view>
     <view class='clm_child opacity'>
-    <image src='http://118.24.120.43:8611/img/z07.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z07.png' mode='widthFix'></image>
     <text>问答</text>
   </view> -->
   <view class='clm_child' bindtap="scanCode">
-    <image src='http://118.24.120.43:8611/img/z08.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z08.png' mode='widthFix'></image>
     <text>上课</text>
   </view>
   <!-- <view class='clm_child' bindtap='goOn' data-url='/pages/course/preview/preview'> -->
   <view class='clm_child' bindtap='goOn' data-url='/pages/course/chapter/chapter'>
-    <image src='http://118.24.120.43:8611/img/z05.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
   <view class='clm_child' bindtap="goTo" data-url='/pages/notes/index/index'>
-    <image src='http://118.24.120.43:8611/img/z02.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z02.png' mode='widthFix'></image>
     <text>心得</text>
   </view>
   <view class='clm_child' bindtap="goWo" data-url='/pages/Notice/NoticeIndex/NoticeIndex'>
-    <image src='http://118.24.120.43:8611/img/z03.png' mode='widthFix'></image>
+    <image src='https://e.hnfts.cn/img/z03.png' mode='widthFix'></image>
     <text>公告</text>
   </view>
 
@@ -55,7 +55,7 @@
   <text class='title_right'>探索更多</text>
     <!--循环从此开始-->
         <view class='class_clm'>
-          <image class='fm_img' src='http://118.24.120.43:8611/img/zbook.png' mode='widthFix'></image>
+          <image class='fm_img' src='https://e.hnfts.cn/img/zbook.png' mode='widthFix'></image>
             <view class='right_info'>
               <text>《电子商务基础与应用》</text>
               <text class='mt_20'>标题：电子商务的框架模型</text>
@@ -63,13 +63,13 @@
             </view>
             <view class='cfx'></view>
             <view class='class_number'>
-              <image src='http://118.24.120.43:8611/img/icon_1.png' mode='widthFix'></image>
+              <image src='https://e.hnfts.cn/img/icon_1.png' mode='widthFix'></image>
               <text>进行到第3章 第1节</text>
             </view>
         </view>
       <!--循环到此结束-->
            <view class='class_clm'>
-          <image class='fm_img' src='http://118.24.120.43:8611/img/zbook.png' mode='widthFix'></image>
+          <image class='fm_img' src='https://e.hnfts.cn/img/zbook.png' mode='widthFix'></image>
             <view class='right_info'>
               <text>《电子商务基础与应用》</text>
               <text class='mt_20'>标题：电子商务的框架模型</text>
@@ -77,12 +77,12 @@
             </view>
             <view class='cfx'></view>
             <view class='class_number'>
-              <image src='http://118.24.120.43:8611/img/icon_1.png' mode='widthFix'></image>
+              <image src='https://e.hnfts.cn/img/icon_1.png' mode='widthFix'></image>
               <text>进行到第3章 第1节</text>
             </view>
         </view>
            <view class='class_clm'>
-          <image class='fm_img' src='http://118.24.120.43:8611/img/zbook.png' mode='widthFix'></image>
+          <image class='fm_img' src='https://e.hnfts.cn/img/zbook.png' mode='widthFix'></image>
             <view class='right_info'>
               <text>《电子商务基础与应用》</text>
               <text class='mt_20'>标题：电子商务的框架模型</text>
@@ -90,7 +90,7 @@
             </view>
             <view class='cfx'></view>
             <view class='class_number'>
-              <image src='http://118.24.120.43:8611/img/icon_1.png' mode='widthFix'></image>
+              <image src='https://e.hnfts.cn/img/icon_1.png' mode='widthFix'></image>
               <text>进行到第3章 第1节</text>
             </view>
         </view>

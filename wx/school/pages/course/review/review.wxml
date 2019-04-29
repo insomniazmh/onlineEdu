@@ -1,6 +1,6 @@
 <view class='room-warp'>
   <view class='headImg'>
-    <image src='http://118.24.120.43:8611/img/banner/header.png'></image>
+    <image src='https://e.hnfts.cn/img/banner/header.png'></image>
   </view>
     <view class='beforeList'>
       <van-row>
@@ -32,7 +32,7 @@
         <view class='know-warp'>
           <view class='know-card'>
             <view class='card-img'>
-              <image src='http://118.24.120.43:8611/img/floor/up1.png'></image>
+              <image src='https://e.hnfts.cn/img/floor/up1.png'></image>
             </view>
             <view class='card-title'>
                 <view class='title-name'>张小倩</view>
@@ -84,7 +84,7 @@
               </block>
             </view>
             <!-- <view class='self-img'>
-              <image src='http://118.24.120.43:8611/img/icon/w_icon_g.png'></image>
+              <image src='https://e.hnfts.cn/img/icon/w_icon_g.png'></image>
             </view> -->
           </view>
         </view>

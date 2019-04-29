@@ -141,6 +141,7 @@ Component({
       } else if (data.bigQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
         that.setData({ 
           questionType: "trueOrFalse",
+          answer: "Y",
           title: data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）"
         });
       } else if (data.bigQuestion.examChildren[0].examType == "design") {//主观题
