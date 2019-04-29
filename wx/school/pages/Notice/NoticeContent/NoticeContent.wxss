@@ -1,1 +1,11 @@
 /* pages/Notice/NoticeContent/NoticeContent.wxss */
+.warp{
+  padding: 50rpx;
+}
+.noticeTi{
+  padding: 50rpx;
+}
+.noticeText{
+  margin-top: 30rpx;
+  font-size: 25rpx;
+}
