@@ -8,19 +8,24 @@ Page({
     commentAdd:{}
   },
 
-  commentAdded(){
+  commentAdded(content){
     var that = this;
     var postData = {
-      articleId: 'fc26d5f13e3746e9995d9c51f822f819',
-      content:'ok!!!!!',
-      userId: '1301331992031827761'
+      commentId: this.data.commentId,
+      reply: content,
+      replyUserName: ''
     };
-    console.log(postData)
-    getApp().agriknow.notesCommentadded(postData).then(res => {
-      that.setData({
-        commentAdd: res.data
+    getApp().agriknow.notesCommentSavaReply(postData).then(res => {
+      wx.showToast({
+        title: '回复评论成功',
+        icon: 'success',
+        duration: 2000
       });
-      console.log(that.data.commentAdd);
+      setTimeout(function () {
+        wx.navigateBack({
+          delta: 1
+        });
+      }, '1000');
     })
       .catch(res => {
         //wx.stopPullDownRefresh()
@@ -30,7 +35,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      commentId: options.commentId
+    })
+  },
 
+  bindFormSubmit: function (e) {
+    this.commentAdded(e.detail.value.textarea);
   },
 
   /**

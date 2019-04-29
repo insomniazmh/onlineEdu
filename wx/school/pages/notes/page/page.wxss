@@ -142,6 +142,7 @@ text{
 }
 /*  新闻内容  */
 .warp .news-warp .news-list .news-item .item-content{
+  width: 95%;
   float: left;
   position: relative;
 }

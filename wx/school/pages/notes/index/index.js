@@ -12,9 +12,10 @@ Page({
     })
   },
   topage:function(e){
-    var articleId = e.currentTarget.dataset.id
+    var articleId = e.currentTarget.dataset.id;
+    getApp().globalData.articleId = articleId;
     wx.navigateTo({
-      url: '../page/page?id=' + articleId
+      url: '../page/page'
     })
   },
   //事件处理函数
@@ -34,13 +35,19 @@ Page({
         userId: wx.getStorageSync('studentId')
       };
     getApp().agriknow.notesList(postData).then(res => {
-        that.setData({
-          pageList: res.data
-        });
-        console.log(that.data.pageList);
-      })
-        .catch(res => {
-          //wx.stopPullDownRefresh()
-        });
-  }
+      that.setData({
+        pageList: res.data
+      });
+    })
+    .catch(res => {
+      //wx.stopPullDownRefresh()
+    });
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.onLoad();
+  },
 })

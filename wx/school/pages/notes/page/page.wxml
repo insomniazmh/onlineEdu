@@ -3,12 +3,8 @@
       <view class='content-block' >
         <text class='ctext'>{{pageContent.title}}</text>
         <view class='date'>发表于:{{pageContent.updateTime}}</view>
-        <!-- <image src='{{pageContent.imgUrl}}'></image> -->
         <text class='contxt'> {{pageContent.articleConten}} </text>
-        <!-- <image src='{{item.imgUrl}}'></image>
-        <text style='display:block'>{{item.articleConten}}</text>
-        <image src='{{item.imgUrl}}'></image>
-        <text style='display:block'>{{item.articleConten}}</text> -->
+        
       </view>
       <view class='like-block'>
         <view  class='like-zan l-btn'>
@@ -49,15 +45,16 @@
                       <view class='content-menu'>
                         <view class='c-date'>{{item.createTime}}</view>
                         <view class='c-praise'>
-                          <view  id='{{item.commentId}}'  bindtap='likeCommentary'  class='c-fire'>
-                            <van-icon style='color:#dcdcdc;' class='fire' name="like" />
-                            <text style='line-height:0;font-size:30rpx'>{{item.goodCount}}</text>
+                          <view id='{{item.commentId}}' bindtap='likeCommentary' class='c-fire'>
+                            <van-icon style='color:#dcdcdc;' class='fire' name="like" style='color:red;' />
+                            <text style='line-height:0;font-size:30rpx;color:red;'>{{item.goodCount}}</text>
                           </view>
                           <view class='reply-btn'>
-                            <van-button bindtap='jumpRep' size='mini' round >回复</van-button>
+                            <van-button id='{{item.commentId}}' bindtap='jumpRep' size='mini' 
+                            round wx:if="{{pageContent.isMy=='true' && !item.reContent}}">回复</van-button>
                           </view>
                         </view>
-                        <view class='replybox'>
+                        <view class='replybox' wx:if='{{item.reContent}}'>
                           <view class='sanjiao'></view>
                           <view class='reply-text'><text>楼主回复：{{item.reContent}}</text></view>
                         </view>
@@ -71,9 +68,9 @@
       </view>
   </view>
   <view class='fixed-sli'>
-          <view class='fixed-btn'>
-            <van-button bindtap='reply' plain hairline type="primary">我要评论</van-button>
-            <van-button bindtap='release' plain hairline type="danger">我要发帖</van-button>
-          </view>
+    <view class='fixed-btn'>
+      <van-button bindtap='reply' plain hairline type="primary">我要评论</van-button>
+      <van-button bindtap='release' plain hairline type="danger">我要发帖</van-button>
+    </view>
   </view>
 </view>

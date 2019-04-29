@@ -44,7 +44,6 @@ class request {
    * POST类型的网络请求
    */
   postRequest(url, data, header = this._header) {
-    console.log(wx.getStorageSync('token'));
     return this.requestAll(url, data, header, 'POST')
   }
 

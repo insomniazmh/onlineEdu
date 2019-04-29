@@ -9,23 +9,22 @@ Page({
     collectFlag: '',
     pageContent:{},
     pageLike:{},
-    pageCollect:{},
     pageCommentList:[]
   },
-  jumpRep(){
+  jumpRep(e){
     wx.navigateTo({
-      url: '../textarea/textarea',
+      url: '../textarea/textarea?commentId='+e.currentTarget.id,
     })
   },
   // 评论回复
-    reply:function(e){
-      var commentId = e.currentTarget.dataset.id
-      wx.navigateTo({
-        url: '../reply/reply?id=' + commentId,
-      })
-      console.log(e)
-    },
-    release: function () {
+  reply:function(e){
+    //评论回复时，需要将帖子id和帖子的title传入评论页面
+    wx.navigateTo({
+      url: '../reply/reply?title=' + this.data.pageContent.title,
+    });
+  },
+
+  release: function () {
     wx.navigateTo({
       url: '../release/release',
     })
@@ -35,7 +34,7 @@ Page({
     let count = this.data.likeCount;
     var that = this;
     var postData = {
-      articleId:that.data.id,
+      articleId: getApp().globalData.articleId,
       userId: wx.getStorageSync('studentId')
     };
     // console.log(postData)
@@ -60,7 +59,7 @@ Page({
     var that = this;
     if (this.data.pageContent.isCollect == 'false'){
       var postData = {
-        articleId: that.data.id,
+        articleId: getApp().globalData.articleId,
         userId: wx.getStorageSync('studentId')
       };
       getApp().agriknow.notesContentCollect(postData).then(res => {
@@ -80,7 +79,7 @@ Page({
         });
     } else if (this.data.pageContent.isCollect == 'true'){
       var postData = {
-        articleId: that.data.id,
+        articleId: getApp().globalData.articleId,
         userId: wx.getStorageSync('studentId')
       };
       getApp().agriknow.notesDeleContentCollect(postData).then(res => {
@@ -129,18 +128,14 @@ Page({
   onLoad: function (options) {
     var that = this;
     var postData = {
-      id:options.id,
+      id: getApp().globalData.articleId,
       userId: wx.getStorageSync('studentId')
     };
-    that.setData({
-      id: options.id
-    })
     // console.log(postData)
     getApp().agriknow.notesContent(postData).then(res => {
       that.setData({
         pageContent: res.data
       });
-      // console.log(that.data.pageContent);
     })
       .catch(res => {
         //wx.stopPullDownRefresh()
@@ -148,7 +143,7 @@ Page({
 
     // 评论列表
     var postData = {
-      articleId: options.id,
+      articleId: getApp().globalData.articleId,
       sortVo:{
         isValidated:0,
         page:0,
@@ -178,7 +173,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.onLoad();
   },
 
   /**

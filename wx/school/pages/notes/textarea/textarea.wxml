@@ -1,5 +1,7 @@
 <!--pages/textarea/textarea.wxml-->
-<view class='textare'>
-  <textarea placeholder='请输入您要回复的内容...'></textarea>
-  <button bindtap='commentAdded'>提交</button>
+<form bindsubmit='bindFormSubmit'>
+  <view class='textare'>
+  <textarea name='textarea' placeholder='请输入您要回复的内容...'></textarea>
+  <button form-type='submit' class='fotbtn'>提交</button>
 </view>
+</form>
