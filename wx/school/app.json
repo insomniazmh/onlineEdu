@@ -22,7 +22,8 @@
     "pages/notes/release/release",
     "pages/notes/textarea/textarea",
     "pages/course/chapter/chapter",
-    "pages/Notice/NoticeContent/NoticeContent"
+    "pages/Notice/NoticeContent/NoticeContent",
+    "pages/course/list/list"
   ],
   "window": {
     "backgroundTextStyle": "light",

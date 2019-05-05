@@ -99,6 +99,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     if (!getApp().globalData.token) {
       wx.login({
         success(res) {
@@ -107,34 +108,33 @@ Page({
               code: res.code
             }).then(res => {
               if (res.ret == 0) {
-                if (data.data.ret == 0) {
-                  var resData = data.data.data;
-                  console.log(resData.token);
-                  wx.setStorageSync('token', resData.token)//将token信息存入本地
-                  wx.setStorageSync('studentId', resData.studentId)//将studentId信息存入本地
-                  if (resData.binding && resData.binding == '0') {
-                  } else {
-                    //将页面跳转至绑定页
-                    wx.showModal({
-                      title: '未找到身份信息',
-                      content: '您的身份还未验证，请先绑定身份信息',
-                      showCancel: false,
-                      duration: 2000,
-                      success: function () {
-                        getApp().globalData.alreadyBind = false;
-                        wx.navigateTo({
-                          url: '/pages/getId/getId'
-                        });
-                      }
-                    });
-                  }
+                var resData = res.data;
+                console.log(resData.token);
+                wx.setStorageSync('token', resData.token)//将token信息存入本地
+                wx.setStorageSync('studentId', resData.studentId)//将studentId信息存入本地
+                that.loadMyCourse();
+                if (resData.binding && resData.binding == '0') {
                 } else {
-                  wx.showToast({
-                    title: '登录失败，请退出重试',
-                    icon: 'none',
-                    duration: 2000
+                  //将页面跳转至绑定页
+                  wx.showModal({
+                    title: '未找到身份信息',
+                    content: '您的身份还未验证，请先绑定身份信息',
+                    showCancel: false,
+                    duration: 2000,
+                    success: function () {
+                      getApp().globalData.alreadyBind = false;
+                      wx.navigateTo({
+                        url: '/pages/getId/getId'
+                      });
+                    }
                   });
                 }
+              } else {
+                wx.showToast({
+                  title: '登录失败，请退出重试',
+                  icon: 'none',
+                  duration: 2000
+                });
               }
             }).catch(res => {
               //wx.stopPullDownRefresh()
@@ -149,6 +149,20 @@ Page({
         }
       })
     }
+  },
+
+  /**
+   * 加载我的课程（当前学期正在进行中的课程）
+   */
+  loadMyCourse: function() {
+    var that = this;
+    getApp().agriknow.myCourseList().then(res => {
+      that.setData({
+        courseList: res.data
+      })
+    }).catch(res => {
+      //wx.stopPullDownRefresh()
+    });
   },
 
   /**

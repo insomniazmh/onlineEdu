@@ -1,0 +1,10 @@
+/* pages/course/list/list.wxss */
+.class_clm{margin:20rpx;padding:20rpx 0;position:relative;}
+.fm_img{width:200rpx;display:block;float:left;}
+.right_info{float:right;width:430rpx;}
+.right_info text:nth-of-type(1){display:block;font-size:32rpx;font-weight:500;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.right_info text:nth-of-type(2){display:block;font-size:29rpx;color:#757575;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.right_info text:nth-of-type(3){display:block;font-size:29rpx;color:#757575;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.class_number{position:absolute;right:0;bottom:20rpx;}
+.class_number image{width:35rpx;display:block;float:left;margin-right:10rpx;}
+.class_number text{font-size:30rpx;color:#579615;display:block;float:left;line-height: 35rpx;}

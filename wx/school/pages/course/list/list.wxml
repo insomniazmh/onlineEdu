@@ -1,0 +1,19 @@
+<!--pages/course/list/list.wxml-->
+<van-tabs active="{{ active }}" bind:change="onChange">
+  <van-tab title="进行中课程">
+  <view class='class_clm' wx:for="{{courseList}}">
+    <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+      <view class='right_info'>
+        <text>《{{item.courseName}}》</text>
+        <text class='mt_20'>课程描述：{{item.courseDescribe}}</text>
+        <!-- <text class='mt_10'>授课老师：金江海</text> -->
+      </view>
+      <view class='cfx'></view>
+      <view class='class_number'>
+        <image src='https://e.hnfts.cn/img/icon_1.png' mode='widthFix'></image>
+        <text>进行到{{item.joinChapterName}}</text>
+      </view>
+  </view>
+  </van-tab>
+  <van-tab title="已修完课程">该功能暂未开放</van-tab>
+</van-tabs>

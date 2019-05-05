@@ -34,7 +34,7 @@
     <text>上课</text>
   </view>
   <!-- <view class='clm_child' bindtap='goOn' data-url='/pages/course/preview/preview'> -->
-  <view class='clm_child' bindtap='goOn' data-url='/pages/course/chapter/chapter'>
+  <view class='clm_child' bindtap='goOn' data-url='/pages/course/list/list'>
     <image src='https://e.hnfts.cn/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
@@ -50,48 +50,22 @@
   <view class='cfx'></view>
 </view>
 
-<view class='min_class opacity'>
+<view class='min_class'>
   <text class='title_class'>必修课</text>
-  <text class='title_right'>探索更多</text>
-    <!--循环从此开始-->
-        <view class='class_clm'>
-          <image class='fm_img' src='https://e.hnfts.cn/img/zbook.png' mode='widthFix'></image>
-            <view class='right_info'>
-              <text>《电子商务基础与应用》</text>
-              <text class='mt_20'>标题：电子商务的框架模型</text>
-              <text class='mt_10'>授课老师：金江海</text>
-            </view>
-            <view class='cfx'></view>
-            <view class='class_number'>
-              <image src='https://e.hnfts.cn/img/icon_1.png' mode='widthFix'></image>
-              <text>进行到第3章 第1节</text>
-            </view>
-        </view>
-      <!--循环到此结束-->
-           <view class='class_clm'>
-          <image class='fm_img' src='https://e.hnfts.cn/img/zbook.png' mode='widthFix'></image>
-            <view class='right_info'>
-              <text>《电子商务基础与应用》</text>
-              <text class='mt_20'>标题：电子商务的框架模型</text>
-              <text class='mt_10'>授课老师：金江海</text>
-            </view>
-            <view class='cfx'></view>
-            <view class='class_number'>
-              <image src='https://e.hnfts.cn/img/icon_1.png' mode='widthFix'></image>
-              <text>进行到第3章 第1节</text>
-            </view>
-        </view>
-           <view class='class_clm'>
-          <image class='fm_img' src='https://e.hnfts.cn/img/zbook.png' mode='widthFix'></image>
-            <view class='right_info'>
-              <text>《电子商务基础与应用》</text>
-              <text class='mt_20'>标题：电子商务的框架模型</text>
-              <text class='mt_10'>授课老师：金江海</text>
-            </view>
-            <view class='cfx'></view>
-            <view class='class_number'>
-              <image src='https://e.hnfts.cn/img/icon_1.png' mode='widthFix'></image>
-              <text>进行到第3章 第1节</text>
-            </view>
-        </view>
+  <!-- <text class='title_right'>探索更多</text> -->
+  <!--循环从此开始-->
+  <view class='class_clm' wx:for="{{courseList}}">
+    <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+      <view class='right_info'>
+        <text>《{{item.courseName}}》</text>
+        <text class='mt_20'>课程描述：{{item.courseDescribe}}</text>
+        <!-- <text class='mt_10'>授课老师：金江海</text> -->
+      </view>
+      <view class='cfx'></view>
+      <view class='class_number'>
+        <image src='https://e.hnfts.cn/img/icon_1.png' mode='widthFix'></image>
+        <text>进行到{{item.joinChapterName}}</text>
+      </view>
+  </view>
+  <!--循环到此结束-->
 </view>

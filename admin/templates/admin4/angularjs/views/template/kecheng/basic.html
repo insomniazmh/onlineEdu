@@ -1,18 +1,17 @@
+<link href="../../../assets/global/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 <div role="form" ng-controller="basicCtrl">
 	<div class="form-body">
 		<div class="row" style="margin-bottom: 40px;">
 			<div class="col-md-6">
 				<div class="form-group form-md-line-input">
-					<input type="text" class="form-control" id="form_control_1" ng-model="course.courseName" placeholder="请输入课程名称">
+					<input id="courseName" type="text" class="form-control" ng-model="course.courseName" placeholder="请输入课程名称">
 					<label for="form_control_1">名称</label>
-					<span class="help-block">名称不得超过20个字符</span>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group form-md-line-input has-success">
-					<input type="text" class="form-control" id="form_control_2" ng-model="course.courseNumber" placeholder="请输入课程编号">
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.courseNumber" placeholder="请输入课程编号" readonly="readonly">
 					<label for="form_control_2">编号</label>
-					<span class="help-block"></span>
 				</div>
 			</div>
 		</div>
@@ -108,10 +107,51 @@
 	</div>
 </div>
 
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script>
 	function basicCtrl($scope, $http, $location, $rootScope) {
 		var courseId = localStorage.getItem('courseId');
 		var path = $location.path();
+		
+		//加载所有课程
+		$scope.loadAllCourse = function() {
+			common.ajax({
+				method: 'get',
+				$scope: $scope,
+				$http: $http,
+				url: '/course/findCourseList',
+				data: {
+					'courseId': localStorage.getItem('courseId')
+				},
+				success: function(data) {
+					var courseList = data.data;
+					courseList.forEach(function(value) {
+						value.label = value.courseName;
+						value.value = value.courseId;
+					})
+					$("#courseName").autocomplete({
+				    //数据源
+				    source: data.data,
+						focus: function( event, ui ) {
+			        $( "#courseName" ).val( ui.item.label );
+			        return false;
+			      },
+			      select: function( event, ui ) {
+			      	$scope.$apply(function() {
+			      		$scope.course.courseNumber = ui.item.value;
+			      		$scope.course.courseName = ui.item.label;
+			      	})
+			        
+			        return false;
+			      }
+					});
+					
+					$scope.loadCourseInfo();
+				}
+			});
+		}
+		$scope.loadAllCourse();
+		
 		//加载课程信息(如果为编辑)
 		$scope.loadCourseInfo = function() {
 			if (path.indexOf("courseAdd") != -1) {
@@ -172,7 +212,7 @@
 				});
 			}
 		}
-		$scope.loadCourseInfo();
+		
 
 		//切换课程回调
 		$scope.$on('course', function(d, data) {
@@ -279,6 +319,9 @@
 				});
 			} else {
 				$scope.course.courseId = localStorage.getItem('courseId');
+				if(!$scope.course.shareId) {
+//					$scope.course.shareId = "";
+				}
 				//编辑课程
 				common.ajax({
 					$scope: $scope,

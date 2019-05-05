@@ -684,9 +684,10 @@
 						$('#qrcode').qrcode("interactionQr"+res.data);
 						$("#qrcodeModal").modal("show");
 						$scope.students = [];
-						if(flag) {
-							$scope.initWs(); //开始长连接，获取学生加入情况
+						if(wsobj) {
+							wsobj.destroy();//关闭现有长连接
 						}
+						$scope.initWs(); //开始长连接，获取学生加入情况
 					}
 				});
 				layer.closeAll('dialog');

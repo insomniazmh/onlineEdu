@@ -42,6 +42,13 @@ class agriknow {
   }
 
   /**
+   *  加载我的课程（当前学期正在进行中的课程）
+   */
+  myCourseList(postData = {}) {
+    return this._request.getRequest(this._baseUrl + this._education + '/course/myCourseList', postData).then(res => res.data)
+  }
+
+  /**
    *  学生进入课堂
    */
   joinClass(postData = {}) {
