@@ -404,7 +404,7 @@
 							'QuestType': '',
 							'interactive': ''
 						},
-						url: '/interact/fabu/questList',
+						url: '/teachInteract/fabu/questList',
 						success: function(res) {
 							if(res.data.fabuQuest) {
 								$($scope.tiwenQuestionList).each(function() {
@@ -567,7 +567,7 @@
 						$scope: $scope,
 						$http: $http,
 						operate: true,
-						url: '/interact/send/question',
+						url: '/teachInteract/send/question',
 						data: {
 							"category": $scope.currentTiwenQues.category,
 							"circleId": localStorage.getItem("circleId"),
@@ -613,7 +613,7 @@
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/interact/send/raise/question',
+						url: '/teachInteract/send/raise/question',
 						data: {
 							"category": $scope.currentTiwenQues.category,
 							"circleId": localStorage.getItem("circleId"),
@@ -642,7 +642,7 @@
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/interact/findQuestionsRecord',
+						url: '/teachInteract/findQuestionsRecord',
 						data: {
 							"circleId": localStorage.getItem("circleId"),
 							"questionsId": $scope.currentTiwenQues.id
@@ -667,6 +667,7 @@
 			//专门负责处理练习的controller
 			app.controller('bookCtrl', function($scope, $http, $interval) {
 				$scope.currentBookQues = {}; //当前选中的提问问题		
+				$scope.allStudents = [];
 				//加载所有的练习题目
 				common.ajax2({
 					$scope: $scope,
@@ -695,8 +696,9 @@
 					//接收学生回答情况,暂不处理,改为调接口取数据
 				});
 				
+				//接收学生加入事件
 				$scope.$on('allStudents', function(event, data) {
-					$scope.allStudents = data.students;
+					$scope.allStudents = $scope.allStudents.concat(data.students);
 				});
 				
 				//点击题号 
@@ -732,13 +734,14 @@
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/interact/send/book',
+						url: '/teachInteract/send/book',
 						data: {
 							"category": 'people',
 							"circleId": localStorage.getItem("circleId"),
 //							"cut": timestamp,
 							"questionId": selQuestionId,
-//							"questionType": 'LianXi',
+							"questionType": 'LianXi',
+							"teacherId": localStorage.getItem("userid"),
 							"selected": selected
 						},
 						success: function() {
@@ -759,7 +762,7 @@
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/interact/findQuestionsRecord',
+						url: '/teachInteract/findQuestionsRecord',
 						data: {
 							"circleId": localStorage.getItem("circleId"),
 							"questionsId": $scope.currentBookQues.id

@@ -142,7 +142,7 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 		common.ajax({
 			$scope: $scope,
 			$http: $http,
-			url: '/course/findAll',
+			url: '/course/findMyCourse',
 			data: pageData,
 			success: function(data) {
 				$(data.data).each(function() {

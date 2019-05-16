@@ -60,6 +60,7 @@ Page({
   onSubQuestion: function (e) {
     var postData = e.detail;
     var that = this;
+    postData.questionType = 'Lianxi';
 
     getApp().agriknow.answerPractice(postData)
       .then(res => {

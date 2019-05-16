@@ -60,14 +60,14 @@ class agriknow {
    * 提交提问回答
    */
   answerQuiz(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/stuInteract/send/answer', postData).then(res => res.data)
   }
 
   /**
    * 提交提问举手
    */
   raise(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/raise', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/stuInteract/raise', postData).then(res => res.data)
   }
 
 
@@ -75,14 +75,14 @@ class agriknow {
    * 收到问题后回调服务器
    */
   delSelectStu(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/fabu/delSelectStu', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/stuInteract/fabu/delSelectStu', postData).then(res => res.data)
   }
 
   /**
    * 提交练习回答
    */
   answerPractice(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/sendBook/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/stuInteract/sendBook/answer', postData).then(res => res.data)
   }
 
   /**

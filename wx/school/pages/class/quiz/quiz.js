@@ -63,6 +63,7 @@ Page({
   onSubQuestion(e) {
     //e.detail // 自定义组件触发事件时提供的detail对象
     var postData = e.detail;
+    postData.questionType = 'TiWen';
 
     getApp().agriknow.answerQuiz(postData)
       .then(res => {
@@ -85,6 +86,7 @@ Page({
    */
   onRaise(e) {
     var postData = e.detail;
+    postData.questionType = 'TiWen';
     getApp().agriknow.raise(postData)
       .then(res => {
         if (res.data.ret == 0) {
