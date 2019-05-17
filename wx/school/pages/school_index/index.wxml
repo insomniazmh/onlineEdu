@@ -34,7 +34,7 @@
     <text>上课</text>
   </view>
   <!-- <view class='clm_child' bindtap='goOn' data-url='/pages/course/preview/preview'> -->
-  <view class='clm_child' bindtap='goOn' data-url='/pages/course/list/list'>
+  <view class='clm_child' bindtap='goTo' data-url='/pages/course/list/list'>
     <image src='https://e.hnfts.cn/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
@@ -42,7 +42,7 @@
     <image src='https://e.hnfts.cn/img/z02.png' mode='widthFix'></image>
     <text>心得</text>
   </view>
-  <view class='clm_child' bindtap="goWo" data-url='/pages/Notice/NoticeIndex/NoticeIndex'>
+  <view class='clm_child' bindtap="goTo" data-url='/pages/Notice/NoticeIndex/NoticeIndex'>
     <image src='https://e.hnfts.cn/img/z03.png' mode='widthFix'></image>
     <text>公告</text>
   </view>
@@ -52,14 +52,15 @@
 
 <view class='min_class'>
   <text class='title_class'>必修课</text>
-  <!-- <text class='title_right'>探索更多</text> -->
+  <text class='title_right'>{{className}}</text>
   <!--循环从此开始-->
-  <view class='class_clm' wx:for="{{courseList}}">
+  <view class='class_clm' wx:for="{{courseList}}" bindtap="navToChapter" 
+  data-course='{{item}}'>
     <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
         <text>《{{item.courseName}}》</text>
         <text class='mt_20'>课程描述：{{item.courseDescribe}}</text>
-        <!-- <text class='mt_10'>授课老师：金江海</text> -->
+        <text class='mt_10'>授课老师：{{item.teacherName}}</text>
       </view>
       <view class='cfx'></view>
       <view class='class_number'>

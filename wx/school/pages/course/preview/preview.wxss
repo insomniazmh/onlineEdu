@@ -1,4 +1,16 @@
 /* 头部 */
+.page__hd{
+  background-color: #fbf9fe;
+  padding: 20rpx 50rpx 50rpx 50rpx;
+  text-align: center;
+}
+.page__title{
+    display: inline-block;
+    padding: 20rpx 40rpx;
+    font-size: 32rpx;
+    color: #AAAAAA;
+    border-bottom: 1px solid #CCCCCC;
+}
 .room-warp{
   position: relative;
   width: 100%;

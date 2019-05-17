@@ -197,6 +197,13 @@ class agriknow {
     return this._request.postRequest(this._baseUrl + this._education + '/articleComment/findArticleId',postData).then(res => res.data)
   }
 
+  /**
+   *  根据课程id加载章节信息
+   */
+  loadChapterByCourseId(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseChapter/findByCourseId', postData).then(res => res.data)
+  }
+
 /*------------------------------------------------------------------------------------------------------------*/
   /**
    *  公告列表

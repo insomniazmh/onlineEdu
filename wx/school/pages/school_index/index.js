@@ -23,14 +23,11 @@ Page({
       url: e.currentTarget.dataset.url
     })
   },
-  goOn(e) {
+
+  //跳转至章节选择页面
+  navToChapter(e) {
     wx.navigateTo({
-      url: e.currentTarget.dataset.url
-    })
-  },
-  goWo(e) {
-    wx.navigateTo({
-      url: e.currentTarget.dataset.url
+      url: '/pages/course/chapter/chapter?courseId=' + e.currentTarget.dataset.course.courseId + '&courseName=' + e.currentTarget.dataset.course.courseName
     })
   },
 
@@ -112,6 +109,9 @@ Page({
                 console.log(resData.token);
                 wx.setStorageSync('token', resData.token)//将token信息存入本地
                 wx.setStorageSync('studentId', resData.studentId)//将studentId信息存入本地
+                that.setData({
+                  className: resData.className
+                });
                 that.loadMyCourse();
                 if (resData.binding && resData.binding == '0') {
                 } else {
