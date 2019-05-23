@@ -156,132 +156,50 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     $urlRouterProvider.otherwise("/home.html");
 
     $stateProvider
+    // 主页
+    .state('home', {
+      url: "/home.html",
+      templateUrl: "views/template/home.html",            
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
     
-    	// 课程列表
-        .state('courseList', {
-            url: "/courseList.html",
-            templateUrl: "views/template/courseList.html",     
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [] 
-                    });
-                }]
-            }
-        })
-        
-        // 课程详情
-        .state('course', {
-            url: "/course.html",
-						templateUrl: "views/template/course.html",  
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [] 
-                    });
-                }]
-            }
-        })
-        
-        // 主页
-        .state('home', {
-            url: "/home.html",
-            templateUrl: "views/template/home.html",            
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [] 
-                    });
-                }]
-            }
-        })
-        
-        //论坛
-        .state('post', {
-            url: "/post.html",
-            templateUrl: "views/template/post.html",            
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [] 
-                    });
-                }]
-            }
-        })
-				
-				//视频
-				.state('video', {
-						url: "/video.html",
-						templateUrl: "views/template/video.html",            
-						resolve: {
-								deps: ['$ocLazyLoad', function($ocLazyLoad) {
-										return $ocLazyLoad.load({
-												name: 'MetronicApp',
-												insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-												files: [] 
-										});
-								}]
-						}
-				})
-
-        // User Profile Dashboard
-        .state("profile.dashboard", {
-            url: "/dashboard",
-            templateUrl: "views/profile/dashboard.html",
-            data: {pageTitle: 'User Profile', pageSubTitle: 'user profile dashboard sample'}
-        })
-
-        // User Profile Account
-        .state("profile.account", {
-            url: "/account",
-            templateUrl: "views/profile/account.html",
-            data: {pageTitle: 'User Account', pageSubTitle: 'user profile account sample'}
-        })
-
-        // User Profile Help
-        .state("profile.help", {
-            url: "/help",
-            templateUrl: "views/profile/help.html",
-            data: {pageTitle: 'User Help', pageSubTitle: 'user profile help sample'}      
-        })
-
-        // Todo
-        .state('test', {
-            url: "/test",
-            templateUrl: "views/test/test.html",
-            data: {pageTitle: 'Todo', pageSubTitle: 'user todo & tasks sample'},
-            controller: "TodoController",
-            resolve: {
-                deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                    return $ocLazyLoad.load({ 
-                        name: 'MetronicApp',  
-                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-                        files: [
-                            '../../../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css',
-                            '../../../assets/global/plugins/select2/select2.css',
-                            '../../../assets/admin/pages/css/todo.css',
-                            '../../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css',
-                            '../../../assets/admin/pages/css/profile.css',
-                            '../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
-                            '../../../assets/global/plugins/select2/select2.min.js',
-                            
-                            //'../../../assets/admin/pages/scripts/todo.js',
-
-                            'js/controllers/TodoController.js'  
-                        ]                    
-                    });
-                }]
-            }
-        })
-
+    // 报名信息
+    .state('enroll', {
+      url: "/enroll.html",
+      templateUrl: "views/enroll/enroll.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    
+    // 报名信息添加
+    .state('enrollAdd', {
+      url: "/enrollAdd.html",
+      templateUrl: "views/enroll/enrollAdd.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
 }]);
 
 /* Init global settings and run the app */

@@ -94,6 +94,7 @@ Component({
 
     /**点击确定按钮提交答案 */
     formSubmit: function (e) {
+      console.log(123456);
       console.log('form发生了submit事件，携带数据为：', e.detail.value);
       this.setData({ 
         answer: e.detail.value.answer,

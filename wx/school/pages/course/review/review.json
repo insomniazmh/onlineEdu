@@ -3,6 +3,7 @@
     "van-row": "/dist/row/index",
     "van-col": "/dist/col/index",
     "van-icon": "/dist/icon/index",
-    "van-button": "/dist/button/index"
+    "van-button": "/dist/button/index",
+    "question": "/components/question/question"
   }
 }

@@ -60,14 +60,14 @@ class agriknow {
    * 提交提问回答
    */
   answerQuiz(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/send/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/stuInteract/send/answer', postData).then(res => res.data)
   }
 
   /**
    * 提交提问举手
    */
   raise(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/raise', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/stuInteract/raise', postData).then(res => res.data)
   }
 
 
@@ -75,14 +75,14 @@ class agriknow {
    * 收到问题后回调服务器
    */
   delSelectStu(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/fabu/delSelectStu', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/stuInteract/fabu/delSelectStu', postData).then(res => res.data)
   }
 
   /**
    * 提交练习回答
    */
   answerPractice(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/interact/sendBook/answer', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/stuInteract/sendBook/answer', postData).then(res => res.data)
   }
 
   /**
@@ -95,9 +95,9 @@ class agriknow {
   /**
    * 提交任务回答
    */
-  answerTask(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/TaskInteract/send/answer', postData).then(res => res.data)
-  }
+  // answerTask(postData = {}) {
+  //   return this._request.postRequest(this._baseUrl + this._quiz + '/TaskInteract/send/answer', postData).then(res => res.data)
+  // }
 
   /**
    * 提交头脑风暴回答
@@ -195,6 +195,34 @@ class agriknow {
    */
   notesComponents(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._education + '/articleComment/findArticleId',postData).then(res => res.data)
+  }
+
+  /**
+   *  根据课程id加载章节信息
+   */
+  loadChapterByCourseId(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseChapter/findByCourseId', postData).then(res => res.data)
+  }
+
+  /**
+   *  根据章节id加载知识点
+   */
+  loadKnowPoints(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/kNode/findByChapter', postData).then(res => res.data)
+  }
+
+  /**
+   *  根据章节id加载资料
+   */
+  loadDatumList(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseData/findDatumList', postData).then(res => res.data)
+  }
+
+  /**
+   *  根据章节id加载预习练习（课后作业）题目
+   */
+  loadExerciseList(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._quiz + '/exerciseBook/findExerciseBook', postData).then(res => res.data)
   }
 
 /*------------------------------------------------------------------------------------------------------------*/
