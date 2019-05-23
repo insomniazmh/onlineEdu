@@ -1,7 +1,7 @@
 <!--pages/course/list/list.wxml-->
 <van-tabs active="{{ active }}" bind:change="onChange">
   <van-tab title="进行中课程">
-  <view class='class_clm' wx:for="{{courseList}}">
+  <view class='class_clm' wx:for="{{courseList}}" wx:key='course'>
     <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
         <text>《{{item.courseName}}》</text>

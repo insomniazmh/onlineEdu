@@ -54,7 +54,7 @@
   <text class='title_class'>必修课</text>
   <!-- <text class='title_right'>探索更多</text> -->
   <!--循环从此开始-->
-  <view class='class_clm' wx:for="{{courseList}}">
+  <view class='class_clm' wx:for="{{courseList}}" wx:key='school'>
     <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
         <text>《{{item.courseName}}》</text>
