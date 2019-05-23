@@ -14,7 +14,7 @@ Page({
    */
   onLoad: function (option) {
     this.setData({
-      course: option
+      courseName: wx.getStorageSync('courseName')
     });
     this.loadChapterByCourseId();
   },
@@ -25,7 +25,7 @@ Page({
   loadChapterByCourseId: function () {
     var that = this;
     var postData = {
-      courseId: '3419bb57a7004463a172a2c897c22452'
+      courseId: wx.getStorageSync('courseId')
     }
     getApp().agriknow.loadChapterByCourseId(postData).then(res => {
       that.setData({
@@ -112,16 +112,21 @@ Page({
   //跳转至预习页面
   navToPreview: function () {
     //获取当前选中的章节
-    var chapterId = '';
+    var chapter = {};
     if (this.data.objectArray3.length > 0) {
-      chapterId = this.data.objectArray3[this.data.index3].id;
+      chapter = this.data.objectArray3[this.data.index3];
     } else if (this.data.objectArray2.length > 0) {
-      chapterId = this.data.objectArray2[this.data.index2].id;
+      chapter = this.data.objectArray2[this.data.index2];
+    } else if (this.data.objectArray1.length > 0) {
+      chapter = this.data.objectArray1[this.data.index1];
     }else {
-      chapterId = this.data.objectArray1[this.data.index1].id;
+      wx.showModal({
+        title: '本课程没有章节，无法进行下一步',
+      });
+      return false;
     }
     wx.navigateTo({
-      url: '/pages/course/preview/preview?chapterId=' + chapterId
+      url: '/pages/course/preview/preview?chapterId=' + chapter.id + '&chapterName=' + chapter.text
     })
   },
 })

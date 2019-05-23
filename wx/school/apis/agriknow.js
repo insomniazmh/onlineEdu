@@ -95,9 +95,9 @@ class agriknow {
   /**
    * 提交任务回答
    */
-  answerTask(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/TaskInteract/send/answer', postData).then(res => res.data)
-  }
+  // answerTask(postData = {}) {
+  //   return this._request.postRequest(this._baseUrl + this._quiz + '/TaskInteract/send/answer', postData).then(res => res.data)
+  // }
 
   /**
    * 提交头脑风暴回答
@@ -202,6 +202,27 @@ class agriknow {
    */
   loadChapterByCourseId(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._education + '/courseChapter/findByCourseId', postData).then(res => res.data)
+  }
+
+  /**
+   *  根据章节id加载知识点
+   */
+  loadKnowPoints(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/kNode/findByChapter', postData).then(res => res.data)
+  }
+
+  /**
+   *  根据章节id加载资料
+   */
+  loadDatumList(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseData/findDatumList', postData).then(res => res.data)
+  }
+
+  /**
+   *  根据章节id加载预习练习（课后作业）题目
+   */
+  loadExerciseList(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._quiz + '/exerciseBook/findExerciseBook', postData).then(res => res.data)
   }
 
 /*------------------------------------------------------------------------------------------------------------*/

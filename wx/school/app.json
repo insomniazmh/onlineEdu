@@ -23,7 +23,8 @@
     "pages/notes/textarea/textarea",
     "pages/course/chapter/chapter",
     "pages/Notice/NoticeContent/NoticeContent",
-    "pages/course/list/list"
+    "pages/course/list/list",
+    "pages/auth/auth"
   ],
   "window": {
     "backgroundTextStyle": "light",

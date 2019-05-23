@@ -1,111 +1,66 @@
 <view class='room-warp'>
-  <view class='headImg'>
+  <!-- <view class='headImg'>
     <image src='https://e.hnfts.cn/img/banner/header.png'></image>
+  </view> -->
+  <view class="page__hd">
+    <text class="page__title">{{chapter.chapterName}}</text>
   </view>
-    <view class='beforeList'>
-      <van-row>
-        <van-col span="12">
-          <view class='col-8'>
-            <navigator url='../preview/preview' hover-class='classBottom'>课前</navigator>
-          </view>
-        </van-col>
-        <van-col span="12">
-          <view class='col-8 col-last'>
-            <navigator hover-class='classBottom'>课后</navigator>
-          </view>
-        </van-col>
-      </van-row>
+  <view class='beforeList'>
+    <van-row>
+      <van-col span="12">
+        <view class='col-8'>
+          <navigator open-type='navigateBack'>课前</navigator>
+        </view>
+      </van-col>
+      <van-col span="12">
+        <view class='col-8 col-last'>
+          <navigator class='classBottom'>课后</navigator>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+  <view class='know-content'>
+    <view class='know'>知识点</view>
+    <view class='know-list'>
+      <view class='know-1'>
+        <text>1</text> 电子商务的定义</view>
+      <view class='know-2'>
+        <text>2</text> 电子商务的概念</view>
     </view>
-    <view class='know-content'>
-      <view class='know'>知识点</view>
-      <view class='know-list'>
-        <view class='know-1'><text>①</text> 电子商务的定义</view>
-        <view class='know-2'><text>②</text> 电子商务的概念</view>
-      </view>
-      <!-- 分割线 -->
-      <view class='cut-off'></view>
-       
-      <view class='know'>课程评价
-        <text style='margin-left:30rpx;font-size:30rpx;'>4.8分</text>
-        <text class='right-title'>24人评价</text>
-      </view>
-        <view class='know-warp'>
-          <view class='know-card'>
-            <view class='card-img'>
-              <image src='https://e.hnfts.cn/img/floor/up1.png'></image>
-            </view>
-            <view class='card-title'>
-                <view class='title-name'>张小倩</view>
-                <text>2018级8班</text>
-            </view>
-      
-              <view class="right">
-                <view bindtap="starTap"
-                data-index="{{index}}"
-                class="star" wx:for="{{userStars}}"
-                wx:key="index">
-                <image src="{{item}}"></image>
-              </view>
-            </view>
+    <!-- 分割线 -->
+    <view class='cut-off'></view>
 
-          </view>
-          <view class='konw-contet'>
-              我是呼浩浩特的，早上放牧听这个，马惊到了，现在我他妈快到俄罗斯了···
-          </view>
-          <view class='know-btn'>
-           <navigator style='margin-right:100rpx;'>我也要评价</navigator> 
-           <navigator>查看全部评价</navigator> 
-          </view>
+    <view class='know'>课程评价
+      <text style='margin-left:30rpx;font-size:30rpx;'>4.8分</text>
+      <navigator class='evaluate' bindtap='evaluate'>我也要评价</navigator>
+      <text class='right-title'>24人评价</text>
+    </view>
+    <view class='know-warp'>
+      <view class='know-card'>
+        <view class='card-img'>
+          <image src='{{portrait}}'></image>
         </view>
-      <view class='know'>作业</view>
-      <view class='data-list'>
-        <view></view>
-        <view class='task-item'>
-          <text>一、选择题</text>
-          <text class='self-title'>1、不属于电子商务的特性的选项是 （ \t ）。</text>
-          <view class='self-item'>
-            <navigator>A.<text>个体性</text> </navigator>
-            <navigator>B.<text>普遍性</text> </navigator>
-            <navigator>C.<text>安全性</text> </navigator>
-            <navigator>D.<text>方便性</text> </navigator>
-          </view>
+        <view class='card-title'>
+          <view class='title-name'>张小倩</view>
+          <text>{{className}}</text>
         </view>
-        <view class='task-item'>
-          <text>二、选择题</text>
-          <text class='self-title'>
-            1、网上洽谈由于双方不能直接见面，所以受到很多限制，不如面对面洽谈方便
-          </text>
-          <view class='self-item img-item'>
-            <view class='self-img mgr'>
-              <block wx:for='{{imgLIst}}' wx:key='img'>
-                <view class='test' bindtap='chooseThis' data-index='{{index}}'>
-                    <image src='{{imgHoverIndex == index ?item.hoverUrl:item.url}}'></image>
-                </view>
-              </block>
-            </view>
-            <!-- <view class='self-img'>
-              <image src='https://e.hnfts.cn/img/icon/w_icon_g.png'></image>
-            </view> -->
+
+        <view class="right">
+          <view bindtap="starTap" data-index="{{index}}" class="star" wx:for="{{userStars}}" wx:key="index">
+            <image src="{{item}}"></image>
           </view>
-        </view>
-        <view class='task-item'>
-          <text>三、简答题</text>
-          <text class='self-title'>
-            1、说说为什么电子商务能使买卖双方的交易成本大大降低
-          </text>
-          <view class='task-textarea'>
-            <textarea maxlength='200' 
-              bindinput='count' 
-              minLength='{{min}}' 
-              maxLength='{{max}}'>
-                <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
-                <text class="hint">{{texts}}</text>
-              </textarea>
-          </view>
-          <view class='task-btn'>
-          <button>提交作业</button>
-          </view>      
         </view>
       </view>
+    </view>
+    <view class='know'>作业</view>
+    <view class='choosen_box'>
+      <view class='slide_box'>
+        <text wx:for="{{questionList}}" class="{{item.done?'color_state_on':'color_state_off'}}" bindtap='bindtab' data-id='{{item.id}}'>{{index+1}}</text>
+      </view>
+      <view class='cfx'></view>
+    </view>
+
+    <question singleQuestion="{{wrapedCurrQuestion}}" bind:subQuestion="onSubQuestion" bind:raise="onRaise">
+    </question>
   </view>
 </view>

@@ -1,4 +1,16 @@
 /* 头部 */
+.page__hd{
+  background-color: #fbf9fe;
+  padding: 20rpx 50rpx 50rpx 50rpx;
+  text-align: center;
+}
+.page__title{
+    display: inline-block;
+    padding: 20rpx 40rpx;
+    font-size: 32rpx;
+    color: #AAAAAA;
+    border-bottom: 1px solid #CCCCCC;
+}
 .room-warp{
   position: relative;
   width: 100%;
@@ -44,8 +56,10 @@
 .room-warp .right-title{
   font-size: 24rpx;
   color: #7f7f7f;
-  margin-left: 240rpx;
+  float: right;
+  padding-right: 20rpx;
   font-weight: 0;
+  line-height: 48rpx;
 }
 .room-warp .know-list{
   padding: 40rpx 100rpx;
@@ -97,7 +111,7 @@
 
 /* 课后 */
 .room-warp .know-card{
-  padding: 65rpx 60rpx 30rpx;
+  padding: 65rpx 10rpx 30rpx;
   display: flex;
 }
 .room-warp .know-card .card-img{
@@ -114,28 +128,21 @@
 }
 .room-warp .know-card .title-name{
   color: #c28b39
-} 
-.room-warp .konw-contet{
-  padding: 0rpx 60rpx;
-  font-size: 30rpx;
 }
-.room-warp .know-btn{
-  text-align: center;
-  padding: 40rpx 50rpx;
-  color: #c28b39;
-  display: flex;
-}
-.room-warp .know-btn navigator{
+.evaluate {
   border: 1px solid #c28b39;
   border-radius: 15rpx;
-  width: 26%;
-  height: 45rpx;
+  padding: 5rpx;
   line-height: 2;
   font-size: 24rpx;
+  color: #c28b39;
+  display: inline;
+  font-weight: 400;
+  margin-left: 40rpx;
 }
 /* 评价 */
 .right{
-  margin-left: 100rpx;
+  margin-left: 50rpx;
 }
 .right .star{
   float: left;
@@ -222,4 +229,14 @@
   position: absolute;
   left: 470rpx;
   bottom: 0;
+}
+/* 作业相关样式 */
+.choosen_box{padding:20rpx 0;width:760rpx;overflow:scroll;}
+
+.choosen_box text{border-radius:50%;display:block;width:60rpx;height:60rpx;text-align:center;line-height:60rpx;float:left;font-size:32rpx;margin-left:25rpx;margin-bottom:15rpx;}
+.color_state_off{background:white;color:#F3A84B;border:1px solid #F3A84B;}
+.color_state_on{background:#F3A84B;color:white;border:1px solid white;}
+
+.text_answers_clm .wxParse-p {
+  display: inline
 }

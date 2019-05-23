@@ -489,6 +489,7 @@
 				//点击题号 
 				$scope.chooseQuestion = function(question) {
 					$scope.currentTiwenQues = question;
+					console.log(question);
 					$("#btns").hide();
 					if($scope.currentTiwenQues.published) {
 						$scope.loadAnswer(); //如果该题已发布,则加载回答
@@ -639,14 +640,23 @@
 
 				//请求接口，加载学生过往回答的情况
 				$scope.loadAnswer = function() {
+					var type = $scope.currentTiwenQues.examChildren[0].examType;
+					var url = '/teachInteract/findQuestionRecord';
+					var postData = {
+						"circleId": localStorage.getItem("circleId"),
+						"questionId": $scope.currentTiwenQues.id
+					};
+					
+					if(type == 'design') {
+						url = '/teachInteract/findAskAnswer';
+						postData.libraryType = 'TiWen';
+					}
+					
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/teachInteract/findQuestionsRecord',
-						data: {
-							"circleId": localStorage.getItem("circleId"),
-							"questionsId": $scope.currentTiwenQues.id
-						},
+						url: url,
+						data: postData,
 						success: function(data) {
 							$scope.answerStudents = data.data.answerRecordList;
 							$scope.students = $scope.answerStudents;
@@ -1061,9 +1071,10 @@
 						$scope: $scope,
 						$http: $http,
 						operate: true,
-						url: '/TaskInteract/send',
+						url: '/teachInteract/send/question',
 						data: {
 							"category": 'people',
+							"interactive": 'select',
 							"circleId": localStorage.getItem("circleId"),
 							"cut": timestamp,
 							"questionId": $scope.currentTaskQues.id,

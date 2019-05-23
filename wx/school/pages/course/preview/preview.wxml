@@ -6,32 +6,34 @@
     <image src='https://e.hnfts.cn/img/banner/header.png'></image>
   </view> -->
   <view class="page__hd">
-    <text class="page__title">第一节 电子商务的内涵</text>
+    <text class="page__title">{{chapter.chapterName}}</text>
   </view>
-    <view class='beforeList'>
-      <van-row>
-        <van-col span="12">
-          <view class='col-8'>
-            <navigator hover-class="classBottom">课前</navigator>
-          </view>
-        </van-col>
-        <van-col span="12">
-          <view class='col-8 col-last'>
-            <navigator  url='../review/review' hover-class='classBottom'>课后</navigator>
-          </view>
-        </van-col>
-      </van-row>
+  <view class='beforeList'>
+    <van-row>
+      <van-col span="12">
+        <view class='col-8'>
+          <navigator class="classBottom">课前</navigator>
+        </view>
+      </van-col>
+      <van-col span="12">
+        <view class='col-8 col-last'>
+          <navigator url='../review/review?chapterId={{chapter.chapterId}}&chapterName={{chapter.chapterName}}'>课后</navigator>
+        </view>
+      </van-col>
+    </van-row>
+  </view>
+  <view class='know-content'>
+    <view class='know'>知识点</view>
+    <view class='know-list'>
+      <view class='know-1'>
+        <text>1</text> 电子商务的定义</view>
+      <view class='know-2'>
+        <text>2</text> 电子商务的概念</view>
     </view>
-    <view class='know-content'>
-      <view class='know'>知识点</view>
-      <view class='know-list'>
-        <view class='know-1'><text>①</text> 电子商务的定义</view>
-        <view class='know-2'><text>②</text> 电子商务的概念</view>
-      </view>
-      <!-- 分割线 -->
-      <view class='cut-off'></view>
-      
-      <view class='know'>电子商务的定义</view>
+    <!-- 分割线 -->
+    <view class='cut-off'></view>
+
+    <!-- <view class='know'>电子商务的定义</view>
       <view class='know-swiper' style='margin-top:50rpx;'>
         <swiper autoplay indicator-dots indicator-color='ghostwhite'>
           <swiper-item>
@@ -41,55 +43,43 @@
             <image src='https://e.hnfts.cn/img/banner/header.png'></image> 
            </swiper-item>
         </swiper>
-      </view>
+      </view> -->
 
-      <view class='know'>电子商务的概念</view>
-      <view class='know-swiper' style='margin-top:50rpx;'>
-        <audio name="{{name}}" src="{{src}}" id="myAudio" controls loop bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror" style='margin 0 auto;'></audio>
-      </view>
-      <view class='know-swiper' style='margin-top:50rpx;'>
-        <video
-    id="myVideo"
-    src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"
-    controls
-  ></video>
-      </view>
+    <view class='know'>音频</view>
+    <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{audioList}}'>
+      <audio name="{{item.fileName}}" src="{{item.fileUrl}}" controls loop bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror" style='margin 0 auto;'></audio>
+    </view>
 
-      <view class='know'>参考资料</view>
-      <view class='data-list'>
-        <view class='data-item'>
-          <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
-          <navigator>猫吃鱼狗吃肉啊</navigator>
-        </view>
-        <view class='data-item'>
-          <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
-          <navigator>猫吃鱼狗吃肉啊</navigator>
-        </view>
-        <view class='data-item'>
-          <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
-          <navigator>猫吃鱼狗吃肉啊</navigator>
-        </view>
-        <view class='data-item'>
-          <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
-          <navigator>猫吃鱼狗吃肉啊</navigator>
-        </view>
-        <view class='data-item'>
-          <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
-          <navigator>猫吃鱼狗吃肉啊</navigator>
-        </view>
-      </view>
-      <view class='know'>预习自测</view>
-      <view class='data-list'>
-        <view></view>
-        <view style='border:1px solid #dcdcdc;'>
-          <text class='self-title'>1、电子商务真正的发展是建立在 （ \t ）的基础上的。</text>
-          <view class='self-item'>
-            <navigator>A.<text>internet</text> </navigator>
-            <navigator>B.<text>internet</text> </navigator>
-            <navigator>C.<text>internet</text> </navigator>
-            <navigator>D.<text>internet</text> </navigator>
-          </view>
-        </view>
+    <view class='know'>视频</view>
+    <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{videoList}}'>
+      <video src="{{item.fileUrl}}" controls></video>
+    </view>
+
+    <view class='know'>链接</view>
+    <view class='data-list'>
+      <view class='data-item' wx:for='{{linkList}}'>
+        <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
+        <text>{{item.fileName}}</text>
       </view>
     </view>
+
+    <view class='know'>参考资料</view>
+    <view class='data-list'>
+      <view class='data-item' wx:for='{{docList}}' bindtap="download" data-url='{{item.fileUrl}}'>
+        <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
+        <text>{{item.fileName}}</text>
+      </view>
+    </view>
+    <view class='know'>预习自测</view>
+    <view class='choosen_box'>
+      <view class='slide_box'>
+        <text wx:for="{{questionList}}" class="{{item.done?'color_state_on':'color_state_off'}}" bindtap='bindtab' data-id='{{item.id}}'>{{index+1}}</text>
+      </view>
+      <view class='cfx'></view>
+    </view>
+
+    <question singleQuestion="{{wrapedCurrQuestion}}" bind:subQuestion="onSubQuestion" bind:raise="onRaise">
+    </question>
+  </view>
 </view>
+<loading hidden="{{loadingHidden}}"></loading>

@@ -21,62 +21,142 @@ Page({
         url: `http://118.24.120.43:8611/img/icon/w_icon_g.png`,
         hoverUrl: `http://118.24.120.43:8611/img/icon/w_icon.png`
       },
-    ],
-    imgHoverIndex: 0,
-    texts:"至少输入5个字!",
-    min:5,  //最少字数
-    max:200 //最大字数
+    ]
   },
-  chooseThis(e) {
-    this.setData({
-      imgHoverIndex: e.currentTarget.dataset.index
-    })
-  },
-    // 字数限制
-  count:function(e){
-    // 获取输入框内容
-    var value = e.detail.value;
-    // 获取输入框内容长度
-    var len = parseInt(value.length);
-    // 最少字数限制
-    if(len <= this.data.min)
-      this.setData({
-        texts:""
-      })
-      else if(len > this.data.min){
-        this.setData({
-          texts:""
-        })
-        // 最多字数限制
-      if(len > this.data.max) return;
-      // 当输入框内容的长度大于最大长度限制（max)时，终止setData()的执行
-        this.setData({
-          currentWordNumber:len  //当前字数
-        })
-      }
-  }, 
-  // 星星点击事件
-  starTap: function (e) {
-    var index = e.currentTarget.dataset.index; // 获取当前点击的是第几颗星星
-    var tempUserStars = this.data.userStars; // 暂存星星数组
-    var len = tempUserStars.length; // 获取星星数组的长度
-    for (var i = 0; i < len; i++) {
-      if (i <= index) { // 小于等于index的是满心
-        tempUserStars[i] = 'http://118.24.120.43:8611/img/star-active.png'
-      } else { // 其他是空心
-        tempUserStars[i] = 'http://118.24.120.43:8611/img/star.png'
-      }
-    }
-    // 重新赋值就可以显示了
-    this.setData({
-      userStars: tempUserStars
-    })
-  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      chapter: options,
+      className: wx.getStorageSync('className'),
+      portrait: wx.getStorageSync('portrait')
+    });
+    this.loadKnowPoints();
+    this.loadExerciseList();
+  },
 
+  /**
+   * 根据章节加载知识点
+   */
+  loadKnowPoints: function () {
+    var postData = {
+      chapterId: this.data.chapter.chapterId
+    }
+    getApp().agriknow.loadKnowPoints(postData).then(res => {
+      console.log(res.data);
+      that.setData({
+        knowPoints: res.data
+      });
+    })
+    .catch(res => {
+      //wx.stopPullDownRefresh()
+    });
+  },
+
+  /**
+   * 根据章节id加载预习练习题目
+   */
+  loadExerciseList: function () {
+    var that = this;
+    let postData = {
+      "chapterId": this.data.chapter.chapterId,
+      "courseId": wx.getStorageSync('courseId'),
+      "exeBookType": "3"
+    };
+    getApp().agriknow.loadExerciseList(postData).then(res => {
+      console.log(res.data);
+
+      var questions = res.data;
+
+      for (let i = 0; i < questions.length; i++) {
+        questions[i].cut = '';
+      }
+      that.setData({
+        questionList: questions,
+        currentQuestion: questions[0]
+      });
+      that.wrapQuestion();
+    });
+  },
+
+  /**点击上面按钮切换题目 */
+  bindtab: function (e) {
+    console.log(e.currentTarget.dataset.id);
+    var questionList = this.data.questionList;
+    for (let i = 0; i < questionList.length; i++) {
+      if (e.currentTarget.dataset.id == questionList[i].id) {
+        this.setData({ currentQuestion: questionList[i] });
+        this.wrapQuestion();
+      }
+    }
+  },
+
+  /**
+   * 接收question组件提交信息
+   */
+  onSubQuestion: function (e) {
+    var postData = e.detail;
+    var that = this;
+    postData.questionType = 'Lianxi';
+
+    getApp().agriknow.answerPractice(postData)
+      .then(res => {
+        if (res.ret == 0) {
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          });
+          var questionList = that.data.questionList;
+          for (let i = 0; i < questionList.length; i++) {
+            if (questionList[i].id == that.data.currentQuestion.id) {
+              questionList[i].done = true;
+              questionList[i].myAnswer = postData.answer;
+            }
+          }
+          that.setData({
+            questionList: questionList
+          });
+
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          });
+        }
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
+  },
+
+  /**
+   * 封装currentQuestion给question组件使用
+   */
+  wrapQuestion: function () {
+    var wrapedCurrQuestion = {
+      bigQuestion: this.data.currentQuestion,
+      cut: '',
+      participate: ""
+    };
+    this.setData({
+      wrapedCurrQuestion: wrapedCurrQuestion
+    });
+  },
+
+  //评价
+  evaluate: function() {
+    wx.showActionSheet({
+      itemList: ['5分', '4分', '3分', '2分', '1分'],
+      success(res) {
+        console.log(res.tapIndex)
+      },
+      fail(res) {
+        console.log(res.errMsg)
+      }
+    })
   },
 
   /**

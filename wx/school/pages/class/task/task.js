@@ -18,14 +18,10 @@ Page({
       console.log('******pong*********');
     } else {
       //如果推送类型为问题，显示出来
+     
       if (data.model == "taskQuestion") {
-        var wrapedCurrQuestion = {
-          bigQuestion: data.taskQuestion[0],
-          cut: data.cut,
-          participate: ""
-        };
-        this.setData({
-          currentQuestion: wrapedCurrQuestion
+        that.setData({
+          currentQuestion: data
         });
       }
     }
@@ -42,7 +38,7 @@ Page({
     if (getApp().globalData.circleId && random) {
       // 创建连接
       webSocket.connectSocket({
-        url: "wss://" + getApp().globalData.url + "/websocket/interactive/" + getApp().globalData.circleId
+        url: getApp().globalData.websocketUrl + "/interactive/" + getApp().globalData.circleId
           + "/" + wx.getStorageSync("token") + "/" + random
       });
       // 设置接收消息回调
@@ -60,10 +56,12 @@ Page({
    * 接收question组件提交信息
    */
   onSubQuestion(e) {
-    //e.detail // 自定义组件触发事件时提供的detail对象
     var postData = e.detail;
-    getApp().agriknow.answerTask(postData)
+    postData.questionType = 'RenWu';
+    console.log(postData);
+    getApp().agriknow.answerQuiz(postData)
       .then(res => {
+        console.log(res);
         if (res.ret == 0) {
           wx.showToast({
             title: '提交成功',
@@ -75,6 +73,22 @@ Page({
       .catch(res => {
         //wx.stopPullDownRefresh()
       });
+
+
+    // var postData = e.detail;
+    // getApp().agriknow.answerTask(postData)
+    //   .then(res => {
+    //     if (res.ret == 0) {
+    //       wx.showToast({
+    //         title: '提交成功',
+    //         icon: 'success',
+    //         duration: 2000
+    //       });
+    //     }
+    //   })
+    //   .catch(res => {
+    //     //wx.stopPullDownRefresh()
+    //   });
   },
 
   /**
