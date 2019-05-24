@@ -238,5 +238,11 @@ noticeFind(postData = {}) {
   noticeFindAll(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._education + '/notice/findAll', postData).then(res => res.data)
   }
+      /**
+   *  公告详情
+   */
+  checkoutTest(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/notice/findAll', postData).then(res => res.data)
+  }
 }
 export default agriknow

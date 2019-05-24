@@ -55,7 +55,7 @@
   <text class='title_right'>{{className}}</text>
   <!--循环从此开始-->
   <view class='class_clm' wx:for="{{courseList}}" bindtap="navToChapter" 
-  data-course='{{item}}'>
+  data-course='{{item}}' wx:key="clm">
     <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
         <text>《{{item.courseName}}》</text>

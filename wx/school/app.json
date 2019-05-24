@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/school_index/index",
+    "pages/notes/release/release",
     "pages/Notice/NoticeIndex/NoticeIndex",
     "pages/course/preview/preview",
     "pages/notes/index/index",
@@ -19,7 +20,6 @@
     "pages/fill up/fill up",
     "pages/Raise your hand/Raise your hand",
     "pages/notes/reply/reply",
-    "pages/notes/release/release",
     "pages/notes/textarea/textarea",
     "pages/course/chapter/chapter",
     "pages/Notice/NoticeContent/NoticeContent",
