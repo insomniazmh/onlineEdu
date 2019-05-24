@@ -191,7 +191,40 @@
 				</div>
 			</div>
 			
-			
+			<!--奖励小红花-->
+			<div class="modal fade" id="flowerModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="portlet light" style="min-height: 400px;">
+							<div class="portlet-title tabbable-line">
+								<div class="caption font-green-sharp">
+									<i class="icon-settings font-green-sharp"></i>
+									<span class="caption-subject bold uppercase" id="title"></span>
+								</div>
+								<div class="actions">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div role="form">
+									<div class="form-body">
+										<div style="width:80px;float:left;" ng-repeat="row in students">
+											<div class="uppercase profile-userpic {{row.select ? 'active' : ''}}" ng-click="selectStudent(row)">
+												<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">
+											</div>
+											<div class="uppercase profile-stat-text">{{row.name}}</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder" style="text-align: right;">
+									<button type="button" class="btn blue" ng-click="addFlower()">完成</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+			</div>
 			
 			
 		</div>
@@ -219,7 +252,6 @@
 			app.controller('myCtrl', function($scope, $http, $interval) {
 				var stuLen = 0;
 				var random = new Date().getTime(); //生成随机数
-				var transitions = ['24,25,27,28', '110,111,112,113', '92,93,105'];//图集显示动画
 				$scope.courseware = [];
 				
 				console.log(random);
