@@ -192,6 +192,8 @@
 			</div>
 			
 			
+			
+			
 		</div>
 		<script src="../../../assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>
 		<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
@@ -641,14 +643,14 @@
 				//请求接口，加载学生过往回答的情况
 				$scope.loadAnswer = function() {
 					var type = $scope.currentTiwenQues.examChildren[0].examType;
-					var url = '/teachInteract/findQuestionRecord';
+					var url = '/teachInteract/findAskAnswer';
 					var postData = {
 						"circleId": localStorage.getItem("circleId"),
 						"questionId": $scope.currentTiwenQues.id
 					};
 					
 					if(type == 'design') {
-						url = '/teachInteract/findAskAnswer';
+						url = '/teachInteract/findActivityAskAnswer';
 						postData.libraryType = 'TiWen';
 					}
 					
