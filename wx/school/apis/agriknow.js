@@ -11,6 +11,7 @@ class agriknow {
     this._quiz = '/quiz'
     this._wx = '/wechat'
     this._education = '/education'
+    this._upload = '/upload/upload'
 
     // this._baseUrl = 'http://192.168.10.2:'
     // this._quiz = '8081'

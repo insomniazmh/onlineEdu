@@ -75,16 +75,20 @@ Page({
             if (questionList[i].id == that.data.currentQuestion.id) {
               questionList[i].done = true;
               questionList[i].myAnswer = postData.answer;
+
+              if (i < questionList.length - 1) {
+                that.setData({
+                  currentQuestion: questionList[i + 1]
+                });
+                that.wrapQuestion();
+              }
+
+              break;
             }
+            
           }
           that.setData({
             questionList: questionList
-          });
-
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success',
-            duration: 2000
           });
         }
       })
@@ -138,6 +142,8 @@ Page({
     this.setData({
       wrapedCurrQuestion: wrapedCurrQuestion
     });
+
+    console.log(wrapedCurrQuestion);
   }
 
 })
