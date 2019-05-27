@@ -9,17 +9,23 @@
 			<form action="#" class="form-horizontal">
 				<div class="form-body">
 					<div class="form-group">
-						<div class="col-md-3 mgImg-left">
-							<img src="/assets/admin/layout4/img/avatar1.jpg" alt="">
-						</div>
-						<label class="col-md-4 control-label">姓名:</label>
-						<div class="col-md-4">
-							<input type="text" class="form-control" placeholder="Enter text">
-						</div>
-						<label class="col-md-4 control-label">准考证号:</label>
-						<div class="col-md-4">
-							<input type="text" class="form-control" placeholder="Enter text">
-						</div>
+                        <div class="col-md-2">
+                            <div class="col-md-3 mgImg-left">
+                                <img src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+                            </div>
+                        </div>
+                        <div style="margin-left: -197px" class="col-md-10">
+                            <label class="col-md-3 control-label">姓名:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="Enter text">
+                            </div>
+                            <div style="position:relative;left:-241px;">
+                                <label class="col-md-6 control-label">学号:</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Enter text">
+                                </div>
+                            </div>
+                        </div>
 					</div>
 					<div class="form-group">
 							<div class="col-md-6">
@@ -154,19 +160,39 @@
 										<input type="text" class="form-control width-80" placeholder="Enter text">
 									</div>
 								</div>
-								<label class="col-md-3 control-label">性别:</label>
+								<label class="col-md-3 control-label">是否免试:</label>
 								<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
 									<input class="checkRadio" type="radio">
-									<div class="choiceMan"> 男</div>
+									<div class="choiceMan"> 是</div>
 									<input class="checkRadio" type="radio" >
-									<div class="choiceMan"> 女</div>
+									<div class="choiceMan"> 否</div>
 								</div>
-								<label class="col-md-3 control-label">学习中心:</label>
+								<div style="margin-left: 600px">
+									<label class="col-md-3 control-label">入学成绩:</label>
 									<div class="col-md-3">
 										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+								</div>
+								<label class="col-md-3 control-label">报考信息确认:</label>
+								<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
+									<input class="checkRadio" type="radio">
+									<div class="choiceMan"> 已确认</div>
+									<input class="checkRadio" type="radio" >
+									<div class="choiceMan"> 未确认</div>
+								</div>
+								<div  style="margin-left: 600px">
+									<label class="col-md-3 control-label">是否录取:</label>
+									<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
+										<input class="checkRadio" type="radio">
+										<div class="choiceMan"> 是</div>
+										<input class="checkRadio" type="radio" >
+										<div class="choiceMan"> 否</div>
+									</div>
+								</div>
+								<div class="col-md-12" style="text-align: center">
+									<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
 								</div>
 						</div>
-						
 				</div>
 			</form>
 			<!-- END FORM-->

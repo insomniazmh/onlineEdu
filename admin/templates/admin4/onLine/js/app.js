@@ -230,11 +230,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-/*
-    //  学生成绩
+
+     //  学生成绩
     .state('achievement', {
       url: "/achievement.html",
-      templateUrl: "views/achievement/achievement.html",     
+      templateUrl: "views/schoolroll/achievement.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -245,8 +245,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-
-    //  学籍管理
+    
+     //  学籍管理
     .state('schoolroll', {
       url: "/schoolroll.html",
       templateUrl: "views/schoolroll/schoolroll.html",     
@@ -259,8 +259,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
           });
         }]
       }
-    })
-    
+    })   
+
     //  学籍添加
     .state('schoolrollAdd', {
       url: "/schoolrollAdd.html",
@@ -274,12 +274,12 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
           });
         }]
       }
-    })
-        
-    //  学籍异动管理
-    .state('studyAlienation', {
-      url: "/studyAlienation.html",
-      templateUrl: "views/studyalienation/studyAlienation.html",     
+    }) 
+    
+    //  入学信息
+    .state('schoolrollInfo', {
+      url: "/schoolrollInfo.html",
+      templateUrl: "views/schoolroll/schoolrollInfo.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -291,10 +291,10 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })
 
-    //  学籍异动
+    //  异动管理
     .state('studyAlienation', {
       url: "/studyAlienation.html",
-      templateUrl: "views/studyalienation/studyAlienation.html",     
+      templateUrl: "views/schoolroll/studyalienation/studyAlienation.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -307,9 +307,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     })
 
     //  学籍异动添加
-    .state('alienationAdd', {
+    .state('studyalienation', {
       url: "/alienationAdd.html",
-      templateUrl: "views/studyalienation/alienationAdd.html",     
+      templateUrl: "views/schoolroll/studyalienation/alienationAdd.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -320,7 +320,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-    
+/*    
     //  审核列表
     .state('auditList', {
       url: "/auditList.html",
