@@ -12,7 +12,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    console.log(123);
     // 查看是否授权
     wx.getSetting({
       success: function (res) {

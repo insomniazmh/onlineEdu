@@ -17,7 +17,8 @@ Component({
     //这里是一些组件内部数据
     showSub: false,
     checkTOF: true,
-    answer: ""
+    answer: "",
+    upLoadImg: []
   },
   methods: {
     /**点击单选答案选项 */
@@ -70,7 +71,7 @@ Component({
       }
     },
     
-    /**点击确定按钮提交答案 */
+    /**点击确定按钮提交答案（客观题） */
     bindSub: function (e) {
       var that = this;
       var postData = {
@@ -79,6 +80,7 @@ Component({
         "cut": that.data.cut,
         "examineeId": wx.getStorageSync("studentId"),
         "questionId": that.data.questionId,
+        // fileList: that.data.upLoadImg,
         "token": wx.getStorageSync('token')
       };
       console.log(that.data.answer);
@@ -92,7 +94,7 @@ Component({
       }
     },
 
-    /**点击确定按钮提交答案 */
+    /**点击确定按钮提交答案（主观题） */
     formSubmit: function (e) {
       console.log(123456);
       console.log('form发生了submit事件，携带数据为：', e.detail.value);
@@ -166,5 +168,58 @@ Component({
         that.setData({ answer: data.bigQuestion.myAnswer });
       }
     },
+
+    // 点击上传图片
+    chooseImage: function () {
+      var that = this;
+      wx.chooseImage({
+        success: function (res) {
+          var tempFilePaths = res.tempFilePaths;
+          for(let i=0;i<tempFilePaths.length;i++) {
+            wx.uploadFile({
+              url: 'https://e.hnfts.cn/upload/upload',
+              filePath: tempFilePaths[i],
+              name: 'file',
+              formData: {
+                'user': 'test'
+              },
+              // 上传
+              success(res) {
+                // console.log(res);
+                // 获取data中uploadImg中的数据,并存入临时变量arr中
+                var arr = that.data.upLoadImg;
+                // 接收服务器返回参数并转换为JSON对象
+                var img = JSON.parse(res.data)
+                // 将返回的图片地址存入临时变量arr中
+                arr.push(img.fileUrl);
+                // 将拼装完的临时变量放回data中的uploadImg中
+                that.setData({
+                  upLoadImg: arr
+                })
+              }
+            })
+          }
+        },
+      })
+    },
+    // 点击删除图片
+    deleteImg: function (e) {
+      var that = this;
+      // 获取data中uploadImg数组
+      var arr = that.data.upLoadImg;
+      // 循环uploadImg数组
+      for (var i = 0; i < arr.length; i++) {
+        // 如果id和url相同,删除id
+        if (arr[i] == e.currentTarget.id) {
+          arr.splice(i, 1);
+        }
+      }
+      // 删除结果返回
+      that.setData({
+        upLoadImg: arr
+      })
+    }
   }
+
+  
 })
