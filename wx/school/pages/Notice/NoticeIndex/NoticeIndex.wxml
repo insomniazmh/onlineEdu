@@ -1,6 +1,6 @@
 <view class='warp'>
   <view style='text-align:center'><text style='color:#0aa1ed;'>公告</text></view>
-    <view class='nticeBar'>
+    <!-- <view class='nticeBar'>
       <view  bindtap='notice' 
              data-url='/pages/Notice/NoticeContent/NoticeContent'
              class='item' 
@@ -9,5 +9,18 @@
              id='{{item.noticeId}}'>
         <van-notice-bar left-icon="" text="{{item.content}}" />
       </view>
+    </view> -->
+  <view class='warp' wx:for='{{notice}}' wx:key='keys'>
+    <view class='noticeTi'>
+        <view>
+          <view class='noticeText'>
+            <text>{{item.createTime}}</text>
+          </view>
+          <view class='noticeContent'>
+            <text>{{item.content}}</text>
+          </view>
+          
+        </view>
     </view>
+  </view>
 </view>

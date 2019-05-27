@@ -80,7 +80,7 @@ Component({
         "cut": that.data.cut,
         "examineeId": wx.getStorageSync("studentId"),
         "questionId": that.data.questionId,
-        // fileList: that.data.upLoadImg,
+        fileList: that.data.upLoadImg,
         "token": wx.getStorageSync('token')
       };
       console.log(that.data.answer);

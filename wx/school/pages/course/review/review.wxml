@@ -1,10 +1,10 @@
 <view class='room-warp'>
-  <!-- <view class='headImg'>
+  <view class='headImg'>
     <image src='https://e.hnfts.cn/img/banner/header.png'></image>
-  </view> -->
-  <view class="page__hd">
-    <text class="page__title">{{chapter.chapterName}}</text>
   </view>
+  <!-- <view class="page__hd">
+    <text class="page__title">{{chapter.chapterName}}</text>
+  </view> -->
   <view class='beforeList'>
     <van-row>
       <van-col span="12">

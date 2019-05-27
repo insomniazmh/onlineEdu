@@ -1,8 +1,8 @@
 <view class='warp'>
 <view class="section">
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{objectArray}}" range-key='name'>
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{courseList}}" range-key="courseName">
     <view class="picker">
-      当前选择：{{objectArray[index].name}}
+      当前选择：{{courseList[index].courseName}}
         <van-icon name="arrow-down" />
     </view>
   </picker>

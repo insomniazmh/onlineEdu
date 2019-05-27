@@ -20,7 +20,7 @@ Page({
       sortVo:{
         page:0,
         size:15
-        }
+      }
     };
     // console.log(postData)
     getApp().agriknow.noticeFindAll(postData).then(res => {

@@ -1,6 +1,6 @@
 /* pages/Notice/Notice.wxss */
 .warp{
-  padding: 60rpx;
+  padding: 40rpx;
 }
 .list{
   margin-top: 100rpx;
@@ -14,4 +14,15 @@
   margin-bottom: 30rpx;
   overflow:inherit;
   line-height: 2.8;
+}
+.noticeText{
+  margin-top: 30rpx;
+  font-size: 25rpx;
+  text-align: center;
+}
+.noticeContent {
+  font-size: 32rpx;
+  background-color: #ccc;
+  padding: 40rpx;
+  border-radius: 10rpx;
 }
