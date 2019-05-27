@@ -16,8 +16,6 @@ class agriknow {
     // this._quiz = '8081'
     // this._wx = '8090'
     // this._education = '8080'
-
-    //this._baseUrlXD = 'http://192.168.10.10:8090'
     
     this._request = new request
     this._request.setErrorHandler(this.errorHander)

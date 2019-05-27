@@ -85,7 +85,7 @@ Page({
       success: function(res) {
         var tempFilePaths = res.tempFilePaths;
         wx.uploadFile({
-          url: 'http://192.168.10.2:8612/upload',
+          url: 'https://e.hnfts.cn/upload/upload',
           filePath: tempFilePaths[0],
           name: 'file',
           formData:{
