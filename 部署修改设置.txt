@@ -1,0 +1,2 @@
+1.管理端common.js  commonJiaofu.js login.html 
+2.小程序  agrikonws.js    app.js   school_index/index.js(测试数据) 

@@ -29,10 +29,12 @@ Page({
     var that = this;
       var postData = {
         isValidated:0,
-        page: 0,
-        size: 15,
         sort:1,
-        userId: wx.getStorageSync('studentId')
+        userId: wx.getStorageSync('studentId'),
+        sortVo: {
+          page: 0,
+          size: 15
+        }
       };
     getApp().agriknow.notesList(postData).then(res => {
       that.setData({

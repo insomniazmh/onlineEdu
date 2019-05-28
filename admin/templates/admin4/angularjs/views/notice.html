@@ -92,6 +92,12 @@
 				$scope: $scope,
 				$http: $http,
 				url: '/notice/findAll',
+				data: {
+					sortVo:{
+		        page:0,
+		        size:15
+	        }
+				},
 				success: function(data) {
 					$scope.noticeList = data.data;
 				}

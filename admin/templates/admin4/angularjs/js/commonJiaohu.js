@@ -1,14 +1,14 @@
 var common = {
 
 	//正式服
-	url: 'https://e.hnfts.cn/education',
-	url2: 'https://e.hnfts.cn/quiz',
-	webSocketUrl: 'wss://e.hnfts.cn/websocket',
+//	url: 'https://e.hnfts.cn/education',
+//	url2: 'https://e.hnfts.cn/quiz',
+//	webSocketUrl: 'wss://e.hnfts.cn/websocket',
 
 	//测试服
-//	url: 'http://192.168.10.2:8080',
-//	url2: 'http://192.168.10.2:8081',
-//	webSocketUrl: 'ws://192.168.10.2:9000',
+	url: 'http://192.168.10.2:8080',
+	url2: 'http://192.168.10.2:8081',
+	webSocketUrl: 'ws://192.168.10.2:9000',
 
 	//网络请求--继伟接口
 	ajax: function(settings) {

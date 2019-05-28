@@ -678,13 +678,14 @@
 					var url = '/teachInteract/findAskAnswer';
 					var postData = {
 						"circleId": localStorage.getItem("circleId"),
-						"questionId": $scope.currentTiwenQues.id
+						"questionId": $scope.currentTiwenQues.id,
+						questionType: 'TiWen'
 					};
 					
-					if(type == 'design') {
-						url = '/teachInteract/findActivityAskAnswer';
-						postData.libraryType = 'TiWen';
-					}
+//					if(type == 'design') {
+//						url = '/teachInteract/findActivityAskAnswer';
+//						postData.questionType = 'TiWen';
+//					}
 					
 					common.ajax2({
 						$scope: $scope,
@@ -1122,14 +1123,18 @@
 
 				//显示学生回答的答案
 				$scope.loadAnswer = function() {
+					var url = '/teachInteract/findAskAnswer';
+					var postData = {
+						"circleId": localStorage.getItem("circleId"),
+						"questionId": $scope.currentTaskQues.id,
+						questionType: 'RenWu'
+					};
+					
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/TaskInteract/findTaskRecord',
-						data: {
-							"circleId": localStorage.getItem("circleId"),
-							"questionsId": $scope.currentTaskQues.id
-						},
+						url: url,
+						data: postData,
 						success: function(data) {
 							//如果该题已经发送过,则标志为已选,否则为未选
 							if(!data.data.selectId || data.data.selectId.length == 0) {
@@ -1165,6 +1170,7 @@
 							});
 						}
 					});
+					
 				};
 
 				//清除学生的答案和选中状态,并将所有学生都显示

@@ -5,11 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    objectArray: [
-      {id: 0,name: '电子商务'},
-      {id: 1,name: '商务英语'},
-      {id: 2,name: '计算机基础'},
-      {id: 3,name: '马克思列宁主义'}
+    courseList: [
+      // {id: 0,name: '电子商务'},
+      // {id: 1,name: '商务英语'},
+      // {id: 2,name: '计算机基础'},
+      // {id: 3,name: '马克思列宁主义'}
     ],
     upLoadImg:[],
     index:1,
@@ -53,7 +53,7 @@ Page({
       articleConten: content,
       articleType:"xd",
       classId:'1611',
-      courseId:"2c9180846827407401682b57f4a60000",
+      courseId: that.data.courseList[that.data.index],
       description: description,
       // images: this.data.upLoadImg,
       title: this.data.inputValue,
@@ -77,6 +77,29 @@ Page({
       });
   },
 
+  /**
+     * 加载我的课程（当前学期正在进行中的课程）
+     */
+  loadMyCourse: function () {
+    var that = this;
+    getApp().agriknow.myCourseList().then(res => {
+      let courseList = res.data;
+
+      courseList.push({
+        courseDescribe: "网页设计与制作描述",
+        courseId: "09fd692bdc134b59b13d4decad9f3317",
+        courseName: "网页设计与制作",
+        teacherId: "dongbo",
+        teacherName: "董波",
+        topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
+      })
+      that.setData({
+        courseList: courseList
+      })
+    }).catch(res => {
+      //wx.stopPullDownRefresh()
+    });
+  },
 
   // 点击上传图片
   chooseImage: function(){
@@ -131,6 +154,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.loadMyCourse();
   },
 })
