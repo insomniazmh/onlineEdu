@@ -320,26 +320,11 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-/*    
-    //  审核列表
+  
+    //  异动审核列表
     .state('auditList', {
       url: "/auditList.html",
-      templateUrl: "views/studyalienation/auditList.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-    
-    //  异动审核
-    .state('studyTake', {
-      url: "/studyTake.html",
-      templateUrl: "views/studyalienation/studyTake.html",     
+      templateUrl: "views/schoolroll/studyalienation/auditList.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -351,10 +336,10 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })
      
-    //  审核详情
-    .state('alienationDetails', {
-      url: "/alienationDetails.html",
-      templateUrl: "views/studyalienation/alienationDetails.html",     
+    //  异动审核
+    .state('studyTake', {
+      url: "/studyTake.html",
+      templateUrl: "views/schoolroll/studyalienation/studyTake.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -365,7 +350,96 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-*/
+    
+    //  审核详情
+    .state('alienationDetails', {
+      url: "/alienationDetails.html",
+      templateUrl: "views/schoolroll/studyalienation/alienationDetails.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+
+    //  教学管理
+    .state('teachingManagement', {
+      url: "/teachingManagement.html",
+      templateUrl: "views/teachingManagement/teachingManagement.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    
+    //  教学管理添加
+    .state('teachingManagementAdd', {
+      url: "/teachingManagementAdd.html",
+      templateUrl: "views/teachingManagement/teachingManagementAdd.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+
+    //  考务管理
+    .state('examinationInfo', {
+      url: "/examinationInfo.html",
+      templateUrl: "views/examination/examinationInfo.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    
+    //  考务日程
+    .state('examinationSchedule', {
+      url: "/examinationSchedule.html",
+      templateUrl: "views/examination/examinationSchedule.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    //  考务成绩
+    .state('examinationResults', {
+      url: "/examinationResults.html",
+      templateUrl: "views/examination/examinationResults.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+
 }]);
 
 /* Init global settings and run the app */
