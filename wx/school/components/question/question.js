@@ -191,7 +191,7 @@ Component({
                 // 接收服务器返回参数并转换为JSON对象
                 var img = JSON.parse(res.data)
                 // 将返回的图片地址存入临时变量arr中
-                arr.push(img.fileUrl);
+                arr.push(img);
                 // 将拼装完的临时变量放回data中的uploadImg中
                 that.setData({
                   upLoadImg: arr
@@ -210,7 +210,7 @@ Component({
       // 循环uploadImg数组
       for (var i = 0; i < arr.length; i++) {
         // 如果id和url相同,删除id
-        if (arr[i] == e.currentTarget.id) {
+        if (arr[i].fileUrl == e.currentTarget.id) {
           arr.splice(i, 1);
         }
       }

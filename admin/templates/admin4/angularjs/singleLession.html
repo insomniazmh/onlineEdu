@@ -65,8 +65,23 @@
 				display: inline;
 			}
 			
-			..note p {
+			.note p {
 				font-size: 16px;
+				display: inline-block;
+				margin-right: 10px;
+				color: #3c763d;
+			}
+			
+			.note-info p {
+				color: #31708f;
+			}
+			
+			.note-danger p {
+				color: #a94442;
+			}
+			
+			.note-warning p {
+				color: #8a6d3b;
 			}
 		</style>
 	</head>
@@ -176,6 +191,24 @@
 						</div>
 					</div>
 					
+					<div class="portlet light">
+						<div class="portlet-title tabbable-line">
+							<div class="caption font-green-sharp">
+								<i class="icon-settings font-green-sharp"></i>
+								<span class="caption-subject bold uppercase">讨论小组</span>
+							</div>
+							<div class="actions">
+								<button class="btn btn-circle btn-info btn-sm" ng-click="randomBuild()">临时分组 </button>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="note note-{{team.bgColor}}" ng-repeat="team in teamList">
+								<h4 class="block">{{team.teamName}}</h4>
+								<p ng-repeat="student in team.students">{{student.name}}</p>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 
 				<div style="width: 80%;float: left;">
@@ -254,7 +287,81 @@
 				var random = new Date().getTime(); //生成随机数
 				$scope.courseware = [];
 				
-				console.log(random);
+				let bgColor = ['success','info','danger','warning'];//小组颜色
+				
+				//获取班级的小组信息
+				$scope.loadTeamList = function() {
+					//默认为查询永久课堂
+					let postData = {
+						classId: localStorage.getItem('currClassId'),
+						circleId: localStorage.getItem('courseId')
+					}
+					//查询临时课堂
+					if(localStorage.getItem('temporarily')) {
+						postData = {
+							classId: '',
+							circleId: localStorage.getItem('circleId')
+						}
+					}
+					
+					common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						data: postData,
+						url: '/classRoom/team/nowTeam',
+						success: function(res) {
+							if(!res.data || res.data == '') {//如果还没有分组，先系统自动分一组
+//								$scope.teamRandomBuild(1);
+							}else {
+								$scope.teamList = res.data;
+								$scope.teamList.forEach(( item, i ) => {
+								  console.log( item, i );
+								  item.bgColor = bgColor[i%4];
+								});
+							}
+						}
+					});
+				}
+				$scope.loadTeamList();
+				
+				//随机分组询问
+				$scope.randomBuild = function() {
+					layer.prompt({title: '创建临时分组后，本节课将使用新创建的临时分组，临时分组只在本节课有效，您确定要创建临时分组吗，如果是，请输入组数并点击确定按钮', value: 5}, function(value, index, elem){
+						let reg = /^[0-9]*$/;
+						if(!reg.test(value) || value==0) {
+							layer.alert("只能输入大于0的数字");
+							return false;
+						}
+						$scope.teamRandomBuild(value);
+					  layer.close(index);
+					});
+				}
+				
+				//随机分组
+				$scope.teamRandomBuild = function(num) {
+					common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						operate: true,
+						data: {
+							classId: '',
+							circleId: localStorage.getItem('circleId'),
+							expType: 'temporarily',
+							number: num
+						},
+						url: '/classRoom/team/randomBuild',
+						success: function(res) {
+							localStorage.setItem("temporarily", true);//是否创建了临时课堂
+							$scope.teamList = res.data.teamList;
+							$scope.teamList.forEach(( item, i ) => {
+							  console.log( item, i );
+							  item.bgColor = bgColor[i%4];
+							});
+							console.log($scope.teamList);
+						}
+					});
+				}
+				
 				//建立websocket连接
 				var wsobj = null;
 				$scope.initWs = function() {
@@ -704,6 +811,13 @@
 					$scope.answerShowFlag = true;
 					$scope.showButtonFlag = false;//是否显示"显示回答"按钮标志
 				};
+				
+				//显示学生回答详情（主观题）
+				$scope.answerDetail = function(row) {
+					$scope.designAnswer = row;
+					console.log(row);
+					$("#designAnswerModal").modal("show");
+				}
 			});
 			
 			

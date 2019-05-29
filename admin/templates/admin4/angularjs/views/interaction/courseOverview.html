@@ -776,31 +776,16 @@
 			$scope.course = data;
 		});
 		
-//		$scope.classes = [{
-//			color: "green",
-//			name: '电子商务基础',
-//			value: "1761班",
-//			active: true
-//		},{
-//			color: "yellow",
-//			name: '电子商务基础',
-//			value: "1762班"
-//		},{
-//			color: "red",
-//			name: '电子商务基础',
-//			value: "1763班"
-//		},{
-//			color: "blue",
-//			name: '电子商务基础',
-//			value: "1764班"
-//		}];
+		localStorage.setItem('currClassId', '');
 		
 		$scope.selectClass = function(row) {
 			$($scope.classes).each(function() {
 				this.active = false;
 			});
 			row.active = true;
-			$scope.loadTeamList(row.classId);
+//			$scope.currClassId = row.classId;
+			localStorage.setItem('currClassId', row.classId)
+			$scope.loadTeamList();
 		}
 		
 		//获取老师所教班级信息
@@ -809,7 +794,7 @@
 				$scope: $scope,
 				$http: $http,
 				data: {
-//					courseId: localStorage.getItem('courseId')
+					courseId: localStorage.getItem('courseId')
 				},
 				url: '/teacher/myTeachClass',
 				success: function(res) {
@@ -818,7 +803,9 @@
 					$scope.classes.forEach(function(value,index){
 						if(index == 0) {
 							value.active = true;
-							$scope.loadTeamList(value.classId);
+//							$scope.currClassId = value.classId;
+							localStorage.setItem('currClassId', value.classId)
+							$scope.loadTeamList();
 						}
 						value.color = classBgColor[index%4];
 					});
@@ -828,22 +815,25 @@
 		$scope.loadClassList();
 		
 		//获取班级的小组信息
-		$scope.loadTeamList = function(classId) {
+		$scope.loadTeamList = function() {
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
 				data: {
-					classId: classId,
-//					circleId: "5ca6ce9b1890960001896a4d",
+					classId: localStorage.getItem('currClassId'),
+					circleId: localStorage.getItem('courseId'),
 				},
 				url: '/classRoom/team/nowTeam',
 				success: function(res) {
-					$scope.teamList = res.data;
-					$scope.teamList.forEach(( item, i ) => {
-					  console.log( item, i );
-					  item.bgColor = bgColor[i%4];
-					});
-					console.log($scope.teamList);
+					if(!res.data || res.data == '') {//如果还没有分组，先系统自动分一组
+						$scope.teamRandomBuild(1);
+					}else {
+						$scope.teamList = res.data;
+						$scope.teamList.forEach(( item, i ) => {
+						  console.log( item, i );
+						  item.bgColor = bgColor[i%4];
+						});
+					}
 				}
 			});
 		}
@@ -855,8 +845,8 @@
 				$http: $http,
 				operate: true,
 				data: {
-					classId: "123",
-					circleId: "5ca6ce9b1890960001896a4d",
+					classId: localStorage.getItem('currClassId'),
+					circleId: localStorage.getItem('courseId'),
 					expType: 'forever',
 					number: num
 				},

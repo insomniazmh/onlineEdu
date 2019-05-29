@@ -41,23 +41,10 @@
 						</ul>
 					</div>
 					<div class="btn-group">
-						<button class="btn blue dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-											选组 <i class="fa fa-angle-down"></i>
-										</button>
-						<ul class="dropdown-menu" role="menu">
-							<li>
-								<a href="javascript:;" ng-click="qiangdazu()">抢答 </a>
-							</li>
-							<li>
-								<a href="javascript:;" ng-click="jushouzu()">举手 </a>
-							</li>
-							<li>
-								<a href="javascript:;" ng-click="xuanrenzu()">选人</a>
-							</li>
-						</ul>
+						<button class="btn blue" type="button"> 选组 </button>
 					</div>
-					<button ng-show="showButtonFlag" class="btn btn-success" ng-click="showAnswer()">显示回答</button>
-					<button class="btn btn-warning" ng-click="">重新分组</button>
+					<button ng-show="showButtonFlag && currentTiwenQues.examChildren[0].examType != 'design'" 
+						class="btn btn-success" ng-click="showAnswer()">显示回答</button>
 				</div>
 			</div>
 
@@ -74,24 +61,59 @@
 					<img ng-src="{{row.portrait}}" class="img-responsive" alt="学生头像">
 				</div>
 				<div class="uppercase profile-stat-text">{{row.name}}</div>
-				<div class="uppercase profile-stat-text answer" 
-					ng-if="!answerShowFlag && !row.answer" 
-					style="color: blue;">
+				<!--客观题回答内容-->
+				<div ng-if="currentTiwenQues.examChildren[0].examType != 'design'">
+					<div class="uppercase profile-stat-text answer" 
+						ng-if="!answerShowFlag && !row.answer" 
+						style="color: blue;">
+					</div>
+					<div class="uppercase profile-stat-text answer" 
+						ng-if="!answerShowFlag && row.answer" 
+						style="color: blue;">已回答
+					</div>
+					<div class="uppercase profile-stat-text answer" 
+						ng-if="answerShowFlag" 
+						style="color: {{row.piGaiResult=='true' ? 'green' : 'orangered'}};" 
+						ng-bind-html="row.answer">
+					</div>
 				</div>
-				<div class="uppercase profile-stat-text answer" 
-					ng-if="!answerShowFlag && row.answer" 
-					style="color: blue;">已回答
-				</div>
-				<div class="uppercase profile-stat-text answer" 
-					ng-if="answerShowFlag" 
-					style="color: {{row.piGaiResult=='true' ? 'green' : 'orangered'}};" 
-					ng-bind-html="row.answer">
+				<!--主观题回答内容-->
+				<div ng-if="currentTiwenQues.examChildren[0].examType == 'design'">
+					<div class="uppercase profile-stat-text answer" 
+						ng-if="!row.answer" 
+						style="color: blue;">
+					</div>
+					<div class="uppercase profile-stat-text answer" 
+						ng-if="row.answer" 
+						ng-click="answerDetail(row)" 
+						style="color: blue;">查看详情
+					</div>
 				</div>
 			</div>
 		</div>
 		<div style="height: 40px;text-align: center;display: none;" id="btns">
 			<button class="btn btn-primary" ng-click="all()">全选</button>
 			<button class="btn btn-primary" ng-click="sub()">确定</button>
+		</div>
+	</div>
+	
+	<!-- 显示主观题答案详情 -->
+	<div class="modal fade" id="designAnswerModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">{{currentTiwenQues.examChildren[0].title}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<p ng-bind-html="designAnswer.answer"></p>
+							<img src="{{item.fileUrl}}" ng-repeat="item in designAnswer.fileList" />
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
