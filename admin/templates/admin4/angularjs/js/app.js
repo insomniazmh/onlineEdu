@@ -590,6 +590,45 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 				}]
 			}
 		})
+		
+		//课程列表-作业批改
+		.state('cl-correction', {
+			url: "/cl-correction.html",
+			templateUrl: "views/correction/cl-correction.html",
+			data: {
+				pageTitle: '课程列表',
+				pageSubTitle: '课程列表'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
+		//作业批改
+		.state('correction', {
+			url: "/correction.html",
+			templateUrl: "views/correction/correction.html",
+			data: {
+				pageTitle: '作业批改',
+				pageSubTitle: '作业批改'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
 
 		//角色
 		.state('role', {

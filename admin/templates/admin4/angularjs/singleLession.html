@@ -65,7 +65,7 @@
 				display: inline;
 			}
 			
-			.note p {
+			.note-group p {
 				font-size: 16px;
 				display: inline-block;
 				margin-right: 10px;
@@ -202,7 +202,7 @@
 							</div>
 						</div>
 						<div class="portlet-body">
-							<div class="note note-{{team.bgColor}}" ng-repeat="team in teamList">
+							<div class="note note-{{team.bgColor}} note-group" ng-repeat="team in teamList">
 								<h4 class="block">{{team.teamName}}</h4>
 								<p ng-repeat="student in team.students">{{student.name}}</p>
 							</div>
@@ -225,14 +225,14 @@
 			</div>
 			
 			<!--奖励小红花-->
-			<div class="modal fade" id="flowerModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal fade" id="flowerModal" role="dialog" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="portlet light" style="min-height: 400px;">
 							<div class="portlet-title tabbable-line">
 								<div class="caption font-green-sharp">
 									<i class="icon-settings font-green-sharp"></i>
-									<span class="caption-subject bold uppercase" id="title"></span>
+									<span class="caption-subject bold uppercase">奖励小红花</span>
 								</div>
 								<div class="actions">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -248,9 +248,10 @@
 											<div class="uppercase profile-stat-text">{{row.name}}</div>
 										</div>
 									</div>
+									<div style="clear: both;"></div>
 								</div>
-								<div class="form-actions noborder" style="text-align: right;">
-									<button type="button" class="btn blue" ng-click="addFlower()">完成</button>
+								<div class="form-actions noborder" style="text-align: center;">
+									<button type="button" class="btn blue" ng-click="addFlower()">奖励</button>
 								</div>
 							</div>
 						</div>
@@ -285,6 +286,7 @@
 			app.controller('myCtrl', function($scope, $http, $interval) {
 				var stuLen = 0;
 				var random = new Date().getTime(); //生成随机数
+				$scope.students = [];
 				$scope.courseware = [];
 				
 				let bgColor = ['success','info','danger','warning'];//小组颜色
@@ -384,6 +386,7 @@
 							var data = JSON.parse(event.data);
 							$scope.$apply(function() {
 								if(data.model == "interactiveStudents") {
+									$scope.students = $scope.students.concat(data.students);
 									$scope.$broadcast('allStudents', data);
 								}else if(data.model == "answer" || data.model == "raise") {//返回提问的回答或举手信息
 									$scope.$broadcast('tiwenMessage', data);
@@ -402,6 +405,52 @@
 					wsobj.create(opt);
 				};
 				$scope.initWs();
+				
+				$scope.$on('reward', function(d, data) {
+					console.log(data);
+					$("#flowerModal").modal('show');
+				});
+				
+				$scope.selectStudent = function(student) {
+					student.select = !student.select;
+				}
+				
+				$scope.addFlower = function() {
+					var arr = [];
+					$.each($scope.students, function() {
+						if(this.select) {
+							arr.push(this.id);
+						}
+					});
+					if(arr.length == 0) {
+						layer.alert("请至少选择一名学生");
+						return false;
+					}
+					layer.prompt({title: '请输入要奖励的小红花个数', value: 2}, function(value, index, elem){
+					let reg = /^[0-9]*$/;
+					if(!reg.test(value) || value==0) {
+						layer.alert("只能输入大于0的数字");
+						return false;
+					}
+					
+					common.ajax2({
+						$scope: $scope,
+						$http: $http,
+						url: '/reward/class/add',
+						data: {
+							circleId: localStorage.getItem('circleId'),
+							num: value,
+							studentId: arr[0]
+						},
+						success: function() {
+							console.log(12345);
+							layer.alert('奖励成功');
+						}
+					});
+					
+				  layer.close(index);
+				});
+				};
 				
 				/*
 				 * 根据章节id加载章节教案、课件或已挂载的资料
@@ -817,7 +866,15 @@
 					$scope.designAnswer = row;
 					console.log(row);
 					$("#designAnswerModal").modal("show");
-				}
+				};
+				
+				$scope.reward = function() {
+					var rewardData = {
+						type: 'TiWen',
+						question: $scope.currentTiwenQues
+					}
+					$scope.$emit("reward", rewardData);
+				};
 			});
 			
 			
@@ -838,6 +895,8 @@
 					},
 					url: '/exerciseBook/findExerciseBook',
 					success: function(res) {
+						
+						console.log(JSON.stringify(res.data));
 						//如果没有挂载练习题，则隐藏练习弹出按钮
 						if(res.data == "") {
 							$("#LianXi").hide();

@@ -338,6 +338,11 @@ var common = {
 					this.title = this.examChildren[0].choiceQstTxt + "（多选）";
 				} else if(this.examChildren[0].examType == "trueOrFalse") {
 					this.title = this.examChildren[0].trueOrFalseInfo + "（判断）";
+					if(this.examChildren[0].answer == 'Y') {
+						this.examChildren[0].answer = '对';
+					}else if(this.examChildren[0].answer == 'N') {
+						this.examChildren[0].answer = '错';
+					}
 				} else if(this.examChildren[0].examType == "design") {
 					this.title = this.examChildren[0].designQuestion + "（主观）";
 				}

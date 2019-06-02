@@ -143,8 +143,8 @@
 								<div id="accordionPanduan_{{$index}}" class="panel-collapse collapse">
 									<div class="panel-body">
 										<p>答案：
-											<span ng-if="row.examChildren[0].trueOrFalseAnsw" style="display: inline-block;">对</span>
-											<span ng-if="!row.examChildren[0].trueOrFalseAnsw" style="display: inline-block;">错</span>
+											<span ng-if="row.examChildren[0].answer=='Y'" style="display: inline-block;">对</span>
+											<span ng-if="row.examChildren[0].answer=='N'" style="display: inline-block;">错</span>
 										</p>
 										<p>解析：<span ng-bind-html="row.examChildren[0].trueOrFalseAnalysis" style="display: inline-block;"></span> </p>
 									</div>
@@ -257,7 +257,7 @@
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
 			$scope.currentNode = data;
-			//$scope.initData();
+			$scope.initData();
 		});
 
 		//获取当前选中知识点
