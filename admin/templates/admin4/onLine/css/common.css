@@ -1,0 +1,24 @@
+.nav-pills {
+}
+
+.nav-pills li {
+	margin-right: 3px;
+	border-radius: 5px;
+}
+
+.nav-pills li a {
+	color: #0a50a1;
+	font-size: 13px;
+	padding: 0;
+	min-width: 80px;
+	height: 25px;
+	text-align: center;
+	margin-top: 5px;
+	line-height: 2;
+}
+
+.tag-active {
+	background: #f60 !important;
+	border-radius: 5px;
+	color: #fff !important;
+}

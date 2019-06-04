@@ -116,29 +116,6 @@ MetronicApp.controller('PageHeadController', ['$scope', '$rootScope', function($
     $scope.$on('$includeContentLoaded', function() {        
         Demo.init(); // init theme panel
         $rootScope.kps = [];
-        $scope.createKp = function() {
-        	var html = '<a class="btn btn-circle btn-sm btn-info" name="kp"><span>'+$("#kp").val()+'</span><i class="fa fa-times" name="remove"></i></a>';
-        	$("#kpContent").append(html);
-        };
-        
-        $("#kpContent").on("click", "a[name='kp']", function() {
-			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
-			$(this).removeClass("btn-info").addClass("btn-danger");
-			var html = $(this).children("span").html();
-			$scope.$apply(function() {　　
-				if(html != "无") {
-					$rootScope.currKP = '-' + html;
-				} else {
-					$rootScope.currKP = '';
-				}
-			});
-
-		});
-		
-		$("#kpContent").on("click", "i[name='remove']", function() {
-			$(this).closest("a").remove();
-			return false;
-		});
     });
 }]);
 
@@ -200,6 +177,19 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
+    
+    // 报名信息审核
+    .state('enrollExamine', {
+      url: "/enrollExamine.html",
+      templateUrl: "views/enroll/enrollExamine.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            
+          });
+        }]
+      }
+    })
 
     // 报名计划
     .state('enrollPlan', {
@@ -218,7 +208,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     //  学生信息
     .state('statistics', {
       url: "/statistics.html",
-      templateUrl: "views/statistics/statistics.html",     
+      templateUrl: "views/enroll/statistics.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -231,9 +221,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     })
 
     //  学生信息统计
-    .state('statisticsAdd', {
-      url: "/statisticsAdd.html",
-      templateUrl: "views/statistics/statisticsAdd.html",     
+    .state('statisticsDetail', {
+      url: "/statisticsDetail.html",
+      templateUrl: "views/enroll/statisticsDetail.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
