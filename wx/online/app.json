@@ -1,7 +1,9 @@
 {
   "pages": [
+    
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/course/index/index",
+    "pages/main/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,8 +21,8 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/logs/logs",
-        "text": "日志"
+        "pagePath": "pages/main/main",
+        "text": "我的"
       }
     ]
   },

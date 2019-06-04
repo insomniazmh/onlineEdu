@@ -4,51 +4,44 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
+    courseList: [
+      {
+        courseDescribe: "",
+        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
+        courseName: "新编商务英语",
+        teacherId: "dongbo",
+        teacherName: "董波",
+        joinChapterName: "第一讲:商务英语的由来",
+        topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
+      },
+      {
+        courseDescribe: "",
+        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
+        courseName: "电子商务基础与应用",
+        teacherId: "dongbo",
+        teacherName: "董波",
+        joinChapterName: "第二讲:FLASH动画的原理",
+        topPicSrc: "/img/zbook.png"
+      },
+      {
+        courseDescribe: "",
+        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
+        courseName: "计算机基础教程",
+        teacherId: "dongbo",
+        teacherName: "董波",
+        joinChapterName: "第五讲:CPU，内存的作用",
+        topPicSrc: "/img/7.jpg"
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    ]
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+  
+  onLoad: function () {
+    
+  },
+
+  bindNavBlink: function(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url
     })
   }
 })
