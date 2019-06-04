@@ -259,6 +259,8 @@
 			$scope.taskQuestionPage = 0;//任务
 			$scope.surveyQuestionPage = 0;//问卷
 			$scope.brainstormQuestionPage = 0;//头脑风暴
+			$scope.list.exeBookName = '';//清空册子名称
+			$scope.list.levelId = '1';//难易程度改为简单
 		}
 		
 		//根据章节和类型加载题目
@@ -404,7 +406,11 @@
 		//提交
 		$scope.sub = function() {
 			console.log($scope.list);
-//			return false;
+			if($scope.list.exeBookName = '' || !$scope.list.exeBookName) {
+				layer.alert("请输入册子名称");
+				return false;
+			}
+
 			var url = '/exerciseBook/build'; //基础 题册
 			if($scope.list.exeBookType == '4') {
 				url = '/taskExerciseBook/build'; //任务题库

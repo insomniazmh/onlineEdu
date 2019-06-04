@@ -37,6 +37,7 @@
 		$scope.changeCourse = function(course) {
 			console.log(url);
 			$rootScope.$emit("course", course);
+			localStorage.setItem('courseId', course.courseId);
 			if($scope.flag) {
 				window.location.href = '#/' + url + '.html';
 			} else {

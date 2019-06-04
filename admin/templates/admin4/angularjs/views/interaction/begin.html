@@ -680,6 +680,7 @@
 					url: '/classRoom/create/reuse',
 					success: function(res) {
 						localStorage.setItem("circleId", res.data);
+						localStorage.setItem("temporarily", false);//是否创建了临时课堂
 						$('#qrcode').empty();
 						$('#qrcode').qrcode("interactionQr"+res.data);
 						$("#qrcodeModal").modal("show");

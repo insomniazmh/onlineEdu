@@ -46,7 +46,7 @@
 			<div class="portlet-title">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-subject bold uppercase">课堂目录</span>
 					<span class="caption-helper hide"></span>
 				</div>
 			</div>
@@ -286,8 +286,8 @@
 			$scope.loadDatumList(data);
 		});
 		
-		//切换知识点
-		$scope.$on('kPointNode', function(d,data) {  
+		//切换章节
+		$scope.$on('currentNode', function(d,data) {  
 			$scope.loadDatumList("1");
 //			$scope.loadDatumList("2");
 			$scope.loadDatumList("3");

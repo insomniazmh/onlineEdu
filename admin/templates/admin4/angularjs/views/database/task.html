@@ -22,7 +22,7 @@
 			<div class="portlet-title">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">章节目录</span>
+					<span class="caption-subject bold uppercase">课堂目录</span>
 					<span class="caption-helper hide"></span>
 				</div>
 			</div>
@@ -49,9 +49,9 @@
 					<li class="active">
 						<a data-target="#tab_1_task" data-toggle="tab" ng-click="changeType('taskRadio')"> 任务 </a>
 					</li>
-					<li>
+					<!--<li>
 						<a data-target="#tab_1_storm" data-toggle="tab" ng-click="changeType('stromRadio')"> 头脑风暴 </a>
-					</li>
+					</li>-->
 				</ul>
 			</div>
 			<div class="portlet-body">
@@ -230,10 +230,9 @@
 			if ($scope.kPointNode.knodeId) {
 				data.knowledgeId = $scope.kPointNode.knodeId;
 			}
-
-			if (type == 'task') {
-				url = '/taskQuestion/findAll/detailed';
-			} else if (type == 'strom') {
+			
+			let url = '/taskQuestion/findAll/detailed';
+			if (type == 'strom') {
 				url = '/brainstormQuestion/findAll/detailed';
 			}
 
@@ -275,9 +274,8 @@
 		}
 		
 		$scope.saveOrEditQuestion = function(type, data) {
-			if (type == 'task') {
-				url = '/taskQuestion/design/edit';
-			} else if (type == 'strom') {
+			let url = '/taskQuestion/design/edit'
+			if (type == 'strom') {
 				url = '/brainstormQuestion/design/edit';
 			}
 			

@@ -1,4 +1,4 @@
-<style>
+<!--<style>
 	#kpContent a {
 		margin-bottom: 10px;
 	}
@@ -20,26 +20,15 @@
 		</div>
 	</div>
 	<div class="portlet-body" id="kpContent">
-		<!--<a href="javascript:;" class="btn btn-circle btn-sm btn-danger" name="kp" id="zhangjie">
-			<span>章节</span>
-		</a>
-		<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
-			<span>复合知识点</span>
-		</a>-->
 		<a href="javascript:;" class="btn btn-circle btn-sm {{row.selected ? 'btn-danger' : 'btn-info'}}" ng-repeat="row in kNodes" ng-click="selectKPoint(row)">
 			<span>{{row.nodeName}}</span>
 			<i ng-if="row.knodeId != ''" class="fa fa-times" ng-click="delKNode(row.knodeId);"></i>
 		</a>
-		<!--<a href="javascript:;" class="btn btn-circle btn-sm btn-info" name="kp">
-			<span>电子商务的概念</span>
-			<i class="fa fa-times" name="remove"></i>
-		</a>-->
 	</div>
-</div>
+</div>-->
 	
 <script>
 	function zhishidianCtrl($scope, $http, $rootScope) {
-//		$scope.currentNode = {};
 		//获取章节知识点
 		$scope.loadKNode = function() {
 			$scope.kNodes = [{
