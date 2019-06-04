@@ -1,0 +1,93 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+    .label-text{
+        margin-top: 8px;
+    }   
+    .form-control{
+        margin-bottom: 8px;
+        margin-left: -82px
+    }
+    .btn-info{
+        margin-bottom: 2px;
+        float: right;
+        margin-left: 2px;
+    }
+    .abslute{
+        margin-left: -100px;
+        margin-top: 3px;
+        width: 46px;
+        height: 28px;
+    }
+    .table-toolbar{
+        border-bottom: 3px solid #ddd;
+        border-width: 100%;
+    }
+    .dividing{
+        border-bottom: 3px solid #ddd;
+        top: -23px;
+        position: relative;
+    }
+</style>
+<div class="row" ng-controller="enrollCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>课时费管理
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div class="row">
+                        <div class="col-md-12" style="display: flex;">
+                            <label class="col-md-2 label-text">课程名称:</label>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control">
+                            </div>
+                            <label class="col-md-2 label-text">费用标准:</label>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="btn-group col-md-6 abslute">
+                                <button class="btn blue btn-sm" ng-click=""> 添加 </button>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+                <table style="margin-bottom: 20px;" class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>课程名称</th>
+							<th>课时费标准</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX">
+                            <td>计算机基础</td>
+                            <td>200</td>
+						</tr>
+					</tbody>
+                </table>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+
+</div>
+<script>
+	
+	function enrollCtrl($scope, $http) {
+		$scope.data = [
+			{},
+			{}
+		];
+		
+		$scope.goUrl = function() {
+			window.location.href = 'index.html#/schoolrollAdd.html';
+        },
+        $scope.goTest = function() {
+			window.location.href = 'index.html#/schoolrollInfo.html';
+		}
+	}
+</script>
