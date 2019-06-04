@@ -1,0 +1,136 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+    .label-text{
+        margin-top: 8px;
+    }   
+    .form-control{
+        margin-bottom: 8px;
+        margin-left: -85px
+    }
+    .btn-info{
+        margin-bottom: 2px;
+        float: right;
+        margin-left: 5px;
+    }
+    .abslute{
+        position: absolute;
+        float: right;
+        margin-left: -100px;
+        margin-top: 21px;
+        width: 46px;
+        height: 28px;
+    }
+    .table-toolbar{
+        border-bottom: 3px solid #ddd;
+        border-width: 100%;
+    }
+</style>
+<div class="row" ng-controller="enrollCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>外聘教师信息
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div class="row">
+                        <div class="col-md-12" style="display: flex;">
+                            <label class="col-md-2 label-text">姓名:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control">
+                            </div>
+                            <label class="col-md-2 label-text">学历:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control">
+                            </div>
+                            <label class="col-md-4 label-text">手机号码:</label>
+                            <div style="margin-left: -30px" class="col-md-4">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="display: flex;">
+                            <label class="col-md-2 label-text">职称:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control">
+                            </div>
+                            <label class="col-md-2 label-text">专业:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control">
+                            </div>
+                            <label class="col-md-4 label-text">毕业学校:</label>
+                            <div style="margin-left: -30px" class="col-md-4">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="btn-group col-md-6 abslute">
+                            <button class="btn blue btn-sm" ng-click=""> 查询 </button>
+                        </div>
+                    </div>
+				</div>
+                <button class="btn btn-sm btn-info"  ng-click="goDel()">
+                    删除
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-sm btn-info"  ng-click="goToExamine()">
+                    审核
+                </button>
+                <button class="btn btn-sm btn-info"  ng-click="goEdit()">
+                    编辑
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-sm btn-info"  ng-click="goAdd()">
+                    添加
+                </button>
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+                            <th></th>
+							<th>姓名</th>
+							<th>性别</th>
+							<th>手机号</th>
+							<th>专业</th>
+							<th>职称</th>
+							<th>毕业学校</th>
+                            <th>审核状态</th>
+                            <th>是否聘用</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX">
+                            <td><input type="checkbox"></td>
+                            <td>张三</td>
+                            <td>男</td>
+                            <td>136**5318</td>
+                            <td>信息技术</td>
+                            <td>教授</td>
+                            <td>郑大西</td>
+                            <td>审核通过</td>
+                            <td>是</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+
+</div>
+<script>
+	
+	function enrollCtrl($scope, $http) {
+		$scope.data = [
+			{},
+			{}
+		];
+		
+		$scope.goAdd = function() {
+			window.location.href = 'index.html#/externalTeachersAdd.html';
+        },
+        $scope.goToExamine = function() {
+			window.location.href = 'index.html#/externalTeacherAudit.html';
+		}
+	}
+</script>

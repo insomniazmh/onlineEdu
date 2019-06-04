@@ -65,10 +65,24 @@
 							<div class="col-md-6">
 								<label class="col-md-6 control-label">性别:</label>
 								<div class="col-md-6" style="height: 32px; display: flex; margin-bottom: 15px;">
-									<input class="checkRadio" type="radio">
-									<div class="choiceMan"> 男</div>
-									<input class="checkRadio" type="radio" >
-									<div class="choiceMan"> 女</div>
+									<div class="md-radio-inline">
+										<div class="md-radio">
+											<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+											<label for="radio6">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											男</label>
+										</div>
+										<div class="md-radio">
+											<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
+											<label for="radio7">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											女</label>
+										</div>
+									</div>
 								</div>
 								<label class="col-md-6 control-label">文化程度:</label>
 								<div class="col-md-6">
@@ -162,10 +176,24 @@
 								</div>
 								<label class="col-md-3 control-label">是否免试:</label>
 								<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
-									<input class="checkRadio" type="radio">
-									<div class="choiceMan"> 是</div>
-									<input class="checkRadio" type="radio" >
-									<div class="choiceMan"> 否</div>
+									<div class="md-radio-inline">
+										<div class="md-radio">
+											<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+											<label for="radio6">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											是</label>
+										</div>
+										<div class="md-radio">
+											<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
+											<label for="radio7">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											否</label>
+										</div>
+									</div>
 								</div>
 								<div style="margin-left: 600px">
 									<label class="col-md-3 control-label">入学成绩:</label>
@@ -175,24 +203,52 @@
 								</div>
 								<label class="col-md-3 control-label">报考信息确认:</label>
 								<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
-									<input class="checkRadio" type="radio">
-									<div class="choiceMan"> 已确认</div>
-									<input class="checkRadio" type="radio" >
-									<div class="choiceMan"> 未确认</div>
+									<div class="md-radio-list"  style="display: flex">
+										<div class="md-radio" style="margin-right: 8px;">
+											<input type="radio" id="radio9" name="radio1" class="md-radiobtn">
+											<label for="radio9">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											确认</label>
+										</div>
+										<div class="md-radio has-error">
+											<input type="radio" id="radio10" name="radio1" class="md-radiobtn" checked>
+											<label for="radio10">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											未确认</label>
+										</div>
+									</div>
 								</div>
-								<div  style="margin-left: 600px">
+								<div style="margin-left: 600px">
 									<label class="col-md-3 control-label">是否录取:</label>
 									<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
-										<input class="checkRadio" type="radio">
-										<div class="choiceMan"> 是</div>
-										<input class="checkRadio" type="radio" >
-										<div class="choiceMan"> 否</div>
+										<div class="md-radio-inline">
+											<div class="md-radio">
+												<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+												<label for="radio6">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												是</label>
+											</div>
+											<div class="md-radio">
+												<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
+												<label for="radio7">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												否</label>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="col-md-12" style="text-align: center">
 									<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
 								</div>
-						</div>
+					</div>
 				</div>
 			</form>
 			<!-- END FORM-->
@@ -219,11 +275,15 @@
 		}
 		.certificate{
 			margin-top: -5px;
+			cursor: pointer;
 		}
 		.btn-left{
 			margin-left: -5px;
 		}
 		.width-20{
 			margin-left: -52px;
+		}
+		.form-horizontal .md-radio-list{
+			margin-top: 7px;
 		}
 	</style>

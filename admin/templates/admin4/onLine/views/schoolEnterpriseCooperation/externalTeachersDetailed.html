@@ -1,0 +1,107 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+    .label-text{
+        margin-top: 8px;
+    }   
+    .form-control{
+        margin-bottom: 8px;
+        margin-left: -85px
+    }
+    .btn-info{
+        margin-bottom: 2px;
+        float: right;
+        margin-left: 5px;
+    }
+    .abslute{
+        margin-left: -100px;
+        margin-top: 3px;
+        width: 46px;
+        height: 28px;
+    }
+    .table-toolbar{
+        border-bottom: 3px solid #ddd;
+        border-width: 100%;
+    }
+</style>
+<div class="row" ng-controller="enrollCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>课时明细
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div class="row">
+                        <div class="col-md-12" style="display: flex;">
+                            <label class="col-md-2 label-text">姓名:</label>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control">
+                            </div>
+                            <label class="col-md-2 label-text">工号:</label>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="btn-group col-md-6 abslute">
+                                <button class="btn blue btn-sm" ng-click=""> 查询 </button>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+                <div class="col-md-12" style="margin-bottom: 6px">
+                    <label class="width-20 col-md-4 control-label">合计课时:6</label>
+                    <label style="color:red" class="width-20 col-md-4 control-label">课时超出:2</label>
+                    <button class="btn btn-sm btn-info"  ng-click="goTest()">
+                        文件导入
+                    </button>
+                </div>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>工号</th>
+                            <th>课程名称</th>
+                            <th>课时</th>
+                            <th>课时费标准</th>
+                            <th>课时费</th>
+                            <th>授课时间</th>
+                            <th>月份</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd gradeX">
+                            <td>张酸</td>
+                            <td>0001</td>
+                            <td>计算机基础</td>
+                            <td>3</td>
+                            <td>200</td>
+                            <td>600</td>
+                            <td>2019-4-5</td>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                </table>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+
+</div>
+<script>
+	
+	function enrollCtrl($scope, $http) {
+		$scope.data = [
+			{},
+			{}
+		];
+		
+		$scope.goUrl = function() {
+			window.location.href = 'index.html#/schoolrollAdd.html';
+        },
+        $scope.goTest = function() {
+			window.location.href = 'index.html#/schoolrollInfo.html';
+		}
+	}
+</script>
