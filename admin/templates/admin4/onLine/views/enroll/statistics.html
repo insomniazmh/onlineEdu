@@ -4,7 +4,7 @@
 	margin-top: 8px;
 }
 </style>
-<div class="row" ng-controller="enrollCtrl">
+<div class="row" ng-controller="staCtrl">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet box grey-cascade">
@@ -67,7 +67,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX" ng-repeat="item in data" ng-click="detail();">
+						<tr class="odd gradeX" ng-repeat="item in data" ng-click="detail();" style="cursor: pointer;">
 							<td>{{item.id}}</td>
 							<td>{{item.major}}</td>
 							<td>{{item.grade}}</td>
@@ -84,7 +84,7 @@
 </div>
 <script>
 	
-	function enrollCtrl($scope, $http) {
+	function staCtrl($scope, $http) {
 		$scope.data = [
 			{id: '20180901', major:'信息技术', grade:'三年二班', schoolName:'正大西', studentNumber:'200'},
 			{id: '20180901', major:'信息技术', grade:'三年二班', schoolName:'正大西', studentNumber:'200'},
@@ -112,10 +112,6 @@
 			{text: "学习中心2"},
 			{text: "学习中心3"}
 		];
-		
-		$scope.activeColor = function(value) {
-			value.active = !value.active;
-		}
 		
 		$scope.detail = function() {
 			window.location.href = 'index.html#/statisticsDetail.html';

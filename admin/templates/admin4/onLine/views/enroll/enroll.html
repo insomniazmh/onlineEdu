@@ -117,7 +117,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX" ng-repeat="row in data" ng-click="add()">
+						<tr class="odd gradeX" ng-repeat="row in data" ng-click="add()" style="cursor: pointer;">
 							<td>
 								<button class="btn btn-info btn-sm" ng-click="examine()">审核</button>
 							</td>
@@ -206,6 +206,7 @@
 		}]
 		
 		$scope.examine = function() {
+			window.event? window.event.cancelBubble = true : e.stopPropagation();//阻止冒泡
 			window.location.href="index.html#/enrollExamine.html";
 		}
 		

@@ -279,6 +279,20 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     }) 
+    //  学籍编辑
+    .state('schoolrollEdit', {
+      url: "/schoolrollEdit.html",
+      templateUrl: "views/schoolroll/schoolrollEdit.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    }) 
     
     //  入学信息
     .state('schoolrollInfo', {
@@ -299,36 +313,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     .state('studyAlienation', {
       url: "/studyAlienation.html",
       templateUrl: "views/schoolroll/studyalienation/studyAlienation.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-
-    //  学籍异动添加
-    .state('studyalienation', {
-      url: "/alienationAdd.html",
-      templateUrl: "views/schoolroll/studyalienation/alienationAdd.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-  
-    //  异动审核列表
-    .state('auditList', {
-      url: "/auditList.html",
-      templateUrl: "views/schoolroll/studyalienation/auditList.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -676,4 +660,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 /* Init global settings and run the app */
 MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settings, $state) {
     $rootScope.$state = $state; // state to be accessed from view
+    $rootScope.activeColor = function(value) {
+			value.active = !value.active;
+		}
 }]);
