@@ -1,0 +1,51 @@
+/* pages/main/main.wxss */
+.headerText{
+  background: #dcdcdc;
+  padding: 50rpx;
+}
+.headerText text{
+  margin-top: 50rpx;
+}
+.pageContent{
+  margin-top: 50rpx;
+  padding: 50rpx;
+  padding-top: 0;
+}
+.leftImg{
+  display: flex;
+  margin-bottom: 60rpx;
+}
+.leftImg .portLeft{
+  width: 180rpx;
+  height: 155rpx;
+}
+.comment{
+  margin-left: 60rpx;
+  margin-top: 40rpx;
+}
+.comment:nth-child(2){
+  font-size: 50rpx;
+}
+.comment view>text{
+  font-size: 30rpx;
+  color: #0aa1ef;
+  margin-top: 15rpx;
+}
+.good{
+  margin-left: 120rpx;
+  margin-top: -3rpx;
+}
+.good image{
+  width: 40rpx;
+  height: 37rpx;
+}
+.listBtn{
+  width: 500rpx;
+  margin-left: 125rpx;
+  margin-bottom: 50rpx;
+}
+.listBtn button{
+  height: 80rpx;
+  line-height: 2.5;
+  font-size: 35rpx;
+}

@@ -1,11 +1,16 @@
-// pages/main/main.js
+// pages/main/Transaction/Transaction.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    activeName: '0'
+  },
+  onChange(event) {
+    this.setData({
+      activeName: event.detail
+    });
   },
 
   /**

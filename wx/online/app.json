@@ -1,11 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/main/main/main",
+    "pages/discuss/discussPage/discussPage",
     "pages/course/index/index",
     "pages/information/information",
     "pages/examination/examination",
-    "pages/main/main",
-    "pages/discuss/discuss"
+    "pages/discuss/discuss/discuss",
+    "pages/main/Transaction/Transaction",
+    "pages/main/paper/paper"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,7 +30,7 @@
       {
         "selectedIconPath": "/img/icon/myActive.png",
         "iconPath": "/img/icon/my.png",
-        "pagePath": "pages/main/main",
+        "pagePath": "pages/main/main/main",
         "text": "我的"
       }
     ]

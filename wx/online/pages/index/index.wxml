@@ -16,7 +16,7 @@
     <image src='/img/z06.png' mode='widthFix'></image>
     <text>考试</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/discuss/discuss'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/discuss/discuss/discuss'>
     <image src='/img/z08.png' mode='widthFix'></image>
     <text>讨论</text>
   </view>
@@ -24,7 +24,6 @@
     <image src='/img/z03.png' mode='widthFix'></image>
     <text>资讯</text>
   </view>
-
   <view class='cfx'></view>
 </view>
 
