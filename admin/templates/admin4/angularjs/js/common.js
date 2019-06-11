@@ -370,6 +370,11 @@ var common = {
 	       return 0;
 	    }
 		}
+	},
+	//数组根据某字段去重
+	unique: function(arr, key) {
+    const res = new Map();
+    return arr.filter((a) => !res.has(a[key]) && res.set(a[key], 1));
 	}
 }
 

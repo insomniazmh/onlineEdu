@@ -59,7 +59,8 @@
     <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
         <text>《{{item.courseName}}》</text>
-        <text class='mt_20'>课程描述：{{item.courseDescribe}}</text>
+        <text class='mt_20'>课程描述：</text>
+        <rich-text class='mt_20' nodes="{{item.courseDescribe}}"></rich-text>
         <text class='mt_10'>授课老师：{{item.teacherName}}</text>
       </view>
       <view class='cfx'></view>
