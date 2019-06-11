@@ -265,6 +265,7 @@
 		
 		//根据章节和类型加载题目
 		$scope.loadQuestionsForAdd = function(type, page) {
+			$scope.list.id = null;
 			var url = '/question/findAll/detailed'; //基础题库
 			if(type == '4') {
 				url = '/taskQuestion/findAll/detailed'; //任务题库
@@ -398,7 +399,7 @@
 				$scope.typeFlag = false;
 			} else {
 				//没有id表示为新增
-				// $scope.loadQuestionsForAdd(data.type, 0);
+				 $scope.loadQuestionsForAdd(data.type, 0);
 				$scope.typeFlag = true;
 			}
 		});
@@ -406,7 +407,7 @@
 		//提交
 		$scope.sub = function() {
 			console.log($scope.list);
-			if($scope.list.exeBookName = '' || !$scope.list.exeBookName) {
+			if($scope.list.exeBookName == '' || !$scope.list.exeBookName) {
 				layer.alert("请输入册子名称");
 				return false;
 			}
@@ -435,6 +436,7 @@
 				}
 			});
 
+console.log($scope.list);
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,

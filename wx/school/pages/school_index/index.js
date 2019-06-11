@@ -49,7 +49,8 @@ Page({
               console.log(resData.token);
               wx.setStorageSync('token', resData.token)//将token信息存入本地
               wx.setStorageSync('studentId', resData.studentId)//将studentId信息存入本地
-              wx.setStorageSync('className', resData.className)//将班级信息存入本地
+              wx.setStorageSync('className', resData.className)//将班级名称存入本地
+              wx.setStorageSync('classId', resData.classId)//将班级id存入本地
               that.setData({
                 className: resData.className
               });
@@ -197,8 +198,8 @@ Page({
 
       courseList.push({
         courseDescribe: "",
-        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-        courseName: "FLASH动画设计",
+        courseId: "09fd692bdc134b59b13d4decad9f3317",
+        courseName: "网页设计与制作",
         teacherId: "dongbo",
         teacherName: "董波",
         topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"

@@ -13,7 +13,11 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
+<<<<<<< HEAD
 	"appid": "wxdb74165ec41532a5",
+=======
+	"appid": "wx6a41feac45a2f663",
+>>>>>>> 79efb158b24e7d19761810d6b86de00ef355f30c
 	"projectname": "online",
 	"debugOptions": {
 		"hidedInDevtools": []

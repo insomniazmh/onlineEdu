@@ -116,29 +116,6 @@ MetronicApp.controller('PageHeadController', ['$scope', '$rootScope', function($
     $scope.$on('$includeContentLoaded', function() {        
         Demo.init(); // init theme panel
         $rootScope.kps = [];
-        $scope.createKp = function() {
-        	var html = '<a class="btn btn-circle btn-sm btn-info" name="kp"><span>'+$("#kp").val()+'</span><i class="fa fa-times" name="remove"></i></a>';
-        	$("#kpContent").append(html);
-        };
-        
-        $("#kpContent").on("click", "a[name='kp']", function() {
-			$("#kpContent a[name='kp']").removeClass("btn-danger").addClass("btn-info");
-			$(this).removeClass("btn-info").addClass("btn-danger");
-			var html = $(this).children("span").html();
-			$scope.$apply(function() {　　
-				if(html != "无") {
-					$rootScope.currKP = '-' + html;
-				} else {
-					$rootScope.currKP = '';
-				}
-			});
-
-		});
-		
-		$("#kpContent").on("click", "i[name='remove']", function() {
-			$(this).closest("a").remove();
-			return false;
-		});
     });
 }]);
 
@@ -200,6 +177,19 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
+    
+    // 报名信息审核
+    .state('enrollExamine', {
+      url: "/enrollExamine.html",
+      templateUrl: "views/enroll/enrollExamine.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            
+          });
+        }]
+      }
+    })
 
     // 报名计划
     .state('enrollPlan', {
@@ -218,7 +208,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     //  学生信息
     .state('statistics', {
       url: "/statistics.html",
-      templateUrl: "views/statistics/statistics.html",     
+      templateUrl: "views/enroll/statistics.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -231,9 +221,9 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     })
 
     //  学生信息统计
-    .state('statisticsAdd', {
-      url: "/statisticsAdd.html",
-      templateUrl: "views/statistics/statisticsAdd.html",     
+    .state('statisticsDetail', {
+      url: "/statisticsDetail.html",
+      templateUrl: "views/enroll/statisticsDetail.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -289,6 +279,20 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     }) 
+    //  学籍编辑
+    .state('schoolrollEdit', {
+      url: "/schoolrollEdit.html",
+      templateUrl: "views/schoolroll/schoolrollEdit.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    }) 
     
     //  入学信息
     .state('schoolrollInfo', {
@@ -309,36 +313,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     .state('studyAlienation', {
       url: "/studyAlienation.html",
       templateUrl: "views/schoolroll/studyalienation/studyAlienation.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-
-    //  学籍异动添加
-    .state('studyalienation', {
-      url: "/alienationAdd.html",
-      templateUrl: "views/schoolroll/studyalienation/alienationAdd.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-  
-    //  异动审核列表
-    .state('auditList', {
-      url: "/auditList.html",
-      templateUrl: "views/schoolroll/studyalienation/auditList.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -686,4 +660,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 /* Init global settings and run the app */
 MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settings, $state) {
     $rootScope.$state = $state; // state to be accessed from view
+    $rootScope.activeColor = function(value) {
+			value.active = !value.active;
+		}
 }]);

@@ -105,6 +105,13 @@ class agriknow {
   }
 
   /**
+   * 提交预习自测回答
+   */
+  answerSelfTest(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._quiz + '/studentAnswer/saveAnswer', postData).then(res => res.data)
+  }
+
+  /**
    * 微信登录
    */
   wxLogin(postData = {}) {

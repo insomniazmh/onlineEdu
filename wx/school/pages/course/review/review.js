@@ -99,9 +99,13 @@ Page({
   onSubQuestion: function (e) {
     var postData = e.detail;
     var that = this;
-    postData.questionType = 'Lianxi';
+    postData.exeBookType = 3;
+    postData.preview = 'after';
+    postData.chapterId = this.data.chapter.chapterId;
+    postData.courseId = wx.getStorageSync('courseId');
+    postData.classId = wx.getStorageSync('classId');
 
-    getApp().agriknow.answerPractice(postData)
+    getApp().agriknow.answerSelfTest(postData)
       .then(res => {
         if (res.ret == 0) {
           wx.showToast({

@@ -1,10 +1,10 @@
-<div class="row" ng-controller="enrollCtrl">
+<div class="row" ng-controller="SDCtrl">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet box grey-cascade">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i>统计学生信息
+					<i class="fa fa-globe"></i>学生信息详情
 				</div>
 				
 			</div>
@@ -16,7 +16,7 @@
 							<th>专业名称</th>
 							<th>年级</th>
 							<th>学习中心名称</th>
-							<th>学生数量</th>
+							<th>学生学号</th>
 							<th>学生姓名</th>
 						</tr>
 					</thead>
@@ -39,10 +39,10 @@
 </div>
 <script>
 	
-	function enrollCtrl($scope, $http) {
+	function SDCtrl($scope, $http) {
 		$scope.data = [
-			{id: '20180901', major:'信息技术', grade:'三年二班', schoolName:'正大西', studentNumber:'200', name:'汤姆'},
-			{id: '20180901', major:'信息技术', grade:'三年二班', schoolName:'正大西', studentNumber:'200', name:'托尼'},
+			{id: '20180901', major:'信息技术', grade:'三年二班', schoolName:'正大西', studentNumber:'10001', name:'汤姆'},
+			{id: '20180901', major:'信息技术', grade:'三年二班', schoolName:'正大西', studentNumber:'10002', name:'托尼'},
 		];
 	}
 </script>

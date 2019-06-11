@@ -45,7 +45,7 @@
 							<img src="{{row.portrait}}" class="img-responsive" alt="">
 						</div>
 						<div class="uppercase profile-stat-text">
-							{{row.name}}
+							{{row.studentName}}
 						</div>
 					</div>
 				</div>
@@ -129,19 +129,11 @@
 <script>
 	function correctionCtrl($scope, $http) {
 		let classBgColor = ['green','yellow','red','blue'];//班级颜色
-		
-		$scope.students = [
-			{id: "410221199706224226", name: "李梦", portrait: "images/avatar6.jpg"},
-			{id: "410221199706224226", name: "李梦", portrait: "images/avatar7.jpg"},
-			{id: "410221199706224226", name: "李梦", portrait: "images/avatar8.jpg"},
-			{id: "410221199706224226", name: "李梦", portrait: "images/avatar9.jpg"},
-			{id: "410221199706224226", name: "李梦", portrait: "images/avatar10.jpg"}
-		];
-		
 		let questions = [{"id":"5cebca0509eb5744b4d2b65a","score":null,"teacherId":"dongbo","paperInfo":null,"examChildren":[{"examType":"single","score":1,"teacherId":"dongbo","choiceQstTxt":"单选-1","choiceQstAnsw":"D","choiceQstAnalysis":"是","title":"单选-1","answer":"D","analysis":"是","choiceType":"single","optChildren":[{"optTxt":"三四十","optValue":"A"},{"optTxt":"休息","optValue":"B"},{"optTxt":"睡醒","optValue":"C"},{"optTxt":"试试","optValue":"D"}]}],"type":null,"chapterId":"40288a826af74248016af8f961540001","relate":0,"levelId":"1","knowledgeId":"","keyword":null,"preview":null,"udate":"2019-05-27 19:29:09"},{"id":"5cebca2d09eb5744b4d2b65b","score":null,"teacherId":"dongbo","paperInfo":null,"examChildren":[{"examType":"multiple","score":1,"teacherId":"dongbo","title":"多选-3","answer":"ABCD","analysis":"是","choiceQstTxt":"多选-3","choiceQstAnsw":"ABCD","choiceQstAnalysis":"是","choiceType":"multiple","optChildren":[{"optTxt":"是","optValue":"A"},{"optTxt":"单独","optValue":"B"},{"optTxt":"热热","optValue":"C"},{"optTxt":"11","optValue":"D"}]}],"type":null,"chapterId":"40288a826af74248016af8f961540001","relate":0,"levelId":"2","knowledgeId":"","keyword":null,"preview":null,"udate":"2019-05-27 19:29:49"},{"id":"5cebca4d09eb5744b4d2b65d","score":null,"teacherId":"dongbo","paperInfo":null,"examChildren":[{"score":1,"examType":"trueOrFalse","teacherId":"dongbo","trueOrFalseInfo":"判断-6","trueOrFalseAnalysis":"444","trueOrFalseAnsw":"N","answer":"N","title":"判断-6","analysis":"444"}],"type":null,"chapterId":"40288a826af74248016af8f961540001","relate":0,"levelId":"2","knowledgeId":"","keyword":null,"preview":null,"udate":"2019-05-27 19:30:21"},{"id":"5cebca6309eb5744b4d2b65f","score":null,"teacherId":"dongbo","paperInfo":null,"examChildren":[{"relate":"1","score":1,"teacherId":"dongbo","examType":"design","designQuestion":"主观-88","designAnsw":"定时达","designAnalysis":"是的","title":"主观-88","answer":"定时达","analysis":"是的"}],"type":null,"chapterId":"40288a826af74248016af8f961540001","relate":0,"levelId":"2","knowledgeId":"","keyword":null,"preview":null,"udate":"2019-05-27 19:30:43"}]
 		$scope.questions = common.addTitleForQuestion({
 			questionArr: questions
 		}); //组装题干以供展示
+		
 		//获取老师所教班级信息
 		$scope.loadClassList = function() {
 			common.ajax({
@@ -160,6 +152,26 @@
 						}
 						value.color = classBgColor[index%4];
 					});
+					if(res.data.length > 0) {
+						$scope.loadStudentsByClassId(res.data[0].classId);
+					}
+					
+				}
+			});
+		}
+		$scope.loadClassList();
+		
+		//根据班级id获取班级中有效学生的信息
+		$scope.loadStudentsByClassId = function(classId) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					classId: classId
+				},
+				url: '/class/findStudentsByClassId',
+				success: function(res) {
+					$scope.students = res.data;
 				}
 			});
 		}
@@ -175,6 +187,7 @@
 				this.active = false;
 			});
 			row.active = true;
+			$scope.loadStudentsByClassId(row.classId);
 		}
 		
 		$scope.clickStudent = function(student) {
