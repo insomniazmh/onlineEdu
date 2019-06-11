@@ -196,14 +196,14 @@ Page({
       //   topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
       // })
 
-      courseList.push({
-        courseDescribe: "",
-        courseId: "09fd692bdc134b59b13d4decad9f3317",
-        courseName: "网页设计与制作",
-        teacherId: "dongbo",
-        teacherName: "董波",
-        topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
-      })
+      // courseList.push({
+      //   courseDescribe: "",
+      //   courseId: "09fd692bdc134b59b13d4decad9f3317",
+      //   courseName: "网页设计与制作",
+      //   teacherId: "dongbo",
+      //   teacherName: "董波",
+      //   topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
+      // })
       that.setData({
         courseList: res.data
       })
