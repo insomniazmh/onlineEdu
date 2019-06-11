@@ -1,3 +1,9 @@
+/* pages/information/information.wxss */
+.infoWarp{
+  padding: 50rpx;
+  border: 1px solid red;
+  display: flex;
+}
 /* pages/course/index/index.wxss */
 .orange {
   background-color: orange;

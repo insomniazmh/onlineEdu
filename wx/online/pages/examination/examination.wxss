@@ -66,8 +66,8 @@
   position:relative;
 }
 .fm_img{
-  width:200rpx;
-  height:200rpx !important;
+  width:165rpx;
+  height:100rpx !important;
   display:block;
   float:left;
 }

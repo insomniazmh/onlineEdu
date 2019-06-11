@@ -1,19 +1,26 @@
 <!--pages/school_index/index.wxml-->
-<image class='banner' src='/img/banner_1.jpg' mode='widthFix'></image>
+<swiper indicator-color="#fff" indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" width="355" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
 <view class="index_clm">
   <view class='clm_child' bindtap='bindNavBlink' data-url='/pages/course/index/index'>
     <image src='/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/notes/index/index'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/examination/examination'>
     <image src='/img/z06.png' mode='widthFix'></image>
     <text>考试</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/Notice/NoticeIndex/NoticeIndex'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/discuss/discuss'>
     <image src='/img/z08.png' mode='widthFix'></image>
     <text>讨论</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/Notice/NoticeIndex/NoticeIndex'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/information/information'>
     <image src='/img/z03.png' mode='widthFix'></image>
     <text>资讯</text>
   </view>

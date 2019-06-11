@@ -9,11 +9,12 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"nodeModules": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
-	"appid": "wx6a41feac45a2f663",
 	"projectname": "online",
 	"debugOptions": {
 		"hidedInDevtools": []

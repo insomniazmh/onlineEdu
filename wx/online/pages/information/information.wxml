@@ -1,0 +1,24 @@
+<swiper indicator-color="#fff" indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" width="355" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+<view class='min_class'>
+  <!--循环从此开始-->
+  <view class='class_clm' 
+    wx:for="{{courseList}}" 
+    bindtap="navToChapter" 
+    data-course='{{item}}' 
+    wx:key="clm">
+    <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+      <view class='right_info'>
+        <text class='text-title'>《{{item.courseName}}》</text>
+        <text class='mt_20 text-custom'>{{item.courseDate}}</text>
+      </view>
+      <view class='cfx'></view>
+  </view>
+  <!--循环到此结束-->
+</view>
