@@ -16,8 +16,8 @@
 									<div class="row" style="margin-bottom: 40px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" id="nodeName" ng-model="nodeName" placeholder="请输入章节名称" />
-												<label for="form_control_1">章节</label>
+												<input type="text" class="form-control" id="nodeName" ng-model="nodeName" placeholder="请输入目录名称" />
+												<label for="form_control_1">目录</label>
 												<span class="help-block">名称不得超过20个字符</span>
 											</div>
 										</div>
@@ -48,7 +48,7 @@
 			$scope.loadChapter();
 		});
 
-		//根据课程id查询章节树
+		//根据课程id查询目录树
 		$scope.loadChapter = function() {
 			common.ajax({
 				$scope: $scope,
@@ -88,7 +88,7 @@
 			});
 		};
 
-		//初始化章节
+		//初始化目录
 		if(localStorage.getItem('courseId')) {
 			$scope.loadChapter();
 		}
@@ -111,8 +111,8 @@
 							"rename": null,
 							"remove": null,
 							"ccp": null,
-							"新建章节": {
-								"label": "新建章节",
+							"新建目录": {
+								"label": "新建目录",
 								"action": function(data) {
 									if($scope.currentNode.parents.length >= 3) {
 										layer.alert("对不起，最多只能创建两级菜单");
@@ -123,8 +123,8 @@
 									$("#createNodeModal").modal("show");
 								}
 							},
-							"编辑章节": {
-								"label": "编辑章节",
+							"编辑目录": {
+								"label": "编辑目录",
 								"action": function(data) {
 									$scope.flag = "rename";
 									$scope.nodeName = $scope.currentNode.text;
@@ -132,22 +132,19 @@
 									$("#createNodeModal").modal("show");
 								}
 							},
-							"发布章节": {
-								"label": "发布章节",
+//							"发布目录": {
+//								"label": "发布目录",
+//								"action": function(data) {
+//									
+//								}
+//							},
+							"删除目录": {
+								"label": "删除目录",
 								"action": function(data) {
-									//								var r = confirm("确定要发布该章节吗");
-									//								if(r) {
-									//									
-									//								}
-								}
-							},
-							"删除章节": {
-								"label": "删除章节",
-								"action": function(data) {
-									layer.confirm('您确定要删除该章节吗', {
+									layer.confirm('您确定要删除该目录吗', {
 										btn: ['确定', '取消'] //按钮
 									}, function() {
-										//删除章节
+										//删除目录
 										common.ajax({
 											$scope: $scope,
 											$http: $http,
@@ -182,7 +179,7 @@
 			count++;
 		}
 
-		//新建或修改章节
+		//新建或修改目录
 		$scope.createNode = function() {
 			var ref = $('#tree').jstree(true),
 				sel = ref.get_selected();
@@ -192,13 +189,13 @@
 			sel = sel[0];
 			$("#createNodeModal").modal("hide");
 			if(!$scope.currentNode) {
-				layer.alert("请先选择章节");
+				layer.alert("请先选择目录");
 			}
 			if($scope.flag == "create") {
 				setTimeout(function() {
 					console.log($scope.currentNode);
 					// return false;
-					//创建章节
+					//创建目录
 					common.ajax({
 						$scope: $scope,
 						$http: $http,
@@ -225,7 +222,7 @@
 				
 
 			} else if($scope.flag == "rename") {
-				//修改章节名称
+				//修改目录名称
 				common.ajax({
 					$scope: $scope,
 					$http: $http,

@@ -34,7 +34,7 @@
 			<div class="portlet-title tabbable-line">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">待批改学生</span>
+					<span class="caption-subject bold uppercase">待评分学生</span>
 				</div>
 			</div>
 			
@@ -163,13 +163,18 @@
 		
 		//根据班级id获取班级中有效学生的信息
 		$scope.loadStudentsByClassId = function(classId) {
-			common.ajax({
+			common.ajax2({
 				$scope: $scope,
 				$http: $http,
 				data: {
-					classId: classId
+				  "classId": classId,
+				  "courseId": localStorage.getItem('courseId'),
+				  "exeBookType": 3,
+				  "isAnswerCompleted": "Y",
+				  "isReward": "N",
+				  "preview": "after"
 				},
-				url: '/class/findStudentsByClassId',
+				url: '/teacherAnswer/findAnswer',
 				success: function(res) {
 					$scope.students = res.data;
 				}
