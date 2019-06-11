@@ -1,0 +1,13 @@
+/* pages/information/information.wxss */
+.infoWarp{
+  padding: 50rpx;
+  border: 1px solid red;
+  display: flex;
+}
+.infoWarp image{
+  width: 200rpx;
+  height: 200rpx;
+}
+.infoText{
+  border: 1px solid red;
+}

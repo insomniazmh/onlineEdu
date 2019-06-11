@@ -1,9 +1,10 @@
 {
   "pages": [
-    
     "pages/index/index",
     "pages/course/index/index",
-    "pages/main/main"
+    "pages/information/information",
+    "pages/main/main",
+    "pages/examination/examination"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -17,10 +18,14 @@
     "borderStyle": "black",
     "list": [
       {
+        "selectedIconPath": "/img/icon/indexActive.png",
+        "iconPath": "/img/icon/index.png",
         "pagePath": "pages/index/index",
         "text": "首页"
       },
       {
+        "selectedIconPath": "/img/icon/myActive.png",
+        "iconPath": "/img/icon/my.png",
         "pagePath": "pages/main/main",
         "text": "我的"
       }

@@ -1,24 +1,15 @@
-//index.js
-//获取应用实例
-const app = getApp()
-
+// pages/course/index/index.js
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    imgUrls: [
-      "/img/banner_1.jpg",
-      "/img/banner_1.jpg",
-      "/img/banner_1.jpg",
-      "/img/banner_1.jpg"
-      ],
-      indicatorDots: true,
-      autoplay: true,
-      interval: 5000,
-      duration: 500,
     courseList: [
       {
         courseDescribe: "",
         courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-        courseName: "新编商务英语",
+        courseName: "2018上半年第一单元",
         teacherId: "dongbo",
         teacherName: "董波",
         joinChapterName: "第一讲:商务英语的由来",
@@ -27,7 +18,7 @@ Page({
       {
         courseDescribe: "",
         courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-        courseName: "电子商务基础与应用",
+        courseName: "2018期中测试",
         teacherId: "dongbo",
         teacherName: "董波",
         joinChapterName: "第二讲:FLASH动画的原理",
@@ -44,14 +35,60 @@ Page({
       }
     ]
   },
-  
-  onLoad: function () {
-    
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
   },
 
-  bindNavBlink: function(e) {
-    wx.navigateTo({
-      url: e.currentTarget.dataset.url
-    })
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   }
 })

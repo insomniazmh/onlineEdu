@@ -1,0 +1,15 @@
+<swiper indicator-color="#fff" indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" width="355" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+<view class='infoWarp'>
+  <image src='/img/banner_1.jpg'></image>
+  <view class='infoText'>
+    <text>资讯标题</text>
+    <text>2019-5-7</text>
+  </view>
+</view>
