@@ -6,10 +6,19 @@
     </swiper-item>
   </block>
 </swiper>
-<view class='infoWarp'>
-  <image src='/img/banner_1.jpg'></image>
-  <view class='infoText'>
-    <text>资讯标题</text>
-    <text>2019-5-7</text>
+<view class='min_class'>
+  <!--循环从此开始-->
+  <view class='class_clm' 
+    wx:for="{{courseList}}" 
+    bindtap="navToChapter" 
+    data-course='{{item}}' 
+    wx:key="clm">
+    <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+      <view class='right_info'>
+        <text class='text-title'>《{{item.courseName}}》</text>
+        <text class='mt_20 text-custom'>{{item.courseDate}}</text>
+      </view>
+      <view class='cfx'></view>
   </view>
+  <!--循环到此结束-->
 </view>

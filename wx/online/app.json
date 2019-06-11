@@ -3,8 +3,9 @@
     "pages/index/index",
     "pages/course/index/index",
     "pages/information/information",
+    "pages/examination/examination",
     "pages/main/main",
-    "pages/examination/examination"
+    "pages/discuss/discuss"
   ],
   "window": {
     "backgroundTextStyle": "light",

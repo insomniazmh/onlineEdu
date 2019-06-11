@@ -12,15 +12,15 @@
     <image src='/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/notes/index/index'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/examination/examination'>
     <image src='/img/z06.png' mode='widthFix'></image>
     <text>考试</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/Notice/NoticeIndex/NoticeIndex'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/discuss/discuss'>
     <image src='/img/z08.png' mode='widthFix'></image>
     <text>讨论</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/Notice/NoticeIndex/NoticeIndex'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/information/information'>
     <image src='/img/z03.png' mode='widthFix'></image>
     <text>资讯</text>
   </view>
