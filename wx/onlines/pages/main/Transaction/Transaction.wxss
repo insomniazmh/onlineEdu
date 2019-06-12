@@ -10,7 +10,8 @@
 .tsatContent{
   border: 1px solid #dcdcdc;
   font-size: 33rpx;
-  padding: 30rpx 0 0 30rpx;
+  padding: 30rpx;
+  width: auto;
 }
 .foterBtn{
   width: 250rpx;
