@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/main/main/main",
     "pages/discuss/discussPage/discussPage",
+    "pages/main/main/main",
     "pages/course/index/index",
     "pages/information/information",
     "pages/examination/examination",
