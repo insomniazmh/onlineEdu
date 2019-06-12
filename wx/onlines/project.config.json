@@ -15,14 +15,14 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.1",
-	"projectname": "online",
+	"projectname": "onlines",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
-	"appid": "wx712594b449704642",
+	"appid": "wx6a41feac45a2f663",
 	"condition": {
 		"search": {
 			"current": -1,
