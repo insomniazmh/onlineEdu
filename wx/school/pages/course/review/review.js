@@ -104,6 +104,7 @@ Page({
     postData.chapterId = this.data.chapter.chapterId;
     postData.courseId = wx.getStorageSync('courseId');
     postData.classId = wx.getStorageSync('classId');
+    postData.chapterName = this.data.chapter.chapterName;
 
     getApp().agriknow.answerSelfTest(postData)
       .then(res => {

@@ -1,33 +1,42 @@
 <link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
 <style>
-    .label-text{
-        margin-top: 8px;
-    }   
-    .form-control{
-        margin-bottom: 8px;
-        margin-left: -50px;
-        width: 150px;
-    }
-    .contr{
-        margin-left: -100px;
-    }
-    .btn-info{
-        margin-bottom: 2px;
-        float: right;
-        margin-left: 5px;
-    }
-    .abslute{
-        position: absolute;
-        float: right;
-        margin-left: -135px;
-        margin-top: 21px;
-        width: 46px;
-        height: 28px;
-    }
-    .table-toolbar{
-        border-bottom: 3px solid #ddd;
-        border-width: 100%;
-    }
+	.label-text {
+		margin-top: 8px;
+	}
+	
+	.form-control {
+		margin-bottom: 8px;
+		margin-left: -50px;
+		width: 150px;
+	}
+	
+	.contr {
+		margin-left: -100px;
+	}
+	
+	.btn-info {
+		margin-bottom: 2px;
+		float: right;
+		margin-left: 5px;
+	}
+	
+	.abslute {
+		position: absolute;
+		float: right;
+		margin-left: -135px;
+		margin-top: 21px;
+		width: 46px;
+		height: 28px;
+	}
+	
+	.table-toolbar {
+		border-bottom: 3px solid #ddd;
+		border-width: 100%;
+	}
+	
+	form p {
+		line-height: 35px;
+	}
 </style>
 <div class="row" ng-controller="enrollCtrl">
 	<div class="col-md-12">
@@ -41,50 +50,75 @@
 			<div class="portlet-body">
 				<div class="table-toolbar">
 					<div class="row">
-                        <div class="col-md-12" style="display: flex;">
-                            <label class="col-md-2 label-text">学号:</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control">
-                            </div>
-                            <label class="col-md-2 label-text">姓名:</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control">
-                            </div>
-                            <label class="col-md-4 label-text">入学时间:</label>
-                            <div style="margin-left: -30px" class="col-md-4">
-                                <input type="text" class="form-control contr">
-                            </div>
-                        </div>
-                        <div class="col-md-12" style="display: flex;">
-                            <label class="col-md-2 label-text">学院校对:</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control">
-                            </div>
-                            <label class="col-md-2 label-text">统考筛选:</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control">
-                            </div>
-                            <label class="col-md-4 label-text">考务确认:</label>
-                            <div style="margin-left: -30px" class="col-md-4">
-                                <input type="text" class="form-control contr">
-                            </div>
-                        </div>
-                        <div class="btn-group col-md-6 abslute">
-                            <button class="btn blue btn-sm" ng-click=""> 查询 </button>
-                        </div>
-                    </div>
+						<div class="col-md-12" style="display: flex;">
+							<label class="col-md-2 label-text">学号:</label>
+							<div class="col-md-4">
+								<input type="text" class="form-control">
+							</div>
+							<label class="col-md-2 label-text">姓名:</label>
+							<div class="col-md-4">
+								<input type="text" class="form-control">
+							</div>
+							<div class="btn-group col-md-2">
+								<button class="btn blue btn-sm" ng-click=""> 查询 </button>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">入学时间</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in gradeList" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">学院校对</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in proof" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">统考筛选</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in screen" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">考务确认</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in confirm" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
 				</div>
-                <button class="btn btn-sm btn-info"  ng-click="goTest()">
-                    编辑
-                </button>
-                &nbsp;&nbsp;&nbsp;
-                <button class="btn btn-sm btn-info"  ng-click="goUrl()">
-                    添加
-                </button>
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-                            <th></th>
+							<th>详情</th>
 							<th>学号</th>
 							<th>姓名</th>
 							<th>层次</th>
@@ -96,14 +130,16 @@
 					</thead>
 					<tbody>
 						<tr class="odd gradeX">
-                            <td><input type="checkbox"></td>
-                            <td>20180901</td>
-                            <td>张三</td>
-                            <td>专升本</td>
-                            <td>已校对</td>
-                            <td>已通过</td>
-                            <td>未通过</td>
-                            <td>学费已交清</td>
+							<td>
+								<button class="btn btn-info btn-sm" ng-click="detail()">详情</button>
+							</td>
+							<td>20180901</td>
+							<td>张三</td>
+							<td>专升本</td>
+							<td>已校对</td>
+							<td>已通过</td>
+							<td>未通过</td>
+							<td>学费已交清</td>
 						</tr>
 					</tbody>
 				</table>
@@ -112,20 +148,222 @@
 		<!-- END EXAMPLE TABLE PORTLET-->
 	</div>
 
+	<div class="modal fade" id="stuDetail" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">学生详情</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal">
+						<div class="form-body">
+							<div class="form-group">
+								<div class="col-md-2" style="text-align: right;">
+									<img src="../../../assets/admin/layout4/img/avatar1.jpg" style="width: 70px; height: 70px;" alt="">
+								</div>
+								<div class="col-md-10">
+									<label class="col-md-1 control-label">姓名:</label>
+									<div class="col-md-11">
+										<p>张三</p>
+									</div>
+									<label class="col-md-1 control-label">学号:</label>
+									<div class="col-md-11">
+										<p>4103343</p>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-6">
+									<label class="col-md-3 control-label">身份证号:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-3 control-label">民族:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-3 control-label">手机:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-3 control-label">出生年月:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-3 control-label">毕业年月:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-3 control-label">通讯地址:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-3 control-label">邮政编码:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-3 control-label">工作单位:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="col-md-6 control-label">性别:</label>
+									<p>男</p>
+									<label class="col-md-6 control-label">文化程度:</label>
+									<div class="col-md-6">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-6 control-label">其他号码:</label>
+									<div class="col-md-6">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-6 control-label">政治面貌:</label>
+									<div class="col-md-6">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-6 control-label">毕业证号:</label>
+									<div class="col-md-6">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-6 control-label">电子邮箱:</label>
+									<div class="col-md-6">
+										<p>测试数据</p>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="col-md-2 control-label">毕业证书:</label>
+									<div class="col-md-3">
+										<p>测试数据</p>
+									</div>
+
+									<div class="col-md-3">
+										<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="col-md-2 control-label">身份证:</label>
+									<div class="col-md-3">
+										<p>测试数据</p>
+									</div>
+
+									<div class="col-md-3">
+										<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+										<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="col-md-2 control-label">身份证:</label>
+									<div class="col-md-3">
+										<p>测试数据</p>
+									</div>
+
+									<div class="col-md-3">
+										<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="col-md-3 control-label">报名编号:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-3 control-label">学历层次:</label>
+									<div class="col-md-9">
+										<p>测试数据</p>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="col-md-6 control-label">报名时间:</label>
+									<div class="col-md-6">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-6 control-label">学习中心:</label>
+									<div class="col-md-6">
+										<p>测试数据</p>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="width-20 col-md-2 control-label">考试地点:</label>
+									<p>测试数据</p>
+								</div>
+								<div class="col-md-12">
+									<label class="width-20 col-md-2 control-label">学习中心:</label>
+									<p>测试数据</p>
+								</div>
+								<div class="col-md-6">
+									<label class="col-md-3 control-label">是否免试:</label>
+									<div class="col-md-9">
+										<p>是</p>
+									</div>
+									<label class="col-md-3 control-label">报考信息确认:</label>
+									<div class="col-md-9">
+										<p>已确认</p>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="col-md-6 control-label">入学成绩:</label>
+									<div class="col-md-6">
+										<p>测试数据</p>
+									</div>
+									<label class="col-md-6 control-label">是否录取:</label>
+									<div class="col-md-6">
+										<p>是</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
 </div>
 <script>
-	
 	function enrollCtrl($scope, $http) {
-		$scope.data = [
-			{},
-			{}
-		];
+		$scope.data = [{}, {}];
+
+		$scope.gradeList = [{
+			text: "2019年"
+		}, {
+			text: "2018年"
+		}, {
+			text: "2017年"
+		}, {
+			text: "2016年"
+		}, {
+			text: "2015年"
+		}];
+
+		$scope.proof = [{
+			text: "已校对"
+		}, {
+			text: "未校对"
+		}];
+
+		$scope.screen = [{
+			text: "已通过"
+		}, {
+			text: "无通过信息"
+		}];
+
+		$scope.screen = [{
+			text: "已通过"
+		}, {
+			text: "无通过信息"
+		}];
+
+		$scope.confirm = [{
+			text: "已通过"
+		}, {
+			text: "未通过"
+		}];
 		
-		$scope.goUrl = function() {
-			window.location.href = 'index.html#/schoolrollAdd.html';
-        },
-        $scope.goTest = function() {
-			window.location.href = 'index.html#/schoolrollInfo.html';
+		$scope.detail = function() {
+			$("#stuDetail").modal('show');
 		}
 	}
 </script>

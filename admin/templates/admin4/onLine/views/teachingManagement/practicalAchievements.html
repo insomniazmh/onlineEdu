@@ -1,84 +1,107 @@
 <link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
 <style>
-    .label-text{
-        margin-top: 8px;
-    }   
-    .form-control{
-        margin-bottom: 8px;
-        margin-left: -85px
-    }
-    .btn-info{
-        margin-bottom: 2px;
-        float: right;
-        margin-left: 5px;
-    }
-    .abslute{
-        position: absolute;
-        float: right;
-        margin-left: -110px;
-        margin-top: 3px;
-        width: 46px;
-        height: 28px;
-    }
-    .table-toolbar{
-        border-bottom: 3px solid #ddd;
-        border-width: 100%;
-    }
+	.label-text {
+		margin-top: 8px;
+	}
+	
+	.form-control {
+		margin-bottom: 8px;
+		margin-left: -85px
+	}
+	
+	.btn-info {
+		margin-bottom: 2px;
+		float: right;
+		margin-left: 5px;
+	}
+	
+	.abslute {
+		position: absolute;
+		float: right;
+		margin-left: -110px;
+		margin-top: 3px;
+		width: 46px;
+		height: 28px;
+	}
+	
+	.table-toolbar {
+		border-bottom: 3px solid #ddd;
+		border-width: 100%;
+	}
 </style>
-<div class="row" ng-controller="enrollCtrl">
+<div class="row" ng-controller="paCtrl">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet box grey-cascade">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i>实践成绩
+					<i class="fa fa-globe"></i>考点成绩
 				</div>
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
 					<div class="row">
-                        <div class="col-md-12" style="display: flex;">
-							<div class="col-md-12" style="display: flex;">
-								<label class="col-md-4 label-text">年级:</label>
-								<div class="col-md-4">
-									<input type="text" class="form-control">
-								</div>
-								<label class="col-md-4 label-text">专业:</label>
-								<div class="col-md-4">
-									<input type="text" class="form-control">
-								</div>
-								<label class="col-md-4 label-text">课程名称:</label>
-								<div class="col-md-4">
-									<input type="text" class="form-control">
-								</div>
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">年级</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in gradeList" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<div class="btn-group col-md-6 abslute">
-							<button class="btn blue btn-sm" ng-click=""> 查询 </button>
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">专业</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in majorList" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
 						</div>
-                    </div>
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">课程名称</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in courseList" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-                            <th>学号</th>
+							<th>学号</th>
 							<th>姓名</th>
 							<th>课程名称</th>
 							<th>专业</th>
 							<th>课程类别</th>
 							<th>学期</th>
-                            <th>成绩</th>
+							<th>成绩</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX">
-                            <td>001</td>
-                            <td>张三</td>
-                            <td>计算机原理</td>
-                            <td>计算机</td>
-                            <td>实践</td>
-                            <td>20180809</td>
-                            <td>20朵❀</td>
+						<tr class="odd gradeX" ng-repeat="item in data">
+							<td>{{item.num}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.courseName}}</td>
+							<td>{{item.major}}</td>
+							<td>{{item.type}}</td>
+							<td>{{item.xueqi}}</td>
+							<td>
+								<input type="text" ng-model="item.goal" />
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -89,15 +112,57 @@
 
 </div>
 <script>
-	
-	function enrollCtrl($scope, $http) {
+	function paCtrl($scope, $http) {
 		$scope.data = [
-			{},
-			{}
+			{
+				num: '001',
+				name: '张三',
+				courseName: '计算机原理',
+				major: '计算机',
+				type: '普通',
+				xueqi: '78',
+				goal: 12
+			}
 		];
-		
+
 		$scope.goUrl = function() {
 			window.location.href = 'index.html#/alienationAdd.html';
-        }
+		};
+		
+		$scope.gradeList = [{
+			text: "2019级"
+		}, {
+			text: "2018级"
+		}, {
+			text: "2017级"
+		}, {
+			text: "2016级"
+		}, {
+			text: "2015级"
+		}];
+		
+		$scope.majorList = [{
+			text: "计算机基础"
+		}, {
+			text: "商务金融"
+		}, {
+			text: "JavaScript"
+		}, {
+			text: "Python"
+		}, {
+			text: "Go语言"
+		}, {
+			text: "java"
+		}, {
+			text: "Php"
+		}];
+		
+		$scope.courseList = [{
+			text: "高等数学"
+		}, {
+			text: "大学英语"
+		}, {
+			text: "马克思主义"
+		}];
 	}
 </script>
