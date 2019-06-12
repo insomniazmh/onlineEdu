@@ -130,3 +130,48 @@
 .dispyFlex{
   display: flex;
 }
+
+.headerText{
+  background: #dcdcdc;
+  padding: 50rpx;
+}
+.headerText text{
+  margin-top: 50rpx;
+}
+.pageContent{
+  margin-top: 50rpx;
+  padding: 85rpx;
+  padding-top: 0;
+}
+.leftImg{
+  display: flex;
+  margin-bottom: 60rpx;
+}
+.leftImg .portLeft{
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+}
+.comment{
+  margin-left: 60rpx;
+}
+.comment:nth-child(2){
+  font-size: 50rpx;
+}
+.comment view>text{
+  font-size: 30rpx;
+  color: #0aa1ef;
+  margin-top: 15rpx;
+  margin-left: 15rpx;
+}
+.commentGood{
+  display: flex;
+}
+.good{
+  margin-left: 120rpx;
+  margin-top: -3rpx;
+}
+.good image{
+  width: 40rpx;
+  height: 37rpx;
+}

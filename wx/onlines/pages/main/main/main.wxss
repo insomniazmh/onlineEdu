@@ -31,6 +31,10 @@
   color: #0aa1ef;
   margin-top: 15rpx;
 }
+.contentList{
+  display: flex;
+  padding-left: 50rpx;
+}
 .good{
   margin-left: 120rpx;
   margin-top: -3rpx;
@@ -40,12 +44,15 @@
   height: 37rpx;
 }
 .listBtn{
-  width: 500rpx;
-  margin-left: 125rpx;
-  margin-bottom: 50rpx;
+  margin-right: 65rpx;
 }
-.listBtn button{
-  height: 80rpx;
-  line-height: 2.5;
-  font-size: 35rpx;
+.listBtn image{
+  width: 100rpx;
+  height:100rpx;
+  display: flex;
+}
+.listBtn text{
+  font-size: 25rpx;
+  display: block;
+  width: 125rpx;
 }

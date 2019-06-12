@@ -1,0 +1,49 @@
+<swiper
+ indicator-color="#fff"
+ indicator-dots="{{indicatorDots}}"
+ autoplay="{{autoplay}}"
+ interval="{{interval}}"
+ duration="{{duration}}"
+>
+	<block wx:for="{{imgUrls}}" wx:key="disc">
+		<swiper-item>
+			<image
+       style='width:100%'
+			 src="{{item}}"
+			 class="slide-image"
+			 width="355"
+			 height="150"
+			/>
+		</swiper-item>
+	</block>
+</swiper>
+<view>
+	<van-tabs active="{{ active }}" bind:click="changeContent">
+		<van-tab title="全部"></van-tab>
+		<van-tab title="计算机"></van-tab>
+		<van-tab title="数学"></van-tab>
+		<van-tab title="英语"></van-tab>
+		<van-tab title="英语"></van-tab>
+		<van-tab title="英语"></van-tab>
+		<van-tab title="英语"></van-tab>
+	</van-tabs>
+</view>
+<view class='pageContent'>
+  <!-- Start -->
+  <view class='leftImg'
+        wx:for="{{pageContent}}"
+        data-content="{{item}}">
+    <image class='portLeft' src='/img/3.jpg'></image>
+    <view class='comment'>
+      <text>{{item.pageTitle}}</text>
+      <view class='commentGood'>
+      <text>{{item.pageDate}}</text>
+      <view class='good'>
+        <image src='/img/icon/good.png'></image>
+        <text style='color:lightcoral'>{{item.pageGoodNmb}}</text>
+      </view>
+      </view>
+    </view>
+  </view>
+  <!-- End -->
+</view>
