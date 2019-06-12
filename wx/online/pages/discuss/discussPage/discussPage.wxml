@@ -1,0 +1,25 @@
+<view class='pageHeader'>
+  <view class='headerText'>
+      年有季节，春夏秋冬；日有季节，黑白交替；生命也该有季节，那是生老病死。
+      不英俊，30岁不强壮，40岁不富有，50岁不睿智，那么他这辈子就别想英俊、强壮、富有和睿智了。”这是西方人
+  </view>
+</view>
+<view class='pageContent'>
+  <!-- Start -->
+  <view class='leftImg'
+        wx:for="{{pageContent}}"
+        data-content="{{item}}">
+    <image class='portLeft' src='/img/3.jpg'></image>
+    <view class='comment'>
+      <text>{{item.pageTitle}}</text>
+      <view class='commentGood'>
+       <text>{{item.pageDate}}</text>
+       <view class='good'>
+        <image src='/img/icon/good.png'></image>
+        <text style='color:lightcoral'>{{item.pageGoodNmb}}</text>
+       </view>
+      </view>
+    </view>
+  </view>
+  <!-- End -->
+</view>

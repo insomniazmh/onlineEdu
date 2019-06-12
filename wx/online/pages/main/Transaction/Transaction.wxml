@@ -1,0 +1,19 @@
+<view class='tsatHeader'>
+  <view style='font-size:55rpx;font-weight:blod;margin-bottom:50rpx;'>异动添加</view>
+  <van-collapse value="{{ activeName }}" bind:change="onChange" accordion>
+    <van-collapse-item title="异动类别选择" name="1">
+      <view>选择1</view>
+      <view>选择1</view>
+      <view>选择1</view>
+    </van-collapse-item>
+    <van-collapse-item title="异动课程选择" name="2">
+      课程1
+    </van-collapse-item>
+  </van-collapse>
+</view>
+<view class='tsat'>
+  <textarea  class='tsatContent' placeholder='异动原因说明' maxlength='300'></textarea>
+</view>
+<view class='foterBtn'>
+  <button>确定</button>
+</view>

@@ -9,7 +9,14 @@
 <view>
   <van-tabs active="{{ active }}">
     <van-tab title="全部">
-      <view class='min_class'>
+      全部
+    </van-tab>
+    <van-tab title="数学">数学内容</van-tab>
+    <van-tab title="计算机">计算机内容</van-tab>
+    <van-tab title="英语">英语内容</van-tab>
+  </van-tabs>
+</view>
+<view class='min_class'>
         <!--循环从此开始-->
         <view class='class_clm' 
           wx:for="{{courseList}}" 
@@ -25,9 +32,3 @@
         </view>
         <!--循环到此结束-->
       </view>
-    </van-tab>
-    <van-tab title="数学">数学内容</van-tab>
-    <van-tab title="计算机">计算机内容</van-tab>
-    <van-tab title="英语">英语内容</van-tab>
-  </van-tabs>
-</view>
