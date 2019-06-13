@@ -39,7 +39,7 @@
 		<div class="portlet box grey-cascade">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i>课时费管理
+					<i class="fa fa-globe"></i>课时费标准
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -58,14 +58,13 @@
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="item in data" ng-click="showHistory(item.center)" style="cursor: pointer;">
 							<td style="min-width: 150px;">
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>
+								<!--<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>-->
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.center}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.center" />
+								{{item.center}}
 							</td>
 							<td>
 								<span ng-show='!item.edit'>{{item.xueqi}}</span>

@@ -549,51 +549,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-    
-    //  学费标准
-    .state('tuitionStandard', {
-      url: "/tuitionStandard.html",
-      templateUrl: "views/financialWork/tuitionStandard.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-
-    //  缴费流水
-    .state('paymentFlow', {
-      url: "/paymentFlow.html",
-      templateUrl: "views/financialWork/paymentFlow.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-
-  //  课时费流水
-    .state('classHourCost', {
-      url: "/classHourCost.html",
-      templateUrl: "views/financialWork/classHourCost.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
 
   //  课时费管理
     .state('hoursManagement', {
@@ -707,5 +662,15 @@ MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settin
     $rootScope.$state = $state; // state to be accessed from view
     $rootScope.activeColor = function(value) {
 			value.active = !value.active;
+		}
+    
+    $rootScope.radioActiveColor = function(value, array, callback) {
+    	for(obj of array) {
+    		obj.active = false;
+    	}
+			value.active = true;
+			if(callback) {
+				callback();
+			}
 		}
 }]);
