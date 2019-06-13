@@ -474,51 +474,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-           
-  //  学员信息
-    .state('entranceInformation', {
-      url: "/entranceInformation.html",
-      templateUrl: "views/graduationManagement/studentInfo/entranceInformation.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-        
-  //  学员照片
-    .state('studentPhotos', {
-      url: "/studentPhotos.html",
-      templateUrl: "views/graduationManagement/studentInfo/studentPhotos.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-            
-  //  学员审核情况
-    .state('auditStatus', {
-      url: "/auditStatus.html",
-      templateUrl: "views/graduationManagement/studentInfo/auditStatus.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
 
   //  毕业论文
     .state('Dissertation', {
