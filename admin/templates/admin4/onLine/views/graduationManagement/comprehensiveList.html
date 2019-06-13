@@ -3,7 +3,7 @@
 	.label-text {
 		margin-top: 8px;
 	}
-
+	
 	.form-control {
 		margin-bottom: 8px;
 		margin-left: -50px;
@@ -37,12 +37,12 @@
 	form p {
 		line-height: 35px;
 	}
-
-	.achievement{
+	
+	.achievement {
 		margin-top: 9px;
 	}
-
-	.success{
+	
+	.success {
 		margin-top: -4px;
 	}
 </style>
@@ -162,135 +162,158 @@
 	<div class="modal fade" id="stuDetail" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-full">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">学生详情</h4>
+
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">学生详情
+					</div>
+					<div class="actions">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-target="#tab_basic" data-toggle="tab"> 基本信息 </a>
+						</li>
+						<li>
+							<a data-target="#tab_other" data-toggle="tab"> 其他信息 </a>
+						</li>
+					</ul>
 				</div>
-				<div class="modal-body">
-					<form action="#" class="form-horizontal">
-						<div class="form-body">
-							<div class="form-group">
-							</div>
-							<div class="form-group">
-								<div class="col-md-6">
-									<label class="col-md-3 control-label">
-										<button class="btn btn-sm btn-info success">通过校对</button>
-									</label>
-									<div class="col-md-9">
-										<p class="col-md-7">请谨慎操作!一旦通过校对将不可恢复</p>
-										<a class="col-md-5 achievement" href="">查看成绩</a>
+				<div class="portlet-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_basic">
+							<form action="#" class="form-horizontal">
+								<div class="form-body">
+									<div class="form-group">
 									</div>
-									<label class="col-md-3 control-label">学号:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">姓名:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">性别:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">身份证号:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">出生日期:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">年级:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">入学时间:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">民族:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">学习中心:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">专业:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">联系方式:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">学籍照片:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">入学信息:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
+									<div class="form-group">
+										<div class="col-md-6">
+											<label class="col-md-3 control-label">
+												<button class="btn btn-sm btn-info success">通过校对</button>
+											</label>
+											<div class="col-md-9">
+												<p class="col-md-7">请谨慎操作!一旦通过校对将不可恢复</p>
+												<a class="col-md-5 achievement" href="">查看成绩</a>
+											</div>
+											<label class="col-md-3 control-label">学号:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">姓名:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">性别:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">身份证号:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">出生日期:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">年级:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">入学时间:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">民族:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">学习中心:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">专业:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">联系方式:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">学籍照片:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">入学信息:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-3 control-label">招办审核情况:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">学习中心校对:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">提交信息修改:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">申请修改批注:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">学习中心上传:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">前学历毕业时间:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">学工部备注:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">学工部确认:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">学信网学籍注册:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">考务审核:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">统考审核:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">学信网照片:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+											<label class="col-md-3 control-label">财务审核:</label>
+											<div class="col-md-9">
+												<p>测试数据</p>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<label class="col-md-3 control-label">招办审核情况:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">学习中心校对:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">提交信息修改:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">申请修改批注:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">学习中心上传:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">前学历毕业时间:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">学工部备注:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">学工部确认:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">学信网学籍注册:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">考务审核:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">统考审核:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">学信网照片:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-									<label class="col-md-3 control-label">财务审核:</label>
-									<div class="col-md-9">
-										<p>测试数据</p>
-									</div>
-								</div>
-							</div>
+							</form>
 						</div>
-					</form>
+						<div class="tab-pane" id="tab_other">
+							other发的果然是大法官东方宾馆  
+						</div>
+					</div>
 				</div>
+			</div>
 			</div>
 			<!-- /.modal-content -->
 		</div>
