@@ -86,8 +86,38 @@ MetronicApp.factory('settings', ['$rootScope', function($rootScope) {
 /* Setup App Main Controller */
 MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope, $rootScope) {
     $scope.$on('$viewContentLoaded', function() {
-        Metronic.initComponents(); // init core components
-        //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive 
+      Metronic.initComponents(); // init core components
+      //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive 
+        
+        //切换课程回调
+			$rootScope.$on('course', function(d, data) {
+				$rootScope.courseId = data.courseId;
+				$rootScope.course = data;
+				localStorage.setItem('courseId', data.courseId);
+				$scope.$broadcast('course', data);
+			});
+		
+			//切换章节回调
+			$rootScope.$on('currentNode', function(d, data) {
+				$rootScope.currentNodeId = data.id;
+				$rootScope.currentNode = data;
+				localStorage.setItem('currentNodeId', data.id);
+				$scope.$broadcast('currentNode', data);
+			});
+		
+			//切换知识点回调
+			$rootScope.$on('kPointNode', function(d, data) {
+				if(data.knodeId) {
+					$rootScope.knode = data;
+					localStorage.setItem('knodeId', data.knodeId);
+				} else {
+					$rootScope.knode = {
+						nodeName: ""
+					};
+					localStorage.setItem('knodeId', "");
+				}
+				$scope.$broadcast('kPointNode', data);
+			});
     });
 }]);
 
@@ -98,9 +128,41 @@ initialization can be disabled and Layout.init() should be called on page load c
 ***/
 
 /* Setup Layout Part - Header */
-MetronicApp.controller('HeaderController', ['$scope', function($scope) {
+MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
     $scope.$on('$includeContentLoaded', function() {
         Layout.initHeader(); // init header
+        
+        var pageData = {
+					sortVo: {
+						page: 0,
+						size: common.pageSize
+					}
+				};
+				//加载课程列表
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					url: '/course/findMyCourse',
+					data: pageData,
+					success: function(data) {
+						$(data.data).each(function() {
+							if(!this.topPicSrc) {
+								this.topPicSrc = 'images/zanwu.jpg';
+							}
+						});
+						$rootScope.courses = data.data;
+						if(!localStorage.getItem('courseId') && data.data.length > 0) {
+							//默认选中第一个课程
+							localStorage.setItem('courseId', data.data[0].courseId);
+							$rootScope.course = data.data[0];
+						}
+					}
+				});
+		
+				//header中课程被选中事件，获取被选中的课程
+				$scope.changeCourse = function(row) {
+					$rootScope.$emit("course", row);
+				}
     });
 }]);
 
@@ -610,13 +672,123 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
+    
+    //课程添加
+		.state('courseAdd', {
+			url: "/courseAdd.html",
+			templateUrl: "views/course/courseAdd.html",
+			data: {
+				pageTitle: '课程管理',
+				pageSubTitle: '课程添加',
+				btn_taps: true
+			},
+			controller: "",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'MetronicApp',
+						files: [
+						]
+					}]);
+				}]
+			}
+		})
+		
+		//课程编辑
+		.state('courseEdit', {
+			url: "/courseEdit.html",
+			templateUrl: "views/course/courseEdit.html",
+			data: {
+				pageTitle: '课程管理',
+				pageSubTitle: '课程添加',
+				btn_taps: true
+			},
+			controller: "",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'MetronicApp',
+						files: [
+						]
+					}]);
+				}]
+			}
+		})
+		
+		// 我的课程
+		.state('myCourses', {
+			url: "/myCourses.html",
+			templateUrl: "views/course/myCourses.html",
+			data: {
+				pageTitle: '课程管理',
+				pageSubTitle: '我的课程'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
+		//知识点题库
+		.state('knowledgePoint', {
+			url: "/knowledgePoint.html",
+			templateUrl: "views/database/knowledgePoint.html",
+			data: {
+				pageTitle: '资料库',
+				pageSubTitle: '知识点题库'
+			},
+			controller: "",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: [
+							'../../../assets/global/plugins/bootstrap-contextmenu/bootstrap-contextmenu.js',
+							'../../../assets/admin/pages/scripts/components-context-menu.js',
+							'js/controllers/CoursesListController.js'
+
+						]
+					});
+				}]
+			}
+		})
+		
+		//教辅题册
+		.state('xitice', {
+			url: "/xitice.html",
+			templateUrl: "views/database/xitice.html",
+			data: {
+				pageTitle: '资料库',
+				pageSubTitle: '教辅题册'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: [
+							'js/webuploader-0.1.5/webuploader.css'
+						]
+					});
+				}]
+			}
+		})
 }]);
 
 /* Init global settings and run the app */
 MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settings, $state) {
     $rootScope.$state = $state; // state to be accessed from view
-    $rootScope.activeColor = function(value) {
+    $rootScope.activeColor = function(value, callback) {
 			value.active = !value.active;
+			if(callback) {
+				callback();
+			}
 		}
     
     $rootScope.radioActiveColor = function(value, array, callback) {

@@ -1,0 +1,191 @@
+<link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
+<style>
+	#uploader .placeholder {
+		min-height: 150px;
+		padding-top: 58px;
+		background: none;
+	}
+	
+	#uploader2 .placeholder {
+		min-height: 150px;
+		padding-top: 58px;
+		background: none;
+	}
+	
+	.webuploader-pick {
+		padding: 0 4px 1px 4px;
+	}
+	
+	.filePicker div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
+	#topPicSrc {
+		margin-left: 30px;
+		width: 100px;
+	}
+	
+	#topPicSrc .webuploader-pick {
+		padding: 10px 15px;
+	}
+	
+	#filePicker7 .webuploader-pick {
+		padding: 10px 15px;
+	}
+	
+	#filePicker7 div:nth-child(2) label {
+		width: 150px !important;
+	}
+	
+	.exist {
+		height: 20px; 
+		line-height: 20px;
+		display: inline-block; 
+		position: absolute;
+		margin-left: 20px;
+		cursor: pointer;
+		width: 100px;
+	}
+</style>
+
+<div class="row" ng-controller="editCourseCtrl">
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn red" onclick="common.goUrl('assistant', true)">备课参考</button>
+			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('xitice', true)">教辅题册</button>
+		</div>
+	</div>
+	<div data-ng-include="'views/template/title.html'"></div>
+	<div class="col-md-12">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">课程信息</span>
+				</div>
+				<ul class="nav nav-tabs">
+					<li>
+						<a data-target="#tab_1_1" data-toggle="tab">基本信息</a>
+					</li>
+					<li class="active">
+						<a data-target="#tab_1_2" data-toggle="tab">教辅信息</a>
+					</li>
+					<!--<li>
+						<a data-target="#tab_1_3" data-toggle="tab">课程宣传</a>
+					</li>-->
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane" id="tab_1_1">
+						<div data-ng-include="'views/template/kecheng/basic.html'"></div>
+					</div>
+					<div class="tab-pane active" id="tab_1_2">
+						<div data-ng-include="'views/template/kecheng/jiaofu.html'"></div>
+					</div>
+					<div class="tab-pane" id="tab_1_3">
+						<div class="row">
+							<div class="col-md-6" style="border-right: 1px solid #4DB3A2;">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption" style="font-size: 14px;">
+											<i class="icon-settings" style="font-size: 12px;"></i>轮播图
+										</div>
+									</div>
+									<div class="portlet-body">
+										<carousel interval="myInterval">
+											<slide ng-repeat="slide in slides" active="slide.active">
+												<img ng-src="{{slide.image}}" style="margin:auto;height: 180px;">
+												<div class="carousel-caption">
+													<p>{{slide.text}}</p>
+												</div>
+											</slide>
+										</carousel>
+										<div role="form">
+											<div class="form-body">
+												<div class="row" style="margin-bottom: 40px;">
+													<div class="col-md-12">
+														<div class="form-group form-md-line-input">
+															<label for="form_control_1" style="color: #888888;">上传轮播图</label>
+															<div id="uploader" class="wu-example">
+																<div class="queueList">
+																	<div id="dndArea" class="placeholder">
+																		<div id="filePicker" class="filePicker"></div>
+																	</div>
+																</div>
+																<div class="statusBar" style="display:none;">
+																	<div class="progress">
+																		<span class="text">0%</span>
+																		<span class="percentage"></span>
+																	</div>
+																	<div class="info"></div>
+																	<div class="btns">
+																		<div id="filePicker2"></div>
+																		<div class="uploadBtn">开始上传</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption" style="font-size: 14px;">
+											<i class="icon-settings" style="font-size: 12px;"> 宣传片 </i>
+										</div>
+									</div>
+									<div class="portlet-body" style="text-align: center;">
+										<!--<video controls="controls" style=" width: 100%;height: auto;" preload="none">
+											<source src="http://www.runoob.com/try/demo_source/movie.mp4" type="video/mp4">
+											</source>
+										</video>-->
+										<button class="btn btn-info" style="margin-top: 40px;">上传宣传片</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+</div>
+<!-- END MAIN CONTENT -->
+
+<script src="js/webuploader-0.1.5/webuploader.js"></script>
+<script src="js/webuploader-0.1.5/demo.js"></script>
+<script src="js/clipboard.js-master/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="../../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<!-- BEGIN MAIN JS-->
+<script>
+	function editCourseCtrl($scope, $http) {		
+		var slides = $scope.slides = [{
+			image: 'images/1.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/2.jpg',
+			text: "电子商务基础"
+		}, {
+			image: 'images/3.jpg',
+			text: "电子商务基础"
+		}];
+		$scope.addSlide = function() {
+			slides.push({
+				image: '',
+				text: '电子商务基础'
+			});
+		};
+	}
+	
+</script>
