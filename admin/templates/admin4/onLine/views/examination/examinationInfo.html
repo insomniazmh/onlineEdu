@@ -75,13 +75,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX">
+						<tr ng-repeat="item in data" class="odd gradeX">
                             <td><input type="checkbox"></td>
-                            <td>20180901</td>
-                            <td>考点北</td>
-                            <td>新正大</td>
-                            <td>文化路</td>
-                            <td>176xxxx0005</td>
+                            <td>{{item.placeNumber}}</td>
+                            <td>{{item.placeName}}</td>
+                            <td>{{item.schoolCenter}}</td>
+                            <td>{{item.place}}</td>
+                            <td>{{item.phone}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -95,8 +95,13 @@
 	
 	function enrollCtrl($scope, $http) {
 		$scope.data = [
-			{},
-			{}
+			{
+                placeNumber:"20180901",
+                placeName:"考点北",
+                schoolCenter:"新郑大",
+                place:"文化路",
+                phone:"17687540005"
+            }
 		];
 		
 		$scope.goUrl = function() {

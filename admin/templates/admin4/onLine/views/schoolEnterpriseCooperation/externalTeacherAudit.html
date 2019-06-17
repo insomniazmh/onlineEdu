@@ -1,4 +1,38 @@
-<script src="../../assets/admin/pages/scripts/components-form-tools.js"></script>
+<style>
+    .form-horizontal{
+        padding: 10px 20px;
+    }
+    .form-horizontal .mgImg-left{
+        left: 50px;
+        position: relative;
+    }
+    textarea.form-control{
+        height: 100px;
+    }
+    .form-horizontal .mgImg-left img{
+        width:80px;
+        height: 80px;
+    }
+    .form-control{
+        margin-bottom: 15px;
+    }
+    .contrl{
+        width: 938px;
+    }
+    .choiceMan{
+        margin-top: 9px;
+        margin-left: 3px;
+    }
+    .certificate{
+        margin-top: -5px;
+    }
+    .btn-left{
+        margin-left: -5px;
+    }
+    .width-20{
+        margin-left: -52px;
+    }
+</style>
 <div class="portlet box blue">
 		<div class="portlet-title">
 			<div class="caption">
@@ -18,7 +52,7 @@
 		<div class="portlet-body form">
 			<!-- BEGIN FORM-->
 			<form action="#" class="form-horizontal">
-				<div class="form-body">
+				<div ng-controller="auditCtrl" class="form-body">
 					<div class="form-group">
                         <div class="col-md-2">
                             <div class="col-md-3 mgImg-left">
@@ -62,13 +96,29 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label class="col-md-6 control-label">性别:</label>
-								<div class="col-md-6" style="height: 32px; display: flex; margin-bottom: 15px;">
-									<input class="checkRadio" type="radio">
-									<div class="choiceMan"> 男</div>
-									<input class="checkRadio" type="radio" >
-									<div class="choiceMan"> 女</div>
-								</div>
+                                <label class="col-md-6 control-label">性别:</label>
+                                <div class="col-md-6" style="height: 32px; display: flex; margin-bottom: 15px;">
+                                    <div style="height: 32px; display: flex; margin-bottom: 15px;">
+                                        <div style="margin-top: 7px" class="md-radio-inline">
+                                            <div class="md-radio">
+                                                <input type="radio" id="radio3" name="radio1" class="md-radiobtn">
+                                                <label for="radio3">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                男</label>
+                                            </div>
+                                            <div class="md-radio">
+                                                <input type="radio" id="radio4" name="radio1" class="md-radiobtn" checked>
+                                                <label for="radio4">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                女</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 								<label class="col-md-6 control-label">学位:</label>
 								<div class="col-md-6">
 									<input type="text" class="form-control" placeholder="Enter text">
@@ -133,13 +183,29 @@
                                     <input type="text" class="form-control width-80" placeholder="Enter text">
                                 </div>
                             </div>
-                            <div class="col-md-8" style="margin-left:3px ">
-                                <label class="col-md-2 control-label">审批意见:</label>
-                                <div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
-                                    <input class="checkRadio" type="radio">
-                                    <div class="choiceMan"> 同意</div>
-                                    <input class="checkRadio" type="radio" >
-                                    <div class="choiceMan"> 不同意</div>
+                            <div class="col-md-12" style="margin-left:3px ">
+                                <label class="col-md-2 width-20 control-label">审批意见:</label>
+                                <div class="col-md-10" style="height: 32px; display: flex; margin-bottom: 15px;">
+                                    <div style="height: 32px; display: flex; margin-bottom: 15px;">
+                                        <div style="margin-top: 7px" class="md-radio-inline">
+                                            <div class="md-radio">
+                                                <input type="radio" id="radio30" name="radio20" class="md-radiobtn">
+                                                <label for="radio30">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                同意</label>
+                                            </div>
+                                            <div class="md-radio">
+                                                <input type="radio" id="radio40" name="radio20" class="md-radiobtn" checked>
+                                                <label for="radio40">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                不同意</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -159,11 +225,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>张三</td>
-                                            <td>同意</td>
-                                            <td>2019-5-28</td>
-                                            <td></td>
+                                        <tr ng-repeat="item in data" class="odd gradeX">
+                                            <td>{{item.appRovalPeop}}</td>
+                                            <td>{{item.appRovalOpinion}}</td>
+                                            <td>{{item.appRovalTime}}</td>
+                                            <td>{{item.opinion}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -180,38 +246,15 @@
 			<!-- END FORM-->
 		</div>
 </div>
-	<style>
-		.form-horizontal{
-			padding: 10px 20px;
-		}
-		.form-horizontal .mgImg-left{
-			left: 50px;
-			position: relative;
-		}
-        textarea.form-control{
-            height: 100px;
+    <script>
+        function auditCtrl($scope, $http){
+            $scope.data = [
+                {
+                    appRovalPeop:"王五",
+                    appRovalOpinion:"同意",
+                    appRovalTime:"2019-5-18",
+                    opinion:"暂无"
+                }
+            ];
         }
-		.form-horizontal .mgImg-left img{
-			width:80px;
-			height: 80px;
-		}
-		.form-control{
-			margin-bottom: 15px;
-		}
-        .contrl{
-            width: 938px;
-        }
-		.choiceMan{
-			margin-top: 9px;
-			margin-left: 3px;
-		}
-		.certificate{
-			margin-top: -5px;
-		}
-		.btn-left{
-			margin-left: -5px;
-		}
-		.width-20{
-			margin-left: -52px;
-		}
-	</style>
+    </script>

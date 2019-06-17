@@ -1,4 +1,41 @@
-<script src="../../assets/admin/pages/scripts/components-form-tools.js"></script>
+<style>
+    .form-horizontal{
+        padding: 10px 20px;
+    }
+    .form-horizontal .mgImg-left{
+        left: 50px;
+        position: relative;
+    }
+    textarea.form-control{
+        height: 100px;
+    }
+    .form-horizontal .mgImg-left img{
+        width:80px;
+        height: 80px;
+    }
+    .form-control{
+        margin-bottom: 15px;
+    }
+    .contrl{
+        width: 938px;
+    }
+    .table-bordered{
+        margin-top: 30px;
+    }
+    .choiceMan{
+        margin-top: 9px;
+        margin-left: 3px;
+    }
+    .certificate{
+        margin-top: -5px;
+    }
+    .btn-left{
+        margin-left: -5px;
+    }
+    .width-20{
+        margin-left: -52px;
+    }
+</style>
 <div class="portlet box blue">
 		<div class="portlet-title">
 			<div class="caption">
@@ -18,7 +55,7 @@
 		<div class="portlet-body form">
 			<!-- BEGIN FORM-->
 			<form action="#" class="form-horizontal">
-				<div class="form-body">
+				<div class="form-body" ng-controller="teachersCtrl">
 					<div class="form-group">
                         <div class="col-md-2">
                             <div class="col-md-3 mgImg-left">
@@ -138,7 +175,7 @@
                                 <div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
                                     <input class="checkRadio" type="radio">
                                     <div class="choiceMan"> 同意</div>
-                                    <input class="checkRadio" type="radio" >
+                                    <input class="checkRadio" type="radio">
                                     <div class="choiceMan"> 不同意</div>
                                 </div>
                             </div>
@@ -159,11 +196,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>张三</td>
-                                            <td>同意</td>
-                                            <td>2019-5-28</td>
-                                            <td></td>
+                                        <tr ng-repeat="item in data" class="odd gradeX">
+                                            <td>{{item.appRovalPeop}}</td>
+                                            <td>{{item.appRovalOpinion}}</td>
+                                            <td>{{item.appRovalTime}}</td>
+                                            <td>{{item.opinion}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -192,14 +229,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="odd gradeX">
-                                            <td>张三</td>
-                                            <td>计算机基础</td>
-                                            <td>3</td>
-                                            <td>200</td>
-                                            <td>600</td>
-                                            <td>2019-6-3</td>
-                                            <td>6</td>
+                                        <tr ng-repeat="item in info" class="odd gradeX">
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.major}}</td>
+                                            <td>{{item.classHour}}</td>
+                                            <td>{{item.costStandard}}</td>
+                                            <td>{{item.costHour}}</td>
+                                            <td>{{item.teachingTime}}</td>
+                                            <td>{{item.month}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -210,41 +247,26 @@
 			<!-- END FORM-->
 		</div>
 	</div>
-	<style>
-		.form-horizontal{
-			padding: 10px 20px;
-		}
-		.form-horizontal .mgImg-left{
-			left: 50px;
-			position: relative;
-		}
-        textarea.form-control{
-            height: 100px;
-        }
-		.form-horizontal .mgImg-left img{
-			width:80px;
-			height: 80px;
-		}
-		.form-control{
-			margin-bottom: 15px;
-		}
-        .contrl{
-            width: 938px;
-        }
-        .table-bordered{
-            margin-top: 30px;
-        }
-		.choiceMan{
-			margin-top: 9px;
-			margin-left: 3px;
-		}
-		.certificate{
-			margin-top: -5px;
-		}
-		.btn-left{
-			margin-left: -5px;
-		}
-		.width-20{
-			margin-left: -52px;
-		}
-	</style>
+<script>
+    function teachersCtrl($scope, $http){
+        $scope.data = [
+            {
+                appRovalPeop:"马六",
+                appRovalOpinion:"同意",
+                appRovalTime:"2019-5-18",
+                opinion:"暂无"
+            }
+        ];
+        $scope.info = [
+            {
+                name:"荀四",
+                major:"计算机基础",
+                classHour:"3",
+                costStandard:"200",
+                costHour:"600",
+                teachingTime:"2019-5-3",
+                month:"6"
+            }
+        ]
+    }
+</script>

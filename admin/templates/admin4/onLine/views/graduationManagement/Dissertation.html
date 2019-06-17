@@ -42,11 +42,11 @@
 				<div class="table-toolbar">
 					<div class="row">
 						<div class="col-md-12" style="display: flex;">
-							<label class="col-md-1 label-text">学号</label>
+							<label class="col-md-3 label-text">学号</label>
 							<div class="col-md-3">
 								<input type="text" class="form-control">
 							</div>
-							<label class="col-md-1 label-text">姓名</label>
+							<label class="col-md-3 label-text">姓名</label>
 							<div class="col-md-3">
 								<input type="text" class="form-control">
 							</div>
@@ -110,12 +110,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX">
-							<td>20180901</td>
-							<td>张三</td>
-							<td>分布式架构应用</td>
-							<td>王老师</td>
-							<td>计算机信息技术</td>
+						<tr ng-repeat="item in data" class="odd gradeX">
+							<td>{{item.studentID}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.subject}}</td>
+							<td>{{item.insTructor}}</td>
+							<td>{{item.major}}</td>
 							<td>
 								<a>查看</a>
 							</td>
@@ -136,6 +136,14 @@
 </div>
 <script>
 	function enrollCtrl($scope, $http) {
+		$scope.data = [{
+			studentID:"20180901",
+			name:"王五",
+			subject:"分布式架构应用",
+			insTructor:"王老师",
+			major:"计算机信息技术"
+		}]
+
 		$scope.majorList = [{
 			text: "计算机"
 		}, {
