@@ -1,0 +1,252 @@
+<div role="form" ng-controller="duoxuanSmallCtrl">
+	<div class="form-body">
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">题干</label>
+					<div id="duoxuanSmall_title"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
+					<div id="duoxuanSmall_jiexi"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<button class="btn btn-circle green btn-sm" ng-click="multi.addOption();">
+						<i class="fa fa-plus"></i> 创建选项 </button>
+					<span>正确答案： {{multi.right}}</span>
+				</div>
+			</div>
+			<div style="margin-top: 50px;"></div>
+			<div ng-repeat="row in multi.options" style="height: 250px;">
+				<div class="col-md-1" style="height: 54px;">
+					<div class="md-checkbox" style="margin-top: 27px;">
+						<input type="checkbox" id="checkboxSmall{{$index}}" name="multi" class="md-check" ng-model="row.checked" ng-click="multi.showChecked()">
+						<label for="checkboxSmall{{$index}}">
+							<span></span>
+							<span class="check"></span>
+							<span class="box"></span>
+						</label>
+					</div>
+				</div>
+				<div class="col-md-1" style="height: 54px;">
+					<span style="position: absolute;bottom: 7px;">{{row.optValue}}.</span>
+				</div>
+				<div class="col-md-8">
+					<div class="form-group form-md-line-input">
+						<div class="duoxuanSmall_summernote" id="duoxuanSmall_option{{row.count}}" name="duoxuanSmall_option"></div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group form-md-line-input">
+						<button class="btn btn-danger" ng-click="multi.delOption($index);">删除</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions noborder">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
+		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+	</div>
+</div>
+
+<script>
+	function duoxuanSmallCtrl($scope, $http, $timeout) {
+		var count = 4;
+		$scope.multi = {
+			right: "ABCD",
+			options: [{
+				optValue: "A",
+				count: 0,
+				checked: true
+			}, {
+				optValue: "B",
+				count: 1,
+				checked: true
+			}, {
+				optValue: "C",
+				count: 2,
+				checked: true
+			}, {
+				optValue: "D",
+				count: 3,
+				checked: true
+			}],
+
+			addOption: function() {
+				console.log(this.options);
+				this.options.push({
+					value: "",
+					count: count
+				});
+				this.rename();
+
+				$timeout(function() {
+					$('#duoxuanSmall_option' + count).summernote({
+						height: 100
+					});
+					count++;
+				}, 300);
+			},
+
+			delOption: function(index) {
+				this.options.splice(index, 1);
+				this.rename();
+			},
+
+			rename: function() {
+				$(this.options).each(function(i) {
+					if (i == 0) {
+						this.optValue = "A";
+					} else if (i == 1) {
+						this.optValue = "B";
+					} else if (i == 2) {
+						this.optValue = "C";
+					} else if (i == 3) {
+						this.optValue = "D";
+					} else if (i == 4) {
+						this.optValue = "E";
+					} else if (i == 5) {
+						this.optValue = "F";
+					}
+				});
+			},
+
+			showChecked: function() {
+				this.right = '';
+				var that = this;
+				$(this.options).each(function(i) {
+					if (this.checked) {
+						that.right += this.optValue;
+					}
+				});
+			}
+		};
+
+		$('#duoxuanSmall_title').summernote({
+			height: 100
+		});
+		$('#duoxuanSmall_jiexi').summernote({
+			height: 100
+		});
+
+		$timeout(function() {
+			$('#duoxuanSmall_option0').summernote({
+				height: 100
+			});
+			$('#duoxuanSmall_option1').summernote({
+				height: 100
+			});
+			$('#duoxuanSmall_option2').summernote({
+				height: 100
+			});
+			$('#duoxuanSmall_option3').summernote({
+				height: 100
+			});
+		}, 300);
+		
+		$scope.$on('smallQuestionDetail', function(d, data) { //加载题目信息
+			if (data && data.examChildren[0].examType == "multiple") {
+				$scope.pid = data.id;
+		
+				$scope.question = data;
+				console.log(data);
+				$('#duoxuanSmall_title').code(data.examChildren[0].choiceQstTxt); //初始化标题
+				$('#duoxuanSmall_jiexi').code(data.examChildren[0].choiceQstAnalysis); //初始化解析
+				$scope.multi.right = data.examChildren[0].choiceQstAnsw; //初始化正确答案
+				//初始化选项--开始
+				$(data.examChildren[0].optChildren).each(function(i) {
+					console.log(this);
+					if($scope.multi.right.indexOf(this.optValue)>=0) {
+						this.checked = true;
+					}
+					this.count = i;
+				});
+				$scope.multi.options = data.examChildren[0].optChildren;
+				count = data.examChildren[0].optChildren.length + 1;
+		
+				$timeout(function() {
+					$(data.examChildren[0].optChildren).each(function(i) {
+						$('#duoxuanSmall_option' + i).summernote({
+							height: 100
+						});
+						$('#duoxuanSmall_option' + i).code(this.optTxt);
+					});
+				}, 300);
+			} else {
+				$scope.pid = null;
+				$('#duoxuanSmall_title').code(""); //初始化标题
+				$('#duoxuanSmall_jiexi').code(""); //初始化解析
+				$('[name=duoxuanSmall_option]').code("");
+			}
+		
+		});
+
+		$scope.sub = function() {
+			//拼装选项
+			var opts = [];
+			var flag = true;
+			
+			if($scope.multi.options.length < 2) {
+				layer.alert("多选题至少需要两个选项");
+				return false;
+			}
+			
+			$($scope.multi.options).each(function(i) {
+				if($('[name=duoxuanSmall_option]').eq(i).code() == "") {
+					flag = false;
+				}
+				opts.push({
+					"optTxt": $('[name=duoxuanSmall_option]').eq(i).code(),
+					"optValue": this.optValue
+				});
+			});
+			
+			if(!flag) {
+				layer.alert("不能出现内容为空的选项");
+				return false;
+			}
+			
+			if ($('#duoxuanSmall_title').code() == "") {
+				layer.alert("题干不能为空");
+				return false;
+			}
+			
+			if(!$scope.multi.right || $scope.multi.right == "") {
+				layer.alert("请选择正确答案");
+				return false;
+			}
+
+			var obj = {
+				"examType": "multiple",
+				"score": 1,
+				"teacherId": localStorage.getItem("userid"),
+				"title": $('#duoxuanSmall_title').code(),
+				"answer": $scope.multi.right,
+				"analysis": $('#duoxuanSmall_jiexi').code(),
+
+
+				"choiceQstTxt": $('#duoxuanSmall_title').code(),
+				"choiceQstAnsw": $scope.multi.right,
+				"choiceQstAnalysis": $('#duoxuanSmall_jiexi').code(),
+				"choiceType": "multiple",
+				"optChildren": opts
+			};
+			
+			if($scope.pid) {
+				obj.pid = $scope.pid;
+			}
+
+			$scope.$emit('addSmall', obj);
+		}
+
+	}
+</script>

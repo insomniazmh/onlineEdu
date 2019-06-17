@@ -699,8 +699,8 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			url: "/courseEdit.html",
 			templateUrl: "views/course/courseEdit.html",
 			data: {
-				pageTitle: '课程管理',
-				pageSubTitle: '课程添加',
+				pageTitle: '课程编辑',
+				pageSubTitle: '课程编辑',
 				btn_taps: true
 			},
 			controller: "",
@@ -709,6 +709,14 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 					return $ocLazyLoad.load([{
 						name: 'MetronicApp',
 						files: [
+							'../../../assets/global/plugins/dropzone/css/dropzone.css',
+							'js/webuploader-0.1.5/webuploader.css',
+							'js/webuploader-0.1.5/demo.css',
+							'js/controllers/GeneralPageController.js',
+						
+							'../../../assets/global/plugins/dropzone/dropzone.js',
+							'../../../assets/admin/pages/scripts/form-dropzone.js',
+							'../../../assets/global/plugins/angularjs/plugins/angular-file-upload/angular-file-upload.min.js',
 						]
 					}]);
 				}]

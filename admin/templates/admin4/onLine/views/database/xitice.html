@@ -31,13 +31,11 @@
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
-			<button type="button" class="btn red" onclick="common.goUrl('assistant', true)">备课参考</button>
 			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
 			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
 		</div>
 	</div>
-	<div data-ng-include="'views/template/title.html'"></div>
-	<!--<div data-ng-include="'views/template/zhishidian.html'"></div>-->
+	<div data-ng-include="'components/title.html'"></div>
 	<div class="col-md-4">
 		<div class="portlet light" style="min-height: 500px;">
 			<div class="portlet-title">
@@ -48,7 +46,7 @@
 				</div>
 			</div>
 			<div class="portlet-body">
-				<div data-ng-include="'views/template/nodeTree.html'"></div>
+				<div data-ng-include="'components/nodeTree.html'"></div>
 			</div>
 		</div>
 
@@ -60,201 +58,45 @@
 			<div class="portlet-title tabbable-line">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase">题册{{currKP}}</span>
+					<span class="caption-subject bold uppercase">题册</span>
 				</div>
 				<div class="actions">
 					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openExercisesBookModel()">
 						<i class="fa fa-plus"></i> 创建 </button>
 				</div>
-				<ul class="nav nav-tabs">
-					<li class="active">
-						<a data-target="#tab_1_1" data-toggle="tab" ng-click="changeType(1)"> 提问 </a>
-					</li>
-					<li>
-						<a data-target="#tab_1_2" data-toggle="tab" ng-click="changeType(2)"> 练习 </a>
-					</li>
-					<li>
-						<a data-target="#tab_1_3" data-toggle="tab" ng-click="changeType(3)"> 作业 </a>
-					</li>
-					<li>
-						<a data-target="#tab_1_4" data-toggle="tab" ng-click="changeType(4)"> 任务</a>
-					</li>
-					<!--<li>
-						<a data-target="#tab_1_5" data-toggle="tab" ng-click="changeType(5)"> 问卷</a>
-					</li>
-					<li>
-						<a data-target="#tab_1_6" data-toggle="tab" ng-click="changeType(6)"> 风暴</a>
-					</li>-->
-				</ul>
 			</div>
 			<div class="portlet-body">
 				<div class="tab-content">
-					<!--提问册-->
-					<div class="tab-pane active" id="tab_1_1">
-						<div class="scroller" style="min-height: 200px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-							<ul class="feeds">
-								<li ng-repeat="row in tiwence">
-									<div class="col1">
-										<div class="cont">
-											<div class="cont-col1">
-												<div class="label label-sm label-danger">问</div>
-											</div>
-											<div class="cont-col2">
-												<div class="desc">
-													{{row.exeBookName}}
-												</div>
-											</div>
-										</div>
+					<ul class="feeds">
+						<li ng-repeat="row in zuoyece">
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="label label-sm label-danger">作</div>
 									</div>
-									<div class="col2">
-										<div class="date">
-											<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
-												 title="编辑" ng-click="editExercisesBook(row.id, '1')"></i>
-											<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '1')"></i>
-										</div>
-									</div>
-								</li>
-							</ul>
-
-						</div>
-					</div>
-					<!--练习册-->
-					<div class="tab-pane" id="tab_1_2">
-						<ul class="feeds">
-							<li ng-repeat="row in lianxice">
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-danger">习</div>
-										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												{{row.exeBookName}}
-											</div>
+									<div class="cont-col2">
+										<div class="desc">
+											{{row.exeBookName}}
 										</div>
 									</div>
 								</div>
-								<div class="col2">
-									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;"
-											 title="编辑" ng-click="editExercisesBook(row.id, '2')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '2')"></i>
-									</div>
+							</div>
+							<div class="col2">
+								<div class="date">
+									<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
+										title="编辑" ng-click="editExercisesBook(row.id)"></i>
+									<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id)"></i>
 								</div>
-							</li>
-						</ul>
-					</div>
-					<!--作业册-->
-					<div class="tab-pane" id="tab_1_3">
-						<ul class="feeds">
-							<li ng-repeat="row in zuoyece">
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-danger">作</div>
-										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												{{row.exeBookName}}
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col2">
-									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, '3')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '3')"></i>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<!--任务册-->
-					<div class="tab-pane" id="tab_1_4">
-						<ul class="feeds">
-							<li ng-repeat="row in taskList">
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-danger">作</div>
-										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												{{row.exeBookName}}
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col2">
-									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, '4')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '4')"></i>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<!--问卷册-->
-					<div class="tab-pane" id="tab_1_5">
-						<ul class="feeds">
-							<li ng-repeat="row in surveyList">
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-danger">作</div>
-										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												{{row.exeBookName}}
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col2">
-									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, '5')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '5')"></i>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<!--头脑风暴册-->
-					<div class="tab-pane" id="tab_1_6">
-						<ul class="feeds">
-							<li ng-repeat="row in stromList">
-								<div class="col1">
-									<div class="cont">
-										<div class="cont-col1">
-											<div class="label label-sm label-danger">作</div>
-										</div>
-										<div class="cont-col2">
-											<div class="desc">
-												{{row.exeBookName}}
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col2">
-									<div class="date">
-										<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
-											title="编辑" ng-click="editExercisesBook(row.id, '6')"></i>
-										<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id, '6')"></i>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
 
-	<div data-ng-include="'views/template/tice/exercisesBook.html'"></div>
+	<div data-ng-include="'components/exercisesBook.html'"></div>
 
 </div>
 <!-- END MAIN CONTENT -->
@@ -265,76 +107,42 @@
 	function xiticeCtrl($scope, $http, $stateParams, $rootScope) {
 		//添加或修改基本册子回调
 		$scope.$on('exercisesBookChange', function(d, data) {
-			$scope.loadQuestionList(data);
+			$scope.loadQuestionList();
 		});
 
 		//切换章节回调
 		$scope.$on('currentNode', function(d, data) {
-			$scope.initData();
+			$scope.loadQuestionList();
 		});
 
 		//加载习题册   type： 1、提问册  2、练习册  3、作业册  4.任务册  5问卷册  6头脑风暴册
-		$scope.loadQuestionList = function(type) {
-			var url = '';
+		$scope.loadQuestionList = function() {
 			var data = {
 				"allOrPart": "part",
 				"operatorId": localStorage.getItem('userid'),
 				"page": 0,
 				"chapterId": localStorage.getItem('currentNodeId'),
 				"size": common.pageSize,
+				'exeBookType': '3',
 				"sort": 1,
 				"sorting": "uTime"
 			};
-			
-			if(type == '1' || type == '2' || type == '3') {
-				url = '/exerciseBook/findAll/detailed';
-				data.exeBookType = type;
-			}else if(type == "4") {
-				url = '/taskExerciseBook/findAll/detailed';
-			}else if(type == "5") {
-				url = '/surveyExerciseBook/findAll/detailed';
-			}else if(type == "6") {
-				url = '/brainstormExerciseBook/findAll/detailed';
-			}
 			
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
 				data: data,
-				url: url,
+				url: '/exerciseBook/findAll/detailed',
 				success: function(res) {
-					if(type == "1") {
-						$scope.tiwence = res.data;
-					} else if(type == "2") {
-						$scope.lianxice = res.data;
-					} else if(type == "3") {
-						$scope.zuoyece = res.data;
-					} else if(type == "4") {
-						$scope.taskList = res.data;
-					} else if(type == "5") {
-						$scope.surveyList = res.data;
-					} else if(type == "6") {
-						$scope.stromList = res.data;
-					}
+					$scope.zuoyece = res.data;
 				}
 			});
 		};
-		
-		//加载所有类型册子列表
-		$scope.initData = function() {
-			$scope.loadQuestionList("1");
-			$scope.loadQuestionList("2");
-			$scope.loadQuestionList("3");
-			$scope.loadQuestionList("4");
-			$scope.loadQuestionList("5");
-			$scope.loadQuestionList("6");
-		}
 
 		//修改习题册
-		$scope.editExercisesBook = function(id, type) {
+		$scope.editExercisesBook = function(id) {
 			var exercisesBook = {
-				id: id,
-				type: type
+				id: id
 			}
 			$scope.$broadcast('exercisesBook', exercisesBook);
 			$("#exercisesBookModal").modal("show");
@@ -350,7 +158,7 @@
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建习题册吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
-				$scope.$broadcast('exercisesBook', {type: "1"});
+				$scope.$broadcast('exercisesBook', {});
 				$("#exercisesBookModal").modal("show");
 				layer.closeAll('dialog');
 			});
@@ -359,33 +167,19 @@
 		$scope.del = function(id, type) {
 			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建习题册吗", {
 				btn: ['确定', "取消"] //按钮
-			}, function() {
-				var url = '/exerciseBook/delete/'+id;
-				if(type == "4") {
-					url = '/taskExerciseBook/delete/'+id;
-				}else if(type == "5") {
-					url = '/surveyExerciseBook/delete/'+id;
-				}else if(type == "6") {
-					url = '/brainstormExerciseBook/delete/'+id;
-				}
-				
+			}, function() {				
 				common.ajax2({
 					$scope: $scope,
 					$http: $http,
 					operate: true,
 					method: 'get',
-					url: url,
+					url: '/exerciseBook/delete/'+id,
 					success: function(res) {
-						$scope.loadQuestionList(type);
+						$scope.loadQuestionList();
 						layer.closeAll('dialog');
 					}
 				});
 			});
-			
-		}
-		
-		$scope.changeType = function(type) {
-			$scope.$broadcast('changeType', type);
 		}
 
 	}

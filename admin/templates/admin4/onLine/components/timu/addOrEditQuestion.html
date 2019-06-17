@@ -1,0 +1,162 @@
+<div class="modal fade" id="addOrEditQuestion" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="addOrEditQuestionCtrl">
+	<div class="modal-dialog modal-full">
+		<div class="modal-content">
+
+			<div class="portlet light" style="min-height: 400px;">
+				<div class="portlet-title tabbable-line">
+					<div class="caption font-green-sharp">
+						<i class="icon-settings font-green-sharp"></i>
+						<span class="caption-subject bold uppercase" id="title">创建题目</span>
+					</div>
+					<div class="actions">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					</div>
+					<ul class="nav nav-tabs" id="questionTypesTitle">
+						<li class="active">
+							<a data-target="#tab_3_1" data-toggle="tab" ng-click="changeType(0)"> 单选 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_2" data-toggle="tab" ng-click="changeType(1)"> 多选 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_3" data-toggle="tab" ng-click="changeType(2)"> 判断 </a>
+						</li>
+						<li style="display: none;">
+							<a data-target="#tab_3_4" data-toggle="tab" ng-click="changeType(3)"> 填空 </a>
+						</li>
+						<li>
+							<a data-target="#tab_3_5" data-toggle="tab" ng-click="changeType(4)"> 主观 </a>
+						</li>
+					</ul>
+				</div>
+				<div class="portlet-body">
+					<div class="row" style="margin-top: 20px;">
+						<div class="col-md-6">
+							<div class="form-group form-md-radios">
+								<label>难易程度</label>
+								<div class="md-radio-inline">
+									<div class="md-radio">
+										<input type="radio" id="questionLevel1" name="questionLevel" class="md-radiobtn" value="1" checked=""
+										 ng-model="questionLevel">
+										<label for="questionLevel1">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											简单 </label>
+									</div>
+									<div class="md-radio">
+										<input type="radio" id="questionLevel2" name="questionLevel" class="md-radiobtn" value="2" ng-model="questionLevel">
+										<label for="questionLevel2">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											中等 </label>
+									</div>
+									<div class="md-radio">
+										<input type="radio" id="questionLevel3" name="questionLevel" class="md-radiobtn" value="3" ng-model="questionLevel">
+										<label for="questionLevel3">
+											<span></span>
+											<span class="check"></span>
+											<span class="box"></span>
+											困难 </label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" id="questionTypesContent">
+						<div class="tab-pane active" id="tab_3_1">
+							<div data-ng-include="'components/timu/danxuanSmall.html'"></div>
+						</div>
+						<div class="tab-pane" id="tab_3_2">
+							<div data-ng-include="'components/timu/duoxuanSmall.html'"></div>
+						</div>
+						<div class="tab-pane" id="tab_3_3">
+							<div data-ng-include="'components/timu/panduanSmall.html'"></div>
+						</div>
+						<div class="tab-pane" id="tab_3_4">
+							<!-- <div data-ng-include="'views/template/timu/tiankongSmall.html'"></div> -->
+						</div>
+						<div class="tab-pane" id="tab_3_5">
+							<div data-ng-include="'components/timu/zhuguanSmall.html'"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<script>
+	function addOrEditQuestionCtrl($scope, $http, $rootScope) {
+		//接收用户点击题目编辑按钮事件
+		$scope.$on('smallQuestionDetail', function(d, data) {
+			if(data) {
+				$("#questionTypesTitle").hide();
+				var type = data.examChildren[0].examType;
+				$scope.questionLevel = data.levelId;
+				$scope.knowledgeId = data.knowledgeId;
+			}else {
+				$("#questionTypesTitle").show();
+			}
+			
+		})
+		
+		//添加小题完成回调
+		$scope.$on('addSmall', function(d, data) {
+			if (!$scope.knowledgeId) {
+				$scope.knowledgeId = "";
+			}
+
+			var obj = {
+				"relate": 0,
+				"teacherId": localStorage.getItem("userid"),
+				"levelId": $scope.questionLevel,
+				"knowledgeId": $scope.knowledgeId,
+				"chapterId": localStorage.getItem("currentNodeId"),
+				"examChildren": [data]
+			};
+			
+			if(!obj.levelId || obj.levelId=="") {
+				layer.alert("请选择难易程度");
+				return false;
+			}
+				
+			if(data.pid) {
+				obj.id = data.pid;
+			}
+			
+			var url = "";
+			if(data.examType == "single" || data.examType == "multiple") {
+				url = '/question/choiceQst/edit';
+			}else if(data.examType == "trueOrFalse") {
+				url = '/question/trueOrFalse/edit';
+			}else if(data.examType == "design") {
+				url = '/question/design/edit';
+			}
+			
+			//添加题目
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: url,
+				data: obj,
+				success: function(res) {
+					$scope.$emit('addOrEditQuestion', data.examType);
+					$("#addOrEditQuestion").modal("hide");
+				}
+			});
+		});
+
+		$scope.changeType = function(type) {
+			$("#typesTitle > li").removeClass("active");
+			$("#typesTitle > li").eq(type).addClass("active");
+			$("#typesContents > .tab-pane").removeClass("active");
+			$("#typesContents > .tab-pane").eq(type).addClass("active");
+		}
+
+	}
+</script>

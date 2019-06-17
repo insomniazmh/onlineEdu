@@ -69,7 +69,7 @@ var common = {
 		if(settings.gateway == 'edu') {
 			postUrl = common.url + settings.url;
 		}else {
-			postUrl = common2.url + settings.url;
+			postUrl = common.url2 + settings.url;
 		}
 
 		settings.$http({
@@ -77,10 +77,10 @@ var common = {
 				token: localStorage.getItem("token")
 			},
 			method: settings.method,
-			url: common.url + settings.url,
+			url: postUrl,
 			data: settings.data,
 		}).then(function successCallback(response) {
-			//					console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
+			console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
 			var data = response.data;
 			if(data.ret == 0) {
 				if(settings.operate) {
@@ -120,6 +120,36 @@ var common = {
 				title: "网络异常"
 			});
 		});
+	},
+	
+	ajax2: function(settings) {
+		settings.gateway = 'quiz';
+		common.ajax(settings);
+	},
+	
+	goUrl: function(url, type) {
+		window.location.href = '#/' + url + '.html';
+	},
+	
+	addTitleForQuestion: function(settings) {
+		$(settings.questionArr).each(function() {
+			if(settings.select) {
+				this.select = true;
+			}
+			if(this.examChildren) {
+				if(this.examChildren[0].examType == "single") {
+					this.title = this.examChildren[0].choiceQstTxt + "（单选）";
+				} else if(this.examChildren[0].examType == "multiple") {
+					this.title = this.examChildren[0].choiceQstTxt + "（多选）";
+				} else if(this.examChildren[0].examType == "trueOrFalse") {
+					this.title = this.examChildren[0].trueOrFalseInfo + "（判断）";
+				} else if(this.examChildren[0].examType == "design") {
+					this.title = this.examChildren[0].designQuestion + "（主观）";
+				}
+			}
+			
+		});
+		return settings.questionArr;
 	},
 
 }

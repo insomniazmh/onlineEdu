@@ -338,11 +338,6 @@ var common = {
 					this.title = this.examChildren[0].choiceQstTxt + "（多选）";
 				} else if(this.examChildren[0].examType == "trueOrFalse") {
 					this.title = this.examChildren[0].trueOrFalseInfo + "（判断）";
-					if(this.examChildren[0].answer == 'Y') {
-						this.examChildren[0].answer = '对';
-					}else if(this.examChildren[0].answer == 'N') {
-						this.examChildren[0].answer = '错';
-					}
 				} else if(this.examChildren[0].examType == "design") {
 					this.title = this.examChildren[0].designQuestion + "（主观）";
 				}
@@ -370,11 +365,6 @@ var common = {
 	       return 0;
 	    }
 		}
-	},
-	//数组根据某字段去重
-	unique: function(arr, key) {
-    const res = new Map();
-    return arr.filter((a) => !res.has(a[key]) && res.set(a[key], 1));
 	}
 }
 

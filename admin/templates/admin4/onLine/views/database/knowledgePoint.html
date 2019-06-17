@@ -10,13 +10,11 @@
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
-			<button type="button" class="btn red" onclick="common.goUrl('assistant', true)">备课参考</button>
 			<button type="button" class="btn green" onclick="common.goUrl('xitice', true)">教辅题册</button>
 			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
 		</div>
 	</div>
-	<div data-ng-include="'views/template/title.html'"></div>
-	<div data-ng-include="'views/template/zhishidian.html'"></div>
+	<div data-ng-include="'components/title.html'"></div>
 	<div class="col-md-4">
 		<div class="portlet light" style="min-height: 500px;">
 			<div class="portlet-title">
@@ -27,7 +25,7 @@
 				</div>
 			</div>
 			<div class="portlet-body">
-				<div data-ng-include="'views/template/nodeTree.html'"></div>
+				<div data-ng-include="'components/nodeTree.html'"></div>
 			</div>
 		</div>
 
@@ -39,13 +37,11 @@
 			<div class="portlet-title tabbable-line">
 				<div class="caption font-green-sharp">
 					<i class="icon-settings font-green-sharp"></i>
-					<span class="caption-subject bold uppercase" id="title">题库{{currKP}}</span>
+					<span class="caption-subject bold uppercase" id="title">题库</span>
 				</div>
 				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel(1)">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
 						<i class="fa fa-plus"></i> 创建 </button>
-					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel(2)">
-						<i class="fa fa-plus"></i> 创建大题 </button>
 				</div>
 				<ul class="nav nav-tabs" id="typesTitle">
 					<li class="active">
@@ -62,9 +58,6 @@
 					</li>
 					<li>
 						<a data-target="#tab_1_5" data-toggle="tab" ng-click="changeType(4)"> 主观 </a>
-					</li>
-					<li>
-						<a data-target="#tab_1_6" data-toggle="tab" ng-click="changeType(0)"> 大题 </a>
 					</li>
 				</ul>
 			</div>
@@ -177,41 +170,13 @@
 
 						</div>
 					</div>
-					<div class="tab-pane" id="tab_1_6">
-						<div id="accordionBigQuestion" class="panel-group">
-							<div class="panel panel-default" ng-repeat="row in bigQuestion">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionBigQuestion" data-target="#accordionBigQuestion_{{$index}}">
-											<span ng-bind-html="row.paperInfo" style="display: inline-block;"></span> </a>
-										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
-											 ng-click="editQuestion(row)"></i>
-											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
-										</div>
-									</h4>
-								</div>
-								<div id="accordionBigQuestion_{{$index}}" class="panel-collapse collapse">
-									<div class="panel-body" ng-repeat="samll in row.examChildren">
-										<p>小题题目：<span ng-bind-html="samll.title" style="display: inline-block;"></span> </p>
-										<p ng-repeat="x in samll.optChildren">
-											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
-											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
-										</p>
-										<p>答案：<span ng-bind-html="samll.answer" style="display: inline-block;"></span> </p>
-										<p>解析：<span ng-bind-html="samll.analysis" style="display: inline-block;"></span> </p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
 
-	<div data-ng-include="'views/template/timu/addOrEditQuestion.html'"></div>
+	<div data-ng-include="'components/timu/addOrEditQuestion.html'"></div>
 
 </div>
 <!-- END MAIN CONTENT -->
@@ -225,14 +190,12 @@
 		$scope.multiple = [];//多选题列表
 		$scope.trueOrFalse = [];//判断题列表
 		$scope.design = [];//主观题列表
-		$scope.bigQuestion = [];//大题列表
 		
 		//分页信息-页数
 		$scope.singlePage = 0;
 		$scope.multiplePage = 0;
 		$scope.trueOrFalsePage = 0;
 		$scope.designPage = 0;
-		$scope.bigQuestionPage = 0;
 		
 		//加载更多
 		$scope.loadMore = function(type) {
@@ -248,9 +211,6 @@
 			}else if(type == 'design') {
 				$scope.designPage++;
 				$scope.loadQuestions('design', $scope.designPage);
-			}else if(type == 'bigQuestion') {
-				$scope.bigQuestionPage++;
-				$scope.loadQuestions('bigQuestion', $scope.bigQuestionPage);
 			}
 		}
 		
@@ -279,7 +239,7 @@
 				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
 				"chapterId": localStorage.getItem('currentNodeId'), //章节id
 				"operatorId": localStorage.getItem("userid"), //当前用户id
-				"questionType": type, //题目类型 single multiple trueOrFalse design bigQuestion
+				"questionType": type, //题目类型 single multiple trueOrFalse design
 				"page": page,
 				"size": common.pageSize,
 				"sort": 1,
@@ -318,33 +278,6 @@
 							$scope.design = [];
 						}
 						$scope.design = $scope.design.concat(res.data);
-					} else if(type == 'bigQuestion') {
-						if(page == 0) {
-							$scope.bigQuestion = [];
-						}
-						$(res.data).each(function() {
-							$(this.examChildren).each(function() {
-								//选择题
-								if(this.choiceQstTxt) {
-									this.title = this.choiceQstTxt;
-									this.answer = this.choiceQstAnsw;
-									this.analysis = this.choiceQstAnalysis;
-								}
-								//判断题
-								if(this.trueOrFalseInfo) {
-									this.title = this.trueOrFalseInfo;
-									this.answer = this.trueOrFalseAnsw;
-									this.analysis = this.trueOrFalseAnalysis;
-								}
-								//主观题
-								if(this.designQuestion) {
-									this.title = this.designQuestion;
-									this.answer = this.designAnsw;
-									this.analysis = this.designAnalysis;
-								}
-							});
-						});
-						$scope.bigQuestion = $scope.bigQuestion.concat(res.data);
 					}
 				}
 			});
@@ -356,12 +289,10 @@
 			$scope.multiplePage = 0;
 			$scope.trueOrFalsePage = 0;
 			$scope.designPage = 0;
-			$scope.bigQuestionPage = 0;
 			$scope.loadQuestions('single', 0);
 			$scope.loadQuestions('multiple', 0);
 			$scope.loadQuestions('trueOrFalse', 0);
 			$scope.loadQuestions('design', 0);
-			$scope.loadQuestions('bigQuestion', 0);
 		}
 
 		//修改题目
@@ -393,20 +324,11 @@
 			var settings = {
 
 			}
-			if(type == 1) {
-				settings = {
-					tips: '题目',
-					success: function() {
-						$scope.$broadcast('smallQuestionDetail', null);
-						$("#addOrEditQuestion").modal("show");
-					}
-				}
-			} else {
-				settings = {
-					tips: '大题',
-					success: function() {
-						window.open("index.html#/bigQuestion.html");
-					}
+			settings = {
+				tips: '题目',
+				success: function() {
+					$scope.$broadcast('smallQuestionDetail', null);
+					$("#addOrEditQuestion").modal("show");
 				}
 			}
 
