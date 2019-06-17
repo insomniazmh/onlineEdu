@@ -15,18 +15,7 @@
 	}
 	
 	.btn-info {
-		margin-bottom: 2px;
-		float: right;
-		margin-left: 5px;
-	}
-	
-	.abslute {
-		position: absolute;
-		float: right;
-		margin-left: -135px;
-		margin-top: 21px;
-		width: 46px;
-		height: 28px;
+		
 	}
 	
 	.table-toolbar {
@@ -44,6 +33,9 @@
 	
 	.success {
 		margin-top: -4px;
+		position: absolute;
+		bottom: 60px;
+		left: 58px;
 	}
 	.photos{
 		width: 90px;
@@ -150,17 +142,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX">
+						<tr ng-repeat="item in studentInfo" class="odd gradeX">
 							<td>
-								<button class="btn btn-info btn-sm" ng-click="detail()">详情</button>
+								<button class="btn btn-info btn-sm success" ng-click="detail()">详情</button>
 							</td>
-							<td>20180901</td>
-							<td>张三</td>
-							<td>专升本</td>
-							<td>已校对</td>
-							<td>已通过</td>
-							<td>未通过</td>
-							<td>学费已交清</td>
+							<td>{{item.studentId}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.hierarchy}}</td>
+							<td>{{item.proofReading}}</td>
+							<td>{{item.examtConfirm}}</td>
+							<td>{{item.taskConfirm}}</td>
+							<td>{{item.financeConfirm}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -172,28 +164,27 @@
 	<div class="modal fade" id="stuDetail" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-full">
 			<div class="modal-content">
-
 				<div class="portlet light" style="min-height: 400px;">
 					<div class="portlet-title tabbable-line">
 						<div class="caption font-green-sharp">
 							<i class="icon-settings font-green-sharp"></i>
 							<span class="caption-subject bold uppercase" id="title">学生详情
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a data-target="#tab_basic" data-toggle="tab"> 基本信息 </a>
+							</li>
+							<li>
+								<a data-target="#tab_other" data-toggle="tab"> 其他信息 </a>
+							</li>
+							<li>
+								<a data-target="#tab_complex" data-toggle="tab"> 复杂信息 </a>
+							</li>
+						</ul>
 					</div>
-					<div class="actions">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					</div>
-					<ul class="nav nav-tabs">
-						<li class="active">
-							<a data-target="#tab_basic" data-toggle="tab"> 基本信息 </a>
-						</li>
-						<li>
-							<a data-target="#tab_other" data-toggle="tab"> 其他信息 </a>
-						</li>
-						<li>
-							<a data-target="#tab_complex" data-toggle="tab"> 复杂信息 </a>
-						</li>
-					</ul>
-				</div>
 				<div class="portlet-body">
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_basic">
@@ -203,7 +194,7 @@
 										<div class="col-md-12">
 											<div class="col-md-6">
 												<label class="col-md-3 control-label">
-													<button class="btn btn-sm btn-info success">通过校对</button>
+													<button class="btn btn-sm btn-info ">通过校对</button>
 												</label>
 											</div>
 											<div class="col-md-6">
@@ -530,7 +521,7 @@
 			}, {
 				text: "未校对"
 			}];
-
+			
 		$scope.screen = [{
 				text: "已通过"
 			}, {
@@ -548,6 +539,17 @@
 			}, {
 				text: "未通过"
 			}];
+		$scope.studentInfo = [
+			{
+				studentId:"002",
+				name:"刘八",
+				hierarchy:"专升本",
+				proofReading:"已校对",
+				examtConfirm:"已确认",
+				taskConfirm:"未通过",
+				financeConfirm:"学费已缴清"
+			}
+		];
 		$scope.infoMation = [
 			{
 				studentId:"1834457", 

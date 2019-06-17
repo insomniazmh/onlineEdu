@@ -116,14 +116,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX" style="cursor: pointer;" ng-click="edit();">
-							<td>20180901</td>
-							<td>张三</td>
-							<td>2018c</td>
-							<td>信息技术</td>
-							<td>正大北</td>
-							<td>412824199109154370</td>
-							<td>男</td>
+						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="edit();">
+							<td>{{item.studentId}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.grade}}</td>
+							<td>{{item.major}}</td>
+							<td>{{item.studyCore}}</td>
+							<td>{{item.id}}</td>
+							<td>{{item.sex}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -135,7 +135,15 @@
 </div>
 <script>
 	function schoolrollCtrl($scope, $http) {
-		$scope.data = [{}, {}];
+		$scope.data = [{
+			studentId:"20180901",
+			name:"张三",
+			grade:"2018c",
+			major:"信息技术",
+			studyCore:"郑大北",
+			id:"412824199109154370",
+			sex:"男"
+		}];
 		
 		$scope.grade = [
 			{text: "2019级"},

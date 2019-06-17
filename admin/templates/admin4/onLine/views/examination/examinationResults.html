@@ -42,19 +42,15 @@
 				<div class="table-toolbar">
 					<div class="row">
 						<div class="col-md-12" style="display: flex;">
-							<div class="col-md-4">
-								<label class="col-md-4 label-text">姓名:</label>
-								<div class="col-md-7">
-									<input type="text" class="form-control">
-								</div>
+							<label class="col-md-3 label-text">学号</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control">
 							</div>
-							<div class="col-md-4">
-								<label class="col-md-4 label-text">学号:</label>
-								<div class="col-md-7">
-									<input type="text" class="form-control">
-								</div>
+							<label class="col-md-3 label-text">姓名</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control">
 							</div>
-							<div class="btn-group col-md-6">
+							<div class="col-md-1">
 								<button class="btn blue btn-sm" ng-click=""> 查询 </button>
 							</div>
 						</div>
@@ -97,13 +93,14 @@
 						</tr>
 					</thead>
 					<tbody>
-							<td>001</td>
-							<td>张三</td>
-							<td>2019级</td>
-							<td>10021</td>
-							<td>78</td>
-							<td>12</td>
-							<td>90</td>
+						<tr ng-repeat="item in data" class="odd gradeX">
+							<td>{{item.studentID}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.grade}}</td>
+							<td>{{item.major}}</td>
+							<td>{{item.computer}}</td>
+							<td>{{item.matheMatics}}</td>
+							<td>{{heightEnglish}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -115,7 +112,15 @@
 </div>
 <script>
 	function enrollCtrl($scope, $http) {
-		$scope.data = [{}, {}];
+		$scope.data = [{
+			studentID:"001",
+			name:"李四",
+			grade:"2019级",
+			major:"商务英语",
+			computer:"78",
+			matheMatics:"12",
+			heightEnglish:"90"
+		}];
 		
 		$scope.gradeList = [{
 			text: "2019级"
