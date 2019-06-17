@@ -12,10 +12,10 @@ class agriknow {
       this._wx = '/wechat'
       this._education = '/education'
 
-    this._baseUrl = 'http://192.168.10.2:'
-    this._quiz = '8081'
-    this._wx = '8090'
-    this._education = '8080'
+    // this._baseUrl = 'http://192.168.10.2:'
+    // this._quiz = '8081'
+    // this._wx = '8090'
+    // this._education = '8080'
     
     this._request = new request
     this._request.setErrorHandler(this.errorHander)
@@ -102,6 +102,13 @@ class agriknow {
    */
   answerStrom(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._quiz + '/brainstormInteract/send/answer', postData).then(res => res.data)
+  }
+
+  /**
+   * 提交预习自测回答
+   */
+  answerSelfTest(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._quiz + '/studentAnswer/saveAnswer', postData).then(res => res.data)
   }
 
   /**

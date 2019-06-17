@@ -1,0 +1,36 @@
+<link href="../../../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
+<link href="../../../assets/frontend/pages/css/style-shop.css" rel="stylesheet" type="text/css">
+<style>
+	.pi-price {
+		color: #2386ca;
+	}
+</style>
+	
+<!-- BEGIN PAGE BREADCRUMB -->
+<ul class="page-breadcrumb breadcrumb hide">
+	<li>
+		<a href="#">Home</a><i class="fa fa-circle"></i>
+	</li>
+	<li class="active">
+		Dashboard
+	</li>
+</ul>
+<!-- END PAGE BREADCRUMB -->
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="myCoursesCtrl" class="margin-top-10">
+	<div class="portlet light">
+		<div class="portlet-body">
+			<div data-ng-include="'components/courseListTpl.html'"></div>
+		</div>
+	</div>
+
+</div>
+<!-- END MAIN CONTENT -->
+
+<script>
+	function myCoursesCtrl($scope, $http, $interval) {
+		$scope.timer = $interval( function(){
+	    $scope.$broadcast('goUrl', 'courseEdit');
+	  }, 500);
+	}
+</script>

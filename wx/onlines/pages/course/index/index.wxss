@@ -1,0 +1,126 @@
+/* pages/course/index/index.wxss */
+.orange {
+  background-color: orange;
+}
+
+.green {
+  background-color: green;
+}
+.panel {
+  width: 40%;
+  margin: 0 5%;
+  float: left;
+  height: 200rpx;
+  color: white;
+  font-size: 80rpx;
+  display: flex;
+}
+
+.bigNum {
+  margin: 0 auto;
+  line-height: 200rpx;
+}
+.smallFont {
+  font-size: 40rpx;
+  margin: 0 auto;
+  line-height: 300rpx;
+}
+
+.index_clm{
+  background:#ECECEC;
+  padding-bottom:40rpx;
+}
+.clm_child{
+  width:110rpx;
+  text-align: center;
+  float:left;
+  margin-left:60rpx;
+  margin-top:40rpx;
+}
+.clm_child image{
+  width:110rpx;
+}
+.clm_child text{
+  display:block;
+  font-size:34rpx;
+}
+.min_class{
+  padding:40rpx 25rpx;
+  margin-top: 50rpxx;
+}
+.title_class{
+  color:#FE9700;
+  border-left:15rpx solid #FE9700;
+  padding-left:10rpx;
+  font-weight:500;
+  font-size:38rpx;
+}
+.title_right{
+  float:right;
+  font-size:32rpx;
+  color:#666;
+}
+.class_clm{
+  margin:20rpx;
+  padding:20rpx 0;
+  position:relative;
+}
+.fm_img{
+  width:200rpx;
+  height:200rpx !important;
+  display:block;
+  float:left;
+}
+.right_info{
+  float:right;
+  width:430rpx;
+}
+.text-title{
+  display:block;
+  font-size:32rpx;
+  font-weight:500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.text-custom{
+  display:block;
+  font-size:29rpx;
+  color:#757575;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.progress{
+  margin-left: 70rpx;
+  line-height: 1.9;
+  color: gold;
+}
+.text-badge {
+  font-size:29rpx;
+  color:white;
+  padding: 10rpx;
+  background-color: lightblue;
+  border-radius: 30rpx;
+}
+.class_number{
+  position:absolute;
+  right:0;
+  bottom:20rpx;
+}
+.class_number image{
+  width:35rpx;
+  display:block;
+  float:left;
+  margin-right:10rpx;
+}
+.class_number text{
+  font-size:30rpx;
+  color:#579615;
+  display:block;
+  float:left;
+  line-height: 35rpx;
+}
+.dispyFlex{
+  display: flex;
+}

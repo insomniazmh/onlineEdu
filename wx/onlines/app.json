@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/discuss/discussPage/discussPage",
+    "pages/main/main/main",
+    "pages/course/index/index",
+    "pages/information/information",
+    "pages/examination/examination",
+    "pages/discuss/discuss/discuss",
+    "pages/main/Transaction/Transaction",
+    "pages/main/paper/paper"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "black",
+    "list": [
+      {
+        "selectedIconPath": "/img/icon/indexActive.png",
+        "iconPath": "/img/icon/index.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "/img/icon/myActive.png",
+        "iconPath": "/img/icon/my.png",
+        "pagePath": "pages/main/main/main",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

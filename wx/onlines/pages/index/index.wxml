@@ -1,0 +1,49 @@
+<!--pages/school_index/index.wxml-->
+<swiper indicator-color="#fff" indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image style='width:100%' src="{{item}}" class="slide-image" width="355" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="index_clm">
+  <view class='clm_child' bindtap='bindNavBlink' data-url='/pages/course/index/index'>
+    <image src='/img/z05.png' mode='widthFix'></image>
+    <text>课程</text>
+  </view>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/examination/examination'>
+    <image src='/img/z06.png' mode='widthFix'></image>
+    <text>考试</text>
+  </view>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/discuss/discuss/discuss'>
+    <image src='/img/z08.png' mode='widthFix'></image>
+    <text>讨论</text>
+  </view>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/information/information'>
+    <image src='/img/z03.png' mode='widthFix'></image>
+    <text>资讯</text>
+  </view>
+  <view class='cfx'></view>
+</view>
+
+<view class='min_class'>
+  <text class='title_class'>必修课</text>
+  <text class='title_right'>{{className}}</text>
+  <!--循环从此开始-->
+  <view class='class_clm' wx:for="{{courseList}}" bindtap="navToChapter" 
+  data-course='{{item}}' wx:key="clm">
+    <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+      <view class='right_info'>
+        <text>《{{item.courseName}}》</text>
+        <text class='mt_20'>课程描述：{{item.courseDescribe}}</text>
+        <text class='mt_10'>授课老师：{{item.teacherName}}</text>
+      </view>
+      <view class='cfx'></view>
+      <view class='class_number'>
+        <image src='/img/icon_1.png' mode='widthFix'></image>
+        <text style='font-size:24rpx;'>进行到   {{item.joinChapterName}}</text>
+      </view>
+  </view>
+  <!--循环到此结束-->
+</view>

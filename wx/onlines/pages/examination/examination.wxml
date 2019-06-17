@@ -1,0 +1,28 @@
+<!--pages/course/index/index.wxml-->
+<view style='height: 200rpx;'>
+  <view class='panel orange'>
+    <view class='bigNum'>15</view>
+    <view class='smallFont'>通过</view>
+  </view>
+  <view class='panel green'>
+    <text class='bigNum'>20</text>
+    <view class='smallFont'>待考</view>
+  </view>
+</view>
+
+
+<view class='min_class'>
+  <!--循环从此开始-->
+  <view class='class_clm' wx:for="{{courseList}}" bindtap="navToChapter" 
+  data-course='{{item}}' wx:key="clm">
+    <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+      <view class='right_info'>
+        <text class='text-title'>{{item.courseName}}</text>
+        <view class='dispyFlex'>
+          <text class='mt_20 progress text-custom'>100分</text>
+        </view>
+      </view>
+      <view class='cfx'></view>
+  </view>
+  <!--循环到此结束-->
+</view>

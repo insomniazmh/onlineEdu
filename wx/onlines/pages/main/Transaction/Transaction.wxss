@@ -1,0 +1,20 @@
+/* pages/main/Transaction/Transaction.wxss */
+.tsatHeader{
+  text-align: center;
+}
+.tsat{
+  top: 100rpx;
+  padding: 20rpx;
+  position: relative;
+}
+.tsatContent{
+  border: 1px solid #dcdcdc;
+  font-size: 33rpx;
+  padding: 30rpx;
+  width: auto;
+}
+.foterBtn{
+  width: 250rpx;
+  margin-top: 140rpx;
+  margin-left: 250rpx;
+}

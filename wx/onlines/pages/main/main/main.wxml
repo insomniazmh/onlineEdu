@@ -1,0 +1,34 @@
+<view class='pageContent'>
+  <!-- Start -->
+  <view class='leftImg'
+        wx:for="{{myContent}}"
+        data-content="{{item}}"
+        wx:key="myContent">
+    <image class='portLeft' src='/img/3.jpg'></image>
+    <view class='comment'>
+      <text>{{item.contentName}}</text>
+      <view class='commentGood'>
+       <text>{{item.contentTuition}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- End -->
+</view>
+<view class='contentList'>
+  <view class='listBtn'>
+    <image src='/img/z11.png' bindtap='jumpTransaction' data-url='/pages/main/paper/paper'></image>
+    <text>我的论文</text>
+  </view>
+  <view class='listBtn'>
+    <image src='/img/z12.png' bindtap='jumpTransaction' data-url='/pages/discuss/discussPage/discussPage'></image>
+    <text>我的讨论</text>
+  </view>
+  <view class='listBtn'>
+    <image src='/img/z13.png' bindtap='jumpTransaction' data-url='/pages/main/Transaction/Transaction'></image>
+    <text>我的异动</text>
+  </view>
+  <view class='listBtn'>
+    <image src='/img/z14.png' disabled='true' bindtap=''></image>
+    <text>毕业资料</text>
+  </view>
+</view>

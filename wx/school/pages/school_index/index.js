@@ -49,7 +49,8 @@ Page({
               console.log(resData.token);
               wx.setStorageSync('token', resData.token)//将token信息存入本地
               wx.setStorageSync('studentId', resData.studentId)//将studentId信息存入本地
-              wx.setStorageSync('className', resData.className)//将班级信息存入本地
+              wx.setStorageSync('className', resData.className)//将班级名称存入本地
+              wx.setStorageSync('classId', resData.classId)//将班级id存入本地
               that.setData({
                 className: resData.className
               });
@@ -185,24 +186,6 @@ Page({
     var that = this;
     getApp().agriknow.myCourseList().then(res => {
       let courseList = res.data;
-      //演示数据，正式部署时需删除
-      courseList.push({
-        courseDescribe: "基础英语描述",
-        courseId: "3419bb57a7004463a172a2c897c22452",
-        courseName: "新编商务英语",
-        teacherId: "dongbo",
-        teacherName: "董波",
-        topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
-      })
-
-      // courseList.push({
-      //   courseDescribe: "",
-      //   courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-      //   courseName: "FLASH动画设计",
-      //   teacherId: "dongbo",
-      //   teacherName: "董波",
-      //   topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
-      // })
       that.setData({
         courseList: res.data
       })
