@@ -49,7 +49,7 @@
 .listBtn{
   width: 100rpx;
   height: 100rpx;
-  margin-right: 90rpx;
+  margin-right:85rpx;
   float: left;
   margin-bottom: 90rpx;
 }

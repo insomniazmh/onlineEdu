@@ -12,7 +12,7 @@
     <image src='/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/examination/examination'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/videoMaterial/videoMaterial'>
     <image src='/img/z06.png' mode='widthFix'></image>
     <text>考试</text>
   </view>

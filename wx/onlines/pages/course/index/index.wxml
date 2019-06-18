@@ -20,7 +20,9 @@
         <text class='text-title'>《{{item.courseName}}》</text>
         <view class='dispyFlex'>
           <text class='mt_20 text-badge'>已通过</text>
-          <text class='mt_20 progress text-custom'>100%</text>
+          <view class='mt_20 progress'>
+            <van-progress percentage="100" />
+          </view>
         </view>
         <text class='mt_20 text-custom'>近期没有考试安排</text>
       </view>

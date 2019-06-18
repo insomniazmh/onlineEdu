@@ -1,5 +1,6 @@
 .headerText image{
   height: 450rpx;
+  width: 100%;
 }
 .pageContent{
   margin-top: 50rpx;

@@ -16,28 +16,23 @@ Page({
     interval: 5000,
     duration: 500,
     active: 0,
-    pageContent: [
+    listContent:[
       {
-        pageImage: "/img/3.jpg",
-        pageTitle: "评论内容",
-        pageDate: "2019-6-7",
-        pageGoodImg: "/img/icon/good.png",
-        pageGoodNmb: "888"
+        headPortrait:"/img/floor/up1.png",
+        titleName:"Super invincible 菁",
+        publishDate:"2019-06-18",
+        textTitle:"十一长假哪也不去，宅在家里看电影！",
+        textContent:"每逢长假，总有那么一群人选择远离人山人海，静静地呆在家，坐在电脑电视前。长时间的工作学习让他们感觉很疲惫，对什么都提不起劲，打开电脑却不知道干什么好…",
+        imgDetail:"/img/news/list1.png"
       },
       {
-        pageImage: "/img/3.jpg",
-        pageTitle: "评论内容",
-        pageDate: "2019-6-7",
-        pageGoodImg: "/img/icon/good.png",
-        pageGoodNmb: "888"
+        headPortrait: "/img/floor/up1.png",
+        titleName: "Super invincible 菁",
+        publishDate: "2019-06-18",
+        textTitle: "十一长假哪也不去，宅在家里看电影！",
+        textContent: "每逢长假，总有那么一群人选择远离人山人海，静静地呆在家，坐在电脑电视前。长时间的工作学习让他们感觉很疲惫，对什么都提不起劲，打开电脑却不知道干什么好…",
+        imgDetail: "/img/news/list1.png"
       },
-      {
-        pageImage: "/img/3.jpg",
-        pageTitle: "评论内容",
-        pageDate: "2019-6-7",
-        pageGoodImg: "/img/icon/good.png",
-        pageGoodNmb: "888"
-      }
     ],
   },
 

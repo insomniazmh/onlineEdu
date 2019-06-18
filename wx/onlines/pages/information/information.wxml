@@ -6,7 +6,12 @@
     </swiper-item>
   </block>
 </swiper>
-<view class='min_class'>
+<view>
+	<van-tabs active="{{ active }}" bind:click="changeContent">
+		<van-tab title="资讯"></van-tab>
+		<van-tab title="公告"></van-tab>
+	</van-tabs>
+</view>
 <view class='min_class'>
   <text class='title_right'>{{className}}</text>
   <!--循环从此开始-->
@@ -14,17 +19,31 @@
   data-course='{{item}}' wx:key="clm">
     <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
-        <text>《{{item.courseName}}》</text>
-        <text class='mt_20'>课程描述：{{item.courseDescribe}}</text>
-        <text class='mt_10'>授课老师：{{item.teacherName}}</text>
+        <text>{{item.courseName}}</text>
+        <text class='mt_20'>内容描述：{{item.courseDescribe}}</text>
       </view>
       <view class='cfx'></view>
       <view class='class_number'>
         <image src='/img/icon_1.png' mode='widthFix'></image>
-        <text style='font-size:24rpx;'>进行到   {{item.joinChapterName}}</text>
+        <text style='font-size:24rpx;'>发表于{{item.inforDate}}</text>
       </view>
   </view>
   <!--循环到此结束-->
 </view>
-  
+<view class='min_class'>
+  <text class='title_right'>{{className}}</text>
+  <!--循环从此开始-->
+  <view class='class_clm' wx:for="{{courseLists}}" bindtap="navToChapter" 
+  data-course='{{item}}' wx:key="clm">
+      <view class='right_infos'>
+        <text>{{item.courseName}}</text>
+        <text class='mt_20'>内容描述：{{item.courseDescribe}}</text>
+      </view>
+      <view class='cfx'></view>
+      <view class='class_numbers'>
+        <image src='/img/icon_1.png' mode='widthFix'></image>
+        <text style='font-size:24rpx;'>发表于{{item.inforDate}}</text>
+      </view>
+  </view>
+  <!--循环到此结束-->
 </view>

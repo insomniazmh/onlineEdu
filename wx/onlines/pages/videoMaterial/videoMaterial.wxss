@@ -1,0 +1,28 @@
+/* .headVideo{
+} */
+.headVideo video{
+  width: 100%;
+  height: 450rpx;
+}
+.content{
+  padding: 35rpx 0 0 50rpx;
+}
+.contetTitle{
+  font-size: 33rpx;
+}
+.contentImg{
+  display: flex;
+}
+.contentImg image{
+  position: relative;
+}
+.contentImg image:nth-child(1){
+  height: 46rpx;
+  margin-top: 3rpx;
+  display: block;
+  width: 50rpx;
+}
+.contentImg image:nth-child(2){
+  height: 50rpx;
+  width: 50rpx;
+}
