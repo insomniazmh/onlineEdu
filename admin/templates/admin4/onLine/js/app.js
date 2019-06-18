@@ -661,7 +661,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
   //  通知公告
     .state('notice', {
       url: "/notice.html",
-      templateUrl: "views/notice/notice.html",     
+      templateUrl: "views/notice.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({

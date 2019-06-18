@@ -1,14 +1,14 @@
 var common = {
 	
 	//正式服
-	url: 'https://e.hnfts.cn/education',
-	url2: 'https://e.hnfts.cn/quiz',
-	uploadUrl: 'https://e.hnfts.cn/upload/upload',
+//	url: 'https://e.hnfts.cn/education',
+//	url2: 'https://e.hnfts.cn/quiz',
+//	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
 	//测试服
-//	url: 'http://192.168.10.2:8080',
-//	url2: 'http://192.168.10.2:8081',
-//	uploadUrl: 'http://192.168.10.2:8612/upload',
+	url: 'http://192.168.10.2:8080',
+	url2: 'http://192.168.10.2:8081',
+	uploadUrl: 'http://192.168.10.2:8612/upload',
 
 	pageSize: 10,
 
@@ -80,7 +80,7 @@ var common = {
 			url: postUrl,
 			data: settings.data,
 		}).then(function successCallback(response) {
-			console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
+//			console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
 			var data = response.data;
 			if(data.ret == 0) {
 				if(settings.operate) {
