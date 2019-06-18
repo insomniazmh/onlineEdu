@@ -15,16 +15,19 @@
   display: flex;
   margin-bottom: 60rpx;
 }
-.leftImg .portLeft{
+.portLeft{
   width: 180rpx;
-  height: 155rpx;
+  height: 170rpx;
+  border-radius:50%
 }
 .comment{
   margin-left: 60rpx;
-  margin-top: 40rpx;
+  margin-top: 20rpx;
 }
 .comment:nth-child(2){
-  font-size: 50rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+  color:lightsalmon
 }
 .comment view>text{
   font-size: 30rpx;
@@ -32,8 +35,8 @@
   margin-top: 15rpx;
 }
 .contentList{
-  display: flex;
-  padding-left: 50rpx;
+  padding: 0 0 0 50rpx;
+  width: 100%;
 }
 .good{
   margin-left: 120rpx;
@@ -44,15 +47,17 @@
   height: 37rpx;
 }
 .listBtn{
-  margin-right: 65rpx;
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 90rpx;
+  float: left;
+  margin-bottom: 90rpx;
 }
 .listBtn image{
   width: 100rpx;
   height:100rpx;
-  display: flex;
 }
-.listBtn text{
-  font-size: 25rpx;
-  display: block;
+.listBtn view{
+  font-size: 28rpx;
   width: 125rpx;
 }

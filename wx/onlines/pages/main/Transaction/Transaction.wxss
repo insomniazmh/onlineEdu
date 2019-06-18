@@ -18,3 +18,33 @@
   margin-top: 140rpx;
   margin-left: 250rpx;
 }
+.btn-lw{
+  margin-top: 50rpx;
+}
+.page__bd{
+  font-size: 35rpx;
+  font-weight: bold;
+  text-align: center;
+}
+.btnFst{
+  margin-right: 10rpx;
+}
+.section{
+    margin-bottom: 80rpx;
+}
+.section__title{
+    margin-bottom: 16rpx;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+}
+.picker{
+  padding: 26rpx;
+  background-color: #dbf2ff;
+}
+.rule {
+  position:fixed;
+  width:100%;
+  background:#0aa1ed;
+  color:#f1f1f1;
+  bottom:0;
+}

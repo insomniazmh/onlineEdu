@@ -1,10 +1,5 @@
-
-.headerText{
-  background: #dcdcdc;
-  padding: 50rpx;
-}
-.headerText text{
-  margin-top: 50rpx;
+.headerText image{
+  height: 450rpx;
 }
 .pageContent{
   margin-top: 50rpx;

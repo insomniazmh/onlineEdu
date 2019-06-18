@@ -1,0 +1,124 @@
+/* pages/cs/cs.wxss */
+.herder{
+  width: 100%;
+  height: 300rpx;
+  background: #0aeded;
+  padding-top: 20rpx;
+  box-sizing: border-box;
+  position: relative
+}
+.herder-body{
+  width: 30%;
+  margin: 0 auto;
+  text-align: center;
+}
+.herder-body-bg{
+  font-size: 70rpx;
+  color: #fff;
+  font-weight: 600;
+}
+.herder-body-sm{
+  font-size: 30rpx;
+  width: 150rpx;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  background: #0f0;
+  color: #fff;
+  border-radius: 4rpx;
+  margin: 0 auto
+}
+.herder-body-right{
+ position:absolute;
+right:0;
+top:34rpx;
+border-top-left-radius:50rpx;
+border-bottom-left-radius:50rpx;
+background:#0f0;
+color:#fff;
+width:190rpx;
+height:60rpx;
+line-height:60rpx;
+font-size:30rpx;
+text-align:center;
+
+}
+.herder-banner{
+  width: 90%;
+  background: #fff;
+  height: 100rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  color: #0aa1ed;
+  text-align: center;
+  line-height: 100rpx;
+  position: absolute;
+  bottom: -50rpx;
+  left: 4.5%;
+  box-shadow: 1rpx -1rpx 20rpx 6rpx #ddd;
+}
+.body-box{
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  margin-top: 72rpx;
+}
+.body-herder{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #ddd;
+  padding-bottom: 35rpx;
+}
+.body-herder-left{
+  border-left: 10rpx solid red;
+  padding-left: 10rpx;
+  font-weight: 600;
+}
+.body-herder-right{
+  font-size: 26rpx;
+}
+.body-herder-right>text{
+  font-size: 38rpx;
+  color: red;
+}
+.body-herder-right>text.sm{
+   font-size: 26rpx;
+}
+.body-item{
+  margin-top: 30rpx;
+  border-bottom: 1rpx solid #ddd;
+  padding-bottom: 20rpx;
+}
+.body-item-flex{
+  display: flex;
+  justify-content: space-between;
+  height: 40rpx;
+  align-items: baseline;
+}
+.text1{
+  font-size: 26rpx;
+  color: #0aa1ed;
+}
+.btn1{
+  background: #ddd;
+  width:120rpx;
+  border-radius:40rpx;
+  height: 50rpx;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+.mg-top{
+  margin-top: 10rpx;
+  height:40rpx;
+  line-height: 40rpx;
+}
+.mg-top>view{
+  width: 100rpx;
+  height: 20rpx;
+  border-radius: 50rpx;
+  background: red;
+  display: inline-block;
+  margin-right: 6rpx;
+}

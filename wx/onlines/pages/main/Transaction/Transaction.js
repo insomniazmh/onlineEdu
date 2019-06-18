@@ -5,12 +5,75 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activeName: '0'
+    activeName: '0',
+    objectArray1: [],//章
+    objectArray2: [],//节
+    objectArray3: [],//小节
+    index1: 0,
+    index2: 0,
+    index3: 0
   },
   onChange(event) {
     this.setData({
       activeName: event.detail
     });
+  },
+  loadObjectArray2: function (index) {
+    var objectArray2 = [];
+    for (let i = 0; i < this.data.chapterList.length; i++) {
+      if (this.data.chapterList[i].parent == this.data.objectArray1[index].id) {
+        objectArray2.push(this.data.chapterList[i]);
+      }
+    }
+    this.setData({
+      index2: 0,
+      objectArray2: objectArray2
+    })
+    if (objectArray2.length > 0) {
+      this.loadObjectArray3(0);
+    } else {
+      this.setData({
+        index2: 0,
+        objectArray3: []
+      })
+    }
+
+  },
+
+  //拼装小节方法
+  loadObjectArray3: function (index) {
+    var objectArray3 = [];
+    for (let i = 0; i < this.data.chapterList.length; i++) {
+      if (this.data.chapterList[i].parent == this.data.objectArray2[index].id) {
+        objectArray3.push(this.data.chapterList[i]);
+      }
+    }
+    this.setData({
+      index3: 0,
+      objectArray3: objectArray3
+    });
+
+  },
+
+  //选择章事件
+  bindPickerChange1: function (e) {
+    this.setData({
+      index1: e.detail.value
+    })
+    this.loadObjectArray2(e.detail.value);
+  },
+  //选择节事件
+  bindPickerChange2: function (e) {
+    this.setData({
+      index2: e.detail.value
+    });
+    this.loadObjectArray3(e.detail.value);
+  },
+  //选择小节事件
+  bindPickerChange3: function (e) {
+    this.setData({
+      index3: e.detail.value
+    })
   },
 
   /**

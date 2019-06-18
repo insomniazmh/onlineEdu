@@ -1,0 +1,27 @@
+<!--pages/cs/cs.wxml-->
+<view class='herder'>
+  <view class='herder-body'>
+    <view  class='herder-body-bg'>3</view>
+    <view class='herder-body-sm'>去兑换</view>
+  </view>
+  <view class='herder-body-right'>积分说明></view>
+  <view class='herder-banner'>积分试行期间,积分负责将会适时调整,带来不便敬请谅解</view>
+</view>
+
+<view wx:for="{{contentList}}" class='body-box'>
+  <view class='body-herder'>
+    <view class='body-herder-left'>积分规则</view>
+    <view class='body-herder-right'>今日累计
+      <text>{{item.totalNumber}}</text>
+      <text class='sm'>积分</text>
+    </view>
+  </view>
+  <view class='body-item'>
+      <view>登陆</view>
+      <view class='body-item-flex'>
+        <view class='text1'>{{item.number}}分、每日首次登陆</view>
+        <view class='btn1'>已完成</view>
+      </view>
+      <view class='text1 mg-top'><view></view>以获取{{item.numbers}}分/上限{{item.numbers}}分</view>
+  </view>
+</view>

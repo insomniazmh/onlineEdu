@@ -1,6 +1,4 @@
-/* pages/main/Transaction/Transaction.wxss */
-/* .tsatHeader{
-} */
+
 .title-head{
   font-size:55rpx;
   font-weight:blod;
@@ -8,7 +6,14 @@
   text-align: center;
 }
 .paperTitle{
-  padding-left: 29rpx;
+  font-size: 32rpx;
+  margin-top: 50rpx;
+  width: 500rpx;
+  margin-left: 17%;
+}
+.paperTitle input{
+  border-bottom: 1px solid #0aa1ed;
+  padding-left: 20rpx;
 }
 .tsat{
   top: 100rpx;
@@ -34,12 +39,6 @@
   width: 150rpx;
   margin-top: 30rpx;
   margin-left: 30rpx;
-}
-.foterBtn{
-  width: 250rpx;
-  bottom: 140rpx;
-  left: 250rpx;
-  position: absolute;
 }
 .clm_child{
   width:130rpx;
@@ -89,4 +88,34 @@
   float: left;
   margin-left: -62rpx;
   margin-top: 15rpx;
+}
+.btn-lw{
+  margin-top: 50rpx;
+}
+.page__bd{
+  font-size: 35rpx;
+  font-weight: bold;
+  text-align: center;
+}
+.btnFst{
+  margin-right: 10rpx;
+}
+.section{
+    margin-bottom: 80rpx;
+}
+.section__title{
+    margin-bottom: 16rpx;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+}
+.picker{
+  padding: 26rpx;
+  background-color: #dbf2ff;
+}
+.rule {
+  position:fixed;
+  width:100%;
+  background:#0aa1ed;
+  color:#f1f1f1;
+  bottom:0;
 }
