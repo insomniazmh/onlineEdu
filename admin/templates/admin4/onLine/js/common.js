@@ -151,5 +151,56 @@ var common = {
 		});
 		return settings.questionArr;
 	},
+	
+	//上传文件
+	fileUpload: function(settings) {
+		// 初始化Web Uploader
+		var uploader = WebUploader.create({
+			// 选完文件后，是否自动上传。
+			auto: true,
+			// swf文件路径
+			swf: '/js/Uploader.swf',
+			// 文件接收服务端。
+			server: common.uploadUrl,
+			// 选择文件的按钮。可选。
+			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+			pick: '#' + settings.id
+		});
+
+		uploader.on('uploadBeforeSend', function(block, data, headers) {
+			if(settings.beforeSend) {
+				var result = settings.beforeSend();
+				if(!result.continue) {
+					common.toast({
+						title: result.title,
+						type: 2
+					});
+					uploader.stop(true);
+				}
+			} else {
+				Metronic.blockUI({
+					boxed: true,
+					message: "上传中，请耐心等待..."
+				});
+			}
+
+		})
+
+		uploader.on('uploadSuccess', function(file, response) {
+			Metronic.unblockUI();
+			//			common.toast({
+			//				title: "上传成功",
+			//			});
+			settings.success(file, response, uploader);
+		});
+
+		uploader.on('uploadError', function(file) {
+			Metronic.unblockUI();
+			common.toast({
+				title: "上传失败",
+				type: 2
+			});
+		});
+	},
 
 }

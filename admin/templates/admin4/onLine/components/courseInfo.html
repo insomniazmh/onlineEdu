@@ -132,8 +132,7 @@
 			      	$scope.$apply(function() {
 			      		$scope.course.courseNumber = ui.item.value;
 			      		$scope.course.courseName = ui.item.label;
-			      	})
-			        
+			      	});
 			        return false;
 			      }
 					});
@@ -172,7 +171,6 @@
 						//备课类型
 						$("input[name='beikeType'][value=" + $scope.course.lessonPreparationType + "]").attr("checked", "checked");
 						if ($scope.course.lessonPreparationType == "2") {
-							$("#multipleContent").show();
 							//请求分享教师的接口
 							common.ajax({
 								$scope: $scope,
@@ -346,17 +344,5 @@
 				});
 			}
 		});
-
-		//集体备课
-		$('#my_multi_select1').multiSelect();
-		$('input:radio[name="beikeType"]').change(function() {
-			console.log($(this).val());
-			if ($(this).val() == 2) {
-				$("#multipleContent").show();
-			} else {
-				$("#multipleContent").hide();
-			}
-		});
-
 	}
 </script>
