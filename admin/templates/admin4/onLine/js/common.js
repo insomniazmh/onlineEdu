@@ -80,7 +80,7 @@ var common = {
 			url: postUrl,
 			data: settings.data,
 		}).then(function successCallback(response) {
-			console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
+//			console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
 			var data = response.data;
 			if(data.ret == 0) {
 				if(settings.operate) {

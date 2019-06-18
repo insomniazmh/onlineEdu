@@ -141,17 +141,10 @@
 															</div>
 															<div class="cont-col2">
 																<div class="desc">
-																	<a href="{{jiaoan.fileUrl}}" target="_blank">{{jiaoan.fileName}}</a>
-																	<span id="filePickerJiaoan" class="filePicker"> 上传课件 </span>
-																	<div style="display: inline;position: absolute;" class="dropdown">
-																		<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-																			已有课件（<span style="color: red;">{{jiaoanCount}}</span>）
-																		</span>
-																		<ul class="dropdown-menu" style="margin-top: 30px;">
-																			<li ng-repeat="row in jiaoanList">
-																				<a ng-href="{{row.fileUrl}}" target="_blank"> {{row.fileName}} </a>
-																			</li>
-																		</ul>
+																	
+																	<span id="filePickerKejian" class="filePicker"> 上传课件 </span>
+																	<div style="display: inline;margin-left: 20px;position: absolute;">
+																			已有课件 <a href="{{kejian.fileUrl}}" target="_blank">{{kejian.fileName}}</a>
 																	</div>
 						
 																</div>
@@ -160,61 +153,6 @@
 													</div>
 												</li>
 											</ul>
-											<!--<ul class="feeds" style="width: 48%; display: inline-block;">
-												<li>
-													<div class="col1">
-														<div class="cont">
-															<div class="cont-col1">
-																<div class="label label-sm label-info">
-																	<i class="fa fa-bullhorn"></i>
-																</div>
-															</div>
-															<div class="cont-col2">
-																<div class="desc">
-																	<div id="kejianContent" style="display: inline-block;"></div>
-																	<span class="label label-danger label-sm" data-toggle="modal" href="#uploadKejianModal">
-																		上传课件
-																	</span>
-																	<div style="display: inline;position: absolute;" class="dropdown">
-																		<span class="exist dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-																			文档（<span style="color: red;">{{PPTKejianCount}}</span>）
-																		</span>
-																		<ul class="dropdown-menu" style="margin-top: 30px;">
-																			<li ng-repeat="row in PPTKejianList">
-																				<a ng-href="{{row.fileUrl}}" target="_blank"> {{row.fileName}} </a>
-																			</li>
-																		</ul>
-																	</div>
-																	<div style="display: inline;position: absolute;" class="dropdown">
-																		<span class="exist dropdown-toggle" style="margin-left: 100px;" data-toggle="dropdown" data-hover="dropdown"
-																		 data-close-others="true">
-																			图集（<span style="color: red;">{{picsKejianCount}}</span>）
-																		</span>
-																		<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 120px;">
-																			<li ng-repeat="row in picsKejianList">
-																				<a ng-click="previewPics(row.id)"> {{row.fileName}} </a>
-																			</li>
-																		</ul>
-																	</div>
-						
-																	<div style="display: inline;position: absolute;" class="dropdown">
-																		<span class="exist dropdown-toggle" style="margin-left: 180px;" data-toggle="dropdown" data-hover="dropdown"
-																		 data-close-others="true">
-																			视频（<span style="color: red;">{{videoKejianCount}}</span>）
-																		</span>
-																		<ul class="dropdown-menu" style="margin-top: 30px;margin-left: 200px;">
-																			<li ng-repeat="row in videoKejianList">
-																				<a ng-href="{{row.fileUrl}}" target="_blank"> {{row.fileName}} </a>
-																			</li>
-																		</ul>
-																	</div>
-						
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-											</ul>-->
 										</div>
 									</div>
 								</div>
@@ -292,10 +230,10 @@
 </div>
 <!-- END MAIN CONTENT -->
 
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
 	function editCourseCtrl($scope, $http, $rootScope) {		
-		$scope.videoKejianList = []; //视频课件列表
-		$scope.videoKejianCount = 0;//初始化视频课件数量
+		$scope.kejian = {}; //视频课件
 
 		/*
 		 * 根据章节id加载章节教案、课件或已挂载的资料
@@ -323,9 +261,10 @@
 				url: '/courseware/getImpCourseware',
 				data: postData,
 				success: function(data) {
+					console.log(data);
 					if(data.data) {//如果有数据
-						$scope.videoKejianCount = data.data.fileCount;
-						$scope.videoKejianList = data.data.files;
+						$scope.kejian = data.data.files[0];
+						console.log($scope.kejian);
 					}
 				}
 			});
@@ -335,34 +274,50 @@
 		$scope.$on('currentNode', function(d, data) {
 			$scope.initData();
 		});
-
-		//上传课件回调
-		$scope.$on('kejian', function(d, data) {
-			if (!localStorage.getItem('currentNodeId')) {
-				common.toast({
-					title: "请先选择章节",
-					type: 2
+		
+		//上传教案
+		common.fileUpload({
+			id: 'filePickerKejian',
+			beforeSend: function() {
+				console.log(localStorage.getItem('currentNodeId'));
+				var rtn = {
+					continue: true
+				}
+				if (!localStorage.getItem('currentNodeId')) {
+					rtn = {
+						continue: false,
+						title: "请先选择章节"
+					}
+				}
+				return rtn;
+			},
+			
+			
+			
+			success: function(file, response) {
+				var postData = {
+					courseId: localStorage.getItem('courseId'),
+					chapterId: localStorage.getItem('currentNodeId'),
+					importantType: "2",
+					datumType: "3",
+					files: [response]
+				};
+				
+				$scope.$apply(function() {
+					common.ajax({
+						$scope: $scope,
+						$http: $http,
+						operate: true,
+						url: '/courseware/savefile',
+						data: postData,
+						success: function(data) {
+							
+							$scope.kejian = data.data.files[0];
+							console.log($scope.kejian);
+						}
+					});
 				});
 			}
-			var postData = {
-				courseId: localStorage.getItem('courseId'),
-				chapterId: localStorage.getItem('currentNodeId'),
-				importantType: "2",
-				datumType: "3",
-				files: data.content
-			}
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				operate: true,
-				url: '/courseware/savefile',
-				data: postData,
-				success: function(res) {
-					console.log(res);
-					$scope.videoKejianCount = res.data.fileCount;
-					$scope.videoKejianList = res.data.files;
-				}
-			});
 		});
 
 		//加载所有挂接的题目type: 1提问   2练习   3作业  4任务  5问卷  6头脑风暴
