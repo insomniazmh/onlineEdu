@@ -1,22 +1,19 @@
-// pages/main/main.js
+// pages/cs/cs.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    myContent: [
+    contentList:[
       {
-        contentName: "李萌",
-        contentTuition: "学费已交",
+        totalNumber:"1",
+        number:"1",
+        numbers:"1"
       }
     ]
   },
-  jumpTransaction: function (e) {
-    wx.navigateTo({
-      url: e.currentTarget.dataset.url
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

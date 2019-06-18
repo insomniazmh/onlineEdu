@@ -8,6 +8,7 @@
     "pages/examination/examination",
     "pages/discuss/discuss/discuss",
     "pages/main/Transaction/Transaction",
+    "pages/main/integral/integral",
     "pages/main/paper/paper"
   ],
   "window": {

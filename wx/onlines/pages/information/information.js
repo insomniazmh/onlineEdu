@@ -17,17 +17,17 @@ Page({
     duration: 500,
     courseList: [
       {
-        courseDescribe: "",
+        courseDescribe: "商务英语是以适应职场生活的语言要求为目的，内容涉及到商务活动的方方面面",
         courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
         courseName: "新编商务英语",
         courseDate:"2019-6-11",
         teacherId: "dongbo",
         teacherName: "董波",
         joinChapterName: "第一讲:商务英语的由来",
-        topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
+        topPicSrc: "/img/swyy.jpg"
       },
       {
-        courseDescribe: "",
+        courseDescribe: "主要从电子商务所涉及的基本知识和实际应用两个方面介绍了电子商务的理论和实务，重点突出了应用环节的设计，旨在通过理论与技术的有机结合",
         courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
         courseName: "电子商务基础与应用",
         courseDate: "2019-6-11",
@@ -37,7 +37,7 @@ Page({
         topPicSrc: "/img/zbook.png"
       },
       {
-        courseDescribe: "",
+        courseDescribe: "本书介绍了计算机发展历史、操作界面等基本知识和常规操作方法",
         courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
         courseName: "计算机基础教程",
         courseDate: "2019-6-11",

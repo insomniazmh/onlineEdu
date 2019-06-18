@@ -1,6 +1,5 @@
 {
   "usingComponents": {
-    "van-collapse": "/dist/collapse/index",
-    "van-collapse-item": "/dist/collapse-item/index"
+    "van-button": "/dist/button/index"
   }
 }

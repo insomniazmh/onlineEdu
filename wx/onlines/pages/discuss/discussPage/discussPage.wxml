@@ -1,7 +1,6 @@
 <view class='pageHeader'>
   <view class='headerText'>
-      年有季节，春夏秋冬；日有季节，黑白交替；生命也该有季节，那是生老病死。
-      不英俊，30岁不强壮，40岁不富有，50岁不睿智，那么他这辈子就别想英俊、强壮、富有和睿智了。”这是西方人
+      <image src='/img/news/list1.png'></image>
   </view>
 </view>
 <view class='pageContent'>
