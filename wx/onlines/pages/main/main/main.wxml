@@ -24,15 +24,11 @@
     <view>我的讨论</view>
   </view>
   <view class='listBtn'>
-    <image src='/img/z13.png' bindtap='jumpTransaction' data-url='/pages/main/Transaction/Transaction'></image>
+    <image src='/img/z13.png' bindtap='jumpTransaction' data-url='/pages/main/TransactionAdd/TransactionAdd'></image>
     <view>我的异动</view>
   </view>
   <view class='listBtn'>
     <image src='/img/z14.png' disabled='true' bindtap=''></image>
     <view>毕业资料</view>
-  </view>
-  <view class='listBtn'>
-    <image src='/img/z13.png' bindtap='jumpTransaction' data-url='/pages/main/integral/integral'></image>
-    <view>学习积分</view>
   </view>
 </view>

@@ -9,7 +9,9 @@
     "pages/discuss/discuss/discuss",
     "pages/main/Transaction/Transaction",
     "pages/main/integral/integral",
-    "pages/main/paper/paper"
+    "pages/main/paper/paper",
+    "pages/main/TransactionAdd/TransactionAdd",
+    "pages/videoMaterial/videoMaterial"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,6 +29,12 @@
         "iconPath": "/img/icon/index.png",
         "pagePath": "pages/index/index",
         "text": "首页"
+      },
+      {
+        "selectedIconPath": "/img/icon/integralActive.png",
+        "iconPath": "/img/icon/integral.png",
+        "pagePath": "pages/main/integral/integral",
+        "text": "积分"
       },
       {
         "selectedIconPath": "/img/icon/myActive.png",

@@ -1,0 +1,17 @@
+<view class='headVideo'>
+  <video src=''></video>
+  <view>
+    <van-tabs active="{{ active }}" bind:click="changeContent">
+      <van-tab title="详情"></van-tab>
+      <van-tab title="目录"></van-tab>
+      <van-tab title="作业"></van-tab>
+    </van-tabs>
+  </view>
+  <view class='content'>
+    <view class='contetTitle'>高中语文深度进阶诗词专题</view>
+    <view class='contentImg'>
+      <image src='/img/icon/Collection.png'></image>
+      <image src='/img/icon/share.png'></image>
+    </view>
+  </view>
+</view>

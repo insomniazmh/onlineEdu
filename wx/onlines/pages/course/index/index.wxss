@@ -93,8 +93,8 @@
 }
 .progress{
   margin-left: 70rpx;
-  line-height: 1.9;
-  color: gold;
+  width: 100%;
+  margin-top: 43rpx;
 }
 .text-badge {
   font-size:29rpx;
@@ -102,6 +102,7 @@
   padding: 10rpx;
   background-color: lightblue;
   border-radius: 30rpx;
+  width: 141rpx;
 }
 .class_number{
   position:absolute;
