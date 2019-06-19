@@ -2,53 +2,60 @@
 <div role="form" ng-controller="basicCtrl">
 	<div class="form-body">
 		<div class="row" style="margin-bottom: 40px;">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group form-md-line-input">
 					<input id="courseName" type="text" class="form-control" ng-model="course.courseName" placeholder="请输入课程名称">
 					<label for="form_control_1">名称</label>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group form-md-line-input has-success">
-					<input id="courseNumber" type="text" class="form-control" ng-model="course.courseNumber" placeholder="请输入课程编号" readonly="readonly">
-					<label for="form_control_2">编号</label>
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.alias" placeholder="请输入课程别名（如第一册/第一学期/上册等）">
+					<label for="form_control_2">别名</label>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group form-md-line-input has-success">
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.alias" placeholder="请输入课程所占学分">
+					<label for="form_control_2">学分</label>
 				</div>
 			</div>
 		</div>
 		<div class="row" style="margin-bottom: 40px;">
-			<div class="col-md-6">
-				<div class="form-group form-md-checkboxes" style="margin-bottom: 40px;">
-					<label>授课类型</label>
-					<div class="md-checkbox-inline">
-						<div class="md-checkbox">
-							<input type="checkbox" id="lessonType1" class="md-check" name="lessonType" value="1">
-							<label for="lessonType1">
+			<div class="col-md-4">
+				<div class="form-group form-md-checkboxes">
+					<label>课程类别</label>
+					<div class="md-radio-inline">
+						<div class="md-radio">
+							<input type="radio" id="lessonType1" name="lessonType" class="md-radiobtn" value="1" checked="">
+							<label for="lessonType2">
 								<span></span>
 								<span class="check"></span>
 								<span class="box"></span>
-								录播课程 </label>
+								公共基础课 </label>
 						</div>
-						<div class="md-checkbox">
-							<input type="checkbox" id="lessonType3" class="md-check" name="lessonType" value="3" checked="">
+						<div class="md-radio">
+							<input type="radio" id="lessonType2" name="lessonType" class="md-radiobtn" value="2">
+							<label for="lessonType2">
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								实训课 </label>
+						</div>
+						<div class="md-radio">
+							<input type="radio" id="lessonType3" name="lessonType" class="md-radiobtn" value="3">
 							<label for="lessonType3">
 								<span></span>
 								<span class="check"></span>
 								<span class="box"></span>
-								线下课堂 </label>
+								专业 </label>
 						</div>
 					</div>
 				</div>
-				<div class="form-group form-md-checkboxes">
-					<label>封面图片</label>
-					<a href="javascript:;" class="thumbnail" style="width: 160px;">
-						<img src="{{course.topPicSrc}}" alt="100%x180" style="height: 180px; width: 100%; display: block;">
-					</a>
-					<div id="topPicSrc" class="filePicker">选择文件</div>
-				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group form-md-checkboxes">
-					<label>备课类型</label>
+					<label>是否必修</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
 							<input type="radio" id="beikeType1" name="beikeType" class="md-radiobtn" value="1" checked="">
@@ -56,7 +63,7 @@
 								<span></span>
 								<span class="check"></span>
 								<span class="box"></span>
-								单人备课 </label>
+								是 </label>
 						</div>
 						<div class="md-radio">
 							<input type="radio" id="beikeType2" name="beikeType" class="md-radiobtn" value="2">
@@ -64,23 +71,21 @@
 								<span></span>
 								<span class="check"></span>
 								<span class="box"></span>
-								集体备课 </label>
+								否 </label>
 						</div>
 					</div>
 				</div>
-				<div style="width: 100%; height: 170px;display: none;" id="multipleContent">
-					<select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
-						<option value="101">胡珊珊</option>
-						<option value="102">张燕</option>
-						<option value="103">李康</option>
-						<option value="104">申琪</option>
-						<option value="105">赵红</option>
-						<option value="106">王艳丽</option>
-						<option value="107">梁伟</option>
-						<option value="108">侯卓媛</option>
-						<option value="109">马聪颖</option>
-						<option value="110">韩涵</option>
-					</select>
+			</div>
+			
+		</div>
+		<div class="row" style="margin-bottom: 40px;">
+			<div class="col-md-12">
+				<div class="form-group form-md-checkboxes">
+					<label>封面图片</label>
+					<a href="javascript:;" class="thumbnail" style="width: 160px;">
+						<img src="{{course.topPicSrc}}" alt="100%x180" style="height: 180px; width: 100%; display: block;">
+					</a>
+					<div id="topPicSrc" class="filePicker">选择文件</div>
 				</div>
 			</div>
 		</div>

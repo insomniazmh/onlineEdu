@@ -57,11 +57,11 @@
 						
 						<div class="col-md-12">
 							<div class="col-md-1">
-								<label class="label-text">专业</label>
+								<label class="label-text">学习中心</label>
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in majorList" ng-click="activeColor(item)">
+									<li ng-repeat="item in center" ng-click="activeColor(item)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -70,11 +70,11 @@
 						
 						<div class="col-md-12">
 							<div class="col-md-1">
-								<label class="label-text">学习中心</label>
+								<label class="label-text">专业</label>
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in center" ng-click="activeColor(item)">
+									<li ng-repeat="item in majorList" ng-click="activeColor(item)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>

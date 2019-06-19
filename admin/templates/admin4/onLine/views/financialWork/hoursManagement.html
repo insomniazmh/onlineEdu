@@ -68,7 +68,7 @@
 				<table style="margin-bottom: 20px;" class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>操作</th>
+							
 							<th>学习中心</th>
 							<th>年份</th>
 							<th>月份</th>
@@ -77,17 +77,11 @@
 							<th>课时费</th>
 							<th>结算状态</th>
 							<th>结算课时费</th>
+							<th>结算</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr class="odd gradeX" ng-repeat='item in data' ng-click='flowHistory(item)' style="cursor: pointer;">
-							<td style="min-width: 150px;">
-								<button ng-if='!settlement && !item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">结算</button>
-								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
-								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
-								<button ng-if='settlement' class="btn btn-sm red" ng-click="settlementFun()"> 继续结算 </button>
-								<button ng-if='settlement' class="btn btn-info btn-sm" ng-click="settlementHistory()">结算明细</button>
-							</td>
 							<td>{{currCenter}}</td>
 							<td>{{currYear}}</td>
 							<td>{{item.month}}</td>
@@ -96,8 +90,14 @@
 							<td>{{item.hours*item.stand}}</td>
 							<td>{{settlement ? '已结算' : '未结算'}}</td>
 							<td>
-								<span ng-show='!item.edit'>{{settlement ? '800' : '0'}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.stand" />								
+								{{settlement ? '800' : '0'}}		
+							</td>
+							<td style="min-width: 150px;">
+								<button ng-if='!settlement && !item.edit' class="btn btn-info btn-sm" ng-click="settlementFun()">结算</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
+								<button ng-if='settlement' class="btn btn-sm red" ng-click="settlementFun()"> 继续结算 </button>
+								<button ng-if='settlement' class="btn btn-info btn-sm" ng-click="settlementHistory()">结算明细</button>
 							</td>
 						</tr>
 					</tbody>

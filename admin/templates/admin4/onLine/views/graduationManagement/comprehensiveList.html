@@ -131,7 +131,6 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>详情</th>
 							<th>学号</th>
 							<th>姓名</th>
 							<th>层次</th>
@@ -142,10 +141,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="item in studentInfo" class="odd gradeX">
-							<td>
-								<button class="btn btn-info btn-sm success" ng-click="detail()">详情</button>
-							</td>
+						<tr ng-repeat="item in studentInfo" class="odd gradeX" ng-click="detail()" style="cursor: pointer;">
 							<td>{{item.studentId}}</td>
 							<td>{{item.name}}</td>
 							<td>{{item.hierarchy}}</td>
