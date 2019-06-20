@@ -48,7 +48,7 @@ text-align:center;
   background: #fff;
   height: 100rpx;
   border-radius: 10rpx;
-  font-size: 28rpx;
+  font-size: 32rpx;
   color: #0aa1ed;
   text-align: center;
   line-height: 100rpx;

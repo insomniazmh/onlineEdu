@@ -1,64 +1,27 @@
 <view class='contentList'>
-  <view bindtap='jumpTransaction' 
-        data-url="/pages/discuss/discussPage/discussPage" 
-        class='listItem1 mg-botm'>
-    <view>
-      <view style='disply:flex;'>
-        <image class='leftImage' src='/img/floor/up1.png'></image>
-        <text class='tleText'>Super invincible 菁 </text>
-      </view> 
-      <view class='floatRigt'>
-        <text>新鲜事</text>
-        <view class='rightBord'></view>
+        <view bindtap='jumpTransaction' 
+              data-url="/pages/discuss/discussPage/discussPage" 
+              class='listItem1 mg-botm'
+              wx:for="{{listContent}}"
+              wx:key="listCon">
+          <view>
+            <view style='disply:flex;'>
+              <image class='leftImage' src='{{item.headPortrait}}'></image>
+              <text class='tleText'>{{item.titleName}}</text>
+            </view> 
+            <view class='floatRigt'>
+              发表于:{{item.publishDate}}
+            </view>
+          </view>
+          <view class='dspyflex'>
+            <view>
+              <text class='newsTitle'>{{item.textTitle}}</text>
+              <view class='contentNews'>{{item.textContent}}</view>
+            </view>
+            <image class='rightNews' src='{{item.imgDetail}}'></image>
+          </view>
+        </view>
       </view>
-    </view>
-    <view class='dspyflex'>
-      <view class='s'>
-        <text class='newsTitle'>十一长假哪也不去，宅在家里看电影！</text>
-        <view class='contentNews'>每逢长假，总有那么一群人选择远离人山人海，静静地呆在家，坐在电脑电视前。长时间的工作学习让他们感觉很疲惫，对什么都提不起劲，打开电脑却不知道干什么好…</view>
-      </view>
-      <image class='rightNews' src='/img/news/list1.png'></image>
-    </view>
-  </view>
-  <view class='listItem1 mg-botm'>
-    <view>
-      <view style='disply:flex;'>
-        <image class='leftImage' src='/img/floor/up1.png'></image>
-        <text class='tleText'>Super invincible 菁 </text>
-      </view> 
-      <view class='floatRigt'>
-        <text>新鲜事</text>
-        <view class='rightBord'></view>
-      </view>
-    </view>
-    <view class='dspyflex'>
-      <view class='s'>
-        <text class='newsTitle'>十一长假哪也不去，宅在家里看电影！</text>
-        <view class='contentNews'>每逢长假，总有那么一群人选择远离人山人海，静静地呆在家，坐在电脑电视前。长时间的工作学习让他们感觉很疲惫，对什么都提不起劲，打开电脑却不知道干什么好…</view>
-      </view>
-      <image class='rightNews' src='/img/news/list1.png'></image>
-    </view>
-  </view>
-  <view class='listItem1 mg-botm'>
-    <view>
-      <view style='disply:flex;'>
-        <image class='leftImage' src='/img/floor/up1.png'></image>
-        <text class='tleText'>Super invincible 菁 </text>
-      </view> 
-      <view class='floatRigt'>
-        <text>新鲜事</text>
-        <view class='rightBord'></view>
-      </view>
-    </view>
-    <view class='dspyflex'>
-      <view class='s'>
-        <text class='newsTitle'>十一长假哪也不去，宅在家里看电影！</text>
-        <view class='contentNews'>每逢长假，总有那么一群人选择远离人山人海，静静地呆在家，坐在电脑电视前。长时间的工作学习让他们感觉很疲惫，对什么都提不起劲，打开电脑却不知道干什么好…</view>
-      </view>
-      <image class='rightNews' src='/img/news/list1.png'></image>
-    </view>
-  </view>
-</view>
 <view class='foterBtn'>
   <van-button type='info' 
               size="large" 

@@ -23,3 +23,4 @@
 .class_numbers text{font-size:30rpx;color:#579615;display:block;float:left;line-height: 35rpx;}
 .class_number image{width:35rpx;display:block;float:left;margin-right:10rpx;}
 .class_number text{font-size:30rpx;color:#579615;display:block;float:left;line-height: 35rpx;}
+.notice{padding: 100rpx;color:#F00000;text-align: center;font-size: 60rpx;}

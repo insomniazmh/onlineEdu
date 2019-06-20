@@ -1,17 +1,66 @@
 <view class='headVideo'>
-  <video src=''></video>
+  <video poster='/img/banner/header.png' 
+         src="blob:https://www.bilibili.com/ec78544f-6978-47d3-ba3d-0a21dc15cbe7"></video>
   <view>
     <van-tabs active="{{ active }}" bind:click="changeContent">
-      <van-tab title="详情"></van-tab>
-      <van-tab title="目录"></van-tab>
-      <van-tab title="作业"></van-tab>
+      <van-tab title="详情">
+        <view wx:for="{{curriculum}}" wx:key="curriculum" class='content'>
+          <view class='contetTitle'>{{item.headText}}</view>
+          <view class='contentImg'>
+            <image src='/img/icon/Collection.png'></image>
+            <image src='/img/icon/share.png'></image>
+          </view>
+          <view class='line'></view>
+          <view class='contentItem'>
+            <view class='leftTitle'>课程简介</view>
+            <view class='itemContent'>{{item.chapter}}</view>
+          </view>
+          <view class='contentItem'>
+            <view class='leftTitle'>授课老师</view>
+            <view class='centImg'>
+              <image src='/img/floor/a3.png'></image>
+              <view class='imgName'>张婷</view>
+            </view>
+          </view>
+        </view>
+        
+      </van-tab>
+      <van-tab title="目录">
+        <van-collapse  wx:for="{{collapseList}}" 
+                      value="{{ activeNames }}" 
+                      bind:change="onChange" 
+                      wx:key='colapse'>
+          <van-collapse-item title="{{item.colpseTitle}}" name="1">
+            <van-collapse-item title="{{item.colpseMtitle}}" name="11">
+             <navigator>{{item.colpseContent}}</navigator>
+            </van-collapse-item>
+          </van-collapse-item>
+        </van-collapse>
+      </van-tab>
+      <van-tab title="作业">
+        <view class='min_class'>
+          <text class='title_right'>{{className}}</text>
+          <!--循环从此开始-->
+          <view class='class_clm' 
+                wx:for="{{courseList}}" 
+                bindtap="navToChapter" 
+                data-course='{{item}}' 
+                wx:key="clm">
+            <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+              <view class='right_info'>
+                <text>{{item.courseName}}</text>
+                <text class='mt_20'>内容描述：{{item.courseDescribe}}</text>
+              </view>
+              <view class='cfx'></view>
+              <view class='class_number'>
+                <image src='{{item.looks}}' mode='widthFix'></image>
+                <text style='font-size:24rpx;'>{{item.inforDate}}</text>
+              </view>
+          </view>
+          <!--循环到此结束-->
+        </view>
+      </van-tab>
     </van-tabs>
   </view>
-  <view class='content'>
-    <view class='contetTitle'>高中语文深度进阶诗词专题</view>
-    <view class='contentImg'>
-      <image src='/img/icon/Collection.png'></image>
-      <image src='/img/icon/share.png'></image>
-    </view>
-  </view>
+
 </view>
