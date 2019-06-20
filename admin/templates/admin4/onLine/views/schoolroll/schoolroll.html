@@ -28,6 +28,11 @@
 		border-bottom: 3px solid #ddd;
 		border-width: 100%;
 	}
+	.btnSearch{
+		position: absolute;
+		right:50px;
+		top: 3px;
+	}
 </style>
 <div class="row" ng-controller="schoolrollCtrl">
 	<div class="col-md-12">
@@ -46,19 +51,25 @@
 				<div class="table-toolbar">
 					<div class="row">
 						<div class="col-md-12">
-							<label class="col-md-1 label-text">学号</label>
-							<div class="col-md-2">
-								<input type="text" class="form-control">
+							<div class="col-md-4">
+								<label class="col-md-5 label-text">学号:</label>
+								<div class="col-md-7">
+									<input type="text" class="form-control">
+								</div>
 							</div>
-							<label class="col-md-1 label-text">姓名</label>
-							<div class="col-md-2">
-								<input type="text" class="form-control">
+							<div class="col-md-4">
+								<label class="col-md-5 label-text">姓名:</label>
+								<div class="col-md-7">
+									<input type="text" class="form-control">
+								</div>
 							</div>
-							<label class="col-md-2 label-text">手机号码</label>
-							<div class="col-md-2">
-								<input type="text" class="form-control">
+							<div class="col-md-4">
+								<label class="col-md-5 label-text">手机号码:</label>
+								<div class="col-md-7">
+									<input type="text" class="form-control">
+								</div>
 							</div>
-							<div class="col-md-2">
+							<div class="btnSearch">
 								<button class="btn blue btn-sm" ng-click=""> 查询 </button>
 							</div>
 						</div>
