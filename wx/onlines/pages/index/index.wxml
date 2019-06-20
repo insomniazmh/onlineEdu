@@ -15,9 +15,9 @@
     <image src='/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/examination/examination'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/main/integral/integral'>
     <image src='/img/z06.png' mode='widthFix'></image>
-    <text>考试</text>
+    <text>积分</text>
   </view>
   <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/discuss/discuss/discuss'>
     <image src='/img/z08.png' mode='widthFix'></image>
@@ -36,7 +36,7 @@
   <!--循环从此开始-->
   <view class='class_clm' wx:for="{{courseList}}" bindtap="navToChapter" 
   data-course='{{item}}' wx:key="clm">
-    <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+    <image bindtap='jumpTransaction' data-url="/pages/videoMaterial/videoMaterial" class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
         <text>《{{item.courseName}}》</text>
         <text class='mt_20'>课程描述：{{item.courseDescribe}}</text>

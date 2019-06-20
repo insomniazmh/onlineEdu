@@ -44,7 +44,11 @@ Page({
       }
     ]
   },
-  
+  jumpTransaction: function (e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url
+    })
+  },
   onLoad: function () {
     
   },

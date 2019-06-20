@@ -31,12 +31,6 @@
         "text": "首页"
       },
       {
-        "selectedIconPath": "/img/icon/integralActive.png",
-        "iconPath": "/img/icon/integral.png",
-        "pagePath": "pages/main/integral/integral",
-        "text": "积分"
-      },
-      {
         "selectedIconPath": "/img/icon/myActive.png",
         "iconPath": "/img/icon/my.png",
         "pagePath": "pages/main/main/main",

@@ -59,5 +59,6 @@
 }
 .listBtn view{
   font-size: 28rpx;
-  width: 125rpx;
+  width: 105rpx;
+  text-align: center;
 }

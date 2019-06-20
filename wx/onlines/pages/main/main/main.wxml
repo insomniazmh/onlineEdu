@@ -20,7 +20,7 @@
     <view>我的论文</view>
   </view>
   <view class='listBtn'>
-    <image src='/img/z12.png' bindtap='jumpTransaction' data-url='/pages/videoMaterial/videoMaterial'></image>
+    <image src='/img/z12.png' bindtap='jumpTransaction'></image>
     <view>我的讨论</view>
   </view>
   <view class='listBtn'>
@@ -30,5 +30,9 @@
   <view class='listBtn'>
     <image src='/img/z14.png' disabled='true' bindtap=''></image>
     <view>毕业资料</view>
+  </view>
+  <view class='listBtn'>
+    <image src='/img/z13.png' bindtap='jumpTransaction' data-url='/pages/examination/examination'></image>
+    <view>考试</view>
   </view>
 </view>
