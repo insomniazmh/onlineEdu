@@ -139,25 +139,25 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 					}
 				};
 				//加载课程列表
-				common.ajax({
-					$scope: $scope,
-					$http: $http,
-					url: '/course/findMyCourse',
-					data: pageData,
-					success: function(data) {
-						$(data.data).each(function() {
-							if(!this.topPicSrc) {
-								this.topPicSrc = 'images/zanwu.jpg';
-							}
-						});
-						$rootScope.courses = data.data;
-						if(!localStorage.getItem('courseId') && data.data.length > 0) {
-							//默认选中第一个课程
-							localStorage.setItem('courseId', data.data[0].courseId);
-							$rootScope.course = data.data[0];
-						}
-					}
-				});
+				// common.ajax({
+				// 	$scope: $scope,
+				// 	$http: $http,
+				// 	url: '/course/findMyCourse',
+				// 	data: pageData,
+				// 	success: function(data) {
+				// 		$(data.data).each(function() {
+				// 			if(!this.topPicSrc) {
+				// 				this.topPicSrc = 'images/zanwu.jpg';
+				// 			}
+				// 		});
+				// 		$rootScope.courses = data.data;
+				// 		if(!localStorage.getItem('courseId') && data.data.length > 0) {
+				// 			//默认选中第一个课程
+				// 			localStorage.setItem('courseId', data.data[0].courseId);
+				// 			$rootScope.course = data.data[0];
+				// 		}
+				// 	}
+				// });
 		
 				//header中课程被选中事件，获取被选中的课程
 				$scope.changeCourse = function(row) {
