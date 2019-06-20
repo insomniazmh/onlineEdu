@@ -7,12 +7,6 @@
 		margin-bottom: 8px;
 	}
 	
-	.btn-info {
-		margin-bottom: 2px;
-		float: right;
-		margin-left: 5px;
-	}
-	
 	.abslute {
 		margin-left: -62px;
 		margin-top: 3px;
@@ -24,6 +18,42 @@
 		border-bottom: 3px solid #ddd;
 		border-width: 100%;
 	}
+	
+	.form-horizontal {
+		padding: 10px 20px;
+	}
+	
+	.form-horizontal .mgImg-left {
+		left: 100px;
+		position: relative;
+	}
+	
+	.form-horizontal .mgImg-left img {
+		width: 80px;
+		height: 80px;
+	}
+	
+	.choiceMan {
+		margin-top: 9px;
+		margin-left: 3px;
+	}
+	
+	.certificate {
+		margin-top: -5px;
+		cursor: pointer;
+	}
+	
+	.btn-left {
+		margin-left: -5px;
+	}
+	
+	.width-20 {
+		margin-left: -52px;
+	}
+	
+	.form-horizontal .md-radio-list {
+		margin-top: 7px;
+	}
 </style>
 <div class="row" ng-controller="enrollCtrl">
 	<div class="col-md-12">
@@ -34,6 +64,8 @@
 					<i class="fa fa-globe"></i>报名信息管理
 				</div>
 				<div class="actions">
+					<a href="javascript:;" class="btn btn-warning" ng-click="import()">
+					<i class="fa fa-plus"></i> 导入 </a>
 					<a href="javascript:;" class="btn red" ng-click="add()">
 					<i class="fa fa-plus"></i> 新增 </a>
 				</div>
@@ -70,7 +102,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in stateList" ng-click="activeColor(item)">
+									<li ng-repeat="item in stateList" ng-click="select(item)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -82,8 +114,8 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in YN" ng-click="activeColor(item)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.Y}}</a>
+									<li ng-repeat="item in YN" ng-click="select(item, YN)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
 							</div>
@@ -94,7 +126,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in majorList" ng-click="activeColor(item)">
+									<li ng-repeat="item in majorList" ng-click="select(item)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.major}}</a>
 									</li>
 								</ul>
@@ -117,9 +149,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX" ng-repeat="row in data" ng-click="add()" style="cursor: pointer;">
+						<tr class="odd gradeX" ng-repeat="row in data">
 							<td>
 								<button class="btn btn-info btn-sm" ng-click="examine()">审核</button>
+								<button class="btn btn-info btn-sm" ng-click="edit()">编辑</button>
+								<button class="btn btn-info btn-sm" ng-click="del(row)">删除</button>
 							</td>
 							<td>{{row.name}}</td>
 							<td>{{row.subject}}</td>
@@ -130,17 +164,504 @@
 							<td>{{row.phone}}</td>
 							<td>{{row.isEnroll}}</td>
 						</tr>
-
 					</tbody>
 				</table>
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
 	</div>
+	
+	<!-- 新增或修改报名人信息 -->
+	<div class="modal fade" id="studentInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">报名人信息</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal">
+						<div class="form-body">
+							<div class="form-group">
+								<div class="col-md-2" style="text-align: right;">
+									<img src="../../../assets/admin/layout4/img/avatar1.jpg"  style="width: 70px; height: 70px;" alt="">
+								</div>
+								<div class="col-md-10">
+									<label class="col-md-1 control-label">姓名:</label>
+									<div class="col-md-11">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-1 control-label">学号:</label>
+									<div class="col-md-11">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-6">
+									<label class="col-md-3 control-label">身份证号:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3 control-label">民族:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3 control-label">手机:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3 control-label">出生年月:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3 control-label">毕业年月:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3 control-label">通讯地址:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control width-100" placeholder="Enter text">
+									</div>
+									<label class="col-md-3 control-label">邮政编码:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3 control-label">工作单位:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control width-100" placeholder="Enter text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="col-md-6 control-label">性别:</label>
+									<div class="col-md-6" style="height: 32px; display: flex; margin-bottom: 15px;">
+										<div class="md-radio-inline">
+											<div class="md-radio">
+												<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+												<label for="radio6">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														男</label>
+											</div>
+											<div class="md-radio">
+												<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
+												<label for="radio7">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														女</label>
+											</div>
+										</div>
+									</div>
+									<label class="col-md-6 control-label">文化程度:</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-6 control-label">其他号码:</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-6 control-label">政治面貌:</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-6 control-label">毕业证号:</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-6 control-label">电子邮箱:</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="col-md-2 control-label">毕业证书:</label>
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3">
+												<button class="btn btn-info btn-left">上传</button>
+											</label>
+									<div class="col-md-3">
+										<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="col-md-2 control-label">身份证:</label>
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3">
+												<button class="btn btn-info btn-left">上传</button>
+											</label>
+									<div class="col-md-3">
+										<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+										<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="col-md-2 control-label">身份证:</label>
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3">
+												<button class="btn btn-info btn-left">上传</button>
+											</label>
+									<div class="col-md-3">
+										<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="col-md-3 control-label">报名编号:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-3 control-label">学历层次:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="col-md-6 control-label">报名时间:</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+									<label class="col-md-6 control-label">学习中心:</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="width-20 col-md-2 control-label">考试地点:</label>
+									<div class="col-md-10">
+										<input type="text" class="form-control width-80" placeholder="Enter text">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label class="width-20 col-md-2 control-label">学习中心:</label>
+									<div class="col-md-10">
+										<input type="text" class="form-control width-80" placeholder="Enter text">
+									</div>
+								</div>
+								<label class="col-md-3 control-label">是否免试:</label>
+								<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
+									<div class="md-radio-inline">
+										<div class="md-radio">
+											<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+											<label for="radio6">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														是</label>
+										</div>
+										<div class="md-radio">
+											<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
+											<label for="radio7">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														否</label>
+										</div>
+									</div>
+								</div>
+								<div style="margin-left: 600px">
+									<label class="col-md-3 control-label">入学成绩:</label>
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Enter text">
+									</div>
+								</div>
+								<label class="col-md-3 control-label">报考信息确认:</label>
+								<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
+									<div class="md-radio-list" style="display: flex">
+										<div class="md-radio" style="margin-right: 8px;">
+											<input type="radio" id="radio9" name="radio1" class="md-radiobtn">
+											<label for="radio9">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														确认</label>
+										</div>
+										<div class="md-radio has-error">
+											<input type="radio" id="radio10" name="radio1" class="md-radiobtn" checked>
+											<label for="radio10">
+														<span></span>
+														<span class="check"></span>
+														<span class="box"></span>
+														未确认</label>
+										</div>
+									</div>
+								</div>
+								<div style="margin-left: 600px">
+									<label class="col-md-3 control-label">是否录取:</label>
+									<div class="col-md-3" style="height: 32px; display: flex; margin-bottom: 15px;">
+										<div class="md-radio-inline">
+											<div class="md-radio">
+												<input type="radio" id="radio6" name="radio2" class="md-radiobtn">
+												<label for="radio6">
+															<span></span>
+															<span class="check"></span>
+															<span class="box"></span>
+															是</label>
+											</div>
+											<div class="md-radio">
+												<input type="radio" id="radio7" name="radio2" class="md-radiobtn" checked>
+												<label for="radio7">
+															<span></span>
+															<span class="check"></span>
+															<span class="box"></span>
+															否</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12" style="text-align: center">
+									<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-</div>
+	<!-- 报名审核 -->
+	<div class="modal fade" id="examineModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">报名审核</h4>
+				</div>
+				<div class="modal-body">
+					<!-- BEGIN FORM-->
+					<form action="#" class="form-horizontal">
+						<div class="form-body"> 
+							<div class="form-group">
+								<div class="col-md-12">
+									<div class="col-md-2" style="text-align: right;">
+										<img src="{{currStudent.titleImg}}"  style="width: 70px; height: 70px;" alt="">
+									</div>
+									<div class="col-md-10">
+										<div class="col-md-6">
+											<label class="col-md-6 control-label">姓名:</label>
+											<div class="col-md-6">
+												<p>{{currStudent.name}}</p>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-6 control-label">学号:</label>
+											<div class="col-md-6">
+												<p>{{currStudent.studentID}}</p>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-6 control-label">身份证号:</label>
+											<div class="col-md-6">
+												<p>{{currStudent.id}}</p>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-6 control-label">性别:</label>
+											<div class="col-md-6">
+												<p>{{currStudent.sex}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="col-md-6">
+										<label class="col-md-3 control-label">民族:</label>
+										<div class="col-md-9">
+											<p>{{currStudent.nation}}</p>
+										</div>
+			
+										<label class="col-md-3 control-label">手机:</label>
+										<div class="col-md-9">
+											<p>{{currStudent.phone}}</p>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label class="col-md-3 control-label">出生年月:</label>
+										<div class="col-md-9">
+											<p>{{currStudent.birthDate}}</p>
+										</div>
+										<label class="col-md-3 control-label">毕业年月:</label>
+										<div class="col-md-9">
+											<p>{{currStudent.graduationDate}}</p>
+										</div>
+									</div>
+									</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">通讯地址:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.addressPhone}}</p>
+												</div>
+												<label class="col-md-3 control-label">邮政编码:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.zipCode}}</p>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">工作单位:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.workUnit}}</p>
+												</div>
+												<label class="col-md-3 control-label">文化程度:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.cultureDegree}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">其他号码:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.otherNumber}}</p>
+												</div>
+												<label class="col-md-3 control-label">政治面貌:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.politicsFace}}</p>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">毕业证号:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.graduationID}}</p>
+												</div>
+												<label class="col-md-3 control-label">电子邮箱:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.email}}</p>
+												</div>
+											</div>
+										</div>
+									<div class="col-md-12">
+										<div class="col-md-6">
+											<label class="col-md-3 control-label">毕业证书:</label>
+											<div class="col-md-9">
+												<img class="certificate" src="{{currStudent.graduationImg}}" alt="">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-3 control-label">身份证(正/反):</label>
+											<div class="col-md-9">
+												<img class="certificate" src="{{currStudent.idImgJust}}" alt="">
+												<img class="certificate" src="{{currStudent.idImgBack}}" alt="">
+											</div>
+										</div>
+										<!-- <div class="col-md-6">
+											<label class="col-md-3 control-label">身份证:</label>
+											<div class="col-md-9">
+												<img class="certificate" src="/assets/admin/layout4/img/avatar1.jpg" alt="">
+											</div>
+										</div> -->
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-6">
+											<label class="col-md-3 control-label">报名编号:</label>
+											<div class="col-md-9">
+												<p>{{currStudent.applyNumber}}</p>
+											</div>
+											<label class="col-md-3 control-label">学历层次:</label>
+											<div class="col-md-9">
+												<p>{{currStudent.education}}</p>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-3 control-label">报名时间:</label>
+											<div class="col-md-9">
+												<p>{{currStudent.registerTime}}</p>
+											</div>
+											<label class="col-md-3 control-label">学习中心:</label>
+											<div class="col-md-9">
+												<p>{{currStudent.studyCore}}</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-6">
+											<label class="col-md-3 control-label">考试地点:</label>
+											<div class="col-md-9">
+												<p>{{currStudent.examinationPlace}}</p>
+											</div>
+											<label class="col-md-3 control-label">学习中心:</label>
+											<div class="col-md-9">
+												<p>{{currStudent.studyCores}}</p>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<label class="col-md-3 control-label">是否免试:</label>
+											<div class="col-md-9">
+												<p>{{currStudent.whetherAdopt}}</p>
+											</div>
+											<label class="col-md-3 control-label">报考信息确认:</label>
+											<div class="col-md-9">
+												<p>{{currStudent.signConfirm}}</p>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">入学成绩:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.schoolAchiment}}</p>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">是否录取:</label>
+												<div class="col-md-9">
+													<p>{{currStudent.admission}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12" style="text-align: center">
+										<button style="width: 200px" class="btn btn-md blue" ng-click=""> 审核通过 </button>
+										<button style="width: 200px" class="btn btn-md red" ng-click=""> 审核不通过 </button>
+									</div>
+								</div>
+							</form>
+						<!-- END FORM-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 导入 -->
+	<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">导入学生信息</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal">
+						<div class="form-body" style="margin-bottom: 50px;">
+							<div class="row">
+								<label class="col-md-2 control-label">选择文件</label>
+								<div class="col-md-4">
+									<input type="file" class="form-control">
+								</div>
+							</div><div class="row">
+								<label class="col-md-2 control-label">下载模板</label>
+								<div class="col-md-4">
+									<a href="" style="line-height: 35px; font-size: 16px;">学生报名信息模板</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>	
+	
 <script>
-	function enrollCtrl($scope, $http) {
+	function enrollCtrl($scope, $http, $rootScope) {
 		$scope.data = [{
 			name: '张三',
 			subject: '理工类',
@@ -168,50 +689,97 @@
 			value.active = !value.active;
 		}
 		$scope.stateList = [{
-			text: '考生1'
+			text: '待审核'
 		}, {
-			text: '考生2'
+			text: '审核中'
 		}, {
-			text: '考生3'
+			text: '审核通过'
 		}, {
-			text: '考生4'
-		}, {
-			text: '考生5'
-		}, {
-			text: '考生6'
-		}, {
-			text: '考生7'
-		}, {
-			text: '考生8'
+			text: '审核未通过'
 		}]
 		$scope.YN = [{
-			Y: "是"
+			text: "是"
 		}, {
-			Y: "否"
+			text: "否"
+		}, {
+			text: "全部"
 		}]
 		$scope.majorList = [{
-			major: "计算机基础"
+			major: "信息工程"
 		}, {
-			major: "商务金融"
+			major: "国际经济与贸易"
 		}, {
-			major: "JavaScript"
+			major: "英语"
 		}, {
-			major: "Python"
+			major: "土木工程"
 		}, {
-			major: "Go语言"
+			major: "建筑学"
 		}, {
-			major: "java"
+			major: "物理"
 		}, {
-			major: "Php"
-		}]
+			major: "化学"
+		}];
+		
+		$scope.currStudent = {
+			titleImg:"/assets/admin/layout4/img/avatar1.jpg",
+			name:"钱七",
+			studentID:"4103343",
+			id:"412824197408094370",
+			sex:"男",
+			nation:"汉",
+			phone:"17621310705",
+			birthDate:"19930201",
+			graduationDate:"2019-06-01",
+			addressPhone:"文化路",
+			zipCode:"463900",
+			workUnit:"计算机",
+			cultureDegree:"大学毕业",
+			otherNumber:"13653676618",
+			politicsFace:"群众",
+			graduationID:"74110",
+			email:"292272855@163.com",
+			graduationImg:"/assets/admin/layout4/img/avatar1.jpg",
+			idImgJust:"/assets/admin/layout4/img/avatar1.jpg",
+			idImgBack:"/assets/admin/layout4/img/avatar1.jpg",
+			applyNumber:"AA1839",
+			education:"大学毕业",
+			registerTime:"2018-04-06",
+			studyCore:"郑大北",
+			examinationPlace:"新郑大",
+			studyCores:"北校区",
+			whetherAdopt:"是",
+			signConfirm:"已确认",
+			schoolAchiment:"优",
+			admission:"是"
+		}
 		
 		$scope.examine = function() {
-			window.event? window.event.cancelBubble = true : e.stopPropagation();//阻止冒泡
-			window.location.href="index.html#/enrollExamine.html";
+			$("#examineModal").modal('show');
 		}
 		
 		$scope.add = function() {
-			window.location.href="index.html#/enrollAdd.html";
+			$("#studentInfoModal").modal('show');
 		}
+		
+		$scope.edit = function() {
+			$("#studentInfoModal").modal('show');
+		}
+		
+		$scope.import = function() {
+			$("#importModal").modal('show');
+		}
+		
+		$scope.select = function(value, array) {
+			if(array) {
+				$rootScope.radioActiveColor(value, array, function() {
+					console.log('radioSelect');
+				});
+			}else {
+				$rootScope.activeColor(value, function() {
+					console.log('multiSelect');
+				});
+			}
+			
+		};
 	}
 </script>

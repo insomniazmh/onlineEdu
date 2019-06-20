@@ -224,34 +224,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-    
-    // 报名信息添加
-    .state('enrollAdd', {
-      url: "/enrollAdd.html",
-      templateUrl: "views/enroll/enrollAdd.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-    
-    // 报名信息审核
-    .state('enrollExamine', {
-      url: "/enrollExamine.html",
-      templateUrl: "views/enroll/enrollExamine.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            
-          });
-        }]
-      }
-    })
 
     // 报名计划
     .state('enrollPlan', {
@@ -281,36 +253,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
-
-    //  学生信息统计
-    .state('statisticsDetail', {
-      url: "/statisticsDetail.html",
-      templateUrl: "views/enroll/statisticsDetail.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-
-     //  学生成绩
-    .state('achievement', {
-      url: "/achievement.html",
-      templateUrl: "views/schoolroll/achievement.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
     
      //  学籍管理
     .state('schoolroll', {
@@ -327,84 +269,10 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })   
 
-    //  学籍添加
-    .state('schoolrollAdd', {
-      url: "/schoolrollAdd.html",
-      templateUrl: "views/schoolroll/schoolrollAdd.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    }) 
-    //  学籍编辑
-    .state('schoolrollEdit', {
-      url: "/schoolrollEdit.html",
-      templateUrl: "views/schoolroll/schoolrollEdit.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    }) 
-    
-    //  入学信息
-    .state('schoolrollInfo', {
-      url: "/schoolrollInfo.html",
-      templateUrl: "views/schoolroll/schoolrollInfo.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-
     //  异动管理
     .state('studyAlienation', {
       url: "/studyAlienation.html",
-      templateUrl: "views/schoolroll/studyalienation/studyAlienation.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-     
-    //  异动审核
-    .state('studyTake', {
-      url: "/studyTake.html",
-      templateUrl: "views/schoolroll/studyalienation/studyTake.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
-    
-    //  审核详情
-    .state('alienationDetails', {
-      url: "/alienationDetails.html",
-      templateUrl: "views/schoolroll/studyalienation/alienationDetails.html",     
+      templateUrl: "views/schoolroll/studyAlienation.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -775,6 +643,40 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 				pageTitle: '资料库',
 				pageSubTitle: '教辅题册'
 			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: [
+							'js/webuploader-0.1.5/webuploader.css'
+						]
+					});
+				}]
+			}
+		})
+		
+		//学习中心维护
+		.state('center', {
+			url: "/center.html",
+			templateUrl: "views/system/center.html",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: [
+							'js/webuploader-0.1.5/webuploader.css'
+						]
+					});
+				}]
+			}
+		})
+		
+		//专业维护
+		.state('major', {
+			url: "/major.html",
+			templateUrl: "views/system/major.html",
 			resolve: {
 				deps: ['$ocLazyLoad', function($ocLazyLoad) {
 					return $ocLazyLoad.load({

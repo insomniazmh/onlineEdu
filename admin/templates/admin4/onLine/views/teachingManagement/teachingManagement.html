@@ -22,7 +22,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in majorList" ng-click="activeColor(item)">
+									<li ng-repeat="item in majorList" ng-click="select(item, majorList)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -34,7 +34,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in gradeList" ng-click="activeColor(item)">
+									<li ng-repeat="item in gradeList" ng-click="select(item, gradeList)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -70,36 +70,36 @@
 								<span>{{item.id}}</span>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.major}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.major" />
+								<span>{{item.major}}</span>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.grade}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.grade" />
+								<span>{{item.grade}}</span>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.courseNum}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.courseNum" />
+								<span>{{item.courseNum}}</span>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.courseName}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.courseName" />
+								<span>
+									<span ng-show='!item.edit'>{{item.courseName}}</span>
+									<select ng-show='item.edit' ng-model="item.courseName">
+										<option>计算机基础</option>
+										<option>大学英语</option>
+										<option>高等数学</option>
+										<option>单片机原理</option>
+									</select>
+								</span>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.courseedit}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.courseedit" />
+								<span>{{item.courseedit}}</span>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.oligatory}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.oligatory" />
+								<span>{{item.oligatory}}</span>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.Semester}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.Semester" />
+								<span>{{item.Semester}}</span>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.credit}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.credit" />
+								<span>{{item.credit}}</span>
 							</td>
 						</tr>
 					</tbody>
@@ -111,7 +111,7 @@
 
 </div>
 <script>
-	function enrollCtrl($scope, $http) {
+	function enrollCtrl($scope, $http, $rootScope) {
 		$scope.data = [{
 			id: '20180901',
 			major: '信息技术',
@@ -135,7 +135,8 @@
 		}, ];
 		
 		$scope.majorList = [{
-			text: "计算机基础"
+			text: "计算机基础",
+			active: true
 		}, {
 			text: "商务金融"
 		}, {
@@ -151,7 +152,8 @@
 		}];
 		
 		$scope.gradeList = [{
-			text: "2019级"
+			text: "2019级",
+			active: true
 		}, {
 			text: "2018级"
 		}, {
@@ -185,6 +187,19 @@
 			}else if($scope.flag == 'edit') {
 				plan.edit = false;				
 			}
+		};
+		
+		$scope.select = function(value, array) {
+			if(array) {
+				$rootScope.radioActiveColor(value, array, function() {
+					
+				});
+			}else {
+				 $rootScope.activeColor(value, function() {
+				 	
+				 })
+			}
+			
 		};
 		
 	}

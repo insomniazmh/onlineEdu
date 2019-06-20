@@ -60,7 +60,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in gradeList" ng-click="activeColor(item)">
+									<li ng-repeat="item in gradeList" ng-click="select(item, gradeList)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -72,7 +72,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in majorList" ng-click="activeColor(item)">
+									<li ng-repeat="item in majorList" ng-click="select(item, majorList)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -111,7 +111,7 @@
 
 </div>
 <script>
-	function enrollCtrl($scope, $http) {
+	function enrollCtrl($scope, $http, $rootScope) {
 		$scope.data = [{
 			studentID:"001",
 			name:"李四",
@@ -149,12 +149,17 @@
 		}, {
 			text: "Php"
 		}];
-
-		$scope.goUrl = function() {
-				window.location.href = 'index.html#/schoolrollAdd.html';
-			},
-			$scope.goTest = function() {
-				window.location.href = 'index.html#/schoolrollInfo.html';
+		
+		$scope.select = function(value, array) {
+			if(array) {
+				$rootScope.radioActiveColor(value, array, function() {
+					
+				});
+			}else {
+				 $rootScope.activeColor(value, function() {
+				 	
+				 })
 			}
+		};
 	}
 </script>
