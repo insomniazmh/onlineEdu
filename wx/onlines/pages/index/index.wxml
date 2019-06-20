@@ -1,7 +1,10 @@
 <!--pages/school_index/index.wxml-->
-<swiper indicator-color="#fff" indicator-dots="{{indicatorDots}}"
-  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-  <block wx:for="{{imgUrls}}">
+<swiper indicator-color="#fff" 
+        indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" 
+        interval="{{interval}}" 
+        duration="{{duration}}">
+  <block wx:for="{{imgUrls}}" wx:key='urls'>
     <swiper-item>
       <image style='width:100%' src="{{item}}" class="slide-image" width="355" height="150"/>
     </swiper-item>
@@ -12,7 +15,7 @@
     <image src='/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
   </view>
-  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/videoMaterial/videoMaterial'>
+  <view class='clm_child' bindtap="bindNavBlink" data-url='/pages/examination/examination'>
     <image src='/img/z06.png' mode='widthFix'></image>
     <text>考试</text>
   </view>

@@ -19,11 +19,9 @@
 }
 .floatRigt{
   float: right;
-  border-right: 3px solid #FE9700;
-  font-size: 30rpx;
-  width: 110rpx;
-  color: #FE9700;
-  margin-top: -90rpx;
+  font-size: 24rpx;
+  color: #b8d0db;
+  margin-top: -65rpx;
 }
 .dspyflex{
   width: 440rpx;

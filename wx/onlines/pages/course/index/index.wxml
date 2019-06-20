@@ -21,7 +21,7 @@
         <view class='dispyFlex'>
           <text class='mt_20 text-badge'>已通过</text>
           <view class='mt_20 progress'>
-            <van-progress percentage="100" />
+            <van-progress  percentage="80" />
           </view>
         </view>
         <text class='mt_20 text-custom'>近期没有考试安排</text>

@@ -19,38 +19,39 @@
 </swiper>
 <view>
 	<van-tabs active="{{ active }}" bind:click="changeContent">
-		<van-tab title="全部"></van-tab>
+		<van-tab title="全部">
+      <view class='contentList'>
+        <view bindtap='jumpTransaction' 
+              data-url="/pages/discuss/discussPage/discussPage" 
+              class='listItem1 mg-botm'
+              wx:for="{{listContent}}"
+              wx:key="listCon">
+          <view>
+            <view style='disply:flex;'>
+              <image class='leftImage' src='{{item.headPortrait}}'></image>
+              <text class='tleText'>{{item.titleName}}</text>
+            </view> 
+            <view class='floatRigt'>
+              发表于:{{item.publishDate}}
+            </view>
+          </view>
+          <view class='dspyflex'>
+            <view>
+              <text class='newsTitle'>{{item.textTitle}}</text>
+              <view class='contentNews'>{{item.textContent}}</view>
+            </view>
+            <image class='rightNews' src='{{item.imgDetail}}'></image>
+          </view>
+        </view>
+      </view>
+    </van-tab>
 		<van-tab title="计算机"></van-tab>
 		<van-tab title="数学"></van-tab>
 		<van-tab title="英语"></van-tab>
-		<van-tab title="英语"></van-tab>
-		<van-tab title="英语"></van-tab>
-		<van-tab title="英语"></van-tab>
+		<van-tab title="语文"></van-tab>
+		<van-tab title="历史"></van-tab>
+		<van-tab title="政治"></van-tab>
 	</van-tabs>
-</view>
-<view class='contentList'>
-  <view bindtap='jumpTransaction' 
-        data-url="/pages/discuss/discussPage/discussPage" 
-        class='listItem1 mg-botm'
-        wx:for="{{listContent}}"
-        wx:key="listCon">
-    <view>
-      <view style='disply:flex;'>
-        <image class='leftImage' src='{{item.headPortrait}}'></image>
-        <text class='tleText'>{{item.titleName}}</text>
-      </view> 
-      <view class='floatRigt'>
-        发表于:{{item.publishDate}}
-      </view>
-    </view>
-    <view class='dspyflex'>
-      <view>
-        <text class='newsTitle'>{{item.textTitle}}</text>
-        <view class='contentNews'>{{item.textContent}}</view>
-      </view>
-      <image class='rightNews' src='{{item.imgDetail}}'></image>
-    </view>
-  </view>
 </view>
 <view class='foterBtn'>
   <van-button type='info' size="large">我要发帖</van-button>

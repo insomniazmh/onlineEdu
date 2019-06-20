@@ -5,10 +5,10 @@
     <view class='herder-body-sm'>去兑换</view>
   </view>
   <view class='herder-body-right'>积分说明></view>
-  <view class='herder-banner'>积分试行期间,积分负责将会适时调整,带来不便敬请谅解</view>
+  <view class='herder-banner'>积分试行期间,带来不便敬请谅解</view>
 </view>
 
-<view wx:for="{{contentList}}" class='body-box'>
+<view wx:for="{{contentList}}" class='body-box' wx:key='integral'>
   <view class='body-herder'>
     <view class='body-herder-left'>积分规则</view>
     <view class='body-herder-right'>今日累计

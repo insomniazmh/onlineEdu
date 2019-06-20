@@ -6,7 +6,7 @@ Page({
    */
   data: {
     activeName: '0',
-    objectArray1: [],//章
+    objectArray1: ["第一"],//章
     objectArray2: [],//节
     objectArray3: [],//小节
     index1: 0,

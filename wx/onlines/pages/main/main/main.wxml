@@ -20,7 +20,7 @@
     <view>我的论文</view>
   </view>
   <view class='listBtn'>
-    <image src='/img/z12.png' bindtap='jumpTransaction' data-url=''></image>
+    <image src='/img/z12.png' bindtap='jumpTransaction' data-url='/pages/videoMaterial/videoMaterial'></image>
     <view>我的讨论</view>
   </view>
   <view class='listBtn'>
