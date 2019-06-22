@@ -151,7 +151,7 @@
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="row in data">
 							<td>
-								<button class="btn btn-info btn-sm" ng-click="examine()">审核</button>
+								<!--<button class="btn btn-info btn-sm" ng-click="examine()">审核</button>-->
 								<button class="btn btn-info btn-sm" ng-click="edit()">编辑</button>
 								<button class="btn btn-info btn-sm" ng-click="del(row)">删除</button>
 							</td>
@@ -645,11 +645,15 @@
 								<div class="col-md-4">
 									<input type="file" class="form-control">
 								</div>
-							</div><div class="row">
+							</div>
+							<div class="row">
 								<label class="col-md-2 control-label">下载模板</label>
 								<div class="col-md-4">
 									<a href="" style="line-height: 35px; font-size: 16px;">学生报名信息模板</a>
 								</div>
+							</div>
+							<div class="col-md-12" style="text-align: center">
+								<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
 							</div>
 						</div>
 					</form>

@@ -224,6 +224,21 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
+    
+    // 报名信息审核
+    .state('enrollExamine', {
+      url: "/enrollExamine.html",
+      templateUrl: "views/enroll/enrollExamine.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
 
     // 报名计划
     .state('enrollPlan', {
