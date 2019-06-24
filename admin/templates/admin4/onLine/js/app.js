@@ -390,10 +390,25 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })
 
-    //  考务成绩
+    //  考试成绩
     .state('examinationResults', {
       url: "/examinationResults.html",
       templateUrl: "views/examination/examinationResults.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    
+    //成绩确认
+    .state('resultConfirm', {
+      url: "/resultConfirm.html",
+      templateUrl: "views/examination/resultConfirm.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -541,10 +556,25 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })
     
-  //  通知公告
+  	//通知公告
     .state('notice', {
       url: "/notice.html",
-      templateUrl: "views/notice.html",     
+      templateUrl: "views/notice/notice.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    
+    //公告类别
+    .state('noticeType', {
+      url: "/noticeType.html",
+      templateUrl: "views/notice/noticeType.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({

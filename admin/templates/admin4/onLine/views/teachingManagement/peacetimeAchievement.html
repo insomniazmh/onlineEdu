@@ -6,13 +6,8 @@
 	
 	.form-control {
 		margin-bottom: 8px;
-		margin-left: -85px
-	}
-	
-	.btn-info {
-		margin-bottom: 2px;
-		float: right;
-		margin-left: 5px;
+		max-width: 160px;
+		display: inline-block;
 	}
 	
 	.abslute {
@@ -35,12 +30,23 @@
 		<div class="portlet box grey-cascade">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i>考点成绩
+					<i class="fa fa-globe"></i>平时成绩
+				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn red" ng-click="prove()">
+					<i class="fa fa-plus"></i> 导出学时证明 </a>
 				</div>
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
 					<div class="row">
+						<div class="col-md-12" style="display: flex;">
+							<div class="col-md-3">
+								<label class="label-text">学生姓名</label>
+								<input type="text" class="form-control" />
+								<button class="btn blue btn-sm" style="margin: -5px 0 0 10px;">查询</button>
+							</div>
+						</div>
 						<div class="col-md-12">
 							<div class="col-md-1">
 								<label class="label-text">年级</label>
@@ -48,6 +54,18 @@
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
 									<li ng-repeat="item in gradeList" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">学期</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in semester" ng-click="activeColor(item)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -87,9 +105,8 @@
 							<th>课程名称</th>
 							<th>课程类别</th>
 							<th>学期</th>
-							<th>签到成绩</th>
-							<th>作业成绩</th>
-							<th>互动成绩</th>
+							<th>学习时长得分</th>
+							<th>作业得分</th>
 							<th>平时成绩</th>
 						</tr>
 					</thead>
@@ -100,12 +117,9 @@
 							<td>{{item.courseName}}</td>
 							<td>{{item.type}}</td>
 							<td>{{item.xueqi}}</td>
-							<td>{{item.qiandao}}</td>
+							<td>{{item.time}}</td>
 							<td>{{item.zuoye}}</td>
-							<td>{{item.hudong}}</td>
-							<td>
-								<input type="text" ng-model="item.goal" />
-							</td>
+							<td>{{item.goal}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -123,10 +137,9 @@
 				name: '张三',
 				courseName: '计算机原理',
 				type: '普通',
-				xueqi: '78',
-				qiandao: '20',
-				zuoye: '20',
-				hudong: '20',
+				xueqi: '2019年上',
+				time: 20,
+				zuoye: 20,
 				goal: 12
 			}
 		];
@@ -170,5 +183,17 @@
 		}, {
 			text: "马克思主义"
 		}];
+		
+		$scope.semester = [{
+			text: "2019年上"
+		}, {
+			text: "2018年下"
+		}, {
+			text: "2018年上"
+		}, {
+			text: "2017年下"
+		}, {
+			text: "2017年上"
+		}, ]
 	}
 </script>

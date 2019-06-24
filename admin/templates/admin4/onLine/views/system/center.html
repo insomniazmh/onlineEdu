@@ -22,6 +22,9 @@
 							<th>地址</th>
 							<th>负责人</th>
 							<th>联系电话</th>
+							<th>银行账号</th>
+							<th>开户人</th>
+							<th>开户人电话</th>
 							<th>创立时间</th>
 						</tr>
 					</thead>
@@ -50,6 +53,18 @@
 								<input ng-show='item.edit' type="text" ng-model="item.phone" />
 							</td>
 							<td>
+								<span ng-show='!item.edit'>{{item.bankUser}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.bankUser" />
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.bankCard}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.bankCard" />
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.bankAddress}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.bankAddress" />
+							</td>
+							<td>
 								<span ng-show='!item.edit'>{{item.cTime}}</span>
 								<input ng-show='item.edit' type="text" ng-model="item.cTime" />
 							</td>
@@ -69,12 +84,18 @@
 			address: '河南省郑州市金水区文化路151号',
 			leader: '马六',
 			phone: '13912345678',
+			bankUser: '马六',
+			bankAddress: '农业路支行',
+			bankCard: '6225 **** **** ****',
 			cTime: '2015-3-12'
 		}, {
 			name: '郑大新区',
 			address: '河南省郑州市高新区科学大道72号',
 			leader: '刘巴',
 			phone: '13912345678',
+			bankUser: '刘巴',
+			bankAddress: '农业路支行',
+			bankCard: '6225 **** **** ****',
 			cTime: '2016-5-8'
 		}];
 

@@ -23,12 +23,32 @@
 		</div>
 		<div class="row" style="margin-bottom: 40px;">
 			<div class="col-md-4">
+				<div class="form-group form-md-line-input">
+					<input id="courseName" type="num" class="form-control" ng-model="course.time" placeholder="请输入课时">
+					<label for="form_control_1">课时</label>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group form-md-line-input has-success">
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.alias" placeholder="观看视频时长所占成绩比重">
+					<label for="form_control_2">学习时长占比（单位：%）</label>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group form-md-line-input has-success">
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.alias" placeholder="平时作业情况所占成绩比重">
+					<label for="form_control_2">平时作业占比（单位：%）</label>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-bottom: 40px;">
+			<div class="col-md-4">
 				<div class="form-group form-md-checkboxes">
 					<label>课程类别</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
 							<input type="radio" id="lessonType1" name="lessonType" class="md-radiobtn" value="1" checked="">
-							<label for="lessonType2">
+							<label for="lessonType1">
 								<span></span>
 								<span class="check"></span>
 								<span class="box"></span>
@@ -76,7 +96,36 @@
 					</div>
 				</div>
 			</div>
-			
+			<div class="col-md-4">
+				<div class="form-group form-md-checkboxes">
+					<label>评分方式</label>
+					<div class="md-radio-inline">
+						<div class="md-radio">
+							<input type="radio" id="scoringMethod1" name="scoringMethod" class="md-radiobtn" value="1" checked="">
+							<label for="scoringMethod1">
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								笔试 </label>
+						</div>
+						<div class="md-radio">
+							<input type="radio" id="scoringMethod2" name="scoringMethod" class="md-radiobtn" value="2" checked="">
+							<label for="scoringMethod2">
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								口试 </label>
+						</div><div class="md-radio">
+							<input type="radio" id="scoringMethod3" name="scoringMethod" class="md-radiobtn" value="3" checked="">
+							<label for="scoringMethod3">
+								<span></span>
+								<span class="check"></span>
+								<span class="box"></span>
+								网上考试 </label>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="row" style="margin-bottom: 40px;">
 			<div class="col-md-12">
