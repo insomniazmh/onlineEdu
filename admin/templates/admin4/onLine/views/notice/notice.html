@@ -5,6 +5,12 @@
 		padding-top: 7px;
 		text-align: right;
 	}
+	
+	.form-control {
+		margin-bottom: 8px;
+		max-width: 160px;
+		display: inline-block;
+	}
 </style>
 <div class="row" ng-controller="teacherCtrl">
 	<div class="col-md-12">
@@ -14,15 +20,50 @@
 				<div class="caption">
 					<i class="fa fa-globe"></i>公告管理
 				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn btn-success" data-toggle="modal" href="#createNoticeModal">
+					<i class="fa fa-plus"></i> 新增公告 </a>
+				</div>
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
 					<div class="row">
-						<div class="col-md-6">
-							<div class="btn-group">
-								<button class="btn green" data-toggle="modal" href="#createNoticeModal">
-									新增公告 <i class="fa fa-plus"></i>
-								</button>
+						<div class="col-md-12" style="display: flex;">
+							<div class="col-md-3">
+								<label class="label-text">类型</label>
+								<input type="text" class="form-control" />
+							</div>
+							<div class="col-md-6">
+								<label class="label-text">可查看单位</label>
+								<div class="form-group form-md-checkboxes" style="display: inline-block;">
+									<div class="md-checkbox-inline">
+										<div class="md-checkbox">
+											<input type="checkbox" id="lessonType1" class="md-check" name="lessonType" value="1">
+											<label for="lessonType1">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												校本部 </label>
+										</div>
+										<div class="md-checkbox">
+											<input type="checkbox" id="lessonType2" class="md-check" name="lessonType" value="2">
+											<label for="lessonType2">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												郑大西 </label>
+										</div>
+										<div class="md-checkbox">
+											<input type="checkbox" id="lessonType3" class="md-check" name="lessonType" value="3" checked="">
+											<label for="lessonType3">
+												<span></span>
+												<span class="check"></span>
+												<span class="box"></span>
+												河大 </label>
+										</div>
+								</div>
+							</div>
+								<button class="btn blue btn-sm" style="margin: -5px 0 0 10px;">查询</button>
 							</div>
 						</div>
 					</div>

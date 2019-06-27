@@ -3,6 +3,13 @@
 	.label-text {
 		margin-top: 8px;
 	}
+	.blockEdit{
+    margin-top: -20px;
+    width: auto;
+    border-bottom: 3px solid #ddd;
+    height: 30px;
+    margin-bottom: 20px;
+  }
 </style>
 <div class="row" ng-controller="enrollCtrl">
 	<div class="col-md-12">
@@ -98,6 +105,7 @@
 					<h4 class="modal-title">教学计划详情</h4>
 				</div>
 				<div class="modal-body">
+					<p>第一学期</p>
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
@@ -160,12 +168,77 @@
 					</table>
 					<div class="row">
 						<div class="col-md-12" style="margin-bottom: 6px">
-							<label class="width-20 col-md-2 control-label">第一学期</label>
 							<label class="width-20 col-md-2 control-label">实训课程占比:0%</label>
 							<label class="width-20 col-md-2 control-label">专业课程占比:78%</label>
 							<label class="width-20 col-md-2 control-label">公共基础课占比:22%</label>
-						</div><div class="col-md-12" style="margin-bottom: 6px">
-							<label class="width-20 col-md-2 control-label">第二学期</label>
+						</div>
+					</div>
+					
+					<div class="blockEdit"></div>
+					
+					<p>第二学期</p>
+					<table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>操作</th>
+								<th>课程号</th>
+								<th>课程名称</th>
+								<th>课程类别</th>
+								<th>是否必修</th>
+								<th>开课学期</th>
+								<th>学分</th>
+								<th>考核方式</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="odd gradeX" ng-repeat="item in dataDetail">
+								<td style="min-width: 150px;">
+									<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>
+									<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
+									<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
+									<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
+								</td>
+								<td>
+									<span>{{item.courseNum}}</span>
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.courseName}}</span>
+									<select ng-show='item.edit' ng-model="item.courseName">
+										<option>计算机基础</option>
+										<option>大学英语</option>
+										<option>高等数学</option>
+										<option>单片机原理</option>
+									</select>
+								</td>
+								<td>
+									<span>{{item.courseedit}}</span>
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.oligatory}}</span>
+									<select ng-show='item.edit' ng-model="item.oligatory">
+										<option>是</option>
+										<option>否</option>
+									</select>
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.Semester}}</span>
+									<select ng-show='item.edit' ng-model="item.Semester">
+										<option>2019春</option>
+										<option>2018秋</option>
+									</select>
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.credit}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item.credit" />
+								</td>
+								<td>
+									<span>{{item.examMenthod}}</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom: 6px">
 							<label class="width-20 col-md-2 control-label">实训课程占比:6%</label>
 							<label class="width-20 col-md-2 control-label">专业课程占比:72%</label>
 							<label class="width-20 col-md-2 control-label">公共基础课占比:22%</label>

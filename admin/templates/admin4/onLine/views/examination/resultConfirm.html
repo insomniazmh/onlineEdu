@@ -37,6 +37,20 @@
 				<div class="caption">
 					<i class="fa fa-globe"></i>成绩确认
 				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#wait" data-toggle="tab">
+						待确认 </a>
+					</li>
+					<li>
+						<a data-target="#pass" data-toggle="tab">
+						确认已通过 </a>
+					</li>
+					<li>
+						<a data-target="#noPass" data-toggle="tab">
+						审核未通过 </a>
+					</li>
+				</ul>
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
@@ -79,33 +93,98 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn blue btn-sm" ng-click='batchExamine()'>批量确认</button>
-				<table class="table table-striped table-bordered table-hover" style="margin-top: 10px;">
-					<thead>
-						<tr>
-							<th><input type="checkbox" ng-model="all" ng-change="allCheck()">全选</th>
-							<th>学号</th>
-							<th>姓名</th>
-							<th>年级</th>
-							<th>专业</th>
-							<th>计算机组成原理</th>
-							<th>高等数学</th>
-							<th>大学英语</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="item in data" class="odd gradeX">
-							<td><input type="checkbox" ng-model="item.check"></td>
-							<td>{{item.studentID}}</td>
-							<td>{{item.name}}</td>
-							<td>{{item.grade}}</td>
-							<td>{{item.major}}</td>
-							<td>{{item.computer}}</td>
-							<td>{{item.matheMatics}}</td>
-							<td>{{item.heightEnglish}}</td>
-						</tr>
-					</tbody>
-				</table>
+				
+				
+				
+				<div class="tab-content">
+					<div class="tab-pane active" id="wait">
+						<button class="btn blue btn-sm" ng-click='batchExamine()'>批量确认</button>
+						<table class="table table-striped table-bordered table-hover" style="margin-top: 10px;">
+							<thead>
+								<tr>
+									<th><input type="checkbox" ng-model="all" ng-change="allCheck()">全选</th>
+									<th>姓名</th>
+									<th>年级</th>
+									<th>专业</th>
+									<th>计算机组成原理</th>
+									<th>高等数学</th>
+									<th>大学英语</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in data" class="odd gradeX">
+									<td><input type="checkbox" ng-model="item.check"></td>
+									<td>{{item.name}}</td>
+									<td>{{item.grade}}</td>
+									<td>{{item.major}}</td>
+									<td>考试成绩:{{item.computer}}  平时成绩:15  总成绩:87
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+									<td>考试成绩:{{item.matheMatics}}  平时成绩:16  总成绩:92
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+									<td>考试成绩:{{item.heightEnglish}}  平时成绩:15  总成绩:67
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane" id="pass">
+						<table class="table table-striped table-bordered table-hover" style="margin-top: 10px;">
+							<thead>
+								<tr>
+									<th>姓名</th>
+									<th>年级</th>
+									<th>专业</th>
+									<th>计算机组成原理</th>
+									<th>高等数学</th>
+									<th>大学英语</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in data" class="odd gradeX">
+									<td>{{item.name}}</td>
+									<td>{{item.grade}}</td>
+									<td>{{item.major}}</td>
+									<td>考试成绩:{{item.computer}}  平时成绩:15  总成绩:87
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+									<td>考试成绩:{{item.matheMatics}}  平时成绩:16  总成绩:92
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+									<td>考试成绩:{{item.heightEnglish}}  平时成绩:15  总成绩:67
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane" id="noPass">
+						<table class="table table-striped table-bordered table-hover" style="margin-top: 10px;">
+							<thead>
+								<tr>
+									<th>姓名</th>
+									<th>年级</th>
+									<th>专业</th>
+									<th>计算机组成原理</th>
+									<th>高等数学</th>
+									<th>大学英语</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in data" class="odd gradeX">
+									<td>{{item.name}}</td>
+									<td>{{item.grade}}</td>
+									<td>{{item.major}}</td>
+									<td>考试成绩:{{item.computer}}  平时成绩:15  总成绩:87
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+									<td>考试成绩:{{item.matheMatics}}  平时成绩:16  总成绩:92
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+									<td>考试成绩:{{item.heightEnglish}}  平时成绩:15  总成绩:67
+									<a href="#" ng-click='showDetail()'>详情</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				
+				
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
@@ -158,6 +237,36 @@
 							</div>
 						</div>
 					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 详情 -->
+	<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">课程详情</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12" style="text-align: center;">
+							<img class="certificate" src="../../../assets/admin/layout4/img/avatar1.jpg" alt="">
+							<div class="leftText">
+								<p>高等数学（第一学期）</p>
+								<p>考试成绩:98</p>
+								<p>平时成绩:18</p>
+								<p>考试成绩占比:70%</p>
+								<p>平时成绩占比:30%</p>
+								<p>学习时长占比:9%</p>
+								<p>章节练习占比:21%</p>
+								<p>考试时间:2019-6-8</p>
+								<p style="color: blue;">已通过</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -241,6 +350,10 @@
 		//批量确认
 		$scope.batchExamine = function() {
 			$("#batchExamineModal").modal('show');
+		}
+		
+		$scope.showDetail = function() {
+			$("#detailModal").modal('show');
 		}
 	}
 </script>
