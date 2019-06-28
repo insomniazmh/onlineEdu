@@ -241,7 +241,9 @@
 		//上传文档
 		common.fileUpload({
 			id: 'filePickerDoc',
+			type: 'doc',
 			success: function(file, response, uploader) {
+				$scope.checkFileExt(response.fileName, 'doc');
 				var html = '<a href="'+response.fileUrl+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
 				$("#wendangContent").html(html);
 				$scope.docFiles = [response];
@@ -250,6 +252,7 @@
 		//上传音频
 		common.fileUpload({
 			id: 'filePickerAudio',
+			type: 'audio',
 			success: function(file, response, uploader) {
 				var html = '<audio src="'+response.fileUrl+'" controls="controls">您的浏览器不支持 audio 标签。</audio>';
 				$("#audioContent").html(html);
@@ -260,6 +263,7 @@
 		//上传视频
 		common.fileUpload({
 			id: 'filePickerVideo',
+			type: 'video',
 			success: function(file, response, uploader) {
 				var html = '<video src="'+response.fileUrl+'" controls="controls" style="height: 300px; width:auto;">您的浏览器不支持 video 标签。</video>';
 				console.log(html);

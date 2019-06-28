@@ -62,22 +62,20 @@ var common = {
 		});
 
 		uploader.on('uploadBeforeSend', function(block, data, headers) {
-			if(settings.beforeSend) {
-				var result = settings.beforeSend();
-				if(!result.continue) {
-					common.toast({
-						title: result.title,
-						type: 2
-					});
-					uploader.stop(true);
-				}
-			} else {
+			console.log( uploader.getFiles() );
+			var flag = common.checkFileExt(data.name, settings.type);
+			console.log(data);
+			if(!flag) {
+				uploader.removeFile( data.id, true );
+				uploader.cancelFile( data.id, true );
+				console.log( uploader.getFiles() );
+			}else {
 				Metronic.blockUI({
 					boxed: true,
 					message: "上传中，请耐心等待..."
 				});
 			}
-
+			
 		})
 
 		uploader.on('uploadSuccess', function(file, response) {
@@ -365,7 +363,43 @@ var common = {
 	       return 0;
 	    }
 		}
-	}
+	},
+	
+	//校验文件后缀
+	checkFileExt: function(filename, filetype){
+		 var flag = false; //状态
+		 var arr = [];
+//		 var arrDoc = ["jpg","png",'doc','docx'];
+//		 var arrAudio = ["mp3"];
+//		 var arrVideo = ["mp4"];
+		 
+		 if(filetype == 'doc') {
+		 	arr = ["jpg","png",'doc','docx']
+		 }else if(filetype == 'audio') {
+		 	arr = ["mp3"];
+		 }else if(filetype == 'video') {
+		 	arr = ["mp4"];
+		 }
+		 
+		 //取出上传文件的扩展名
+		 var index = filename.lastIndexOf(".");
+		 var ext = filename.substr(index+1);
+		 //循环比较
+		 for(var i=0;i<arr.length;i++) {
+		  if(ext == arr[i])
+		  {
+		   flag = true; //一旦找到合适的，立即退出循环
+		   break;
+		  }
+		 }
+		 var text = arr.join(',');
+		 //条件判断
+		 if(!flag) {
+		  layer.alert('文件名不合法,只支持'+text+'格式');
+		 }
+		 
+		 return flag;
+		}
 }
 
 //复制链接到剪切板
