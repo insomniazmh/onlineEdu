@@ -47,18 +47,14 @@
   height: 37rpx;
 }
 .listBtn{
-  width: 100rpx;
-  height: 100rpx;
   margin-right:85rpx;
   float: left;
-  margin-bottom: 90rpx;
+  margin-bottom: 40rpx;
 }
 .listBtn image{
   width: 100rpx;
   height:100rpx;
 }
 .listBtn view{
-  font-size: 28rpx;
-  width: 105rpx;
-  text-align: center;
+  font-size: 27rpx;
 }

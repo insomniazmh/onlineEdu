@@ -34,9 +34,14 @@
   <text class='title_class'>必修课</text>
   <text class='title_right'>{{className}}</text>
   <!--循环从此开始-->
-  <view class='class_clm' wx:for="{{courseList}}" bindtap="navToChapter" 
-  data-course='{{item}}' wx:key="clm">
-    <image bindtap='jumpTransaction' data-url="/pages/videoMaterial/videoMaterial" class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
+  <view class='class_clm' 
+        wx:for="{{courseList}}" 
+        bindtap="navToChapter" 
+        data-course='{{item}}' 
+        wx:key="clm"
+        bindtap='jumpTransaction' 
+        data-url="/pages/videoMaterial/videoMaterial">
+    <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
         <text>《{{item.courseName}}》</text>
         <text class='mt_20'>课程描述：{{item.courseDescribe}}</text>

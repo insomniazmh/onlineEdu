@@ -43,6 +43,7 @@ Page({
         topPicSrc: "/img/7.jpg"
       }
     ]
+
   },
   jumpTransaction: function (e) {
     wx.navigateTo({
