@@ -31,6 +31,10 @@
 				<div class="caption">
 					<i class="fa fa-globe"></i>课时费明细
 				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn btn-warning" data-toggle="modal" data-target="#importModal">
+					<i class="fa fa-plus"></i> 导入 </a>
+				</div>
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
@@ -97,6 +101,54 @@
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
 	</div>
+	
+	<!-- 导入 -->
+	<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">导入课时详情</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal">
+						<div class="form-body" style="margin-bottom: 50px;">
+							<div class="row" style="margin-bottom: 20px;">
+								<label class="col-md-2 control-label">学习中心</label>
+								<div class="col-md-4">
+									<select class="form-control">
+										<option>学习中心1</option>
+										<option>学习中心2</option>
+										<option>学习中心3</option>
+										<option>学习中心4</option>
+									</select>
+								</div>
+								<label class="col-md-2 control-label">月份</label>
+								<div class="col-md-4">
+									<input type="text" class="form-control form_datetime">
+								</div>
+								<!--<label class="col-md-2 control-label">专业</label>
+								<div class="col-md-4">
+									<select class="form-control">
+										<option>计算机</option>
+										<option>英语</option>
+										<option>土木工程</option>
+									</select>
+								</div>-->
+							</div>
+							<div class="row">
+								<label class="col-md-2 control-label">选择文件</label>
+								<div class="col-md-10">
+									<input type="file" class="form-control">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </div>
 <script src="../../../assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>

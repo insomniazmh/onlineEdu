@@ -139,25 +139,25 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 					}
 				};
 				//加载课程列表
-				// common.ajax({
-				// 	$scope: $scope,
-				// 	$http: $http,
-				// 	url: '/course/findMyCourse',
-				// 	data: pageData,
-				// 	success: function(data) {
-				// 		$(data.data).each(function() {
-				// 			if(!this.topPicSrc) {
-				// 				this.topPicSrc = 'images/zanwu.jpg';
-				// 			}
-				// 		});
-				// 		$rootScope.courses = data.data;
-				// 		if(!localStorage.getItem('courseId') && data.data.length > 0) {
-				// 			//默认选中第一个课程
-				// 			localStorage.setItem('courseId', data.data[0].courseId);
-				// 			$rootScope.course = data.data[0];
-				// 		}
-				// 	}
-				// });
+				 common.ajax({
+				 	$scope: $scope,
+				 	$http: $http,
+				 	url: '/course/findMyCourse',
+				 	data: pageData,
+				 	success: function(data) {
+				 		$(data.data).each(function() {
+				 			if(!this.topPicSrc) {
+				 				this.topPicSrc = 'images/zanwu.jpg';
+				 			}
+				 		});
+				 		$rootScope.courses = data.data;
+				 		if(!localStorage.getItem('courseId') && data.data.length > 0) {
+				 			//默认选中第一个课程
+				 			localStorage.setItem('courseId', data.data[0].courseId);
+				 			$rootScope.course = data.data[0];
+				 		}
+				 	}
+				 });
 		
 				//header中课程被选中事件，获取被选中的课程
 				$scope.changeCourse = function(row) {
@@ -214,6 +214,21 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     .state('enroll', {
       url: "/enroll.html",
       templateUrl: "views/enroll/enroll.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    
+    // 报名信息审核
+    .state('enrollExamine', {
+      url: "/enrollExamine.html",
+      templateUrl: "views/enroll/enrollExamine.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -375,10 +390,25 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })
 
-    //  考务成绩
+    //  考试成绩
     .state('examinationResults', {
       url: "/examinationResults.html",
       templateUrl: "views/examination/examinationResults.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    
+    //成绩确认
+    .state('resultConfirm', {
+      url: "/resultConfirm.html",
+      templateUrl: "views/examination/resultConfirm.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({
@@ -526,10 +556,25 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })
     
-  //  通知公告
+  	//通知公告
     .state('notice', {
       url: "/notice.html",
-      templateUrl: "views/notice.html",     
+      templateUrl: "views/notice/notice.html",     
+      resolve: {
+        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+          return $ocLazyLoad.load({
+            name: 'MetronicApp',
+            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+            files: [] 
+          });
+        }]
+      }
+    })
+    
+    //公告类别
+    .state('noticeType', {
+      url: "/noticeType.html",
+      templateUrl: "views/notice/noticeType.html",     
       resolve: {
         deps: ['$ocLazyLoad', function($ocLazyLoad) {
           return $ocLazyLoad.load({

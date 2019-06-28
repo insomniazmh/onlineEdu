@@ -26,3 +26,15 @@
 form p {
 	line-height: 35px;
 }
+
+.certificate {
+	width: 100px;
+	height: 100px;
+}
+
+.leftText {
+	margin-left: -9px;
+	text-align: center;
+	font-size: 19px;
+	margin-top: 10px;
+}

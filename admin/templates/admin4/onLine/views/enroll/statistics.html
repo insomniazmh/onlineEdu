@@ -59,7 +59,6 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>学习中心</th>
 							<th>专业名称</th>
 							<th>年级</th>
 							<th>学习中心名称</th>
@@ -68,7 +67,6 @@
 					</thead>
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="item in data" ng-click="detail();" style="cursor: pointer;">
-							<td>{{item.id}}</td>
 							<td>{{item.major}}</td>
 							<td>{{item.grade}}</td>
 							<td>{{item.schoolName}}</td>
@@ -81,13 +79,13 @@
 		<!-- END EXAMPLE TABLE PORTLET-->
 	</div>
 	
-	<!-- 显示流水历史 -->
+	<!-- 显示统计详情 -->
 	<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">当月流水记录</h4>
+					<h4 class="modal-title">统计详情</h4>
 				</div>
 				<div class="modal-body">
 					<table class="table table-striped table-bordered table-hover">

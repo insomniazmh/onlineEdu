@@ -37,6 +37,10 @@
 				<div class="caption">
 					<i class="fa fa-globe"></i>考试成绩
 				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn btn-warning" ng-click="import()">
+					<i class="fa fa-plus"></i> 线下考试成绩上传 </a>
+				</div>
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
@@ -83,7 +87,6 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>学号</th>
 							<th>姓名</th>
 							<th>年级</th>
 							<th>专业</th>
@@ -94,13 +97,12 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="item in data" class="odd gradeX">
-							<td>{{item.studentID}}</td>
 							<td>{{item.name}}</td>
 							<td>{{item.grade}}</td>
 							<td>{{item.major}}</td>
 							<td>{{item.computer}}</td>
 							<td>{{item.matheMatics}}</td>
-							<td>{{heightEnglish}}</td>
+							<td>{{item.heightEnglish}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -108,12 +110,44 @@
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
 	</div>
+	
+	<!-- 导入 -->
+	<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">线下考试成绩上传</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal">
+						<div class="form-body" style="margin-bottom: 50px;">
+							<div class="row">
+								<label class="col-md-2 control-label">选择文件</label>
+								<div class="col-md-4">
+									<input type="file" class="form-control">
+								</div>
+							</div>
+							<div class="row">
+								<label class="col-md-2 control-label">下载模板</label>
+								<div class="col-md-4">
+									<a href="" style="line-height: 35px; font-size: 16px;">线下考试成绩上传模板</a>
+								</div>
+							</div>
+							<div class="col-md-12" style="text-align: center">
+								<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
 <script>
 	function enrollCtrl($scope, $http, $rootScope) {
 		$scope.data = [{
-			studentID:"001",
 			name:"李四",
 			grade:"2019级",
 			major:"商务英语",
@@ -161,5 +195,9 @@
 				 })
 			}
 		};
+		
+		$scope.import = function() {
+			$("#importModal").modal('show');
+		}
 	}
 </script>

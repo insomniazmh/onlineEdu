@@ -1,14 +1,19 @@
 var common = {
 	
 	//正式服
-//	url: 'https://e.hnfts.cn/education',
-//	url2: 'https://e.hnfts.cn/quiz',
-//	uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	url: 'https://e.hnfts.cn/education',
+	url2: 'https://e.hnfts.cn/quiz',
+	uploadUrl: 'https://e.hnfts.cn/upload/upload',
+
+	//正式服ip
+//	url: 'http://192.168.21.162:8080',
+//	url2: 'http://192.168.21.162:8070',
+//	uploadUrl: 'http://192.168.21.162:8612/upload',
 
 	//测试服
-	url: 'http://192.168.10.2:8080',
-	url2: 'http://192.168.10.2:8081',
-	uploadUrl: 'http://192.168.10.2:8612/upload',
+//	url: 'http://192.168.10.2:8080',
+//	url2: 'http://192.168.10.2:8081',
+//	uploadUrl: 'http://192.168.10.2:8612/upload',
 
 	pageSize: 10,
 

@@ -43,12 +43,41 @@
 				</div>
 			</div>
 			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">学习中心</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in centerList" ng-click="select(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">专业</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in majorList" ng-click="select(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 				<table style="margin-bottom: 20px;" class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>操作</th>
 							<th>学习中心名称</th>
-							<th>学年</th>
+							<th>专业</th>
+							<th>当前学年</th>
 							<th>本期报名人数</th>
 							<th>每人补贴金额(元)</th>
 							<th>总课时费金额(元)</th>
@@ -64,7 +93,10 @@
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 							</td>
 							<td>
-								{{item.center}}
+								{{currCenter}}
+							</td>
+							<td>
+								{{item.major}}
 							</td>
 							<td>
 								<span ng-show='!item.edit'>{{item.xueqi}}</span>
@@ -129,21 +161,24 @@
 
 </div>
 <script>
-	function enrollCtrl($scope, $http) {
+	function enrollCtrl($scope, $http, $rootScope) {
 		$scope.data = [{
 			center: '学习中心1',
+			major: '计算机',
 			xueqi: '2019年',
 			num: 23,
 			price: 200,
 			stand: 150
 		}, {
 			center: '学习中心2',
+			major: '英语',
 			xueqi: '2019年',
 			num: 45,
 			price: 200,
 			stand: 150
 		}, {
 			center: '学习中心3',
+			major: '土木工程',
 			xueqi: '2019年',
 			num: 37,
 			price: 200,
@@ -166,6 +201,48 @@
 			price: 200,
 			stand: 150
 		}];
+		
+		$scope.centerList = [{
+			text: "郑大西",
+			active: true
+		}, {
+			text: "郑大北"
+		}, {
+			text: "郑大新区"
+		}];
+		
+		$scope.majorList = [{
+			text: "计算机",
+			active: true
+		}, {
+			text: "英语"
+		}, {
+			text: "土木工程"
+		}];
+		
+		
+		$scope.select = function(value) {
+			$rootScope.activeColor(value, function() {
+				$scope.getCurrentSel();
+			});
+		};
+		
+		$scope.getCurrentSel = function() {
+			for(value of $scope.centerList) {
+				if(value.active) {
+					$scope.currCenter = value.text;
+				}
+			}
+			
+			for(value of $scope.majorList) {
+				if(value.active) {
+					$scope.currMajor = value.text;
+				}
+			}
+			
+			$scope.settlement = !$scope.settlement;
+		};
+		$scope.getCurrentSel();
 		
 		$scope.add = function(index) {
 			window.event? window.event.cancelBubble = true : e.stopPropagation();//阻止冒泡
@@ -198,7 +275,6 @@
 		};
 		
 		$scope.showHistory = function(center) {
-			$scope.currCenter = center;
 			$("#historyModal").modal('show');
 		}
 
