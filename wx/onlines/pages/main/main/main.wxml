@@ -33,6 +33,6 @@
   </view>
   <view class='listBtn'>
     <image src='/img/z13.png' bindtap='jumpTransaction' data-url='/pages/examination/examination'></image>
-    <view>考试</view>
+    <view style='text-align:center;'>考试</view>
   </view>
 </view>

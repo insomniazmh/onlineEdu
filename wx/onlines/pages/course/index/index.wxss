@@ -102,7 +102,7 @@
   padding: 10rpx;
   background-color: lightblue;
   border-radius: 30rpx;
-  width: 141rpx;
+  width: 150rpx;
 }
 .class_number{
   position:absolute;
