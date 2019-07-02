@@ -112,13 +112,13 @@ Page({
         }
         //如果为第一次收到题目，则直接赋值，如果不是第一次，则将收到题目与现有题目合并
         if(that.data.questionList.length > 0) {
-          var quesArr = that.data.questionList;
-          for (let i = 0; i < data.bookQuestions.length; i++) {
-            quesArr.push(data.bookQuestions[i]);
-          }
-          that.setData({
-            questionList: quesArr
-          });
+          // var quesArr = that.data.questionList;
+          // for (let i = 0; i < data.bookQuestions.length; i++) {
+          //   quesArr.push(data.bookQuestions[i]);
+          // }
+          // that.setData({
+          //   questionList: quesArr
+          // });
         }else {
           that.setData({
             questionList: data.bookQuestions,

@@ -633,21 +633,24 @@
 							如果当前题目不是正在发布的题目，则不做处理
 						*/
 						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
-							for (let value of data.students) {
-								for (let value2 of $scope.answerStudents) {
-									if(value.id == value2.id) {
-										if(value.askAnswerInfo == "Y") {
-											value2.answer = '对';
-										}else if(value.askAnswerInfo == "N") {
-											value2.answer = '错';
-										}else {
-											value2.answer = value.askAnswerInfo;
-											value2.piGaiResult = value.piGaiResult
-										}
-									}
-								}
-							}
-							$scope.students = $scope.answerStudents;
+//							for (let value of data.students) {
+//								for (let value2 of $scope.answerStudents) {
+//									if(value.id == value2.id) {
+//										if(value.askAnswerInfo == "Y") {
+//											value2.answer = '对';
+//										}else if(value.askAnswerInfo == "N") {
+//											value2.answer = '错';
+//										}else {
+//											value2.answer = value.askAnswerInfo;
+//											value2.fileList = value.fileList;
+//											value2.piGaiResult = value.piGaiResult
+//										}
+//									}
+//								}
+//							}
+//							$scope.students = [];
+//							$scope.students = $scope.answerStudents;
+							$scope.loadAnswer();
 						}
 					} else if(data.model == "answer" && $scope.scene == "race") {
 						/*
@@ -655,18 +658,19 @@
 							如果当前题目不是正在发布的题目，则不做处理
 						*/
 						if($scope.currentTiwenQues.id == $scope.currentPublicQues.id) {
-							for (let value of data.students) {
-								if(value.askAnswerInfo == "Y") {
-									value.answer = '对';
-								}else if(value.askAnswerInfo == "N") {
-									value.answer = '错';
-								}else {
-									value.answer = value.askAnswerInfo;
-								}
-								$scope.raceStudents.push(value);
-								
-							}
-							$scope.students = $scope.raceStudents;
+//							for (let value of data.students) {
+//								if(value.askAnswerInfo == "Y") {
+//									value.answer = '对';
+//								}else if(value.askAnswerInfo == "N") {
+//									value.answer = '错';
+//								}else {
+//									value.answer = value.askAnswerInfo;
+//								}
+//								$scope.raceStudents.push(value);
+//								
+//							}
+//							$scope.students = $scope.raceStudents;
+							$scope.loadAnswer();
 						}
 					}
 				});
@@ -678,8 +682,8 @@
 				
 				//点击题号 
 				$scope.chooseQuestion = function(question) {
+					$scope.students = [];
 					$scope.currentTiwenQues = question;
-					console.log(question);
 					$("#btns").hide();
 					if($scope.currentTiwenQues.published) {
 						$scope.loadAnswer(); //如果该题已发布,则加载回答
@@ -837,11 +841,6 @@
 						"questionId": $scope.currentTiwenQues.id,
 						questionType: 'TiWen'
 					};
-					
-//					if(type == 'design') {
-//						url = '/teachInteract/findActivityAskAnswer';
-//						postData.questionType = 'TiWen';
-//					}
 					
 					common.ajax2({
 						$scope: $scope,

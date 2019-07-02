@@ -178,9 +178,10 @@
 			}
 		});
 
-		//文档类型课件
+		//ppt类型课件
 		common.fileUpload({
 			id: 'filePicker4',
+			type: 'ppt',
 			success: function(file, response, uploader) {
 				console.log(file);
 				console.log(response);
@@ -194,6 +195,7 @@
 		//视频类型课件
 		common.fileUpload({
 			id: 'filePicker5',
+			type: 'video',
 			success: function(file, response, uploader) {
 				var html = '<video src="'+response.fileUrl+'" controls="controls" style="height: 300px; width:auto;">'+response.fileName+'</video>';
 				$("#videoKejian").html(html);
@@ -204,6 +206,7 @@
 		//图集类型课件
 		common.multiFileUpload({
 			id: 'filePicker6',
+			type: 'pic',
 			uploadBtn: '.uploadBtn1',
 			success: function(file, response, uploader) {
 				picsKejian.push(response);

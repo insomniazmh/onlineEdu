@@ -8,7 +8,7 @@
 				<i class="icon-settings font-green-sharp"></i>
 				<span style="color: #4DB3A2;font-size: 16px;margin-left: 5px;font-weight: 600;">课堂提问</span>
 			</div>
-			<span class="badge {{row.published ? 'badge-danger' : 'badge-success'}}" style="margin: 3px;" ng-repeat="row in tiwenQuestionList" ng-click="chooseQuestion(row)"> {{$index+1}} </span>
+			<span class="badge {{(row.published || row.id==currentTiwenQues.id) ? 'badge-danger' : 'badge-success'}}" style="margin: 3px;" ng-repeat="row in tiwenQuestionList" ng-click="chooseQuestion(row)"> {{$index+1}} </span>
 		</div>
 		<div>
 			<div style="width: 48%;float: left;">
@@ -74,7 +74,7 @@
 					</div>
 					<div class="uppercase profile-stat-text answer" 
 						ng-if="answerShowFlag" 
-						style="color: {{row.piGaiResult=='true' ? 'green' : 'orangered'}};" 
+						style="color: {{row.piGaiResult ? 'green' : 'orangered'}};" 
 						ng-bind-html="row.answer">
 					</div>
 				</div>

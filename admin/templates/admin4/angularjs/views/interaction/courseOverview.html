@@ -774,6 +774,7 @@
 		//切换课程回调
 		$scope.$on('course', function(d, data) {
 			$scope.course = data;
+			$scope.loadClassList();
 		});
 		
 		localStorage.setItem('currClassId', '');
@@ -800,15 +801,19 @@
 				success: function(res) {
 					console.log(res);
 					$scope.classes = res.data;
-					$scope.classes.forEach(function(value,index){
-						if(index == 0) {
-							value.active = true;
-//							$scope.currClassId = value.classId;
-							localStorage.setItem('currClassId', value.classId)
-							$scope.loadTeamList();
-						}
-						value.color = classBgColor[index%4];
-					});
+					if(res.data.length > 0) {
+						$scope.classes.forEach(function(value,index){
+							if(index == 0) {
+								value.active = true;
+								localStorage.setItem('currClassId', value.classId)
+								$scope.loadTeamList();
+							}
+							value.color = classBgColor[index%4];
+						});
+					}else {
+						$scope.teamList = [];
+					}
+					
 				}
 			});
 		}

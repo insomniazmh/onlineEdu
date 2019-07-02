@@ -547,6 +547,7 @@
 		//上传教案
 		common.fileUpload({
 			id: 'filePickerJiaoan',
+			type: 'doc',
 			beforeSend: function() {
 				console.log(localStorage.getItem('currentNodeId'));
 				var rtn = {

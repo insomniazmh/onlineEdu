@@ -124,7 +124,7 @@ Component({
         raiseFlag: false,//举手按钮是否显示
         designFlag: false,//主观题的提交和重置按钮是否显示
         answer: "",
-
+        upLoadImg: [],
         questionId: data.bigQuestion.id,
         cut: data.cut
       });
@@ -204,9 +204,10 @@ Component({
     },
     // 点击删除图片
     deleteImg: function (e) {
-      var that = this;
+      console.log(e);
+      console.log(this.data.upLoadImg);
       // 获取data中uploadImg数组
-      var arr = that.data.upLoadImg;
+      var arr = this.data.upLoadImg;
       // 循环uploadImg数组
       for (var i = 0; i < arr.length; i++) {
         // 如果id和url相同,删除id
@@ -215,7 +216,7 @@ Component({
         }
       }
       // 删除结果返回
-      that.setData({
+      this.setData({
         upLoadImg: arr
       })
     }

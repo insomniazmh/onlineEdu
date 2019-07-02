@@ -340,6 +340,7 @@
 		//上传封面图片
 		common.fileUpload({
 			id: 'topPicSrc',
+			type: 'pic',
 			success: function(file, response) {
 				$scope.$apply(function() {
 					$scope.course.topPicSrc = response.fileUrl;

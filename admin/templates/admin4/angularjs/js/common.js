@@ -369,9 +369,6 @@ var common = {
 	checkFileExt: function(filename, filetype){
 		 var flag = false; //状态
 		 var arr = [];
-//		 var arrDoc = ["jpg","png",'doc','docx'];
-//		 var arrAudio = ["mp3"];
-//		 var arrVideo = ["mp4"];
 		 
 		 if(filetype == 'doc') {
 		 	arr = ["jpg","png",'doc','docx']
@@ -379,6 +376,10 @@ var common = {
 		 	arr = ["mp3"];
 		 }else if(filetype == 'video') {
 		 	arr = ["mp4"];
+		 }else if(filetype == 'pic') {
+		 	arr = ["jpg","png"];
+		 }else if(filetype == 'ppt') {
+		 	arr = ["ppt","pptx"];
 		 }
 		 
 		 //取出上传文件的扩展名
@@ -395,7 +396,7 @@ var common = {
 		 var text = arr.join(',');
 		 //条件判断
 		 if(!flag) {
-		  layer.alert('文件名不合法,只支持'+text+'格式');
+		  layer.alert('文件不合法,只支持'+text+'格式');
 		 }
 		 
 		 return flag;

@@ -37,7 +37,7 @@
     <view class='loadImg'>
       <view wx:for='{{upLoadImg}}' wx:key='loadImg'>
         <image class='loadImgItem' src='{{item.fileUrl}}'></image>
-        <image bindtap='deleteImg' id="{{item}}" class='imgDelete' src='/img/tabBar/delete.png'></image>
+        <image bindtap='deleteImg' id="{{item.fileUrl}}" class='imgDelete' src='/img/tabBar/delete.png'></image>
       </view>
       <navigator class='uploadImage'  bindtap='chooseImage' hover-class='none'>+</navigator>
     </view>
