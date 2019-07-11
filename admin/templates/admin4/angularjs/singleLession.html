@@ -979,10 +979,11 @@
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/teachInteract/findQuestionsRecord',
+						url: '/teachInteract/findAskAnswer',
 						data: {
 							"circleId": localStorage.getItem("circleId"),
-							"questionsId": $scope.currentBookQues.id
+							"questionsId": $scope.currentBookQues.id,
+							questionType: 'LianXi'
 						},
 						success: function(data) {
 							//如果该题已经发送过,则标志为已选,否则为未选
@@ -1119,10 +1120,11 @@
 					common.ajax2({
 						$scope: $scope,
 						$http: $http,
-						url: '/interactSurvey/findSurveysRecord',
+						url: '/teachInteract/findAskAnswer',
 						data: {
 							"circleId": localStorage.getItem("circleId"),
-							"questionsId": $scope.currentSurveyQues.id
+							"questionsId": $scope.currentSurveyQues.id,
+							questionType: 'WenJuan'
 						},
 						success: function(data) {
 							//如果该题已经发送过,则标志为已选,否则为未选

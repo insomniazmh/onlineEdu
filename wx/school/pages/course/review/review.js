@@ -5,21 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userStars: [
-      'http://118.24.120.43:8611/img/icon/star-active.png',
-      'http://118.24.120.43:8611/img/icon/star-active.png',
-      'http://118.24.120.43:8611/img/icon/star-active.png',
-      'http://118.24.120.43:8611/img/icon/star-active.png',
-      'http://118.24.120.43:8611/img/icon/star.png'
-    ],
     imgLIst: [
       {
-        url: `http://118.24.120.43:8611/img/icon/r_icon_g.png`,
-        hoverUrl: `http://118.24.120.43:8611/img/icon/r_icon.png`
+        url: `https://e.hnfts.cn/img/icon/r_icon_g.png`,
+        hoverUrl: `https://e.hnfts.cn/img/icon/r_icon.png`
       },
       {
-        url: `http://118.24.120.43:8611/img/icon/w_icon_g.png`,
-        hoverUrl: `http://118.24.120.43:8611/img/icon/w_icon.png`
+        url: `https://e.hnfts.cn/img/icon/w_icon_g.png`,
+        hoverUrl: `https://e.hnfts.cn/img/icon/w_icon.png`
       },
     ]
   },
@@ -33,27 +26,29 @@ Page({
       className: wx.getStorageSync('className'),
       portrait: wx.getStorageSync('portrait')
     });
-    this.loadKnowPoints();
+    // this.loadKnowPoints();
     this.loadExerciseList();
+    this.myEvaluate(); 
+    this.totalReview();
   },
 
   /**
    * 根据章节加载知识点
    */
-  loadKnowPoints: function () {
-    var postData = {
-      chapterId: this.data.chapter.chapterId
-    }
-    getApp().agriknow.loadKnowPoints(postData).then(res => {
-      console.log(res.data);
-      that.setData({
-        knowPoints: res.data
-      });
-    })
-    .catch(res => {
-      //wx.stopPullDownRefresh()
-    });
-  },
+  // loadKnowPoints: function () {
+  //   var postData = {
+  //     chapterId: this.data.chapter.chapterId
+  //   }
+  //   getApp().agriknow.loadKnowPoints(postData).then(res => {
+  //     console.log(res.data);
+  //     that.setData({
+  //       knowPoints: res.data
+  //     });
+  //   })
+  //   .catch(res => {
+  //     //wx.stopPullDownRefresh()
+  //   });
+  // },
 
   /**
    * 根据章节id加载预习练习题目
@@ -153,15 +148,68 @@ Page({
 
   //评价
   evaluate: function() {
+    var that = this;
     wx.showActionSheet({
-      itemList: ['5分', '4分', '3分', '2分', '1分'],
+      itemList: ['1分', '2分', '3分', '4分', '5分'],
       success(res) {
         console.log(res.tapIndex)
+        getApp().agriknow.reviewAdd({
+          score: res.tapIndex+1,
+          chapterId: that.data.chapter.chapterId
+        })
+          .then(res => {
+            if (res.ret == 0) {
+              wx.showToast({
+                title: '提交成功',
+                icon: 'success',
+                duration: 2000
+              });
+            }
+          });
       },
       fail(res) {
         console.log(res.errMsg)
       }
     })
+  },
+
+  //我的评价
+  myEvaluate: function () {
+    var that = this;
+    getApp().agriknow.myReview({
+      chapterId: that.data.chapter.chapterId
+    }).then(res => {
+      if (res.ret == 0) {
+        var score = res.data.score;
+        var userStars = [
+          'https://e.hnfts.cn/img/icon/star.png',
+          'https://e.hnfts.cn/img/icon/star.png',
+          'https://e.hnfts.cn/img/icon/star.png',
+          'https://e.hnfts.cn/img/icon/star.png',
+          'https://e.hnfts.cn/img/icon/star.png'
+        ];
+        
+        for (let i = 0; i < res.data.score; i++) {
+          userStars[i] = 'https://e.hnfts.cn/img/icon/star-active.png'
+        }
+        console.log(userStars);
+        that.setData({
+          userStars: userStars
+        })
+      }
+    });
+  },
+
+  //所有评价
+  totalReview: function () {
+    var that = this;
+    getApp().agriknow.totalReview({
+      chapterId: that.data.chapter.chapterId
+    }).then(res => {
+      if (res.ret == 0) {
+        
+      }
+    });
   },
 
   /**

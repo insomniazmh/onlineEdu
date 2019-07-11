@@ -230,12 +230,12 @@ class agriknow {
     return this._request.postRequest(this._baseUrl + this._quiz + '/exerciseBook/findExerciseBook', postData).then(res => res.data)
   }
 
-/*------------------------------------------------------------------------------------------------------------*/
+  /*------------------------------------------------------------------------------------------------------------*/
   /**
    *  公告列表
    */
-noticeFind(postData = {}) {
-  return this._request.postRequest(this._baseUrl + this._education + '/notice/findById', postData).then(res => res.data)
+  noticeFind(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/notice/findById', postData).then(res => res.data)
   }
     /**
    *  公告详情
@@ -248,6 +248,27 @@ noticeFind(postData = {}) {
    */
   checkoutTest(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._education + '/notice/findAll', postData).then(res => res.data)
+  }
+
+  /**
+  *  课程章节评价
+  */
+  reviewAdd(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseChapterReview/save', postData).then(res => res.data)
+  }
+
+  /**
+  *  我的评价
+  */
+  myReview(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseChapterReview/myCourseChapterReview', postData).then(res => res.data)
+  }
+
+  /**
+  *  所有评价统计
+  */
+  totalReview(postData = {}) {
+    return this._request.getRequest(this._baseUrl + this._education + '/courseChapterReview/findChapterReview', postData).then(res => res.data)
   }
 }
 export default agriknow
