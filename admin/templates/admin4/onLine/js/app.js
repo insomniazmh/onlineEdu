@@ -655,6 +655,16 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			}
 		})
 		
+		//教学资料
+		.state('assistant', {
+			url: "/assistant.html",
+			templateUrl: "views/database/assistant.html",
+			data: {
+				pageTitle: '教学资料',
+				pageSubTitle: '教学资料'
+			}
+		})
+		
 		//知识点题库
 		.state('knowledgePoint', {
 			url: "/knowledgePoint.html",

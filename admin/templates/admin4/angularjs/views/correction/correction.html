@@ -177,24 +177,23 @@
 			if(stuId) {
 				postData.studentId = stuId;
 			}
-			
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
 				data: postData,
 				url: '/teacherAnswer/findAnswer',
 				success: function(res) {
-					var arr = common.unique(res.data, 'id');
-					if(stuId) {
-						$scope.detail = res.data;
-					}else {
-						$scope.students = arr;
-					}
+//					var arr = common.unique(res.data, 'id');
+$scope.detail = res.data;
+//					if(stuId) {
+//						$scope.detail = res.data;
+//					}else {
+//						$scope.students = arr;
+//					}
 					
 				}
 			});
 		}
-		$scope.loadClassList();
 		
 		//切换课程回调
 		$scope.$on('course', function(d, data) {

@@ -8,32 +8,49 @@
           <view class='contetTitle'>{{item.headText}}</view>
           <view class='contentImg'>
             <image src='/img/icon/Collection.png'></image>
-            <image src='/img/icon/share.png'></image>
+            <!-- <image src='/img/icon/share.png'></image> -->
           </view>
           <view class='line'></view>
           <view class='contentItem'>
             <view class='leftTitle'>课程简介</view>
             <view class='itemContent'>{{item.chapter}}</view>
           </view>
-          <view class='contentItem'>
+          <!-- <view class='contentItem'>
             <view class='leftTitle'>授课老师</view>
             <view class='centImg'>
               <image src='/img/floor/a3.png'></image>
               <view class='imgName'>张婷</view>
             </view>
-          </view>
+          </view> -->
         </view>
         
       </van-tab>
+      <van-tab title="资料">
+       <view class='know'>音频</view>
+        <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{audioList}}'>
+          <audio name="{{item.fileName}}" src="{{item.fileUrl}}" controls loop bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror" style='margin 0 auto;'></audio>
+        </view>
+
+        <view class='know'>视频</view>
+        <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{videoList}}'>
+          <video src="{{item.fileUrl}}" controls></video>
+        </view>
+        
+        <view class='know'>参考资料</view>
+        <view class='data-list'>
+          <view class='data-item' wx:for='{{docList}}' bindtap="download" data-url='{{item.fileUrl}}'>
+            <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
+            <text>{{item.fileName}}</text>
+          </view>
+        </view>
+      </van-tab>
       <van-tab title="目录">
-        <van-collapse  wx:for="{{collapseList}}" 
-                      value="{{ activeNames }}" 
-                      bind:change="onChange" 
-                      wx:key='colapse'>
-          <van-collapse-item title="{{item.colpseTitle}}" name="1">
-            <van-collapse-item title="{{item.colpseMtitle}}" name="11">
-             <navigator>{{item.colpseContent}}</navigator>
-            </van-collapse-item>
+        <van-collapse value="{{ activeNames }}" bind:change="onChange" accordion>
+          <van-collapse-item wx:for="{{collapseList}}" 
+            wx:key='colapse'
+            title="{{item.colpseTitle}}" 
+            name="{{item.index}}">
+            {{item.colpseMtitle}}
           </van-collapse-item>
         </van-collapse>
       </van-tab>

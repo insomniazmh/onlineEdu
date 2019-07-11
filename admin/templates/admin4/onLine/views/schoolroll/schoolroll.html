@@ -32,6 +32,19 @@
 		right:50px;
 		top: 3px;
 	}
+	.export-all {
+		border-bottom: 1px solid gainsboro;
+		padding: 10px;
+	}
+	
+	.export-option {
+		padding: 10px 0;
+		line-height: 35px;
+	}
+	div.checker {
+		margin-left: 30px !important;
+		
+	}
 </style>
 <div class="row" ng-controller="schoolrollCtrl">
 	<div class="col-md-12">
@@ -39,11 +52,13 @@
 		<div class="portlet box grey-cascade">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i>学籍管理
+					<i class="fa fa-globe"></i>学生管理
 				</div>
 				<div class="actions">
-					<a href="javascript:;" class="btn red" ng-click="add()">
-					<i class="fa fa-plus"></i> 新增 </a>
+					<a href="javascript:;" class="btn red" ng-click="import()">
+					<i class="fa fa-plus"></i> 导入学生信息 </a>
+					<a href="javascript:;" class="btn btn-warning" ng-click="export()">
+					<i class="fa fa-plus"></i> 导出学生信息 </a>
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -141,6 +156,139 @@
 		<!-- END EXAMPLE TABLE PORTLET-->
 	</div>
 	
+	<!-- 导入 -->
+	<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">导入学生信息</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal">
+						<div class="form-body" style="margin-bottom: 50px;">
+							<div class="row">
+								<label class="col-md-2 control-label">选择文件</label>
+								<div class="col-md-4">
+									<input type="file" class="form-control">
+								</div>
+							</div>
+							<div class="row">
+								<label class="col-md-2 control-label">下载模板</label>
+								<div class="col-md-4">
+									<a href="" style="line-height: 35px; font-size: 16px;">学生信息模板</a>
+								</div>
+							</div>
+							<div class="col-md-12" style="text-align: center">
+								<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 导出 -->
+	<div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">导出学生信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12 export-all">
+							<span class="h4">个人信息</span>
+							<input type="checkbox" ng-model="single" ng-change="singleAll()" />全选
+						</div>
+						<div class="col-md-12 export-option" id="single">
+							<input type="checkbox"  />姓名
+							<input type="checkbox"  />姓名拼音
+							<input type="checkbox"  />性别
+							<input type="checkbox"  />联系电话
+							<input type="checkbox"  />身份证件类型
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 export-all">
+							<span class="h4">基本信息</span>
+							<input type="checkbox"  />全选
+						</div>
+						<div class="col-md-12 export-option">
+							<input type="checkbox"  />学生编号
+							<input type="checkbox"  />专业
+							<input type="checkbox"  />学习中心
+							<input type="checkbox"  />学生类别
+							<input type="checkbox"  />班级名称
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 export-all">
+							<span class="h4">家庭成员信息</span>
+							<input type="checkbox"  />全选
+						</div>
+						<div class="col-md-12 export-option">
+							<input type="checkbox"  />成员姓名
+							<input type="checkbox"  />成员关系
+							<input type="checkbox"  />联系电话
+							<input type="checkbox"  />是否监护人
+							<input type="checkbox"  />证件类型
+							<input type="checkbox"  />证件号码
+							<input type="checkbox"  />出生年月
+							<input type="checkbox"  />健康状况
+							<input type="checkbox"  />工作单位
+							<input type="checkbox"  />政治面貌
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 export-all">
+							<span class="h4">补充信息</span>
+							<input type="checkbox"  />全选
+						</div>
+						<div class="col-md-12 export-option" style="padding: 10px 0;">
+							<input type="checkbox"  />乘火车区间（始）
+							<input type="checkbox"  />乘火车区间（终）
+							<input type="checkbox"  />生源地行政区划码
+							<input type="checkbox"  />出生地行政区划码
+							<input type="checkbox"  />家庭现地址
+							<input type="checkbox"  />家庭邮政编码
+							<input type="checkbox"  />家庭电话
+							<input type="checkbox"  />户口所在地行政区划码
+							<input type="checkbox"  />户口所在地区县以下详细地址
+							<input type="checkbox"  />所属派出所
+							<input type="checkbox"  />户口所在地行政区划码
+							<input type="checkbox"  />学生居住地类型
+							<input type="checkbox"  />健康状况
+							<input type="checkbox"  />学生来源
+							<input type="checkbox"  />招生对象
+							<input type="checkbox"  />毕业学校
+							<input type="checkbox"  />是否建档立卡贫困户
+							<input type="checkbox"  />招生方式
+							<input type="checkbox"  />联招合作类型
+							<input type="checkbox"  />考生特长
+							<input type="checkbox"  />考生既往病史
+							<input type="checkbox"  />体检结论
+							<input type="checkbox"  />联招合作办学形式
+							<input type="checkbox"  />联招合作学校代码
+							<input type="checkbox"  />校外教学点
+							<input type="checkbox"  />分段培养方式
+							<input type="checkbox"  />英文姓名
+							<input type="checkbox"  />电子信箱
+							<input type="checkbox"  />其他联系方式
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12" style="text-align: center">
+							<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- 课程详情 -->
 	<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 10051;">
 		<div class="modal-dialog modal-lg">
@@ -171,21 +319,6 @@
 		</div>
 	</div>
 	
-	<!-- 学籍添加 -->
-	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-full">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">学籍添加</h4>
-				</div>
-				<div class="modal-body">
-					<div data-ng-include="'components/schoolRoll.html'"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
 	<!-- 学籍编辑 -->
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-full">
@@ -200,13 +333,21 @@
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 						</div>
 						<ul class="nav nav-tabs">
-							<li>
-								<a data-target="#tab_sign" data-toggle="tab">
-									报名信息 </a>
-							</li>
 							<li class="active">
-								<a data-target="#tab_enroll" data-toggle="tab">
-									学籍信息 </a>
+								<a data-target="#tab_single" data-toggle="tab">
+									个人信息 </a>
+							</li>
+							<li>
+								<a data-target="#tab_basic" data-toggle="tab">
+									基本信息 </a>
+							</li>
+							<li>
+								<a data-target="#tab_family" data-toggle="tab">
+									家庭成员信息 </a>
+							</li>
+							<li>
+								<a data-target="#tab_supplement" data-toggle="tab">
+									补充信息 </a>
 							</li>
 							<li>
 								<a data-target="#tab_result" data-toggle="tab">
@@ -220,14 +361,20 @@
 					</div>
 					<div class="portlet-body">
 						<div class="tab-content">
-							<div class="tab-pane" id="tab_sign">
-								<div data-ng-include="'components/signInfo.html'"></div>
+							<div class="tab-pane active" id="tab_single">
+								<div data-ng-include="'components/student/single.html'"></div>
 							</div>
-							<div class="tab-pane active" id="tab_enroll">
-								<div data-ng-include="'components/schoolRoll.html'"></div>
+							<div class="tab-pane" id="tab_basic">
+								<div data-ng-include="'components/student/basic.html'"></div>
+							</div>
+							<div class="tab-pane" id="tab_family">
+								<div data-ng-include="'components/student/family.html'"></div>
+							</div>
+							<div class="tab-pane" id="tab_supplement">
+								<div data-ng-include="'components/student/supplement.html'"></div>
 							</div>
 							<div class="tab-pane" id="tab_result">
-								<div data-ng-include="'components/achievement.html'"></div>
+								<div data-ng-include="'components/student/result.html'"></div>
 							</div>
 							<div class="tab-pane" id="tab_change">
 								<table class="table table-striped table-bordered table-hover">
@@ -255,6 +402,7 @@
 											<td>{{item.cTime}}</td>
 										</tr>
 									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
@@ -263,6 +411,7 @@
 		</div>
 	</div>
 
+	
 	
 </div>
 <script>
@@ -322,8 +471,38 @@
 			}
 		];
 		
-		$scope.add = function() {
-			$("#addModal").modal('show');
+		$scope.familyData = [
+			{
+				name:"张三",
+				rel:"父子",
+				phone:"13712345678",
+				isJHR:"是",
+				cardType:"身份证",
+				cardNo:"41102913243",
+				birthday: '2019-6-5',
+				health: '健康',
+				work: '郑州市农业局',
+				politics: '党员',
+			}, {
+				name:"李四",
+				rel:"母子",
+				phone:"13712345678",
+				isJHR:"是",
+				cardType:"身份证",
+				cardNo:"41102913243",
+				birthday: '2019-6-5',
+				health: '健康',
+				work: '郑州市农业局',
+				politics: '党员',
+			}
+		];
+		
+		$scope.import = function() {
+			$("#importModal").modal('show');
+		}
+		
+		$scope.export = function() {
+			$("#exportModal").modal('show');
 		}
 		
 		$scope.edit = function() {
@@ -331,8 +510,18 @@
 		}
 		
 		$scope.detail = function() {
-			console.log(1243);
 			$("#courseModal").modal('show');
+		}
+		
+		$scope.single = false;
+		$scope.singleAll = function() {
+			console.log($scope.single);
+			if($scope.single) {
+				console.log($("#single input[type='checkbox']").length);
+				$("#single input[type='checkbox']").prop('checked', true);
+			}else {
+				$("#single input[type='checkbox']").prop('checked', false);
+			}
 		}
 	}
 </script>

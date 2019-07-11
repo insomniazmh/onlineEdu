@@ -23,27 +23,9 @@
     </van-row>
   </view>
   <view class='know-content'>
-    <view class='know'>知识点</view>
-    <view class='know-list'>
-      <view class='know-1'>
-        <text>1</text> 电子商务的定义</view>
-      <view class='know-2'>
-        <text>2</text> 电子商务的概念</view>
-    </view>
+    
     <!-- 分割线 -->
-    <view class='cut-off'></view>
-
-    <!-- <view class='know'>电子商务的定义</view>
-      <view class='know-swiper' style='margin-top:50rpx;'>
-        <swiper autoplay indicator-dots indicator-color='ghostwhite'>
-          <swiper-item>
-            <image src='https://e.hnfts.cn/img/news/list1.png'></image> 
-           </swiper-item>
-          <swiper-item>
-            <image src='https://e.hnfts.cn/img/banner/header.png'></image> 
-           </swiper-item>
-        </swiper>
-      </view> -->
+    <!-- <view class='cut-off'></view> -->
 
     <view class='know'>音频</view>
     <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{audioList}}'>
@@ -54,15 +36,7 @@
     <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{videoList}}'>
       <video src="{{item.fileUrl}}" controls></video>
     </view>
-
-    <view class='know'>链接</view>
-    <view class='data-list'>
-      <view class='data-item' wx:for='{{linkList}}'>
-        <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
-        <text>{{item.fileName}}</text>
-      </view>
-    </view>
-
+    
     <view class='know'>参考资料</view>
     <view class='data-list'>
       <view class='data-item' wx:for='{{docList}}' bindtap="download" data-url='{{item.fileUrl}}'>

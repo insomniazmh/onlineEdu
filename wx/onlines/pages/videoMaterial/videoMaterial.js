@@ -6,7 +6,7 @@ Page({
    */
   data: {
     active: 0,
-    activeNames: ['0'],
+    activeNames: '1',
     curriculum:[
       {
         headText:"高中语文深度进阶诗词专题",
@@ -35,14 +35,14 @@ Page({
     ],
     collapseList:[
       {
+        index: '0',
         colpseTitle:"第一讲  高考诗词鉴赏",
-        colpseMtitle:"1.1诗词鉴赏考察要点",
-        colpseContent:"五大看法之看作者"
+        colpseMtitle:"1.1诗词鉴赏考察要点"
       },
       {
+        index: '1',
         colpseTitle: "第二讲  高考诗词鉴赏",
-        colpseMtitle: "2.1诗词鉴赏考察要点",
-        colpseContent: "五大看法之看作者"
+        colpseMtitle: "2.1诗词鉴赏考察要点"
       }
     ]
   },
@@ -53,6 +53,7 @@ Page({
     // })
   },
   onChange(event) {
+    console.log(event.detail);
     this.setData({
       activeNames: event.detail
     });

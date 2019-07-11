@@ -238,13 +238,6 @@
 									$(res.data).each(function() {
 										arr.push(this.userId);
 									});
-									$("#my_multi_select1 option").each(function() {
-										//console.log($.inArray($(this).val(), arr));
-										if ($.inArray($(this).val(), arr) >= 0) {
-											$(this).attr("selected", true);
-										}
-									})
-									$('#my_multi_select1').multiSelect('refresh');
 								}
 							});
 						}

@@ -20,15 +20,6 @@
     </van-row>
   </view>
   <view class='know-content'>
-    <view class='know'>知识点</view>
-    <view class='know-list'>
-      <view class='know-1'>
-        <text>1</text> 电子商务的定义</view>
-      <view class='know-2'>
-        <text>2</text> 电子商务的概念</view>
-    </view>
-    <!-- 分割线 -->
-    <view class='cut-off'></view>
 
     <view class='know'>课程评价
       <text style='margin-left:30rpx;font-size:30rpx;'>4.8分</text>
