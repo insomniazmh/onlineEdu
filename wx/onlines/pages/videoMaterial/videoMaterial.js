@@ -7,6 +7,7 @@ Page({
   data: {
     active: 0,
     activeNames: '1',
+    videoUrl: 'https://e.hnfts.cn/file/group1/M00/00/00/wKgVolz_XHSAPZRCAKZadEGkJGs856.mp4',
     curriculum:[
       {
         headText:"高中语文深度进阶诗词专题",
@@ -67,10 +68,17 @@ Page({
   },
 
   /**
+   * 播放进度变化时触发，可获取总时长和当前播放时长
+   */
+  timeupdate: function (e) {
+    console.log(e);
+  },
+
+  /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.videoContext = wx.createVideoContext('video');
   },
 
   /**
