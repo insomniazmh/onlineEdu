@@ -982,7 +982,7 @@
 						url: '/teachInteract/findAskAnswer',
 						data: {
 							"circleId": localStorage.getItem("circleId"),
-							"questionsId": $scope.currentBookQues.id,
+							"questionId": $scope.currentBookQues.id,
 							questionType: 'LianXi'
 						},
 						success: function(data) {
@@ -1123,7 +1123,7 @@
 						url: '/teachInteract/findAskAnswer',
 						data: {
 							"circleId": localStorage.getItem("circleId"),
-							"questionsId": $scope.currentSurveyQues.id,
+							"questionId": $scope.currentSurveyQues.id,
 							questionType: 'WenJuan'
 						},
 						success: function(data) {
@@ -1461,7 +1461,7 @@
 						url: '/brainstormInteract/findBrainstormRecord',
 						data: {
 							"circleId": localStorage.getItem("circleId"),
-							"questionsId": $scope.currentStromQues.id
+							"questionId": $scope.currentStromQues.id
 						},
 						success: function(data) {
 							//如果该题已经发送过,则标志为已选,否则为未选

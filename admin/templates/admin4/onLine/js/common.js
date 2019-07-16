@@ -1,9 +1,9 @@
 var common = {
 	
 	//正式服
-//	url: 'https://e.hnfts.cn/education',
-//	url2: 'https://e.hnfts.cn/quiz',
-//	uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	url: 'https://e.hnfts.cn/education',
+	url2: 'https://e.hnfts.cn/quiz',
+	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
 	//正式服ip
 //	url: 'http://192.168.21.162:8080',
@@ -11,11 +11,9 @@ var common = {
 //	uploadUrl: 'http://192.168.21.162:8612/upload',
 
 	//测试服
-	url: 'http://192.168.10.2:7080',
-	url2: 'http://192.168.10.2:8081',
-	uploadUrl: 'http://192.168.10.2:8612/upload',
-
-	pageSize: 10,
+	// url: 'http://192.168.10.2:7080',
+	// url2: 'http://192.168.10.2:8081',
+	// uploadUrl: 'http://192.168.10.2:8612/upload',
 
 	toast: function(settings) {
 		var defaults = {
@@ -53,7 +51,7 @@ var common = {
 		window.location.href = "login.html";
 	},
 	
-	//网络请求--继伟接口
+	//网络请求
 	ajax: function(settings) {
 		var defaults = {
 			method: 'post',
@@ -76,7 +74,24 @@ var common = {
 		}else {
 			postUrl = common.url2 + settings.url;
 		}
-
+		
+		if(settings.tip) {
+			var index = layer.confirm(settings.tip, {
+				btn: ['确定','取消'] //按钮
+			}, function(){
+				common.http(settings, postUrl);
+				layer.close(index);
+			}, function(){
+				window.setTimeout(function() {
+					Metronic.unblockUI();
+				});
+			});
+		}else {
+			common.http(settings, postUrl);
+		}
+	},
+	
+	http: function(settings, postUrl) {
 		settings.$http({
 			headers: {
 				token: localStorage.getItem("token")
@@ -85,7 +100,6 @@ var common = {
 			url: postUrl,
 			data: settings.data,
 		}).then(function successCallback(response) {
-//			console.log("请求："+JSON.stringify(settings.data)+"--返回"+JSON.stringify(response));
 			var data = response.data;
 			if(data.ret == 0) {
 				if(settings.operate) {
