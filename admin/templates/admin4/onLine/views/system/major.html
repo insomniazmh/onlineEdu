@@ -61,14 +61,20 @@
 					"page": $scope.currentPage - 1,
 					"size": $rootScope.pageSize,
 				},
-				url: '/specialty/findAll',
+				url: '/specialty/findAllPage',
 				success: function(res) {
 					console.log(res);
-					$scope.data = res.data;
+					$scope.totalItems = res.totalPages;
+					$scope.bigTotalItems = res.totalElements;
+					$scope.data = res.content;
 				}
 			});
 		}
 		$scope.loadMajorList();
+		
+		$scope.pageChanged = function() {
+			$scope.loadMajorList();
+		}
 
 		$scope.add = function(index) {
 			$scope.flag = 'add';

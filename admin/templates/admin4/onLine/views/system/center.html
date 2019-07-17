@@ -123,10 +123,9 @@
 				},
 				url: '/learnCenter/findAllPage',
 				success: function(res) {
-					var totalRecords = res.data.totalElements;
-					$scope.totalItems = res.data.totalPages;
-					$scope.bigTotalItems = res.data.totalElements;
-					$scope.data = res.data.content;
+					$scope.totalItems = res.totalPages;
+					$scope.bigTotalItems = res.totalElements;
+					$scope.data = res.content;
 				}
 			});
 		}
@@ -160,7 +159,6 @@
 					center.edit = false;
 				}
 			});
-			
 		};
 		
 		$scope.cancel = function(center, index) {

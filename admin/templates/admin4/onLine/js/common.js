@@ -1,19 +1,14 @@
 var common = {
 	
 	//正式服
-	url: 'https://e.hnfts.cn/education',
-	url2: 'https://e.hnfts.cn/quiz',
-	uploadUrl: 'https://e.hnfts.cn/upload/upload',
-
-	//正式服ip
-//	url: 'http://192.168.21.162:8080',
-//	url2: 'http://192.168.21.162:8070',
-//	uploadUrl: 'http://192.168.21.162:8612/upload',
+	// url: 'https://e.hnfts.cn/education',
+	// url2: 'https://e.hnfts.cn/quiz',
+	// uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
 	//测试服
-	// url: 'http://192.168.10.2:7080',
-	// url2: 'http://192.168.10.2:8081',
-	// uploadUrl: 'http://192.168.10.2:8612/upload',
+	url: 'http://192.168.10.2:7080',
+	url2: 'http://192.168.10.2:8081',
+	uploadUrl: 'http://192.168.10.2:8612/upload',
 
 	toast: function(settings) {
 		var defaults = {
@@ -107,7 +102,7 @@ var common = {
 						title: "操作成功"
 					});
 				}
-				settings.success(response.data);
+				settings.success(data.data);
 			} else if(data.ret == 4) {
 				common.toast({
 					type: 2,
