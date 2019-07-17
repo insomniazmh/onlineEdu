@@ -113,26 +113,18 @@
 <script>
 	function enrollCtrl($scope, $http, $rootScope) {
 		$scope.currentPage = 1;
-		$scope.loadCenterList = function() {
-			common.ajax({
+		$scope.loadDataList = function() {			
+			common.loadDataList({
 				$scope: $scope,
 				$http: $http,
-				data: {
-					"page": $scope.currentPage - 1,
-					"size": $rootScope.pageSize,
-				},
-				url: '/learnCenter/findAllPage',
-				success: function(res) {
-					$scope.totalItems = res.totalPages;
-					$scope.bigTotalItems = res.totalElements;
-					$scope.data = res.content;
-				}
+				$rootScope: $rootScope,
+				url: '/learnCenter/findAllPage'
 			});
 		}
-		$scope.loadCenterList();
+		$scope.loadDataList();
 		
 		$scope.pageChanged = function() {
-			$scope.loadCenterList();
+			$scope.loadDataList();
 		}
 
 		$scope.add = function(index) {
@@ -178,7 +170,7 @@
 				tip: '您确定要删除该学习中心吗？',
 				url: '/learnCenter/removeById',
 				success: function(res) {
-					$scope.loadMajorList();
+					$scope.loadDataList();
 				}
 			});
 		};

@@ -53,27 +53,18 @@
 <script>
 	function majorCtrl($scope, $http, $rootScope) {
 		$scope.currentPage = 1;
-		$scope.loadMajorList = function() {
-			common.ajax({
+		$scope.loadDataList = function() {
+			common.loadDataList({
 				$scope: $scope,
 				$http: $http,
-				data: {
-					"page": $scope.currentPage - 1,
-					"size": $rootScope.pageSize,
-				},
-				url: '/specialty/findAllPage',
-				success: function(res) {
-					console.log(res);
-					$scope.totalItems = res.totalPages;
-					$scope.bigTotalItems = res.totalElements;
-					$scope.data = res.content;
-				}
+				$rootScope: $rootScope,
+				url: '/specialty/findAllPage'
 			});
 		}
-		$scope.loadMajorList();
+		$scope.loadDataList();
 		
 		$scope.pageChanged = function() {
-			$scope.loadMajorList();
+			$scope.loadDataList();
 		}
 
 		$scope.add = function(index) {
@@ -119,7 +110,7 @@
 				tip: '您确定要删除该专业吗？',
 				url: '/specialty/deleteBySpecialtyId',
 				success: function(res) {
-					$scope.loadMajorList();
+					$scope.loadDataList();
 				}
 			});
 		};

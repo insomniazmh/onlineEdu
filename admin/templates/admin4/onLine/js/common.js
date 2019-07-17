@@ -180,7 +180,7 @@ var common = {
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 			pick: '#' + settings.id
 		});
-
+		
 		uploader.on('uploadBeforeSend', function(block, data, headers) {
 			if(settings.beforeSend) {
 				var result = settings.beforeSend();
@@ -216,5 +216,37 @@ var common = {
 			});
 		});
 	},
+	
+	loadDataList: function(settings) {
+		var postData = {
+			"page": settings.$scope.currentPage - 1,
+			"size": settings.$rootScope.pageSize,
+			sortVo: {
+				"page": settings.$scope.currentPage - 1,
+				"size": settings.$rootScope.pageSize,
+			}
+		};
+		
+		if(settings.$scope.searchVar) {
+			postData = Object.assign(postData, settings.$scope.searchVar);
+		}
+		console.log(postData);
+		
+		common.ajax({
+			$scope: settings.$scope,
+			$http: settings.$http,
+			data: postData,
+			url: settings.url,
+			success: function(res) {
+				settings.$scope.totalItems = res.totalPages;
+				settings.$scope.bigTotalItems = res.totalElements;
+				if(settings.rtnData) {
+					settings.rtnData = res.content;
+				}else {
+					settings.$scope.data = res.content;
+				}
+			}
+		});
+	}
 
 }

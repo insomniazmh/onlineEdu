@@ -415,7 +415,18 @@
 	
 </div>
 <script>
-	function schoolrollCtrl($scope, $http) {
+	function schoolrollCtrl($scope, $http, $rootScope) {
+		$scope.currentPage = 1;
+		$scope.loadDataList = function() {			
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/student/findStudentsPageAll'
+			});
+		};
+		$scope.loadDataList();
+		
 		$scope.data = [{
 			studentId:"20180901",
 			name:"张三",

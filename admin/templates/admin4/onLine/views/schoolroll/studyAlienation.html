@@ -46,15 +46,15 @@
 				<div class="table-toolbar">
 					<div class="row">
 						<div class="col-md-12">
-							<label class="col-md-1 label-text">学号</label>
+							<label class="col-md-1 label-text">姓名</label>
 							<div class="col-md-2">
-								<input type="text" class="form-control">
+								<input type="text" class="form-control" ng-model='searchVar.stuId'>
 							</div>
 							<label class="col-md-1 label-text">审核编号</label>
 							<div class="col-md-2">
-								<input type="text" class="form-control">
+								<input type="text" class="form-control" ng-model='searchVar.changId'>
 							</div>
-							<button class="btn btn-sm blue">查询</button>
+							<button class="btn btn-sm blue" ng-click="loadDataList()">查询</button>
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-1">
@@ -62,7 +62,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in type" ng-click="activeColor(item)">
+									<li ng-repeat="item in type" ng-click="select(item)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -74,7 +74,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in state" ng-click="activeColor(item)">
+									<li ng-repeat="item in state" ng-click="select(item)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -412,8 +412,18 @@
 
 </div>
 <script>
-	function SACtrl($scope, $http) {
-		$scope.data = [{}, {}];
+	function SACtrl($scope, $http, $rootScope) {
+		$scope.searchVar = {};
+		$scope.currentPage = 1;
+		$scope.loadDataList = function() {
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/schoolRollChange/findSchoolRollChange'
+			});
+		}
+		$scope.loadDataList();
 
 		$scope.type = [{
 			text: "休学"
@@ -454,6 +464,30 @@
 
 		$scope.detail = function() {
 			$("#detailModal").modal('show');
-		}
+		};
+		
+		$scope.select = function(value) {
+			$rootScope.activeColor(value, function() {
+				$scope.getCurrentSel();
+			});
+		};
+		
+		$scope.getCurrentSel = function() {
+			$scope.searchVar.type = [];
+			for(value of $scope.type) {
+				if(value.active) {
+					$scope.searchVar.type.push(value.text);
+				}
+			}
+			
+			$scope.searchVar.state = [];
+			for(value of $scope.state) {
+				if(value.active) {
+					$scope.searchVar.state.push(value.text);
+				}
+			}
+			
+			$scope.loadDataList();
+		};
 	}
 </script>
