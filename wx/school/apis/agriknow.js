@@ -7,15 +7,15 @@
 import request from './request.js'
 class agriknow {
   constructor() {
-      this._baseUrl = 'https://e.hnfts.cn'
-      this._quiz = '/quiz'
-      this._wx = '/wechat'
-      this._education = '/education'
+      // this._baseUrl = 'https://e.hnfts.cn'
+      // this._quiz = '/quiz'
+      // this._wx = '/wechat'
+      // this._education = '/education'
 
-    // this._baseUrl = 'http://192.168.10.2:'
-    // this._quiz = '8081'
-    // this._wx = '8090'
-    // this._education = '8080'
+    this._baseUrl = 'http://192.168.10.2:'
+    this._quiz = '8081'
+    this._wx = '8090'
+    this._education = '8080'
     
     this._request = new request
     this._request.setErrorHandler(this.errorHander)
@@ -105,10 +105,24 @@ class agriknow {
   }
 
   /**
-   * 提交预习自测回答
+   * 提交（预习自测/课后作业）回答
    */
   answerSelfTest(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._quiz + '/studentAnswer/saveAnswer', postData).then(res => res.data)
+  }
+
+  /**
+   * 查询自己（预习自测/课后作业）回答
+   */
+  answerSelfFind(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._quiz + '/studentAnswer/findAnswer', postData).then(res => res.data)
+  }
+
+  /**
+   * 查询自己（预习自测/课后作业）快照
+   */
+  snapshot(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._quiz + '/studentAnswer/findExerciseBook', postData).then(res => res.data)
   }
 
   /**
@@ -268,7 +282,7 @@ class agriknow {
   *  所有评价统计
   */
   totalReview(postData = {}) {
-    return this._request.getRequest(this._baseUrl + this._education + '/courseChapterReview/findChapterReview', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._education + '/courseChapterReview/findChapterReview', postData).then(res => res.data)
   }
 }
 export default agriknow

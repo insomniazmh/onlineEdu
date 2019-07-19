@@ -17,6 +17,7 @@ Component({
     //这里是一些组件内部数据
     showSub: false,
     checkTOF: true,
+    analysiShow: false,
     answer: "",
     upLoadImg: []
   },
@@ -161,6 +162,18 @@ Component({
           raiseFlag: true,
           showSub: false,
           designFlag: false
+        });
+      }
+
+      if (data.bigQuestion.examChildren[0].stuAnswer) {//已经回答过，需显示答案
+        that.setData({
+          raiseFlag: false,
+          showSub: false,
+          designFlag: false,
+          analysiShow: true,
+          stuAnswer: data.bigQuestion.examChildren[0].stuAnswer,
+          rightAnswer: data.bigQuestion.examChildren[0].answer,
+          analysis: data.bigQuestion.examChildren[0].analysis
         });
       }
 

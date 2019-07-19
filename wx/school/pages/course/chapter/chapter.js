@@ -61,7 +61,7 @@ Page({
   //跳转至预习页面
   navToPreview: function (e) {
     wx.navigateTo({
-      url: '/pages/course/preview/preview?chapterId=' + e.currentTarget.id + '&chapterName=' + e.currentTarget.text
+      url: '/pages/course/preview/preview?chapterId=' + e.currentTarget.dataset.id + '&chapterName=' + e.currentTarget.dataset.text
     })
   },
 })

@@ -22,9 +22,9 @@
   <view class='know-content'>
 
     <view class='know'>课程评价
-      <text style='margin-left:30rpx;font-size:30rpx;'>4.8分</text>
+      <text style='margin-left:30rpx;font-size:30rpx;'>{{average}}分</text>
       <navigator class='evaluate' bindtap='evaluate'>我也要评价</navigator>
-      <text class='right-title'>24人评价</text>
+      <text class='right-title'>{{chargeNum}}人评价</text>
     </view>
     <view class='know-warp'>
       <view class='know-card'>
@@ -43,6 +43,25 @@
         </view>
       </view>
     </view>
+
+    <view class='know'>音频</view>
+    <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{audioList}}'>
+      <audio name="{{item.fileName}}" src="{{item.fileUrl}}" controls loop bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror" style='margin 0 auto;'></audio>
+    </view>
+
+    <view class='know'>视频</view>
+    <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{videoList}}'>
+      <video src="{{item.fileUrl}}" controls></video>
+    </view>
+    
+    <view class='know'>参考资料</view>
+    <view class='data-list'>
+      <view class='data-item' wx:for='{{docList}}' bindtap="download" data-url='{{item.fileUrl}}'>
+        <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
+        <text>{{item.fileName}}</text>
+      </view>
+    </view>
+
     <view class='know'>作业</view>
     <view class='choosen_box'>
       <view class='slide_box'>

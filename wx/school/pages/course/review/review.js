@@ -27,6 +27,7 @@ Page({
       portrait: wx.getStorageSync('portrait')
     });
     // this.loadKnowPoints();
+    this.loadDatumList();
     this.loadExerciseList();
     this.myEvaluate(); 
     this.totalReview();
@@ -49,6 +50,92 @@ Page({
   //     //wx.stopPullDownRefresh()
   //   });
   // },
+
+  /**
+   * 根据章节加载资料
+   */
+  loadDatumList: function () {
+    var that = this;
+    var postData = {
+      courseId: wx.getStorageSync('courseId'),
+      chapterId: this.data.chapter.chapterId,
+      datumArea: 6,
+      sortVo: {
+        "isValidated": "0",
+        "page": 0,
+        "size": 10,
+        "sort": 1
+      }
+    }
+    getApp().agriknow.loadDatumList(postData).then(res => {
+      var knowPoints = res.data;
+      var videoList = [];//视频
+      var audioList = [];//音频
+      var linkList = [];//链接
+      var docList = [];//文档
+      for (let i = 0; i < knowPoints.length; i++) {
+        if (knowPoints[i].datumType == '1') {
+          docList.push(knowPoints[i]);
+        } else if (knowPoints[i].datumType == '3') {
+          videoList.push(knowPoints[i]);
+        } else if (knowPoints[i].datumType == '4') {
+          audioList.push(knowPoints[i]);
+        } else if (knowPoints[i].datumType == '5') {
+          linkList.push(knowPoints[i]);
+        }
+      }
+
+      that.setData({
+        videoList: videoList,
+        audioList: audioList,
+        linkList: linkList,
+        docList: docList
+      });
+    })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
+  },
+
+  /**
+   * 下载资料
+   */
+  download: function (e) {
+    var that = this;
+    this.setData({
+      loadingHidden: false
+    });
+    wx.downloadFile({
+      url: e.currentTarget.dataset.url,
+      success(res) {
+        // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+        if (res.statusCode === 200) {
+          that.setData({
+            loadingHidden: true
+          });
+          console.log(res.tempFilePath)
+          // 保存图片到本地
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success: function (data) {
+              wx.showModal({
+                title: '下载成功',
+                content: '图片以保存至您的手机',
+              })
+            },
+          });
+
+          wx.openDocument({
+            filePath: res.tempFilePath,
+            success: function (res) {
+              console.log('打开文档成功')
+            }
+          })
+
+        }
+      }
+    })
+  },
 
   /**
    * 根据章节id加载预习练习题目
@@ -207,7 +294,10 @@ Page({
       chapterId: that.data.chapter.chapterId
     }).then(res => {
       if (res.ret == 0) {
-        
+        that.setData({
+          chargeNum: res.data.reviewAmount,
+          average: res.data.averageScore
+        })
       }
     });
   },

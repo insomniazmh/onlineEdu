@@ -44,7 +44,9 @@
         <text>{{item.fileName}}</text>
       </view>
     </view>
-    <view class='know'>预习自测</view>
+    <view class='know'>
+      预习自测
+    </view>
     <view class='choosen_box'>
       <view class='slide_box'>
         <text wx:for="{{questionList}}" class="{{item.done?'color_state_on':'color_state_off'}}" bindtap='bindtab' data-id='{{item.id}}'>{{index+1}}</text>

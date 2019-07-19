@@ -46,6 +46,14 @@
     form-type="submit" wx:if="{{designFlag}}">提交</button>
   </form>
 </view>
+
+<!-- 显示答案和解析 -->
+<view wx:if="{{analysiShow}}">
+  <view>您的答案是：{{stuAnswer}}</view>
+  <view>正确答案是：{{rightAnswer}}</view>
+  <view>解析：{{analysis}}</view>
+</view>
+
 <button class='com_btn mt_100 btn_state_on' bindtap="bindSub" 
 wx:if="{{showSub}}">提交</button>
 <image class='raise_hand' bindtap='bindRaise' src="https://e.hnfts.cn/img/z19.png" 

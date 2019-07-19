@@ -18,9 +18,10 @@ Page({
     this.setData({
       chapter: options
     });
-    this.loadKnowPoints();
+    // this.loadKnowPoints();
     this.loadDatumList();
-    this.loadExerciseList();
+    // this.loadExerciseList();
+    this.answerSelfFind();
   },
 
   /**
@@ -135,7 +136,8 @@ Page({
     let postData = {
       "chapterId": this.data.chapter.chapterId,
       "courseId": wx.getStorageSync('courseId'),
-      "exeBookType": "2"
+      "exeBookType": "2",
+      "preview": 'before'
     };
     getApp().agriknow.loadExerciseList(postData).then(res => {
       var questions = res.data;
@@ -216,6 +218,40 @@ Page({
     };
     this.setData({
       wrapedCurrQuestion: wrapedCurrQuestion
+    });
+  },
+
+  /**
+   * 查询自己已做的预习练习
+   */
+  answerSelfFind: function () {
+    var that = this;
+    var postData = {
+      chapterId: this.data.chapter.chapterId,
+      courseId: wx.getStorageSync('courseId'),
+      classId: wx.getStorageSync('classId'),
+      exeBookType: 2,
+      preview: 'before'
+    };
+
+    getApp().agriknow.snapshot(postData).then(res => {
+      if (res.ret == 0) {
+        var questions = res.data;
+        for (let i = 0; i < questions.length; i++) {
+          questions[i].cut = '';
+          if (questions[i].examChildren[0].stuAnswer) {
+            questions[i].done = true;
+          }
+        }
+        that.setData({
+          questionList: questions,
+          currentQuestion: questions[0]
+        });
+        that.wrapQuestion();
+      }
+    })
+    .catch(res => {
+      //wx.stopPullDownRefresh()
     });
   },
 

@@ -693,6 +693,17 @@
 		}
 
 		$scope.initData = function() {
+			//先将原始课件,教案,资料数据清空
+			$scope.jiaoanCount = 0;
+			$scope.jiaoanList = [];
+			$scope.PPTKejianCount = 0;
+			$scope.PPTKejianList = [];
+			$scope.picsKejianCount = 0;
+			$scope.picsKejianList = [];
+			$scope.videoKejianCount = 0;
+			$scope.videoKejianList = [];
+			$scope.ziliaoList = [];
+			
 			$scope.loadDatumData("1", "1"); //加载教案列表
 			$scope.loadDatumData("2", "1"); //加载PPT课件列表
 			$scope.loadDatumData("2", "2"); //加载图集课件列表

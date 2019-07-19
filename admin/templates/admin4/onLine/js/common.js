@@ -221,10 +221,10 @@ var common = {
 		var postData = {
 			"page": settings.$scope.currentPage - 1,
 			"size": settings.$rootScope.pageSize,
-			sortVo: {
-				"page": settings.$scope.currentPage - 1,
-				"size": settings.$rootScope.pageSize,
-			}
+			// sortVo: {
+			// 	"page": settings.$scope.currentPage - 1,
+			// 	"size": settings.$rootScope.pageSize,
+			// }
 		};
 		
 		if(settings.$scope.searchVar) {
