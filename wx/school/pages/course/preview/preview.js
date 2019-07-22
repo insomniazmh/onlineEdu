@@ -25,24 +25,6 @@ Page({
   },
 
   /**
-   * 根据章节加载知识点
-   */
-  loadKnowPoints: function () {
-    var postData = {
-      chapterId: this.data.chapter.chapterId
-    }
-    getApp().agriknow.loadKnowPoints(postData).then(res => {
-      console.log(res.data);
-      that.setData({
-        knowPoints: res.data
-      });
-    })
-    .catch(res => {
-      //wx.stopPullDownRefresh()
-    });
-  },
-
-  /**
    * 根据章节加载资料
    */
   loadDatumList: function () {
@@ -126,30 +108,6 @@ Page({
         }
       }
     })
-  },
-
-  /**
-   * 根据章节id加载预习练习题目
-   */
-  loadExerciseList: function () {
-    var that = this;
-    let postData = {
-      "chapterId": this.data.chapter.chapterId,
-      "courseId": wx.getStorageSync('courseId'),
-      "exeBookType": "2",
-      "preview": 'before'
-    };
-    getApp().agriknow.loadExerciseList(postData).then(res => {
-      var questions = res.data;
-      for (let i = 0; i < questions.length; i++) {
-        questions[i].cut = '';
-      }
-      that.setData({
-        questionList: questions,
-        currentQuestion: questions[0]
-      });
-      that.wrapQuestion();
-    });
   },
 
   /**点击上面按钮切换题目 */

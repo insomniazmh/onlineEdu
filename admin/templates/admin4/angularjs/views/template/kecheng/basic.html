@@ -10,7 +10,7 @@
 			</div>
 			<div class="col-md-6">
 				<div class="form-group form-md-line-input has-success">
-					<input id="courseNumber" type="text" class="form-control" ng-model="course.alias" placeholder="请输入课程别名（如第一册/第一学期/上册等）">
+					<input id="alias" type="text" class="form-control" ng-model="course.alias" placeholder="请输入课程别名（如第一册/第一学期/上册等）">
 					<label for="form_control_2">别名</label>
 				</div>
 			</div>
@@ -70,8 +70,8 @@
 				</div>
 				<div style="width: 100%; height: 170px;display: none;" id="multipleContent">
 					<select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
-						<option value="101">胡珊珊</option>
-						<option value="102">张燕</option>
+						<option value="{{item.teacherId}}" ng-repeat="item in useTeachers" repeat-finish="renderFinish()">{{item.teacherName}}</option>
+						<!-- <option value="102">张燕</option>
 						<option value="103">李康</option>
 						<option value="104">申琪</option>
 						<option value="105">赵红</option>
@@ -79,7 +79,7 @@
 						<option value="107">梁伟</option>
 						<option value="108">侯卓媛</option>
 						<option value="109">马聪颖</option>
-						<option value="110">韩涵</option>
+						<option value="110">韩涵</option> -->
 					</select>
 				</div>
 			</div>
@@ -101,12 +101,14 @@
 
 <script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script>
-	function basicCtrl($scope, $http, $location, $rootScope) {
+	function basicCtrl($scope, $http, $location, $rootScope, $timeout) {
 		var courseId = localStorage.getItem('courseId');
 		var path = $location.path();
 		$scope.course = {
 			topPicSrc: 'https://e.hnfts.cn/img/zanwu.jpg'
 		}
+		
+		
 		
 		//加载所有课程
 		$scope.loadAllCourse = function() {
@@ -135,8 +137,8 @@
 			      	$scope.$apply(function() {
 			      		$scope.course.courseNumber = ui.item.value;
 			      		$scope.course.courseName = ui.item.label;
+								$scope.loadTeachersList();
 			      	})
-			        
 			        return false;
 			      }
 					});
@@ -164,6 +166,7 @@
 					success: function(data) {
 						//课程信息
 						$scope.course = data.data;
+						$scope.loadTeachersList();
 						//课程描述
 						$('#summernoteMiaoshu').code($scope.course.courseDescribe);
 						//授课类型
@@ -253,9 +256,6 @@
 					teacherName: "张三"
 				});
 			});
-
-//			$scope.course.teachingType = teachingType.join(",");
-console.log(123);
 			$scope.course.teachingType = '3';
 			$scope.course.lessonPreparationType = lessonPreparationType;
 			$scope.course.courseDescribe = courseDescribe;
@@ -352,9 +352,31 @@ console.log(123);
 				});
 			}
 		});
+		
+		//获取本课程可选的集体备课的教师列表
+		$scope.loadTeachersList = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/teacher/findTeacherByCourseNumber',
+				data: {
+					courseNumber: $scope.course.courseNumber
+				},
+				success: function(data) {
+					console.log(data.data);
+					$scope.useTeachers = data.data;
+				}
+			});
+		}
+		
+		$scope.renderFinish = function() {
+			$timeout(function () {
+				$('#my_multi_select1').multiSelect('refresh');
+			}, 10);
+			
+		}
 
 		//集体备课
-		$('#my_multi_select1').multiSelect();
 		$('input:radio[name="beikeType"]').change(function() {
 			console.log($(this).val());
 			if ($(this).val() == 2) {

@@ -175,6 +175,10 @@ Component({
           rightAnswer: data.bigQuestion.examChildren[0].answer,
           analysis: data.bigQuestion.examChildren[0].analysis
         });
+      }else {
+        that.setData({
+          analysiShow: false
+        });
       }
 
       if (data.bigQuestion.myAnswer) {

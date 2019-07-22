@@ -28,28 +28,11 @@ Page({
     });
     // this.loadKnowPoints();
     this.loadDatumList();
-    this.loadExerciseList();
+    this.answerSelfFind();
+    // this.loadExerciseList();
     this.myEvaluate(); 
     this.totalReview();
   },
-
-  /**
-   * 根据章节加载知识点
-   */
-  // loadKnowPoints: function () {
-  //   var postData = {
-  //     chapterId: this.data.chapter.chapterId
-  //   }
-  //   getApp().agriknow.loadKnowPoints(postData).then(res => {
-  //     console.log(res.data);
-  //     that.setData({
-  //       knowPoints: res.data
-  //     });
-  //   })
-  //   .catch(res => {
-  //     //wx.stopPullDownRefresh()
-  //   });
-  // },
 
   /**
    * 根据章节加载资料
@@ -138,29 +121,36 @@ Page({
   },
 
   /**
-   * 根据章节id加载预习练习题目
+   * 查询自己已做的预习练习
    */
-  loadExerciseList: function () {
+  answerSelfFind: function () {
     var that = this;
-    let postData = {
-      "chapterId": this.data.chapter.chapterId,
-      "courseId": wx.getStorageSync('courseId'),
-      "exeBookType": "3"
+    var postData = {
+      chapterId: this.data.chapter.chapterId,
+      courseId: wx.getStorageSync('courseId'),
+      classId: wx.getStorageSync('classId'),
+      exeBookType: 3
     };
-    getApp().agriknow.loadExerciseList(postData).then(res => {
-      console.log(res.data);
 
-      var questions = res.data;
-
-      for (let i = 0; i < questions.length; i++) {
-        questions[i].cut = '';
+    getApp().agriknow.snapshot(postData).then(res => {
+      if (res.ret == 0) {
+        var questions = res.data;
+        for (let i = 0; i < questions.length; i++) {
+          questions[i].cut = '';
+          if (questions[i].examChildren[0].stuAnswer) {
+            questions[i].done = true;
+          }
+        }
+        that.setData({
+          questionList: questions,
+          currentQuestion: questions[0]
+        });
+        that.wrapQuestion();
       }
-      that.setData({
-        questionList: questions,
-        currentQuestion: questions[0]
+    })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
       });
-      that.wrapQuestion();
-    });
   },
 
   /**点击上面按钮切换题目 */
