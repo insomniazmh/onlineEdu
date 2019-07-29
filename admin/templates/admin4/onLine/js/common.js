@@ -17,9 +17,7 @@ var common = {
 			title: "操作成功",
 			message: ""
 		};
-		
-		$.extend(settings, defaults);
-		
+		settings = $.extend(defaults, settings);
 		toastr.options = {
 			"closeButton": true,
 			"debug": false,

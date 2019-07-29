@@ -82,7 +82,7 @@
 						
 						<div class="col-md-12">
 							<div class="col-md-1">
-								<label class="label-text">年级</label>
+								<label class="label-text">年级：</label>
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
@@ -94,7 +94,7 @@
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-1">
-								<label class="label-text">专业</label>
+								<label class="label-text">专业：</label>
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
@@ -106,7 +106,7 @@
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-1">
-								<label class="label-text">学习中心</label>
+								<label class="label-text">学习中心：</label>
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
@@ -416,7 +416,9 @@
 <script>
 	function schoolrollCtrl($scope, $http, $rootScope) {
 		$scope.currentPage = 1
-		$scope.searchObj = {};
+		$scope.detail = {} //学生信息详情
+		$scope.searchObj = {};//搜索信息
+		$scope.familyData = [];//家庭成员信息
 		//加载学生列表
 		$scope.loadStudentsList = function() {			
 			common.loadDataList({
@@ -495,31 +497,7 @@
 			}
 		];
 		
-		$scope.familyData = [
-			{
-				name:"张三",
-				rel:"父子",
-				phone:"13712345678",
-				isJHR:"是",
-				cardType:"身份证",
-				cardNo:"41102913243",
-				birthday: '2019-6-5',
-				health: '健康',
-				work: '郑州市农业局',
-				politics: '党员',
-			}, {
-				name:"李四",
-				rel:"母子",
-				phone:"13712345678",
-				isJHR:"是",
-				cardType:"身份证",
-				cardNo:"41102913243",
-				birthday: '2019-6-5',
-				health: '健康',
-				work: '郑州市农业局',
-				politics: '党员',
-			}
-		];
+		
 		
 		$scope.import = function() {
 			$("#importModal").modal('show');
@@ -531,7 +509,8 @@
 		
 		$scope.edit = function(student) {
 			$scope.currStudent = student;
-			$scope.loadStuDetail();
+			$scope.loadStuDetail();//查询学生详细信息
+			$scope.loadStuFamily();//查询学生家庭成员信息
 			$("#editModal").modal('show');
 		}
 		
@@ -574,7 +553,36 @@
 				url: '/student/findStudentPeopleByStuId',
 				success: function(res) {
 					console.log(res);
-					$scope.detail = res.data;
+					$scope.detail = res;
+				}
+			});
+		}
+		
+		//添加或修改学生信息
+		$scope.saveUpdateStudent = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: $scope.detail,
+				url: '/student/saveUpdate',
+				success: function(res) {
+				}
+			});
+		}
+		
+		//查询学生家庭成员信息
+		$scope.loadStuFamily = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					stuId: $scope.currStudent.stuId
+				},
+				url: '/family/findFamilies',
+				success: function(res) {
+					console.log(res);
+					$scope.familyData = res;
 				}
 			});
 		}
