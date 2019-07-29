@@ -38,3 +38,10 @@ form p {
 	font-size: 19px;
 	margin-top: 10px;
 }
+
+.filePicker div:nth-child(2) {
+	width: 80px !important;
+	height: 100% !important;
+	
+}
+	

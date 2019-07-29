@@ -35,7 +35,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX" ng-repeat="item in data">
+						<tr class="odd gradeX" ng-repeat="item in centerList">
 							<td style="min-width: 150px;">
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
@@ -97,13 +97,13 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="row">
+				<!-- <div class="row">
 					<div>
 						<div class="col-md-5" style="float: left; clear: both; margin-left: 20px;">
 							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
@@ -112,21 +112,6 @@
 </div>
 <script>
 	function enrollCtrl($scope, $http, $rootScope) {
-		$scope.currentPage = 1;
-		$scope.loadDataList = function() {			
-			common.loadDataList({
-				$scope: $scope,
-				$http: $http,
-				$rootScope: $rootScope,
-				url: '/learnCenter/findAllPage'
-			});
-		}
-		$scope.loadDataList();
-		
-		$scope.pageChanged = function() {
-			$scope.loadDataList();
-		}
-
 		$scope.add = function(index) {
 			$scope.flag = 'add';
 			$scope.data.splice(index+1, 0, {

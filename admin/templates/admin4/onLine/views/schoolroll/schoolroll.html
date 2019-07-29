@@ -68,23 +68,23 @@
 							<div class="col-md-4">
 								<label class="col-md-5 label-text">学号:</label>
 								<div class="col-md-7">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" ng-model='searchObj.stuId'>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<label class="col-md-5 label-text">姓名:</label>
 								<div class="col-md-7">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" ng-model='searchObj.stuName'>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<label class="col-md-5 label-text">手机号码:</label>
 								<div class="col-md-7">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" ng-model='searchObj.stuPhone'>
 								</div>
 							</div>
 							<div class="btnSearch">
-								<button class="btn blue btn-sm" ng-click=""> 查询 </button>
+								<button class="btn blue btn-sm" ng-click="loadStudentsList()"> 查询 </button>
 							</div>
 						</div>
 						
@@ -94,7 +94,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in grade" ng-click="activeColor(item)">
+									<li ng-repeat="item in yearList" ng-click="select(item)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -106,8 +106,8 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in major" ng-click="activeColor(item)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									<li ng-repeat="item in majorList" ng-click="select(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.specialtyName}}</a>
 									</li>
 								</ul>
 							</div>
@@ -118,8 +118,8 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in center" ng-click="activeColor(item)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									<li ng-repeat="item in centerList" ng-click="select(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.centerName}}</a>
 									</li>
 								</ul>
 							</div>
@@ -140,17 +140,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="edit();">
+						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="edit(item);">
 							<!--<td>{{item.studentId}}</td>-->
-							<td>{{item.name}}</td>
-							<td>{{item.grade}}</td>
-							<td>{{item.major}}</td>
-							<td>{{item.studyCore}}</td>
-							<td>{{item.id}}</td>
-							<td>{{item.sex}}</td>
+							<td>{{item.stuName}}</td>
+							<td>{{item.enrollmentDate}}</td>
+							<td>{{item.specialtyName}}</td>
+							<td>{{item.centerName}}</td>
+							<td>{{item.stuIDCard}}</td>
+							<td>{{item.gender}}</td>
 						</tr>
 					</tbody>
 				</table>
+				<div class="row">
+					<div>
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
@@ -170,7 +177,7 @@
 							<div class="row">
 								<label class="col-md-2 control-label">选择文件</label>
 								<div class="col-md-4">
-									<input type="file" class="form-control">
+									<div id="studentsInfo" class="filePicker">上传</div>
 								</div>
 							</div>
 							<div class="row">
@@ -179,9 +186,9 @@
 									<a href="" style="line-height: 35px; font-size: 16px;">学生信息模板</a>
 								</div>
 							</div>
-							<div class="col-md-12" style="text-align: center">
-								<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
-							</div>
+							<!-- <div class="col-md-12" style="text-align: center">
+								<button style="width: 200px" type="button" class="btn btn-md blue" id=""> 确定 </button>
+							</div> -->
 						</div>
 					</form>
 				</div>
@@ -416,8 +423,10 @@
 </div>
 <script>
 	function schoolrollCtrl($scope, $http, $rootScope) {
-		$scope.currentPage = 1;
-		$scope.loadDataList = function() {			
+		$scope.currentPage = 1
+		$scope.searchObj = {};
+		//加载学生列表
+		$scope.loadStudentsList = function() {			
 			common.loadDataList({
 				$scope: $scope,
 				$http: $http,
@@ -425,40 +434,52 @@
 				url: '/student/findStudentsPageAll'
 			});
 		};
-		$scope.loadDataList();
+		$scope.loadStudentsList();
 		
-		$scope.data = [{
-			studentId:"20180901",
-			name:"张三",
-			grade:"2018c",
-			major:"信息技术",
-			studyCore:"郑大北",
-			id:"412824199109154370",
-			sex:"男"
-		}];
+		$scope.pageChanged = function() {
+			$scope.loadStudentsList();
+		}
 		
-		$scope.grade = [
-			{text: "2019级"},
-			{text: "2018级"},
-			{text: "2017级"},
-			{text: "2016级"}
+		$scope.yearList = [
+			{text: "2019"},
+			{text: "2018"},
+			{text: "2017"},
+			{text: "2016"}
 		];
 		
-		$scope.major = [
-			{text: "计算机基础"},
-			{text: "商务金融"},
-			{text: "JavaScript"},
-			{text: "Python"},
-			{text: "Go语言"},
-			{text: "java"},
-			{text: "php"},
-		];
+		$scope.select = function(value) {
+			$rootScope.activeColor(value, function() {
+				$scope.getCurrentSel();
+			});
+		};
 		
-		$scope.center = [
-			{text: "学习中心1"},
-			{text: "学习中心2"},
-			{text: "学习中心3"}
-		];
+		$scope.getCurrentSel = function() {
+			let centerIds = []
+			let grades = []
+			let specialtyNames = []
+			for(value of $rootScope.centerList) {
+				if(value.active) {
+					centerIds.push(value.centerId)
+				}
+			}
+			
+			for(value of $scope.yearList) {
+				if(value.active) {
+					grades.push(value.text)
+				}
+			}
+			
+			for(value of $rootScope.majorList) {
+				if(value.active) {
+					specialtyNames.push(value.specialtyName)
+				}
+			}
+			$scope.searchObj.centerIds = centerIds;
+			$scope.searchObj.grades = grades;
+			$scope.searchObj.specialtyNames = specialtyNames;
+			$scope.loadStudentsList();
+		};
+		// $scope.getCurrentSel();
 		
 		$scope.changeData = [
 			{
@@ -516,13 +537,28 @@
 			$("#exportModal").modal('show');
 		}
 		
-		$scope.edit = function() {
+		$scope.edit = function(student) {
+			$scope.currStudent = student;
+			$scope.loadStuDetail();
 			$("#editModal").modal('show');
 		}
 		
 		$scope.detail = function() {
 			$("#courseModal").modal('show');
 		}
+		
+		//导入学生数据
+		common.fileUpload({
+			id: 'studentsInfo',
+			type: 'excel',
+			url: '/import/students',
+			formData: {
+				qq: 'qq'
+			},
+			success: function(file, response) {
+				
+			}
+		});
 		
 		$scope.single = false;
 		$scope.singleAll = function() {
@@ -533,6 +569,22 @@
 			}else {
 				$("#single input[type='checkbox']").prop('checked', false);
 			}
+		}
+		
+		//查询学生详细信息
+		$scope.loadStuDetail = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					stuId: $scope.currStudent.stuId
+				},
+				url: '/student/findStudentPeopleByStuId',
+				success: function(res) {
+					console.log(res);
+					$scope.detail = res.data;
+				}
+			});
 		}
 	}
 </script>

@@ -84,7 +84,7 @@ MetronicApp.factory('settings', ['$rootScope', function($rootScope) {
 }]);
 
 /* Setup App Main Controller */
-MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope, $rootScope) {
+MetronicApp.controller('AppController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
     $scope.$on('$viewContentLoaded', function() {
       Metronic.initComponents(); // init core components
       //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive 
@@ -104,20 +104,8 @@ MetronicApp.controller('AppController', ['$scope', '$rootScope', function($scope
 				localStorage.setItem('currentNodeId', data.id);
 				$scope.$broadcast('currentNode', data);
 			});
-		
-			//切换知识点回调
-			$rootScope.$on('kPointNode', function(d, data) {
-				if(data.knodeId) {
-					$rootScope.knode = data;
-					localStorage.setItem('knodeId', data.knodeId);
-				} else {
-					$rootScope.knode = {
-						nodeName: ""
-					};
-					localStorage.setItem('knodeId', "");
-				}
-				$scope.$broadcast('kPointNode', data);
-			});
+			
+			
     });
 }]);
 
@@ -131,33 +119,37 @@ initialization can be disabled and Layout.init() should be called on page load c
 MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
     $scope.$on('$includeContentLoaded', function() {
         Layout.initHeader(); // init header
-        
-        var pageData = {
-					sortVo: {
+				
+				$rootScope.centerList = [];
+				$rootScope.majorList = [];
+				
+				//加载所有学习中心信息
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					data: {
 						page: 0,
-						size: common.pageSize
+						size: 100,
+					},
+					url: '/learnCenter/findAllPage',
+					success: function(res) {
+						$rootScope.centerList = res.content;
 					}
-				};
-				//加载课程列表
-				// common.ajax({
-				//  	$scope: $scope,
-				//  	$http: $http,
-				//  	url: '/course/findMyCourse',
-				//  	data: pageData,
-				//  	success: function(data) {
-				//  		$(data.data).each(function() {
-				//  			if(!this.topPicSrc) {
-				//  				this.topPicSrc = 'images/zanwu.jpg';
-				//  			}
-				//  		});
-				//  		$rootScope.courses = data.data;
-				//  		if(!localStorage.getItem('courseId') && data.data.length > 0) {
-				//  			//默认选中第一个课程
-				//  			localStorage.setItem('courseId', data.data[0].courseId);
-				//  			$rootScope.course = data.data[0];
-				//  		}
-				//  	}
-				//  });
+				});
+				
+				//加载所有专业信息
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						page: 0,
+						size: 100,
+					},
+					url: '/specialty/findAllPage',
+					success: function(res) {
+						$rootScope.majorList = res.content;
+					}
+				});
 		
 				//header中课程被选中事件，获取被选中的课程
 				$scope.changeCourse = function(row) {
@@ -749,7 +741,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 /* Init global settings and run the app */
 MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settings, $state) {
     $rootScope.$state = $state; // state to be accessed from view
-		$rootScope.pageSize = 2;
+		$rootScope.pageSize = 15;
     $rootScope.activeColor = function(value, callback) {
 			value.active = !value.active;
 			if(callback) {

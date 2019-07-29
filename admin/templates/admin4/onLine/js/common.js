@@ -10,6 +10,7 @@ var common = {
 	url2: 'http://192.168.10.2:8081',
 	uploadUrl: 'http://192.168.10.2:8612/upload',
 
+	//提示信息
 	toast: function(settings) {
 		var defaults = {
 			type: 1,
@@ -40,6 +41,7 @@ var common = {
 		}
 	},
 	
+	//退出登录
 	signOut: function() {
 		localStorage.removeItem("username");
 		localStorage.removeItem("token");
@@ -141,9 +143,9 @@ var common = {
 		common.ajax(settings);
 	},
 	
-	goUrl: function(url, type) {
-		window.location.href = '#/' + url + '.html';
-	},
+	// goUrl: function(url, type) {
+	// 	window.location.href = '#/' + url + '.html';
+	// },
 	
 	addTitleForQuestion: function(settings) {
 		$(settings.questionArr).each(function() {
@@ -168,46 +170,52 @@ var common = {
 	
 	//上传文件
 	fileUpload: function(settings) {
-		// 初始化Web Uploader
-		var uploader = WebUploader.create({
+		let url = common.uploadUrl;
+		if(settings.type == 'excel') {
+			url = common.url + settings.url;
+		}
+		
+		let options = {
 			// 选完文件后，是否自动上传。
 			auto: true,
 			// swf文件路径
 			swf: '/js/Uploader.swf',
 			// 文件接收服务端。
-			server: common.uploadUrl,
+			server: url,
 			// 选择文件的按钮。可选。
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 			pick: '#' + settings.id
-		});
+		}
 		
+		if(settings.formData) {
+			//options.formData = settings.formData
+		}
+		
+		// 初始化Web Uploader
+		var uploader = WebUploader.create(options);
+	
 		uploader.on('uploadBeforeSend', function(block, data, headers) {
-			if(settings.beforeSend) {
-				var result = settings.beforeSend();
-				if(!result.continue) {
-					common.toast({
-						title: result.title,
-						type: 2
-					});
-					uploader.stop(true);
-				}
-			} else {
+			console.log( uploader.getFiles() );
+			var flag = common.checkFileExt(data.name, settings.type);
+			console.log(data);
+			if(!flag) {
+				uploader.removeFile( data.id, true );
+				uploader.cancelFile( data.id, true );
+				console.log( uploader.getFiles() );
+			}else {
 				Metronic.blockUI({
 					boxed: true,
 					message: "上传中，请耐心等待..."
 				});
 			}
-
+			
 		})
-
+	
 		uploader.on('uploadSuccess', function(file, response) {
 			Metronic.unblockUI();
-			//			common.toast({
-			//				title: "上传成功",
-			//			});
 			settings.success(file, response, uploader);
 		});
-
+	
 		uploader.on('uploadError', function(file) {
 			Metronic.unblockUI();
 			common.toast({
@@ -217,6 +225,46 @@ var common = {
 		});
 	},
 	
+	//校验文件后缀
+	checkFileExt: function(filename, filetype){
+		 var flag = false; //状态
+		 var arr = [];
+		 
+		 if(filetype == 'doc') {
+		 	arr = ["jpg","png",'doc','docx']
+		 }else if(filetype == 'audio') {
+		 	arr = ["mp3"];
+		 }else if(filetype == 'video') {
+		 	arr = ["mp4"];
+		 }else if(filetype == 'pic') {
+		 	arr = ["jpg","png"];
+		 }else if(filetype == 'ppt') {
+		 	arr = ["ppt","pptx"];
+		 }else if(filetype == 'excel') {
+		 	arr = ["xls","xlsx"];
+		 }
+		 
+		 //取出上传文件的扩展名
+		 var index = filename.lastIndexOf(".");
+		 var ext = filename.substr(index+1);
+		 //循环比较
+		 for(var i=0;i<arr.length;i++) {
+		  if(ext == arr[i])
+		  {
+		   flag = true; //一旦找到合适的，立即退出循环
+		   break;
+		  }
+		 }
+		 var text = arr.join(',');
+		 //条件判断
+		 if(!flag) {
+		  layer.alert('文件不合法,只支持'+text+'格式');
+		 }
+		 
+		 return flag;
+	},
+	
+	//加载列表
 	loadDataList: function(settings) {
 		var postData = {
 			"page": settings.$scope.currentPage - 1,
@@ -227,8 +275,8 @@ var common = {
 			// }
 		};
 		
-		if(settings.$scope.searchVar) {
-			postData = Object.assign(postData, settings.$scope.searchVar);
+		if(settings.$scope.searchObj) {
+			postData = Object.assign(postData, settings.$scope.searchObj);
 		}
 		console.log(postData);
 		
@@ -241,7 +289,7 @@ var common = {
 				settings.$scope.totalItems = res.totalPages;
 				settings.$scope.bigTotalItems = res.totalElements;
 				if(settings.rtnData) {
-					settings.rtnData = res.content;
+					settings.$scope[settings.rtnData] = res.content;
 				}else {
 					settings.$scope.data = res.content;
 				}

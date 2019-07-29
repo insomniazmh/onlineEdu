@@ -400,7 +400,7 @@ var common = {
 		 }
 		 
 		 return flag;
-		}
+	}
 }
 
 //复制链接到剪切板
