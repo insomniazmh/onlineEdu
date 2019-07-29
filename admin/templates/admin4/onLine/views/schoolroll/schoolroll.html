@@ -64,27 +64,19 @@
 			<div class="portlet-body">
 				<div class="table-toolbar">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 search">
+							<!-- <div class="col-md-4">
+								<label class="label-text">学号：</label>
+								<input type="text" class="form-control" ng-model='searchObj.stuId' />
+							</div> -->
 							<div class="col-md-4">
-								<label class="col-md-5 label-text">学号:</label>
-								<div class="col-md-7">
-									<input type="text" class="form-control" ng-model='searchObj.stuId'>
-								</div>
+								<label class="label-text">姓名：</label>
+								<input type="text" class="form-control" ng-model='searchObj.stuName' />
 							</div>
 							<div class="col-md-4">
-								<label class="col-md-5 label-text">姓名:</label>
-								<div class="col-md-7">
-									<input type="text" class="form-control" ng-model='searchObj.stuName'>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<label class="col-md-5 label-text">手机号码:</label>
-								<div class="col-md-7">
-									<input type="text" class="form-control" ng-model='searchObj.stuPhone'>
-								</div>
-							</div>
-							<div class="btnSearch">
-								<button class="btn blue btn-sm" ng-click="loadStudentsList()"> 查询 </button>
+								<label class="label-text">手机号码：</label>
+								<input type="text" class="form-control" ng-model='searchObj.stuPhone' />
+								<button class="btn blue btn-sm" ng-click="loadStudentsList()">查询</button>
 							</div>
 						</div>
 						
