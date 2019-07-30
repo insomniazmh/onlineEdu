@@ -132,7 +132,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="edit(item);">
+						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="editStuInfo(item);">
 							<!--<td>{{item.studentId}}</td>-->
 							<td>{{item.stuName}}</td>
 							<td>{{item.enrollmentDate}}</td>
@@ -507,10 +507,11 @@
 			$("#exportModal").modal('show');
 		}
 		
-		$scope.edit = function(student) {
+		$scope.editStuInfo = function(student) {
 			$scope.currStudent = student;
 			$scope.loadStuDetail();//查询学生详细信息
 			$scope.loadStuFamily();//查询学生家庭成员信息
+			$scope.loadStuExpand();//查询学生补充信息
 			$("#editModal").modal('show');
 		}
 		
@@ -571,6 +572,36 @@
 			});
 		}
 		
+		//查询学生补充信息
+		$scope.loadStuExpand = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					stuId: $scope.currStudent.stuId
+				},
+				url: '/student/findStudentExpandInfo',
+				success: function(res) {
+					console.log(res);
+				}
+			});
+		}
+		
+		//查询学生成绩信息
+		$scope.loadStuExpand = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					stuId: $scope.currStudent.stuId
+				},
+				url: '/studentScore/findStudentScore',
+				success: function(res) {
+					$scope.expandData = res;
+				}
+			});
+		}
+		
 		//查询学生家庭成员信息
 		$scope.loadStuFamily = function() {
 			common.ajax({
@@ -581,10 +612,62 @@
 				},
 				url: '/family/findFamilies',
 				success: function(res) {
-					console.log(res);
 					$scope.familyData = res;
 				}
 			});
 		}
+		
+		//添加家庭成员
+		$scope.add = function(index) {
+			$scope.flag = 'add';
+			$scope.familyData.splice(index+1, 0, {
+				edit: true
+			});
+		}
+		
+		//编辑家庭成员
+		$scope.edit = function(familyUser) {
+			$scope.flag = 'edit';
+			familyUser.edit = true;
+		}
+		
+		//保存家庭成员
+		$scope.save = function(familyUser) {
+			familyUser.stuId = $scope.currStudent.stuId
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: familyUser,
+				operate: true,
+				url: '/family/saveOrUpdate',
+				success: function(res) {
+					familyUser.edit = false;
+				}
+			});
+		};
+		
+		//取消编辑家庭成员
+		$scope.cancel = function(familyUser, index) {
+			if($scope.flag == 'add') {
+				$scope.familyData.splice(index, 1);
+			}else if($scope.flag == 'edit') {
+				familyUser.edit = false;				
+			}
+		};
+			
+		//删除家庭成员
+		$scope.del = function(major) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: major,
+				tip: '您确定要删除该家庭成员吗？',
+				url: '/family/removeFamilyById',
+				success: function(res) {
+					$scope.loadStuFamily();
+				}
+			});
+		};
 	}
 </script>
