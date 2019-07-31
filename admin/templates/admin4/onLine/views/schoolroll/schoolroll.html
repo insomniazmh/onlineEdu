@@ -419,6 +419,7 @@
 		$scope.detail = {} //学生信息详情
 		$scope.searchObj = {};//搜索信息
 		$scope.familyData = [];//家庭成员信息
+		$scope.supple = {} //补充信息
 		//加载学生列表
 		$scope.loadStudentsList = function() {			
 			common.loadDataList({
@@ -512,6 +513,7 @@
 			$scope.loadStuDetail();//查询学生详细信息
 			$scope.loadStuFamily();//查询学生家庭成员信息
 			$scope.loadStuExpand();//查询学生补充信息
+			$scope.loadStuScore();//查询学生成绩信息
 			$("#editModal").modal('show');
 		}
 		
@@ -534,9 +536,7 @@
 		
 		$scope.single = false;
 		$scope.singleAll = function() {
-			console.log($scope.single);
 			if($scope.single) {
-				console.log($("#single input[type='checkbox']").length);
 				$("#single input[type='checkbox']").prop('checked', true);
 			}else {
 				$("#single input[type='checkbox']").prop('checked', false);
@@ -553,7 +553,6 @@
 				},
 				url: '/student/findStudentPeopleByStuId',
 				success: function(res) {
-					console.log(res);
 					$scope.detail = res;
 				}
 			});
@@ -582,13 +581,40 @@
 				},
 				url: '/student/findStudentExpandInfo',
 				success: function(res) {
-					console.log(res);
+					for(let obj of res) {
+						$scope.supple[obj.expandName] = obj.expandValue
+					}
+				}
+			});
+		}
+		
+		//添加或修改学生补充信息
+		$scope.saveUpdateStudentExpand = function() {
+			let postData = {
+				stuId: $scope.currStudent.stuId
+			}
+			let expandValues = []
+			for(let [k , v] of Object.entries($scope.supple)) {
+				expandValues.push({
+					expandName: k,
+					expandValue: v
+				})
+			}
+			postData.expandValues = expandValues
+			
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: postData,
+				url: '/student/saveUpdateStudentExpand',
+				success: function(res) {
 				}
 			});
 		}
 		
 		//查询学生成绩信息
-		$scope.loadStuExpand = function() {
+		$scope.loadStuScore = function() {
 			common.ajax({
 				$scope: $scope,
 				$http: $http,

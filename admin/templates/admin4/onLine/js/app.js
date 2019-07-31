@@ -562,6 +562,21 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
+		
+		//资讯
+		.state('information', {
+		  url: "/information.html",
+		  templateUrl: "views/notice/information.html",     
+		  resolve: {
+		    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+		      return $ocLazyLoad.load({
+		        name: 'MetronicApp',
+		        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+		        files: [] 
+		      });
+		    }]
+		  }
+		})
     
     //公告类别
     .state('noticeType', {

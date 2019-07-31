@@ -12,7 +12,7 @@
 		display: inline-block;
 	}
 </style>
-<div class="row" ng-controller="teacherCtrl">
+<div class="row" ng-controller="noticeCtrl">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet box grey-cascade">
@@ -179,24 +179,17 @@
 <script type="text/javascript" src="../../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!--<script src="../../../assets/admin/pages/scripts/table-managed.js"></script>-->
 <script>
-	function teacherCtrl($scope, $http) {
-		//加载公告信息
-		$scope.loadNoticeList = function() {
-			common.ajax({
+	function noticeCtrl($scope, $http, $rootScope) {
+		$scope.currentPage = 1
+		//加载公告列表
+		$scope.loadNoticeList = function() {			
+			common.loadDataList({
 				$scope: $scope,
 				$http: $http,
-				url: '/notice/findAll',
-				data: {
-					sortVo:{
-		        page:0,
-		        size:15
-	        }
-				},
-				success: function(data) {
-					$scope.noticeList = data.data;
-				}
+				$rootScope: $rootScope,
+				url: '/article/findAllDesc'
 			});
-		}
+		};
 		$scope.loadNoticeList();
 
 		$scope.renderFinish = function() {
