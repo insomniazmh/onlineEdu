@@ -1,0 +1,12 @@
+/* pages/reg/reg.wxss */
+page {
+  height:100%
+}
+.bg-img {
+  height: 100%;
+}
+.bottom {
+  border-radius: 80rpx;
+  margin: -300rpx 150rpx 0 150rpx;
+  font-size: 35rpx;
+}

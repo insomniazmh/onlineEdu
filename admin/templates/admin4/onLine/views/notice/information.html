@@ -1,9 +1,279 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-</html>
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+	.label-text {
+		margin-top: 8px;
+	} 
+	.control-label {
+		padding-top: 7px;
+		text-align: right;
+	}
+	.mar-bt-20 {
+		margin-bottom: 20px;
+	}
+</style>
+<div class="row" ng-controller="informationCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>资讯管理
+				</div>
+				<div class="actions">
+					<button class="btn btn-success" data-toggle="modal" href="#createInformationModal">
+					<i class="fa fa-plus"></i> 新增资讯 </button>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">类型：</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in typeList" ng-click="select(item, typeList)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>标题</th>
+							<th>类型</th>
+							<th>资讯简介</th>
+							<th>发布时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX" ng-repeat="row in data" ng-click="edit(row);">
+							<td>{{row.title}}</td>
+							<td>{{row.articleType}}</td>
+							<td>{{row.description}}</td>
+							<td>{{row.createTime}}</td>
+							<td>
+								<span class="label label-sm label-success" ng-click="del(row.noticeId)">删除</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+					<div>
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+
+	<div class="modal fade" id="createInformationModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">添加资讯</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div role="form">
+								<div class="form-body">
+									<div class="row mar-bt-20">
+										<div class="form-group">
+											<label class="control-label col-md-1">标题</label>
+											<div class="col-md-7">
+												<input type="text" class="form-control" ng-model="infomation.title" placeholder="请输入标题" />
+											</div>
+											<label class="control-label col-md-1">类别</label>
+											<div class="col-md-3">
+												<select class="form-control" ng-model='infomation.articleType'>
+													<option value="">请选择</option>
+													<option ng-repeat='item in typeList'>{{item.text}}</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row mar-bt-20">
+										<div class="form-group">
+											<label class="control-label col-md-1">资讯简介</label>
+											<div class="col-md-11">
+												<input type="text" class="form-control" ng-model="infomation.description" placeholder="请输入资讯简介(用于资讯首页显示)" />
+											</div>
+										</div>
+									</div>
+									<div class="row mar-bt-20">
+										<label class="control-label col-md-1">封面图片</label>
+										<div class="col-md-11">
+											<a href="javascript:;" class="thumbnail" style="width: 180px;">
+												<img src="{{infomation.imgUrl}}" alt="180%x160" style="height: 160px; width: 100%; display: block;">
+											</a>
+											<div id="topPicSrc" class="filePicker">选择文件</div>
+										</div>
+									</div>
+									<div class="row mar-bt-20">
+										<div class="form-group">
+											<label class="control-label col-md-1">资讯内容</label>
+											<div class="col-md-11">
+												<div name="summernote" id="summernoteInfomation"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-actions noborder">
+									<button type="button" class="btn blue" ng-click="sub()">提交</button>
+									<button type="button" class="btn default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
+<script>
+	function informationCtrl($scope, $http, $rootScope) {
+		$scope.currentPage = 1
+		$scope.infomation = {
+			imgUrl: 'https://e.hnfts.cn/img/zanwu.jpg',
+			articleType: ''
+		}
+		$scope.typeList = [
+			{text: '全部'},
+			{text: '类型1'},
+			{text: '类型2'},
+			{text: '类型3'},
+			{text: '类型4'},
+		]
+		//加载公告列表
+		$scope.loadInformationList = function() {			
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/article/findAllDesc'
+			});
+		};
+		$scope.loadInformationList();
+		
+		$scope.pageChanged = function() {
+			$scope.loadInformationList();
+		}
+		
+		$scope.select = function(value, array) {
+			$rootScope.radioActiveColor(value, array, function() {
+				$scope.searchObj = {
+					articleType: value.text
+				}
+				$scope.loadInformationList();
+			});
+		};
+		
+		$scope.edit = function(infomation) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: {
+					id: infomation.articleId
+				},
+				url: '/article/findId',
+				success: function(data) {
+					$scope.infomation = data;
+					$('#summernoteInfomation').code(data.articleConten);
+					$("#createInformationModal").modal("show");
+				}
+			});
+		}
+
+		$scope.sub = function() {
+			console.log($scope.infomation);
+			if ($scope.infomation.title == "") {
+				layer.alert('请先输入资讯标题');
+				return false;
+			}
+			
+			if ($scope.infomation.articleType == "") {
+				layer.alert('请先选择资讯类别');
+				return false;
+			}
+
+			layer.confirm("您确定要发布该资讯吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				$scope.infomation.articleConten = $('#summernoteInfomation').code()
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					data: $scope.infomation,
+					url: '/article/saveOrUpdate',
+					success: function(data) {
+						layer.closeAll('dialog');
+						$("#createInformationModal").modal("hide");
+						$scope.loadInformationList();
+					}
+				});
+			});
+		}
+
+		$scope.del = function(id) {
+			layer.confirm("您确定要删除该公告吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					data: {
+						noticeId: id
+					},
+					url: '/notice/delNotice',
+					success: function(data) {
+						layer.closeAll('dialog');
+						$scope.loadInformationList();
+					}
+				});
+			});
+		}
+		
+		//上传封面图片
+		common.fileUpload({
+			id: 'topPicSrc',
+			type: 'pic',
+			success: function(file, response) {
+				$scope.$apply(function() {
+					console.log(response.fileUrl);
+					$scope.infomation.imgUrl = response.fileUrl;
+				});
+			}
+		});
+		
+		//初始化富文本编辑器
+		$('#summernoteInfomation').summernote({
+			height: 300
+		});
+		
+		$('#createInformationModal').on('hidden.bs.modal', function (e) {
+			$scope.$apply(function() {
+				$scope.infomation = {
+					imgUrl: 'https://e.hnfts.cn/img/zanwu.jpg',
+					articleType: ''
+				}
+				$('#summernoteInfomation').code('');
+			})
+		});
+
+	}
+</script>

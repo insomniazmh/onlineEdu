@@ -169,7 +169,8 @@
 							<div class="row">
 								<label class="col-md-2 control-label">选择文件</label>
 								<div class="col-md-4">
-									<div id="studentsInfo" class="filePicker">上传</div>
+									<div id="studentsInfo" class="filePicker" style="width: 100px;">上传</div>
+									<span style="position: absolute;left: 100px;top: 10px;">{{excelName}}</span>
 								</div>
 							</div>
 							<div class="row">
@@ -178,9 +179,9 @@
 									<a href="" style="line-height: 35px; font-size: 16px;">学生信息模板</a>
 								</div>
 							</div>
-							<!-- <div class="col-md-12" style="text-align: center">
-								<button style="width: 200px" type="button" class="btn btn-md blue" id=""> 确定 </button>
-							</div> -->
+							<div class="col-md-12" style="text-align: center">
+								<button style="width: 200px" type="button" class="btn btn-md blue" id="uploadSub"> 确定 </button>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -526,8 +527,17 @@
 			id: 'studentsInfo',
 			type: 'excel',
 			url: '/import/students',
-			formData: {
-				qq: 'qq'
+			options: {
+				formData: {
+					qq: 'qq'
+				},
+				uploadBtn: 'uploadSub',
+				auto: false
+			},
+			fileQueued: function(name) {
+				$scope.$apply(function() {
+					$scope.excelName = name;
+				});
 			},
 			success: function(file, response) {
 				

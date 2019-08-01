@@ -1,6 +1,9 @@
 <link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/select2/select2.css" />
 <style>
+	.label-text {
+		margin-top: 8px;
+	}
 	.control-label {
 		padding-top: 7px;
 		text-align: right;
@@ -28,42 +31,16 @@
 			<div class="portlet-body">
 				<div class="table-toolbar">
 					<div class="row">
-						<div class="col-md-12" style="display: flex;">
-							<div class="col-md-3">
-								<label class="label-text">类型</label>
-								<input type="text" class="form-control" />
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">可查看单位：</label>
 							</div>
-							<div class="col-md-6">
-								<label class="label-text">可查看单位</label>
-								<div class="form-group form-md-checkboxes" style="display: inline-block;">
-									<div class="md-checkbox-inline">
-										<div class="md-checkbox">
-											<input type="checkbox" id="lessonType1" class="md-check" name="lessonType" value="1">
-											<label for="lessonType1">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												校本部 </label>
-										</div>
-										<div class="md-checkbox">
-											<input type="checkbox" id="lessonType2" class="md-check" name="lessonType" value="2">
-											<label for="lessonType2">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												郑大西 </label>
-										</div>
-										<div class="md-checkbox">
-											<input type="checkbox" id="lessonType3" class="md-check" name="lessonType" value="3" checked="">
-											<label for="lessonType3">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												河大 </label>
-										</div>
-								</div>
-							</div>
-								<button class="btn blue btn-sm" style="margin: -5px 0 0 10px;">查询</button>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in seeList" ng-click="select(item, seeList)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -72,7 +49,6 @@
 					<thead>
 						<tr>
 							<th>内容</th>
-							<th>类型</th>
 							<th>可查看单位</th>
 							<th>发布时间</th>
 							<th>操作</th>
@@ -81,7 +57,6 @@
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="row in noticeList" repeat-finish="tableFinish()">
 							<td>{{row.content}}</td>
-							<td>开学</td>
 							<td>校本部</td>
 							<td>{{row.createTime}}</td>
 							<td>
@@ -181,6 +156,10 @@
 <script>
 	function noticeCtrl($scope, $http, $rootScope) {
 		$scope.currentPage = 1
+		$scope.seeList = [
+			{text: '全部'},
+			{text: '仅校本部'},
+		]
 		//加载公告列表
 		$scope.loadNoticeList = function() {			
 			common.loadDataList({
@@ -191,40 +170,12 @@
 			});
 		};
 		$scope.loadNoticeList();
-
-		$scope.renderFinish = function() {
-			$('.select2_category').select2({
-				placeholder: "Select an option",
-				allowClear: true
+		
+		$scope.select = function(value, array) {
+			$rootScope.radioActiveColor(value, array, function() {
+				
 			});
-		}
-
-		$scope.tableFinish = function() {
-			$('#notice').dataTable({
-				"searching": false,
-				"language": {
-					"aria": {
-						"sortAscending": ": activate to sort column ascending",
-						"sortDescending": ": activate to sort column descending"
-					},
-					"emptyTable": "暂无数据",
-					"info": "显示 _START_ - _END_ 条数据，共 _TOTAL_ 条数据",
-					"infoEmpty": "",
-					"infoFiltered": "",
-					"lengthMenu": "",
-					"search": "查询信息:",
-					"zeroRecords": "没有找到匹配的数据",
-					"paginate": {
-						"last": "最后一页",
-						"first": "第一页"
-					}
-				},
-
-				"pageLength": 5,
-				"pagingType": "full_numbers"
-			});
-		}
-
+		};
 		$scope.sub = function() {
 			if ($scope.content == "") {
 				layer.alert('请先输入公告内容');

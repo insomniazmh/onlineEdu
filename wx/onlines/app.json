@@ -11,7 +11,9 @@
     "pages/main/integral/integral",
     "pages/main/paper/paper",
     "pages/main/TransactionAdd/TransactionAdd",
-    "pages/videoMaterial/videoMaterial"
+    "pages/videoMaterial/videoMaterial",
+    "pages/auth/auth",
+    "pages/reg/reg"
   ],
   "window": {
     "backgroundTextStyle": "light",

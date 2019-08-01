@@ -1,0 +1,3 @@
+<!--pages/reg/reg.wxml-->
+<image class='bg-img' src='/img/bj.png'></image>
+<button class='bottom' type='default' bindtap='nav'>我要注册</button>

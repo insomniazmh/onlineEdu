@@ -27,7 +27,7 @@ Page({
         } else {
           // 用户没有授权
           wx.navigateTo({
-            url: '/pages/auth/auth',
+            url: '/pages/reg/reg',
           })
         }
       }

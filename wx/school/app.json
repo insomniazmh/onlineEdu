@@ -1,13 +1,13 @@
 {
   "pages": [
     "pages/school_index/index",
+    "pages/reg/reg",
     "pages/notes/release/release",
     "pages/Notice/NoticeIndex/NoticeIndex",
     "pages/course/preview/preview",
     "pages/notes/index/index",
     "pages/notes/page/page",
     "pages/course/review/review",
-    "pages/getId/getId",
     "pages/class/students_interaction/students_interaction",
     "pages/class/strom/strom",
     "pages/class/task/task",
@@ -25,6 +25,7 @@
     "pages/Notice/NoticeContent/NoticeContent",
     "pages/course/list/list",
     "pages/auth/auth"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -3,12 +3,12 @@ var common = {
 	//正式服
 	// url: 'https://e.hnfts.cn/education',
 	// url2: 'https://e.hnfts.cn/quiz',
-	// uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
 	//测试服
 	url: 'http://192.168.10.2:7080',
 	url2: 'http://192.168.10.2:8081',
-	uploadUrl: 'http://192.168.10.2:8612/upload',
+	// uploadUrl: 'http://192.168.10.2:8612/upload',
 
 	//提示信息
 	toast: function(settings) {
@@ -53,10 +53,13 @@ var common = {
 			gateway: 'edu',
 			operate: false,
 			url: '',
-			data: {},
 			success: function(response) {}
 		};
 		settings = $.extend(defaults, settings);
+		
+		if(!settings.data.userId) {
+			settings.data.userId = localStorage.getItem('userid')
+		}
 
 		Metronic.blockUI({
 			boxed: true,
@@ -141,10 +144,6 @@ var common = {
 		common.ajax(settings);
 	},
 	
-	// goUrl: function(url, type) {
-	// 	window.location.href = '#/' + url + '.html';
-	// },
-	
 	addTitleForQuestion: function(settings) {
 		$(settings.questionArr).each(function() {
 			if(settings.select) {
@@ -184,13 +183,21 @@ var common = {
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 			pick: '#' + settings.id
 		}
-		
-		if(settings.formData) {
-			//options.formData = settings.formData
+		if(settings.options) {
+			options = $.extend(options, settings.options);
 		}
 		
 		// 初始化Web Uploader
 		var uploader = WebUploader.create(options);
+		
+		uploader.on('fileQueued', function(file) {
+			console.log( file );
+			var flag = common.checkFileExt(file.name, settings.type);
+			if(flag && settings.fileQueued) {
+				settings.fileQueued(file.name);
+			}
+		})
+		
 	
 		uploader.on('uploadBeforeSend', function(block, data, headers) {
 			console.log( uploader.getFiles() );
@@ -221,6 +228,12 @@ var common = {
 				type: 2
 			});
 		});
+		if(options.uploadBtn && !options.auto) {
+			$("#"+options.uploadBtn).on('click', function() {
+				uploader.upload();
+			});
+		}
+		
 	},
 	
 	//校验文件后缀
