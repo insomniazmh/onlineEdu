@@ -58,7 +58,7 @@
 							<td>{{row.description}}</td>
 							<td>{{row.createTime}}</td>
 							<td>
-								<span class="label label-sm label-success" ng-click="del(row.noticeId)">删除</span>
+								<span class="label label-sm label-success" ng-click="del(row.articleId)">删除</span>
 							</td>
 						</tr>
 					</tbody>
@@ -229,7 +229,8 @@
 		}
 
 		$scope.del = function(id) {
-			layer.confirm("您确定要删除该公告吗", {
+			window.event? window.event.cancelBubble = true : e.stopPropagation();//阻止冒泡
+			layer.confirm("您确定要删除该资讯吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
 				common.ajax({
@@ -237,9 +238,9 @@
 					$http: $http,
 					operate: true,
 					data: {
-						noticeId: id
+						id: id
 					},
-					url: '/notice/delNotice',
+					url: '/article/delId',
 					success: function(data) {
 						layer.closeAll('dialog');
 						$scope.loadInformationList();
