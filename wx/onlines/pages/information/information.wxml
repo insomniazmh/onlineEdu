@@ -32,23 +32,6 @@
         </view>
         <!--循环到此结束-->
       </view>
-      <view class='min_class'>
-        <text class='title_right'>{{className}}</text>
-        <!--循环从此开始-->
-        <view class='class_clm' wx:for="{{courseLists}}" bindtap="navToChapter" 
-        data-course='{{item}}' wx:key="clm">
-            <view class='right_infos'>
-              <text>{{item.courseName}}</text>
-              <text class='mt_20'>内容描述：{{item.courseDescribe}}</text>
-            </view>
-            <view class='cfx'></view>
-            <view class='class_numbers'>
-              <image src='/img/icon_1.png' mode='widthFix'></image>
-              <text style='font-size:24rpx;'>发表于{{item.inforDate}}</text>
-            </view>
-        </view>
-        <!--循环到此结束-->
-      </view>
     </van-tab>
 		<van-tab title="公告">
       <view class='notice'>
