@@ -97,11 +97,6 @@ Page({
               if (resData.binding && resData.binding == '0') {
                 wx.setStorageSync('token', resData.token)//将token信息存入本地
                 wx.setStorageSync('studentId', resData.studentId)//将studentId信息存入本地
-                wx.setStorageSync('className', resData.className)//将班级名称存入本地
-                wx.setStorageSync('classId', resData.classId)//将班级id存入本地
-                that.setData({
-                  className: resData.className
-                });
                 that.loadMyCourse();
               } else {
                 //将页面跳转至绑定页

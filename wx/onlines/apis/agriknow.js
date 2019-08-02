@@ -198,5 +198,12 @@ class agriknow {
   checkoutTest(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._education + '/notice/findAll', postData).then(res => res.data)
   }
+
+  /**
+   *  资讯列表
+   */
+  articleFindAll(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._general + '/article/findAllDesc', postData).then(res => res.data)
+  }
 }
 export default agriknow
