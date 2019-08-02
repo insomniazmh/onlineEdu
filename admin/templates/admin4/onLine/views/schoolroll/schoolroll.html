@@ -176,7 +176,7 @@
 							<div class="row">
 								<label class="col-md-2 control-label">下载模板</label>
 								<div class="col-md-4">
-									<a href="" style="line-height: 35px; font-size: 16px;">学生信息模板</a>
+									<a href="{{exportTplUrl}}" style="line-height: 35px; font-size: 16px;">学生信息模板</a>
 								</div>
 							</div>
 							<div class="col-md-12" style="text-align: center">
@@ -281,7 +281,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12" style="text-align: center">
-							<button style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
+							<a style="width: 200px" class="btn btn-md blue" href="{{exportUrl}}"> 确定 </a>
 						</div>
 					</div>
 				</div>
@@ -421,6 +421,9 @@
 		$scope.searchObj = {};//搜索信息
 		$scope.familyData = [];//家庭成员信息
 		$scope.supple = {} //补充信息
+		
+		$scope.exportTplUrl = common.url + '/export/exportStudentTemplate'//导出模板url
+		$scope.exportUrl = common.url + '/export/exportStudents'//导出url
 		//加载学生列表
 		$scope.loadStudentsList = function() {			
 			common.loadDataList({

@@ -1,0 +1,53 @@
+/*课程公共样式*/
+.cl_o{color:#f2a84b;}
+.mt_100{margin-top:100rpx;}
+.text_typeOne{background:#F8F8F8;padding:60rpx 20rpx;position:relative;}
+.text_typeOne text{font-size:32rpx;}
+.text_state{width:90rpx;position:absolute;right:0;top:0;}
+.text_answers{margin-top:50rpx;border-bottom:15rpx solid #f8f8f8;padding-bottom:50rpx;}
+.text_answers_clm{border:1px solid #d2d2d2;padding:10rpx 30rpx;width:500rpx;margin:40rpx auto;border-radius:10rpx;}
+.text_answers_clm text{font-size:35rpx;}
+.e_number{margin-right:40rpx;}
+.com_btn{width:570rpx;}
+.btn_state_on{background:#15AD24;color:white;}
+.btn_state_off{color:rgb(192, 192, 192);}
+
+
+.text_answers_clm .wxParse-p {
+  display: inline
+}
+
+.allow_state{padding:40rpx 0;position:relative;height:300rpx;}
+.allow_state image{width:150rpx;margin-left:160rpx;}
+.allow_state image:nth-of-type(1){position:absolute;left:0;}
+.allow_state image:nth-of-type(2){position:absolute;right:120rpx;}
+.allow_state image:nth-of-type(3){position:absolute;left:0;}
+.allow_state image:nth-of-type(4){position:absolute;right:120rpx;}
+
+.raise_hand{display:block;width:160rpx;margin:40rpx auto;}
+
+.loadImg{
+  position: relative;
+  padding: 30rpx 30rpx 0rpx 40rpx;
+  height: 200rpx;
+}
+.loadImg .uploadImage{
+  border: 2px dashed #ddd;
+  font-size: 70rpx;
+  line-height: 2.8;
+  text-align: center;
+  color: #ddd;
+}
+.loadImg .uploadImage,.loadImgItem{
+  width: 200rpx;
+  height: 200rpx;
+  float: left;
+  margin: 10rpx;
+}
+.loadImg .imgDelete{
+  width: 50rpx;
+  height: 50rpx;
+  float: left;
+  margin-left: -62rpx;
+  margin-top: 15rpx;
+}

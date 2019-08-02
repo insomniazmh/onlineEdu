@@ -158,52 +158,13 @@
 	function basicCtrl($scope, $http, $location, $rootScope) {
 		var courseId = localStorage.getItem('courseId');
 		var path = $location.path();
-		
-		//加载所有课程
-		$scope.loadAllCourse = function() {
-			common.ajax({
-				method: 'get',
-				$scope: $scope,
-				$http: $http,
-				url: '/course/findCourseList',
-				data: {
-					'courseId': localStorage.getItem('courseId')
-				},
-				success: function(data) {
-					var courseList = data.data;
-					courseList.forEach(function(value) {
-						value.label = value.courseName;
-						value.value = value.courseId;
-					})
-					$("#courseName").autocomplete({
-				    //数据源
-				    source: data.data,
-						focus: function( event, ui ) {
-			        $( "#courseName" ).val( ui.item.label );
-			        return false;
-			      },
-			      select: function( event, ui ) {
-			      	$scope.$apply(function() {
-			      		$scope.course.courseNumber = ui.item.value;
-			      		$scope.course.courseName = ui.item.label;
-			      	});
-			        return false;
-			      }
-					});
-					
-					$scope.loadCourseInfo();
-				}
-			});
-		}
-		$scope.loadAllCourse();
+		$scope.course = {
+			topPicSrc: 'https://e.hnfts.cn/img/zanwu.jpg'
+		};
 		
 		//加载课程信息(如果为编辑)
 		$scope.loadCourseInfo = function() {
-			if (path.indexOf("courseAdd") != -1) {
-				$scope.course = {
-					topPicSrc: 'images/zanwu.jpg'
-				};
-			} else {
+			if (path.indexOf("courseEdit") >=0 ) {
 				common.ajax({
 					$scope: $scope,
 					$http: $http,
@@ -243,14 +204,13 @@
 						}
 						//处理封面
 						if (!$scope.course.topPicSrc) {
-							$scope.course.topPicSrc = 'images/zanwu.jpg';
+							$scope.course.topPicSrc = 'https://e.hnfts.cn/img/zanwu.jpg';
 						}
 					}
 				});
 			}
 		}
 		
-
 		//切换课程回调
 		$scope.$on('course', function(d, data) {
 			$scope.loadCourseInfo();
@@ -262,17 +222,6 @@
 				layer.alert("课程名称不能为空");
 				return false;
 			}
-			
-			//校验课程名称
-			if(!$scope.course.courseNumber || $scope.course.courseNumber == "") {
-				layer.alert("课程编号不能为空");
-				return false;
-			}
-			
-			//集体备课老师人员
-			var teachers = []
-			//所属专业
-			$scope.course.specialtyId = "zhuanye001";
 			//授课类型
 			var teachingType = [];
 			$.each($('input[name="lessonType"]:checked'), function() {
@@ -283,18 +232,7 @@
 			
 			//课程描述
 			var courseDescribe = $('#summernoteMiaoshu').code();
-			//集体备课老师人员数组
-			var teacherArr = $("#my_multi_select1").val();
-			if(lessonPreparationType == '2' && (!teacherArr || teacherArr.length == 0)) {
-				layer.alert("集体备课必须选择备课老师");
-				return false;
-			}
-			$(teacherArr).each(function() {
-				teachers.push({
-					teacherId: this,
-					teacherName: "张三"
-				});
-			});
+			
 
 			$scope.course.teachingType = teachingType.join(",");
 			$scope.course.lessonPreparationType = lessonPreparationType;
@@ -309,7 +247,6 @@
 					url: '/course/save',
 					data: {
 						course: $scope.course,
-						teachers: teachers
 					},
 					success: function(data) {
 						if (data.ret == 0) {
@@ -367,8 +304,6 @@
 					url: '/course/edit',
 					data: {
 						course: $scope.course,
-						oldShareId: $scope.course.shareId,
-						teachers: teachers
 					},
 					success: function(data) {
 						console.log(data);

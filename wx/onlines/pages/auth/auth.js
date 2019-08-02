@@ -59,9 +59,9 @@ Page({
         getApp().globalData.alreadyBind = true;
         setTimeout(function () {
           wx.navigateTo({
-            url: '/pages/school_index/index'
+            url: '/pages/index/index'
           });
-        }, 3000);
+        }, 2000);
       })
       .catch(res => {
         //wx.stopPullDownRefresh()

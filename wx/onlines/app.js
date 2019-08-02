@@ -1,4 +1,5 @@
 //app.js
+import agriknow from './apis/agriknow.js'
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -35,5 +36,7 @@ App({
   },
   globalData: {
     userInfo: null
-  }
+  },
+
+  agriknow: new agriknow()
 })

@@ -1,0 +1,62 @@
+<view class='text_typeOne'>
+  <!-- <view><template is="wxParse" data="{{wxParseData:title.nodes}}" /></view> -->
+  <view><rich-text nodes="{{title}}" bindtap="tap"></rich-text></view>
+</view>
+<!-- 单选 -->
+<view class='text_answers' wx:if="{{questionType=='single'}}">
+  <view wx:for="{{opts}}" wx:for-index="idx" wx:key="idx" class='text_answers_clm' data-id='{{idx}}' 
+  style="{{opts[idx].selected?'background-color:#dedede;':''}}" bindtap='bindradio'>
+    <text class='cl_o e_number'>{{opts[idx].optValue}}.</text>
+    <rich-text nodes="{{opts[idx].optTxt}}" bindtap="tap" style='display: inline-block;'></rich-text>
+  </view>
+</view>
+<!-- 多选 -->
+<view class='text_answers' wx:if="{{questionType=='multiple'}}">
+  <view wx:for="{{opts}}" wx:for-index="idx" wx:key="" class='text_answers_clm' data-id='{{idx}}' 
+  style="{{opts[idx].selected?'background-color:#dedede;':''}}" bindtap='bindCheckbox'>
+    <text class='cl_o e_number'>{{opts[idx].optValue}}.</text>
+    <rich-text nodes="{{opts[idx].optTxt}}" bindtap="tap" style='display: inline-block;'></rich-text>
+  </view>
+  <text>您选择的答案是：{{answer}}</text>
+</view>
+
+<!-- 判断 -->
+<view class='text_answers' wx:if="{{questionType=='trueOrFalse'}}">
+  <view class='allow_state '>
+    <image bindtap='bindTOF' src="{{checkTOF?'https://e.hnfts.cn/img/icon/r_icon.png':'https://e.hnfts.cn/img/icon/r_icon_g.png'}}" data-id='1' mode='widthFix'></image>
+    <image bindtap='bindTOF' src="{{!checkTOF?'https://e.hnfts.cn/img/icon/w_icon.png':'https://e.hnfts.cn/img/icon/w_icon_g.png'}}" data-id='2' mode='widthFix'></image>
+  </view>
+</view>
+
+<!-- 主观 -->
+<view class='text_answers' wx:if="{{questionType=='design'}}">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class='allow_state"'>
+      <textarea name="answer" placeholder="请在这里输入您的答案" />
+    </view>
+    <view class='loadImg'>
+      <view wx:for='{{upLoadImg}}' wx:key='loadImg'>
+        <image class='loadImgItem' src='{{item.fileUrl}}'></image>
+        <image bindtap='deleteImg' id="{{item.fileUrl}}" class='imgDelete' src='/img/tabBar/delete.png'></image>
+      </view>
+      <navigator class='uploadImage'  bindtap='chooseImage' hover-class='none'>+</navigator>
+    </view>
+    <view style='clear:both;'></view>
+    <button class='com_btn mt_100 btn_state_on' 
+    form-type="submit" wx:if="{{designFlag}}">提交</button>
+  </form>
+</view>
+
+<!-- 显示答案和解析 -->
+<view wx:if="{{analysiShow}}">
+  <view>您的答案是：{{stuAnswer}}</view>
+  <view>正确答案是：{{rightAnswer}}</view>
+  <view>解析：{{analysis}}</view>
+</view>
+
+<button class='com_btn mt_100 btn_state_on' bindtap="bindSub" 
+wx:if="{{showSub}}">提交</button>
+<image class='raise_hand' bindtap='bindRaise' src="https://e.hnfts.cn/img/z19.png" 
+mode='widthFix' wx:if="{{raiseFlag}}"></image>
+<!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->
+<slot></slot>
