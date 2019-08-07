@@ -67,7 +67,7 @@
 						<div class="col-md-12 search">
 							<!-- <div class="col-md-4">
 								<label class="label-text">学号：</label>
-								<input type="text" class="form-control" ng-model='searchObj.stuId' />
+								<input type="text" class="form-control" ng-model='searchObj.studentId' />
 							</div> -->
 							<div class="col-md-4">
 								<label class="label-text">姓名：</label>
@@ -134,7 +134,7 @@
 					<tbody>
 						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="editStuInfo(item);">
 							<!--<td>{{item.studentId}}</td>-->
-							<td>{{item.stuName}}</td>
+							<td>{{item.studentName}}</td>
 							<td>{{item.enrollmentDate}}</td>
 							<td>{{item.specialtyName}}</td>
 							<td>{{item.centerName}}</td>
@@ -201,87 +201,103 @@
 					<div class="row">
 						<div class="col-md-12 export-all">
 							<span class="h4">个人信息</span>
-							<input type="checkbox" ng-model="single" ng-change="singleAll()" />全选
+							<input type="checkbox" ng-model="single" ng-change="singleAll()" value="" />全选/全不选
 						</div>
-						<div class="col-md-12 export-option" id="single">
-							<input type="checkbox"  />姓名
-							<input type="checkbox"  />姓名拼音
-							<input type="checkbox"  />性别
-							<input type="checkbox"  />联系电话
-							<input type="checkbox"  />身份证件类型
+						<div class="col-md-12 export-option" id="singleExportOption">
+							<input type="checkbox" name="singleVar" value="studentName" />姓名
+							<input type="checkbox" name="singleVar" value="namePinYin" />姓名拼音
+							<input type="checkbox" name="singleVar" value="gender" />性别
+							<input type="checkbox" name="singleVar" value="stuPhone" />联系电话
+							<input type="checkbox" name="singleVar" value="stuCardType" />身份证件类型
+							<input type="checkbox" name="singleVar" value="stuIDCard" />证件号码
+							<input type="checkbox" name="singleVar" value="stuBirthDate" />出生日期
+							<input type="checkbox" name="singleVar" value="nationality" />国家/地区
+							<input type="checkbox" name="singleVar" value="nation" />民族
+							<input type="checkbox" name="singleVar" value="marriage" />婚姻状况
+							<input type="checkbox" name="singleVar" value="householdType" />户口性质
+							<input type="checkbox" name="singleVar" value="politicalStatus" />政治面貌
+							<input type="checkbox" name="singleVar" value="isImmigrantChildren" />是否随迁子女
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 export-all">
 							<span class="h4">基本信息</span>
-							<input type="checkbox"  />全选
+							<input type="checkbox" ng-model="basic" ng-change="baiscAll()" value="" />全选/全不选
 						</div>
 						<div class="col-md-12 export-option">
-							<input type="checkbox"  />学生编号
-							<input type="checkbox"  />专业
-							<input type="checkbox"  />学习中心
-							<input type="checkbox"  />学生类别
-							<input type="checkbox"  />班级名称
+							<input type="checkbox" name="basicVar" value="studentId" />学生编号
+							<input type="checkbox" name="basicVar" value="specialtyName" />专业
+							<input type="checkbox" name="basicVar" value="centerId" />学习中心
+							<input type="checkbox" name="basicVar" value="studentCategory" />学生类别
+							<input type="checkbox" name="basicVar" value="className" />班级名称
+							<input type="checkbox" name="basicVar" value="specialtyName" />专业简称
+							<input type="checkbox" name="basicVar" value="educationalSystem" />学制
+							<input type="checkbox" name="basicVar" value="grade" />年级
+							<input type="checkbox" name="basicVar" value="waysStudy" />就读方式
+							<input type="checkbox" name="basicVar" value="learningModality" />学习形式
+							<input type="checkbox" name="basicVar" value="waysEnrollment" />入学方式
+							<input type="checkbox" name="basicVar" value="arrivalDate" />入学年月
+							<input type="checkbox" name="basicVar" value="entranceCertificateNumber" />准考证号
+							<input type="checkbox" name="basicVar" value="candidateNumber" />考生号
+							<input type="checkbox" name="basicVar" value="totalExaminationAchievement" />考试总分
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 export-all">
 							<span class="h4">家庭成员信息</span>
-							<input type="checkbox"  />全选
+							<input type="checkbox" ng-model="family" ng-change="familyAll()" value="" />全选/全不选
 						</div>
 						<div class="col-md-12 export-option">
-							<input type="checkbox"  />成员姓名
-							<input type="checkbox"  />成员关系
-							<input type="checkbox"  />联系电话
-							<input type="checkbox"  />是否监护人
-							<input type="checkbox"  />证件类型
-							<input type="checkbox"  />证件号码
-							<input type="checkbox"  />出生年月
-							<input type="checkbox"  />健康状况
-							<input type="checkbox"  />工作单位
-							<input type="checkbox"  />政治面貌
+							<input type="checkbox" name="familyVar" value="familyName" />成员姓名
+							<input type="checkbox" name="familyVar" value="familyRelationship" />成员关系
+							<input type="checkbox" name="familyVar" value="familyPhone" />联系电话
+							<input type="checkbox" name="familyVar" value="isJHR" />是否监护人
+							<input type="checkbox" name="familyVar" value="familyCardType" />证件类型
+							<input type="checkbox" name="familyVar" value="familyIDCard" />证件号码
+							<input type="checkbox" name="familyVar" value="familyBirthDate" />出生年月
+							<input type="checkbox" name="familyVar" value="healthCondition" />健康状况
+							<input type="checkbox" name="familyVar" value="companyOrganization" />工作单位
+							<input type="checkbox" name="familyVar" value="politicalStatus" />政治面貌
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12 export-all">
 							<span class="h4">补充信息</span>
-							<input type="checkbox"  />全选
+							<input type="checkbox" ng-model="supple" ng-change="suppleAll()" value="" />全选/全不选
 						</div>
 						<div class="col-md-12 export-option" style="padding: 10px 0;">
-							<input type="checkbox"  />乘火车区间（始）
-							<input type="checkbox"  />乘火车区间（终）
-							<input type="checkbox"  />生源地行政区划码
-							<input type="checkbox"  />出生地行政区划码
-							<input type="checkbox"  />家庭现地址
-							<input type="checkbox"  />家庭邮政编码
-							<input type="checkbox"  />家庭电话
-							<input type="checkbox"  />户口所在地行政区划码
-							<input type="checkbox"  />户口所在地区县以下详细地址
-							<input type="checkbox"  />所属派出所
-							<input type="checkbox"  />户口所在地行政区划码
-							<input type="checkbox"  />学生居住地类型
-							<input type="checkbox"  />健康状况
-							<input type="checkbox"  />学生来源
-							<input type="checkbox"  />招生对象
-							<input type="checkbox"  />毕业学校
-							<input type="checkbox"  />是否建档立卡贫困户
-							<input type="checkbox"  />招生方式
-							<input type="checkbox"  />联招合作类型
-							<input type="checkbox"  />考生特长
-							<input type="checkbox"  />考生既往病史
-							<input type="checkbox"  />体检结论
-							<input type="checkbox"  />联招合作办学形式
-							<input type="checkbox"  />联招合作学校代码
-							<input type="checkbox"  />校外教学点
-							<input type="checkbox"  />分段培养方式
-							<input type="checkbox"  />英文姓名
-							<input type="checkbox"  />电子信箱
-							<input type="checkbox"  />其他联系方式
+							<input type="checkbox" name="suppleVar" value="trainSpace" />乘火车区间
+							<input type="checkbox" name="suppleVar" value="englishName" />英文姓名
+							<input type="checkbox" name="suppleVar" value="studentFormAdministrativeCode" />生源地行政区划码
+							<input type="checkbox" name="suppleVar" value="birthplaceAdministrativeCode" />出生地行政区划码
+							<input type="checkbox" name="suppleVar" value="familyAddress" />家庭现地址
+							<input type="checkbox" name="suppleVar" value="familyPostalCode" />家庭邮政编码
+							<input type="checkbox" name="suppleVar" value="familyPhone" />家庭电话
+							<input type="checkbox" name="suppleVar" value="householdAdministrativeCode" />户口所在地行政区划码
+							<input type="checkbox" name="suppleVar" value="householdAddressDetails" />户口所在地区县以下详细地址
+							<input type="checkbox" name="suppleVar" value="localPoliceStation" />所属派出所
+							<input type="checkbox" name="suppleVar" value="nativePlaceFormAdministrativeCode" />籍贯地行政区划码
+							<input type="checkbox" name="suppleVar" value="studentHabitationType" />学生居住地类型
+							<input type="checkbox" name="suppleVar" value="healthCondition" />健康状况
+							<input type="checkbox" name="suppleVar" value="studentSource" />学生来源
+							<input type="checkbox" name="suppleVar" value="recruit" />招生对象
+							<input type="checkbox" name="suppleVar" value="school" />毕业学校
+							<input type="checkbox" name="suppleVar" value="isDestituteFamily" />是否建档立卡贫困户
+							<input type="checkbox" name="suppleVar" value="studentRecruitingWays" />招生方式
+							<input type="checkbox" name="suppleVar" value="jointRecruitmentCooperationType" />联招合作类型
+							<input type="checkbox" name="suppleVar" value="studentSpeciality" />考生特长
+							<input type="checkbox" name="suppleVar" value="studentMedicalHistory" />考生既往病史
+							<input type="checkbox" name="suppleVar" value="healthReport" />体检结论
+							<input type="checkbox" name="suppleVar" value="jointRecruitmentCooperationStyle" />联招合作办学形式
+							<input type="checkbox" name="suppleVar" value="jointRecruitmentCooperationSchoolCode" />联招合作学校代码
+							<input type="checkbox" name="suppleVar" value="offCampusTeachingAddress" />校外教学点
+							<input type="checkbox" name="suppleVar" value="stageByStageEducationType" />分段培养方式
+							<input type="checkbox" name="suppleVar" value="stuEmail" />电子信箱/其他联系方式
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12" style="text-align: center">
-							<a style="width: 200px" class="btn btn-md blue" href="{{exportUrl}}"> 确定 </a>
+							<button style="width: 200px" class="btn btn-md blue" ng-click="exportSub()"> 确定 </button>
 						</div>
 					</div>
 				</div>
@@ -423,7 +439,7 @@
 		$scope.supple = {} //补充信息
 		
 		$scope.exportTplUrl = common.url + '/export/exportStudentTemplate'//导出模板url
-		$scope.exportUrl = common.url + '/export/exportStudents'//导出url
+		$scope.exportUrl = common.url + '/export/exportStudentsParameter'//导出url
 		//加载学生列表
 		$scope.loadStudentsList = function() {			
 			common.loadDataList({
@@ -502,7 +518,41 @@
 			}
 		];
 		
+		$scope.single = false;
+		$scope.singleAll = function() {
+			if($scope.single) {
+				$.uniform.update($("input[name='singleVar'][type='checkbox']").attr("checked",true));
+			}else {
+				$.uniform.update($("input[name='singleVar'][type='checkbox']").attr("checked",false));
+			}
+		}
 		
+		$scope.basic = false;
+		$scope.baiscAll = function() {
+			if($scope.basic) {
+				$.uniform.update($("input[name='basicVar'][type='checkbox']").attr("checked",true));
+			}else {
+				$.uniform.update($("input[name='basicVar'][type='checkbox']").attr("checked",false));
+			}
+		}
+		
+		$scope.family = false;
+		$scope.familyAll = function() {
+			if($scope.family) {
+				$.uniform.update($("input[name='familyVar'][type='checkbox']").attr("checked",true));
+			}else {
+				$.uniform.update($("input[name='familyVar'][type='checkbox']").attr("checked",false));
+			}
+		}
+		
+		$scope.supple = false;
+		$scope.suppleAll = function() {
+			if($scope.supple) {
+				$.uniform.update($("input[name='suppleVar'][type='checkbox']").attr("checked",true));
+			}else {
+				$.uniform.update($("input[name='suppleVar'][type='checkbox']").attr("checked",false));
+			}
+		}
 		
 		$scope.import = function() {
 			$("#importModal").modal('show');
@@ -510,6 +560,32 @@
 		
 		$scope.export = function() {
 			$("#exportModal").modal('show');
+		}
+		
+		$scope.exportSub = function() {
+			let postArr = []
+			$("input[name='singleVar'][type='checkbox']").each(function() {
+				if(this.checked) {
+					postArr.push(this.value);
+				}
+			})
+			$("input[name='basicVar'][type='checkbox']").each(function() {
+				if(this.checked) {
+					postArr.push(this.value);
+				}
+			})
+			$("input[name='familyVar'][type='checkbox']").each(function() {
+				if(this.checked) {
+					postArr.push(this.value);
+				}
+			})
+			$("input[name='suppleVar'][type='checkbox']").each(function() {
+				if(this.checked) {
+					postArr.push(this.value);
+				}
+			})
+			console.log(postArr);
+			window.open($scope.exportUrl+'?exportParameter='+postArr);
 		}
 		
 		$scope.editStuInfo = function(student) {
@@ -547,22 +623,13 @@
 			}
 		});
 		
-		$scope.single = false;
-		$scope.singleAll = function() {
-			if($scope.single) {
-				$("#single input[type='checkbox']").prop('checked', true);
-			}else {
-				$("#single input[type='checkbox']").prop('checked', false);
-			}
-		}
-		
 		//查询学生详细信息
 		$scope.loadStuDetail = function() {
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
 				data: {
-					stuId: $scope.currStudent.stuId
+					studentId: $scope.currStudent.studentId
 				},
 				url: '/student/findStudentPeopleByStuId',
 				success: function(res) {
@@ -590,7 +657,7 @@
 				$scope: $scope,
 				$http: $http,
 				data: {
-					stuId: $scope.currStudent.stuId
+					studentId: $scope.currStudent.studentId
 				},
 				url: '/student/findStudentExpandInfo',
 				success: function(res) {
@@ -604,7 +671,7 @@
 		//添加或修改学生补充信息
 		$scope.saveUpdateStudentExpand = function() {
 			let postData = {
-				stuId: $scope.currStudent.stuId
+				studentId: $scope.currStudent.studentId
 			}
 			let expandValues = []
 			for(let [k , v] of Object.entries($scope.supple)) {
@@ -632,7 +699,7 @@
 				$scope: $scope,
 				$http: $http,
 				data: {
-					stuId: $scope.currStudent.stuId
+					studentId: $scope.currStudent.studentId
 				},
 				url: '/studentScore/findStudentScore',
 				success: function(res) {
@@ -647,7 +714,7 @@
 				$scope: $scope,
 				$http: $http,
 				data: {
-					stuId: $scope.currStudent.stuId
+					studentId: $scope.currStudent.studentId
 				},
 				url: '/family/findFamilies',
 				success: function(res) {
@@ -672,7 +739,7 @@
 		
 		//保存家庭成员
 		$scope.save = function(familyUser) {
-			familyUser.stuId = $scope.currStudent.stuId
+			familyUser.studentId = $scope.currStudent.studentId
 			common.ajax({
 				$scope: $scope,
 				$http: $http,

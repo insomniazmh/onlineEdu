@@ -42,7 +42,7 @@ class agriknow {
    * 绑定用户信息
    */
   bindUser(realName = '', idNumber = '') {
-    let data = { stuName: realName, stuIDCard: idNumber }
+    let data = { studentName: realName, stuIDCard: idNumber }
     return this._request.postRequest(this._baseUrl + this._general + '/weChat/binding', data).then(res => res.data)
   }
 

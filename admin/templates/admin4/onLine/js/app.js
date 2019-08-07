@@ -751,6 +751,12 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 				}]
 			}
 		})
+		
+		//角色权限维护
+		.state('auth', {
+			url: "/auth.html",
+			templateUrl: "views/system/auth.html"
+		})
 }]);
 
 /* Init global settings and run the app */

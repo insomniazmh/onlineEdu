@@ -57,7 +57,7 @@ var common = {
 		};
 		settings = $.extend(defaults, settings);
 		
-		if(!settings.data.userId) {
+		if(settings.data && !settings.data.userId) {
 			settings.data.userId = localStorage.getItem('userid')
 		}
 
@@ -90,10 +90,13 @@ var common = {
 	},
 	
 	http: function(settings, postUrl) {
+		let headers = {}
+		if(settings.headers) {
+			headers = settings.headers
+		}
+		headers.token = localStorage.getItem("token")
 		settings.$http({
-			headers: {
-				token: localStorage.getItem("token")
-			},
+			headers: headers,
 			method: settings.method,
 			url: postUrl,
 			data: settings.data,
