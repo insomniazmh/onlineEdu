@@ -1,36 +1,29 @@
-// pages/information/information.js
+// pages/information/infodetail/infodetail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrls: [
-      "/img/banner_1.jpg",
-      "/img/banner_1.jpg",
-      "/img/banner_1.jpg",
-      "/img/banner_1.jpg"
-    ],
-    indicatorDots: true,
-    autoplay: true,
-    interval: 5000,
-    duration: 500,
-    active: 0,
-    articleList: [],
-  },
 
-  navToDetail: function(e) {
-    console.log(e.currentTarget.dataset.id)
-    wx.navigateTo({
-      url: '/pages/information/infodetail/infodetail?id=' + e.currentTarget.dataset.id
-    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options)
+    let that = this
+    getApp().agriknow.articleDetail({
+      id: options.id
+    }).then(res => {
+      console.log(res.data);
+      that.setData({
+        article: res.data
+      })
+    }).catch(res => {
+      //wx.stopPullDownRefresh()
+    });
   },
 
   /**
@@ -44,18 +37,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let that = this;
-    getApp().agriknow.articleFindAll({
-      page: 0,
-      size: 15
-    }).then(res => {
-      console.log(res);
-      that.setData({
-        articleList: res.data.content
-      })
-    }).catch(res => {
-      //wx.stopPullDownRefresh()
-    });
+
   },
 
   /**

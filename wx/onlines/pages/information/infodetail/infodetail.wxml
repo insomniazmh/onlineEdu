@@ -1,0 +1,7 @@
+<!--pages/information/infodetail/infodetail.wxml-->
+<view class="wrapper">
+  <view class="title">{{article.title}}</view>
+  <view class="time">发表于：2019-08-08</view>
+  <rich-text nodes="{{article.articleConten}}"></rich-text>
+</view>
+

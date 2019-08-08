@@ -82,7 +82,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div class="form-actions">
 			<button type="button" class="btn btn-primary btn-block uppercase" id="login">登录</button>
 		</div>
-		<div class="form-actions">
+		<!-- <div class="form-actions">
 			<div class="pull-left">
 				<label class="rememberme check">
 				<input type="checkbox" name="remember" value="1"/>记住密码 </label>
@@ -90,7 +90,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<div class="pull-right forget-password-block">
 				<a href="javascript:;" id="forget-password" class="forget-password">忘记密码?</a>
 			</div>
-		</div>
+		</div> -->
 	</form>
 	<!-- END LOGIN FORM -->
 	<!-- BEGIN FORGOT PASSWORD FORM -->
@@ -149,8 +149,8 @@ jQuery(document).ready(function() {
 	$("#login").click(function() {
 		$.ajax({
 			type:"post",
-			url:"https://e.hnfts.cn/education/auth/login",
-//			url:"http://192.168.10.2:8080/auth/login",
+			// url:"https://e.hnfts.cn/education/auth/login",
+			url:"http://192.168.10.2:7080/auth/login",
 			headers: {
 				'Content-Type': 'applicationon/json'
 			},

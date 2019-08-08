@@ -280,7 +280,7 @@ var common = {
 	
 	//加载列表
 	loadDataList: function(settings) {
-		var postData = {
+		let postData = {
 			"page": settings.$scope.currentPage - 1,
 			"size": settings.$rootScope.pageSize,
 			// sortVo: {
@@ -288,6 +288,10 @@ var common = {
 			// 	"size": settings.$rootScope.pageSize,
 			// }
 		};
+		let method = 'post';
+		if(settings.method) {
+			method = settings.method
+		}
 		
 		if(settings.$scope.searchObj) {
 			postData = Object.assign(postData, settings.$scope.searchObj);
@@ -295,11 +299,15 @@ var common = {
 		console.log(postData);
 		
 		common.ajax({
+			method: method,
 			$scope: settings.$scope,
 			$http: settings.$http,
 			data: postData,
 			url: settings.url,
 			success: function(res) {
+				if(!res.content) {
+					res.content = res;
+				}
 				settings.$scope.totalItems = res.totalPages;
 				settings.$scope.bigTotalItems = res.totalElements;
 				if(settings.rtnData) {

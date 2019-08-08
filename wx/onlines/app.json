@@ -13,7 +13,8 @@
     "pages/main/TransactionAdd/TransactionAdd",
     "pages/videoMaterial/videoMaterial",
     "pages/auth/auth",
-    "pages/reg/reg"
+    "pages/reg/reg",
+    "pages/information/infodetail/infodetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,14 @@
+/* pages/information/infodetail/infodetail.wxss */
+.wrapper {
+  width: 92%;
+  margin-left: 4%;
+}
+.title {
+  font-size: 18px;
+  font-weight:500;
+}
+.time {
+  font-size: 14px;
+  color: #757575;
+  margin-bottom: 10px;
+}

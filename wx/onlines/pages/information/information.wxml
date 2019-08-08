@@ -10,11 +10,11 @@
   </block>
 </swiper>
 <view>
-	<van-tabs active="{{ active }}" bind:click="changeContent">
+	<van-tabs active="{{ active }}">
 		<van-tab title="资讯">
       <view class='min_class'>
         <!--循环从此开始-->
-        <view class='class_clm' wx:for="{{articleList}}" wx:key="clm">
+        <view class='class_clm' wx:for="{{articleList}}" wx:key="clm" bindtap="navToDetail" data-id="{{item.articleId}}">
           <view style='height: 25px;'>
             <text class='top_title'>{{item.title}}</text>
             <text class="top_tag">{{item.articleType}}</text>
