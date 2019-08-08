@@ -35,43 +35,43 @@
 				</li>
 			</ul>
 		</li>-->
-		<li>
+		<li ng-if='pages.stuManage || pages.stuChange'>
 			<a href="javascript:;">
 			<i class="icon-rocket"></i>
-			<span class="title">学生信息</span>
+			<span class="title">学生信息{{page}}</span>
 			<span class="arrow "></span>
 			</a>
 			<ul class="sub-menu">
-				<li>
+				<li ng-show='pages.stuManage'>
 					<a href="#/schoolroll.html">
 					<i class="icon-paper-clip"></i> 学生管理</span>
 					</a>
 				</li>
-				<li>
+				<li ng-if='pages.stuChange'>
 					<a href="#/studyAlienation.html">
 					<i class="icon-paper-clip"></i> 学籍异动</span>
 					</a>
 				</li>
 			</ul>
 		</li>
-		<li>
+		<li ng-if='pages.planManage || pages.stuScore || pages.stuScoreConfirm'>
 			<a href="javascript:;">
 			<i class="icon-rocket"></i>
 			<span class="title">教学管理</span>
 			<span class="arrow "></span>
 			</a>
 			<ul class="sub-menu">
-				<li>
+				<li ng-if='pages.planManage'>
 					<a href="#/teachingManagement.html">
 					<i class="icon-paper-clip"></i> 计划管理</span>
 					</a>
 				</li>
-				<li>
+				<li ng-if='pages.stuScore'>
 					<a href="#/peacetimeAchievement.html">
 					<i class="icon-paper-clip"></i> 学生成绩</span>
 					</a>
 				</li>
-				<li>
+				<li ng-if='pages.stuScoreConfirm'>
 					<a href="#/resultConfirm.html">
 					<i class="icon-paper-clip"></i> 学生成绩确认</span>
 					</a>
@@ -83,46 +83,42 @@
 				</li>-->
 			</ul>
 		</li>
-		<li>
+		<li ng-if='pages.courseAdd || pages.myCourses'>
 			<a href="javascript:;">
 			<i class="icon-basket"></i>
 			<span class="title">课程管理</span>
 			<span class="arrow "></span>
 			</a>
 			<ul class="sub-menu">
-				<li>
+				<li ng-if='pages.courseAdd'>
 					<a href="#/courseAdd.html">
 					<i class="icon-puzzle"></i> 课程添加</span>
 					</a>
 				</li>
-				<li>
+				<li ng-if='pages.myCourses'>
 					<a href="#/myCourses.html">
 					<i class="icon-paper-clip"></i> 我的课程</span>
 					</a>
 				</li>
 			</ul>
 		</li>
-		 <li>
+		 <li ng-if='pages.assistant || pages.knowledgePoint'>
 			<a href="javascript:;">
 			<i class="icon-rocket"></i>
 			<span class="title">课程资料库</span>
 			<span class="arrow "></span>
 			</a>
 			<ul class="sub-menu">
-				<li>
+				<li ng-if='pages.assistant'>
 					<a href="#/assistant.html">
 					<i class="icon-puzzle"></i> 教学资料</span>
 					</a>
 				</li>
-				<li>
+				<li ng-if='pages.knowledgePoint'>
 					<a href="#/knowledgePoint.html">
 					<i class="icon-puzzle"></i> 知识点题库</span>
 					</a>
 				</li>
-				<!--<li>
-					<a href="#/xitice.html">
-					<i class="icon-paper-clip"></i> 教辅题册</span>
-					</a>
 				</li>-->
 			</ul>
 		</li> 

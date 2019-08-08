@@ -152,7 +152,7 @@ jQuery(document).ready(function() {
 			// url:"https://e.hnfts.cn/education/auth/login",
 			url:"http://192.168.10.2:7080/auth/login",
 			headers: {
-				'Content-Type': 'applicationon/json'
+				'Content-Type': 'application/json'
 			},
 			async:true,
 			data: JSON.stringify({
@@ -164,6 +164,7 @@ jQuery(document).ready(function() {
 					localStorage.setItem("token", data.data.token);
 					localStorage.setItem("userid", data.data.userId);
 					localStorage.setItem("username", $("#username").val());
+					localStorage.setItem("auth", data.data.roleActivity);
 					window.location.href='index.html';
 				}else {
 					alert(data.msg);
