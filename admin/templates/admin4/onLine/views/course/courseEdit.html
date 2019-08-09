@@ -410,6 +410,10 @@
 			$scope.loadQuestions(); //加载作业问题列表
 		};
 		$scope.initData();
+		
+		$scope.$watch("currCourse",function(newValue,oldValue){
+			$scope.initData();
+		})
 							
 	}
 	

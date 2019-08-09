@@ -161,15 +161,14 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 					},
 					url: '/course/findMyCourse',
 					success: function(res) {
-						$rootScope.myCourseList = res;
+						$rootScope.myCourseList = res;//我的课程列表
 						if($rootScope.myCourseList.length > 0) {
-							$rootScope.currCourse = $rootScope.myCourseList[0]
-							console.log(localStorage.getItem('currCourseId'))
+							$rootScope.currCourse = $rootScope.myCourseList[0]//默认第一个课程为当前课程
+							//如果已有当前课程id，根据id切换当前课程（处理刷新页面的情况）
 							if(localStorage.getItem('currCourseId')) {
 								for(let value of $rootScope.myCourseList) {
 									if(value.courseId == localStorage.getItem('currCourseId')) {
 										$rootScope.currCourse = value
-										localStorage.setItem('currCourseId', $rootScope.currCourse.courseId)
 									}
 								}
 							}
@@ -179,7 +178,8 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 		
 				//header中课程被选中事件，获取被选中的课程
 				$scope.changeCourse = function(row) {
-					$rootScope.$emit("course", row);
+					$rootScope.currCourse = row
+					localStorage.setItem('currCourseId', $rootScope.currCourse.courseId)
 				}
     });
 }]);
