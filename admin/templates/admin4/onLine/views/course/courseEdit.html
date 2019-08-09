@@ -319,11 +319,6 @@
 				}
 			});
 		}
-
-		//切换章节回调
-		$scope.$on('currentNode', function(d, data) {
-			$scope.initData();
-		});
 		
 		//上传教案
 		common.fileUpload({
@@ -411,7 +406,7 @@
 		};
 		$scope.initData();
 		
-		$scope.$watch("currCourse",function(newValue,oldValue){
+		$scope.$watch("currentNode",function(newValue,oldValue){
 			$scope.initData();
 		})
 							

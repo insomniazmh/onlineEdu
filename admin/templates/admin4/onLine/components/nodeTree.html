@@ -16,7 +16,7 @@
 									<div class="row" style="margin-bottom: 20px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
-												<input type="text" class="form-control" ng-model="chapterName" placeholder="请输入目录名称" />
+												<input type="text" class="form-control" id='chapterName' ng-model="chapterName" placeholder="请输入目录名称" />
 												<label for="form_control_1">目录</label>
 												<span class="help-block">名称不得超过20个字符</span>
 											</div>
@@ -25,7 +25,7 @@
 									<div class="row" style="margin-bottom: 20px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
-												<input type="number" class="form-control" ng-model="randomQuestionsNumber" placeholder="根据输入的数字为学生随机出题" />
+												<input type="number" class="form-control" id='randomQuestionsNumber' ng-model="randomQuestionsNumber" placeholder="根据输入的数字为学生随机出题" />
 												<label for="form_control_1">本章节作业题目数</label>
 											</div>
 										</div>
@@ -33,7 +33,7 @@
 									<div class="row" style="margin-bottom: 40px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
-												<input type="number" class="form-control" ng-model="videoTime" placeholder="请输入规定学习时长(分钟)" />
+												<input type="number" class="form-control" id='videoTime' ng-model="videoTime" placeholder="请输入规定学习时长(分钟)" />
 												<label for="form_control_1">规定学习时长(分钟)</label>
 											</div>
 										</div>
@@ -57,8 +57,7 @@
 <script>
 	function nodeTreeCtrl($scope, $http, $rootScope) {
 		var count = 0;
-		$scope.flag = "";
-
+		let flag = 'add'
 		//切换课程
 		$scope.$watch("currCourse",function(newValue,oldValue){
 			$scope.loadChapter();
@@ -74,7 +73,6 @@
 					courseId: $rootScope.currCourse.courseId
 				},
 				success: function(data) {
-					console.log(data);
 					data.unshift({
 						'id': '0',
 						"parent": "#",
@@ -115,15 +113,15 @@
 							"新建目录": {
 								"label": "新建目录",
 								"action": function(data) {
-									if(!$scope.currentNode) {
+									if(!$rootScope.currentNode) {
 										layer.alert('请先选择一个目录')
 										return false
 									}
-									if($scope.currentNode.parents.length >= 3) {
+									if($rootScope.currentNode.parents.length >= 3) {
 										layer.alert("对不起，最多只能创建两级菜单");
 										return false;
 									}
-									$scope.flag = "create";
+									flag = 'add'
 									$scope.chapterName = "";
 									$("#createNodeModal").modal("show");
 								}
@@ -131,13 +129,13 @@
 							"编辑目录": {
 								"label": "编辑目录",
 								"action": function(data) {
-									if(!$scope.currentNode) {
+									if(!$rootScope.currentNode) {
 										layer.alert('请先选择一个目录')
 										return false
 									}
-									$scope.flag = "rename";
-									$scope.chapterName = $scope.currentNode.text;
-									$("#chapterName").val($scope.currentNode.text);
+									flag = 'edit'
+									$scope.chapterName = $rootScope.currentNode.text;
+									$("#chapterName").val($rootScope.currentNode.text);
 									$("#createNodeModal").modal("show");
 								}
 							},
@@ -153,7 +151,7 @@
 									layer.confirm('您确定要删除该目录吗', {
 										btn: ['确定', '取消'] //按钮
 									}, function() {
-										if(!$scope.currentNode) {
+										if(!$rootScope.currentNode) {
 											layer.alert('请先选择一个目录')
 											return false
 										}
@@ -164,7 +162,7 @@
 											operate: true,
 											url: '/courseChapter/deleteById',
 											data: {
-												"chapterId": $scope.currentNode.id,
+												"chapterId": $rootScope.currentNode.id,
 											},
 											success: function(data) {
 												//删除节点
@@ -201,64 +199,39 @@
 			}
 			sel = sel[0];
 			$("#createNodeModal").modal("hide");
-			if($scope.flag == "create") {
-				setTimeout(function() {
-					console.log($scope.currentNode);
-					//创建目录
-					common.ajax({
-						$scope: $scope,
-						$http: $http,
-						operate: true,
-						url: '/courseChapter/save',
-						data: {
-							"chapterName": $scope.chapterName,
-							"randomQuestionsNumber": $scope.randomQuestionsNumber,
-							"videoTime": $scope.videoTime,
-							"chapterParentId": $scope.currentNode.id,
-							"courseId": $rootScope.currCourse.courseId
-						},
-						success: function(data) {
-							//创建节点
-							sel = ref.create_node(sel, {
-								id: data.chapterId,
-								text: $scope.chapterName,
-								'icon': 'fa fa-briefcase icon-state-success',
-								'state': {
-									'opened': true
-								}
-							});
-						}
-					});
-				}, 1000);
-				
-
-			} else if($scope.flag == "rename") {
-				//修改目录名称
-				common.ajax({
-					$scope: $scope,
-					$http: $http,
-					operate: true,
-					url: '/courseChapter/edit',
-					data: {
-						"chapterName": $scope.chapterName,
-						"chapterId": $scope.currentNode.id
-					},
-					success: function(data) {
-						//修改节点名称
-						ref.rename_node(sel, $scope.chapterName);
-					}
-				});
-
+			let postData = {
+				"chapterName": $scope.chapterName,
+				"randomQuestionsNumber": $scope.randomQuestionsNumber,
+				"videoTime": $scope.videoTime*60,
+				"courseId": $rootScope.currCourse.courseId
 			}
+			if(flag == 'edit') {
+				postData.chapterId = $rootScope.currentNode.id
+			}else {
+				postData.chapterParentId = $rootScope.currentNode.id
+			}
+			
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				url: '/courseChapter/save',
+				data: postData,
+				success: function(data) {
+					$scope.loadChapter();
+				}
+			});
 		};
 
 		//点击树节点触发事件，获取被选中节点
 		$('#tree').bind("activate_node.jstree", function(obj, e) {
 			// 处理代码
 			// 获取当前节点
-			$scope.currentNode = e.node;
-			console.log(e.node)
-			$rootScope.$emit('currentNode', $scope.currentNode);
+			$scope.$apply(function() {
+				$rootScope.currentNode = e.node;
+				$scope.randomQuestionsNumber = e.node.original.randomQuestionsNumber
+				$scope.videoTime = e.node.original.videoTime/60
+			})
 		});
 	}
 </script>
