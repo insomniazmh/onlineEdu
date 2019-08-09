@@ -150,6 +150,23 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 						$rootScope.majorList = res.content;
 					}
 				});
+				
+				//加载我的课程
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						page: 0,
+						size: 100,
+					},
+					url: '/course/findMyCourse',
+					success: function(res) {
+						$rootScope.myCourseList = res;
+						if($rootScope.myCourseList.length > 0) {
+							$rootScope.currCourse = $rootScope.myCourseList[0]
+						}
+					}
+				});
 		
 				//header中课程被选中事件，获取被选中的课程
 				$scope.changeCourse = function(row) {
@@ -161,12 +178,13 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 /* Setup Layout Part - Sidebar */
 MetronicApp.controller('SidebarController', ['$scope', function($scope) {
 		let auth = jQuery.parseJSON(localStorage.getItem("auth"))
-		$scope.pages = {}
-		for(let value of auth) {
-			console.log(value)
-			$scope.pages[value.key] = true;
+		if(auth) {
+			$scope.pages = {}
+			for(let value of auth) {
+				$scope.pages[value.key] = true;
+			}
 		}
-		console.log($scope.pages);
+		
     $scope.$on('$includeContentLoaded', function() {
         Layout.initSidebar(); // init sidebar
     });

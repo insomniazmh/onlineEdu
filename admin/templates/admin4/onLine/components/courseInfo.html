@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-md-4">
 				<div class="form-group form-md-line-input has-success">
-					<input id="courseNumber" type="text" class="form-control" ng-model="course.alias" placeholder="请输入课程所占学分">
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.credit" placeholder="请输入课程所占学分">
 					<label for="form_control_2">学分</label>
 				</div>
 			</div>
@@ -24,19 +24,19 @@
 		<div class="row" style="margin-bottom: 40px;">
 			<div class="col-md-4">
 				<div class="form-group form-md-line-input">
-					<input id="courseName" type="num" class="form-control" ng-model="course.time" placeholder="请输入课时">
+					<input id="courseName" type="num" class="form-control" ng-model="course.learningTime" placeholder="请输入课时">
 					<label for="form_control_1">课时</label>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group form-md-line-input has-success">
-					<input id="courseNumber" type="text" class="form-control" ng-model="course.alias" placeholder="观看视频时长所占成绩比重">
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.videoPercentage" placeholder="观看视频时长所占成绩比重">
 					<label for="form_control_2">学习时长占比（单位：%）</label>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group form-md-line-input has-success">
-					<input id="courseNumber" type="text" class="form-control" ng-model="course.alias" placeholder="平时作业情况所占成绩比重">
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.jobsPercentage" placeholder="平时作业情况所占成绩比重">
 					<label for="form_control_2">平时作业占比（单位：%）</label>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 					<label>课程类别</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="lessonType1" name="lessonType" class="md-radiobtn" value="1" checked="">
+							<input type="radio" id="lessonType1" name="lessonType" class="md-radiobtn" value="公共基础课" checked="">
 							<label for="lessonType1">
 								<span></span>
 								<span class="check"></span>
@@ -55,7 +55,7 @@
 								公共基础课 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="lessonType2" name="lessonType" class="md-radiobtn" value="2">
+							<input type="radio" id="lessonType2" name="lessonType" class="md-radiobtn" value="实训课">
 							<label for="lessonType2">
 								<span></span>
 								<span class="check"></span>
@@ -63,12 +63,12 @@
 								实训课 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="lessonType3" name="lessonType" class="md-radiobtn" value="3">
+							<input type="radio" id="lessonType3" name="lessonType" class="md-radiobtn" value="专业课">
 							<label for="lessonType3">
 								<span></span>
 								<span class="check"></span>
 								<span class="box"></span>
-								专业 </label>
+								专业课 </label>
 						</div>
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 					<label>是否必修</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="beikeType1" name="beikeType" class="md-radiobtn" value="1" checked="">
+							<input type="radio" id="beikeType1" name="beikeType" class="md-radiobtn" value="Y" checked="">
 							<label for="beikeType1">
 								<span></span>
 								<span class="check"></span>
@@ -86,7 +86,7 @@
 								是 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="beikeType2" name="beikeType" class="md-radiobtn" value="2">
+							<input type="radio" id="beikeType2" name="beikeType" class="md-radiobtn" value="N">
 							<label for="beikeType2">
 								<span></span>
 								<span class="check"></span>
@@ -101,7 +101,7 @@
 					<label>评分方式</label>
 					<div class="md-radio-inline">
 						<div class="md-radio">
-							<input type="radio" id="scoringMethod1" name="scoringMethod" class="md-radiobtn" value="1" checked="">
+							<input type="radio" id="scoringMethod1" name="scoringMethod" class="md-radiobtn" value="笔试" checked="">
 							<label for="scoringMethod1">
 								<span></span>
 								<span class="check"></span>
@@ -109,14 +109,14 @@
 								笔试 </label>
 						</div>
 						<div class="md-radio">
-							<input type="radio" id="scoringMethod2" name="scoringMethod" class="md-radiobtn" value="2" checked="">
+							<input type="radio" id="scoringMethod2" name="scoringMethod" class="md-radiobtn" value="口试">
 							<label for="scoringMethod2">
 								<span></span>
 								<span class="check"></span>
 								<span class="box"></span>
 								口试 </label>
 						</div><div class="md-radio">
-							<input type="radio" id="scoringMethod3" name="scoringMethod" class="md-radiobtn" value="3" checked="">
+							<input type="radio" id="scoringMethod3" name="scoringMethod" class="md-radiobtn" value="网上考试">
 							<label for="scoringMethod3">
 								<span></span>
 								<span class="check"></span>
@@ -222,20 +222,10 @@
 				layer.alert("课程名称不能为空");
 				return false;
 			}
-			//授课类型
-			var teachingType = [];
-			$.each($('input[name="lessonType"]:checked'), function() {
-				teachingType.push($(this).val());
-			});
-			//备课类型
-			var lessonPreparationType = $('input[name="beikeType"]:checked').val();
 			
 			//课程描述
 			var courseDescribe = $('#summernoteMiaoshu').code();
 			
-
-			$scope.course.teachingType = teachingType.join(",");
-			$scope.course.lessonPreparationType = lessonPreparationType;
 			$scope.course.courseDescribe = courseDescribe;
 
 			if (path.indexOf("courseAdd") != -1) {
@@ -245,9 +235,7 @@
 					$http: $http,
 					operate: true,
 					url: '/course/save',
-					data: {
-						course: $scope.course,
-					},
+					data: $scope.course,
 					success: function(data) {
 						if (data.ret == 0) {
 							$rootScope.$emit("course", data.data);

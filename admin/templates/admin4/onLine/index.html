@@ -182,6 +182,14 @@ License: You must have a valid license purchased only from themeforest(the above
 					});
 				}
 				
+				if(!localStorage.getItem("auth")) {
+					layer.confirm('您暂时没有权限，请切换账号或联系管理员分配权限', {
+					  btn: ['确定'] //按钮
+					}, function(){
+					  window.location.href = "login.html";
+					});
+				}
+				
 				Metronic.init(); // Run metronic theme
 				Metronic.setAssetsPath('../../../assets/'); // Set the assets folder path			
 			});

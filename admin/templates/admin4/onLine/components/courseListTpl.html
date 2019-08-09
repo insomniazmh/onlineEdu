@@ -8,7 +8,7 @@
 		<div class="owl-carousel owl-carousel5 owl-theme" style="opacity: 1; display: block;">
 			<div class="owl-wrapper-outer">
 				<div class="owl-wrapper" style="width: 100%; left: 0px; display: block;">
-					<div class="owl-item active" style="width: 228px;" ng-repeat="row in courses">
+					<div class="owl-item active" style="width: 228px;" ng-repeat="row in myCourseList">
 						<div>
 							<div class="product-item" ng-click="changeCourse(row)">
 								<div class="pi-img-wrapper">
@@ -35,9 +35,7 @@
 		var url = "";
 		$scope.flag = false;
 		$scope.changeCourse = function(course) {
-			console.log(url);
-			$rootScope.$emit("course", course);
-			localStorage.setItem('courseId', course.courseId);
+			$rootScope.currCourse = course
 			if($scope.flag) {
 				window.location.href = '#/' + url + '.html';
 			} else {
