@@ -164,6 +164,15 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 						$rootScope.myCourseList = res;
 						if($rootScope.myCourseList.length > 0) {
 							$rootScope.currCourse = $rootScope.myCourseList[0]
+							console.log(localStorage.getItem('currCourseId'))
+							if(localStorage.getItem('currCourseId')) {
+								for(let value of $rootScope.myCourseList) {
+									if(value.courseId == localStorage.getItem('currCourseId')) {
+										$rootScope.currCourse = value
+										localStorage.setItem('currCourseId', $rootScope.currCourse.courseId)
+									}
+								}
+							}
 						}
 					}
 				});
