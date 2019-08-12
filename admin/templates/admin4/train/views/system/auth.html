@@ -1,0 +1,174 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+	.authWrapper {
+		width: 90%;
+		margin: 10px 5%;
+	}
+	
+	.ul {
+		font-size: 14px;
+		height: 30px;
+		line-height: 30px;
+		border-bottom: 1px solid #ddd;
+	}
+	
+	.li {
+		margin-left: 20px;
+		font-size: 12px;
+		height: 30px;
+		line-height: 30px;
+		border-bottom: 1px solid #ddd;
+	}
+</style>
+<div class="row" ng-controller="authCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>角色权限维护
+				</div>
+			</div>
+			<div class="portlet-body">
+				<table class="table table-striped table-bordered table-hover" style="cursor: pointer;">
+					<thead>
+						<tr>
+							<th style="text-align: center;">名称</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX" ng-repeat="item in data">
+							<td style="text-align: center;" ng-click='showAuth(item)'>
+								{{item.roleName}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+	
+	<!-- 课程详情 -->
+	<div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">权限管理 -- {{currRole.roleName}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="authWrapper">
+						<div class="row">
+							<div class="col-md-12 ul">
+								学生信息
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="stuManage" />学生管理
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="stuChange" />学籍异动
+							</div>
+						</div>
+					</div>
+					<div class="authWrapper">
+						<div class="row">
+							<div class="col-md-12 ul">
+								教学管理
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="planManage" />计划管理
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="stuScore" />学生成绩
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="stuScoreConfirm" />学生成绩确认
+							</div>
+						</div>
+					</div>
+					<div class="authWrapper">
+						<div class="row">
+							<div class="col-md-12 ul">
+								课程管理
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="courseAdd" />课程添加
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="myCourses" />我的课程
+							</div>
+						</div>
+					</div>
+					<div class="authWrapper">
+						<div class="row">
+							<div class="col-md-12 ul">
+								课程资料库
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="assistant" />教学资料
+							</div>
+							<div class="col-md-12 li">
+								<input type="checkbox" value="knowledgePoint" />知识点题库
+							</div>
+						</div>
+					</div>
+					
+					<div style="text-align: center">
+						<button type="button" style="width: 200px" class="btn btn-md blue" ng-click="updateAuth()"> 确定 </button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<script>
+	function authCtrl($scope, $http, $rootScope) {
+		//加载角色列表
+		$scope.loadRolesList = function() {
+			common.loadDataList({
+				method: 'get',
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/role/list'
+			});
+		};
+		$scope.loadRolesList();
+		
+		$scope.showAuth = function(role) {
+			$scope.currRole = role
+			$.uniform.update($("input[type='checkbox']").prop("checked",false));
+			let auth = jQuery.parseJSON(role.roleActivity)
+			$(auth).each(function() {
+				$.uniform.update($("input[value='"+this.key+"'][type='checkbox']").prop("checked",true));
+			})
+			$("#authModal").modal('show')
+		}
+		
+		$scope.updateAuth = function() {
+			let auth = []
+			$('input[type="checkbox"]:checked').each(function() {
+				console.log(this.value)
+				auth.push({
+					key: this.value,
+					actions: []
+				})
+			})
+			$scope.currRole.roleActivity = JSON.stringify(auth)
+			
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: $scope.currRole,
+				url: '/role/edit',
+				success: function(res) {
+					$("#authModal").modal('hide')
+				}
+			});
+		}
+		
+	}
+</script>

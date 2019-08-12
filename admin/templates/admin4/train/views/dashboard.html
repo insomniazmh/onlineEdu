@@ -1,0 +1,102 @@
+<link href="../../../assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
+<!-- BEGIN MAIN CONTENT -->
+<div ng-controller="DashboardController" class="margin-top-10">
+	<!-- BEGIN PAGE CONTENT-->
+	<div class="row">
+		<div class="col-md-12">
+			<!-- BEGIN PROFILE SIDEBAR -->
+			<div class="profile-sidebar" style="width: 250px;">
+				<!-- PORTLET MAIN -->
+				<div class="portlet light profile-sidebar-portlet">
+					<!-- SIDEBAR USERPIC -->
+					<div class="profile-userpic">
+						<img src="../../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+					</div>
+					<!-- END SIDEBAR USERPIC -->
+					<!-- SIDEBAR USER TITLE -->
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">
+							赵孟浩
+						</div>
+						<div class="profile-usertitle-job">
+							电子商务专业
+						</div>
+					</div>
+					<!-- END SIDEBAR USER TITLE -->
+					<!-- SIDEBAR BUTTONS -->
+					<div class="profile-userbuttons">
+						<button type="button" class="btn btn-circle green-haze btn-sm">已修学分&nbsp;20</button>
+						<button type="button" class="btn btn-circle btn-danger btn-sm">剩余学分&nbsp;80</button>
+					</div>
+					<!-- END SIDEBAR BUTTONS -->
+					<!-- SIDEBAR MENU -->
+					<div class="profile-usermenu">
+						<ul class="nav nav-left">
+							<li class="active" name="home">
+								<a ng-click="changeTab('home')">
+									<i class="icon-home"></i>
+									首页 </a>
+							</li>
+							<li name="courseList">
+								<a ng-click="changeTab('courseList')">
+									<i class="icon-settings"></i>
+									课程学习 </a>
+							</li>
+							<li>
+								<a href="">
+									<i class="icon-check"></i>
+									在线考试 </a>
+							</li>
+							<li>
+								<a href="">
+									<i class="icon-info"></i>
+									毕业论文 </a>
+							</li>
+							<li>
+								<a href="">
+									<i class="icon-info"></i>
+								  学籍档案 </a>
+							</li>
+						</ul>
+					</div>
+					<!-- END MENU -->
+				</div>
+				<!-- END PORTLET MAIN -->
+			</div>
+			<!-- END BEGIN PROFILE SIDEBAR -->
+			
+			<!-- 首页 -->
+			<div data-ng-include="'views/template/home.html'" class="page-tab" id="home" style="display: none;"></div>
+			
+			<!-- 课程详情 -->
+			<div data-ng-include="'views/template/course.html'" class="page-tab" id="course" style="display: none;"></div>
+			
+			<!-- 课程列表 -->
+			<div data-ng-include="'views/template/courseList.html'" class="page-tab" id="courseList" style="display: none;"></div>
+			
+			<!-- 帖子 -->
+			<div data-ng-include="'views/template/postDetail.html'" class="page-tab" id="postDetail" style="display: block;"></div>
+			
+		</div>
+	</div>
+	<!-- END PAGE CONTENT-->
+</div>
+<!-- END MAIN CONTENT -->
+<!-- BEGIN MAIN JS & CSS -->
+
+<script>
+	function DashboardController($scope) {
+		$scope.changeTab = function(url) {
+			$(".nav-left li").removeClass("active");
+			$(".nav-left li[name="+url+"]").addClass("active");
+			$(".page-tab").hide();
+			$("#"+url).show();
+		}
+		
+		$scope.$on('to-parent', function(d,data) {  
+	        $(".page-tab").hide();
+			$("#"+data).show();//父级能得到值  
+	    });
+	}
+</script>
+<!-- BEGIN MAIN JS & CSS -->

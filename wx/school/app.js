@@ -40,7 +40,7 @@ App({
     websocketUrl: 'wss://e.hnfts.cn/websocket',//正式
     // websocketUrl: 'ws://192.168.10.2:9000',//测试
     alreadyBind: true,
-    //url: 'e.hnfts.cn',
+    // url: 'e.hnfts.cn',
     userInfo: null,
     circleId: "",
     studentId: ""

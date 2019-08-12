@@ -1,0 +1,107 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+	.label-text {
+		margin-top: 8px;
+	}
+</style>
+<div class="row" ng-controller="majorCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>培训项目维护
+				</div>
+			</div>
+			<div class="portlet-body">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>操作</th>
+							<th>项目名称</th>
+							<th>创建人</th>
+							<th>创建时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX" ng-repeat="item in majorList">
+							<td style="min-width: 150px;">
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.specialtyName}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.specialtyName" />
+							</td>
+							<td>张三</td>
+							<td>2019-6-4</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- <div class="row">
+					<div>
+						<div class="col-md-5" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+
+</div>
+<script>
+	function majorCtrl($scope, $http, $rootScope) {
+		$scope.add = function(index) {
+			$scope.flag = 'add';
+			$scope.data.splice(index+1, 0, {
+				edit: true
+			});
+		};
+		
+		$scope.edit = function(major) {
+			$scope.flag = 'edit';
+			major.edit = true;
+		}
+		
+		$scope.save = function(major) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: major,
+				operate: true,
+				url: '/specialty/saveUpdate',
+				success: function(res) {
+					console.log(res);
+					major.edit = false;
+				}
+			});
+		};
+		
+		$scope.cancel = function(major, index) {
+			if($scope.flag == 'add') {
+				$scope.data.splice(index, 1);
+			}else if($scope.flag == 'edit') {
+				major.edit = false;				
+			}
+		};		
+		
+		$scope.del = function(major) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: major,
+				tip: '您确定要删除该专业吗？',
+				url: '/specialty/deleteBySpecialtyId',
+				success: function(res) {
+					$scope.loadDataList();
+				}
+			});
+		};
+	}
+</script>

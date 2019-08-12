@@ -1,0 +1,186 @@
+<style>
+	.webuploader-pick {
+		display: block;
+		padding: 0;
+		background: #3598dc;
+	}
+	
+	#createData {
+		min-width: 100px;
+	}
+	
+	.createFile div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
+	.opreat {
+		font-size: 16px;
+		width: 20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+	
+	.list-icon {
+		font-size: 18px;
+		width: 20px;
+		color: #45B6AF;
+	}
+</style>
+<div class="row" ng-controller="xiticeCtrl">
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
+		</div>
+	</div>
+	<div data-ng-include="'components/title.html'"></div>
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">课堂目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'components/nodeTree.html'"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 100px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">题册</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openExercisesBookModel()">
+						<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<ul class="feeds">
+						<li ng-repeat="row in zuoyece">
+							<div class="col1">
+								<div class="cont">
+									<div class="cont-col1">
+										<div class="label label-sm label-danger">作</div>
+									</div>
+									<div class="cont-col2">
+										<div class="desc">
+											{{row.exeBookName}}
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col2">
+								<div class="date">
+									<i class="fa fa-edit opreat" class="list-icon" style="padding-right: 23px;border-right: 1px solid #45B6AF;" 
+										title="编辑" ng-click="editExercisesBook(row.id)"></i>
+									<i class="fa fa-trash-o opreat" class="list-icon" title="删除" ng-click="del(row.id)"></i>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<div data-ng-include="'components/exercisesBook.html'"></div>
+
+</div>
+<!-- END MAIN CONTENT -->
+
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<!-- BEGIN MAIN JS-->
+<script>
+	function xiticeCtrl($scope, $http, $stateParams, $rootScope) {
+		//添加或修改基本册子回调
+		$scope.$on('exercisesBookChange', function(d, data) {
+			$scope.loadQuestionList();
+		});
+
+		//切换章节回调
+		$scope.$on('currentNode', function(d, data) {
+			$scope.loadQuestionList();
+		});
+
+		//加载习题册   type： 1、提问册  2、练习册  3、作业册  4.任务册  5问卷册  6头脑风暴册
+		$scope.loadQuestionList = function() {
+			var data = {
+				"allOrPart": "part",
+				"operatorId": localStorage.getItem('userid'),
+				"page": 0,
+				"chapterId": localStorage.getItem('currentNodeId'),
+				"size": common.pageSize,
+				'exeBookType': '3',
+				"sort": 1,
+				"sorting": "uTime"
+			};
+			
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				data: data,
+				url: '/exerciseBook/findAll/detailed',
+				success: function(res) {
+					$scope.zuoyece = res.data;
+				}
+			});
+		};
+
+		//修改习题册
+		$scope.editExercisesBook = function(id) {
+			var exercisesBook = {
+				id: id
+			}
+			$scope.$broadcast('exercisesBook', exercisesBook);
+			$("#exercisesBookModal").modal("show");
+		}
+
+		//打开习题册编辑框
+		$scope.openExercisesBookModel = function() {
+			if(!$rootScope.currentNode) {
+				layer.alert("请先选择章节");
+				return false;
+			}
+
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				$scope.$broadcast('exercisesBook', {});
+				$("#exercisesBookModal").modal("show");
+				layer.closeAll('dialog');
+			});
+		}
+		
+		$scope.del = function(id, type) {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {				
+				common.ajax2({
+					$scope: $scope,
+					$http: $http,
+					operate: true,
+					method: 'get',
+					url: '/exerciseBook/delete/'+id,
+					success: function(res) {
+						$scope.loadQuestionList();
+						layer.closeAll('dialog');
+					}
+				});
+			});
+		}
+
+	}
+</script>

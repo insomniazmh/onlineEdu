@@ -1,0 +1,685 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+	.label-text {
+		margin-top: 8px;
+	}
+	
+	.form-control {
+		margin-bottom: 8px;
+		max-width: 160px;
+		display: inline-block;
+	}
+	
+	.contr {
+		margin-left: -100px;
+	}
+	
+	.btn-info {
+		
+	}
+	
+	.table-toolbar {
+		border-bottom: 3px solid #ddd;
+		border-width: 100%;
+	}
+	
+	form p {
+		line-height: 35px;
+	}
+	
+	.achievement {
+		margin-top: 9px;
+	}
+	
+	.success {
+		margin-top: -4px;
+		position: absolute;
+		bottom: 60px;
+		left: 58px;
+	}
+	.photos{
+		width: 90px;
+	}
+	.modify{
+		margin-top: -4px;
+		margin-left: 20px;
+	}
+	.border-cutting{
+		border: 0.5px solid #ddd;
+	}
+</style>
+<div class="row" ng-controller="enrollCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>毕业综合列表
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#wait" data-toggle="tab">
+						待确认 </a>
+					</li>
+					<li>
+						<a data-target="#pass" data-toggle="tab">
+						确认已通过 </a>
+					</li>
+					<li>
+						<a data-target="#noPass" data-toggle="tab">
+						审核未通过 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div class="row">
+						<div class="col-md-12" style="display: flex;">
+							<div class="col-md-4">
+								<label class="label-text">学生姓名</label>
+								<input type="text" class="form-control" />
+								<button class="btn blue btn-sm" style="margin: -5px 0 0 10px;">查询</button>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">入学时间</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in gradeList" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">学院校对</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in proof" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">统考筛选</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in screen" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-1">
+								<label class="label-text">考务确认</label>
+							</div>
+							<div class="col-md-11">
+								<ul class="nav nav-pills">
+									<li ng-repeat="item in confirm" ng-click="activeColor(item)">
+										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				
+				<div class="tab-content">
+					<div class="tab-pane active" id="wait">
+						<button class="btn blue btn-sm" ng-click='batchExamine()'>批量确认</button>
+						<table class="table table-striped table-bordered table-hover" style="margin-top: 10px;">
+							<thead>
+								<tr>
+									<th><input type="checkbox" ng-model="all" ng-change="allCheck()">全选</th>
+									<th>姓名</th>
+									<th>层次</th>
+									<th>学院校对</th>
+									<th>统考确认</th>
+									<th>考务确认</th>
+									<th>财务确认</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in studentInfo" class="odd gradeX">
+									<td><input type="checkbox" ng-model="item.check"></td>
+									<td>{{item.name}}</td>
+									<td>{{item.hierarchy}}</td>
+									<td>{{item.proofReading}}</td>
+									<td>{{item.examtConfirm}}</td>
+									<td>{{item.taskConfirm}}</td>
+									<td>{{item.financeConfirm}}</td>
+									<td style="min-width: 150px;">
+										<button class="btn btn-info btn-sm" ng-click="detail()">详情</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane" id="pass">
+						<table class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>姓名</th>
+									<th>层次</th>
+									<th>学院校对</th>
+									<th>统考确认</th>
+									<th>考务确认</th>
+									<th>财务确认</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in studentInfo" class="odd gradeX">
+									<td>{{item.name}}</td>
+									<td>{{item.hierarchy}}</td>
+									<td>{{item.proofReading}}</td>
+									<td>{{item.examtConfirm}}</td>
+									<td>{{item.taskConfirm}}</td>
+									<td>{{item.financeConfirm}}</td>
+									<td style="min-width: 150px;">
+										<button class="btn btn-info btn-sm" ng-click="detail()">详情</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane" id="noPass">
+						<table class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>姓名</th>
+									<th>层次</th>
+									<th>学院校对</th>
+									<th>统考确认</th>
+									<th>考务确认</th>
+									<th>财务确认</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in studentInfo" class="odd gradeX">
+									<td>{{item.name}}</td>
+									<td>{{item.hierarchy}}</td>
+									<td>{{item.proofReading}}</td>
+									<td>{{item.examtConfirm}}</td>
+									<td>{{item.taskConfirm}}</td>
+									<td>{{item.financeConfirm}}</td>
+									<td style="min-width: 150px;">
+										<button class="btn btn-info btn-sm" ng-click="detail()">详情</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+
+	<div class="modal fade" id="stuDetail" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">学生详情
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a data-target="#tab_basic" data-toggle="tab"> 基本信息 </a>
+							</li>
+							<li>
+								<a data-target="#tab_other" data-toggle="tab"> 其他信息 </a>
+							</li>
+							<li>
+								<a data-target="#tab_complex" data-toggle="tab"> 复杂信息 </a>
+							</li>
+							<!--<li>
+								<a data-target="#tab_achievement" data-toggle="tab"> 成绩信息 </a>
+							</li>-->
+						</ul>
+					</div>
+				<div class="portlet-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_basic">
+							<form action="#" class="form-horizontal">
+								<div class="form-body">
+									<div class="form-group" ng-repeat="item in infoMation">										
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">学号:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.studentId}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">姓名:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.name}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">性别:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.sex}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">身份证号:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.id}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">出生日期:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.birthDate}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">年级:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.grade}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">入学时间:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.entranceDate}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">民族:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.nation}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">学习中心:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.position}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">专业:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.major}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="tab-pane" id="tab_other">
+							<form action="#" class="form-horizontal">
+								<div class="form-body">
+									<div class="form-group" ng-repeat="item in photoInfo">
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">联系方式:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.phone}}/{{item.telePhone}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div style="margin-top: 35px" class="col-md-6">
+												<label class="col-md-3 control-label">学籍照片:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<img class="photos" src="{{item.studentStatusPhotos}}" alt="#">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div style="margin-top: 35px" class="col-md-6">
+												<label class="col-md-3 control-label">入学信息:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<img class="photos" src="{{item.photos}}" alt="#">
+													<img class="photos" src="{{item.idPhotosJust}}" alt="#">
+													<img class="photos" src="{{item.idPhotosBack}}" alt="#">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">招办审核情况:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.recruitmentAudit}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">学习中心校对:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.proofreading}}/确认人:{{item.confirmer}}/确认时间:{{item.confirmTime}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">提交信息修改:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<div class="col-md-12">
+														<div class="col-md-4"> 未提交:{{item.subInfo}}</div>
+														<div class="col-md-4"> 学工部回复:{{item.reply}}</div>
+														<div class="col-md-4">
+															<button class="btn btn-sm btn-info modify">申请修改</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">申请修改备注:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<textarea style="height: 100px;"  name="" id="" cols="30" rows="10"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="tab-pane" id="tab_complex">
+							<form action="#" class="form-horizontal">
+								<div class="form-body">
+									<div class="form-group" ng-repeat="item in complex">
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">学习中心上传图片:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<button class="btn btn-sm info">选择文件</button>
+													<button class="btn btn-sm info">上传</button>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">前学历毕业时间:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.graduationTime}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">学工部备注:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>({{item.remarks}})</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">学工部确认:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.schoolConfirm}}()</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">学信网学籍注册:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>已确认最新同步时间:{{item.creditRegistTime}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">考务审核:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.examinationAudit}}  如有异议,请联系考务</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">统考审核:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.generalAudit}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">学信网照片:</label>
+											</div>
+											<div style="margin-top: 35px" class="col-md-6">
+												<div class="col-md-9">
+													<p> <img class="photos" src="{{item.onlinePhotos}}" alt=""> 最新同步时间:{{item.updateTime}}</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<label class="col-md-3 control-label">财务审核:</label>
+											</div>
+											<div class="col-md-6">
+												<div class="col-md-9">
+													<p>{{item.finance}} 上一次同步财务数据:{{item.financeTime}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				
+					<div class="row">
+						<div class="col-md-12" style="text-align: center">
+							<button style="width: 200px;margin-top: 20px;" class="btn btn-md blue" ng-click=""> 通过校对 </button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+</div>
+<script>
+	function enrollCtrl($scope, $http) {
+		$scope.all = false;
+		$scope.gradeList = [{
+				text: "2019年"
+			}, {
+				text: "2018年"
+			}, {
+				text: "2017年"
+			}, {
+				text: "2016年"
+			}, {
+				text: "2015年"
+			}];
+
+		$scope.proof = [{
+				text: "已校对"
+			}, {
+				text: "未校对"
+			}];
+			
+		$scope.screen = [{
+				text: "已通过"
+			}, {
+				text: "无通过信息"
+			}];
+
+		$scope.screen = [{
+				text: "已通过"
+			}, {
+				text: "无通过信息"
+			}];
+
+		$scope.confirm = [{
+				text: "已通过"
+			}, {
+				text: "未通过"
+			}];
+		$scope.studentInfo = [
+			{
+				name:"刘八",
+				hierarchy:"大专",
+				proofReading:"已校对",
+				examtConfirm:"已确认",
+				taskConfirm:"未通过",
+				financeConfirm:"学费已缴清"
+			}
+		];
+		$scope.infoMation = [
+			{
+				studentId:"1834457", 
+				name:"李波", 
+				sex:"男", 
+				id:"412824197405064370", 
+				birthDate:"19940507", 
+				grade:"14春", 
+				entranceDate:"20140505",
+				nation:"汉",
+				position:"河南广播电视大学(035)",
+				major:"商务管理"
+			}
+		];
+		$scope.photoInfo = [
+			{
+				phone:"13783367549",
+				telePhone:"6233971",
+				studentStatusPhotos:"/templates/admin4/onLine/images/01.jpg",
+				photos:"/templates/admin4/onLine/images/01.jpg",
+				idPhotosJust:"/templates/admin4/onLine/images/01.jpg",
+				idPhotosBack:"/templates/admin4/onLine/images/01.jpg",
+				recruitmentAudit:"20120101毕业于河南财政高更专科学校(11652)",
+				proofreading:"未校对",
+				confirmer:"无",
+				confirmTime:"无",
+				subInfo:"暂无",
+				reply:"暂无"
+			}
+		];
+		$scope.complex = [
+			{
+				graduationTime:"20120101",
+				remarks:"暂无",
+				schoolConfirm:"未经过确认",
+				creditRegistTime:"2019-06-01",
+				examinationAudit:"未通过",
+				generalAudit:"无通过信息",
+				onlinePhotos:"/templates/admin4/onLine/images/01.jpg",
+				updateTime:"YYYY-59-DD 11:59:33",
+				finance:"学费已缴清",
+				financeTime:"2019-6-11 9:22:00"
+			}
+		];
+
+		$scope.detail = function() {
+			$("#stuDetail").modal('show');
+		}
+		
+		$scope.allCheck = function() {
+			console.log($scope.all);
+			if($scope.all) {
+				for(value of $scope.studentInfo) {
+					value.check = true;
+				}
+			}else {
+				for(value of $scope.studentInfo) {
+					value.check = false;
+				}
+			}
+		};
+	}
+</script>

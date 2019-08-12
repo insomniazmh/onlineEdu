@@ -1,0 +1,104 @@
+<div role="form" ng-controller="panduanSmallCtrl">
+	<div class="form-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">					
+					<label style="font-size: 13px; color: #888888;">题干</label>
+					<div id="panduanSmall_title"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-12">
+				<div class="form-group form-md-radios">
+					<label>答案</label>
+					<div class="md-radio-inline">
+						<div class="md-radio">
+							<input type="radio" id="panduanSmallanswer1" name="panduanSmallanswer" 
+								class="md-radiobtn" value="Y" checked="" ng-model="answer">
+							<label for="panduanSmallanswer1">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													对 </label>
+						</div>
+						<div class="md-radio">
+							<input type="radio" id="panduanSmallanswer2" name="panduanSmallanswer" 
+								class="md-radiobtn" value="N" ng-model="answer">
+							<label for="panduanSmallanswer2">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													错 </label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="">
+			<div class="col-md-12">
+				<div class="form-group form-md-line-input">
+					<label for="form_control_1" style="font-size: 13px; color: #888888;">解析</label>
+					<div id="panduanSmall_jiexi"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="form-actions noborder">
+		<button type="button" class="btn blue" ng-click="sub()">提交</button>
+		<button type="button" class="btn default" data-dismiss="modal">取消</button>
+	</div>
+</div>
+
+<script>
+	function panduanSmallCtrl($scope, $http, $timeout) {	    
+		$('#panduanSmall_title').summernote({
+			height: 100
+		});
+		$('#panduanSmall_jiexi').summernote({
+			height: 100
+		});
+		
+		$scope.$on('smallQuestionDetail', function(d, data) {
+			if(data && data.examChildren[0].examType == "trueOrFalse") {
+				$scope.pid = data.id;
+				$('#panduanSmall_title').code(data.examChildren[0].title);
+				$('#panduanSmall_jiexi').code(data.examChildren[0].analysis);
+				$scope.answer = data.examChildren[0].answer;
+			}else {
+				$scope.pid = null;
+				$('#panduanSmall_title').code("");
+				$('#panduanSmall_jiexi').code("");
+			}
+		});
+		
+		
+		$scope.sub = function() {
+			if ($('#panduanSmall_title').code() == "") {
+				layer.alert("题干不能为空");
+				return false;
+			}
+			
+			var obj = {
+				score: 1,
+				examType: "trueOrFalse",
+				teacherId: localStorage.getItem("userid"),
+				trueOrFalseInfo: $('#panduanSmall_title').code(),
+				trueOrFalseAnalysis: $('#panduanSmall_jiexi').code(),
+				trueOrFalseAnsw: $scope.answer,
+				answer: $scope.answer,
+				title: $('#panduanSmall_title').code(),
+				analysis: $('#panduanSmall_jiexi').code()
+			};
+			
+			if($scope.pid) {
+				obj.pid = $scope.pid;
+			}
+			
+			$scope.$emit('addSmall', obj);
+			
+		}
+		
+	}
+</script>

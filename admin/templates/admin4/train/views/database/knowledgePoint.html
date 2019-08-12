@@ -1,0 +1,363 @@
+<style>
+	.opreat {
+		font-size: 16px;
+		width: 20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+</style>
+<div class="row" ng-controller="kpCtrl">
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn green" onclick="common.goUrl('assistant', true)">教学资料</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
+		</div>
+	</div>
+	<div data-ng-include="'components/title.html'"></div>
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">课程目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'components/nodeTree.html'"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 400px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase" id="title">题库</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click="openQuestionModel()">
+						<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+				<ul class="nav nav-tabs" id="typesTitle">
+					<li class="active">
+						<a data-target="#tab_1_1" data-toggle="tab" ng-click="changeType(0)"> 单选 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_2" data-toggle="tab" ng-click="changeType(1)"> 多选 </a>
+					</li>
+					<li>
+						<a data-target="#tab_1_3" data-toggle="tab" ng-click="changeType(2)"> 判断 </a>
+					</li>
+					<li style="display: none;">
+						<a data-target="#tab_1_4" data-toggle="tab" ng-click="changeType(3)"> 填空 </a>
+					</li>
+					<li style="display: none;">
+						<a data-target="#tab_1_5" data-toggle="tab" ng-click="changeType(4)"> 主观 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content" id="typesContents">
+					<div class="tab-pane active" id="tab_1_1">
+						<div id="accordion1" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in single">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_{{$index}}">
+											<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+										</div>
+									</h4>
+								</div>
+								<div id="accordion1_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p ng-repeat="x in row.examChildren[0].optChildren">
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
+											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+										</p>
+										<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].choiceQstAnalysis" style="display: inline-block;"></span> </p>
+									</div>
+								</div>
+							</div>
+							<div ng-click='loadMore("single")'>加载更多</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_1_2">
+						<div id="accordionDuoxuan" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in multiple">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDuoxuan" data-target="#accordionDuoxuan_{{$index}}">
+											<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+										</div>
+									</h4>
+								</div>
+								<div id="accordionDuoxuan_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p ng-repeat="x in row.examChildren[0].optChildren">
+											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
+											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+										</p>
+										<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].choiceQstAnalysis" style="display: inline-block;"></span> </p>
+									</div>
+								</div>
+							</div>
+							<div ng-click='loadMore("multiple")'>加载更多</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_1_3">
+						<div id="accordionPanduan" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in trueOrFalse">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionPanduan" data-target="#accordionPanduan_{{$index}}">
+											<span ng-bind-html="row.examChildren[0].trueOrFalseInfo" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+										</div>
+									</h4>
+								</div>
+								<div id="accordionPanduan_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>答案：
+											<span ng-if="row.examChildren[0].answer=='Y'" style="display: inline-block;">对</span>
+											<span ng-if="row.examChildren[0].answer=='N'" style="display: inline-block;">错</span>
+										</p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].trueOrFalseAnalysis" style="display: inline-block;"></span> </p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_1_4"></div>
+					<div class="tab-pane" id="tab_1_5">
+						<div id="accordionZhuguan" class="panel-group">
+							<div class="panel panel-default" ng-repeat="row in design">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionZhuguan" data-target="#accordionZhuguan_{{$index}}">
+											<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
+										<div style="display: inline-block;float: right;">
+											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
+											 ng-click="editQuestion(row)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+										</div>
+									</h4>
+								</div>
+								<div id="accordionZhuguan_{{$index}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>答案：<span ng-bind-html="row.examChildren[0].designAnsw" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.examChildren[0].designAnalysis" style="display: inline-block;"></span> </p>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<div data-ng-include="'components/timu/addOrEditQuestion.html'"></div>
+
+</div>
+<!-- END MAIN CONTENT -->
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<script>
+	function kpCtrl($scope, $http, $rootScope) {
+		$scope.currentNode = {};//当前章节
+		$scope.kPointNode = {};
+		
+		$scope.single = [];//单选题列表
+		$scope.multiple = [];//多选题列表
+		$scope.trueOrFalse = [];//判断题列表
+		$scope.design = [];//主观题列表
+		
+		//分页信息-页数
+		$scope.singlePage = 0;
+		$scope.multiplePage = 0;
+		$scope.trueOrFalsePage = 0;
+		$scope.designPage = 0;
+		
+		//加载更多
+		$scope.loadMore = function(type) {
+			if(type == 'single') {
+				$scope.singlePage++;
+				$scope.loadQuestions('single', $scope.singlePage);
+			}else if(type == 'multiple') {
+				$scope.multiplePage++;
+				$scope.loadQuestions('multiple', $scope.multiplePage);
+			}else if(type == 'trueOrFalse') {
+				$scope.trueOrFalsePage++;
+				$scope.loadQuestions('trueOrFalse', $scope.trueOrFalsePage);
+			}else if(type == 'design') {
+				$scope.designPage++;
+				$scope.loadQuestions('design', $scope.designPage);
+			}
+		}
+		
+		//切换章节回调
+		$scope.$on('currentNode', function(d, data) {
+			$scope.currentNode = data;
+			$scope.initData();
+		});
+
+		//获取当前选中知识点
+		$scope.$on('kPointNode', function(d, data) {
+			$scope.kPointNode = data;
+			$scope.initData();
+		});
+
+		//添加题目完成回调
+		$scope.$on('addOrEditQuestion', function(d, data) {
+			if(data) {
+				$scope.loadQuestions(data, 0);
+			}
+		});
+
+		//加载题目
+		$scope.loadQuestions = function(type, page) {
+			var data = {
+				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
+				"chapterId": localStorage.getItem('currentNodeId'), //章节id
+				"operatorId": localStorage.getItem("userid"), //当前用户id
+				"questionType": type, //题目类型 single multiple trueOrFalse design
+				"page": page,
+				"size": common.pageSize,
+				"sort": 1,
+				"sorting": "uDate"
+			};
+			//处理知识点查询传参
+			if($scope.kPointNode.knodeId) {
+				data.knowledgeId = $scope.kPointNode.knodeId;
+			}
+
+			//根据章节和知识点加载题目
+			common.ajax2({
+				$scope: $scope,
+				$http: $http,
+				url: '/question/findAll/detailed',
+				data: data,
+				success: function(res) {
+					var data = res.data;
+					if(type == 'single') {
+						if(page == 0) {
+							$scope.single = [];
+						}
+						$scope.single = $scope.single.concat(res.data);
+					} else if(type == 'multiple') {
+						if(page == 0) {
+							$scope.multiple = [];
+						}
+						$scope.multiple = $scope.multiple.concat(res.data);
+					} else if(type == 'trueOrFalse') {
+						if(page == 0) {
+							$scope.trueOrFalse = [];
+						}
+						$scope.trueOrFalse = $scope.trueOrFalse.concat(res.data);
+					} else if(type == 'design') {
+						if(page == 0) {
+							$scope.design = [];
+						}
+						$scope.design = $scope.design.concat(res.data);
+					}
+				}
+			});
+		};
+		
+		//初始化信息,加载页面和切换章节或知识点时调用
+		$scope.initData = function() {
+			$scope.singlePage = 0;
+			$scope.multiplePage = 0;
+			$scope.trueOrFalsePage = 0;
+			$scope.designPage = 0;
+			$scope.loadQuestions('single', 0);
+			$scope.loadQuestions('multiple', 0);
+			$scope.loadQuestions('trueOrFalse', 0);
+			$scope.loadQuestions('design', 0);
+		}
+
+		//修改题目
+		$scope.editQuestion = function(question) {
+			$scope.$broadcast('smallQuestionDetail', question);
+			$("#addOrEditQuestion").modal("show");
+		}
+
+		//删除题目
+		$scope.delQuestion = function(id) {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax2({
+					method: "get",
+					$scope: $scope,
+					$http: $http,
+					url: '/question/delete/' + id,
+					success: function(res) {
+						console.log(res);
+					}
+				});
+				layer.closeAll('dialog');
+			});
+		}
+
+		//打开题目添加框
+		$scope.openQuestionModel = function(type) {
+			var settings = {
+
+			}
+			settings = {
+				tips: '题目',
+				success: function() {
+					$scope.$broadcast('smallQuestionDetail', null);
+					$("#addOrEditQuestion").modal("show");
+				}
+			}
+
+			if(!$rootScope.currentNode) {
+				layer.alert("请先选择一个课程目录");
+				return false;
+			}
+			
+			if($rootScope.currentNode.id == '0') {
+				layer.alert("题目不能加到课程上");
+				return false;
+			}
+
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--课程目录创建" + settings.tips + "吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				settings.success();
+				layer.closeAll('dialog');
+			});
+
+		}
+		
+		$scope.changeType = function(type) {
+			console.log($("#questionTypesTitle > li").length);
+			$("#questionTypesTitle > li").removeClass("active");
+			$("#questionTypesTitle > li").eq(type).addClass("active");
+			$("#questionTypesContent > .tab-pane").removeClass("active");
+			$("#questionTypesContent > .tab-pane").eq(type).addClass("active");
+		}
+	}
+</script>
+<!-- BEGIN MAIN JS -->

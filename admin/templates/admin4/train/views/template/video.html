@@ -1,0 +1,100 @@
+<style>
+	.title {
+		font-size: 14px;
+	}
+	.test_q  {
+		color: #858585;
+	}
+</style>
+<div class="profile-content" ng-controller="videoController">
+	<div class="portlet light">
+		<div class="portlet-title tabbable-line">
+			<div class="caption caption-md">
+				<i class="icon-globe theme-font hide"></i>
+				<span class="caption-subject font-blue-madison bold uppercase">教程-电子商务的内涵</span>
+			</div>
+		</div>
+		<div class="portlet-body">
+			<div class="row">
+				<div class="col-md-12">
+					<video autoplay="autoplay" controls="controls" style="margin-left: 10%;width: 60%;">
+						<source src="http://127.0.0.1:8848/onlineEdu/admin/templates/admin4/student/file/screen.mp4" type="video/mp4">
+					</video>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="portlet-title tabbable-line">
+			<div class="caption caption-md">
+				<i class="icon-globe theme-font hide"></i>
+				<span class="caption-subject font-blue-madison bold uppercase">课堂练习</span>
+			</div>
+		</div>
+		<div class="portlet-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="test test_q" questiontype="1">
+						<div class="test-heading">
+							<h4>1.&nbsp;
+								( 单选题 ) 设一维数组中有n个数组元素,则读取第i个数组元素的平均时间复杂度为( )。
+							</h4>
+							<input type="hidden" name="studentQuestions[0].quizQuestionId" value="424970">
+							<input type="hidden" name="studentQuestions[0].id" value="C">
+						</div>
+						<div class="test_answer test_answer_radio">
+							<label> <input type="radio" name="424970" value="A">
+								A、&nbsp; O(n)
+							</label>
+							<br>
+							<label> <input type="radio" name="424970" value="B">
+								B、&nbsp; O(nlog<sub>2</sub>n)
+							</label>
+							<br>
+							<label> <input type="radio" checked="checked" name="424970" value="C">
+								C、&nbsp; O(1)
+							</label>
+							<br>
+							<label> <input type="radio" name="424970" value="D">
+								D、&nbsp; O(n<sup>2</sup>)
+							</label>
+							<br>
+						</div>
+					</div>
+
+					<div class="test test_q" questiontype="1">
+						<div class="test-heading">
+							<h4>2.&nbsp;
+								( 单选题 ) 设一棵二叉树的深度为k,则该二叉树中最多有( )个结点。(本题2.0分)
+							</h4>
+							<input type="hidden" name="studentQuestions[1].quizQuestionId" value="424971">
+							<input type="hidden" name="studentQuestions[1].id" value="16203733">
+						</div>
+						<div class="test_answer test_answer_radio">
+							<label> <input type="radio" name="studentQuestions[1].answer" value="A">
+								A、&nbsp; 2k-1
+							</label>
+							<br>
+							<label> <input type="radio" name="studentQuestions[1].answer" value="B">
+								B、&nbsp; 2<sup>k</sup>
+							</label>
+							<br>
+							<label> <input type="radio" name="studentQuestions[1].answer" value="C">
+								C、&nbsp; 2<sup>k-1</sup>
+							</label>
+							<br>
+							<label> <input type="radio" checked="checked" name="studentQuestions[1].answer" value="D">
+								D、&nbsp; 2<sup>k</sup>-1
+							</label>
+							<br>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	function videoController($scope) {}
+</script>

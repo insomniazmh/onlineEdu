@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.2
+Version: 3.7.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js" data-ng-app="MetronicApp"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js" data-ng-app="MetronicApp"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" data-ng-app="MetronicApp">
+	<!--<![endif]-->
+	<!-- BEGIN HEAD -->
+	<head>
+		<title>河南省外贸学校</title>
+
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+
+		<!-- BEGIN GLOBAL MANDATORY STYLES -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+		<link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+		<link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+		<link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+		<!-- END GLOBAL MANDATORY STYLES -->
+
+		<!-- BEGIN DYMANICLY LOADED CSS FILES(all plugin and page related styles must be loaded between GLOBAL and THEME css files ) -->
+		<link id="ng_load_plugins_before" />
+		<link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/bootstrap-toastr/toastr.min.css"/>
+		<!-- END DYMANICLY LOADED CSS FILES -->
+
+		<!-- BEGIN THEME STYLES -->
+		<!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+		<link href="../../../assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+		<link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+		<link href="../../../assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+		<link href="../../../assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" id="style_color" />
+		<link href="../../../assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+		<!-- END THEME STYLES -->
+		<link href="../../../assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+		<link href="../../../assets/admin/pages/css/profile.css" rel="stylesheet" type="text/css" />
+		<link rel="shortcut icon" href="favicon.ico" />
+		<style>
+			.page-content-wrapper .page-content {
+				margin-left: 0;
+			}
+		</style>
+	</head>
+	<!-- END HEAD -->
+
+	<!-- BEGIN BODY -->
+	<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+	<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+	<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+	<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+	<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+	<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+	<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+	<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+	<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+	<body ng-controller="AppController" class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed-hide-logo page-on-load"
+	 ng-class="{'page-sidebar-closed': settings.layout.pageSidebarClosed}">
+
+		<!-- BEGIN PAGE SPINNER -->
+		<div ng-spinner-bar class="page-spinner-bar">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div>
+		<!-- END PAGE SPINNER -->
+
+		<!-- BEGIN HEADER -->
+		<div data-ng-include="'tpl/header.html'" data-ng-controller="HeaderController" class="page-header navbar navbar-fixed-top">
+		</div>
+		<!-- END HEADER -->
+
+		<div class="clearfix">
+		</div>
+
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN SIDEBAR -->
+			<!-- <div data-ng-include="'tpl/sidebar.html'" data-ng-controller="SidebarController" class="page-sidebar-wrapper">
+			</div> -->
+			<!-- END SIDEBAR -->
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="profile-content">
+								<div class="portlet light">
+									<div class="portlet-title tabbable-line">
+										<div class="caption caption-md">
+											<i class="icon-globe theme-font hide"></i>
+											<span class="caption-subject font-blue-madison bold uppercase">资料-电子商务的内涵</span>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="row">
+											<div class="col-md-12">
+												<ul class="feeds">
+																					<li>
+																						<div class="col1">
+																							<div class="cont">
+																								<div class="cont-col1">
+																									<div class="label label-sm label-danger">
+																										<i class="fa fa-bolt"></i>
+																									</div>
+																								</div>
+																								<div class="cont-col2">
+																									<div class="desc">
+																										<a href="file/1.docx" type="application/ms-word" target=_blank>《电子商务基础》教学大纲.doc</a>
+												
+																									</div>
+																								</div>
+																							</div>
+																						</div>
+																					</li>
+																					<li>
+																						<div class="col1">
+																							<div class="cont">
+																								<div class="cont-col1">
+																									<div class="label label-sm label-info">
+																										<i class="fa fa-bullhorn"></i>
+																									</div>
+																								</div>
+																								<div class="cont-col2">
+																									<div class="desc">
+																										电子商务基础教案.doc
+																									</div>
+																								</div>
+																							</div>
+																						</div>
+																					</li>
+																					<li>
+																						<div class="col1">
+																							<div class="cont">
+																								<div class="cont-col1">
+																									<div class="label label-sm label-success">
+																										<i class="fa fa-bullhorn"></i>
+																									</div>
+																								</div>
+																								<div class="cont-col2">
+																									<div class="desc">
+																										电子商务基础课件.ppt
+																									</div>
+																								</div>
+																							</div>
+																						</div>
+																					</li>
+																				</ul>
+											</div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="profile-content">
+								<div class="portlet light">
+									<div class="portlet-title tabbable-line">
+										<div class="caption caption-md">
+											<i class="icon-globe theme-font hide"></i>
+											<span class="caption-subject font-blue-madison bold uppercase">教程-电子商务的内涵</span>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="row">
+											<div class="col-md-12">
+												<video autoplay="autoplay" controls="controls" style="margin-left: 10%;width: 60%;">
+													<source src="http://132.232.124.203:8080/onlineEdu/admin/templates/admin4/student/file/screen.mp4" type="video/mp4">
+												</video>
+											</div>
+										</div>
+									</div>	
+									
+									<div class="portlet-title tabbable-line">
+										<div class="caption caption-md">
+											<i class="icon-globe theme-font hide"></i>
+											<span class="caption-subject font-blue-madison bold uppercase">课堂练习</span>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="test test_q" questiontype="1">
+													<div class="test-heading">
+														<h4>1.&nbsp;
+															( 单选题 ) 设一维数组中有n个数组元素,则读取第i个数组元素的平均时间复杂度为( )。
+														</h4>
+														<input type="hidden" name="studentQuestions[0].quizQuestionId" value="424970">
+														<input type="hidden" name="studentQuestions[0].id" value="C">
+													</div>
+													<div class="test_answer test_answer_radio">
+														<label> <input type="radio" name="424970" value="A">
+															A、&nbsp; O(n)
+														</label>
+														<br>
+														<label> <input type="radio" name="424970" value="B">
+															B、&nbsp; O(nlog<sub>2</sub>n)
+														</label>
+														<br>
+														<label> <input type="radio" checked="checked" name="424970" value="C">
+															C、&nbsp; O(1)
+														</label>
+														<br>
+														<label> <input type="radio" name="424970" value="D">
+															D、&nbsp; O(n<sup>2</sup>)
+														</label>
+														<br>
+													</div>
+												</div>
+							
+												<div class="test test_q" questiontype="1">
+													<div class="test-heading">
+														<h4>2.&nbsp;
+															( 单选题 ) 设一棵二叉树的深度为k,则该二叉树中最多有( )个结点。(本题2.0分)
+														</h4>
+														<input type="hidden" name="studentQuestions[1].quizQuestionId" value="424971">
+														<input type="hidden" name="studentQuestions[1].id" value="16203733">
+													</div>
+													<div class="test_answer test_answer_radio">
+														<label> <input type="radio" name="studentQuestions[1].answer" value="A">
+															A、&nbsp; 2k-1
+														</label>
+														<br>
+														<label> <input type="radio" name="studentQuestions[1].answer" value="B">
+															B、&nbsp; 2<sup>k</sup>
+														</label>
+														<br>
+														<label> <input type="radio" name="studentQuestions[1].answer" value="C">
+															C、&nbsp; 2<sup>k-1</sup>
+														</label>
+														<br>
+														<label> <input type="radio" checked="checked" name="studentQuestions[1].answer" value="D">
+															D、&nbsp; 2<sup>k</sup>-1
+														</label>
+														<br>
+													</div>
+												</div>
+							
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END CONTAINER -->
+
+		<!-- BEGIN FOOTER -->
+		<div data-ng-include="'tpl/footer.html'" data-ng-controller="FooterController" class="page-footer">
+		</div>
+		<!-- END FOOTER -->
+
+		<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+
+		<!-- BEGIN CORE JQUERY PLUGINS -->
+		<!--[if lt IE 9]>
+	<script src="../../../assets/global/plugins/respond.min.js"></script>
+	<script src="../../../assets/global/plugins/excanvas.min.js"></script> 
+	<![endif]-->
+		<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+		<!-- END CORE JQUERY PLUGINS -->
+		
+		<script src="../../../assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+
+		<!-- BEGIN CORE ANGULARJS PLUGINS -->
+		<script src="../../../assets/global/plugins/angularjs/angular.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/angularjs/angular-sanitize.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/angularjs/angular-touch.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/angularjs/plugins/angular-ui-router.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+		<!-- END CORE ANGULARJS PLUGINS -->
+		
+		
+		
+
+		<!-- BEGIN APP LEVEL ANGULARJS SCRIPTS -->
+		<script src="js/app.js" type="text/javascript"></script>
+		<script src="js/directives.js" type="text/javascript"></script>
+		<!-- END APP LEVEL ANGULARJS SCRIPTS -->
+		
+		<script src="../../../assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+
+		<!-- BEGIN APP LEVEL JQUERY SCRIPTS -->
+		<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+		<script src="../../../assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+		<script src="../../../assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+		<script src="../../../assets/global/plugins/jstree/dist/jstree.min.js" type="text/javascript"></script>
+		<!--<script src="../../../assets/admin/pages/scripts/ui-tree.js" type="text/javascript"></script>-->
+		<!-- END APP LEVEL JQUERY SCRIPTS -->
+		
+		<script src="js/common.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+			/* Init Metronic's core jquery plugins and layout scripts */
+			$(document).ready(function() {
+				Metronic.init(); // Run metronic theme
+				Metronic.setAssetsPath('../../../assets/'); // Set the assets folder path			
+			});
+			
+			function changeTab(url) {
+				$(".nav-left li").removeClass("active");
+				$(".nav-left li[name="+url+"]").addClass("active");
+			}
+		</script>
+		<!-- END JAVASCRIPTS -->
+	</body>
+	<!-- END BODY -->
+</html>

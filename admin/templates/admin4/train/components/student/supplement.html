@@ -1,0 +1,205 @@
+<form action="#" class="form-horizontal">
+	<div class="form-body">
+		<div class="form-group">
+			<label class="col-md-2 control-label">乘火车区间:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.trainSpace'>
+			</div>
+			<label class="col-md-2 control-label">英文姓名:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.englishName'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">生源地行政区划码:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.studentFormAdministrativeCode'>
+			</div>
+			<label class="col-md-2 control-label">出生地行政区划码:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.birthplaceAdministrativeCode'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"> 家庭现地址:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.familyAddress'>
+			</div>
+			<label class="col-md-2 control-label">家庭邮政编码:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.familyPostalCode'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">家庭电话:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.familyPhone'>
+			</div>
+			<label class="col-md-2 control-label">户口所在地行政区划码:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.householdAdministrativeCode'>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-2 control-label"> 户口所在地区县以下详细地址:</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.householdAddressDetails'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">所属派出所:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.localPoliceStation'>
+			</div>
+			<label class="col-md-2 control-label"> 籍贯地行政区划码:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.nativePlaceFormAdministrativeCode'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">学生居住地类型:</label>
+			<div class="col-md-4">
+				<select class="form-control" ng-model='supple.studentHabitationType'>
+					<option>农村</option>
+					<option>县城</option>
+					<option>乡镇非农</option>
+					<option>城市</option>
+				</select>
+			</div>
+			<label class="col-md-2 control-label">健康状况:</label>
+			<div class="col-md-4">
+				<select class="form-control" ng-model='supple.healthCondition'>
+					<option>健康或良好</option>
+					<option>一般或较弱</option>
+					<option>有慢性病</option>
+					<option>残疾</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"> 学生来源:</label>
+			<div class="col-md-4">
+				<select class="form-control" ng-model='supple.studentSource'>
+					<option>应届</option>
+					<option>非应届</option>
+				</select>
+			</div>
+			<label class="col-md-2 control-label">招生对象:</label>
+			<div class="col-md-4">
+				<select class="form-control" ng-model='supple.recruit'>
+					<option>应届初中毕业生</option>
+					<option>应届高中毕业生</option>
+					<option>往届初中毕业生</option>
+					<option>进城务工人员</option>
+					<option>农民</option>
+					<option>退役军人</option>
+					<option>城镇下岗职工</option>
+					<option>高职高专学生</option>
+					<option>本科及研究生学生</option>
+					<option>其他</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">毕业学校:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.school'>
+			</div>
+			<label class="col-md-2 control-label">是否建档立卡贫困户:</label>
+			<div class="col-md-4" style="height: 32px; display: flex; margin-bottom: 15px;">
+				<div class="md-radio-inline">
+					<div class="md-radio">
+						<input type="radio" id="isDestituteFamilyY" name="isDestituteFamily" class="md-radiobtn" ng-model='supple.isDestituteFamily' value="贫困户">
+						<label for="isDestituteFamilyY">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													贫困户</label>
+					</div>
+					<div class="md-radio">
+						<input type="radio" id="isDestituteFamilyN" name="isDestituteFamily" class="md-radiobtn" ng-model='supple.isDestituteFamily' value="否">
+						<label for="isDestituteFamilyN">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													否</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">招生方式:</label>
+			<div class="col-md-4">
+				<select class="form-control" ng-model='supple.studentRecruitingWays'>
+					<option>统一招生</option>
+					<option>自主招生</option>
+				</select>
+			</div>
+			<label class="col-md-2 control-label">联招合作类型:</label>
+			<div class="col-md-4">
+				<select class="form-control" ng-model='supple.jointRecruitmentCooperationType'>
+					<option>非联合办学</option>
+					<option>城乡联合办学</option>
+					<option>东中西部联合办学</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">考生特长:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.studentSpeciality'>
+			</div>
+			<label class="col-md-2 control-label">考生既往病史:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.studentMedicalHistory'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">体检结论:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.healthReport'>
+			</div>
+			<label class="col-md-2 control-label">联招合作办学形式:</label>
+			<div class="col-md-4">
+				<select class="form-control" ng-model='supple.jointRecruitmentCooperationStyle'>
+					<option>1+2</option>
+					<option>2+1</option>
+					<option>1+1+1</option>
+					<option>其它</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">联招合作学校代码:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.jointRecruitmentCooperationSchoolCode'>
+			</div>
+			<label class="col-md-2 control-label">校外教学点:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.offCampusTeachingAddress'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">分段培养方式:</label>
+			<div class="col-md-4">
+				<select class="form-control" ng-model='supple.stageByStageEducationType'>
+					<option>非分段培养</option>
+					<option>中高职3+2</option>
+					<option>五年一贯制</option>
+					<option>中高职2+3</option>
+					<option>中高职3+3</option>
+					<option>中高职2.5+2.5</option>
+					<option>中职本科3+4</option>
+				</select>
+			</div>
+			<label class="col-md-2 control-label">电子信箱/其他联系方式:</label>
+			<div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='supple.stuEmail'>
+			</div>
+		</div>
+		<div class="col-md-12" style="text-align: center">
+			<button style="width: 200px" type="button" class="btn btn-md blue" ng-click="saveUpdateStudentExpand()"> 确定 </button>
+		</div>
+	</div>
+</form>

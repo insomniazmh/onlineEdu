@@ -1,0 +1,127 @@
+<form action="#" class="form-horizontal">
+	<div class="form-body">
+		<div class="form-group">
+			<label class="col-md-1 control-label">学生编号:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.studentId'>
+			</div>
+			<label class="col-md-1 control-label">专业:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.specialtyName'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">学习中心:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.centerId'>
+					<option value="">请选择</option>
+					<option ng-repeat="item in centerList" value="{{item.centerId}}">{{item.centerName}}</option>
+				</select>
+			</div>
+			<label class="col-md-1 control-label">学生类别:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.studentCategory'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">班级名称:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.className'>
+			</div>
+			<label class="col-md-1 control-label">专业简称:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.specialtyName'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">学制:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.educationalSystem'>
+					<option>一年制</option>
+					<option>一年半制</option>
+					<option>两年制</option>
+					<option>两年半制</option>
+					<option>三年制</option>
+					<option>三年半制</option>
+					<option>四年制</option>
+					<option>四年半制</option>
+					<option>五年制</option>
+					<option>五年半制</option>
+					<option>六年制</option>
+					<option>六年半制</option>
+					<option>七年制</option>
+					<option>八年制</option>
+				</select>
+			</div>
+			<label class="col-md-1 control-label">年级:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-1 control-label">就读方式:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.waysStudy'>
+					<option>走读</option>
+					<option>住校</option>
+				</select>
+			</div>
+			<label class="col-md-1 control-label">学习形式:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.learningModality'>
+					<option>全日制</option>
+					<option>非全日制</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">入学方式:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.waysEnrollment'>
+					<option>统一招生考试/普通入学</option>
+					<option>保送</option>
+					<option>民族班</option>
+					<option>定向培养</option>
+					<option>体育特招</option>
+					<option>文艺特招</option>
+					<option>学生干部保送</option>
+					<option>考试推荐</option>
+					<option>外校转入</option>
+					<option>恢复入学资格</option>
+					<option>其他</option>
+				</select>
+			</div>
+			<label class="col-md-1 control-label">入学年月:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.arrivalDate' id="arrivalDate">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">准考证号:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.entranceCertificateNumber'>
+			</div>
+			<label class="col-md-1 control-label">考生号:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.candidateNumber'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">考试总分:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.totalExaminationAchievement'>
+			</div>
+		</div>
+		
+		<div class="col-md-12" style="text-align: center">
+			<button type="button" style="width: 200px" class="btn btn-md blue" ng-click="saveUpdateStudent()"> 确定 </button>
+		</div>
+	</div>
+</form>
+<script>
+	$("#arrivalDate").datepicker({
+		language: 'zh-CN',
+		format: 'yyyymmdd'
+	})
+</script>

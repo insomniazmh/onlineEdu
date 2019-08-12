@@ -1,0 +1,55 @@
+.nav-pills {
+}
+
+.nav-pills li {
+	margin-right: 3px;
+	border-radius: 5px;
+}
+
+.nav-pills li a {
+	color: #0a50a1;
+	font-size: 13px;
+	padding: 0;
+	min-width: 80px;
+	height: 25px;
+	text-align: center;
+	margin-top: 5px;
+	line-height: 2;
+}
+
+.tag-active {
+	background: #f60 !important;
+	border-radius: 5px;
+	color: #fff !important;
+}
+
+form p {
+	line-height: 35px;
+}
+.certificate {
+	width: 100px;
+	height: 100px;
+}
+.leftText {
+	margin-left: -9px;
+	text-align: center;
+	font-size: 19px;
+	margin-top: 10px;
+}
+.filePicker div:nth-child(2) {
+	width: 80px !important;
+	height: 100% !important;
+	
+}
+.search {
+	display: flex;
+}
+.search input {
+	margin-bottom: 8px;
+	max-width: 160px;
+	display: inline-block;
+}
+.search button {
+	margin: -5px 0 0 10px;
+}
+	

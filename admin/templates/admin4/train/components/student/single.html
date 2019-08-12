@@ -1,0 +1,178 @@
+<form action="#" class="form-horizontal">
+	<div class="form-body">
+		<div class="form-group">
+			<div class="col-md-2" style="text-align: right;">
+				<img src="../../../assets/admin/layout4/img/avatar1.jpg" style="width: 70px; height: 70px;" alt="">
+			</div>
+			<div class="col-md-10">
+				<label class="col-md-1 control-label">姓名:</label>
+				<div class="col-md-11">
+					<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.studentName'>
+				</div>
+				<label class="col-md-1 control-label">姓名拼音:</label>
+				<div class="col-md-11">
+					<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.namePinYin'>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">性别:</label>
+			<div class="col-md-5" style="height: 32px; display: flex; margin-bottom: 15px;">
+				<div class="md-radio-inline">
+					<div class="md-radio">
+						<input type="radio" id="radioMan" name="radioSex" class="md-radiobtn" ng-model='detail.gender' value="男">
+						<label for="radioMan">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													男</label>
+					</div>
+					<div class="md-radio">
+						<input type="radio" id="radioWoman" name="radioSex" class="md-radiobtn" ng-model='detail.gender' value="女">
+						<label for="radioWoman">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													女</label>
+					</div>
+				</div>
+			</div>
+			<label class="col-md-1 control-label">联系电话:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.stuPhone'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">身份证件类型:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.stuCardType'>
+					<option>居民身份证</option>
+					<option>军官证</option>
+					<option>士兵证</option>
+					<option>文职干部证</option>
+					<option>部队离退休证</option>
+					<option>香港特区护照/身份证明</option>
+					<option>澳门特区护照/身份证明</option>
+					<option>台湾居民来往大陆通行证</option>
+					<option>境外永久居住证</option>
+					<option>护照</option>
+					<option>户口薄</option>
+					<option>其他</option>
+				</select>
+			</div>
+			<label class="col-md-1 control-label">证件号码:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.stuIDCard'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">出生日期:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" ng-model='detail.stuBirthDate' id='stuBirthDate'>
+			</div>
+			<label class="col-md-1 control-label">国家/地区:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.nationality'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">民族:</label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.nation'>
+			</div>
+			<label class="col-md-1 control-label">婚姻状况:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.marriage'>
+					<option value="">请选择</option>
+					<option>未婚</option>
+					<option>已婚</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-md-1 control-label">户口性质:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.householdType'>
+					<option value="">请选择</option>
+					<option>农业户口</option>
+					<option>非农业户口</option>
+				</select>
+			</div>
+			<label class="col-md-1 control-label">政治面貌:</label>
+			<div class="col-md-5">
+				<select class="form-control" ng-model='detail.politicalStatus'>
+					<option value="">请选择</option>
+					<option>中国共产主义青年团团员</option>
+					<option>群众</option>
+					<option>中国共产党党员</option>
+					<option>中国共产党预备党员</option>
+					<option>中国国民党革命委员会会员</option>
+					<option>中国民主同盟盟员</option>
+					<option>中国民主建国会会员</option>
+					<option>中国民主促进会会员</option>
+					<option>中国农工民主党党员</option>
+					<option>中国致公党党员</option>
+					<option>九三学社社员</option>
+					<option>台湾民主自治同盟盟员</option>
+					<option>无党派民主人士</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">是否随迁子女:</label>
+			<div class="col-md-5" style="height: 32px; display: flex; margin-bottom: 15px;">
+				<div class="md-radio-inline">
+					<div class="md-radio">
+						<input type="radio" id="isTransferY" name="isTransfer" class="md-radiobtn" ng-model='detail.isImmigrantChildren' value="是">
+						<label for="isTransferY">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													是</label>
+					</div>
+					<div class="md-radio">
+						<input type="radio" id="isTransferN" name="isTransfer" class="md-radiobtn" ng-model='detail.isImmigrantChildren' value="否">
+						<label for="isTransferN">
+													<span></span>
+													<span class="check"></span>
+													<span class="box"></span>
+													否</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--<div class="form-group">
+			<div class="col-md-2 col-md-offset-1">
+				<a href="javascript:;" class="thumbnail" style="width: 160px;">
+					<img src="images/zanwu.jpg" alt="100%x180" style="height: 180px; width: 100%; display: block;">
+				</a>
+				<div id="topPicSrc" class="filePicker">上传毕业证书</div>
+			</div>
+			<div class="col-md-2 col-md-offset-1">
+				<a href="javascript:;" class="thumbnail" style="width: 160px;">
+					<img src="images/zanwu.jpg" alt="100%x180" style="height: 180px; width: 100%; display: block;">
+				</a>
+				<div id="topPicSrc" class="filePicker">上传身份证正面照</div>
+			</div>
+			<div class="col-md-2 col-md-offset-1">
+				<a href="javascript:;" class="thumbnail" style="width: 160px;">
+					<img src="images/zanwu.jpg" alt="100%x180" style="height: 180px; width: 100%; display: block;">
+				</a>
+				<div id="topPicSrc" class="filePicker">上传身份证反面照</div>
+			</div>
+		</div>-->
+		
+		<div class="col-md-12" style="text-align: center">
+			<button type="button" style="width: 200px" class="btn btn-md blue" ng-click="saveUpdateStudent()"> 确定 </button>
+		</div>
+	</div>
+</form>
+
+<script>
+	$("#stuBirthDate").datepicker({
+		language: 'zh-CN',
+		format: 'yyyymmdd'
+	})
+</script>

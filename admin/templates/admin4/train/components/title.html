@@ -1,0 +1,43 @@
+<link href="../../../assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
+<link href="../../../assets/frontend/pages/css/style-shop.css" rel="stylesheet" type="text/css">
+
+<div ng-controller="titleCtrl">
+	<div style="position: absolute;right: 40%; top: 15px;">
+		<span style="color: #4DB3A2;font-size: 12px;margin-right:5px;padding-top: 5px;">当前课程</span>
+		<span style="color: #4DB3A2;font-size: 30px;font-weight: 400;margin-right:5px;">{{currCourse.courseName}}</span>
+		<button type="button" class="btn red btn-xs" style="top: -10px" data-toggle="modal" href="#courseListModal">课程列表</button>
+	</div>
+	
+	<div class="modal fade" id="courseListModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">课程列表</h4>
+				</div>
+				<div class="modal-body">
+					<div data-ng-include="'components/courseListTpl.html'"></div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
+
+<script>
+	function titleCtrl($scope, $rootScope) {
+		$scope.course = $rootScope.course;
+		if(!$scope.course) {
+			$scope.course = {
+				courseName: '未加载到数据'
+			}
+		}
+		//切换课程回调
+		$scope.$on('course', function(d, data) {
+			$scope.course = data;
+			console.log(data);
+		});
+		
+	}
+</script>

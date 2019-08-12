@@ -1,0 +1,243 @@
+<style>
+	#createData {
+		min-width: 100px;
+	}
+	
+	.createFile div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
+	.filePicker div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
+	.sign {
+		padding: 3px 3px 3px 4px;
+		margin-right: 5px;
+		cursor: pointer;
+	}
+	
+	.opreat {
+		font-size: 16px;
+		width: 20px;
+		color: #45B6AF;
+		cursor: pointer;
+	}
+	
+	.label-ziColor {
+		background-color: #8e5fa2;
+	}
+</style>
+<div class="row" ng-controller="assistantCtrl">
+	<div style="position: absolute;right: 10px; top: 35px;">
+		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
+		<div class="btn-group btn-group-sm btn-group-solid">
+			<button type="button" class="btn red" onclick="common.goUrl('knowledgePoint', true)">作业题库</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
+		</div>
+	</div>
+	<div data-ng-include="'components/title.html'"></div>
+	<div class="col-md-4">
+		<div class="portlet light" style="min-height: 500px;">
+			<div class="portlet-title">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">课程目录</span>
+					<span class="caption-helper hide"></span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div data-ng-include="'components/nodeTree.html'"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<!-- BEGIN: ACCORDION DEMO -->
+		<div class="portlet light" style="min-height: 200px;">
+			<div class="portlet-title tabbable-line">
+				<div class="caption font-green-sharp">
+					<i class="icon-settings font-green-sharp"></i>
+					<span class="caption-subject bold uppercase">教学资料</span>
+				</div>
+				<div class="actions">
+					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#addJiaofuModal">
+							<i class="fa fa-plus"></i> 创建 </button>
+				</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-target="#tab_2_1" data-toggle="tab"> 文档 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_4" data-toggle="tab"> 视频 </a>
+					</li>
+					<li>
+						<a data-target="#tab_2_5" data-toggle="tab"> 音频 </a>
+					</li>
+				</ul>
+			</div>
+			<div class="portlet-body">
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_2_1">
+						<div class="" style="min-height: 408px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li ng-repeat="row in docs">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-trash-o opreat" title="删除"></i>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="tab-pane" id="tab_2_4">
+						<div class="" style="min-height: 408px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li ng-repeat="row in videos">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-trash-o opreat" title="删除"></i>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_2_5">
+						<div class="" style="min-height: 408px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+							<ul class="feeds" style="margin-bottom: 50px;">
+								<li ng-repeat="row in audios">
+									<div class="col1">
+										<div class="cont">
+											<div class="cont-col1">
+												<div class="label label-sm label-success">
+													<i class="fa fa-bullhorn"></i>
+												</div>
+											</div>
+											<div class="cont-col2">
+												<div class="desc">
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col2">
+										<div class="date">
+											<i class="fa fa-trash-o opreat" title="删除"></i>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END: ACCORDION DEMO -->
+	</div>
+
+	<!-- <div data-ng-include="'views/template/jiaofu/addJiaofu.html'"></div> -->
+</div>
+<!-- END MAIN CONTENT -->
+
+<script src="js/webuploader-0.1.5/webuploader.min.js"></script>
+<!-- BEGIN MAIN JS-->
+<script>
+	function assistantCtrl($scope, $http) {
+		localStorage.setItem('questionType', 'askAndExercise');
+		var courseId = localStorage.getItem('courseId');
+		$scope.knowledgePoints = [];
+
+		//新建资料回调
+		$scope.$on('createZiliao', function(d, data) {
+			console.log(data); //父级能得到值  
+			$scope.loadDatumList(data);
+		});
+		
+		//切换章节
+		$scope.$on('currentNode', function(d,data) {  
+			$scope.init();
+	   });
+
+		$("ul.feeds").on("click", "a", function() {
+			var html = $(this).html();
+			$(this).closest(".btn-group").find("span").html(html);
+		});
+
+		//加载资料列表
+		$scope.loadDatumList = function(type) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/chapteData/findDatumList',
+				data: {
+					"chapterId": localStorage.getItem('currentNodeId'),
+			  	"courseId": localStorage.getItem('courseId'),
+					"datumType": type,
+					"datumArea": "3,4,5,6",
+					"sortVo": {
+						"isValidated": "0",
+						"page": 0,
+						"size": common.pageSize,
+						"sort": 1
+					}
+				},
+				success: function(res) {
+					console.log(type);
+					if(type == "1") {
+						$scope.docs = res.data;
+					}else if(type == "2") {
+						$scope.pics = res.data;
+					}else if(type == "3") {
+						$scope.videos = res.data;
+					}else if(type == "4") {
+						$scope.audios = res.data;
+					}else if(type == "5") {
+						$scope.links = res.data;
+					}
+				}
+			});
+		};
+		
+		$scope.init = function() {
+			$scope.loadDatumList("1");
+			$scope.loadDatumList("4");
+			$scope.loadDatumList("5");
+		}
+
+	}
+</script>
+<!-- BEGIN MAIN JS -->

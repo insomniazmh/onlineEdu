@@ -1,0 +1,113 @@
+<button class="btn blue btn-sm" ng-click="add()">新增</button>
+<table class="table table-striped table-bordered table-hover" style="margin-top: 10px;">
+	<thead>
+		<tr>
+			<th>操作</th>
+			<th>成员姓名</th>
+			<th>成员关系</th>
+			<th>联系电话</th>
+			<th>是否监护人</th>
+			<th>证件类型</th>
+			<th>证件号码</th>
+			<th>出生年月</th>
+			<th>健康状况</th>
+			<th>工作单位</th>
+			<th>政治面貌</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in familyData" class="odd gradeX">
+			<td style="min-width: 150px;">
+				<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>
+				<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
+				<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
+				<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
+				<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.familyName}}</span>
+				<input ng-show='item.edit' type="text" ng-model="item.familyName" />
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.familyRelationship}}</span>
+				<input ng-show='item.edit' type="text" ng-model="item.familyRelationship" />
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.familyPhone}}</span>
+				<input ng-show='item.edit' type="text" ng-model="item.familyPhone" />
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.isJHR}}</span>
+				<select ng-show='item.edit' ng-model='item.isJHR'>
+					<option>是</option>
+					<option>否</option>
+				</select>
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.familyCardType}}</span>
+				<select ng-show='item.edit' ng-model='item.familyCardType'>
+					<option>居民身份证</option>
+					<option>军官证</option>
+					<option>士兵证</option>
+					<option>文职干部证</option>
+					<option>部队离退休证</option>
+					<option>香港特区护照/身份证明</option>
+					<option>澳门特区护照/身份证明</option>
+					<option>台湾居民来往大陆通行证</option>
+					<option>境外永久居住证</option>
+					<option>护照</option>
+					<option>户口薄</option>
+					<option>其他</option>
+				</select>
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.familyIDCard}}</span>
+				<input ng-show='item.edit' type="text" ng-model="item.familyIDCard" />
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.familyBirthDate}}</span>
+				<input ng-show='item.edit' class="familyBirthDate" type="text" ng-model="item.familyBirthDate" />
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.healthCondition}}</span>
+				<select ng-show='item.edit' ng-model='item.healthCondition'>
+					<option>健康或良好</option>
+					<option>一般或较弱</option>
+					<option>有慢性病</option>
+					<option>残疾</option>
+				</select>
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.companyOrganization}}</span>
+				<input ng-show='item.edit' type="text" ng-model="item.companyOrganization" />
+			</td>
+			<td>
+				<span ng-show='!item.edit'>{{item.politicalStatus}}</span>
+				<select ng-show='item.edit' ng-model='item.politicalStatus'>
+					<option value="">请选择</option>
+					<option>中国共产主义青年团团员</option>
+					<option>群众</option>
+					<option>中国共产党党员</option>
+					<option>中国共产党预备党员</option>
+					<option>中国国民党革命委员会会员</option>
+					<option>中国民主同盟盟员</option>
+					<option>中国民主建国会会员</option>
+					<option>中国民主促进会会员</option>
+					<option>中国农工民主党党员</option>
+					<option>中国致公党党员</option>
+					<option>九三学社社员</option>
+					<option>台湾民主自治同盟盟员</option>
+					<option>无党派民主人士</option>
+				</select>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<script>
+	$(".familyBirthDate").live("focus", function() {
+		$(".familyBirthDate").datepicker({
+			language: 'zh-CN',
+			format: 'yyyymmdd'
+		})
+	});
+</script>
