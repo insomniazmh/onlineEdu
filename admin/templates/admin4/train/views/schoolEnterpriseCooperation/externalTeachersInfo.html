@@ -24,7 +24,11 @@
 		<div class="portlet box grey-cascade">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i>外聘教师信息
+					<i class="fa fa-globe"></i>师资信息
+				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn red">
+					<i class="fa fa-plus"></i> 添加 </a>
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -91,7 +95,6 @@
 					<tbody>
 						<tr class="odd gradeX" ng-repeat='item in data'>
 							<td style="min-width: 250px;">
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								<button ng-show='!item.edit' class="btn btn-sm btn-info" ng-click="">删除</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>

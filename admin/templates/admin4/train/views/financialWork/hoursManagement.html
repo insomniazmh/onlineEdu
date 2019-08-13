@@ -31,6 +31,10 @@
 				<div class="caption">
 					<i class="fa fa-globe"></i>财务类型维护
 				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn red">
+					<i class="fa fa-plus"></i> 添加 </a>
+				</div>
 			</div>
 			<div class="portlet-body">
 				<table class="table table-striped table-bordered table-hover">
@@ -38,7 +42,6 @@
 						<tr>
 							<th>操作</th>
 							<th>类型名称</th>
-							<th>收入/支出</th>
 							<th>创建时间</th>
 						</tr>
 					</thead>
@@ -55,7 +58,6 @@
 								<span ng-show='!item.edit'>{{item.name}}</span>
 								<input ng-show='item.edit' type="text" ng-model="item.name" />
 							</td>
-							<td>支出</td>
 							<td>2019-6-4</td>
 						</tr>
 					</tbody>

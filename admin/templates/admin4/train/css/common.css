@@ -9,7 +9,7 @@
 .nav-pills li a {
 	color: #0a50a1;
 	font-size: 13px;
-	padding: 0;
+	padding: 0 10px;
 	min-width: 80px;
 	height: 25px;
 	text-align: center;
@@ -51,5 +51,8 @@ form p {
 }
 .search button {
 	margin: -5px 0 0 10px;
+}
+.td-active {
+	background-color: orange !important;
 }
 	

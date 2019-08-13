@@ -11,9 +11,7 @@
     margin-bottom: 20px;
   }
 	
-	.td-active {
-		background-color: orange !important;
-	}
+	
 </style>
 <div class="row" ng-controller="enrollCtrl">
 	<div class="col-md-12">
@@ -37,7 +35,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in majorList" ng-click="select(item)">
+									<li ng-repeat="item in majorList" ng-click="select(item, majorList)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -49,7 +47,7 @@
 							</div>
 							<div class="col-md-11">
 								<ul class="nav nav-pills">
-									<li ng-repeat="item in gradeList" ng-click="select(item)">
+									<li ng-repeat="item in gradeList" ng-click="select(item, gradeList)">
 										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
 									</li>
 								</ul>
@@ -62,6 +60,7 @@
 					<thead>
 						<tr>
 							<th>操作</th>
+							<th>项目名称</th>
 							<th>计划编号</th>
 							<th>计划名称</th>
 							<th>报名开始时间</th>
@@ -81,6 +80,7 @@
 								<button class="btn btn-info btn-sm" ng-click="planCourses()">课程</button>
 								<button class="btn btn-info btn-sm" ng-click="classPeople()">班级</button>
 							</td>
+							<td>商务金融</td>
 							<td>20180901</td>
 							<td>商务金融驻马店培训</td>
 							<td>2019-8-11</td>
@@ -171,7 +171,6 @@
 										<th>单位职务</th>
 										<th>身份证号</th>
 										<th>联系方式</th>
-										<th>学员评语</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -185,7 +184,6 @@
 										<td>科长</td>
 										<td>4101013243545</td>
 										<td>13546567767</td>
-										<td>我的评语</td>
 									</tr>
 									<tr class="gradeX odd">
 										<td>
@@ -218,6 +216,8 @@
 		}, {
 			text: "交际英语"
 		}];
+		
+		
 		
 		$scope.gradeList = [{
 			text: "近一个月",
