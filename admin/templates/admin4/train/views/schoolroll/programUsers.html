@@ -57,64 +57,25 @@
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="col-md-1">
-								<label class="label-text">项目</label>
-							</div>
-							<div class="col-md-11">
-								<ul class="nav nav-pills">
-									<li ng-repeat="item in majorList" ng-click="select(item, majorList)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="col-md-1">
-								<label class="label-text">项目计划</label>
-							</div>
-							<div class="col-md-11">
-								<ul class="nav nav-pills">
-									<li ng-repeat="item in planList" ng-click="select(item, planList)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="col-md-1">
-								<label class="label-text">时间</label>
-							</div>
-							<div class="col-md-11">
-								<ul class="nav nav-pills">
-									<li ng-repeat="item in gradeList" ng-click="select(item, gradeList)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					<div data-ng-include="'components/search.html'"></div>
 				</div>
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>姓名</th>
-							<th>项目名称</th>
-							<th>计划名称</th>
+							<th>方案名称</th>
 							<th>手机号码</th>
 							<th>身份证号</th>
-							<th>报名时间</th>
+							<!-- <th>报名时间</th> -->
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="editStuInfo(item);">
 							<td>{{item.studentName}}</td>
-							<td>商务金融</td>
 							<td>商务金融驻马店培训</td>
 							<td>15012345678</td>
 							<td>{{item.stuIDCard}}</td>
-							<td>2019-8-11</td>
+							<!-- <td>2019-8-11</td> -->
 						</tr>
 					</tbody>
 				</table>
@@ -145,30 +106,6 @@
 			});
 		};
 		$scope.loadStudentsList();
-		
-		$scope.planList = [{
-			text: "商务金融驻马店培训",
-			active: true
-		}, {
-			text: "商务金融周口培训"
-		}];
-		
-		$scope.gradeList = [{
-			text: "近一个月",
-			active: true
-		}, {
-			text: "近三个月"
-		}, {
-			text: "近半年"
-		}, {
-			text: "全部"
-		}];
-		
-		$scope.majorList = [{
-			text: "商务金融"
-		}, {
-			text: "交际英语"
-		}];
 		
 		$scope.select = function(value, array) {
 			if(array) {

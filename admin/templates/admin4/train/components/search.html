@@ -1,0 +1,77 @@
+
+<div class="row" ng-controller="searchCtrl">
+	<div class="col-md-12 search">
+		<div class="col-md-4">
+			<label class="label-text">培训方案</label>
+			<input id='planName' type="text" class="form-control" />
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-1">
+			<label class="label-text">创建时间</label>
+		</div>
+		<div class="col-md-11">
+			<ul class="nav nav-pills">
+				<li ng-repeat="item in gradeList" ng-click="select(item, gradeList)">
+					<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script>
+	function searchCtrl($scope, $http, $rootScope) {
+		$scope.gradeList = [{
+				text: "近一个月",
+				active: true
+			}, {
+				text: "近三个月"
+			}, {
+				text: "近半年"
+			}, {
+				text: "全部"
+			}];
+			
+			$("#planName").autocomplete({
+				minLength: 0,
+				delay: 0,
+		    //数据源
+		    source: [
+					{label: '商务金融1', value: '1'},
+					{label: '商务金融2', value: '2'},
+					{label: '商务金融3', value: '3'},
+					{label: '商务金融4', value: '4'},
+					{label: '商务金融5', value: '5'},
+					{label: '商务金融6', value: '6'},
+					{label: '商务金融7', value: '7'},
+					{label: '商务金融8', value: '8'},
+					{label: '商务金融9', value: '9'}
+				],
+				focus: function( event, ui ) {
+					$( "#planName" ).val( ui.item.label );
+					return false;
+				},
+				select: function( event, ui ) {
+					$scope.$apply(function() {
+						console.log(ui.item.value +"     "+ ui.item.label)
+					})
+					return false;
+				}
+			}).focus(function () {
+				$(this).autocomplete("search");//autocomplete 获取焦点时得到显示列表
+			});
+			
+			$scope.select = function(value, array) {
+				if(array) {
+					$rootScope.radioActiveColor(value, array, function() {
+						
+					});
+				}else {
+					 $rootScope.activeColor(value, function() {
+					 	
+					 })
+				}
+			};
+	}
+</script>

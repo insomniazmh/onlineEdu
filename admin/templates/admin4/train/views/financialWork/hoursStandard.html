@@ -3,12 +3,6 @@
 	.label-text {
 		margin-top: 8px;
 	}
-	
-	.form-control {
-		margin-bottom: 8px;
-		margin-left: -82px
-	}
-	
 	.btn-info {
 		margin-bottom: 2px;
 		float: right;
@@ -48,51 +42,13 @@
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="col-md-1">
-								<label class="label-text">项目</label>
-							</div>
-							<div class="col-md-11">
-								<ul class="nav nav-pills">
-									<li ng-repeat="item in majorList" ng-click="select(item, majorList)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="col-md-1">
-								<label class="label-text">项目计划</label>
-							</div>
-							<div class="col-md-11">
-								<ul class="nav nav-pills">
-									<li ng-repeat="item in planList" ng-click="select(item, planList)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="col-md-1">
-								<label class="label-text">时间</label>
-							</div>
-							<div class="col-md-11">
-								<ul class="nav nav-pills">
-									<li ng-repeat="item in gradeList" ng-click="select(item, gradeList)">
-										<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					<div data-ng-include="'components/search.html'"></div>
 				</div>
 				<table style="margin-bottom: 20px;" class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>操作</th>
-							<th>培训项目</th>
-							<th>培训项目计划</th>
+							<th>培训项目方案</th>
 							<th>财务类型</th>
 							<th>收入/支出</th>
 							<th>金额(元)</th>
@@ -107,7 +63,6 @@
 								<button class="btn btn-info btn-sm" ng-click="add($index)">删除</button>
 								<button class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								</td>
-							<td>{{item.name}}</td>
 							<td>{{item.planName}}</td>
 							<td>{{item.type}}</td>
 							<td>{{item.IOO}}</td>
@@ -147,29 +102,5 @@
 				cTime: '2019-8-13'
 			}
 		]
-		
-		$scope.planList = [{
-			text: "商务金融驻马店培训",
-			active: true
-		}, {
-			text: "商务金融周口培训"
-		}];
-		
-		$scope.gradeList = [{
-			text: "近一个月",
-			active: true
-		}, {
-			text: "近三个月"
-		}, {
-			text: "近半年"
-		}, {
-			text: "全部"
-		}];
-		
-		$scope.majorList = [{
-			text: "商务金融"
-		}, {
-			text: "交际英语"
-		}];
 	}
 </script>

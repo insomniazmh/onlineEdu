@@ -215,7 +215,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })
 
-    // 报名计划
+    // 报名方案
     .state('enrollPlan', {
       url: "/enrollPlan.html",
       templateUrl: "views/enroll/enrollPlan.html",     
