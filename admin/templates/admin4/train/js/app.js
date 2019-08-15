@@ -273,6 +273,21 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 		    }]
 		  }
 		})  
+		
+		//  学员签名表
+		.state('sign', {
+		  url: "/sign.html",
+		  templateUrl: "views/schoolroll/sign.html",     
+		  resolve: {
+		    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+		      return $ocLazyLoad.load({
+		        name: 'MetronicApp',
+		        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+		        files: [] 
+		      });
+		    }]
+		  }
+		})
 
     //  异动管理
     .state('studyAlienation', {
@@ -304,20 +319,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
       }
     })
     
-    //  教学管理添加
-    .state('teachingManagementAdd', {
-      url: "/teachingManagementAdd.html",
-      templateUrl: "views/teachingManagement/teachingManagementAdd.html",     
-      resolve: {
-        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-          return $ocLazyLoad.load({
-            name: 'MetronicApp',
-            insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
-            files: [] 
-          });
-        }]
-      }
-    })
+    
 
     //  平时成绩
     .state('peacetimeAchievement', {
@@ -501,6 +503,21 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
+		
+		//  财务账单
+		.state('bill', {
+			url: "/bill.html",
+			templateUrl: "views/financialWork/bill.html",     
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: [] 
+					});
+				}]
+			}
+		})
 
 
   //  外聘教师审核
