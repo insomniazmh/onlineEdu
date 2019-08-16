@@ -32,7 +32,7 @@
 					<i class="fa fa-globe"></i>财务类型维护
 				</div>
 				<div class="actions">
-					<a href="javascript:;" class="btn red">
+					<a href="javascript:;" class="btn red" ng-click="add()">
 					<i class="fa fa-plus"></i> 添加 </a>
 				</div>
 			</div>
@@ -48,17 +48,16 @@
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="item in data">
 							<td style="min-width: 150px;">
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.name}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.name" />
+								<span ng-show='!item.edit'>{{item.financeTypeName}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.financeTypeName" />
 							</td>
-							<td>2019-6-4</td>
+							<td><span ng-show='!item.edit'>{{item.createTime}}</span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -72,68 +71,61 @@
 <script src="../../../assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 <script>
 	function hmCtrl($scope, $http, $rootScope) {
-		$scope.data = [
-			{name: '差旅费'},
-			{name: '课时补贴费'}
-		]
+		//分页加载培训方案
+		$scope.loadfinanceType = function() {
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/financeType/findAllPage',
+			})
+		}
+		$scope.loadfinanceType();
 		
-		$scope.add = function(index) {
+		$scope.add = function() {
 			$scope.flag = 'add';
-			$scope.data.splice(index+1, 0, {
-				edit: true
-			});
+			$scope.data.push({ edit: true })
 		};
 		
-		$scope.edit = function(major) {
+		$scope.edit = function(finance) {
 			$scope.flag = 'edit';
-			major.edit = true;
+			finance.edit = true;
 		}
 		
-		$scope.save = function(major) {
+		$scope.save = function(finance) {
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
-				data: major,
+				data: finance,
 				operate: true,
-				url: '/specialty/saveUpdate',
+				url: '/financeType/saveOrUpdate',
 				success: function(res) {
-					console.log(res);
-					major.edit = false;
+					$scope.loadfinanceType();
 				}
 			});
 		};
 		
-		$scope.cancel = function(major, index) {
+		$scope.cancel = function(finance) {
 			if($scope.flag == 'add') {
-				$scope.data.splice(index, 1);
+				$scope.data.pop();
 			}else if($scope.flag == 'edit') {
-				major.edit = false;				
+				finance.edit = false;				
 			}
 		};		
 		
-		$scope.del = function(major) {
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				operate: true,
-				data: major,
-				tip: '您确定要删除该专业吗？',
-				url: '/specialty/deleteBySpecialtyId',
-				success: function(res) {
-					$scope.loadDataList();
-				}
-			});
+		$scope.del = function(finance) {
+			// common.ajax({
+			// 	$scope: $scope,
+			// 	$http: $http,
+			// 	operate: true,
+			// 	data: finance,
+			// 	tip: '您确定要删除该专业吗？',
+			// 	url: '/specialty/deleteBySpecialtyId',
+			// 	success: function(res) {
+			// 		$scope.loadDataList();
+			// 	}
+			// });
 		};
-		
-		$('.form_datetime').datetimepicker({
-      format: 'yyyy-mm',
-      autoclose: true,
-      todayBtn: true,
-      startView: 'year',
-      minView:'year',
-      maxView:'decade',
-      language:'zh-CN'
-    });
 		
 	}
 </script>
