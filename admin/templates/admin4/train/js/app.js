@@ -89,33 +89,40 @@ MetronicApp.controller('AppController', ['$scope', '$http', '$rootScope', functi
       Metronic.initComponents(); // init core components
       //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive 
 			
-			//加载所有学习中心信息
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				data: {
-					page: 0,
-					size: 100,
-				},
-				url: '/learnCenter/findAllPage',
-				success: function(res) {
-					$rootScope.centerList = res.content;
-				}
-			});
+			//加载所有课程信息
+			$rootScope.loadAllCourseList = function() {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						page: 0,
+						size: 100,
+					},
+					url: '/trainCourse/findAll',
+					success: function(res) {
+						$rootScope.allCourseList = res;
+					}
+				});
+			}
+			$rootScope.loadAllCourseList();
 			
-			//加载所有专业信息
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				data: {
-					page: 0,
-					size: 100,
-				},
-				url: '/specialty/findAllPage',
-				success: function(res) {
-					$rootScope.majorList = res.content;
-				}
-			});
+			//加载所有培训方案
+			$rootScope.loadAllPlanList = function() {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						page: 0,
+						size: 100000,
+						agoDay: ''
+					},
+					url: '/train/plan/findAllPage',
+					success: function(res) {
+						$rootScope.allPlanList = res.content;
+					}
+				});
+			}
+			$rootScope.loadAllPlanList();
 			
     });
 }]);

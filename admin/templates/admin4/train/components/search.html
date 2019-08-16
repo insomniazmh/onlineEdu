@@ -22,32 +22,45 @@
 
 <script>
 	function searchCtrl($scope, $http, $rootScope) {
+		$rootScope.changeSearchObj = 0
+		$rootScope.searchObj = {
+			agoDay: 30,
+			pjPlanId: ''
+		}
 		$scope.gradeList = [{
-				text: "近一个月",
-				active: true
-			}, {
-				text: "近三个月"
-			}, {
-				text: "近半年"
-			}, {
-				text: "全部"
-			}];
-			
+			text: "近一个月",
+			value: 30,
+			active: true
+		}, {
+			text: "近三个月",
+			value: 90,
+		}, {
+			text: "近半年",
+			value: 180,
+		}, {
+			text: "全部",
+			value: '',
+		}];
+		
+		$scope.$watch('allPlanList', function(newVal,oldVal) {
+			if(newVal) {
+				$scope.autocomplete()
+			}
+		})
+		
+		$scope.autocomplete = function() {
+			let data = []
+			for(let value of $rootScope.allPlanList) {
+				data.push({
+					label: value.trainProjectName,
+					value: value.pjPlanId
+				})
+			}
 			$("#planName").autocomplete({
 				minLength: 0,
 				delay: 0,
 		    //数据源
-		    source: [
-					{label: '商务金融1', value: '1'},
-					{label: '商务金融2', value: '2'},
-					{label: '商务金融3', value: '3'},
-					{label: '商务金融4', value: '4'},
-					{label: '商务金融5', value: '5'},
-					{label: '商务金融6', value: '6'},
-					{label: '商务金融7', value: '7'},
-					{label: '商务金融8', value: '8'},
-					{label: '商务金融9', value: '9'}
-				],
+		    source: data,
 				focus: function( event, ui ) {
 					$( "#planName" ).val( ui.item.label );
 					return false;
@@ -55,23 +68,32 @@
 				select: function( event, ui ) {
 					$scope.$apply(function() {
 						console.log(ui.item.value +"     "+ ui.item.label)
+						$rootScope.searchObj.pjPlanId = ui.item.value
+						$rootScope.changeSearchObj++
 					})
 					return false;
 				}
 			}).focus(function () {
 				$(this).autocomplete("search");//autocomplete 获取焦点时得到显示列表
 			});
-			
-			$scope.select = function(value, array) {
-				if(array) {
-					$rootScope.radioActiveColor(value, array, function() {
-						
-					});
-				}else {
-					 $rootScope.activeColor(value, function() {
-					 	
-					 })
-				}
-			};
+		}
+		
+		
+		$scope.select = function(value, array) {
+			if(array) {
+				$rootScope.radioActiveColor(value, array, function() {
+					for(let value of $scope.gradeList) {
+						if(value.active) {
+							$rootScope.searchObj.agoDay = value.value;
+							$rootScope.changeSearchObj++
+						}
+					}
+				});
+			}else {
+				 $rootScope.activeColor(value, function() {
+					
+				 })
+			}
+		};
 	}
 </script>

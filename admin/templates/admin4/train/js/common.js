@@ -2,14 +2,13 @@ var common = {
 	
 	//正式服
 	// url: 'https://e.hnfts.cn/education',
-	url: 'http://114.115.174.243:7080',
-	url2: 'https://e.hnfts.cn/quiz',
-	uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	// url2: 'https://e.hnfts.cn/quiz',
+	// uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
 	//测试服
-	// url: 'http://192.168.10.2:7080',
-	// url2: 'http://192.168.10.2:8081',
-	// uploadUrl: 'http://192.168.10.2:8612/upload',
+	url: 'http://192.168.10.2:7080',
+	url2: 'http://192.168.10.2:8081',
+	uploadUrl: 'http://192.168.10.2:8612/upload',
 
 	//提示信息
 	toast: function(settings) {
@@ -60,6 +59,9 @@ var common = {
 		
 		if(settings.data && !settings.data.userId) {
 			settings.data.userId = localStorage.getItem('userid')
+		}
+		if(settings.data) {
+			settings.data.centerAreaId = '1f184d63f76644e3bb0889d7e43d9309'
 		}
 
 		Metronic.blockUI({
@@ -288,6 +290,7 @@ var common = {
 		let postData = {
 			"page": settings.$scope.currentPage - 1,
 			"size": settings.$rootScope.pageSize,
+			
 			// sortVo: {
 			// 	"page": settings.$scope.currentPage - 1,
 			// 	"size": settings.$rootScope.pageSize,
@@ -301,7 +304,6 @@ var common = {
 		if(settings.$scope.searchObj) {
 			postData = Object.assign(postData, settings.$scope.searchObj);
 		}
-		console.log(postData);
 		
 		common.ajax({
 			method: method,

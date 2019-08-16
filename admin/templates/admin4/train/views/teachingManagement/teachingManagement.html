@@ -22,7 +22,7 @@
 					<i class="fa fa-globe"></i>培训方案
 				</div>
 				<div class="actions">
-					<a href="javascript:;" class="btn red">
+					<a href="javascript:;" class="btn red" ng-click='add()'>
 					<i class="fa fa-plus"></i> 添加 </a>
 				</div>
 			</div>
@@ -34,39 +34,62 @@
 					<thead>
 						<tr>
 							<th>操作</th>
-							<!-- <th>项目名称</th>
-							<th>方案编号</th> -->
 							<th>方案名称</th>
 							<th>报名开始时间</th>
 							<th>报名截止时间</th>
 							<th>方案开始时间</th>
 							<th>方案截止时间</th>
 							<th>项目课程</th>
-							<th>创建人</th>
+							<th>负责人</th>
 							<th>创建时间</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="item in data">
 							<td style="min-width: 150px;">
-								<!--<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>-->
-								<button class="btn btn-info btn-sm">编辑</button>
-								<button class="btn btn-info btn-sm" ng-click="planCourses()">课程</button>
-								<button class="btn btn-info btn-sm" ng-click="classPeople()">班级</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="planCourses(item.pjPlanId)">课程</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="classPeople(item.pjPlanId)">班级</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 							</td>
-							<!-- <td>商务金融</td>
-							<td>20180901</td> -->
-							<td>商务金融驻马店培训一期</td>
-							<td>2019-8-11</td>
-							<td>2019-8-20</td>
-							<td>2019-8-21</td>
-							<td>2019-9-21</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.trainProjectName}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.trainProjectName" />
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.applyStart}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.applyStart" class="date-picker" />
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.applyEnd}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.applyEnd" class="date-picker" />
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.trainStart}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.trainStart" class="date-picker" />
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.trainEnd}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.trainEnd" class="date-picker" />
+							</td>
 							<td>会计,商务礼仪</td>
-							<td>张三</td>
-							<td>2019-8-11</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.trainAdmin}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.trainAdmin" />
+							</td>
+							<td>{{item.updateTime}}</td>
 						</tr>
 					</tbody>
 				</table>
+				<div class="row">
+					<div>
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
@@ -83,9 +106,14 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12 export-option">
-							<input type="checkbox" name="basicVar" value="studentId" /><span style="font-weight: 600;">会计</span>（主讲：张三）
-							<input type="checkbox" name="basicVar" value="specialtyName" /><span style="font-weight: 600;">会计</span>（主讲：李四）
-							<input type="checkbox" name="basicVar" value="centerId" /><span style="font-weight: 600;">商务礼仪</span>（主讲：王五）
+							<div style="display: inline-block;margin: 10px 20px;" ng-repeat='item in allCourseList'>
+								<input type="checkbox" name="basicVar" ng-model='item.checked' />
+								<span style="font-weight: 600;">{{item.courseName}}</span>
+							</div>
+						</div>
+						
+						<div class="col-md-12" style="text-align: center">
+							<button type="button" style="width: 200px" class="btn btn-md blue" ng-click="planCoursesUpd()"> 确定 </button>
 						</div>
 					</div>
 				</div>
@@ -104,8 +132,10 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6">
-							<h4 style="margin-bottom: 20px;">班级信息<a href="javascript:;" class="btn red btn-sm" style="float: right;">
-							<i class="fa fa-plus"></i> 添加班级 </a></h4>
+							<h4 style="margin-bottom: 20px;">班级信息
+								<a href="javascript:;" class="btn red btn-sm" style="float: right;" ng-click='addCls()'>
+								<i class="fa fa-plus"></i> 添加班级 </a>
+							</h4>
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
@@ -113,19 +143,28 @@
 										<th>班级名称</th>
 										<th>班级负责人</th>
 										<th>负责人联系方式</th>
-										<th>线上/线下</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="{{item.active ? 'td-active' : ''}}" ng-repeat="item in data" ng-click='chooseClass(item)'>
+									<tr class="{{item.active ? 'td-active' : ''}}" ng-repeat="item in classList" ng-click='chooseClass(item)'>
 										<td style="min-width: 150px;">
-											<!--<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>-->
-											<button class="btn btn-info btn-sm">编辑</button>
+											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="editCls(item)">编辑</button>
+											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="delCls(item)">删除</button>
+											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="saveCls(item)">保存</button>
+											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancelCls(item, $index)">取消</button>
 										</td>
-										<td>商务金融驻马店培训一班</td>
-										<td>张三</td>
-										<td>13943436565</td>
-										<td>线下</td>
+										<td>
+											<span ng-show='!item.edit'>{{item.trainClassName}}</span>
+											<input ng-show='item.edit' type="text" ng-model="item.trainClassName" />
+										</td>
+										<td>
+											<span ng-show='!item.edit'>{{item.classAdmin}}</span>
+											<input ng-show='item.edit' type="text" ng-model="item.classAdmin" />
+										</td>
+										<td>
+											<span ng-show='!item.edit'>{{item.classAdminTel}}</span>
+											<input ng-show='item.edit' type="text" ng-model="item.classAdminTel" />
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -180,12 +219,36 @@
 </div>
 <script>
 	function enrollCtrl($scope, $http, $rootScope) {
-		$scope.data = [{active: true}, {}];
-		$scope.add = function(index) {
+		$scope.currentPage = 1
+		$scope.searchObj = {
+			agoDay: 30
+		}
+		//分页加载培训方案
+		$scope.loadAllPlan = function() {
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/train/plan/findAllPage',
+			})
+		}
+		
+		$scope.pageChanged = function() {
+			$scope.loadAllPlan();
+		}
+		
+		//更改查询条件
+		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
+			if($rootScope.searchObj) {
+				$scope.searchObj = $rootScope.searchObj
+				$scope.loadAllPlan();
+			}
+		})
+		
+		/*    培训计划增删改查start    */
+		$scope.add = function() {
 			$scope.flag = 'add';
-			$scope.dataDetail.splice(index+1, 0, {
-				edit: true
-			});
+			$scope.data.push({ edit: true });
 		}
 		
 		$scope.edit = function(plan) {
@@ -194,17 +257,28 @@
 		}
 		
 		$scope.save = function(plan) {
-			alert("保存成功");
-			plan.edit = false;
+			plan.trainAreaId = 1;
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: plan,
+				operate: true,
+				url: '/train/plan/saveOrUpdate',
+				success: function(res) {
+					$scope.loadAllPlan();
+					$rootScope.loadAllPlanList();
+				}
+			});
 		};
 		
-		$scope.cancel = function(plan, index) {
+		$scope.cancel = function(plan) {
 			if($scope.flag == 'add') {
-				$scope.dataDetail.splice(index, 1);
+				$scope.data.pop();
 			}else if($scope.flag == 'edit') {
 				plan.edit = false;				
 			}
 		};
+		/*    培训计划增删改查end    */
 		
 		$scope.chooseClass = function(cls) {
 			console.log(cls)
@@ -215,12 +289,110 @@
 			cls.active = true
 		} 
 		
-		$scope.planCourses = function() {
+		//根据方案id查询所选课程
+		$scope.planCourses = function(planId) {
+			$scope.currPlanId = planId
+			console.log(planId)
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					planId: planId
+				},
+				url: '/trainPlanCourse/findById',
+				success: function(res) {
+					console.log(res)
+				}
+			});
 			$("#planCoursesModal").modal('show');
 		}
 		
-		$scope.classPeople = function() {
+		//根据方案id更新所选课程
+		$scope.planCoursesUpd = function() {
+			console.log($rootScope.allCourseList)
+			let postData = {
+				planId: $scope.currPlanId,
+				list: []
+			}
+			for(let value of $rootScope.allCourseList) {
+				if(value.checked) {
+					postData.list.push({
+						courseId: value.courseId,
+						courseName: value.courseName
+					})
+				}
+			}
+				
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: postData,
+				url: '/trainPlanCourse/saveOrUpdate',
+				success: function(res) {
+					console.log(res)
+				}
+			});
+		}
+		
+		//根据方案id查询班级信息
+		$scope.classPeople = function(planId) {
+			$scope.currPlanId = planId
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					planId: planId
+				},
+				url: '/trainClass/findAllPage',
+				success: function(res) {
+					$scope.classList = res.content
+				}
+			});
 			$("#class_peopleModal").modal('show');
 		}
+		
+		
+		
+		
+		/*    班级增删改查start    */
+		$scope.addCls = function() {
+			$scope.flagCls = 'add';
+			$scope.classList.push({ edit: true });
+		}
+		
+		$scope.editCls = function(cls) {
+			$scope.flagCls = 'edit';
+			cls.edit = true;
+		}
+		
+		$scope.saveCls = function(cls) {
+			cls.pjPlanId = $scope.currPlanId;
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: cls,
+				operate: true,
+				url: '/trainClass/saveOrUpdate',
+				success: function(res) {
+					$scope.classPeople($scope.currPlanId)
+				}
+			});
+		};
+		
+		$scope.cancelCls = function(cls) {
+			if($scope.flag == 'add') {
+				$scope.classList.pop();
+			}else if($scope.flag == 'edit') {
+				cls.edit = false;				
+			}
+		};
+		/*    班级增删改查end    */
+		
+		$(".date-picker").live("focus", function() {
+			$(".date-picker").datepicker({
+				language: 'zh-CN',
+				format: 'yyyy-mm-dd'
+			})
+		});
 	}
 </script>
