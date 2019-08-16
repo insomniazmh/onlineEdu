@@ -36,7 +36,7 @@
 					<i class="fa fa-globe"></i>财务管理
 				</div>
 				<div class="actions">
-					<a href="javascript:;" class="btn red">
+					<a href="javascript:;" class="btn red" ng-click="add()">
 					<i class="fa fa-plus"></i> 添加 </a>
 				</div>
 			</div>
@@ -59,17 +59,42 @@
 					</thead>
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="item in data">
-							<td>
-								<button class="btn btn-info btn-sm" ng-click="add($index)">删除</button>
-								<button class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
+							<tr class="odd gradeX" ng-repeat="item in data">
+								<td style="min-width: 150px;">
+									<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
+									<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
+									<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
+									<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 								</td>
-							<td>{{item.planName}}</td>
-							<td>{{item.type}}</td>
-							<td>{{item.IOO}}</td>
-							<td>{{item.price}}</td>
-							<td>{{item.time}}</td>
-							<td>{{item.cTime}}</td>
-							<td>无</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item." />
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item." />
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item." />
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item." />
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item." />
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item." />
+								</td>
+								<td>
+									<span ng-show='!item.edit'>{{item.}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item." />
+								</td>
+							</tr>
 						</tr>
 					</tbody>
 				</table>
@@ -82,25 +107,49 @@
 </div>
 <script>
 	function enrollCtrl($scope, $http, $rootScope) {
-		$scope.data = [
-			{
-				name: '商务金融',
-				planName: '商务金融驻马店培训',
-				type: '差旅费',
-				IOO: '支出',
-				price: '160',
-				time: '2019-8-10',
-				cTime: '2019-8-13'
-			},
-			{
-				name: '商务金融',
-				planName: '商务金融驻周口培训',
-				type: '教室租赁费',
-				IOO: '支出',
-				price: '160',
-				time: '2019-8-10',
-				cTime: '2019-8-13'
+		//分页加载财务明细
+		$scope.loadfinance = function() {
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/financeDetail/findAllPage',
+			})
+		}
+		
+		$scope.pageChanged = function() {
+			$scope.loadfinance();
+		}
+		
+		$scope.add = function() {
+			$scope.flag = 'add';
+			$scope.data.push({ edit: true })
+		};
+		
+		$scope.edit = function(finance) {
+			$scope.flag = 'edit';
+			finance.edit = true;
+		}
+		
+		$scope.save = function(finance) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: finance,
+				operate: true,
+				url: '/financeDetail/saveOrUpdate',
+				success: function(res) {
+					$scope.loadfinanceType();
+				}
+			});
+		};
+		
+		$scope.cancel = function(finance) {
+			if($scope.flag == 'add') {
+				$scope.data.pop();
+			}else if($scope.flag == 'edit') {
+				finance.edit = false;				
 			}
-		]
+		};
 	}
 </script>
