@@ -245,7 +245,7 @@
 			}
 		})
 		
-		/*    培训计划增删改查start    */
+		/*    培训方案增删改查start    */
 		$scope.add = function() {
 			$scope.flag = 'add';
 			$scope.data.push({ edit: true });
@@ -278,7 +278,7 @@
 				plan.edit = false;				
 			}
 		};
-		/*    培训计划增删改查end    */
+		/*    培训方案增删改查end    */
 		
 		$scope.chooseClass = function(cls) {
 			console.log(cls)
@@ -292,7 +292,6 @@
 		//根据方案id查询所选课程
 		$scope.planCourses = function(planId) {
 			$scope.currPlanId = planId
-			console.log(planId)
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -301,10 +300,18 @@
 				},
 				url: '/trainPlanCourse/findById',
 				success: function(res) {
-					console.log(res)
+					for(let ac of $rootScope.allCourseList) {
+						ac.checked = false
+						for(let pc of res) {
+							if(ac.courseId == pc.courseId) {
+								ac.checked = true
+							}
+						}
+					}
+					$("#planCoursesModal").modal('show');
 				}
 			});
-			$("#planCoursesModal").modal('show');
+			
 		}
 		
 		//根据方案id更新所选课程
@@ -328,9 +335,11 @@
 				$scope: $scope,
 				$http: $http,
 				data: postData,
+				operate: true,
 				url: '/trainPlanCourse/saveOrUpdate',
 				success: function(res) {
 					console.log(res)
+					
 				}
 			});
 		}
