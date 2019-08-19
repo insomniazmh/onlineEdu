@@ -71,7 +71,8 @@
 <script src="../../../assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 <script>
 	function hmCtrl($scope, $http, $rootScope) {
-		//分页加载培训方案类别
+		$scope.flag = ''
+		//分页加载财务类别
 		$scope.loadfinanceType = function() {
 			common.loadDataList({
 				$scope: $scope,
@@ -83,11 +84,19 @@
 		$scope.loadfinanceType();
 		
 		$scope.add = function() {
+			if($scope.flag != '') {
+				layer.alert('请先将目前编辑的内容保存或取消')
+				return false
+			}
 			$scope.flag = 'add';
 			$scope.data.push({ edit: true })
 		};
 		
 		$scope.edit = function(finance) {
+			if($scope.flag != '') {
+				layer.alert('请先将目前编辑的内容保存或取消')
+				return false
+			}
 			$scope.flag = 'edit';
 			finance.edit = true;
 		}
@@ -100,6 +109,7 @@
 				operate: true,
 				url: '/financeType/saveOrUpdate',
 				success: function(res) {
+					$scope.flag = '';
 					$scope.loadfinanceType();
 				}
 			});
@@ -111,6 +121,7 @@
 			}else if($scope.flag == 'edit') {
 				finance.edit = false;				
 			}
+			$scope.flag = '';
 		};		
 		
 		$scope.del = function(finance) {
@@ -127,5 +138,6 @@
 			// });
 		};
 		
+	
 	}
 </script>

@@ -311,14 +311,15 @@
 		$scope.planCoursesUpd = function() {
 			console.log($rootScope.allCourseList)
 			let postData = {
-				planId: $scope.currPlanId,
+				pjPlanId: $scope.currPlanId,
 				list: []
 			}
 			for(let value of $rootScope.allCourseList) {
 				if(value.checked) {
 					postData.list.push({
 						courseId: value.courseId,
-						courseName: value.courseName
+						courseName: value.courseName,
+						pjPlanId: $scope.currPlanId
 					})
 				}
 			}
@@ -341,7 +342,7 @@
 				$scope: $scope,
 				$http: $http,
 				data: {
-					planId: planId
+					pjPlanId: planId
 				},
 				url: '/trainClass/findAllPage',
 				success: function(res) {

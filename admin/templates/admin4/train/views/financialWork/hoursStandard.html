@@ -58,38 +58,37 @@
 					</thead>
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="item in data">
-							<tr class="odd gradeX" ng-repeat="item in data">
-								<td style="min-width: 150px;">
-									<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
-									<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
-									<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
-									<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
-								</td>
-								<td>
-									<span ng-show='!item.edit'>{{item.pjPlanName}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item.pjPlanName" />
-								</td>
-								<td>
-									<span ng-show='!item.edit'>{{item.financeTypeName}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item.financeTypeName" />
-								</td>
-								<td>
-									<span ng-show='!item.edit'>{{item.inOut}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item.inOut" />
-								</td>
-								<td>
-									<span ng-show='!item.edit'>{{item.money}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item.money" />
-								</td>
-								<td>
-									<span ng-show='!item.edit'>{{item.createYear}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item.createYear" />
-								</td>
-								<!-- <td>
-									<span ng-show='!item.edit'>{{item.}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item." />
-								</td> -->
-							</tr>
+							<td style="min-width: 150px;">
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.pjPlanName}}</span>
+								<input class="pjPlan" ng-show='item.edit' type="text" ng-model="item.pjPlanName" />
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.financeTypeName}}</span>
+								<!-- <input ng-show='item.edit' type="text" ng-model="item.financeTypeName" /> -->
+								<select ng-show='item.edit' ng-model="item.financeType" ng-options="x.financeTypeName for x in financeType"></select>
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.inOut}}</span>
+								<!-- <input ng-show='item.edit' type="text" ng-model="item.inOut" /> -->
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.money}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.money" />
+							</td>
+							<td>
+								<span ng-show='!item.edit'>{{item.happenTime}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.happenTime" class="date-picker" />
+							</td>
+							<!-- <td>
+								<span ng-show='!item.edit'>{{item.}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item." />
+							</td> -->
 						</tr>
 					</tbody>
 				</table>
@@ -101,7 +100,20 @@
 
 </div>
 <script>
-	function enrollCtrl($scope, $http, $rootScope) {
+	function enrollCtrl($scope, $http, $rootScope, $timeout) {
+		$scope.flag = ''
+		//分页加载财务类别
+		$scope.loadfinanceType = function() {
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				rtnData: 'financeType',
+				url: '/financeType/findAllPage',
+			})
+		}
+		$scope.loadfinanceType();
+		
 		//分页加载财务明细
 		$scope.loadfinance = function() {
 			common.loadDataList({
@@ -125,16 +137,33 @@
 		}
 		
 		$scope.add = function() {
+			if($scope.flag != '') {
+				layer.alert('请先将目前编辑的内容保存或取消')
+				return false
+			}
 			$scope.flag = 'add';
 			$scope.data.push({ edit: true })
+			$timeout(function(){  // timeout延迟执行
+				$scope.autocomplete($scope.data[$scope.data.length-1])
+			},300);
+			
 		};
 		
 		$scope.edit = function(finance) {
+			if($scope.flag != '') {
+				layer.alert('请先将目前编辑的内容保存或取消')
+				return false
+			}
 			$scope.flag = 'edit';
 			finance.edit = true;
+			$scope.autocomplete(finance)
 		}
 		
 		$scope.save = function(finance) {
+			console.log(finance)
+			finance.financeTypeName = finance.financeType.financeTypeName
+			finance.financeTypeId = finance.financeType.financeTypeId
+			finance.inOut = '支出'
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -142,7 +171,8 @@
 				operate: true,
 				url: '/financeDetail/saveOrUpdate',
 				success: function(res) {
-					$scope.loadfinanceType();
+					$scope.flag = '';
+					$scope.loadfinance();
 				}
 			});
 		};
@@ -153,6 +183,47 @@
 			}else if($scope.flag == 'edit') {
 				finance.edit = false;				
 			}
+			$scope.flag = '';
 		};
+		
+		$(".date-picker").live("focus", function() {
+			$(".date-picker").datepicker({
+				language: 'zh-CN',
+				format: 'yyyy-mm-dd'
+			})
+		});
+		
+		$scope.autocomplete = function(obj) {
+			console.log($(".pjPlan").length)
+			let data = []
+			for(let value of $rootScope.allPlanList) {
+				data.push({
+					label: value.trainProjectName,
+					value: value.pjPlanId
+				})
+			}
+			$(".pjPlan").autocomplete({
+				minLength: 0,
+				delay: 0,
+		    //数据源
+		    source: data,
+				select: function( event, ui ) {
+					$scope.$apply(function() {
+						console.log(ui.item.value +"     "+ ui.item.label)
+						$scope.pjPlanName = ui.item.label
+						if(obj) {
+							obj.pjPlanName = ui.item.label
+							obj.pjPlanId = ui.item.value
+						}
+						// $rootScope.searchObj.pjPlanId = ui.item.value
+						// $rootScope.changeSearchObj++
+					})
+					return false;
+				}
+			}).focus(function () {
+				$(this).autocomplete("search");//autocomplete 获取焦点时得到显示列表
+			});
+		}
+			
 	}
 </script>
