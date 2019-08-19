@@ -71,10 +71,11 @@
 							<td>
 								<span ng-show='!item.edit'>{{item.financeTypeName}}</span>
 								<!-- <input ng-show='item.edit' type="text" ng-model="item.financeTypeName" /> -->
-								<select ng-show='item.edit' ng-model="item.financeType" ng-options="x.financeTypeName for x in financeType"></select>
+								<select ng-show='item.edit' ng-model="item.financeTypeId" 
+								ng-options="x.financeTypeId as x.financeTypeName for x in financeType"></select>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.inOut}}</span>
+								<span>支出</span>
 								<!-- <input ng-show='item.edit' type="text" ng-model="item.inOut" /> -->
 							</td>
 							<td>
@@ -160,9 +161,13 @@
 		}
 		
 		$scope.save = function(finance) {
-			console.log(finance)
-			finance.financeTypeName = finance.financeType.financeTypeName
-			finance.financeTypeId = finance.financeType.financeTypeId
+			console.log(finance.financeTypeId)
+			
+			for(let value of $scope.financeType) {
+				if(value.financeTypeId == finance.financeTypeId) {
+					finance.financeTypeName = value.financeTypeName
+				}
+			}
 			finance.inOut = '支出'
 			common.ajax({
 				$scope: $scope,

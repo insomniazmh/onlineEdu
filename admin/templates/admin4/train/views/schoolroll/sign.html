@@ -3,15 +3,47 @@
 	.label-text {
 		margin-top: 8px;
 	}
-	.blockEdit{
-    margin-top: -20px;
-    width: auto;
-    border-bottom: 3px solid #ddd;
-    height: 30px;
-    margin-bottom: 20px;
-  }
 	
+	.form-control {
+		margin-bottom: 8px;
+	}
 	
+	.btn-info {
+		margin-bottom: 2px;
+		margin-left: 5px;
+	}
+	
+	.abslute {
+		position: absolute;
+		float: right;
+		margin-left: -100px;
+		margin-top: 21px;
+		width: 46px;
+		height: 28px;
+	}
+	
+	.table-toolbar {
+		border-bottom: 3px solid #ddd;
+		border-width: 100%;
+	}
+	.btnSearch{
+		position: absolute;
+		right:50px;
+		top: 3px;
+	}
+	.export-all {
+		border-bottom: 1px solid gainsboro;
+		padding: 10px;
+	}
+	
+	.export-option {
+		padding: 10px 0;
+		line-height: 35px;
+	}
+	div.checker {
+		margin-left: 30px !important;
+		
+	}
 </style>
 <div class="row" ng-controller="signCtrl">
 	<div class="col-md-12">
@@ -19,11 +51,7 @@
 		<div class="portlet box grey-cascade">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i>学员签名表
-				</div>
-				<div class="actions">
-					<a href="javascript:;" class="btn red">
-					<i class="fa fa-plus"></i> 添加 </a>
+					<i class="fa fa-globe"></i>学生签名表
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -33,30 +61,141 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>方案名称</th>
 							<th>班级名称</th>
+							<th>培训方案名称</th>
 							<th>操作</th>
+							<!-- <th>报名时间</th> -->
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX" ng-repeat="item in data">
-							<td>商务金融驻马店培训一期</td>
-							<td>一班</td>
-							<td style="min-width: 150px;">
-								<button class="btn btn-info btn-sm">上传</button>
-								<button class="btn btn-info btn-sm">查看</button>
+						<tr ng-repeat="item in data" class="odd gradeX" ng-click="editStuInfo(item);">
+							<td>{{item.trainClassName}}</td>
+							<td>{{item.pjPlanName}}</td>
+							<td>
+								<!-- <button id='topPicSrc' class="btn btn-info btn-sm" ng-click="upload(item)">上传</button> -->
+								<button class="btn btn-info btn-sm" ng-click="look(item.trainClassId)">查看</button>
 							</td>
+							<!-- <td>2019-8-11</td> -->
 						</tr>
 					</tbody>
 				</table>
+				<div class="row">
+					<div>
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
 	</div>
 	
+	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">图集</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<img src="{{row.fileUrl}}" style="width: 130px;height: auto;margin: 20px;border: 1px solid #82949a;" ng-repeat="row in pics" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 col-md-offset-5">
+						<div>
+							<div id="topPicSrc" class="filePicker">选择文件</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
 </div>
 <script>
 	function signCtrl($scope, $http, $rootScope) {
-		$scope.data = [{active: true}, {}];
+		//加载班级列表
+		$scope.loadClassList = function() {			
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+				},
+				url: '/trainClass/findAllPage',
+				success: function(res) {
+					$scope.data = res.content
+				}
+			});
+		};
+		$scope.loadClassList();
+		
+		$scope.select = function(value, array) {
+			if(array) {
+				$rootScope.radioActiveColor(value, array, function() {
+					
+				});
+			}else {
+				 $rootScope.activeColor(value, function() {
+				 	
+				 })
+			}
+		};
+		
+		//查看当前班级签名表
+		$scope.look = function(classId) {
+			$scope.currClassId = classId
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					classId: classId
+				},
+				url: '/classFile/findAllPage',
+				success: function(res) {
+					console.log(res)
+					$scope.pics = res.content
+					$("#picsModal").modal('show');
+				}
+			});
+		}
+		
+		$scope.savePic = function(fileUrl) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					classId: $scope.currClassId,
+					fileUrl: fileUrl
+				},
+				url: '/classFile/saveOrUpdate',
+				success: function(res) {
+					console.log(res)
+					$("#picsModal").modal('show');
+				}
+			});
+		}
+		
+		//上传封面图片
+		common.fileUpload({
+			id: 'topPicSrc',
+			type: 'pic',
+			success: function(file, response) {
+				$scope.$apply(function() {
+					console.log(response);
+					$scope.pics.push(response)
+					
+					$scope.savePic(response.fileUrl)
+				});
+			}
+		});
+		
 	}
 </script>

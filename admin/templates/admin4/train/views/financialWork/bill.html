@@ -16,10 +16,6 @@
 				<div class="caption">
 					<i class="fa fa-globe"></i>财务账单
 				</div>
-				<div class="actions">
-					<a href="javascript:;" class="btn red">
-					<i class="fa fa-plus"></i> 添加 </a>
-				</div>
 			</div>
 			<div class="portlet-body">
 				<div class="table-toolbar">
@@ -34,7 +30,7 @@
 					</thead>
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="item in data">
-							<td>{{item.planName}}</td>
+							<td>{{item.trainProjectName}}</td>
 							<td>
 								<button class="btn btn-info btn-sm" ng-click="add($index)">上传</button>
 								<button class="btn btn-info btn-sm" ng-click="edit(item)">查看</button>
@@ -42,6 +38,13 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="row">
+					<div>
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
@@ -51,6 +54,32 @@
 </div>
 <script>
 	function enrollCtrl($scope, $http, $rootScope) {
+		$scope.currentPage = 1
+		$scope.searchObj = {
+			agoDay: 30
+		}
+		//分页加载培训方案
+		$scope.loadAllPlan = function() {
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/train/plan/findAllPage',
+			})
+		}
+		
+		//更改查询条件
+		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
+			if($rootScope.searchObj) {
+				$scope.searchObj = $rootScope.searchObj
+				$scope.loadAllPlan();
+			}
+		})
+		
+		$scope.pageChanged = function() {
+			$scope.loadAllPlan();
+		}
+		
 		$scope.data = [
 			{
 				name: '商务金融',
