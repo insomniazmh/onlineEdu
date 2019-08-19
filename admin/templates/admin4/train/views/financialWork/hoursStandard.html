@@ -53,8 +53,7 @@
 							<th>收入/支出</th>
 							<th>金额(元)</th>
 							<th>发生时间</th>
-							<th>录入时间</th>
-							<th>备注</th>
+							<!-- <th>备注</th> -->
 						</tr>
 					</thead>
 					<tbody>
@@ -67,33 +66,29 @@
 									<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 								</td>
 								<td>
-									<span ng-show='!item.edit'>{{item.}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item." />
+									<span ng-show='!item.edit'>{{item.pjPlanName}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item.pjPlanName" />
 								</td>
 								<td>
-									<span ng-show='!item.edit'>{{item.}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item." />
+									<span ng-show='!item.edit'>{{item.financeTypeName}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item.financeTypeName" />
 								</td>
 								<td>
-									<span ng-show='!item.edit'>{{item.}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item." />
+									<span ng-show='!item.edit'>{{item.inOut}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item.inOut" />
 								</td>
 								<td>
-									<span ng-show='!item.edit'>{{item.}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item." />
+									<span ng-show='!item.edit'>{{item.money}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item.money" />
 								</td>
 								<td>
+									<span ng-show='!item.edit'>{{item.createYear}}</span>
+									<input ng-show='item.edit' type="text" ng-model="item.createYear" />
+								</td>
+								<!-- <td>
 									<span ng-show='!item.edit'>{{item.}}</span>
 									<input ng-show='item.edit' type="text" ng-model="item." />
-								</td>
-								<td>
-									<span ng-show='!item.edit'>{{item.}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item." />
-								</td>
-								<td>
-									<span ng-show='!item.edit'>{{item.}}</span>
-									<input ng-show='item.edit' type="text" ng-model="item." />
-								</td>
+								</td> -->
 							</tr>
 						</tr>
 					</tbody>
@@ -116,6 +111,14 @@
 				url: '/financeDetail/findAllPage',
 			})
 		}
+		
+		//更改查询条件
+		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
+			if($rootScope.searchObj) {
+				$scope.searchObj = $rootScope.searchObj
+				$scope.loadfinance();
+			}
+		})
 		
 		$scope.pageChanged = function() {
 			$scope.loadfinance();

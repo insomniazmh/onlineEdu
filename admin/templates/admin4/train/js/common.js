@@ -3,12 +3,15 @@ var common = {
 	//正式服
 	// url: 'https://e.hnfts.cn/education',
 	// url2: 'https://e.hnfts.cn/quiz',
-	// uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
 	//测试服
-	url: 'http://192.168.10.2:7080',
-	url2: 'http://192.168.10.2:8081',
-	uploadUrl: 'http://192.168.10.2:8612/upload',
+// 	url: 'http://192.168.10.2:7080',
+// 	url2: 'http://192.168.10.2:8081',
+// 	uploadUrl: 'http://192.168.10.2:8612/upload',
+	
+	url: 'http://114.115.174.243:7080',
+	url2: 'http://114.115.174.243:8081',
 
 	//提示信息
 	toast: function(settings) {
