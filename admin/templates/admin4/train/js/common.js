@@ -1,10 +1,10 @@
 var common = {
 	
 	//正式服
-	// url: 'https://e.hnfts.cn/lineEdu',
+	url: 'https://e.hnfts.cn/lineEdu',
 
 	//测试服
-	url: 'http://192.168.10.2:7080',
+	// url: 'http://192.168.10.2:7080',
 	
 	// url: 'http://114.115.174.243:7080',
 	
