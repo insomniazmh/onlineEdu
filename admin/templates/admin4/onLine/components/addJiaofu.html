@@ -159,7 +159,7 @@
 	</div>
 </div>
 <script>
-	function addJiaofuCtrl($scope, $http) {
+	function addJiaofuCtrl($scope, $http, $rootScope) {
 		var wendang = [];
 		var pics = [];
 		$scope.datumType = "1";//文件类型：   1文档　2图册　3视频　4音频　5链接
@@ -169,7 +169,6 @@
 			id: 'filePickerDoc',
 			type: 'doc',
 			success: function(file, response, uploader) {
-				$scope.checkFileExt(response.fileName, 'doc');
 				var html = '<a href="'+response.fileUrl+'" target="_blink" style="font-size:18px;">'+response.fileName+'</a>';
 				$("#wendangContent").html(html);
 				$scope.docFiles = [response];
@@ -199,25 +198,14 @@
 		});
 		
 		$scope.changeTab = function(type) {
-			console.log(type);
 			$scope.datumType = type;
 		}
 		
 		//添加资料
-		$scope.sub = function(flag) {
-			var datumArea = [];
-			$("input[name='datumArea']:checked").each(function() {
-				datumArea.push($(this).val());
-			});
-			
-			if(datumArea.length == 0) {
-				layer.alert('请至少选择一个资料标签');
-				return false;
-			}
-			
+		$scope.sub = function(flag) {			
 			var data = {
-			  "chapterId": $rootScope.currCourse.courseId,
-			  "courseId": $rootScope.currentNode.id,
+			  "chapterId": $rootScope.currentNode.id,
+			  "courseId": $rootScope.currCourse.courseId,
 			  "datumType": $scope.datumType,
 			  "files": $scope.files
 			};
@@ -228,8 +216,6 @@
 				data.files = $scope.videoFiles;
 			}else if($scope.datumType == '4') {
 				data.files = $scope.audioFiles;
-			}else if($scope.datumType == '5') {
-				data.files = $scope.linkFiles;
 			}
 			
 			if(!data.files) {

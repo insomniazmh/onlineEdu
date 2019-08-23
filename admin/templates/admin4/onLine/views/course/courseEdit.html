@@ -162,10 +162,6 @@
 										<div class="caption" style="font-size: 14px;">
 											<i class="icon-settings" style="font-size: 12px;"></i>课堂互动
 										</div>
-										<!--<div class="actions">
-											<button class="btn btn-circle red-sunglo btn-sm" ng-click="openDataModal()">
-												<i class="fa fa-plus"></i> 挂载 </button>
-										</div>-->
 										<ul class="nav nav-tabs" id="teachAssTab">
 											<li class="active ms-hover">
 												<a data-target="#tab_2_1" data-toggle="tab" ng-click="changeType(0)">
@@ -198,11 +194,11 @@
 																	</div>
 																</div>
 															</div>
-															<div class="col2">
+															<!-- <div class="col2">
 																<div class="date">
 																	<i class="fa fa-trash-o opreat" title="删除"></i>
 																</div>
-															</div>
+															</div> -->
 														</li>
 													</ul>
 												</div>
@@ -246,30 +242,6 @@
 		<!-- END: ACCORDION DEMO -->
 	</div>
 	
-	<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-full">
-			<div class="modal-content">
-				<div class="portlet light" style="min-height: 400px;">
-					<div class="portlet-title tabbable-line">
-						<div class="caption font-green-sharp">
-							<i class="icon-settings font-green-sharp"></i>
-							<span class="caption-subject bold uppercase" id="title">作业册 - {{currentNode.text}}</span>
-						</div>
-						<div class="actions">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div data-ng-include="'components/question.html'"></div>
-					</div>
-				</div>
-				
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	
 	<video style="display:none;" controls="controls" id="aa"></video>
 </div>
 <!-- END MAIN CONTENT -->
@@ -289,8 +261,8 @@
 			}
 			
 			var postData = {
-				"chapterId": $rootScope.currCourse.courseId,
-				"courseId": $rootScope.currentNode.id,
+				"chapterId": $rootScope.currentNode.id,
+				"courseId": $rootScope.currCourse.courseId,
 				"sortVo": {
 					"isValidated": "0",
 					"page": 0,
@@ -344,8 +316,8 @@
 				let oV = document.getElementById('aa')
 				oV.oncanplay = function () {
 					var postData = {
-						"chapterId": $rootScope.currCourse.courseId,
-						"courseId": $rootScope.currentNode.id,
+						"chapterId": $rootScope.currentNode.id,
+						"courseId": $rootScope.currCourse.courseId,
 						'fileUrl': response.fileUrl,
 						'fileName': response.fileName,
 						'videoTime': Math.round(oV.duration)	//视频时长(四舍五入)
@@ -375,8 +347,8 @@
 				return false
 			}
 			var data = {
-				"chapterId": $rootScope.currCourse.courseId,
-				"courseId": $rootScope.currentNode.id,
+				"chapterId": $rootScope.currentNode.id,
+				"courseId": $rootScope.currCourse.courseId,
 				"exeBookType": '3'
 			};
 			

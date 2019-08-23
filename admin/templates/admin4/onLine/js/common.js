@@ -262,7 +262,7 @@ var common = {
 		 var arr = [];
 		 
 		 if(filetype == 'doc') {
-		 	arr = ["jpg","png",'doc','docx']
+		 	arr = ["jpg","png",'doc','docx','txt']
 		 }else if(filetype == 'audio') {
 		 	arr = ["mp3"];
 		 }else if(filetype == 'video') {
@@ -293,6 +293,25 @@ var common = {
 		 }
 		 
 		 return flag;
+	},
+	
+	openModal: function(settings) {
+		if(!settings.$rootScope.currentNode) {
+			layer.alert("请先选择章节");
+			return false;
+		}
+		
+		if(settings.$rootScope.currentNode.id == '0') {
+			layer.alert("题目不能加到课程上");
+			return false;
+		}
+				
+		layer.confirm("您确定要为--(" + settings.$rootScope.currentNode.text + ")--章节创建" + settings.tips + "吗", {
+			btn: ['确定', "取消"] //按钮
+		}, function() {
+			settings.success();
+			layer.closeAll('dialog');
+		});
 	},
 	
 	//加载列表

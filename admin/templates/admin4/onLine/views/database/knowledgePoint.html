@@ -145,31 +145,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="tab-pane" id="tab_1_4"></div>
-					<div class="tab-pane" id="tab_1_5">
-						<div id="accordionZhuguan" class="panel-group">
-							<div class="panel panel-default" ng-repeat="row in design">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionZhuguan" data-target="#accordionZhuguan_{{$index}}">
-											<span ng-bind-html="row.examChildren[0].designQuestion" style="display: inline-block;"></span> </a>
-										<div style="display: inline-block;float: right;">
-											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
-											 ng-click="editQuestion(row)"></i>
-											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
-										</div>
-									</h4>
-								</div>
-								<div id="accordionZhuguan_{{$index}}" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>答案：<span ng-bind-html="row.examChildren[0].designAnsw" style="display: inline-block;"></span> </p>
-										<p>解析：<span ng-bind-html="row.examChildren[0].designAnalysis" style="display: inline-block;"></span> </p>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -183,19 +158,16 @@
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
 	function kpCtrl($scope, $http, $rootScope) {
-		$scope.currentNode = {};//当前章节
 		$scope.kPointNode = {};
 		
 		$scope.single = [];//单选题列表
 		$scope.multiple = [];//多选题列表
 		$scope.trueOrFalse = [];//判断题列表
-		$scope.design = [];//主观题列表
 		
 		//分页信息-页数
 		$scope.singlePage = 0;
 		$scope.multiplePage = 0;
 		$scope.trueOrFalsePage = 0;
-		$scope.designPage = 0;
 		
 		//加载更多
 		$scope.loadMore = function(type) {
@@ -208,23 +180,13 @@
 			}else if(type == 'trueOrFalse') {
 				$scope.trueOrFalsePage++;
 				$scope.loadQuestions('trueOrFalse', $scope.trueOrFalsePage);
-			}else if(type == 'design') {
-				$scope.designPage++;
-				$scope.loadQuestions('design', $scope.designPage);
 			}
 		}
 		
 		//切换章节回调
-		$scope.$on('currentNode', function(d, data) {
-			$scope.currentNode = data;
+		$scope.$watch("currentNode",function(newValue,oldValue){
 			$scope.initData();
-		});
-
-		//获取当前选中知识点
-		$scope.$on('kPointNode', function(d, data) {
-			$scope.kPointNode = data;
-			$scope.initData();
-		});
+		})
 
 		//添加题目完成回调
 		$scope.$on('addOrEditQuestion', function(d, data) {
@@ -237,9 +199,9 @@
 		$scope.loadQuestions = function(type, page) {
 			var data = {
 				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
-				"chapterId": localStorage.getItem('currentNodeId'), //章节id
+				"chapterId": $rootScope.currentNode.id, //章节id
 				"operatorId": localStorage.getItem("userid"), //当前用户id
-				"questionType": type, //题目类型 single multiple trueOrFalse design
+				"questionType": type, //题目类型 single multiple trueOrFalse
 				"page": page,
 				"size": common.pageSize,
 				"sort": 1,
@@ -273,11 +235,6 @@
 							$scope.trueOrFalse = [];
 						}
 						$scope.trueOrFalse = $scope.trueOrFalse.concat(res.data);
-					} else if(type == 'design') {
-						if(page == 0) {
-							$scope.design = [];
-						}
-						$scope.design = $scope.design.concat(res.data);
 					}
 				}
 			});
@@ -288,11 +245,9 @@
 			$scope.singlePage = 0;
 			$scope.multiplePage = 0;
 			$scope.trueOrFalsePage = 0;
-			$scope.designPage = 0;
 			$scope.loadQuestions('single', 0);
 			$scope.loadQuestions('multiple', 0);
 			$scope.loadQuestions('trueOrFalse', 0);
-			$scope.loadQuestions('design', 0);
 		}
 
 		//修改题目

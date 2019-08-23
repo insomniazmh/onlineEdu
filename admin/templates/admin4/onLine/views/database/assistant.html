@@ -64,7 +64,7 @@
 					<span class="caption-subject bold uppercase">教学资料</span>
 				</div>
 				<div class="actions">
-					<button class="btn btn-circle red-sunglo btn-sm" data-toggle="modal" href="#addJiaofuModal">
+					<button class="btn btn-circle red-sunglo btn-sm" ng-click='openModel()'>
 							<i class="fa fa-plus"></i> 创建 </button>
 				</div>
 				<ul class="nav nav-tabs">
@@ -185,6 +185,7 @@
 		
 		//切换章节		 
 		$scope.$watch("currentNode",function(newValue,oldValue){
+			console.log($rootScope.currentNode)
 			$scope.init();
 		})
 
@@ -204,8 +205,8 @@
 				$http: $http,
 				url: '/chapteData/findDatumList',
 				data: {
-					"chapterId": $rootScope.currCourse.courseId,
-					"courseId": $rootScope.currentNode.id,
+					"chapterId": $rootScope.currentNode.id,
+					"courseId": $rootScope.currCourse.courseId,
 					"datumType": type,
 					"sortVo": {
 						"isValidated": "0",
@@ -215,17 +216,16 @@
 					}
 				},
 				success: function(res) {
-					console.log(type);
 					if(type == "1") {
-						$scope.docs = res.data;
+						$scope.docs = res;
 					}else if(type == "2") {
-						$scope.pics = res.data;
+						$scope.pics = res;
 					}else if(type == "3") {
-						$scope.videos = res.data;
+						$scope.videos = res;
 					}else if(type == "4") {
-						$scope.audios = res.data;
+						$scope.audios = res;
 					}else if(type == "5") {
-						$scope.links = res.data;
+						$scope.links = res;
 					}
 				}
 			});
@@ -235,6 +235,17 @@
 			$scope.loadDatumList("1");
 			$scope.loadDatumList("4");
 			$scope.loadDatumList("5");
+		}
+		
+		//打开题添加框
+		$scope.openModel = function() {
+			common.openModal({
+				$rootScope: $rootScope,
+				tips: '资料',
+				success: function() {
+					$("#addJiaofuModal").modal("show");
+				}
+			})
 		}
 
 	}
