@@ -34,9 +34,8 @@
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
-			<button type="button" class="btn red" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
-			<button type="button" class="btn green" onclick="common.goUrl('xitice', true)">教辅题册</button>
-			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit', true)">课程信息</button>
+			<button type="button" class="btn red" onclick="common.goUrl('knowledgePoint')">知识点题库</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit')">课程信息</button>
 		</div>
 	</div>
 	<div data-ng-include="'components/title.html'"></div>
@@ -170,28 +169,24 @@
 		<!-- END: ACCORDION DEMO -->
 	</div>
 
-	<!-- <div data-ng-include="'views/template/jiaofu/addJiaofu.html'"></div> -->
+	<div data-ng-include="'components/addJiaofu.html'"></div>
 </div>
 <!-- END MAIN CONTENT -->
 
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <!-- BEGIN MAIN JS-->
 <script>
-	function assistantCtrl($scope, $http) {
-		localStorage.setItem('questionType', 'askAndExercise');
-		var courseId = localStorage.getItem('courseId');
-		$scope.knowledgePoints = [];
-
+	function assistantCtrl($scope, $http, $rootScope) {
 		//新建资料回调
 		$scope.$on('createZiliao', function(d, data) {
 			console.log(data); //父级能得到值  
 			$scope.loadDatumList(data);
 		});
 		
-		//切换章节
-		$scope.$on('currentNode', function(d,data) {  
+		//切换章节		 
+		$scope.$watch("currentNode",function(newValue,oldValue){
 			$scope.init();
-	   });
+		})
 
 		$("ul.feeds").on("click", "a", function() {
 			var html = $(this).html();
@@ -200,15 +195,18 @@
 
 		//加载资料列表
 		$scope.loadDatumList = function(type) {
+			if(!$rootScope.currCourse || !$rootScope.currentNode) {
+				return false
+			}
+			
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
 				url: '/chapteData/findDatumList',
 				data: {
-					"chapterId": localStorage.getItem('currentNodeId'),
-			  	"courseId": localStorage.getItem('courseId'),
+					"chapterId": $rootScope.currCourse.courseId,
+					"courseId": $rootScope.currentNode.id,
 					"datumType": type,
-					"datumArea": "3,4,5,6",
 					"sortVo": {
 						"isValidated": "0",
 						"page": 0,

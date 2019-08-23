@@ -79,8 +79,8 @@
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
-			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint', true)">知识点题库</button>
-			<button type="button" class="btn blue" onclick="common.goUrl('xitice', true)">教辅题册</button>
+			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint')">知识点题库</button>
+			<button type="button" class="btn blue" onclick="common.goUrl('assistant')">教学资料</button>
 		</div>
 	</div>
 	<div data-ng-include="'components/title.html'"></div>
@@ -302,7 +302,6 @@
 			let url = '/courseware/findByChapterId'
 			if(type == 'dutum') {
 				url = '/chapteData/findDatumList';
-				postData.datumType = '1';
 			}
 			
 			common.ajax({
@@ -351,7 +350,7 @@
 						'fileName': response.fileName,
 						'videoTime': Math.round(oV.duration)	//视频时长(四舍五入)
 					};
-					$scope.kejian = response;
+					
 					$scope.$apply(function() {
 						common.ajax({
 							$scope: $scope,
@@ -372,9 +371,12 @@
 
 		//加载所有挂接的题目type: 1提问   2练习   3作业  4任务  5问卷  6头脑风暴
 		$scope.loadQuestions = function() {
+			if(!$rootScope.currCourse || !$rootScope.currentNode) {
+				return false
+			}
 			var data = {
-				"chapterId": localStorage.getItem('currentNodeId'),
-				"courseId": localStorage.getItem('courseId'),
+				"chapterId": $rootScope.currCourse.courseId,
+				"courseId": $rootScope.currentNode.id,
 				"exeBookType": '3'
 			};
 			

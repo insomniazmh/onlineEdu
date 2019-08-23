@@ -1,6 +1,6 @@
 var common = {
 	
-	url: 'http://114.115.174.243:7080',
+	url: 'http://in2h3v.natappfree.cc',
 	//正式服
 	// url: 'https://e.hnfts.cn/lineEdu',
 	// url2: 'https://e.hnfts.cn/lineEduQuiz',
@@ -45,6 +45,10 @@ var common = {
 		localStorage.removeItem("username");
 		localStorage.removeItem("token");
 		window.location.href = "login.html";
+	},
+	
+	goUrl: function(url) {
+		window.location.href = '#/' + url + '.html';
 	},
 	
 	//网络请求

@@ -67,7 +67,7 @@
 				<div class="portlet-title tabbable-line">
 					<div class="caption font-green-sharp">
 						<i class="icon-settings font-green-sharp"></i>
-						<span class="caption-subject bold uppercase" id="title">创建教辅资料 - {{currentNode.text}} - {{knode.nodeName}}</span>
+						<span class="caption-subject bold uppercase" id="title">创建教辅资料 - {{currCourse.courseName}} - {{currentNode.text}}</span>
 					</div>
 					<div class="actions">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -91,79 +91,7 @@
 					</ul>
 				</div>
 				<div class="portlet-body">
-					<div role="form">
-						<div class="form-body">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group form-md-checkboxes" style="margin-bottom: 40px;">
-										<label>资料标签</label>
-										<div class="md-checkbox-inline">
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox6" class="md-check" name="datumArea" value="3">
-												<label for="checkbox6">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												预习参考 </label>
-											</div>
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox7" class="md-check" name="datumArea" checked="" value="4">
-												<label for="checkbox7">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												课程案例 </label>
-											</div>
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox8" class="md-check" name="datumArea" value="5">
-												<label for="checkbox8">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												课堂参考 </label>
-											</div>
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox9" class="md-check" name="datumArea" value="6">
-												<label for="checkbox9">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												复习参考 </label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group form-md-checkboxes" style="margin-bottom: 40px;">
-										<label>资料权限</label>
-										<div class="md-checkbox-inline">
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox1" class="md-check" 
-													name="teachShare" ng-true-value="'1'" ng-false-value="'0'" ng-model="teachShare">
-												<label for="checkbox1">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												教师共享 </label>
-											</div>
-											<div class="md-checkbox">
-												<input type="checkbox" id="checkbox2" class="md-check" 
-													name="stuShare" ng-true-value="'1'" ng-false-value="'0'" ng-model="stuShare">
-												<label for="checkbox2">
-												<span></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												学生可见 </label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-content">
+					<div class="tab-content" style="margin-top: 100px;">
 						<div class="tab-pane active" id="tab_3_1">
 							<div class="fileTab">
 								<div class="row">
@@ -234,8 +162,6 @@
 	function addJiaofuCtrl($scope, $http) {
 		var wendang = [];
 		var pics = [];
-		$scope.stuShare = '1';//学生可见   0=可见   1=不可见
-		$scope.teachShare = '0';//教师共享   0=共享   1=不共享
 		$scope.datumType = "1";//文件类型：   1文档　2图册　3视频　4音频　5链接
 		$scope.linkUrl = '';
 		//上传文档
@@ -271,14 +197,6 @@
 				$scope.videoFiles = [response];
 			}
 		});
-		//链接预览
-		$scope.preview = function() {
-			$("iframe").attr("src", $scope.linkUrl);
-			$scope.linkFiles = [{
-				fileName: $scope.linkTitle,
-				fileUrl: $scope.linkUrl
-			}];
-		}
 		
 		$scope.changeTab = function(type) {
 			console.log(type);
@@ -298,14 +216,10 @@
 			}
 			
 			var data = {
-			  "chapterId": localStorage.getItem('currentNodeId'),
-			  "courseId": localStorage.getItem('courseId'),
-			  "datumArea": datumArea.join(","),
+			  "chapterId": $rootScope.currCourse.courseId,
+			  "courseId": $rootScope.currentNode.id,
 			  "datumType": $scope.datumType,
-			  "files": $scope.files,
-			  "knodeId": localStorage.getItem('knodeId'),
-			  "stuShare": $scope.stuShare,
-			  "teachShare": $scope.teachShare
+			  "files": $scope.files
 			};
 			
 			if($scope.datumType == '1') {
