@@ -198,14 +198,12 @@
 		//加载题目
 		$scope.loadQuestions = function(type, page) {
 			var data = {
-				"allOrPart": "all", //显示全部详情或者是只返回id all 全部/part 只显示id
+				"courseId": $rootScope.currCourse.courseId,
 				"chapterId": $rootScope.currentNode.id, //章节id
-				"operatorId": localStorage.getItem("userid"), //当前用户id
-				"questionType": type, //题目类型 single multiple trueOrFalse
+				"examType": type, //题目类型 single multiple trueOrFalse
 				"page": page,
 				"size": common.pageSize,
-				"sort": 1,
-				"sorting": "uDate"
+				"sort": 1
 			};
 			//处理知识点查询传参
 			if($scope.kPointNode.knodeId) {
@@ -216,7 +214,7 @@
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
-				url: '/question/findAll/detailed',
+				url: '/question/findQuestionPageAll',
 				data: data,
 				success: function(res) {
 					var data = res.data;
