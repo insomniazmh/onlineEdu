@@ -125,7 +125,7 @@
 								<div class="portlet light">
 									<div class="portlet-title tabbable-line">
 										<div class="caption" style="font-size: 14px;">
-											<i class="icon-settings" style="font-size: 12px;"></i>教案和课件
+											<i class="icon-settings" style="font-size: 12px;"></i>视频课件
 										</div>
 									</div>
 									<div class="portlet-body">
@@ -282,10 +282,14 @@
 		 * datumArea  1教案   2课件   3预习参考  4教学参考  5授课案例   6复习参考
 		 * datumType  1文档　2图册　3视频　4音频　5链接
 		 * */
-		$scope.loadDatumData = function(datumArea, datumType) {
+		$scope.loadDatumData = function(type) {
+			if(!$rootScope.currCourse || !$rootScope.currentNode) {
+				return false
+			}
+			
 			var postData = {
-				"chapterId": localStorage.getItem('currentNodeId'),
-				"courseId": localStorage.getItem('courseId'),
+				"chapterId": $rootScope.currCourse.courseId,
+				"courseId": $rootScope.currentNode.id,
 				"sortVo": {
 					"isValidated": "0",
 					"page": 0,
@@ -294,13 +298,11 @@
 				}
 			};
 			
-			var url = '/chapteData/findDatumList';
-			if(datumArea == '2') {
-				url = '/courseware/findByChapterId';
-				postData.datumType = datumType;
-				postData.importantType = datumArea;
-			}else if(datumArea == 'dutum') {//已挂载的资料
-				url = '/courseData/findDatumList';
+			let url = '/courseware/findByChapterId'
+			if(type == 'dutum') {
+				url = '/chapteData/findDatumList';
+				postData.datumType = '1';
+				// postData.datumArea = '6';
 			}
 			
 			common.ajax({
@@ -310,7 +312,7 @@
 				data: postData,
 				success: function(data) {
 					if(data.data) {//如果有数据
-						if (datumArea == "2") {//课件
+						if (type == "kejian") {//课件
 							$scope.kejian = data.data.files[0];
 						} else if(datumArea = 'dutum') {//资料
 							$scope.ziliaoList = data.data;
@@ -320,15 +322,16 @@
 			});
 		}
 		
-		//上传教案
+		//上传课件
 		common.fileUpload({
 			id: 'filePickerKejian',
+			type: 'video',
 			beforeSend: function() {
-				console.log(localStorage.getItem('currentNodeId'));
+				console.log($rootScope.currentNode)
 				var rtn = {
 					continue: true
 				}
-				if (!localStorage.getItem('currentNodeId')) {
+				if (!$rootScope.currentNode) {
 					rtn = {
 						continue: false,
 						title: "请先选择章节"
@@ -339,8 +342,8 @@
 			
 			success: function(file, response) {
 				var postData = {
-					courseId: localStorage.getItem('courseId'),
-					chapterId: localStorage.getItem('currentNodeId'),
+					"chapterId": $rootScope.currCourse.courseId,
+					"courseId": $rootScope.currentNode.id,
 					importantType: "2",
 					datumType: "3",
 					files: [response]
@@ -385,28 +388,15 @@
 			});
 		};
 
-		//打开备课模态框
-		$scope.openDataModal = function() {
-			if (!$rootScope.currentNode) {
-				layer.alert("请先选择章节");
-				return false;
-			}
-			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑备课信息吗", {
-				btn: ['确定', '取消'] //按钮
-			}, function() {
-				$("#dataModal").modal("show");
-				layer.closeAll('dialog');
-			});
-		}
-
 		$scope.initData = function() {
-			$scope.loadDatumData("2", "3"); //加载视频课件
-			$scope.loadDatumData("dutum", "dutum"); //加载已挂载资料列表
+			$scope.loadDatumData("kejian"); //加载视频课件
+			$scope.loadDatumData("dutum"); //加载已挂载资料列表
 			$scope.loadQuestions(); //加载作业问题列表
 		};
 		$scope.initData();
 		
 		$scope.$watch("currentNode",function(newValue,oldValue){
+			console.log(newValue);
 			$scope.initData();
 		})
 							

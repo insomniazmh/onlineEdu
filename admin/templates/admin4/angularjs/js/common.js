@@ -63,6 +63,18 @@ var common = {
 
 		uploader.on('uploadBeforeSend', function(block, data, headers) {
 			console.log( uploader.getFiles() );
+			if(settings.beforeSend) {
+				let rtn = settings.beforeSend()
+				if(!rtn.continue) {
+					common.toast({
+						title: rtn.title,
+						type: 2
+					});
+					uploader.removeFile( data.id, true );
+					uploader.cancelFile( data.id, true );
+					return false
+				}
+			}
 			var flag = common.checkFileExt(data.name, settings.type);
 			console.log(data);
 			if(!flag) {
