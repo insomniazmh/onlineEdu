@@ -58,13 +58,13 @@
 	function nodeTreeCtrl($scope, $http, $rootScope) {
 		var count = 0;
 		let flag = 'add'
-		//切换课程
-		$scope.$watch("currCourse",function(newValue,oldValue){
-			$scope.loadChapter();
-		})
+		
 
 		//根据课程id查询目录树
 		$scope.loadChapter = function() {
+			if(!$rootScope.currCourse) {
+				return false
+			}
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -87,6 +87,11 @@
 				}
 			});
 		};
+		
+		//切换课程
+		$scope.$watch("currCourse",function(newValue,oldValue){
+			$scope.loadChapter();
+		})
 		
 		// if($rootScope.currCourse) {
 		// 	$scope.loadChapter();

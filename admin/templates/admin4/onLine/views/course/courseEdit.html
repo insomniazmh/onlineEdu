@@ -269,12 +269,14 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	
+	<video style="display:none;" controls="controls" id="aa"></video>
 </div>
 <!-- END MAIN CONTENT -->
 
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
-	function editCourseCtrl($scope, $http, $rootScope) {		
+	function editCourseCtrl($scope, $http, $rootScope, $timeout) {		
 		$scope.kejian = {}; //视频课件
 
 		/*
@@ -341,28 +343,32 @@
 			},
 			
 			success: function(file, response) {
-				var postData = {
-					"chapterId": $rootScope.currCourse.courseId,
-					"courseId": $rootScope.currentNode.id,
-					importantType: "2",
-					datumType: "3",
-					files: [response]
-				};
-				
-				$scope.$apply(function() {
-					common.ajax({
-						$scope: $scope,
-						$http: $http,
-						operate: true,
-						url: '/courseware/savefile',
-						data: postData,
-						success: function(data) {
-							
-							$scope.kejian = data.data.files[0];
-							console.log($scope.kejian);
-						}
+				$("#aa").prop('src', response.fileUrl)
+				let oV = document.getElementById('aa')
+				oV.oncanplay = function () {
+					var postData = {
+						"chapterId": $rootScope.currCourse.courseId,
+						"courseId": $rootScope.currentNode.id,
+						'fileUrl': response.fileUrl,
+						'fileName': response.fileName,
+						'videoTime': Math.round(oV.duration)	//视频时长(四舍五入)
+					};
+					
+					$scope.$apply(function() {
+						common.ajax({
+							$scope: $scope,
+							$http: $http,
+							operate: true,
+							url: '/courseware/savefile',
+							data: postData,
+							success: function(data) {
+								$scope.kejian = response;
+							}
+						});
 					});
-				});
+				}
+				
+				
 			}
 		});
 
@@ -399,7 +405,6 @@
 			console.log(newValue);
 			$scope.initData();
 		})
-							
 	}
 	
 </script>
