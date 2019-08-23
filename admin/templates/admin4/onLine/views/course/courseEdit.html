@@ -144,7 +144,7 @@
 																	
 																	<span id="filePickerKejian" class="filePicker"> 上传课件 </span>
 																	<div style="display: inline;margin-left: 20px;position: absolute;">
-																			已有课件 <a href="{{kejian.fileUrl}}" target="_blank">{{kejian.fileName}}</a>
+																			已有课件 <a ng-click='blank(kejian)'>({{kejian.fileName}})</a>
 																	</div>
 						
 																</div>
@@ -353,7 +353,7 @@
 						'fileName': response.fileName,
 						'videoTime': Math.round(oV.duration)	//视频时长(四舍五入)
 					};
-					
+					$scope.kejian = response;
 					$scope.$apply(function() {
 						common.ajax({
 							$scope: $scope,
@@ -405,6 +405,10 @@
 			console.log(newValue);
 			$scope.initData();
 		})
+		
+		$scope.blank = function(file) {
+			window.open(file.fileUrl)
+		}
 	}
 	
 </script>

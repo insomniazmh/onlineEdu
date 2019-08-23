@@ -1,14 +1,14 @@
 var common = {
 	
-	// url: 'http://114.115.174.243:7080',
+	url: 'http://114.115.174.243:7080',
 	//正式服
 	// url: 'https://e.hnfts.cn/lineEdu',
 	// url2: 'https://e.hnfts.cn/lineEduQuiz',
 	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
 	//测试服
-	url: 'http://192.168.10.2:7080',
-	url2: 'http://192.168.10.2:8081',
+	// url: 'http://192.168.10.2:7080',
+	url2: 'http://192.168.10.2:7081',
 	// uploadUrl: 'http://192.168.10.2:8612/upload',
 
 	//提示信息
