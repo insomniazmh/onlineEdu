@@ -280,8 +280,7 @@
 		$scope.kejian = {}; //视频课件
 
 		/*
-		 * 根据章节id加载章节教案、课件或已挂载的资料
-		 * datumArea  1教案   2课件   3预习参考  4教学参考  5授课案例   6复习参考
+		 * 根据章节id加载章节课件或已挂载的资料
 		 * datumType  1文档　2图册　3视频　4音频　5链接
 		 * */
 		$scope.loadDatumData = function(type) {
@@ -304,7 +303,6 @@
 			if(type == 'dutum') {
 				url = '/chapteData/findDatumList';
 				postData.datumType = '1';
-				// postData.datumArea = '6';
 			}
 			
 			common.ajax({
@@ -313,11 +311,11 @@
 				url: url,
 				data: postData,
 				success: function(data) {
-					if(data.data) {//如果有数据
+					if(data) {//如果有数据
 						if (type == "kejian") {//课件
-							$scope.kejian = data.data.files[0];
-						} else if(datumArea = 'dutum') {//资料
-							$scope.ziliaoList = data.data;
+							$scope.kejian = data[0];
+						} else if(type = 'dutum') {//资料
+							$scope.ziliaoList = data;
 						}
 					}
 				}
