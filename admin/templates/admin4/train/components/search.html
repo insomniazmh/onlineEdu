@@ -1,7 +1,7 @@
 
 <div class="row" ng-controller="searchCtrl">
 	<div class="col-md-12 search">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<label class="label-text">培训方案</label>
 			<input id='planName' type="text" class="form-control" />
 		</div>
@@ -56,6 +56,9 @@
 					value: value.pjPlanId
 				})
 			}
+			data.push({
+				label: '全部'
+			})
 			$("#planName").autocomplete({
 				minLength: 0,
 				delay: 0,

@@ -73,7 +73,7 @@
 							<td>{{item.pjPlanName}}</td>
 							<td>
 								<!-- <button id='topPicSrc' class="btn btn-info btn-sm" ng-click="upload(item)">上传</button> -->
-								<button class="btn btn-info btn-sm" ng-click="look(item.trainClassId)">查看</button>
+								<button class="btn btn-info btn-sm" ng-click="look(item.trainClassId)">查看/上传</button>
 							</td>
 							<!-- <td>2019-8-11</td> -->
 						</tr>
@@ -108,7 +108,7 @@
 				<div class="row">
 					<div class="col-md-2 col-md-offset-5">
 						<div>
-							<div id="topPicSrc" class="filePicker">选择文件</div>
+							<div id="topPicSrc" class="filePicker">图片上传</div>
 						</div>
 						
 					</div>
@@ -124,18 +124,22 @@
 	function signCtrl($scope, $http, $rootScope) {
 		//加载班级列表
 		$scope.loadClassList = function() {			
-			common.ajax({
+			common.loadDataList({
 				$scope: $scope,
 				$http: $http,
-				data: {
-				},
-				url: '/trainClass/findAllPage',
-				success: function(res) {
-					$scope.data = res.content
-				}
+				$rootScope: $rootScope,
+				url: '/trainClass/findAllPage'
 			});
 		};
 		$scope.loadClassList();
+		
+		//更改查询条件
+		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
+			if($rootScope.searchObj) {
+				$scope.searchObj = $rootScope.searchObj
+				$scope.loadClassList();
+			}
+		})
 		
 		$scope.select = function(value, array) {
 			if(array) {

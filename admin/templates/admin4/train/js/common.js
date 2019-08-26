@@ -9,6 +9,8 @@ var common = {
 	// url: 'http://114.115.174.243:7080',
 	
 	uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	
+	pageSize: 15,
 
 	//提示信息
 	toast: function(settings) {
@@ -283,6 +285,7 @@ var common = {
 	
 	//加载列表
 	loadDataList: function(settings) {
+		if(!settings.$scope.currentPage) settings.$scope.currentPage = 1
 		// if(!settings.$scope.currentPage) {
 		// 	settings.$scope.currentPage = 1
 		// }
@@ -321,6 +324,9 @@ var common = {
 					settings.$scope[settings.rtnData] = res.content;
 				}else {
 					settings.$scope.data = res.content;
+				}
+				if(settings.success) {
+					settings.success()
 				}
 			}
 		});

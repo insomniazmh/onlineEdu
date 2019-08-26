@@ -224,7 +224,7 @@
 														</div>
 														<div class="col2">
 															<div class="date">
-																<i class="fa fa-trash-o opreat" title="删除"></i>
+																<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
 															</div>
 														</div>
 													</li>
@@ -341,27 +341,32 @@
 			}
 		});
 
-		//加载所有挂接的题目type: 1提问   2练习   3作业  4任务  5问卷  6头脑风暴
+		//加载所有题目
 		$scope.loadQuestions = function() {
 			if(!$rootScope.currCourse || !$rootScope.currentNode) {
 				return false
 			}
 			var data = {
-				"chapterId": $rootScope.currentNode.id,
 				"courseId": $rootScope.currCourse.courseId,
-				"exeBookType": '3'
+				"chapterId": $rootScope.currentNode.id, //章节id
+				// "examType": type, //题目类型 single multiple trueOrFalse
+				"page": 0,
+				"size": common.pageSize,
+				"sort": 1
 			};
 			
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
 				data: data,
-				url: '/exerciseBook/findExerciseBook',
+				url: '/question/findQuestionPageAll',
 				success: function(res) {
-					res.data = common.addTitleForQuestion({
-						questionArr: res.data
+					console.log(res)
+					let quesArr = common.addTitleForQuestion({
+						questionArr: res.content
 					}); //组装题干以供展示
-					$scope.zuoyeQuestionList = res.data;
+					$scope.zuoyeQuestionList = quesArr;
+					console.log($scope.zuoyeQuestionList)
 				}
 			});
 		};
@@ -380,6 +385,25 @@
 		
 		$scope.blank = function(file) {
 			window.open(file.fileUrl)
+		}
+		
+		//删除题目
+		$scope.delQuestion = function(id) {
+			layer.confirm("您确定要删除该题目吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax2({
+					method: "delete",
+					$scope: $scope,
+					$http: $http,
+					url: '/question/delete/' + id,
+					success: function(res) {
+						layer.alert('删除成功')
+						$scope.loadQuestions();
+					}
+				});
+				layer.closeAll('dialog');
+			});
 		}
 	}
 	

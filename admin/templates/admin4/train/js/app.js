@@ -118,7 +118,8 @@ MetronicApp.controller('AppController', ['$scope', '$http', '$rootScope', functi
 					},
 					url: '/train/plan/findAllPage',
 					success: function(res) {
-						$rootScope.allPlanList = res.content;
+						let arr = res.content
+						$rootScope.allPlanList = arr;
 					}
 				});
 			}

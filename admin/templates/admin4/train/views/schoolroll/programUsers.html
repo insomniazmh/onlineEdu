@@ -63,19 +63,17 @@
 					<thead>
 						<tr>
 							<th>姓名</th>
+							<th>性别</th>
 							<th>方案名称</th>
 							<th>手机号码</th>
-							<th>身份证号</th>
-							<!-- <th>报名时间</th> -->
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="item in data" class="odd gradeX" ng-click="editStuInfo(item);">
-							<td>{{item.studentName}}</td>
-							<td>商务金融驻马店培训</td>
-							<td>15012345678</td>
-							<td>{{item.stuIDCard}}</td>
-							<!-- <td>2019-8-11</td> -->
+							<td>{{item.stuName}}</td>
+							<td>{{item.gender}}</td>
+							<td>{{item.trainProjectName}}</td>
+							<td>{{item.stuPhone}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -102,10 +100,18 @@
 				$scope: $scope,
 				$http: $http,
 				$rootScope: $rootScope,
-				url: '/student/findStudentsPageAll'
+				url: '/trainClassStu/findAllPageAll'
 			});
 		};
 		$scope.loadStudentsList();
+		
+		//更改查询条件
+		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
+			if($rootScope.searchObj) {
+				$scope.searchObj = $rootScope.searchObj
+				$scope.loadStudentsList();
+			}
+		})
 		
 		$scope.select = function(value, array) {
 			if(array) {

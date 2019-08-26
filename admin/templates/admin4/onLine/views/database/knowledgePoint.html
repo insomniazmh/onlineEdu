@@ -206,12 +206,8 @@
 				"size": common.pageSize,
 				"sort": 1
 			};
-			//处理知识点查询传参
-			if($scope.kPointNode.knodeId) {
-				data.knowledgeId = $scope.kPointNode.knodeId;
-			}
 
-			//根据章节和知识点加载题目
+			//根据章节加载题目
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,

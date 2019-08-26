@@ -159,16 +159,14 @@ var common = {
 			if(settings.select) {
 				this.select = true;
 			}
-			if(this.examChildren) {
-				if(this.examChildren[0].examType == "single") {
-					this.title = this.examChildren[0].choiceQstTxt + "（单选）";
-				} else if(this.examChildren[0].examType == "multiple") {
-					this.title = this.examChildren[0].choiceQstTxt + "（多选）";
-				} else if(this.examChildren[0].examType == "trueOrFalse") {
-					this.title = this.examChildren[0].choiceQstTxt + "（判断）";
-				} else if(this.examChildren[0].examType == "design") {
-					this.title = this.examChildren[0].choiceQstTxt + "（主观）";
-				}
+			if(this.examType == "single") {
+				this.title = this.choiceQstTxt + "（单选）";
+			} else if(this.examType == "multiple") {
+				this.title = this.choiceQstTxt + "（多选）";
+			} else if(this.examType == "trueOrFalse") {
+				this.title = this.choiceQstTxt + "（判断）";
+			} else if(this.examType == "design") {
+				this.title = this.choiceQstTxt + "（主观）";
 			}
 			
 		});
