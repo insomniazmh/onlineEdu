@@ -141,23 +141,24 @@
 		}, 300);
 
 		$scope.$on('smallQuestionDetail', function(d, data) { //加载题目信息
-			if (data && data.examChildren[0].examType == "single") {
+		console.log(1234)
+			if (data && data.examType == "single") {
 				$scope.pid = data.id;
 
 				$scope.question = data;
 				console.log(data);
-				$('#danxuanSmall_title').code(data.examChildren[0].choiceQstTxt); //初始化标题
-				$('#danxuanSmall_jiexi').code(data.examChildren[0].choiceQstAnalysis); //初始化解析
-				$scope.single.right = data.examChildren[0].choiceQstAnsw; //初始化正确答案
+				$('#danxuanSmall_title').code(data.choiceQstTxt); //初始化标题
+				$('#danxuanSmall_jiexi').code(data.analysis); //初始化解析
+				$scope.single.right = data.answer; //初始化正确答案
 				//初始化选项--开始
-				$(data.examChildren[0].optChildren).each(function(i) {
+				$(data.optChildren).each(function(i) {
 					this.count = i;
 				});
-				$scope.single.options = data.examChildren[0].optChildren;
-				count = data.examChildren[0].optChildren.length + 1;
+				$scope.single.options = data.optChildren;
+				count = data.optChildren.length + 1;
 
 				$timeout(function() {
-					$(data.examChildren[0].optChildren).each(function(i) {
+					$(data.optChildren).each(function(i) {
 						$('#danxuanSmall_option' + i).summernote({
 							height: 100
 						});
@@ -221,7 +222,7 @@
 				"answer": $scope.single.right,
 				"analysis": $('#danxuanSmall_jiexi').code(),
 
-
+				"examType": "single",
 				"choiceType": "single",
 				"optChildren": opts
 			};

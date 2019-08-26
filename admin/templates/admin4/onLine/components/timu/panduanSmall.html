@@ -61,11 +61,11 @@
 		});
 		
 		$scope.$on('smallQuestionDetail', function(d, data) {
-			if(data && data.examChildren[0].examType == "trueOrFalse") {
+			if(data && data.examType == "trueOrFalse") {
 				$scope.pid = data.id;
-				$('#panduanSmall_title').code(data.examChildren[0].title);
-				$('#panduanSmall_jiexi').code(data.examChildren[0].analysis);
-				$scope.answer = data.examChildren[0].answer;
+				$('#panduanSmall_title').code(data.title);
+				$('#panduanSmall_jiexi').code(data.analysis);
+				$scope.answer = data.answer;
 			}else {
 				$scope.pid = null;
 				$('#panduanSmall_title').code("");
@@ -84,9 +84,9 @@
 				score: 1,
 				examType: "trueOrFalse",
 				teacherId: localStorage.getItem("userid"),
-				trueOrFalseInfo: $('#panduanSmall_title').code(),
-				trueOrFalseAnalysis: $('#panduanSmall_jiexi').code(),
-				trueOrFalseAnsw: $scope.answer,
+				choiceQstTxt: $('#panduanSmall_title').code(),
+				choiceQstAnalysis: $('#panduanSmall_jiexi').code(),
+				choiceQstAnsw: $scope.answer,
 				answer: $scope.answer,
 				title: $('#panduanSmall_title').code(),
 				analysis: $('#panduanSmall_jiexi').code()

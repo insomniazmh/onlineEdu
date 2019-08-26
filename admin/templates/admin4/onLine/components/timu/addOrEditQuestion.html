@@ -24,7 +24,7 @@
 						<li style="display: none;">
 							<a data-target="#tab_3_4" data-toggle="tab" ng-click="changeType(3)"> 填空 </a>
 						</li>
-						<li>
+						<li style="display: none;">
 							<a data-target="#tab_3_5" data-toggle="tab" ng-click="changeType(4)"> 主观 </a>
 						</li>
 					</ul>
@@ -78,7 +78,7 @@
 							<!-- <div data-ng-include="'views/template/timu/tiankongSmall.html'"></div> -->
 						</div>
 						<div class="tab-pane" id="tab_3_5">
-							<div data-ng-include="'components/timu/zhuguanSmall.html'"></div>
+							<!-- <div data-ng-include="'components/timu/zhuguanSmall.html'"></div> -->
 						</div>
 					</div>
 				</div>
@@ -95,9 +95,7 @@
 		$scope.$on('smallQuestionDetail', function(d, data) {
 			if(data) {
 				$("#questionTypesTitle").hide();
-				var type = data.examChildren[0].examType;
 				$scope.questionLevel = data.levelId;
-				$scope.knowledgeId = data.knowledgeId;
 			}else {
 				$("#questionTypesTitle").show();
 			}
@@ -106,36 +104,30 @@
 		
 		//添加小题完成回调
 		$scope.$on('addSmall', function(d, data) {
-			if (!$scope.knowledgeId) {
-				$scope.knowledgeId = "";
-			}
-
-			var obj = {
-				"relate": 0,
-				"teacherId": localStorage.getItem("userid"),
-				"levelId": $scope.questionLevel,
-				"knowledgeId": $scope.knowledgeId,
-				"chapterId": localStorage.getItem("currentNodeId"),
-				"examChildren": [data]
-			};
+			let question = data
+			question.teacherId = localStorage.getItem("userid")
+			question.levelId = $scope.questionLevel
+			question.chapterId = $rootScope.currentNode.id
+			question.chapterName = $rootScope.currentNode.text
+			question.courseId = $rootScope.currCourse.courseId
 			
-			if(!obj.levelId || obj.levelId=="") {
+			if(!question.levelId || question.levelId=="") {
 				layer.alert("请选择难易程度");
 				return false;
 			}
 				
 			if(data.pid) {
-				obj.id = data.pid;
+				question.id = data.pid;
 			}
 			
-			var url = "";
-			if(data.examType == "single" || data.examType == "multiple") {
-				url = '/question/choiceQst/edit';
-			}else if(data.examType == "trueOrFalse") {
-				url = '/question/trueOrFalse/edit';
-			}else if(data.examType == "design") {
-				url = '/question/design/edit';
-			}
+			var url = "/question/editSaveQuestion";
+			// if(data.examType == "single" || data.examType == "multiple") {
+			// 	url = '/question/choiceQst/edit';
+			// }else if(data.examType == "trueOrFalse") {
+			// 	url = '/question/trueOrFalse/edit';
+			// }else if(data.examType == "design") {
+			// 	url = '/question/design/edit';
+			// }
 			
 			//添加题目
 			common.ajax2({
@@ -143,7 +135,7 @@
 				$http: $http,
 				operate: true,
 				url: url,
-				data: obj,
+				data: question,
 				success: function(res) {
 					$scope.$emit('addOrEditQuestion', data.examType);
 					$("#addOrEditQuestion").modal("hide");

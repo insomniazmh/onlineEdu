@@ -56,7 +56,7 @@
 					<li style="display: none;">
 						<a data-target="#tab_1_4" data-toggle="tab" ng-click="changeType(3)"> 填空 </a>
 					</li>
-					<li>
+					<li style="display: none;">
 						<a data-target="#tab_1_5" data-toggle="tab" ng-click="changeType(4)"> 主观 </a>
 					</li>
 				</ul>
@@ -69,22 +69,22 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_{{$index}}">
-											<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
 											 ng-click="editQuestion(row)"></i>
-											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id, 'single')"></i>
 										</div>
 									</h4>
 								</div>
 								<div id="accordion1_{{$index}}" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p ng-repeat="x in row.examChildren[0].optChildren">
+										<p ng-repeat="x in row.optChildren">
 											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
 											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
 										</p>
-										<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
-										<p>解析：<span ng-bind-html="row.examChildren[0].choiceQstAnalysis" style="display: inline-block;"></span> </p>
+										<p>答案：<span ng-bind-html="row.answer" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.analysis" style="display: inline-block;"></span> </p>
 									</div>
 								</div>
 							</div>
@@ -97,22 +97,22 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDuoxuan" data-target="#accordionDuoxuan_{{$index}}">
-											<span ng-bind-html="row.examChildren[0].choiceQstTxt" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
 											 ng-click="editQuestion(row)"></i>
-											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id, 'multiple')"></i>
 										</div>
 									</h4>
 								</div>
 								<div id="accordionDuoxuan_{{$index}}" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p ng-repeat="x in row.examChildren[0].optChildren">
+										<p ng-repeat="x in row.optChildren">
 											<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
 											<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
 										</p>
-										<p>答案：<span ng-bind-html="row.examChildren[0].choiceQstAnsw" style="display: inline-block;"></span> </p>
-										<p>解析：<span ng-bind-html="row.examChildren[0].choiceQstAnalysis" style="display: inline-block;"></span> </p>
+										<p>答案：<span ng-bind-html="row.answer" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.analysis" style="display: inline-block;"></span> </p>
 									</div>
 								</div>
 							</div>
@@ -125,21 +125,21 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionPanduan" data-target="#accordionPanduan_{{$index}}">
-											<span ng-bind-html="row.examChildren[0].trueOrFalseInfo" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span> </a>
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
 											 ng-click="editQuestion(row)"></i>
-											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id)"></i>
+											<i class="fa fa-trash-o opreat" title="删除" ng-click="delQuestion(row.id, 'trueOrFalse')"></i>
 										</div>
 									</h4>
 								</div>
 								<div id="accordionPanduan_{{$index}}" class="panel-collapse collapse">
 									<div class="panel-body">
 										<p>答案：
-											<span ng-if="row.examChildren[0].answer=='Y'" style="display: inline-block;">对</span>
-											<span ng-if="row.examChildren[0].answer=='N'" style="display: inline-block;">错</span>
+											<span ng-if="row.answer=='Y'" style="display: inline-block;">对</span>
+											<span ng-if="row.answer=='N'" style="display: inline-block;">错</span>
 										</p>
-										<p>解析：<span ng-bind-html="row.examChildren[0].trueOrFalseAnalysis" style="display: inline-block;"></span> </p>
+										<p>解析：<span ng-bind-html="row.analysis" style="display: inline-block;"></span> </p>
 									</div>
 								</div>
 							</div>
@@ -197,6 +197,7 @@
 
 		//加载题目
 		$scope.loadQuestions = function(type, page) {
+			if(!$rootScope.currCourse || !$rootScope.currentNode) return false
 			var data = {
 				"courseId": $rootScope.currCourse.courseId,
 				"chapterId": $rootScope.currentNode.id, //章节id
@@ -217,22 +218,22 @@
 				url: '/question/findQuestionPageAll',
 				data: data,
 				success: function(res) {
-					var data = res.data;
+					let quesArr = res.content
 					if(type == 'single') {
 						if(page == 0) {
 							$scope.single = [];
 						}
-						$scope.single = $scope.single.concat(res.data);
+						$scope.single = $scope.single.concat(quesArr);
 					} else if(type == 'multiple') {
 						if(page == 0) {
 							$scope.multiple = [];
 						}
-						$scope.multiple = $scope.multiple.concat(res.data);
+						$scope.multiple = $scope.multiple.concat(quesArr);
 					} else if(type == 'trueOrFalse') {
 						if(page == 0) {
 							$scope.trueOrFalse = [];
 						}
-						$scope.trueOrFalse = $scope.trueOrFalse.concat(res.data);
+						$scope.trueOrFalse = $scope.trueOrFalse.concat(quesArr);
 					}
 				}
 			});
@@ -255,17 +256,25 @@
 		}
 
 		//删除题目
-		$scope.delQuestion = function(id) {
-			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建或编辑习题册吗", {
+		$scope.delQuestion = function(id, type) {
+			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--删除该题目吗", {
 				btn: ['确定', "取消"] //按钮
 			}, function() {
 				common.ajax2({
-					method: "get",
+					method: "delete",
 					$scope: $scope,
 					$http: $http,
 					url: '/question/delete/' + id,
 					success: function(res) {
 						console.log(res);
+						layer.alert('删除成功')
+						if(type == 'single') {
+							$scope.loadQuestions('single', $scope.singlePage);
+						}else if(type == 'multiple') {
+							$scope.loadQuestions('multiple', $scope.multiplePage);
+						}else if(type == 'trueOrFalse') {
+							$scope.loadQuestions('trueOrFalse', $scope.trueOrFalsePage);
+						}
 					}
 				});
 				layer.closeAll('dialog');
@@ -273,35 +282,15 @@
 		}
 
 		//打开题目添加框
-		$scope.openQuestionModel = function(type) {
-			var settings = {
-
-			}
-			settings = {
+		$scope.openQuestionModel = function() {
+			common.openModal({
+				$rootScope: $rootScope,
 				tips: '题目',
 				success: function() {
 					$scope.$broadcast('smallQuestionDetail', null);
 					$("#addOrEditQuestion").modal("show");
 				}
-			}
-
-			if(!$rootScope.currentNode) {
-				layer.alert("请先选择章节");
-				return false;
-			}
-			
-			if($rootScope.currentNode.id == '0') {
-				layer.alert("题目不能加到课程上");
-				return false;
-			}
-
-			layer.confirm("您确定要为--(" + $rootScope.currentNode.text + ")--章节创建" + settings.tips + "吗", {
-				btn: ['确定', "取消"] //按钮
-			}, function() {
-				settings.success();
-				layer.closeAll('dialog');
-			});
-
+			})
 		}
 		
 		$scope.changeType = function(type) {

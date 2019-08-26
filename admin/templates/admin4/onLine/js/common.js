@@ -1,15 +1,17 @@
 var common = {
 	
-	url: 'http://in2h3v.natappfree.cc',
+	// url: 'http://in2h3v.natappfree.cc',
 	//正式服
 	// url: 'https://e.hnfts.cn/lineEdu',
 	// url2: 'https://e.hnfts.cn/lineEduQuiz',
 	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 
 	//测试服
-	// url: 'http://192.168.10.2:7080',
+	url: 'http://192.168.10.2:7080',
 	url2: 'http://192.168.10.2:7081',
 	// uploadUrl: 'http://192.168.10.2:8612/upload',
+	
+	pageSize: 15,
 
 	//提示信息
 	toast: function(settings) {
@@ -163,9 +165,9 @@ var common = {
 				} else if(this.examChildren[0].examType == "multiple") {
 					this.title = this.examChildren[0].choiceQstTxt + "（多选）";
 				} else if(this.examChildren[0].examType == "trueOrFalse") {
-					this.title = this.examChildren[0].trueOrFalseInfo + "（判断）";
+					this.title = this.examChildren[0].choiceQstTxt + "（判断）";
 				} else if(this.examChildren[0].examType == "design") {
-					this.title = this.examChildren[0].designQuestion + "（主观）";
+					this.title = this.examChildren[0].choiceQstTxt + "（主观）";
 				}
 			}
 			

@@ -154,27 +154,27 @@
 		}, 300);
 		
 		$scope.$on('smallQuestionDetail', function(d, data) { //加载题目信息
-			if (data && data.examChildren[0].examType == "multiple") {
+			if (data && data.examType == "multiple") {
 				$scope.pid = data.id;
 		
 				$scope.question = data;
 				console.log(data);
-				$('#duoxuanSmall_title').code(data.examChildren[0].choiceQstTxt); //初始化标题
-				$('#duoxuanSmall_jiexi').code(data.examChildren[0].choiceQstAnalysis); //初始化解析
-				$scope.multi.right = data.examChildren[0].choiceQstAnsw; //初始化正确答案
+				$('#duoxuanSmall_title').code(data.choiceQstTxt); //初始化标题
+				$('#duoxuanSmall_jiexi').code(data.analysis); //初始化解析
+				$scope.multi.right = data.answer; //初始化正确答案
 				//初始化选项--开始
-				$(data.examChildren[0].optChildren).each(function(i) {
+				$(data.optChildren).each(function(i) {
 					console.log(this);
 					if($scope.multi.right.indexOf(this.optValue)>=0) {
 						this.checked = true;
 					}
 					this.count = i;
 				});
-				$scope.multi.options = data.examChildren[0].optChildren;
-				count = data.examChildren[0].optChildren.length + 1;
+				$scope.multi.options = data.optChildren;
+				count = data.optChildren.length + 1;
 		
 				$timeout(function() {
-					$(data.examChildren[0].optChildren).each(function(i) {
+					$(data.optChildren).each(function(i) {
 						$('#duoxuanSmall_option' + i).summernote({
 							height: 100
 						});
