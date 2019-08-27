@@ -6,82 +6,59 @@
 			<span class="title"> 首页</span>
 			</a>
 		</li>
-		<!--<li>
-			<a href="javascript:;">
+		<li>
+			<a href="#/schoolroll.html">
 			<i class="icon-rocket"></i>
-			<span class="title">招生管理</span>
-			<span class="arrow "></span>
+			<span class="title">课程字典</span>
 			</a>
-			<ul class="sub-menu">
-				<li>
-					<a href="#/enrollPlan.html">
-						<i class="icon-puzzle"></i> 招生计划</span>
-					</a>
-				</li>
-				<li>
-					<a href="#/enroll.html">
-					<i class="icon-puzzle"></i> 报名信息管理</span>
-					</a>
-				</li>
-				<li>
-					<a href="#/enrollExamine.html">
-					<i class="icon-puzzle"></i> 报名信息审核</span>
-					</a>
-				</li>
-				<li>
-					<a href="#/statistics.html">
-					<i class="icon-paper-clip"></i> 人数统计</span>
-					</a>
-				</li>
-			</ul>
-		</li>-->
-		<li ng-if='pages.stuManage || pages.stuChange'>
-			<a href="javascript:;">
-			<i class="icon-rocket"></i>
-			<span class="title">学生信息{{page}}</span>
-			<span class="arrow "></span>
-			</a>
-			<ul class="sub-menu">
-				<li ng-show='pages.stuManage'>
-					<a href="#/schoolroll.html">
-					<i class="icon-paper-clip"></i> 学生管理</span>
-					</a>
-				</li>
-				<li ng-if='pages.stuChange'>
-					<a href="#/studyAlienation.html">
-					<i class="icon-paper-clip"></i> 学籍异动</span>
-					</a>
-				</li>
-			</ul>
 		</li>
-		<li ng-if='pages.planManage || pages.stuScore || pages.stuScoreConfirm'>
-			<a href="javascript:;">
+		<li>
+			<a href="#/externalTeachersInfo.html">
 			<i class="icon-rocket"></i>
-			<span class="title">教学管理</span>
-			<span class="arrow "></span>
+			<span class="title">外聘教师信息</span>
 			</a>
-			<ul class="sub-menu">
-				<li ng-if='pages.planManage'>
-					<a href="#/teachingManagement.html">
-					<i class="icon-paper-clip"></i> 计划管理</span>
-					</a>
-				</li>
-				<li ng-if='pages.stuScore'>
-					<a href="#/peacetimeAchievement.html">
-					<i class="icon-paper-clip"></i> 学生成绩</span>
-					</a>
-				</li>
-				<li ng-if='pages.stuScoreConfirm'>
-					<a href="#/resultConfirm.html">
-					<i class="icon-paper-clip"></i> 学生成绩确认</span>
-					</a>
-				</li>
-				<!--<li>
-					<a href="#/practicalAchievements.html">
-					<i class="icon-paper-clip"></i> 实践成绩</span>
-					</a>
-				</li>-->
-			</ul>
+		</li>
+		<li>
+			<a href="#/center.html">
+			<i class="icon-rocket"></i>
+			<span class="title">学习中心维护</span>
+			</a>
+		</li>
+		<li>
+			<a href="#/teachingManagement.html">
+			<i class="icon-rocket"></i>
+			<span class="title">教学计划</span>
+			</a>
+		</li>
+		<li>
+			<a href="#/teachingManagement.html">
+			<i class="icon-rocket"></i>
+			<span class="title">计划资料</span>
+			</a>
+		</li>
+		<li>
+			<a href="#/teachingManagement.html">
+			<i class="icon-rocket"></i>
+			<span class="title">教学计划查询</span>
+			</a>
+		</li>
+		<li>
+			<a href="#/schoolroll.html">
+			<i class="icon-rocket"></i>
+			<span class="title">学生信息</span>
+			</a>
+		</li>
+		<li>
+			<a href="#/peacetimeAchievement.html">
+			<i class="icon-rocket"></i>
+			<span class="title">学分统计</span>
+			</a>
+		</li>
+		<li>
+			<a href="#/externalTeachersDetailed.html">
+			<i class="icon-rocket"></i>
+			<span class="title">课时统计</span>
+			</a>
 		</li>
 		<li ng-if='pages.courseAdd || pages.myCourses'>
 			<a href="javascript:;">
@@ -122,17 +99,20 @@
 			</ul>
 		</li> 
 		<li>
+			<a href="#/externalTeachersDetailed.html">
+			<i class="icon-rocket"></i>
+			<span class="title">线下成绩录入</span>
+			</a>
+		</li>
+		
+		
+		<!-- <li>
 			<a href="javascript:;">
 			<i class="icon-rocket"></i>
 			<span class="title">考务管理</span>
 			<span class="arrow "></span>
 			</a>
 			<ul class="sub-menu">
-				<!--<li>
-					<a href="#/examinationInfo.html">
-					<i class="icon-paper-clip"></i> 考点信息</span>
-					</a>
-				</li>-->
 				<li>
 					<a href="#/examinationSchedule.html">
 					<i class="icon-paper-clip"></i> 考试日程</span>
@@ -254,7 +234,7 @@
 					</a>
 				</li>
 			</ul>
-		</li>
+		</li> -->
 	</ul>
 	<!-- END SIDEBAR MENU -->
 </div>	
