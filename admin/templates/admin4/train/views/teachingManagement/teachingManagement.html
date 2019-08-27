@@ -297,6 +297,18 @@
 		
 		$scope.save = function(plan) {
 			plan.trainAreaId = 1;
+			if(!plan.trainProjectName || plan.trainProjectName=='') {
+				layer.alert('方案名称不能为空')
+				return false
+			}
+			if(!plan.trainStart || plan.trainStart=='') {
+				layer.alert('方案开始时间不能为空')
+				return false
+			}
+			if(!plan.trainEnd || plan.trainEnd=='') {
+				layer.alert('方案截止时间不能为空')
+				return false
+			}
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -369,6 +381,28 @@
 			stu.trainClassName = $scope.currClass.trainClassName;
 			stu.trainProjectName = $scope.currPlanName
 			stu.pjPlanId = $scope.currPlanId
+			
+			if(!stu.stuName || stu.stuName=='') {
+				layer.alert('姓名不能为空')
+				return false
+			}
+			if(!stu.gender || stu.gender=='') {
+				layer.alert('请选择性别')
+				return false
+			}
+			if(!stu.marriage || stu.marriage=='') {
+				layer.alert('民族不能为空')
+				return false
+			}
+			if(!stu.jobTitle || stu.jobTitle=='') {
+				layer.alert('单位职务不能为空')
+				return false
+			}
+			if(!stu.stuPhone || stu.stuPhone=='') {
+				layer.alert('联系方式不能为空')
+				return false
+			}
+			
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -483,6 +517,12 @@
 		$scope.saveCls = function(cls) {
 			cls.pjPlanId = $scope.currPlanId;
 			cls.pjPlanName = $scope.currPlanName;
+			
+			if(!cls.trainClassName || cls.trainClassName=='') {
+				layer.alert('班级名称不能为空')
+				return false
+			}
+			
 			common.ajax({
 				$scope: $scope,
 				$http: $http,

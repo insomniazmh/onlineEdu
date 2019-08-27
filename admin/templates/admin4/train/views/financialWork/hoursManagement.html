@@ -102,6 +102,10 @@
 		}
 		
 		$scope.save = function(finance) {
+			if(!finance.financeTypeName || finance.financeTypeName=='') {
+				layer.alert('类型名称不能为空')
+				return false
+			}
 			common.ajax({
 				$scope: $scope,
 				$http: $http,

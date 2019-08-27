@@ -26,6 +26,9 @@
 		top: -23px;
 		position: relative;
 	}
+	td input {
+		width: 100%;
+	}
 </style>
 <div class="row" ng-controller="enrollCtrl">
 	<div class="col-md-12">
@@ -169,6 +172,24 @@
 				}
 			}
 			finance.inOut = '支出'
+			
+			if(!finance.pjPlanId || finance.pjPlanId=='') {
+				layer.alert('培训方案不能为空')
+				return false
+			}
+			if(!finance.financeTypeId || finance.financeTypeId=='') {
+				layer.alert('请选择财务类型')
+				return false
+			}
+			if(!finance.money || finance.money=='') {
+				layer.alert('金额不能为空')
+				return false
+			}
+			if(!finance.happenTime || finance.happenTime=='') {
+				layer.alert('发生时间不能为空')
+				return false
+			}
+			
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -216,6 +237,7 @@
 					$scope.$apply(function() {
 						console.log(ui.item.value +"     "+ ui.item.label)
 						$scope.pjPlanName = ui.item.label
+						$scope.pjPlanId = ui.item.value
 						if(obj) {
 							obj.pjPlanName = ui.item.label
 							obj.pjPlanId = ui.item.value

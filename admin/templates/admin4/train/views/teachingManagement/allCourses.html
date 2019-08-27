@@ -71,6 +71,10 @@
 		
 		$scope.save = function(course) {
 			course.trainAreaId = 1;
+			if(!course.courseName || course.courseName=='') {
+				layer.alert('课程名称不能为空')
+				return false
+			}
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -85,7 +89,7 @@
 		
 		$scope.cancel = function(course, index) {
 			if($scope.flag == 'add') {
-				$scope.data.splice(index, 1);
+				$rootScope.allCourseList.splice(index, 1);
 			}else if($scope.flag == 'edit') {
 				course.edit = false;				
 			}
