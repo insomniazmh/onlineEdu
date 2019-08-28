@@ -124,57 +124,43 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 				$rootScope.majorList = [];
 				
 				//加载所有学习中心信息
-				common.ajax({
-					$scope: $scope,
-					$http: $http,
-					data: {
-						page: 0,
-						size: 100,
-					},
-					url: '/learnCenter/findAllPage',
-					success: function(res) {
-						$rootScope.centerList = res.content;
-					}
-				});
-				
-				//加载所有专业信息
-				common.ajax({
-					$scope: $scope,
-					$http: $http,
-					data: {
-						page: 0,
-						size: 100,
-					},
-					url: '/specialty/findAllPage',
-					success: function(res) {
-						$rootScope.majorList = res.content;
-					}
-				});
+				// common.ajax({
+				// 	$scope: $scope,
+				// 	$http: $http,
+				// 	data: {
+				// 		page: 0,
+				// 		size: 100,
+				// 	},
+				// 	url: '/learnCenter/findAllPage',
+				// 	success: function(res) {
+				// 		$rootScope.centerList = res.content;
+				// 	}
+				// });
 				
 				//加载我的课程
-				common.ajax({
-					$scope: $scope,
-					$http: $http,
-					data: {
-						page: 0,
-						size: 100,
-					},
-					url: '/course/findMyCourse',
-					success: function(res) {
-						$rootScope.myCourseList = res;//我的课程列表
-						if($rootScope.myCourseList.length > 0) {
-							$rootScope.currCourse = $rootScope.myCourseList[0]//默认第一个课程为当前课程
-							//如果已有当前课程id，根据id切换当前课程（处理刷新页面的情况）
-							if(localStorage.getItem('currCourseId')) {
-								for(let value of $rootScope.myCourseList) {
-									if(value.courseId == localStorage.getItem('currCourseId')) {
-										$rootScope.currCourse = value
-									}
-								}
-							}
-						}
-					}
-				});
+				// common.ajax({
+				// 	$scope: $scope,
+				// 	$http: $http,
+				// 	data: {
+				// 		page: 0,
+				// 		size: 100,
+				// 	},
+				// 	url: '/course/findMyCourse',
+				// 	success: function(res) {
+				// 		$rootScope.myCourseList = res;//我的课程列表
+				// 		if($rootScope.myCourseList.length > 0) {
+				// 			$rootScope.currCourse = $rootScope.myCourseList[0]//默认第一个课程为当前课程
+				// 			//如果已有当前课程id，根据id切换当前课程（处理刷新页面的情况）
+				// 			if(localStorage.getItem('currCourseId')) {
+				// 				for(let value of $rootScope.myCourseList) {
+				// 					if(value.courseId == localStorage.getItem('currCourseId')) {
+				// 						$rootScope.currCourse = value
+				// 					}
+				// 				}
+				// 			}
+				// 		}
+				// 	}
+				// });
 		
 				//header中课程被选中事件，获取被选中的课程
 				$scope.changeCourse = function(row) {
@@ -684,6 +670,60 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			data: {
 				pageTitle: '课程管理',
 				pageSubTitle: '我的课程'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
+		// 课程字典
+		.state('courseDic', {
+			url: "/courseDic.html",
+			templateUrl: "views/course/courseDic.html",
+			data: {
+				pageTitle: '课程字典'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
+		// 外聘教师
+		.state('teachers', {
+			url: "/teachers.html",
+			templateUrl: "views/teacher/teachers.html",
+			data: {
+				pageTitle: '外聘教师'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
+		// 教学计划
+		.state('plans', {
+			url: "/plans.html",
+			templateUrl: "views/plan/plans.html",
+			data: {
+				pageTitle: '教学计划'
 			},
 			resolve: {
 				deps: ['$ocLazyLoad', function($ocLazyLoad) {

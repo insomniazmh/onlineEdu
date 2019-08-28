@@ -3,10 +3,6 @@
 	.label-text {
 		margin-top: 8px;
 	}
-	
-	td > input {
-		width: 100%;
-	}
 </style>
 <div class="row" ng-controller="enrollCtrl">
 	<div class="col-md-12">
@@ -15,6 +11,10 @@
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-globe"></i>学习中心维护
+				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn red" ng-click="add()">
+					<i class="fa fa-plus"></i> 添加 </a>
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -35,9 +35,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX" ng-repeat="item in centerList">
+						<tr class="odd gradeX" ng-repeat="item in data">
 							<td style="min-width: 150px;">
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="add($index)">新增</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
@@ -97,13 +96,13 @@
 						</tr>
 					</tbody>
 				</table>
-				<!-- <div class="row">
+				<div class="row">
 					<div>
-						<div class="col-md-5" style="float: left; clear: both; margin-left: 20px;">
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
 							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
 						</div>
 					</div>
-				</div> -->
+				</div>
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
@@ -112,9 +111,25 @@
 </div>
 <script>
 	function enrollCtrl($scope, $http, $rootScope) {
+		$scope.currentPage = 1
+		//加载学习中心列表
+		$scope.loadCenterList = function() {			
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/learnCenter/findAllPage'
+			});
+		};
+		$scope.loadCenterList();
+		
+		$scope.pageChanged = function() {
+			$scope.loadCenterList();
+		}
+		
 		$scope.add = function(index) {
 			$scope.flag = 'add';
-			$scope.data.splice(index+1, 0, {
+			$scope.data.push({
 				edit: true
 			});
 		}
@@ -140,7 +155,7 @@
 		
 		$scope.cancel = function(center, index) {
 			if($scope.flag == 'add') {
-				$scope.data.splice(index, 1);
+				$scope.data.pop();
 			}else if($scope.flag == 'edit') {
 				center.edit = false;				
 			}
