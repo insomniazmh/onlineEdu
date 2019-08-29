@@ -320,9 +320,9 @@ var common = {
 	
 	//加载列表
 	loadDataList: function(settings) {
-		// if(!settings.$scope.currentPage) {
-		// 	settings.$scope.currentPage = 1
-		// }
+		if(!settings.$scope.currentPage) {
+			settings.$scope.currentPage = 1
+		}
 			
 		let postData = {
 			"page": settings.$scope.currentPage - 1,
@@ -340,6 +340,8 @@ var common = {
 		if(settings.$scope.searchObj) {
 			postData = Object.assign(postData, settings.$scope.searchObj);
 		}
+		
+		postData.centerAreaId = '1f184d63f76644e3bb0889d7e43d9309'
 		console.log(postData);
 		
 		common.ajax({

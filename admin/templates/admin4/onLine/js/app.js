@@ -736,6 +736,24 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			}
 		})
 		
+		// 教学计划资料
+		.state('planDatum', {
+			url: "/planDatum.html",
+			templateUrl: "views/plan/planDatum.html",
+			data: {
+				pageTitle: '教学计划资料'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
 		//教学资料
 		.state('assistant', {
 			url: "/assistant.html",
