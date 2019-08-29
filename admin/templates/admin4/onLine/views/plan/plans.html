@@ -98,14 +98,51 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12 export-option">
-							<div style="display: inline-block;margin: 10px 20px;" ng-repeat='item in allCourseList'>
-								<input type="checkbox" name="basicVar" ng-model='item.checked' />
+							<div style="display: inline-block;margin: 10px 20px;" ng-repeat='item in courseDic'>
+								<input type="checkbox" name="basicVar" ng-model='item.checked' ng-change='clkCD(item)' />
 								<span style="font-weight: 600;">{{item.courseName}}</span>
 							</div>
 						</div>
 						
+						<div class="col-md-6 col-md-offset-3" style="margin-top: 20px;">
+							<table class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>操作</th>
+										<th>课程名称</th>
+										<th>学分</th>
+										<th>线上成绩占比(%)</th>
+										<th>线下成绩占比(%)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in courseList">
+										<td style="min-width: 150px;">
+											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="editCourse(item)">编辑</button>
+											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="delCourse(item)">删除</button>
+											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="saveCourse(item)">保存</button>
+											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancelCourse(item, $index)">取消</button>
+										</td>
+										<td>{{item.courseName}}</td>
+										<td>
+											<span ng-show='!item.edit'>{{item.xuefen}}</span>
+											<input ng-show='item.edit' type="text" ng-model="item.xuefen" />
+										</td>
+										<td>
+											<span ng-show='!item.edit'>{{item.onLine}}</span>
+											<input ng-show='item.edit' type="text" ng-model="item.onLine" />
+										</td>
+										<td>
+											<span ng-show='!item.edit'>{{item.offLine}}</span>
+											<input ng-show='item.edit' type="text" ng-model="item.offLine" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
 						<div class="col-md-12" style="text-align: center">
-							<button type="button" style="width: 200px" class="btn btn-md blue" ng-click="planCoursesUpd()"> 确定 </button>
+							<button type="button" style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
 						</div>
 					</div>
 				</div>
@@ -163,8 +200,8 @@
 						</div>
 						<div class="col-md-7" style="border-left: 1px solid #45B6AF;">
 							<h4 style="margin-bottom: 20px;">班级学员
-							<a href="javascript:;" class="btn red btn-sm" style="float: right;" ng-click='addStu()'>
-							<i class="fa fa-plus"></i> 添加学员 </a></h4>
+							<!-- <a href="javascript:;" class="btn red btn-sm" style="float: right;" ng-click='addStu()'>
+							<i class="fa fa-plus"></i> 添加学员 </a> --></h4>
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
@@ -213,17 +250,6 @@
 											<input ng-show='item.edit' type="text" ng-model="item.stuPhone" />
 										</td>
 									</tr>
-									<!-- <tr class="gradeX odd">
-										<td>
-											<button class="btn btn-info btn-xs">编辑</button>
-										</td>
-										<td>李四</td>
-										<td>女</td>
-										<td>汉族</td>
-										<td>处长</td>
-										<td>4101013243545</td>
-										<td>我的评语</td>
-									</tr> -->
 								</tbody>
 							</table>
 						</div>
@@ -311,6 +337,178 @@
 			$scope.globalEdit = false
 		};
 		/*    教学计划增删改查end    */
+		
+		//查询课程字典中的所有课程
+		$scope.loadCourseDic = function() {
+			$scope.courseDic = [{
+				courseName: '社交礼仪'
+			}, {
+				courseName: '电子商务'
+			}]
+		}
+		$scope.loadCourseDic()
+		
+		//根据计划id查询所选课程
+		$scope.planCourses = function(planId) {
+			$scope.currPlanId = planId
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					planId: planId
+				},
+				url: '/trainPlanCourse/findByPjPlanId',
+				success: function(res) {
+					for(let ac of $scope.courseDic) {
+						ac.checked = false
+						for(let pc of res) {
+							if(ac.courseId == pc.courseId) {
+								ac.checked = true
+							}
+						}
+					}
+					$("#planCoursesModal").modal('show');
+				}
+			});
+		}
+		
+		$scope.courseList = []
+		$scope.clkCD = function(courseDic) {
+			if(courseDic.checked) {
+				$scope.courseList.push({
+					courseName: courseDic.courseName
+				})
+			}else {
+				$scope.courseList = $scope.courseList.filter(function(item) {
+					return item.courseName != courseDic.courseName
+				});
+			}
+		}
+		
+		/*    课程信息增删改查start    */
+		$scope.editCourse = function(course) {
+			course.edit = true;
+		}
+		
+		$scope.saveCourse = function(course) {
+			course.edit = false;
+		};
+		
+		$scope.delCourse = function(course) {
+			$scope.courseList = $scope.courseList.filter(function(item) {
+				return item.courseName != course.courseName
+			});
+			
+			for(let value of $scope.courseDic) {
+				if(value.courseName == course.courseName) value.checked = false
+			}
+		};
+		
+		$scope.cancelCourse = function(course) {
+			course.edit = false;
+		};
+		/*    课程信息增删改查end    */
+		
+		//根据计划id更新所选课程
+		$scope.planCoursesUpd = function() {
+			console.log($scope.courseDic)
+			let postData = {
+				pjPlanId: $scope.currPlanId,
+				list: []
+			}
+			for(let value of $scope.courseDic) {
+				if(value.checked) {
+					postData.list.push({
+						courseId: value.courseId,
+						courseName: value.courseName,
+						pjPlanId: $scope.currPlanId
+					})
+				}
+			}
+				
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: postData,
+				operate: true,
+				url: '/trainPlanCourse/saveOrUpdate',
+				success: function(res) {
+					console.log(res)
+					$scope.loadAllPlan();
+					$("#planCoursesModal").modal('hide')
+				}
+			});
+		}
+		
+		//根据计划id查询班级信息
+		$scope.classPeople = function(planId, planName) {
+			$scope.currPlanId = planId
+			if(planName) {
+				$scope.currPlanName = planName
+			}
+			$scope.currClass = null//清空当前所选班级
+			$scope.students = []//清空学生信息
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					pjPlanId: planId
+				},
+				url: '/trainClass/findAllPage',
+				success: function(res) {
+					$scope.classList = res.content
+				}
+			});
+			$("#class_peopleModal").modal('show');
+		}
+		
+		/*    班级增删改查start    */
+		$scope.addCls = function() {
+			$scope.flagCls = 'add';
+			$scope.classList.push({ edit: true });
+		}
+		
+		$scope.editCls = function(cls) {
+			$scope.flagCls = 'edit';
+			cls.edit = true;
+		}
+		
+		$scope.saveCls = function(cls) {
+			cls.pjPlanId = $scope.currPlanId;
+			cls.pjPlanName = $scope.currPlanName;
+			
+			if(!cls.trainClassName || cls.trainClassName=='') {
+				layer.alert('班级名称不能为空')
+				return false
+			}
+			
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: cls,
+				operate: true,
+				url: '/trainClass/saveOrUpdate',
+				success: function(res) {
+					$scope.classPeople($scope.currPlanId, null)
+				}
+			});
+		};
+		
+		$scope.cancelCls = function(cls) {
+			if($scope.flagCls == 'add') {
+				$scope.classList.pop();
+			}else if($scope.flagCls == 'edit') {
+				cls.edit = false;				
+			}
+		};
+		/*    班级增删改查end    */
+		
+		$(".date-picker").live("focus", function() {
+			$(".date-picker").datepicker({
+				language: 'zh-CN',
+				format: 'yyyy-mm-dd'
+			})
+		});
 		
 		//点击班级变色,并加载该班级中的学员
 		$scope.chooseClass = function(cls) {
@@ -404,130 +602,5 @@
 			console.log(stu)
 		};
 		/*    学员增删改查end    */
-		
-		//根据计划id查询所选课程
-		$scope.planCourses = function(planId) {
-			$scope.currPlanId = planId
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				data: {
-					planId: planId
-				},
-				url: '/trainPlanCourse/findById',
-				success: function(res) {
-					for(let ac of $rootScope.allCourseList) {
-						ac.checked = false
-						for(let pc of res) {
-							if(ac.courseId == pc.courseId) {
-								ac.checked = true
-							}
-						}
-					}
-					$("#planCoursesModal").modal('show');
-				}
-			});
-		}
-		
-		//根据计划id更新所选课程
-		$scope.planCoursesUpd = function() {
-			console.log($rootScope.allCourseList)
-			let postData = {
-				pjPlanId: $scope.currPlanId,
-				list: []
-			}
-			for(let value of $rootScope.allCourseList) {
-				if(value.checked) {
-					postData.list.push({
-						courseId: value.courseId,
-						courseName: value.courseName,
-						pjPlanId: $scope.currPlanId
-					})
-				}
-			}
-				
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				data: postData,
-				operate: true,
-				url: '/trainPlanCourse/saveOrUpdate',
-				success: function(res) {
-					console.log(res)
-					$scope.loadAllPlan();
-					$("#planCoursesModal").modal('hide')
-				}
-			});
-		}
-		
-		//根据计划id查询班级信息
-		$scope.classPeople = function(planId, planName) {
-			$scope.currPlanId = planId
-			if(planName) {
-				$scope.currPlanName = planName
-			}
-			$scope.currClass = null//清空当前所选班级
-			$scope.students = []//清空学生信息
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				data: {
-					pjPlanId: planId
-				},
-				url: '/trainClass/findAllPage',
-				success: function(res) {
-					$scope.classList = res.content
-				}
-			});
-			$("#class_peopleModal").modal('show');
-		}
-		
-		/*    班级增删改查start    */
-		$scope.addCls = function() {
-			$scope.flagCls = 'add';
-			$scope.classList.push({ edit: true });
-		}
-		
-		$scope.editCls = function(cls) {
-			$scope.flagCls = 'edit';
-			cls.edit = true;
-		}
-		
-		$scope.saveCls = function(cls) {
-			cls.pjPlanId = $scope.currPlanId;
-			cls.pjPlanName = $scope.currPlanName;
-			
-			if(!cls.trainClassName || cls.trainClassName=='') {
-				layer.alert('班级名称不能为空')
-				return false
-			}
-			
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				data: cls,
-				operate: true,
-				url: '/trainClass/saveOrUpdate',
-				success: function(res) {
-					$scope.classPeople($scope.currPlanId, null)
-				}
-			});
-		};
-		
-		$scope.cancelCls = function(cls) {
-			if($scope.flagCls == 'add') {
-				$scope.classList.pop();
-			}else if($scope.flagCls == 'edit') {
-				cls.edit = false;				
-			}
-		};
-		/*    班级增删改查end    */
-		
-		$(".date-picker").live("focus", function() {
-			$(".date-picker").datepicker({
-				language: 'zh-CN',
-				format: 'yyyy-mm-dd'
-			})
-		});
 	}
 </script>

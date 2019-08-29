@@ -4,7 +4,7 @@
 		margin-top: 8px;
 	}
 </style>
-<div class="row" ng-controller="allCoursesCtrl">
+<div class="row" ng-controller="coursesDicCtrl">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet box grey-cascade">
@@ -54,7 +54,7 @@
 
 </div>
 <script>
-	function allCoursesCtrl($scope, $http, $rootScope) {
+	function coursesDicCtrl($scope, $http, $rootScope) {
 		$scope.data = [{
 			courseName: '社交礼仪'
 		}, {
