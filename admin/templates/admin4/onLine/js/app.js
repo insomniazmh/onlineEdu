@@ -122,8 +122,9 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 				
 				$rootScope.centerList = [];
 				$rootScope.majorList = [];
+				$rootScope.allPlanList = []
 				
-				//加载所有学习中心信息
+				// 加载所有学习中心信息
 				// common.ajax({
 				// 	$scope: $scope,
 				// 	$http: $http,
@@ -161,6 +162,21 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 				// 		}
 				// 	}
 				// });
+				
+				//加载所有教学计划
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						page: 0,
+						size: 10000,
+						agoDay: 30,
+					},
+					url: '/train/plan/findAllPage',
+					success: function(res) {
+						$rootScope.allPlanList = res.content;
+					}
+				});
 		
 				//header中课程被选中事件，获取被选中的课程
 				$scope.changeCourse = function(row) {
@@ -718,10 +734,46 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			}
 		})
 		
+		// 线下成绩录入
+		.state('offLineResult', {
+			url: "/offLineResult.html",
+			templateUrl: "views/teacher/offLineResult.html",
+			data: {
+				pageTitle: '线下成绩录入'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
 		// 教学计划
 		.state('plans', {
 			url: "/plans.html",
 			templateUrl: "views/plan/plans.html",
+			data: {
+				pageTitle: '教学计划'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
+		// 教学计划
+		.state('centerPlan', {
+			url: "/centerPlan.html",
+			templateUrl: "views/plan/centerPlan.html",
 			data: {
 				pageTitle: '教学计划'
 			},
@@ -761,6 +813,36 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			data: {
 				pageTitle: '教学资料',
 				pageSubTitle: '教学资料'
+			}
+		})
+		
+		//学生信息
+		.state('student', {
+			url: "/student.html",
+			templateUrl: "views/student/student.html",
+			data: {
+				pageTitle: '学生信息',
+				pageSubTitle: '学生信息'
+			}
+		})
+		
+		//学分统计
+		.state('score', {
+			url: "/score.html",
+			templateUrl: "views/student/score.html",
+			data: {
+				pageTitle: '学分统计',
+				pageSubTitle: '学分统计'
+			}
+		})
+		
+		//课时统计
+		.state('keshi', {
+			url: "/keshi.html",
+			templateUrl: "views/teacher/keshi.html",
+			data: {
+				pageTitle: '课时统计',
+				pageSubTitle: '课时统计'
 			}
 		})
 		

@@ -1,0 +1,280 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+	.label-text {
+		margin-top: 8px;
+	}
+	.abslute {
+		position: absolute;
+		float: right;
+		margin-left: -100px;
+		margin-top: 21px;
+		width: 46px;
+		height: 28px;
+	}
+</style>
+<div class="row" ng-controller="keshiCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>课时统计
+				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn red" ng-click="addOrEdit()">
+					<i class="fa fa-plus"></i> 添加 </a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<form action="#" class="form-horizontal">
+						<div class="form-body search">
+							<div class="col-md-12" style="display: flex;">
+								<div class="col-md-3">
+									<label class="label-text">姓名</label>
+									<input type="text" class="form-control" />
+								</div>
+								<div class="col-md-3">
+									<label class="label-text">联系电话</label>
+									<input type="text" class="form-control" />
+									<button class="btn blue btn-sm">查询</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>操作</th>
+							<th>姓名</th>
+							<th>性别</th>
+							<th>联系电话</th>
+							<th>学历专业</th>
+							<th>所在行业</th>
+							<th>学位</th>
+							<th>工作单位及职务</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="odd gradeX" ng-repeat='item in data'>
+							<td style="min-width: 200px;">
+								<button class="btn btn-info btn-sm" ng-click="addOrEdit(item)">编辑</button>
+								<button class="btn btn-sm btn-info" ng-click="">删除</button>
+								<button class="btn btn-sm btn-info" ng-click="upload()">上传/查看</button>
+							</td>
+							<td>{{item.name}}</td>
+							<td>{{item.sex}}</td>
+							<td>{{item.phone}}</td>
+							<td>{{item.major}}</td>
+							<td>{{item.hangye}}</td>
+							<td>{{item.xuewei}}</td>
+							<td>{{item.zhiwu}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+					<div>
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+	
+	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">图集</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<img src="{{row.fileUrl}}" style="width: 130px;height: auto;margin: 20px;border: 1px solid #82949a;" ng-repeat="row in pics" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 col-md-offset-5">
+						<div>
+							<div id="topPicSrc" class="filePicker">选择图片上传</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<!--教师信息-->
+	<div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="portlet light" style="min-height: 400px;">
+					<div class="portlet-title tabbable-line">
+						<div class="caption font-green-sharp">
+							<i class="icon-settings font-green-sharp"></i>
+							<span class="caption-subject bold uppercase" id="title">教师信息</span>
+						</div>
+						<div class="actions">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<form action="#" class="form-horizontal">
+							<div class="form-body">
+								<div class="form-group">
+									<label class="col-md-1 control-label">姓名:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.studentId'>
+									</div>
+									<label class="col-md-1 control-label">性别:</label>
+									<div class="col-md-5">
+										<select class="form-control" ng-model='detail.centerId'>
+											<option value="">请选择</option>
+											<option>男</option>
+											<option>女</option>
+										</select>
+										
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-1 control-label">出生年月:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.specialtyName'>
+									</div>
+									<label class="col-md-1 control-label">身份证号:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.studentCategory'>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-1 control-label">现任专业技术职务:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.className'>
+									</div>
+									<label class="col-md-1 control-label">取得时间:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.specialtyName'>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-1 control-label">工作单位及职务:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+									</div>
+									<label class="col-md-1 control-label">所在行业:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-1 control-label">邮箱地址:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+									</div>
+									<label class="col-md-1 control-label">联系电话:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-1 control-label">学历专业:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+									</div>
+									<label class="col-md-1 control-label">是否全日制:</label>
+									<div class="col-md-5">
+										<select class="form-control" ng-model='detail.centerId'>
+											<option value="">请选择</option>
+											<option>男</option>
+											<option>女</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-1 control-label">学位:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.entranceCertificateNumber'>
+									</div>
+									<label class="col-md-1 control-label">本人银行卡账户:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.candidateNumber'>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-1 control-label">银行卡开户行:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.totalExaminationAchievement'>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="form-actions noborder" style="text-align: right;">
+							<button type="button" class="btn blue" ng-click="sub()">确定</button>
+							<button type="button" class="btn blue" ng-click="sub(0)">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+	</div>
+	
+	
+
+</div>
+<script>
+	function keshiCtrl($scope, $http, $rootScope) {
+		$scope.data = [{
+			name: '张三',
+			sex: '男',
+			phone: '13587692369',
+			major: '信息技术',
+			hangye: 'IT',
+			xuewei: '本科',
+			zhiwu: '主管'
+		}, {
+			name: '李四',
+			sex: '女',
+			phone: '13587692369',
+			major: '信息技术',
+			hangye: '建筑',
+			xuewei: '硕士',
+			zhiwu: '副总'
+		}];
+		
+		
+		
+		$scope.addOrEdit = function() {
+			$("#teacherModal").modal('show')
+		}
+		
+		$scope.upload = function() {
+			$("#picsModal").modal('show')
+		}
+		
+		//上传图片
+		common.fileUpload({
+			id: 'topPicSrc',
+			type: 'pic',
+			success: function(file, response) {
+				$scope.$apply(function() {
+					console.log(response);
+					$scope.pics.push(response)
+					
+					$scope.savePic(response.fileUrl)
+				});
+			}
+		});
+		
+	}
+</script>

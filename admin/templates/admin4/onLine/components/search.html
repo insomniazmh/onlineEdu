@@ -1,0 +1,100 @@
+
+<div class="row" ng-controller="searchCtrl">
+	<div class="col-md-12 search">
+		<div class="col-md-6">
+			<label class="label-text">教学计划</label>
+			<input id='planName' type="text" class="form-control" />
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-1">
+			<label class="label-text">{{label}}</label>
+		</div>
+		<div class="col-md-11">
+			<ul class="nav nav-pills">
+				<li ng-repeat="item in gradeList" ng-click="select(item, gradeList)">
+					<a class="{{item.active ? 'tag-active' : ''}}" href="#">{{item.text}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script>
+	function searchCtrl($scope, $http, $rootScope) {
+		$rootScope.label = '计划创建时间'
+		$rootScope.changeSearchObj = 0
+		$rootScope.searchObj = {
+			agoDay: 30,
+			pjPlanId: ''
+		}
+		$scope.gradeList = [];
+		
+		let myDate = new Date();
+		let fullYear = myDate.getFullYear()
+		for(let i=0; i<10; i++) {
+			$scope.gradeList.push({
+				text: fullYear,
+				value: fullYear
+			})
+			fullYear--;
+		}
+		
+		$scope.$watch('allPlanList', function(newVal,oldVal) {
+			if(newVal) {
+				$scope.autocomplete()
+			}
+		})
+		
+		$scope.autocomplete = function() {
+			let data = []
+			for(let value of $rootScope.allPlanList) {
+				data.push({
+					label: value.trainProjectName,
+					value: value.pjPlanId
+				})
+			}
+			data.push({
+				label: '全部'
+			})
+			$("#planName").autocomplete({
+				minLength: 0,
+				delay: 0,
+		    //数据源
+		    source: data,
+				focus: function( event, ui ) {
+					$( "#planName" ).val( ui.item.label );
+					return false;
+				},
+				select: function( event, ui ) {
+					$scope.$apply(function() {
+						console.log(ui.item.value +"     "+ ui.item.label)
+						$rootScope.searchObj.pjPlanId = ui.item.value
+						$rootScope.changeSearchObj++
+					})
+					return false;
+				}
+			}).focus(function () {
+				$(this).autocomplete("search");//autocomplete 获取焦点时得到显示列表
+			});
+		}
+		
+		
+		$scope.select = function(value, array) {
+			if(array) {
+				$rootScope.radioActiveColor(value, array, function() {
+					for(let value of $scope.gradeList) {
+						if(value.active) {
+							$rootScope.searchObj.agoDay = value.value;
+							$rootScope.changeSearchObj++
+						}
+					}
+				});
+			}else {
+				 $rootScope.activeColor(value, function() {
+					
+				 })
+			}
+		};
+	}
+</script>

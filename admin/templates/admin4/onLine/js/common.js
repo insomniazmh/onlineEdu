@@ -361,6 +361,9 @@ var common = {
 				}else {
 					settings.$scope.data = res.content;
 				}
+				if(settings.success) {
+					settings.success()
+				}
 			}
 		});
 	}
