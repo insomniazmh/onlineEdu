@@ -1,18 +1,31 @@
 <!-- BEGIN PROFILE CONTENT -->
-<div class="profile-content">
-	<div class="row margin-top-10">
+<div class="profile-content" ng-controller="homeCtrl">
+	<!-- <div class="row margin-top-10">
 		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat2">
 				<div class="display">
 					<div class="number">
-						<h4 class="font-green-sharp">电子商务2019下半年驻马店培训8期</h4>
-						<small style="display: block;">暂无课程<a style="margin-left: 10px;">点击选择课程</a></small>
-						<small style="display: block;">暂无班级<a style="margin-left: 10px;">点击创建班级</a></small>
+						<h4 class="font-green-sharp">没有待完成事项了</h4>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+	</div> -->
+	<div class="row margin-top-10">
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat='item in noFinishList'>
+			<div class="dashboard-stat2">
+				<div class="display">
+					<div class="number">
+						<h4 class="{{colorArr[$index]}}">{{item.trainProjectName}}</h4>
+						<small ng-if='item.isCourse==0' style="display: block;">暂无课程<a style="margin-left: 10px;">点击选择课程</a></small>
+						<small ng-if='item.isClass==0' style="display: block;">暂无班级<a style="margin-left: 10px;">点击创建班级</a></small>
+						<small ng-if='item.isStudent==0' style="display: block;">部分班级暂无人员<a style="margin-left: 10px;">点击添加人员</a></small>
+						<small ng-if='item.isFile==0' style="display: block;">部分班级暂无签名表<a style="margin-left: 10px;">点击上传签名表</a></small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat2">
 				<div class="display">
 					<div class="number">
@@ -43,7 +56,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	
 	<div class="row">
@@ -95,6 +108,28 @@
 </div>
 <script src="js/echarts.min.js"></script>
 <script>
+	function homeCtrl($scope, $http, $rootScope) {
+		$scope.colorArr = ['font-green-sharp', 'font-red-haze', 'font-blue-sharp', 'font-purple-soft']
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			data: {},
+			url: '/train/plan/noFinishList',
+			success: function(res) {
+				console.log(res)
+				if(res == []) {
+					res = [{
+						trainProjectName: '没有待完成事项了'
+					}]
+				}
+				$scope.noFinishList = res
+			}
+		});
+	}
+	
+	
+	
+	
 	// 基于准备好的dom，初始化echarts实例
 
 	option1 = {

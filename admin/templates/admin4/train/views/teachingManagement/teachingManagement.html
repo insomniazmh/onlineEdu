@@ -393,7 +393,7 @@
 			if(!stu.nation || stu.nation=='') {
 				layer.alert('民族不能为空')
 				return false
-			}
+			}	
 			if(!stu.jobTitle || stu.jobTitle=='') {
 				layer.alert('单位职务不能为空')
 				return false
@@ -433,7 +433,7 @@
 				$scope: $scope,
 				$http: $http,
 				data: {
-					planId: planId
+					pjPlanId: planId
 				},
 				url: '/trainPlanCourse/findByPjPlanId',
 				success: function(res) {

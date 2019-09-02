@@ -715,7 +715,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			url: "/teachers.html",
 			templateUrl: "views/teacher/teachers.html",
 			data: {
-				pageTitle: '外聘教师'
+				pageTitle: '教师信息'
 			},
 			resolve: {
 				deps: ['$ocLazyLoad', function($ocLazyLoad) {

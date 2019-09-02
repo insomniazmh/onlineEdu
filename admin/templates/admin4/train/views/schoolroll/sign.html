@@ -73,7 +73,7 @@
 							<td>{{item.pjPlanName}}</td>
 							<td>
 								<!-- <button id='topPicSrc' class="btn btn-info btn-sm" ng-click="upload(item)">上传</button> -->
-								<button class="btn btn-info btn-sm" ng-click="look(item.trainClassId)">查看/上传</button>
+								<button class="btn btn-info btn-sm" ng-click="look(item.trainClassId, item.pjPlanId)">查看/上传</button>
 							</td>
 							<!-- <td>2019-8-11</td> -->
 						</tr>
@@ -154,8 +154,9 @@
 		};
 		
 		//查看当前班级签名表
-		$scope.look = function(classId) {
+		$scope.look = function(classId, pjPlanId) {
 			$scope.currClassId = classId
+			$scope.currPjPlanId = pjPlanId
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -177,6 +178,7 @@
 				$http: $http,
 				data: {
 					classId: $scope.currClassId,
+					pjPlanId: $scope.currPjPlanId,
 					fileUrl: fileUrl
 				},
 				url: '/classFile/saveOrUpdate',
