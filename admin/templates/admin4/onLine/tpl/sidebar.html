@@ -6,99 +6,99 @@
 			<span class="title"> 首页</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1'>
 			<a href="#/courseDic.html">
 			<i class="icon-rocket"></i>
 			<span class="title">课程字典</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1 || auth==2'>
 			<a href="#/teachers.html">
 			<i class="icon-rocket"></i>
 			<span class="title">外聘教师信息</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1'>
 			<a href="#/center.html">
 			<i class="icon-rocket"></i>
 			<span class="title">学习中心维护</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1 || auth==2'>
 			<a href="#/plans.html">
 			<i class="icon-rocket"></i>
 			<span class="title">教学计划</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1 || auth==2'>
 			<a href="#/planDatum.html">
 			<i class="icon-rocket"></i>
 			<span class="title">计划资料</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1'>
 			<a href="#/centerPlan.html">
 			<i class="icon-rocket"></i>
 			<span class="title">教学计划查询</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1 || auth==2'>
 			<a href="#/student.html">
 			<i class="icon-rocket"></i>
 			<span class="title">学生信息</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1 || auth==2'>
 			<a href="#/score.html">
 			<i class="icon-rocket"></i>
 			<span class="title">学分统计</span>
 			</a>
 		</li>
-		<li>
+		<li ng-if='auth==0 || auth==1'>
 			<a href="#/keshi.html">
 			<i class="icon-rocket"></i>
 			<span class="title">课时统计</span>
 			</a>
 		</li>
-		<li ng-if='pages.courseAdd || pages.myCourses'>
+		<li ng-if='auth==0 || auth==3'>
 			<a href="javascript:;">
 			<i class="icon-basket"></i>
 			<span class="title">课程管理</span>
 			<span class="arrow "></span>
 			</a>
 			<ul class="sub-menu">
-				<li ng-if='pages.courseAdd'>
+				<li>
 					<a href="#/courseAdd.html">
 					<i class="icon-puzzle"></i> 课程添加</span>
 					</a>
 				</li>
-				<li ng-if='pages.myCourses'>
+				<li>
 					<a href="#/myCourses.html">
 					<i class="icon-paper-clip"></i> 我的课程</span>
 					</a>
 				</li>
 			</ul>
 		</li>
-		 <li ng-if='pages.assistant || pages.knowledgePoint'>
+		 <li ng-if='auth==0 || auth==3'>
 			<a href="javascript:;">
 			<i class="icon-rocket"></i>
 			<span class="title">课程资料库</span>
 			<span class="arrow "></span>
 			</a>
 			<ul class="sub-menu">
-				<li ng-if='pages.assistant'>
+				<li>
 					<a href="#/assistant.html">
 					<i class="icon-puzzle"></i> 教学资料</span>
 					</a>
 				</li>
-				<li ng-if='pages.knowledgePoint'>
+				<li>
 					<a href="#/knowledgePoint.html">
 					<i class="icon-puzzle"></i> 知识点题库</span>
 					</a>
 				</li>
 			</ul>
 		</li> 
-		<li>
+		<li ng-if='auth==0 || auth==3'>
 			<a href="#/offLineResult.html">
 			<i class="icon-rocket"></i>
 			<span class="title">线下成绩录入</span>

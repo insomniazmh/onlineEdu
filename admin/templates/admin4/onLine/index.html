@@ -179,14 +179,15 @@ License: You must have a valid license purchased only from themeforest(the above
 		<script type="text/javascript">
 			/* Init Metronic's core jquery plugins and layout scripts */
 			$(document).ready(function() {
-				if(!localStorage.getItem("token")) {
-					layer.confirm('登录信息失效，请重新登录', {
-					  btn: ['确定'] //按钮
-					}, function(){
-					  window.location.href = "login.html";
-					});
-				}
-				
+				console.log(124)
+// 				if(!localStorage.getItem("token")) {
+// 					layer.confirm('登录信息失效，请重新登录', {
+// 					  btn: ['确定'] //按钮
+// 					}, function(){
+// 					  window.location.href = "login.html";
+// 					});
+// 				}
+				console.log(localStorage.getItem("auth"))
 				if(!localStorage.getItem("auth")) {
 					layer.confirm('您暂时没有权限，请切换账号或联系管理员分配权限', {
 					  btn: ['确定'] //按钮

@@ -188,15 +188,9 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 
 /* Setup Layout Part - Sidebar */
 MetronicApp.controller('SidebarController', ['$scope', function($scope) {
-	if(localStorage.getItem("auth")) {
-		let auth = jQuery.parseJSON(localStorage.getItem("auth"))
-		$scope.pages = {}
-		for(let value of auth) {
-			$scope.pages[value.key] = true;
-		}
-	}
-		
+	
 	$scope.$on('$includeContentLoaded', function() {
+		$scope.auth = localStorage.getItem('auth')
 			Layout.initSidebar(); // init sidebar
 	});
 }]);
