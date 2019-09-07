@@ -1,6 +1,6 @@
 var common = {
 	
-	// url: 'http://in2h3v.natappfree.cc',
+	// url: 'http://1z695163y1.iask.in:11056',
 	//正式服
 	//  url: 'https://e.hnfts.cn/lineEdu',
 	//  url2: 'https://e.hnfts.cn/lineEduQuiz',
