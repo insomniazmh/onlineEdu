@@ -69,7 +69,7 @@ var common = {
 		}
 		
 		if(settings.data) {
-			settings.data.centerAreaId = '1f184d63f76644e3bb0889d7e43d9309'
+			settings.data.centerAreaId = localStorage.getItem('centerAreaId')
 		}
 
 		Metronic.blockUI({

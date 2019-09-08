@@ -147,32 +147,32 @@ jQuery(document).ready(function() {
 	// }
 	
 	$("#login").click(function() {
-// 		$.ajax({
-// 			type:"post",
-// 			 url:"https://e.hnfts.cn/lineEdu/auth/login",
-// 			headers: {
-// 				'Content-Type': 'application/json'
-// 			},
-// 			async:true,
-// 			data: JSON.stringify({
-// 			 	'teacherCode': $("#username").val(),
-// 				'passWord': $("#password").val()
-// 			}),
-// 			success: function(data) {
-// 				if(data.ret == 0) {
-// 					localStorage.setItem("token", data.data.token);
-// 					localStorage.setItem("userid", data.data.userId);
-// 					localStorage.setItem("username", $("#username").val());
-// 					localStorage.setItem("auth", data.data.roleActivity);
-// 					window.location.href='index.html';
-// 				}else {
-// 					alert(data.msg);
-// 				}
-// 			},
-// 			error: function(data) {
-// 				alert("网络异常，请稍后再试");
-// 			}
-// 		});
+		// $.ajax({
+		// 	type:"post",
+		// 	 url:"https://e.hnfts.cn/lineEdu/auth/login",
+		// 	headers: {
+		// 		'Content-Type': 'application/json'
+		// 	},
+		// 	async:true,
+		// 	data: JSON.stringify({
+		// 	 	'teacherCode': $("#username").val(),
+		// 		'passWord': $("#password").val()
+		// 	}),
+		// 	success: function(data) {
+		// 		if(data.ret == 0) {
+		// 			localStorage.setItem("token", data.data.token);
+		// 			localStorage.setItem("userid", data.data.userId);
+		// 			localStorage.setItem("username", $("#username").val());
+		// 			localStorage.setItem("auth", data.data.roleActivity);
+		// 			window.location.href='index.html';
+		// 		}else {
+		// 			alert(data.msg);
+		// 		}
+		// 	},
+		// 	error: function(data) {
+		// 		alert("网络异常，请稍后再试");
+		// 	}
+		// });
 		
 		let username = $("#username").val()
 		localStorage.setItem("username", username);
@@ -188,6 +188,7 @@ jQuery(document).ready(function() {
 			alert('账号错误，请重输')
 			return false
 		}
+		localStorage.setItem("centerAreaId", '1f184d63f76644e3bb0889d7e43d9309');
 		window.location.href='index.html';
 	})
 });

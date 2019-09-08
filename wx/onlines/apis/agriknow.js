@@ -7,14 +7,14 @@
 import request from './request.js'
 class agriknow {
   constructor() {
-      this._baseUrl = 'https://e.hnfts.cn'
-      this._quiz = '/quiz'
-      this._general = '/wechat'
-      this._education = '/education'
+    this._baseUrl = 'https://e.hnfts.cn'
+    this._quiz = '/lineEduQuiz'
+    this._wechat = '/weChat'
+    this._education = '/lineEdu'
 
     // this._baseUrl = 'http://192.168.10.2:'
     // this._quiz = '8081'
-    // this._general = '7080'
+    // this._wechat = '7080'
     // this._education = '8080'
     
     this._request = new request
@@ -35,7 +35,7 @@ class agriknow {
    * 微信登录
    */
   wxLogin(postData = {}) {
-    return this._request.getRequest(this._baseUrl + this._general + '/weChat/login', postData).then(res => res.data)
+    return this._request.getRequest(this._baseUrl + this._wechat + '/login', postData).then(res => res.data)
   }
 
   /**
@@ -43,7 +43,7 @@ class agriknow {
    */
   bindUser(realName = '', idNumber = '') {
     let data = { studentName: realName, stuIDCard: idNumber }
-    return this._request.postRequest(this._baseUrl + this._general + '/weChat/binding', data).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._wechat + '/binding', data).then(res => res.data)
   }
 
   /**
@@ -203,14 +203,14 @@ class agriknow {
    *  资讯列表
    */
   articleFindAll(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._general + '/article/findAllDesc', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._education + '/article/findAllDesc', postData).then(res => res.data)
   }
 
   /**
    *  资讯详情
    */
   articleDetail(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._general + '/article/findId', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._education + '/article/findId', postData).then(res => res.data)
   }
 }
 export default agriknow
