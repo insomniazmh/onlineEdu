@@ -31,7 +31,7 @@
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
-								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
+								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item)">取消</button>
 							</td>
 							<td>
 								<span ng-show='!item.edit'>{{item.courseName}}</span>
@@ -55,6 +55,17 @@
 </div>
 <script>
 	function coursesDicCtrl($scope, $http, $rootScope) {
+		//加载课程字典列表
+		$scope.loadCouseDicList = function() {			
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/onLineCourseDic/findAll'
+			});
+		};
+		$scope.loadCouseDicList();
+		
 		$scope.data = [{
 			courseName: '社交礼仪'
 		}, {
@@ -63,7 +74,7 @@
 		
 		$scope.add = function() {
 			$scope.flag = 'add';
-			$rootScope.allCourseList.push({ edit: true })
+			$scope.data.push({ edit: true })
 		};
 		
 		$scope.edit = function(course) {
@@ -77,38 +88,38 @@
 				layer.alert('课程名称不能为空')
 				return false
 			}
-			// common.ajax({
-			// 	$scope: $scope,
-			// 	$http: $http,
-			// 	data: course,
-			// 	operate: true,
-			// 	url: '/trainCourse/saveOrUpdate',
-			// 	success: function(res) {
-			// 		$rootScope.loadAllCourseList();
-			// 	}
-			// });
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: course,
+				operate: true,
+				url: '/onLineCourseDic/saveOrUpdate',
+				success: function(res) {
+					$scope.loadCouseDicList();
+				}
+			});
 		};
 		
-		$scope.cancel = function(course, index) {
+		$scope.cancel = function(course) {
 			if($scope.flag == 'add') {
-				$rootScope.allCourseList.splice(index, 1);
+				$scope.data.pop();
 			}else if($scope.flag == 'edit') {
 				course.edit = false;				
 			}
 		};		
 		
 		$scope.del = function(course) {
-			// common.ajax({
-			// 	$scope: $scope,
-			// 	$http: $http,
-			// 	operate: true,
-			// 	data: course,
-			// 	tip: '您确定要删除该课程吗？',
-			// 	url: '/specialty/deleteBySpecialtyId',
-			// 	success: function(res) {
-			// 		$scope.loadDataList();
-			// 	}
-			// });
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: course.courseId,
+				tip: '您确定要删除该课程吗？',
+				url: '/onLineCourseDic/removeByCourseId',
+				success: function(res) {
+					$scope.loadCouseDicList();
+				}
+			});
 		};
 	}
 </script>
