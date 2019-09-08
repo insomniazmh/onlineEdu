@@ -828,4 +828,9 @@ MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settin
 				callback();
 			}
 		}
+		
+		//当$location.path发生变化或者$location.url发生变化时触发
+		$rootScope.$on('$locationChangeStart',function (event,msg) {
+			$rootScope.searchObj = {}
+		});
 }]);

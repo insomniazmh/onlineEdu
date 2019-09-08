@@ -4,9 +4,9 @@ var common = {
 	// url: 'https://e.hnfts.cn/lineEdu',
 
 	//测试服
-	// url: 'http://192.168.10.2:7080',
+	url: 'http://192.168.10.2:7080',
 	
-	url: '114.115.174.243:7080',
+	// url: '114.115.174.243:7080',
 	
 	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 	
