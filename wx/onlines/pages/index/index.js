@@ -45,6 +45,25 @@ Page({
     ]
 
   },
+
+  muCourses: function() {
+    getApp().agriknow.bindUser(this.data.realName, this.data.idNumber)
+      .then(res => {
+        wx.showToast({
+          title: '绑定成功！',
+        });
+        getApp().globalData.alreadyBind = true;
+        setTimeout(function () {
+          wx.navigateTo({
+            url: '/pages/index/index'
+          });
+        }, 2000);
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      })
+  },
+
   jumpTransaction: function (e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.url
