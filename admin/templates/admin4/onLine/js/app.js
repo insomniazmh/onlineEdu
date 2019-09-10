@@ -172,7 +172,7 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 						size: 10000,
 						agoDay: 30,
 					},
-					url: '/train/plan/findAllPage',
+					url: '/teachPlan/findByPlanIdPageAll',
 					success: function(res) {
 						$rootScope.allPlanList = res.content;
 					}

@@ -37,7 +37,8 @@
 						<tr>
 							<th>操作</th>
 							<th>计划名称</th>
-							<th ng-show='!globalEdit'>课程</th>
+							<th ng-show='!globalEdit'>课程数</th>
+							<th ng-show='!globalEdit'>班级数</th>
 							<th>计划开始时间</th>
 							<th>计划截止时间</th>
 							<th>负责人</th>
@@ -48,31 +49,32 @@
 						<tr class="odd gradeX" ng-repeat="item in data">
 							<td style="min-width: 250px;">
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="planCourses(item.pjPlanId)">课程</button>
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="classPeople(item.pjPlanId, item.trainProjectName)">班级</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.trainProjectName}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.trainProjectName" />
+								<span ng-show='!item.edit'>{{item.planName}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.planName" />
 							</td>
 							<td ng-show='!globalEdit'>
-								{{item.trainCourse}}
+								<a ng-click='planCourses(item.planId)'>{{item.courseNumber}}</a>
+							</td>
+							<td ng-show='!globalEdit'>
+								<a ng-click='planCourses(item.planId, item.planName)'>{{item.classNumber}}</a>
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.trainStart}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.trainStart" class="date-picker" />
+								<span ng-show='!item.edit'>{{item.startDate}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.startDate" class="date-picker" />
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.trainEnd}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.trainEnd" class="date-picker" />
+								<span ng-show='!item.edit'>{{item.endDate}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.endDate" class="date-picker" />
 							</td>
 							
 							<td>
-								<span ng-show='!item.edit'>{{item.trainAdmin}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.trainAdmin" />
+								<span ng-show='!item.edit'>{{item.planAdmin}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.planAdmin" />
 							</td>
 							<td ng-show='!globalEdit'>{{item.updateTime}}</td>
 						</tr>
@@ -116,6 +118,7 @@
 										<th>学分</th>
 										<th>线上成绩占比(%)</th>
 										<th>线下成绩占比(%)</th>
+										<th>授课老师</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -128,16 +131,23 @@
 										</td>
 										<td>{{item.courseName}}</td>
 										<td>
-											<span ng-show='!item.edit'>{{item.xuefen}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.xuefen" />
+											<span ng-show='!item.edit'>{{item.credit}}</span>
+											<input ng-show='item.edit' type="text" ng-model="item.credit" />
 										</td>
 										<td>
-											<span ng-show='!item.edit'>{{item.onLine}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.onLine" />
+											<span ng-show='!item.edit'>{{item.onLinePercentage}}</span>
+											<input ng-show='item.edit' type="text" ng-model="item.onLinePercentage" />
 										</td>
 										<td>
-											<span ng-show='!item.edit'>{{item.offLine}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.offLine" />
+											<span>{{100-item.onLinePercentage}}</span>
+										</td>
+										<td>
+											<span ng-show='!item.edit'>{{item.teacherName}}</span>
+											<select ng-show='item.edit' ng-model="item.teacher" ng-options="x.teacherName for x in allTeachers">
+											</select>
+											<!-- <select ng-show='item.edit' ng-model="item.teacherId">
+												<option value='row.teacherId' ng-repeat='row in allTeachers'>{{row.teacherName}}</option>
+											</select> -->
 										</td>
 									</tr>
 								</tbody>
@@ -145,7 +155,7 @@
 						</div>
 						
 						<div class="col-md-12" style="text-align: center">
-							<button type="button" style="width: 200px" class="btn btn-md blue" ng-click=""> 确定 </button>
+							<button type="button" style="width: 200px" class="btn btn-md blue" ng-click="planCoursesUpd()"> 确定 </button>
 						</div>
 					</div>
 				</div>
@@ -264,7 +274,33 @@
 
 </div>
 <script>
-	function plansCtrl($scope, $http, $rootScope) {
+	function plansCtrl($scope, $http, $rootScope, $interval) {
+		//获取所有老师信息
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			data: {
+				page: 0,
+				size: 10000
+			},
+			url: '/teacher/findAllPage',
+			success: function(res) {
+				$scope.allTeachers = res.content;
+				console.log($scope.allTeachers);
+			}
+		});
+		
+		//获取所有班级信息
+		common.ajax({
+			$scope: $scope,
+			$http: $http,
+			method: 'get',
+			url: '/class/list',
+			success: function(res) {
+				$scope.allClasses = res;
+			}
+		});
+		
 		$scope.currentPage = 1
 		$scope.searchObj = {
 			agoDay: 30
@@ -275,21 +311,23 @@
 				$scope: $scope,
 				$http: $http,
 				$rootScope: $rootScope,
-				url: '/train/plan/findAllPage',
-				success: function() {
-					for(let value of $scope.data) {
-						if(!value.trainCourse) {
-							value.trainCourse = '暂无'
-						}
-					}
-				}
+				url: '/teachPlan/findByPlanIdPageAll',
 			})
 		}
 		$scope.loadAllPlan();
 		
+		//跳转页数
 		$scope.pageChanged = function() {
 			$scope.loadAllPlan();
 		}
+		
+		//更改查询条件
+		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
+			if($rootScope.searchObj) {
+				$scope.searchObj = $rootScope.searchObj
+				$scope.loadAllPlan();
+			}
+		})
 		
 		/*    教学计划增删改查start    */
 		$scope.add = function() {
@@ -306,15 +344,15 @@
 		
 		$scope.save = function(plan) {
 			plan.trainAreaId = 1;
-			if(!plan.trainProjectName || plan.trainProjectName=='') {
+			if(!plan.planName || plan.planName=='') {
 				layer.alert('计划名称不能为空')
 				return false
 			}
-			if(!plan.trainStart || plan.trainStart=='') {
+			if(!plan.startDate || plan.startDate=='') {
 				layer.alert('计划开始时间不能为空')
 				return false
 			}
-			if(!plan.trainEnd || plan.trainEnd=='') {
+			if(!plan.endDate || plan.endDate=='') {
 				layer.alert('计划截止时间不能为空')
 				return false
 			}
@@ -323,7 +361,7 @@
 				$http: $http,
 				data: plan,
 				operate: true,
-				url: '/train/plan/saveOrUpdate',
+				url: '/teachPlan/saveUpdate',
 				success: function(res) {
 					$scope.loadAllPlan();
 					$scope.globalEdit = false
@@ -343,11 +381,18 @@
 		
 		//查询课程字典中的所有课程
 		$scope.loadCourseDic = function() {
-			$scope.courseDic = [{
-				courseName: '社交礼仪'
-			}, {
-				courseName: '电子商务'
-			}]
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					page: 0,
+					size: 10000
+				},
+				url: '/onLineCourseDic/findAll',
+				success: function(res) {
+					$scope.courseDic = res;
+				}
+			});
 		}
 		$scope.loadCourseDic()
 		
@@ -360,8 +405,9 @@
 				data: {
 					planId: planId
 				},
-				url: '/trainPlanCourse/findByPjPlanId',
+				url: '/teachPlan/course/'+planId,
 				success: function(res) {
+					$scope.courseList = res
 					for(let ac of $scope.courseDic) {
 						ac.checked = false
 						for(let pc of res) {
@@ -378,9 +424,7 @@
 		$scope.courseList = []
 		$scope.clkCD = function(courseDic) {
 			if(courseDic.checked) {
-				$scope.courseList.push({
-					courseName: courseDic.courseName
-				})
+				$scope.courseList.push(courseDic)
 			}else {
 				$scope.courseList = $scope.courseList.filter(function(item) {
 					return item.courseName != courseDic.courseName
@@ -391,6 +435,11 @@
 		/*    课程信息增删改查start    */
 		$scope.editCourse = function(course) {
 			course.edit = true;
+			for(let value of $scope.allTeachers) {
+				if(value.teacherId == course.teacherId) {
+					course.teacher = value
+				}
+			}
 		}
 		
 		$scope.saveCourse = function(course) {
@@ -414,27 +463,36 @@
 		
 		//根据计划id更新所选课程
 		$scope.planCoursesUpd = function() {
-			console.log($scope.courseDic)
 			let postData = {
-				pjPlanId: $scope.currPlanId,
-				list: []
+				planId: $scope.currPlanId,
+				courses: []
 			}
-			for(let value of $scope.courseDic) {
-				if(value.checked) {
-					postData.list.push({
-						courseId: value.courseId,
-						courseName: value.courseName,
-						pjPlanId: $scope.currPlanId
-					})
+			for(let value of $scope.courseList) {
+				console.log(value)
+				if(!value.teacher && value.teacherId) {
+					layer.alert('请选择授课老师') 
+					return false
 				}
+				if(!value.credit) {
+					layer.alert('请输入学分') 
+					return false
+				}
+				if(!value.onLinePercentage) {
+					layer.alert('请输入线上成绩占比') 
+					return false
+				}
+				value.onLinePercentage = parseInt(value.onLinePercentage);
+				value.linePercentage = 100-value.onLinePercentage
+				postData.courses.push(value)
+				value.teacherId = value.teacher.teacherId
+				value.teacherName = value.teacher.teacherName
 			}
-				
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
 				data: postData,
 				operate: true,
-				url: '/trainPlanCourse/saveOrUpdate',
+				url: '/teachPlan/saveUpdateCourse',
 				success: function(res) {
 					console.log(res)
 					$scope.loadAllPlan();
@@ -559,7 +617,7 @@
 		$scope.saveStu = function(stu) {
 			stu.trainClassId = $scope.currClass.trainClassId;
 			stu.trainClassName = $scope.currClass.trainClassName;
-			stu.trainProjectName = $scope.currPlanName
+			stu.planName = $scope.currPlanName
 			stu.pjPlanId = $scope.currPlanId
 			
 			if(!stu.stuName || stu.stuName=='') {
