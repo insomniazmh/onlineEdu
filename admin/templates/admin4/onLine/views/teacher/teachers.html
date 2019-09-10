@@ -21,7 +21,7 @@
 					<i class="fa fa-globe"></i>教师信息
 				</div>
 				<div class="actions">
-					<a href="javascript:;" class="btn red" ng-click="addOrEdit()">
+					<a href="javascript:;" class="btn red" ng-click="add()">
 					<i class="fa fa-plus"></i> 添加 </a>
 				</div>
 			</div>
@@ -59,17 +59,17 @@
 					<tbody>
 						<tr class="odd gradeX" ng-repeat='item in data'>
 							<td style="min-width: 200px;">
-								<button class="btn btn-info btn-sm" ng-click="addOrEdit(item)">编辑</button>
-								<button class="btn btn-sm btn-info" ng-click="">删除</button>
-								<button class="btn btn-sm btn-info" ng-click="upload()">上传/查看</button>
+								<button class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
+								<button class="btn btn-sm btn-info" ng-click="del(item)">删除</button>
+								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
 							</td>
-							<td>{{item.name}}</td>
-							<td>{{item.sex}}</td>
+							<td>{{item.teacherName}}</td>
+							<td>{{item.gender}}</td>
 							<td>{{item.phone}}</td>
-							<td>{{item.major}}</td>
-							<td>{{item.hangye}}</td>
-							<td>{{item.xuewei}}</td>
-							<td>{{item.zhiwu}}</td>
+							<td>{{item.specialty}}</td>
+							<td>{{item.industry}}</td>
+							<td>{{item.academicDegree}}</td>
+							<td>{{item.position}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -90,7 +90,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">图集</h4>
+					<h4 class="modal-title">图片</h4>
 				</div>
 				<div class="modal-body">
 					<div class="portlet">
@@ -133,11 +133,11 @@
 								<div class="form-group">
 									<label class="col-md-1 control-label">姓名:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.studentId'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.teacherName'>
 									</div>
 									<label class="col-md-1 control-label">性别:</label>
 									<div class="col-md-5">
-										<select class="form-control" ng-model='detail.centerId'>
+										<select class="form-control" ng-model='detail.gender'>
 											<option value="">请选择</option>
 											<option>男</option>
 											<option>女</option>
@@ -146,44 +146,44 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-1 control-label">出生年月:</label>
+									<label class="col-md-1 control-label">出生日期:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.specialtyName'>
+										<input type="text" class="form-control date-picker" placeholder="Enter text" ng-model='detail.birthDate'>
 									</div>
 									<label class="col-md-1 control-label">身份证号:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.studentCategory'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.idCard'>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-1 control-label">现任专业技术职务:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.className'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.professionalTitle'>
 									</div>
 									<label class="col-md-1 control-label">取得时间:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.specialtyName'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.professionalTitleDate'>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-1 control-label">工作单位及职务:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.position'>
 									</div>
 									<label class="col-md-1 control-label">所在行业:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.industry'>
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<label class="col-md-1 control-label">邮箱地址:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.email'>
 									</div>
 									<label class="col-md-1 control-label">联系电话:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.grade'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.phone'>
 									</div>
 								</div>
 								<div class="form-group">
@@ -193,7 +193,7 @@
 									</div>
 									<label class="col-md-1 control-label">是否全日制:</label>
 									<div class="col-md-5">
-										<select class="form-control" ng-model='detail.centerId'>
+										<select class="form-control" ng-model='detail.isFullTime'>
 											<option value="">请选择</option>
 											<option>是</option>
 											<option>否</option>
@@ -203,24 +203,24 @@
 								<div class="form-group">
 									<label class="col-md-1 control-label">学位:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.entranceCertificateNumber'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.academicDegree'>
 									</div>
 									<label class="col-md-1 control-label">本人银行卡账户:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.candidateNumber'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.bankCardAccount'>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-1 control-label">银行卡开户行:</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.totalExaminationAchievement'>
+										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.bankCardBank'>
 									</div>
 								</div>
 							</div>
 						</form>
 						<div class="form-actions noborder" style="text-align: right;">
-							<button type="button" class="btn blue" ng-click="sub()">确定</button>
-							<button type="button" class="btn blue" ng-click="sub(0)">取消</button>
+							<button type="button" class="btn blue" ng-click="save()">确定</button>
+							<button type="button" class="btn blue">取消</button>
 						</div>
 					</div>
 				</div>
@@ -234,32 +234,103 @@
 </div>
 <script>
 	function teachersCtrl($scope, $http, $rootScope) {
-		$scope.data = [{
-			name: '张三',
-			sex: '男',
-			phone: '13587692369',
-			major: '信息技术',
-			hangye: 'IT',
-			xuewei: '本科',
-			zhiwu: '主管'
-		}, {
-			name: '李四',
-			sex: '女',
-			phone: '13587692369',
-			major: '信息技术',
-			hangye: '建筑',
-			xuewei: '硕士',
-			zhiwu: '副总'
-		}];
+		//加载外聘教师列表
+		$scope.loadTeacherList = function() {			
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/teacher/findAllPage'
+			});
+		};
+		$scope.loadTeacherList()
 		
-		
-		
-		$scope.addOrEdit = function() {
+		//添加
+		$scope.add = function() {
+			$scope.detail = {}
 			$("#teacherModal").modal('show')
 		}
 		
-		$scope.upload = function() {
+		//修改
+		$scope.edit = function(detail) {
+			$scope.detail = {}
+			$scope.detail = detail
+			$("#teacherModal").modal('show')
+		}
+		
+		//确定
+		$scope.save = function() {
+			if(!$scope.detail.teacherName || $scope.detail.teacherName=='') {
+				layer.alert('教师姓名不能为空')
+				return false
+			}
+			
+			if(!$scope.detail.phone || $scope.detail.phone=='') {
+				layer.alert('联系电话不能为空')
+				return false
+			}
+			
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: $scope.detail,
+				operate: true,
+				url: '/teacher/saveOrUpdate',
+				success: function(res) {
+					$("#teacherModal").modal('hide')
+					$scope.loadTeacherList();
+				}
+			});
+		}
+		
+		$scope.del = function(detail) {
+			let index = layer.confirm('您确实要删除该教师吗', {
+				btn: ['确定','取消'] //按钮
+			}, function(){
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					data: {
+						teacherId: detail.teacherId
+					},
+					operate: true,
+					url: '/teacher/removeById',
+					success: function(res) {
+						$("#teacherModal").modal('hide')
+						$scope.loadTeacherList();
+					}
+				});
+				
+				layer.close(index);
+			}, function(){
+			});
+		}
+		
+		$scope.upload = function(detail) {
+			$scope.detail = detail
+			$scope.pics = [{
+				fileUrl: detail.fileUrl
+			}]    
 			$("#picsModal").modal('show')
+		}
+		
+		$scope.savePic = function(fileUrl) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					teacherId: $scope.detail.teacherId,
+					fileUrl: fileUrl
+				},
+				operate: true,
+				url: '/teacher/uploadFile',
+				success: function() {
+					$scope.detail.fileUrl = fileUrl
+					$scope.pics = [{
+						fileUrl: fileUrl
+					}]
+				}
+			});
 		}
 		
 		//上传图片
@@ -269,12 +340,15 @@
 			success: function(file, response) {
 				$scope.$apply(function() {
 					console.log(response);
-					$scope.pics.push(response)
-					
 					$scope.savePic(response.fileUrl)
 				});
 			}
 		});
+		
+		$(".date-picker").datepicker({
+			language: 'zh-CN',
+			format: 'yyyy-mm-dd'
+		})
 		
 	}
 </script>
