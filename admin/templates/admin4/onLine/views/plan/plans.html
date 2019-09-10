@@ -61,7 +61,7 @@
 								<a ng-click='planCourses(item.planId)'>{{item.courseNumber}}</a>
 							</td>
 							<td ng-show='!globalEdit'>
-								<a ng-click='planCourses(item.planId, item.planName)'>{{item.classNumber}}</a>
+								<a ng-click='classPeople(item.planId)'>{{item.classNumber}}</a>
 							</td>
 							<td>
 								<span ng-show='!item.edit'>{{item.startDate}}</span>
@@ -163,108 +163,24 @@
 		</div>
 	</div>
 	
-	<!-- 班级-人员 -->
-	<div class="modal fade" id="class_peopleModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<!-- 班级 -->
+	<div class="modal fade" id="classModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-full">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">教学计划班级和学员</h4>
+					<h4 class="modal-title">教学计划班级</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-5">
-							<h4 style="margin-bottom: 20px;">班级信息
-								<a href="javascript:;" class="btn red btn-sm" style="float: right;" ng-click='addCls()'>
-								<i class="fa fa-plus"></i> 添加班级 </a>
-							</h4>
-							<table class="table table-striped table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>操作</th>
-										<th>班级名称</th>
-										<th>班级负责人</th>
-										<th>负责人联系方式</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="{{item.active ? 'td-active' : ''}}" ng-repeat="item in classList" ng-click='chooseClass(item)'>
-										<td style="min-width: 150px;">
-											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="editCls(item)">编辑</button>
-											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="delCls(item)">删除</button>
-											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="saveCls(item)">保存</button>
-											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancelCls(item, $index)">取消</button>
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.trainClassName}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.trainClassName" style="width: 100%;" />
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.classAdmin}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.classAdmin" style="width: 100%;" />
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.classAdminTel}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.classAdminTel" style="width: 100%;" />
-										</td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="col-md-12 export-option">
+							<div style="display: inline-block;margin: 10px 20px;" ng-repeat='item in allClasses'>
+								<input type="checkbox" name="basicVar" ng-model='item.checked' />
+								<span style="font-weight: 600;">{{item.className}}</span>
+							</div>
 						</div>
-						<div class="col-md-7" style="border-left: 1px solid #45B6AF;">
-							<h4 style="margin-bottom: 20px;">班级学员
-							<!-- <a href="javascript:;" class="btn red btn-sm" style="float: right;" ng-click='addStu()'>
-							<i class="fa fa-plus"></i> 添加学员 </a> --></h4>
-							<table class="table table-striped table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>操作</th>
-										<th>姓名</th>
-										<th>性别</th>
-										<th>民族</th>
-										<th>单位职务</th>
-										<th>身份证号</th>
-										<th>联系方式</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="odd gradeX" ng-repeat="item in students">
-										<td style="min-width: 150px;">
-											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="editStu(item)">编辑</button>
-											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="delStu(item)">删除</button>
-											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="saveStu(item)">保存</button>
-											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancelStu(item)">取消</button>
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.stuName}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.stuName" />
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.gender}}</span>
-											<select ng-show='item.edit' ng-model="item.gender">
-												<option value="男">男</option>
-												<option value="女">女</option>
-											</select>
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.nation}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.nation" />
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.jobTitle}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.jobTitle" />
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.stuIdCard}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.stuIdCard" />
-										</td>
-										<td>
-											<span ng-show='!item.edit'>{{item.stuPhone}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.stuPhone" />
-										</td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="col-md-12" style="text-align: center">
+							<button type="button" style="width: 200px" class="btn btn-md blue" ng-click="planClassesUpd()"> 确定 </button>
 						</div>
 					</div>
 				</div>
@@ -469,7 +385,7 @@
 			}
 			for(let value of $scope.courseList) {
 				console.log(value)
-				if(!value.teacher && value.teacherId) {
+				if(!value.teacher && !value.teacherId) {
 					layer.alert('请选择授课老师') 
 					return false
 				}
@@ -483,9 +399,12 @@
 				}
 				value.onLinePercentage = parseInt(value.onLinePercentage);
 				value.linePercentage = 100-value.onLinePercentage
+				if(value.teacher) {
+					value.teacherId = value.teacher.teacherId
+					value.teacherName = value.teacher.teacherName
+				}
+				
 				postData.courses.push(value)
-				value.teacherId = value.teacher.teacherId
-				value.teacherName = value.teacher.teacherName
 			}
 			common.ajax({
 				$scope: $scope,
@@ -494,75 +413,60 @@
 				operate: true,
 				url: '/teachPlan/saveUpdateCourse',
 				success: function(res) {
-					console.log(res)
 					$scope.loadAllPlan();
 					$("#planCoursesModal").modal('hide')
 				}
 			});
 		}
 		
-		//根据计划id查询班级信息
-		$scope.classPeople = function(planId, planName) {
+		//根据计划id查询已挂载班级信息
+		$scope.classPeople = function(planId) {
 			$scope.currPlanId = planId
-			if(planName) {
-				$scope.currPlanName = planName
-			}
-			$scope.currClass = null//清空当前所选班级
-			$scope.students = []//清空学生信息
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
 				data: {
 					pjPlanId: planId
 				},
-				url: '/trainClass/findAllPage',
+				url: '/teachPlan/class/'+planId,
 				success: function(res) {
-					$scope.classList = res.content
+					for(let ac of $scope.allClasses) {
+						ac.checked = false
+						for(let pc of res) {
+							if(ac.classId == pc.classId) {
+								ac.checked = true
+							}
+						}
+					}
+					$("#classModal").modal('show');
 				}
 			});
-			$("#class_peopleModal").modal('show');
-		}
-		
-		/*    班级增删改查start    */
-		$scope.addCls = function() {
-			$scope.flagCls = 'add';
-			$scope.classList.push({ edit: true });
-		}
-		
-		$scope.editCls = function(cls) {
-			$scope.flagCls = 'edit';
-			cls.edit = true;
-		}
-		
-		$scope.saveCls = function(cls) {
-			cls.pjPlanId = $scope.currPlanId;
-			cls.pjPlanName = $scope.currPlanName;
 			
-			if(!cls.trainClassName || cls.trainClassName=='') {
-				layer.alert('班级名称不能为空')
-				return false
+		}
+		
+		//更新计划挂载的班级信息
+		$scope.planClassesUpd = function() {
+			let postData = {
+				planId: $scope.currPlanId,
+				classIds: []
 			}
-			
+			for(let ac of $scope.allClasses) {
+				if(ac.checked) {
+					postData.classIds.push(ac.classId)
+				}
+			}
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
-				data: cls,
+				data: postData,
 				operate: true,
-				url: '/trainClass/saveOrUpdate',
+				url: '/teachPlan/saveUpdateClass',
 				success: function(res) {
-					$scope.classPeople($scope.currPlanId, null)
+					$scope.loadAllPlan();
+					$("#classModal").modal('hide')
 				}
 			});
-		};
-		
-		$scope.cancelCls = function(cls) {
-			if($scope.flagCls == 'add') {
-				$scope.classList.pop();
-			}else if($scope.flagCls == 'edit') {
-				cls.edit = false;				
-			}
-		};
-		/*    班级增删改查end    */
+		}
 		
 		$(".date-picker").live("focus", function() {
 			$(".date-picker").datepicker({
@@ -571,97 +475,6 @@
 			})
 		});
 		
-		//点击班级变色,并加载该班级中的学员
-		$scope.chooseClass = function(cls) {
-			console.log(cls)
-			if(!cls.trainClassId) return false
-			for(let value of $scope.classList) {
-				value.active = false
-			}
-			cls.active = true
-			$scope.currClass = cls
-			$scope.loadClassStudents()
-		} 
 		
-		//根据班级id加载学员
-		$scope.loadClassStudents = function() {
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				data: {
-					classId: $scope.currClass.trainClassId
-				},
-				url: '/trainClassStu/findByClassIdAllPage',
-				success: function(res) {
-					console.log(res)
-					$scope.students = res.content
-				}
-			});
-		}
-		
-		/*    学员增删改查start    */
-		$scope.addStu = function() {
-			if(!$scope.currClass) {
-				layer.alert('请先点击左侧表格，选择班级')
-				return false
-			}
-			$scope.flagStu = 'add';
-			$scope.students.push({ edit: true });
-		}
-		
-		$scope.editStu = function(stu) {
-			$scope.flagStu = 'edit';
-			stu.edit = true;
-		}
-		
-		$scope.saveStu = function(stu) {
-			stu.trainClassId = $scope.currClass.trainClassId;
-			stu.trainClassName = $scope.currClass.trainClassName;
-			stu.planName = $scope.currPlanName
-			stu.pjPlanId = $scope.currPlanId
-			
-			if(!stu.stuName || stu.stuName=='') {
-				layer.alert('姓名不能为空')
-				return false
-			}
-			if(!stu.gender || stu.gender=='') {
-				layer.alert('请选择性别')
-				return false
-			}
-			if(!stu.nation || stu.nation=='') {
-				layer.alert('民族不能为空')
-				return false
-			}
-			if(!stu.jobTitle || stu.jobTitle=='') {
-				layer.alert('单位职务不能为空')
-				return false
-			}
-			if(!stu.stuPhone || stu.stuPhone=='') {
-				layer.alert('联系方式不能为空')
-				return false
-			}
-			
-			common.ajax({
-				$scope: $scope,
-				$http: $http,
-				data: stu,
-				operate: true,
-				url: '/trainClassStu/saveOrUpdate',
-				success: function(res) {
-					$scope.loadClassStudents()
-				}
-			});
-		};
-		
-		$scope.cancelStu = function(stu) {
-			console.log($scope.flag)
-			if($scope.flagStu == 'add') {
-				$scope.students.pop();
-			}else if($scope.flagStu == 'edit') {
-				stu.edit = false;				
-			}
-			console.log(stu)
-		};
-		/*    学员增删改查end    */
 	}
 </script>
