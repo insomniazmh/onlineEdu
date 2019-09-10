@@ -4,7 +4,7 @@
 		<div class="row" style="margin-bottom: 40px;">
 			<div class="col-md-4">
 				<div class="form-group form-md-line-input">
-					<input id="courseName" type="text" class="form-control" ng-model="course.courseName" placeholder="请输入课程名称">
+					<input id="courseName" type="text" class="form-control" placeholder="请输入课程名称">
 					<label for="form_control_1">名称<span style="color: red;">*</span></label>
 				</div>
 			</div>
@@ -86,6 +86,17 @@
 						$scope.course = data.data;
 						//课程描述
 						$('#summernoteMiaoshu').code($scope.course.courseDescribe);
+						//课程名称
+						$(input).data('ui-autocomplete')._trigger(
+						    'select', 
+						    'autocompleteselect', 
+						    {
+									item: {
+										value:$scope.course.courseNumber,
+										label:$scope.course.courseName
+									}
+								}
+						)
 						
 						//处理封面
 						if (!$scope.course.topPicSrc) {
@@ -199,5 +210,54 @@
 				});
 			}
 		});
+		
+		//课程自动补全
+		$scope.autocomplete = function() {
+			let data  = []
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					page: 0,
+					size: 10000
+				},
+				url: '/onLineCourseDic/findAll',
+				success: function(res) {
+					console.log(res)
+					for(let value of res) {
+						data.push({
+							label: value.courseName,
+							value: value.courseId
+						})
+						
+					}
+					data.push({
+						label: '全部'
+					})
+				}
+			});
+			
+			$("#courseName").autocomplete({
+				minLength: 0,
+				delay: 0,
+		    //数据源
+		    source: data,
+				focus: function( event, ui ) {
+					$( "#courseName" ).val( ui.item.label );
+					return false;
+				},
+				select: function( event, ui ) {
+					$scope.$apply(function() {
+						console.log(ui.item.value +"     "+ ui.item.label)
+						$scope.course.courseName = ui.item.label;
+						$scope.course.courseNumber = ui.item.value;
+					})
+					return false;
+				}
+			}).focus(function () {
+				$(this).autocomplete("search");//autocomplete 获取焦点时得到显示列表
+			});
+		}
+		$scope.autocomplete()
 	}
 </script>
