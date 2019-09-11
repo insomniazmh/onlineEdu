@@ -3,7 +3,7 @@
          src="blob:https://www.bilibili.com/ec78544f-6978-47d3-ba3d-0a21dc15cbe7"></video> -->
   <video id="video" src="{{videoUrl}}" bindtimeupdate='timeupdate' controls></video>
   <view>
-    <van-tabs active="{{ active }}" bind:click="changeContent">
+    <van-tabs active="{{ active }}">
       <van-tab title="详情">
         <view wx:for="{{curriculum}}" wx:key="curriculum" class='content'>
           <view class='contetTitle'>{{item.headText}}</view>
@@ -16,13 +16,6 @@
             <view class='leftTitle'>课程简介</view>
             <view class='itemContent'>{{item.chapter}}</view>
           </view>
-          <!-- <view class='contentItem'>
-            <view class='leftTitle'>授课老师</view>
-            <view class='centImg'>
-              <image src='/img/floor/a3.png'></image>
-              <view class='imgName'>张婷</view>
-            </view>
-          </view> -->
         </view>
         
       </van-tab>
@@ -47,11 +40,13 @@
       </van-tab>
       <van-tab title="目录">
         <van-collapse value="{{ activeNames }}" bind:change="onChange" accordion>
-          <van-collapse-item wx:for="{{collapseList}}" 
+          <van-collapse-item wx:for="{{chapterList}}" 
             wx:key='colapse'
-            title="{{item.colpseTitle}}" 
+            title="{{item.text}}" 
             name="{{item.index}}">
-            {{item.colpseMtitle}}
+            <view wx:for="{{item.children}}" 
+              data-id='{{item.id}}' 
+              bindtap='chooseChapter'>{{item.text}}</view>
           </van-collapse-item>
         </van-collapse>
       </van-tab>

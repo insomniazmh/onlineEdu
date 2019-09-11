@@ -60,7 +60,9 @@
       <view class='right_info'>
         <text>《{{item.courseName}}》</text>
         <text class='mt_20'>课程描述：</text>
-        <rich-text class='mt_20' nodes="{{item.courseDescribe}}"></rich-text>
+        <view style="width:65%;float:right;margin-top:8rpx;">
+          <rich-text class='text2' nodes="{{item.courseDescribe}}" bindtap="tap"></rich-text>
+        </view>
         <text class='mt_10'>授课老师：{{item.teacherName}}</text>
       </view>
       <view class='cfx'></view>

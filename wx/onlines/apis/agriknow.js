@@ -7,15 +7,13 @@
 import request from './request.js'
 class agriknow {
   constructor() {
-    this._baseUrl = 'https://e.hnfts.cn'
-    this._quiz = '/lineEduQuiz'
-    this._wechat = '/weChat'
-    this._education = '/lineEdu'
+    // this._baseUrl = 'https://e.hnfts.cn'
+    // this._quiz = '/lineEduQuiz'
+    // this._education = '/lineEdu'
 
-    // this._baseUrl = 'http://192.168.10.2:'
-    // this._quiz = '8081'
-    // this._wechat = '7080'
-    // this._education = '8080'
+    this._baseUrl = 'http://192.168.10.2:'
+    this._quiz = '7081'
+    this._education = '7080'
     
     this._request = new request
     this._request.setErrorHandler(this.errorHander)
@@ -35,7 +33,7 @@ class agriknow {
    * 微信登录
    */
   wxLogin(postData = {}) {
-    return this._request.getRequest(this._baseUrl + this._wechat + '/login', postData).then(res => res.data)
+    return this._request.getRequest(this._baseUrl + this._education + '/weChat/login', postData).then(res => res.data)
   }
 
   /**
@@ -43,14 +41,14 @@ class agriknow {
    */
   bindUser(realName = '', idNumber = '') {
     let data = { studentName: realName, stuIDCard: idNumber }
-    return this._request.postRequest(this._baseUrl + this._wechat + '/binding', data).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._education + '/weChat/binding', data).then(res => res.data)
   }
 
   /**
    *  加载我的课程（当前学期正在进行中的课程）
    */
   myCourseList(postData = {}) {
-    return this._request.getRequest(this._baseUrl + this._education + '/course/myCourseList', postData).then(res => res.data)
+    return this._request.getRequest(this._baseUrl + this._education + '/course/studentCourseList', postData).then(res => res.data)
   }
   
   /**
@@ -166,17 +164,24 @@ class agriknow {
   }
 
   /**
-   *  根据章节id加载资料
+   *  根据章节id加载视频课件
    */
-  loadDatumList(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._education + '/courseData/findDatumList', postData).then(res => res.data)
+  loadVideo(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseware/findByChapterId', postData).then(res => res.data)
   }
 
   /**
-   *  根据章节id加载预习练习（课后作业）题目
+   *  根据章节id加载资料
+   */
+  loadDatumList(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/chapteData/findDatumList', postData).then(res => res.data)
+  }
+
+  /**
+   *  根据章节id加载预习练习（课后作业）题目（快照）
    */
   loadExerciseList(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/exerciseBook/findExerciseBook', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/studentAnswer/findQuestions', postData).then(res => res.data)
   }
 
   /*------------------------------------------------------------------------------------------------------------*/

@@ -7,7 +7,7 @@ Page({
   data: {
     active: 0,
     activeNames: '1',
-    videoUrl: 'https://e.hnfts.cn/file/group1/M00/00/00/wKgVolz_XHSAPZRCAKZadEGkJGs856.mp4',
+    videoUrl: '',
     curriculum:[
       {
         headText:"高中语文深度进阶诗词专题",
@@ -34,37 +34,94 @@ Page({
         looks:"/img/icon/looks.png"
       },
     ],
-    collapseList:[
-      {
-        index: '0',
-        colpseTitle:"第一讲  高考诗词鉴赏",
-        colpseMtitle:"1.1诗词鉴赏考察要点"
-      },
-      {
-        index: '1',
-        colpseTitle: "第二讲  高考诗词鉴赏",
-        colpseMtitle: "2.1诗词鉴赏考察要点"
-      }
-    ]
-  },
-  changeContent(event) {
-    // wx.showToast({
-    //   title: `切换到标签 ${event.detail.index + 1}`,
-    //   icon: 'none'
-    // })
-  },
-  onChange(event) {
-    console.log(event.detail);
-    this.setData({
-      activeNames: event.detail
-    });
+    chapterList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      courseId: options.id
+    })
+    this.loadChapter()
+  },
 
+  //根据课程id获取章节列表
+  loadChapter: function () {
+    let that = this
+    let chapterList = []
+    getApp().agriknow.loadChapterByCourseId({
+      courseId: that.data.courseId
+    }).then(res => {
+      //拼装章节，两层循环
+      for (let i = 0; i < res.data.length; i++) {
+        console.log(res.data[i])
+        if (res.data[i].parent == '0') {
+          res.data[i].children = [] 
+          chapterList.push(res.data[i])
+        }else {
+          for (let y = 0; y < chapterList.length; y++) {
+            if (res.data[i].parent == chapterList[y].id) {
+              chapterList[y].children.push(res.data[i])
+            }
+          }
+        }
+      }
+      console.log(chapterList)
+      that.setData({
+        chapterList: chapterList
+      })
+    }).catch(res => {
+
+    })
+  },
+
+  //点击章节切换资源
+  chooseChapter: function (e) {
+    this.loadVideo(e.currentTarget.dataset.id)
+    this.loadDatumList(e.currentTarget.dataset.id)
+    this.loadExerciseList(e.currentTarget.dataset.id)
+  },
+
+  //加载视频课件
+  loadVideo: function(chapterId) {
+    let that = this
+    getApp().agriknow.loadVideo({
+      chapterId: chapterId
+    }).then(res => {
+      that.setData({
+        videoUrl: res.data[0].fileUrl
+      })
+    })
+    .catch(res => {
+      //wx.stopPullDownRefresh()
+    })
+  },
+
+  //加载章节资料
+  loadDatumList: function (chapterId) {
+    let that = this
+    getApp().agriknow.loadDatumList({
+      chapterId: chapterId
+    }).then(res => {
+
+    }).catch(res => {
+      //wx.stopPullDownRefresh()
+    })
+  },
+
+  //加载章节练习题
+  loadExerciseList: function (chapterId) {
+    let that = this
+    getApp().agriknow.loadExerciseList({
+      chapterId: chapterId
+    }).then(res => {
+
+    }).catch(res => {
+      //wx.stopPullDownRefresh()
+    })
   },
 
   /**
@@ -79,6 +136,13 @@ Page({
    */
   onReady: function () {
     this.videoContext = wx.createVideoContext('video');
+  },
+
+  //章节列表插件要求写法
+  onChange(event) {
+    this.setData({
+      activeNames: event.detail
+    });
   },
 
   /**

@@ -9,55 +9,38 @@ Page({
       "/img/banner_1.jpg",
       "/img/banner_1.jpg",
       "/img/banner_1.jpg"
-      ],
-      indicatorDots: true,
-      autoplay: true,
-      interval: 5000,
-      duration: 500,
+    ],
+    indicatorDots: true,
+    autoplay: true,
+    interval: 5000,
+    duration: 500,
     courseList: [
       {
-        courseDescribe: "",
-        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-        courseName: "新编商务英语",
-        teacherId: "dongbo",
-        teacherName: "董波",
-        joinChapterName: "第一讲:商务英语的由来",
-        topPicSrc: "http://118.24.120.43:8080/group1/M00/00/06/rBsADFzFVPWAHFgZAAE-NPUKEQM835.jpg"
-      },
-      {
-        courseDescribe: "",
-        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-        courseName: "电子商务基础与应用",
-        teacherId: "dongbo",
+        alias: "上册",
+        courseDescribe: "<p>werr&nbsp;</p>",
+        courseId: "d30b4000f80149ccbddd469542d515f3",
+        courseName: "测试911",
+        courseNumber: "38217b2927974f4181091c526de374fd",
         teacherName: "董波",
         joinChapterName: "第二讲:FLASH动画的原理",
-        topPicSrc: "/img/zbook.png"
-      },
-      {
-        courseDescribe: "",
-        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-        courseName: "计算机基础教程",
-        teacherId: "dongbo",
-        teacherName: "董波",
-        joinChapterName: "第五讲:CPU，内存的作用",
-        topPicSrc: "/img/7.jpg"
+        createTime: "2019-09-11 15:43:20",
+        createUser: "15012345678",
+        isValidated: "0",
+        jobsPercentage: "80",
+        learningTime: "6",
+        topPicSrc: "https://e.hnfts.cn/file/group1/M00/00/02/wKgVol14pKiAQHJcAAEvLL88Lx8614.jpg",
+        updateTime: "2019-09-11 15:43:20",
+        updateUser: "15012345678",
+        videoPercentage: "20"
       }
     ]
 
   },
 
-  muCourses: function() {
-    getApp().agriknow.bindUser(this.data.realName, this.data.idNumber)
+  myCourses: function() {
+    getApp().agriknow.myCourseList()
       .then(res => {
-        wx.showToast({
-          title: '绑定成功！',
-        });
-        getApp().globalData.alreadyBind = true;
-        setTimeout(function () {
-          wx.navigateTo({
-            url: '/pages/index/index'
-          });
-        }, 2000);
+        console.log(res)
       })
       .catch(res => {
         //wx.stopPullDownRefresh()
@@ -66,7 +49,7 @@ Page({
 
   jumpTransaction: function (e) {
     wx.navigateTo({
-      url: e.currentTarget.dataset.url
+      url: e.currentTarget.dataset.url + '?id=' + e.currentTarget.dataset.course.courseId
     })
   },
 
@@ -74,7 +57,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(12345);
     var that = this;
     // 查看是否授权
     wx.getSetting({
@@ -99,7 +81,7 @@ Page({
   },
 
   onLoad: function () {
-    
+    this.myCourses()
   },
 
   //微信登录
