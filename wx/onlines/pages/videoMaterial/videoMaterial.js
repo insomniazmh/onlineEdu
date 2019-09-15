@@ -7,32 +7,12 @@ Page({
   data: {
     active: 0,
     activeNames: '1',
-    videoUrl: '',
-    docDatum: [],
-    audioDatum: [],
-    videoDatum: [],
-    courseDescribe: '',
-    courseList: [
-      {
-        courseDescribe: "今天早上在地铁上用手机看精读，旁边一个男生说:你是准备考MBA吗？我说不是，就是日常学习。难道我看起来像是学霸吗，哈哈，真开心啊，MBA现在我还没有资格考，慢慢学吧。",
-        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-        courseName: "完成电子商务第一章第一小节",
-        teacherId: "dongbo",
-        inforDate: "18437",
-        topPicSrc: "/img/banner/header.png",
-        looks:"/img/icon/looks.png"
-      },
-      {
-        courseDescribe: "今天早上在地铁上用手机看精读，旁边一个男生说:你是准备考MBA吗？我说不是，就是日常学习。难道我看起来像是学霸吗，哈哈，真开心啊，MBA现在我还没有资格考，慢慢学吧。",
-        courseId: "47e0b0d129ea4968b8a5645c16bf5d2a",
-        courseName: "完成商务英语第一章第一小节",
-        teacherId: "dongbo",
-        inforDate: "10221",
-        topPicSrc: "/img/news/list1.png",
-        looks:"/img/icon/looks.png"
-      },
-    ],
-    chapterList:[]
+    videoUrl: '',//视频课件url
+    docDatum: [],//文档资料
+    audioDatum: [],//音频资料
+    videoDatum: [],//视频资料
+    courseDescribe: '',//课程描述
+    chapterList:[]//章节
   },
 
   /**
@@ -90,6 +70,9 @@ Page({
 
   //点击章节切换资源
   chooseChapter: function (e) {
+    this.setData({
+      chapterId: e.currentTarget.dataset.id
+    })
     this.loadVideo(e.currentTarget.dataset.id)
     this.loadDatumList(e.currentTarget.dataset.id)
     this.loadExerciseList(e.currentTarget.dataset.id)
@@ -121,7 +104,6 @@ Page({
       let audioList = []
       let videoList = []
       for (let i = 0; i < datumList.length; i++) {
-        console.log(datumList[i])
         if (datumList[i].datumType == '1') {
           docList.push(datumList[i])
         } else if (datumList[i].datumType == '3') {
@@ -140,16 +122,93 @@ Page({
     })
   },
 
-  //加载章节练习题
+  //加载章节练习题(快照)
   loadExerciseList: function (chapterId) {
     let that = this
-    getApp().agriknow.loadExerciseList({
-      chapterId: chapterId
+    getApp().agriknow.snapshot({
+      chapterId: chapterId,
+      number: 5
     }).then(res => {
-
+      if (res.ret == 0) {
+        var questions = res.data;
+        for (let i = 0; i < questions.length; i++) {
+          questions[i].cut = '';
+          if (questions[i].stuAnswer) {
+            questions[i].done = true;
+          }
+        }
+        that.setData({
+          questionList: questions,
+          currentQuestion: questions[0]
+        });
+        that.wrapQuestion();
+      }
     }).catch(res => {
       //wx.stopPullDownRefresh()
     })
+  },
+
+  /**点击上面按钮切换题目 */
+  bindtab: function (e) {
+    console.log(e.currentTarget.dataset.id);
+    var questionList = this.data.questionList;
+    for (let i = 0; i < questionList.length; i++) {
+      if (e.currentTarget.dataset.id == questionList[i].id) {
+        this.setData({ currentQuestion: questionList[i] });
+        this.wrapQuestion();
+      }
+    }
+  },
+
+  /**
+   * 接收question组件提交信息
+   */
+  onSubQuestion: function (e) {
+    var postData = e.detail;
+    console.log(e)
+    var that = this;
+    postData.chapterId = this.data.chapterId;
+    postData.courseId = this.data.courseId;
+    postData.classId = wx.getStorageSync('classId');
+    postData.chapterName = 'xxx';
+
+    getApp().agriknow.answerSelfTest(postData)
+      .then(res => {
+        if (res.ret == 0) {
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          });
+          var questionList = that.data.questionList;
+          for (let i = 0; i < questionList.length; i++) {
+            if (questionList[i].id == that.data.currentQuestion.id) {
+              questionList[i].done = true;
+              questionList[i].myAnswer = postData.answer;
+            }
+          }
+          that.setData({
+            questionList: questionList
+          });
+        }
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
+  },
+
+  /**
+   * 封装currentQuestion给question组件使用
+   */
+  wrapQuestion: function () {
+    var wrapedCurrQuestion = {
+      bigQuestion: this.data.currentQuestion,
+      cut: '',
+      participate: ""
+    };
+    this.setData({
+      wrapedCurrQuestion: wrapedCurrQuestion
+    });
   },
 
   /**

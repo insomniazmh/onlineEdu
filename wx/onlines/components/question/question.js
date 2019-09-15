@@ -8,6 +8,7 @@ Component({
         // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：'_propertyChange'
         // 通常 newVal 就是新设置的数据， oldVal 是旧数据
         if (newVal && newVal.bigQuestion) {
+          console.log(newVal)
           this.loadQuestion(newVal);
         }
       }
@@ -76,7 +77,7 @@ Component({
     bindSub: function (e) {
       var that = this;
       var postData = {
-        "answer": that.data.answer,
+        "stuAnswer": that.data.answer,
         "circleId": getApp().globalData.circleId,
         "cut": that.data.cut,
         "examineeId": wx.getStorageSync("studentId"),
@@ -117,7 +118,7 @@ Component({
       this.setData({ raiseFlag: false });
     },
 
-    /**load题目 */
+    /**拼装显示题目 */
     loadQuestion: function (data) {
       var that = this;
       that.setData({
@@ -130,28 +131,28 @@ Component({
         cut: data.cut
       });
 
-      if (data.bigQuestion.examChildren[0].examType == "single") {//单选题
+      if (data.bigQuestion.examType == "single") {//单选题
         that.setData({ 
           questionType: "single",
-          title: data.bigQuestion.examChildren[0].choiceQstTxt + "（单选）",//标题
-          opts: data.bigQuestion.examChildren[0].optChildren//选项
+          title: data.bigQuestion.choiceQstTxt + "（单选）",//标题
+          opts: data.bigQuestion.optChildren//选项
         });
-      } else if (data.bigQuestion.examChildren[0].examType == "multiple") {//多选题
+      } else if (data.bigQuestion.examType == "multiple") {//多选题
         that.setData({ 
           questionType: "multiple",
-          title: data.bigQuestion.examChildren[0].choiceQstTxt,//标题
-          opts: data.bigQuestion.examChildren[0].optChildren//选项
+          title: data.bigQuestion.choiceQstTxt,//标题
+          opts: data.bigQuestion.optChildren//选项
         });
-      } else if (data.bigQuestion.examChildren[0].examType == "trueOrFalse") {//判断题
+      } else if (data.bigQuestion.examType == "trueOrFalse") {//判断题
         that.setData({ 
           questionType: "trueOrFalse",
           answer: "Y",
-          title: data.bigQuestion.examChildren[0].trueOrFalseInfo + "（判断）"
+          title: data.bigQuestion.trueOrFalseInfo + "（判断）"
         });
-      } else if (data.bigQuestion.examChildren[0].examType == "design") {//主观题
+      } else if (data.bigQuestion.examType == "design") {//主观题
         that.setData({
           questionType: "design",
-          title: data.bigQuestion.examChildren[0].designQuestion + "（主观）",
+          title: data.bigQuestion.designQuestion + "（主观）",
           designFlag: true,
           showSub: false
         });
@@ -165,15 +166,15 @@ Component({
         });
       }
 
-      if (data.bigQuestion.examChildren[0].stuAnswer) {//已经回答过，需显示答案
+      if (data.bigQuestion.stuAnswer) {//已经回答过，需显示答案
         that.setData({
           raiseFlag: false,
           showSub: false,
           designFlag: false,
           analysiShow: true,
-          stuAnswer: data.bigQuestion.examChildren[0].stuAnswer,
-          rightAnswer: data.bigQuestion.examChildren[0].answer,
-          analysis: data.bigQuestion.examChildren[0].analysis
+          stuAnswer: data.bigQuestion.stuAnswer,
+          rightAnswer: data.bigQuestion.answer,
+          analysis: data.bigQuestion.analysis
         });
       }else {
         that.setData({

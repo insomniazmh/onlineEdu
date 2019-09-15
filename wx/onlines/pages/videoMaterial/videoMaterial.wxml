@@ -17,19 +17,19 @@
             <rich-text class='itemContent' nodes="{{courseDescribe}}"></rich-text>
           </view>
         </view>
-        
+
       </van-tab>
       <van-tab title="资料">
-       <view class='know'>音频</view>
+        <view class='know'>音频</view>
         <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{audioDatum}}'>
-          <audio name="{{item.fileName}}" src="{{item.fileUrl}}" controls loop  style='margin 0 auto;'></audio>
+          <audio name="{{item.fileName}}" src="{{item.fileUrl}}" controls loop style='margin 0 auto;'></audio>
         </view>
 
         <view class='know'>视频</view>
         <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{videoDatum}}'>
           <video src="{{item.fileUrl}}" controls></video>
         </view>
-        
+
         <view class='know'>参考资料</view>
         <view class='data-list'>
           <view class='data-item' wx:for='{{docDatum}}' bindtap="download" data-url='{{item.fileUrl}}'>
@@ -40,38 +40,21 @@
       </van-tab>
       <van-tab title="目录">
         <van-collapse value="{{ activeNames }}" bind:change="onChange" accordion>
-          <van-collapse-item wx:for="{{chapterList}}" 
-            wx:key='colapse'
-            title="{{item.text}}" 
-            name="{{item.index}}">
-            <view wx:for="{{item.children}}" 
-              data-id='{{item.id}}' 
-              bindtap='chooseChapter'>{{item.text}}</view>
+          <van-collapse-item wx:for="{{chapterList}}" wx:key='colapse' title="{{item.text}}" name="{{item.index}}">
+            <view wx:for="{{item.children}}" data-id='{{item.id}}' bindtap='chooseChapter'>{{item.text}}</view>
           </van-collapse-item>
         </van-collapse>
       </van-tab>
       <van-tab title="作业">
-        <view class='min_class'>
-          <text class='title_right'>{{className}}</text>
-          <!--循环从此开始-->
-          <view class='class_clm' 
-                wx:for="{{courseList}}" 
-                bindtap="navToChapter" 
-                data-course='{{item}}' 
-                wx:key="clm">
-            <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
-              <view class='right_info'>
-                <text>{{item.courseName}}</text>
-                <text class='mt_20'>内容描述：{{item.courseDescribe}}</text>
-              </view>
-              <view class='cfx'></view>
-              <view class='class_number'>
-                <image src='{{item.looks}}' mode='widthFix'></image>
-                <text style='font-size:24rpx;'>{{item.inforDate}}</text>
-              </view>
+        <view class='choosen_box'>
+          <view class='slide_box'>
+            <text wx:for="{{questionList}}" class="{{item.done?'color_state_on':'color_state_off'}}" bindtap='bindtab' data-id='{{item.id}}'>{{index+1}}</text>
           </view>
-          <!--循环到此结束-->
+          <view class='cfx'></view>
         </view>
+
+        <question singleQuestion="{{wrapedCurrQuestion}}" bind:subQuestion="onSubQuestion">
+        </question>
       </van-tab>
     </van-tabs>
   </view>

@@ -80,7 +80,7 @@ class agriknow {
    * 查询自己（预习自测/课后作业）快照
    */
   snapshot(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._quiz + '/studentAnswer/findExerciseBook', postData).then(res => res.data)
+    return this._request.postRequest(this._baseUrl + this._quiz + '/studentAnswer/findQuestions', postData).then(res => res.data)
   }
 
   /**
