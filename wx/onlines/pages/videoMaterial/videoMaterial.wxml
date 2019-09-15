@@ -21,18 +21,18 @@
       </van-tab>
       <van-tab title="资料">
        <view class='know'>音频</view>
-        <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{audioList}}'>
-          <audio name="{{item.fileName}}" src="{{item.fileUrl}}" controls loop bindplay="funplay" bindpause="funpause" bindtimeupdate="funtimeupdate" bindended="funended" binderror="funerror" style='margin 0 auto;'></audio>
+        <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{audioDatum}}'>
+          <audio name="{{item.fileName}}" src="{{item.fileUrl}}" controls loop  style='margin 0 auto;'></audio>
         </view>
 
         <view class='know'>视频</view>
-        <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{videoList}}'>
+        <view class='know-swiper' style='margin-top:50rpx;' wx:for='{{videoDatum}}'>
           <video src="{{item.fileUrl}}" controls></video>
         </view>
         
         <view class='know'>参考资料</view>
         <view class='data-list'>
-          <view class='data-item' wx:for='{{docList}}' bindtap="download" data-url='{{item.fileUrl}}'>
+          <view class='data-item' wx:for='{{docDatum}}' bindtap="download" data-url='{{item.fileUrl}}'>
             <image src='https://e.hnfts.cn/img/icon/newslisticon.png'></image>
             <text>{{item.fileName}}</text>
           </view>

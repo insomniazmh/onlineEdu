@@ -8,6 +8,9 @@ Page({
     active: 0,
     activeNames: '1',
     videoUrl: '',
+    docDatum: [],
+    audioDatum: [],
+    videoDatum: [],
     courseDescribe: '',
     courseList: [
       {
@@ -113,7 +116,25 @@ Page({
     getApp().agriknow.loadDatumList({
       chapterId: chapterId
     }).then(res => {
-
+      let datumList = res.data
+      let docList = []
+      let audioList = []
+      let videoList = []
+      for (let i = 0; i < datumList.length; i++) {
+        console.log(datumList[i])
+        if (datumList[i].datumType == '1') {
+          docList.push(datumList[i])
+        } else if (datumList[i].datumType == '3') {
+          videoList.push(datumList[i])
+        } else if (datumList[i].datumType == '4') {
+          audioList.push(datumList[i])
+        }
+      }
+      that.setData({
+        docDatum: docList,
+        audioDatum: audioList,
+        videoDatum: videoList
+      })
     }).catch(res => {
       //wx.stopPullDownRefresh()
     })
