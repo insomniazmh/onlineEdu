@@ -38,9 +38,13 @@ Page({
   },
 
   myCourses: function() {
+    let that = this
     getApp().agriknow.myCourseList()
       .then(res => {
         console.log(res)
+        that.setData({
+          courseList: res.data
+        })
       })
       .catch(res => {
         //wx.stopPullDownRefresh()

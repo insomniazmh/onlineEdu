@@ -8,12 +8,7 @@ Page({
     active: 0,
     activeNames: '1',
     videoUrl: '',
-    curriculum:[
-      {
-        headText:"高中语文深度进阶诗词专题",
-        chapter:"诗词鉴赏是高考中分值占比最小的版块，一方面源于套路较深，一方面在于考察的角度不多，本次课程针对诗词积累较薄弱或希望冲刺满分的学生。让我们一起拿下高分！"
-      }
-    ],
+    courseDescribe: '',
     courseList: [
       {
         courseDescribe: "今天早上在地铁上用手机看精读，旁边一个男生说:你是准备考MBA吗？我说不是，就是日常学习。难道我看起来像是学霸吗，哈哈，真开心啊，MBA现在我还没有资格考，慢慢学吧。",
@@ -45,7 +40,21 @@ Page({
     this.setData({
       courseId: options.id
     })
+    this.loadCourseDescribe()
     this.loadChapter()
+  },
+
+  //加载课程详情获取课程描述
+  loadCourseDescribe: function() {
+    let that = this
+    getApp().agriknow.loadCourseDetail({
+      courseId: that.data.courseId
+    }).then(res => {
+      console.log(res.data.courseDescribe)
+      that.setData({
+        courseDescribe: res.data.courseDescribe
+      })
+    })
   },
 
   //根据课程id获取章节列表
@@ -57,7 +66,6 @@ Page({
     }).then(res => {
       //拼装章节，两层循环
       for (let i = 0; i < res.data.length; i++) {
-        console.log(res.data[i])
         if (res.data[i].parent == '0') {
           res.data[i].children = [] 
           chapterList.push(res.data[i])
@@ -69,7 +77,6 @@ Page({
           }
         }
       }
-      console.log(chapterList)
       that.setData({
         chapterList: chapterList
       })

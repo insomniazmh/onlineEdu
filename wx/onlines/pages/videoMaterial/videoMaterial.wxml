@@ -5,16 +5,16 @@
   <view>
     <van-tabs active="{{ active }}">
       <van-tab title="详情">
-        <view wx:for="{{curriculum}}" wx:key="curriculum" class='content'>
-          <view class='contetTitle'>{{item.headText}}</view>
+        <view class='content'>
+          <!-- <view class='contetTitle'>{{item.headText}}</view>
           <view class='contentImg'>
             <image src='/img/icon/Collection.png'></image>
-            <!-- <image src='/img/icon/share.png'></image> -->
-          </view>
-          <view class='line'></view>
+            <image src='/img/icon/share.png'></image>
+          </view> -->
+          <!-- <view class='line'></view> -->
           <view class='contentItem'>
             <view class='leftTitle'>课程简介</view>
-            <view class='itemContent'>{{item.chapter}}</view>
+            <rich-text class='itemContent' nodes="{{courseDescribe}}"></rich-text>
           </view>
         </view>
         

@@ -11,9 +11,13 @@ class agriknow {
     // this._quiz = '/lineEduQuiz'
     // this._education = '/lineEdu'
 
-    this._baseUrl = 'http://192.168.10.2:'
-    this._quiz = '7081'
-    this._education = '7080'
+    // this._baseUrl = 'http://192.168.10.2:'
+    // this._quiz = '7081'
+    // this._education = '7080'
+
+    this._baseUrl = 'http://1z695163y1.iask.in:'
+    this._quiz = '11056'
+    this._education = '35854'
     
     this._request = new request
     this._request.setErrorHandler(this.errorHander)
@@ -49,6 +53,13 @@ class agriknow {
    */
   myCourseList(postData = {}) {
     return this._request.getRequest(this._baseUrl + this._education + '/course/studentCourseList', postData).then(res => res.data)
+  }
+
+  /**
+   *  根据课程id加载课程详情
+   */
+  loadCourseDetail(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/course/getCourse', postData).then(res => res.data)
   }
   
   /**
