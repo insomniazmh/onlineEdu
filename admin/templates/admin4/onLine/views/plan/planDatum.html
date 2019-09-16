@@ -100,13 +100,13 @@
 			agoDay: 30
 		}
 			
-		//分页加载教学计划
-		$scope.loadAllPlan = function() {
+		//分页加载班级信息
+		$scope.loadAllClass = function() {
 			common.loadDataList({
 				$scope: $scope,
 				$http: $http,
 				$rootScope: $rootScope,
-				url: '/train/plan/findAllPage',
+				url: '/planFile/findByCenterAreaIdAllPage',
 				success: function() {
 					for(let value of $scope.data) {
 						if(!value.trainCourse) {
@@ -116,10 +116,10 @@
 				}
 			})
 		}
-		$scope.loadAllPlan();
+		$scope.loadAllClass();
 		
 		$scope.pageChanged = function() {
-			$scope.loadAllPlan();
+			$scope.loadAllClass();
 		}
 		
 		$scope.upload = function() {

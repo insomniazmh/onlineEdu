@@ -127,7 +127,7 @@ Page({
     let that = this
     getApp().agriknow.snapshot({
       chapterId: chapterId,
-      number: 5
+      number: 3
     }).then(res => {
       if (res.ret == 0) {
         var questions = res.data;

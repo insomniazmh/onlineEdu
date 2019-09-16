@@ -11,13 +11,13 @@ class agriknow {
     // this._quiz = '/lineEduQuiz'
     // this._education = '/lineEdu'
 
-    // this._baseUrl = 'http://192.168.10.2:'
-    // this._quiz = '7081'
-    // this._education = '7080'
+    this._baseUrl = 'http://192.168.10.2:'
+    this._quiz = '7081'
+    this._education = '7080'
 
-    this._baseUrl = 'http://1z695163y1.iask.in:'
-    this._quiz = '11056'
-    this._education = '35854'
+    // this._baseUrl = 'http://1z695163y1.iask.in:'
+    // this._quiz = '11056'
+    // this._education = '35854'
     
     this._request = new request
     this._request.setErrorHandler(this.errorHander)

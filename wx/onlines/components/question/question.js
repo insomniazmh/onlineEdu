@@ -147,12 +147,12 @@ Component({
         that.setData({ 
           questionType: "trueOrFalse",
           answer: "Y",
-          title: data.bigQuestion.trueOrFalseInfo + "（判断）"
+          title: data.bigQuestion.choiceQstTxt + "（判断）"
         });
       } else if (data.bigQuestion.examType == "design") {//主观题
         that.setData({
           questionType: "design",
-          title: data.bigQuestion.designQuestion + "（主观）",
+          title: data.bigQuestion.choiceQstTxt + "（主观）",
           designFlag: true,
           showSub: false
         });
