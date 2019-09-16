@@ -40,14 +40,14 @@
 					<tbody>
 						<tr class="odd gradeX" ng-repeat="item in data">
 							<td style="min-width: 200px;">
-								<button class="btn btn-sm btn-info" ng-click="upload()">上传/查看</button>
+								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
 							</td>
-							<td>{{item.trainProjectName}}</td>
-							<td>一班</td>
-							<td>{{item.trainStart}}</td>
-							<td>{{item.trainEnd}}</td>
-							<td>{{item.trainAdmin}}</td>
-							<td>{{item.updateTime}}</td>
+							<td>{{item.planName}}</td>
+							<td>{{item.className}}</td>
+							<td>{{item.startDate}}</td>
+							<td>{{item.endDate}}</td>
+							<td>{{item.planAdmin}}</td>
+							<td>{{item.createTime}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -95,6 +95,7 @@
 </div>
 <script>
 	function planDatumCtrl($scope, $http, $rootScope) {
+		$scope.pics = []
 		$scope.currentPage = 1
 		$scope.searchObj = {
 			agoDay: 30
@@ -122,8 +123,23 @@
 			$scope.loadAllClass();
 		}
 		
-		$scope.upload = function() {
-			$("#picsModal").modal('show')
+		$scope.upload = function(detail) {
+			$scope.detail = detail
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					classId: $scope.detail.classId,
+					planId: $scope.detail.planId
+				},
+				url: '/planFile/findAllByPlanIdAndClassId',
+				success: function(res) {
+					$scope.pics = res
+					$("#picsModal").modal('show')
+				}
+			});
+			
+			
 		}
 		
 		//上传图片
@@ -132,13 +148,30 @@
 			type: 'pic',
 			success: function(file, response) {
 				$scope.$apply(function() {
-					console.log(response);
-					$scope.pics.push(response)
-					
 					$scope.savePic(response.fileUrl)
 				});
 			}
 		});
+		
+		$scope.savePic = function(fileUrl) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					classId: $scope.detail.classId,
+					planId: $scope.detail.planId,
+					fileUrl: fileUrl
+				},
+				operate: true,
+				url: '/planFile/saveOrUpdate',
+				success: function() {
+					$scope.detail.fileUrl = fileUrl
+					$scope.pics.push({
+						fileUrl: fileUrl
+					})
+				}
+			});
+		}
 		
 	}
 </script>
