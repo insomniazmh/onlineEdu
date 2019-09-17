@@ -133,12 +133,20 @@
 		};
 		$scope.loadClassList();
 		
+		$scope.pageChanged = function() {
+			$scope.loadClassList();
+		}
+		
 		//更改查询条件
 		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
-			if($rootScope.searchObj) {
-				$scope.searchObj = $rootScope.searchObj
-				$scope.loadClassList();
+			if($rootScope.searchObj = {}) {
+				$rootScope.searchObj = {
+					agoDay: '',
+					pjPlanId: ''
+				}
 			}
+			$scope.searchObj = $rootScope.searchObj
+			$scope.loadClassList();
 		})
 		
 		$scope.select = function(value, array) {

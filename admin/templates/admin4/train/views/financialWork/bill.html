@@ -96,10 +96,14 @@
 		
 		//更改查询条件
 		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
-			if($rootScope.searchObj) {
-				$scope.searchObj = $rootScope.searchObj
-				$scope.loadAllPlan();
+			if($rootScope.searchObj = {}) {
+				$rootScope.searchObj = {
+					agoDay: '',
+					pjPlanId: ''
+				}
 			}
+			$scope.searchObj = $rootScope.searchObj
+			$scope.loadAllPlan();
 		})
 		
 		$scope.pageChanged = function() {

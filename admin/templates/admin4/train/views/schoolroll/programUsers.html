@@ -94,6 +94,7 @@
 </div>
 <script>
 	function schoolrollCtrl($scope, $http, $rootScope) {
+		
 		//加载学生列表
 		$scope.loadStudentsList = function() {			
 			common.loadDataList({
@@ -105,9 +106,21 @@
 		};
 		$scope.loadStudentsList();
 		
+		$scope.pageChanged = function() {
+			$scope.loadStudentsList();
+		}
+		
 		//更改查询条件
 		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
-			if($rootScope.searchObj) {
+			if($rootScope.searchObj = {}) {
+				$rootScope.searchObj = {
+					agoDay: '',
+					pjPlanId: ''
+				}
+			}
+			$scope.searchObj = $rootScope.searchObj
+			$scope.loadStudentsList();
+			if($rootScope.searchObj && $rootScope.searchObj.agoDay != undefined) {
 				$scope.searchObj = $rootScope.searchObj
 				$scope.loadStudentsList();
 			}

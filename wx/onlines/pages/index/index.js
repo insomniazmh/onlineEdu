@@ -15,24 +15,24 @@ Page({
     interval: 5000,
     duration: 500,
     courseList: [
-      {
-        alias: "上册",
-        courseDescribe: "<p>werr&nbsp;</p>",
-        courseId: "d30b4000f80149ccbddd469542d515f3",
-        courseName: "测试911",
-        courseNumber: "38217b2927974f4181091c526de374fd",
-        teacherName: "董波",
-        joinChapterName: "第二讲:FLASH动画的原理",
-        createTime: "2019-09-11 15:43:20",
-        createUser: "15012345678",
-        isValidated: "0",
-        jobsPercentage: "80",
-        learningTime: "6",
-        topPicSrc: "https://e.hnfts.cn/file/group1/M00/00/02/wKgVol14pKiAQHJcAAEvLL88Lx8614.jpg",
-        updateTime: "2019-09-11 15:43:20",
-        updateUser: "15012345678",
-        videoPercentage: "20"
-      }
+      // {
+      //   alias: "上册",
+      //   courseDescribe: "<p>werr&nbsp;</p>",
+      //   courseId: "d30b4000f80149ccbddd469542d515f3",
+      //   courseName: "测试911",
+      //   courseNumber: "38217b2927974f4181091c526de374fd",
+      //   teacherName: "董波",
+      //   joinChapterName: "第二讲:FLASH动画的原理",
+      //   createTime: "2019-09-11 15:43:20",
+      //   createUser: "15012345678",
+      //   isValidated: "0",
+      //   jobsPercentage: "80",
+      //   learningTime: "6",
+      //   topPicSrc: "https://e.hnfts.cn/file/group1/M00/00/02/wKgVol14pKiAQHJcAAEvLL88Lx8614.jpg",
+      //   updateTime: "2019-09-11 15:43:20",
+      //   updateUser: "15012345678",
+      //   videoPercentage: "20"
+      // }
     ]
 
   },

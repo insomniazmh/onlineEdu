@@ -96,6 +96,13 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="row">
+					<div>
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- END EXAMPLE TABLE PORTLET-->
@@ -118,6 +125,10 @@
 		}
 		$scope.loadfinanceType();
 		
+		$scope.pageChanged = function() {
+			$scope.loadfinanceType();
+		}
+		
 		//分页加载财务明细
 		$scope.loadfinance = function() {
 			common.loadDataList({
@@ -130,10 +141,14 @@
 		
 		//更改查询条件
 		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
-			if($rootScope.searchObj) {
-				$scope.searchObj = $rootScope.searchObj
-				$scope.loadfinance();
+			if($rootScope.searchObj = {}) {
+				$rootScope.searchObj = {
+					agoDay: '',
+					pjPlanId: ''
+				}
 			}
+			$scope.searchObj = $rootScope.searchObj
+			$scope.loadfinance();
 		})
 		
 		$scope.pageChanged = function() {

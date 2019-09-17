@@ -124,28 +124,28 @@
 								<tbody>
 									<tr ng-repeat="item in courseList">
 										<td style="min-width: 150px;">
-											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="editCourse(item)">编辑</button>
+											<!-- <button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="editCourse(item)">编辑</button> -->
 											<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="delCourse(item)">删除</button>
-											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="saveCourse(item)">保存</button>
-											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancelCourse(item, $index)">取消</button>
+											<!-- <button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="saveCourse(item)">保存</button>
+											<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancelCourse(item, $index)">取消</button> -->
 										</td>
 										<td>{{item.courseName}}</td>
 										<td>
-											<span ng-show='!item.edit'>{{item.credit}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.credit" />
+											<!-- <span ng-show='!item.edit'>{{item.credit}}</span> -->
+											<input type="text" ng-model="item.credit" />
 										</td>
 										<td>
-											<span ng-show='!item.edit'>{{item.onLinePercentage}}</span>
-											<input ng-show='item.edit' type="text" ng-model="item.onLinePercentage" />
+											<!-- <span ng-show='!item.edit'>{{item.onLinePercentage}}</span> -->
+											<input type="text" ng-model="item.onLinePercentage" />
 										</td>
 										<td>
 											<span>{{100-item.onLinePercentage}}</span>
 										</td>
 										<td>
-											<span ng-show='!item.edit'>{{item.teacherName}}</span>
-											<select ng-show='item.edit' ng-model="item.teacher" ng-options="x.teacherName for x in allTeachers">
+											<!-- <span ng-show='!item.edit'>{{item.teacherName}}</span> -->
+											<select ng-model="item.teacherId" ng-options="x.teacherId as x.teacherName for x in allTeachers">
 											</select>
-											<!-- <select ng-show='item.edit' ng-model="item.teacherId">
+											<!-- <select ng-model="item.teacherId">
 												<option value='row.teacherId' ng-repeat='row in allTeachers'>{{row.teacherName}}</option>
 											</select> -->
 										</td>
@@ -295,6 +295,25 @@
 		};
 		/*    教学计划增删改查end    */
 		
+		//删除教学计划
+		$scope.del = function(plan) {
+			layer.confirm("您确定要为删除该教学计划吗", {
+				btn: ['确定', "取消"] //按钮
+			}, function() {
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					method: 'delete',
+					operate: true,
+					url: '/teachPlan/'+plan.planId,
+					success: function(res) {
+						$scope.loadAllPlan();
+						layer.closeAll('dialog');
+					}
+				});
+			});
+		}
+		
 		//查询课程字典中的所有课程
 		$scope.loadCourseDic = function() {
 			common.ajax({
@@ -348,32 +367,16 @@
 			}
 		}
 		
-		/*    课程信息增删改查start    */
-		$scope.editCourse = function(course) {
-			course.edit = true;
-			for(let value of $scope.allTeachers) {
-				if(value.teacherId == course.teacherId) {
-					course.teacher = value
-				}
-			}
-		}
-		
-		$scope.saveCourse = function(course) {
-			course.edit = false;
-		};
-		
 		$scope.delCourse = function(course) {
 			$scope.courseList = $scope.courseList.filter(function(item) {
 				return item.courseName != course.courseName
 			});
 			
 			for(let value of $scope.courseDic) {
-				if(value.courseName == course.courseName) value.checked = false
+				if(value.courseName == course.courseName) {
+					value.checked = false
+				}
 			}
-		};
-		
-		$scope.cancelCourse = function(course) {
-			course.edit = false;
 		};
 		/*    课程信息增删改查end    */
 		
@@ -385,7 +388,7 @@
 			}
 			for(let value of $scope.courseList) {
 				console.log(value)
-				if(!value.teacher && !value.teacherId) {
+				if(!value.teacherId) {
 					layer.alert('请选择授课老师') 
 					return false
 				}
@@ -397,13 +400,9 @@
 					layer.alert('请输入线上成绩占比') 
 					return false
 				}
+				value.teacherName = ''
 				value.onLinePercentage = parseInt(value.onLinePercentage);
 				value.linePercentage = 100-value.onLinePercentage
-				if(value.teacher) {
-					value.teacherId = value.teacher.teacherId
-					value.teacherName = value.teacher.teacherName
-				}
-				
 				postData.courses.push(value)
 			}
 			common.ajax({

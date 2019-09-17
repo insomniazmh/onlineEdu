@@ -261,6 +261,7 @@
 				$rootScope: $rootScope,
 				url: '/train/plan/findAllPage',
 				success: function() {
+					console.log($scope.data)
 					for(let value of $scope.data) {
 						if(!value.trainCourse) {
 							value.trainCourse = '暂无'
@@ -276,10 +277,14 @@
 		
 		//更改查询条件
 		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
-			if($rootScope.searchObj) {
-				$scope.searchObj = $rootScope.searchObj
-				$scope.loadAllPlan();
+			if($rootScope.searchObj = {}) {
+				$rootScope.searchObj = {
+					agoDay: '',
+					pjPlanId: ''
+				}
 			}
+			$scope.searchObj = $rootScope.searchObj
+			$scope.loadAllPlan();
 		})
 		
 		/*    培训方案增删改查start    */

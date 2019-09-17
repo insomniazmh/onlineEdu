@@ -34,7 +34,7 @@
 									<label class="label-text">姓名</label>
 									<input type="text" class="form-control" />
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-9">
 									<label class="label-text">联系电话</label>
 									<input type="text" class="form-control" />
 									<button class="btn blue btn-sm">查询</button>
@@ -131,7 +131,7 @@
 						<form action="#" class="form-horizontal">
 							<div class="form-body">
 								<div class="form-group">
-									<label class="col-md-1 control-label">姓名:</label>
+									<label class="col-md-1 control-label"><span style="color: red;">*</span>姓名:</label>
 									<div class="col-md-5">
 										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.teacherName'>
 									</div>
@@ -181,7 +181,7 @@
 									<div class="col-md-5">
 										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.email'>
 									</div>
-									<label class="col-md-1 control-label">联系电话:</label>
+									<label class="col-md-1 control-label"><span style="color: red;">*</span>联系电话:</label>
 									<div class="col-md-5">
 										<input type="text" class="form-control" placeholder="Enter text" ng-model='detail.phone'>
 									</div>
@@ -288,13 +288,11 @@
 				btn: ['确定','取消'] //按钮
 			}, function(){
 				common.ajax({
+					method: 'delete',
 					$scope: $scope,
 					$http: $http,
-					data: {
-						teacherId: detail.teacherId
-					},
 					operate: true,
-					url: '/teacher/removeById',
+					url: '/teacher/teacherId/'+detail.teacherId,
 					success: function(res) {
 						$("#teacherModal").modal('hide')
 						$scope.loadTeacherList();

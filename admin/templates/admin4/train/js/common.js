@@ -1,10 +1,10 @@
 var common = {
 	
 	//正式服
-	// url: 'https://e.hnfts.cn/lineEdu',
+	url: 'https://e.hnfts.cn/lineEdu',
 
 	//测试服
-	url: 'http://192.168.10.2:7080',
+	// url: 'http://192.168.10.2:7080',
 	
 	// url: '114.115.174.243:7080',
 	
@@ -285,10 +285,9 @@ var common = {
 	
 	//加载列表
 	loadDataList: function(settings) {
-		if(!settings.$scope.currentPage) settings.$scope.currentPage = 1
-		// if(!settings.$scope.currentPage) {
-		// 	settings.$scope.currentPage = 1
-		// }
+		if(!settings.$scope.currentPage) {
+			settings.$scope.currentPage = 1
+		}
 			
 		let postData = {
 			"page": settings.$scope.currentPage - 1,

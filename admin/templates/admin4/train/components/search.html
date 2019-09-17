@@ -24,22 +24,22 @@
 	function searchCtrl($scope, $http, $rootScope) {
 		$rootScope.changeSearchObj = 0
 		$rootScope.searchObj = {
-			agoDay: 30,
+			agoDay: '',
 			pjPlanId: ''
 		}
 		$scope.gradeList = [{
+			text: "全部",
+			value: '',
+			active: true
+		}, {
 			text: "近一个月",
 			value: 30,
-			active: true
 		}, {
 			text: "近三个月",
 			value: 90,
 		}, {
 			text: "近半年",
 			value: 180,
-		}, {
-			text: "全部",
-			value: '',
 		}];
 		
 		$scope.$watch('allPlanList', function(newVal,oldVal) {
