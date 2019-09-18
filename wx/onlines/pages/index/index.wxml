@@ -48,7 +48,7 @@
           <rich-text class='text2' nodes="{{item.courseDescribe}}"></rich-text>
         </view>
         <text class='mt_20 text2'>课程描述：</text>
-        <text class='mt_10 text3'>授课老师：{{item.teacherName}}</text>
+        <text class='mt_10 text3'>授课老师：{{item.createUserName}}</text>
       </view>
       <view class='cfx'></view>
       <view class='class_number'>
