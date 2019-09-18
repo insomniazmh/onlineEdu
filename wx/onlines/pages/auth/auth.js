@@ -57,11 +57,9 @@ Page({
           title: '绑定成功！',
         });
         getApp().globalData.alreadyBind = true;
-        setTimeout(function () {
-          wx.navigateTo({
-            url: '/pages/index/index'
-          });
-        }, 2000);
+        wx.navigateTo({
+          url: '/pages/index/index'
+        });
       })
       .catch(res => {
         //wx.stopPullDownRefresh()
