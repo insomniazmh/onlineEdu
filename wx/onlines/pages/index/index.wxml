@@ -10,7 +10,7 @@
     </swiper-item>
   </block>
 </swiper>
-<view class="index_clm">
+<!-- <view class="index_clm">
   <view class='clm_child' bindtap='bindNavBlink' data-url='/pages/course/index/index'>
     <image src='/img/z05.png' mode='widthFix'></image>
     <text>课程</text>
@@ -28,10 +28,10 @@
     <text>资讯</text>
   </view>
   <view class='cfx'></view>
-</view>
+</view> -->
 
 <view class='min_class'>
-  <text class='title_class'>必修课</text>
+  <text class='title_class'>我的课程</text>
   <text class='title_right'>{{className}}</text>
   <!--循环从此开始-->
   <view class='class_clm' 

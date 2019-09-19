@@ -128,7 +128,6 @@
 					data: $scope.course,
 					success: function(data) {
 						$rootScope.currCourseId = data.courseId
-						$rootScope.currCourse = data
 						layer.confirm('提交成功，即将转到教辅资料库添加资料', {
 							btn: ['确定'] //按钮
 						}, function() {
@@ -144,7 +143,12 @@
 									}
 								},
 								success: function(res) {
-									$rootScope.courses = res;
+									$rootScope.myCourseList = res;
+									for(let value of $rootScope.myCourseList) {
+										if(value.courseId == $rootScope.currCourseId) {
+											$rootScope.currCourse = value
+										}
+									}
 									window.location.href = "#/assistant.html";
 									layer.closeAll('dialog');
 								}
@@ -160,10 +164,8 @@
 					$scope: $scope,
 					$http: $http,
 					operate: true,
-					url: '/course/edit',
-					data: {
-						course: $scope.course,
-					},
+					url: '/course/save',
+					data: $scope.course,
 					success: function(data) {
 						console.log(data);
 					}
