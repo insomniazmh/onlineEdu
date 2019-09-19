@@ -123,6 +123,7 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 				$rootScope.centerList = [];
 				$rootScope.majorList = [];
 				$rootScope.allPlanList = []
+				$scope.showBar = false
 				
 				// 加载所有学习中心信息
 				// common.ajax({
@@ -137,6 +138,11 @@ MetronicApp.controller('HeaderController', ['$scope', '$rootScope', '$http', '$l
 				// 		$rootScope.centerList = res.content;
 				// 	}
 				// });
+				
+				console.log(localStorage.getItem('auth'))
+				if(localStorage.getItem('auth') == 3) {
+					$scope.showBar = true
+				}
 				
 				//加载我的课程
 				common.ajax({
