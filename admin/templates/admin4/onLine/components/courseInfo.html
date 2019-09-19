@@ -30,7 +30,7 @@
 			</div>
 			<div class="col-md-4">
 				<div class="form-group form-md-line-input has-success">
-					<input id="courseNumber" type="text" class="form-control" ng-model="course.jobsPercentage" placeholder="平时作业情况所占成绩比重">
+					<input id="courseNumber" type="text" class="form-control" ng-model="course.jobsPercentage" placeholder="平时作业情况所占成绩比重" readonly="readonly">
 					<label for="form_control_2">平时作业占比（单位：%）<span style="color: red;">*</span></label>
 				</div>
 			</div>
@@ -67,8 +67,18 @@
 	function basicCtrl($scope, $http, $location, $rootScope) {
 		var path = $location.path();
 		$scope.course = {
+			videoPercentage: 20,
 			topPicSrc: 'https://e.hnfts.cn/img/zanwu.jpg'
 		};
+		
+		$scope.$watch('course', function(newVal,oldVal) {
+			$scope.course.videoPercentage = parseInt($scope.course.videoPercentage)
+			if($scope.course.videoPercentage>100) {
+				layer.alert('请输入小于等于100的正整数')
+				return false
+			}
+			$scope.course.jobsPercentage = 100 - $scope.course.videoPercentage
+		}, true)
 		
 		//加载课程信息(如果为编辑)
 		$scope.loadCourseInfo = function() {

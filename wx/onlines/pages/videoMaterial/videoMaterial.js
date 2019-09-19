@@ -6,7 +6,8 @@ Page({
    */
   data: {
     active: 0,
-    activeNames: '1',
+    // activeNames: 0,
+    linshiFlag: 0,//临时控制默认显示章节
     videoUrl: '',//视频课件url
     docDatum: [],//文档资料
     audioDatum: [],//音频资料
@@ -51,11 +52,23 @@ Page({
       for (let i = 0; i < res.data.length; i++) {
         if (res.data[i].parent == '0') {
           res.data[i].children = [] 
+          res.data[i].index = i+1
           chapterList.push(res.data[i])
         }else {
           for (let y = 0; y < chapterList.length; y++) {
             if (res.data[i].parent == chapterList[y].id) {
               chapterList[y].children.push(res.data[i])
+            }
+            if(that.data.linshiFlag == 0) {
+              this.setData({
+                chapterId: res.data[i].id
+              })
+              this.loadVideo(res.data[i].id)
+              this.loadDatumList(res.data[i].id)
+              this.loadExerciseList(res.data[i].id)
+              that.setData({
+                linshiFlag: 1
+              })
             }
           }
         }
@@ -63,8 +76,13 @@ Page({
       that.setData({
         chapterList: chapterList
       })
+      setTimeout(function () {
+        that.setData({
+          activeNames: 1
+        })
+      }, 2000)
     }).catch(res => {
-
+      
     })
   },
 
@@ -227,6 +245,7 @@ Page({
 
   //章节列表插件要求写法
   onChange(event) {
+    console.log(event.detail)
     this.setData({
       activeNames: event.detail
     });

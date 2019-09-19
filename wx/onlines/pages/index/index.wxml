@@ -42,7 +42,7 @@
         data-url="/pages/videoMaterial/videoMaterial">
     <image class='fm_img' src='{{item.topPicSrc}}' mode='widthFix'></image>
       <view class='right_info'>
-        <text class="text1">《{{item.courseName}}》<text wx:if='item.alias'>({{item.alias}})</text>
+        <text class="text1">《{{item.courseName}}》<text wx:if='{{item.alias}}'>({{item.alias}})</text>
         </text>
         <view style="width:65%;float:right;margin-top:8rpx;">
           <rich-text class='text2' nodes="{{item.courseDescribe}}"></rich-text>
