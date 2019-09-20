@@ -4,6 +4,13 @@
   <video id="video" src="{{videoUrl}}" bindtimeupdate='timeupdate' controls></video>
   <view>
     <van-tabs active="{{ active }}">
+    <van-tab title="目录">
+        <van-collapse value="{{ activeNames }}" bind:change="onChange" accordion border='false'>
+          <van-collapse-item wx:for="{{chapterList}}" wx:key='colapse' title="{{item.text}}" name="{{item.index}}">
+            <view wx:for="{{item.children}}" data-id='{{item.id}}' bindtap='chooseChapter' style="margin-top:10rpx; color: {{item.id==chapterId? 'red':'#999'}}">{{item.text}}</view>
+          </van-collapse-item>
+        </van-collapse>
+      </van-tab>
       <van-tab title="详情">
         <view class='content'>
           <!-- <view class='contetTitle'>{{item.headText}}</view>
@@ -38,13 +45,7 @@
           </view>
         </view>
       </van-tab>
-      <van-tab title="目录">
-        <van-collapse value="{{ activeNames }}" bind:change="onChange" accordion>
-          <van-collapse-item wx:for="{{chapterList}}" wx:key='colapse' title="{{item.text}}" name="{{item.index}}">
-            <view wx:for="{{item.children}}" data-id='{{item.id}}' bindtap='chooseChapter' style="margin-top:10rpx; color: {{item.id==chapterId? 'red':'#999'}}">{{item.text}}</view>
-          </van-collapse-item>
-        </van-collapse>
-      </van-tab>
+      
       <van-tab title="作业">
         <view class='choosen_box'>
           <view class='slide_box'>

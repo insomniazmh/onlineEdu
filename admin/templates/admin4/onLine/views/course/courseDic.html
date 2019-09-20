@@ -29,7 +29,7 @@
 						<tr class="odd gradeX" ng-repeat="item in data">
 							<td style="min-width: 150px;">
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">删除</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">冻结</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item)">取消</button>
 							</td>
@@ -114,7 +114,7 @@
 				$http: $http,
 				operate: true,
 				data: course.courseId,
-				tip: '您确定要删除该课程吗？',
+				tip: '您确定要冻结该课程吗？',
 				url: '/onLineCourseDic/removeByCourseId',
 				success: function(res) {
 					$scope.loadCouseDicList();

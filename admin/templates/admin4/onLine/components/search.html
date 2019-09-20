@@ -1,9 +1,16 @@
 
 <div class="row" ng-controller="searchCtrl">
 	<div class="col-md-12 search">
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<label class="label-text">教学计划</label>
 			<input id='planName' type="text" class="form-control" />
+		</div>
+		<div class="col-md-3">
+			<label class="label-text">审核状态</label>
+			<select class="form-control">
+				<option value="">未审核</option>
+				<option value="1">已审核</option>
+			</select>
 		</div>
 	</div>
 	<div class="col-md-12">

@@ -33,7 +33,7 @@
 		<li ng-if='auth==0 || auth==1 || auth==2'>
 			<a href="#/planDatum.html">
 			<i class="icon-rocket"></i>
-			<span class="title">计划资料</span>
+			<span class="title">教学日志</span>
 			</a>
 		</li>
 		<!-- <li ng-if='auth==0 || auth==1'>
@@ -60,6 +60,12 @@
 			<span class="title">课时统计</span>
 			</a>
 		</li> -->
+		<li ng-if='auth==1'>
+			<a href="#/coursesList.html">
+			<i class="icon-rocket"></i>
+			<span class="title">课程列表</span>
+			</a>
+		</li>
 		<li ng-if='auth==0 || auth==3'>
 			<a href="javascript:;">
 			<i class="icon-basket"></i>
@@ -93,17 +99,17 @@
 				</li>
 				<li>
 					<a href="#/knowledgePoint.html">
-					<i class="icon-puzzle"></i> 知识点题库</span>
+					<i class="icon-puzzle"></i> 题库</span>
 					</a>
 				</li>
 			</ul>
 		</li> 
-		<!-- <li ng-if='auth==0 || auth==3'>
+		<li ng-if='auth==0 || auth==3'>
 			<a href="#/offLineResult.html">
 			<i class="icon-rocket"></i>
 			<span class="title">线下成绩录入</span>
 			</a>
-		</li> -->
+		</li>
 		
 		
 		<!-- <li>

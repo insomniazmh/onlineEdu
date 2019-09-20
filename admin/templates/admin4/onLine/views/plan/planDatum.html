@@ -73,7 +73,48 @@
 				<div class="modal-body">
 					<div class="portlet">
 						<div class="portlet-body">
-							<img src="{{row.fileUrl}}" style="width: 130px;height: auto;margin: 20px;border: 1px solid #82949a;" ng-repeat="row in pics" />
+							<div>
+								<h4>2019-8-16 语文</h4>
+								<div ng-repeat="row in pics" class="picWrapper">
+									<i class="glyphicon glyphicon-remove-sign removePic"></i>
+									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+								</div>
+							</div>
+							<div>
+								<h4>2019-8-16 数学</h4>
+								<div ng-repeat="row in pics" class="picWrapper">
+									<i class="glyphicon glyphicon-remove-sign removePic"></i>
+									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+								</div>
+							</div>
+							<div>
+								<h4>2019-8-16 英语</h4>
+								<div ng-repeat="row in pics" class="picWrapper">
+									<i class="glyphicon glyphicon-remove-sign removePic"></i>
+									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+								</div>
+							</div>
+							<div>
+								<h4>2019-8-15 语文</h4>
+								<div ng-repeat="row in pics" class="picWrapper">
+									<i class="glyphicon glyphicon-remove-sign removePic"></i>
+									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+								</div>
+							</div>
+							<div>
+								<h4>2019-8-15 数学</h4>
+								<div ng-repeat="row in pics" class="picWrapper">
+									<i class="glyphicon glyphicon-remove-sign removePic"></i>
+									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+								</div>
+							</div>
+							<div>
+								<h4>2019-8-15 英语</h4>
+								<div ng-repeat="row in pics" class="picWrapper">
+									<i class="glyphicon glyphicon-remove-sign removePic"></i>
+									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -138,8 +179,6 @@
 					$("#picsModal").modal('show')
 				}
 			});
-			
-			
 		}
 		
 		//上传图片
@@ -171,6 +210,15 @@
 					})
 				}
 			});
+		}
+		
+		//显示相册
+		$scope.showPhotos = function(index) {
+			common.showPhotos({
+				pics: $scope.pics,
+				title: '教师相关图片',
+				index: index
+			})
 		}
 		
 	}

@@ -2,12 +2,12 @@ var common = {
 	
 	// url: 'http://1z695163y1.iask.in:11056',
 	//正式服
-	 url: 'https://e.hnfts.cn/lineEdu',
-	 url2: 'https://e.hnfts.cn/lineEduQuiz',
+	 // url: 'https://e.hnfts.cn/lineEdu',
+	 // url2: 'https://e.hnfts.cn/lineEduQuiz',
 
 	//测试服
-	// url: 'http://192.168.10.2:7080',
-	// url2: 'http://192.168.10.2:7081',
+	url: 'http://192.168.10.2:7080',
+	url2: 'http://192.168.10.2:7081',
 	
 	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 	
@@ -315,6 +315,27 @@ var common = {
 		}, function() {
 			settings.success();
 			layer.closeAll('dialog');
+		});
+	},
+	
+	//显示相册
+	showPhotos: function(settings) {
+		let arr = []
+		for(let val of settings.pics) {
+			arr.push({
+				src: val.fileUrl,
+				thumb: val.fileUrl
+			})
+		}
+		let options = {
+			"title": settings.title, //相册标题
+			// "id": 123, //相册id
+			"start": settings.index, //初始显示的图片序号，默认0
+			"data": arr
+		}
+		layer.photos({
+			photos: options,
+			anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
 		});
 	},
 	

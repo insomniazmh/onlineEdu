@@ -939,6 +939,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settings, $state) {
     $rootScope.$state = $state; // state to be accessed from view
 		$rootScope.pageSize = 15;
+		$rootScope.auth = localStorage.getItem('auth')
     $rootScope.activeColor = function(value, callback) {
 			value.active = !value.active;
 			if(callback) {

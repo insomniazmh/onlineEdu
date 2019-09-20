@@ -6,7 +6,7 @@ Page({
    */
   data: {
     active: 0,
-    // activeNames: 0,
+    activeNames: 1,
     linshiFlag: 0,//临时控制默认显示章节
     videoUrl: '',//视频课件url
     docDatum: [],//文档资料
@@ -76,11 +76,6 @@ Page({
       that.setData({
         chapterList: chapterList
       })
-      setTimeout(function () {
-        that.setData({
-          activeNames: 1
-        })
-      }, 2000)
     }).catch(res => {
       
     })
