@@ -68,7 +68,7 @@
 						<tr class="odd gradeX" ng-repeat='item in data'>
 							<td style="min-width: 200px;">
 								<button class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
-								<button class="btn btn-sm btn-info" ng-click="del(item)">冻结</button>
+								<button class="btn btn-sm btn-info" ng-click="del(item)">{{item.isValidated== '0' ? '冻结' : '解冻'}}</button>
 								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
 								<button class="btn btn-sm btn-info" ng-click="examine(item)" ng-if='auth==1'>审核</button>
 								<button class="btn btn-info btn-sm" ng-click="resetPwd(item)" ng-if='auth==1  || auth==2'>重置密码</button>
@@ -107,7 +107,7 @@
 					<div class="portlet">
 						<div class="portlet-body">
 							<div ng-repeat="row in pics" class="picWrapper">
-								<i class="glyphicon glyphicon-remove-sign removePic"></i>
+								<i class="glyphicon glyphicon-remove-sign removePic" ng-click='removePic(row.fileId)'></i>
 								<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
 							</div>
 						</div>
@@ -298,49 +298,50 @@
 		}
 		
 		$scope.del = function(detail) {
-			let index = layer.confirm('您确实要冻结该教师吗', {
-				btn: ['确定','取消'] //按钮
-			}, function(){
-				common.ajax({
-					method: 'delete',
-					$scope: $scope,
-					$http: $http,
-					operate: true,
-					url: '/teacher/teacherId/'+detail.teacherId,
-					success: function(res) {
-						$("#teacherModal").modal('hide')
-						$scope.loadTeacherList();
-					}
-				});
-				
-				layer.close(index);
-			}, function(){
+			let tip = '冻结'
+			if(detail.isValidated == '1') {
+				tip = '解冻'
+			}
+			
+			common.ajax({
+				method: 'put',
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				tip: '您确实要'+tip+'该教师吗',
+				url: '/teacher/status/'+detail.teacherId,
+				success: function(res) {
+					$scope.loadTeacherList();
+				}
 			});
 		}
 		
+		//加载图片
 		$scope.upload = function(detail) {
 			$scope.detail = detail
-			$scope.pics = [{
-				fileUrl: detail.fileUrl
-			}]    
-			$("#picsModal").modal('show')
+			common.ajax({
+				method: 'get',
+				$scope: $scope,
+				$http: $http,
+				url: '/teacher/files/'+detail.teacherId,
+				success: function(res) {
+					$scope.pics = res
+					$("#picsModal").modal('show')
+				}
+			});
 		}
 		
-		$scope.savePic = function(fileUrl) {
+		//保存图片
+		$scope.savePic = function(file) {
+			file.teacherId = $scope.detail.teacherId
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
-				data: {
-					teacherId: $scope.detail.teacherId,
-					fileUrl: fileUrl
-				},
+				data: file,
 				operate: true,
 				url: '/teacher/uploadFile',
 				success: function() {
-					$scope.detail.fileUrl = fileUrl
-					$scope.pics.push({
-						fileUrl: fileUrl
-					})
+					$scope.pics.push(file)
 				}
 			});
 		}
@@ -354,6 +355,25 @@
 			})
 		}
 		
+		//删除图片
+		$scope.removePic = function(fileId) {
+			common.ajax({
+				method: 'delete',
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				tip: '您确实要删除该图片吗',
+				url: '/teacher/file/'+fileId,
+				success: function() {
+					$scope.pics.forEach(function (val,index) {
+						if(val.fileId == fileId) {
+							$scope.pics.splice(index, 1);
+						}
+					});
+				}
+			});			
+		}
+		
 		//上传图片
 		common.fileUpload({
 			id: 'topPicSrc',
@@ -361,7 +381,7 @@
 			success: function(file, response) {
 				$scope.$apply(function() {
 					console.log(response);
-					$scope.savePic(response.fileUrl)
+					$scope.savePic(response)
 				});
 			}
 		});

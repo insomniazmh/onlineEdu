@@ -29,7 +29,7 @@
 						<tr class="odd gradeX" ng-repeat="item in data">
 							<td style="min-width: 150px;">
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">冻结</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">{{item.isValidated== '0' ? '冻结' : '解冻'}}</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item)">取消</button>
 							</td>
@@ -61,7 +61,7 @@
 				$scope: $scope,
 				$http: $http,
 				$rootScope: $rootScope,
-				url: '/onLineCourseDic/findAll'
+				url: '/onLineCourseDic/findAllPage'
 			});
 		};
 		$scope.loadCouseDicList();
@@ -109,13 +109,18 @@
 		};		
 		
 		$scope.del = function(course) {
+			let tip = '冻结'
+			if(course.isValidated == '1') {
+				tip = '解冻'
+			}
+			
 			common.ajax({
+				method: 'put',
 				$scope: $scope,
 				$http: $http,
 				operate: true,
-				data: course.courseId,
-				tip: '您确定要冻结该课程吗？',
-				url: '/onLineCourseDic/removeByCourseId',
+				tip: '您确定要'+tip+'该课程吗？',
+				url: '/onLineCourseDic/status/'+course.courseId,
 				success: function(res) {
 					$scope.loadCouseDicList();
 				}
