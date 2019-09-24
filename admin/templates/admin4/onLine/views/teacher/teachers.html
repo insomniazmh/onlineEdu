@@ -71,6 +71,7 @@
 								<button class="btn btn-sm btn-info" ng-click="del(item)">冻结</button>
 								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
 								<button class="btn btn-sm btn-info" ng-click="examine(item)" ng-if='auth==1'>审核</button>
+								<button class="btn btn-info btn-sm" ng-click="resetPwd(item)" ng-if='auth==1  || auth==2'>重置密码</button>
 							</td>
 							<td>{{item.teacherName}}</td>
 							<td>{{item.gender}}</td>

@@ -42,6 +42,7 @@
 							<th>计划开始时间</th>
 							<th>计划截止时间</th>
 							<th>负责人</th>
+							<th ng-show='!globalEdit'>所属学习中心</th>
 							<th ng-show='!globalEdit'>创建时间</th>
 						</tr>
 					</thead>
@@ -77,6 +78,9 @@
 							<td>
 								<span ng-show='!item.edit'>{{item.planAdmin}}</span>
 								<input ng-show='item.edit' type="text" ng-model="item.planAdmin" />
+							</td>
+							<td ng-show='!globalEdit'>
+								{{item.planAdmin}}
 							</td>
 							<td ng-show='!globalEdit'>{{item.updateTime}}</td>
 						</tr>
