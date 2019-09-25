@@ -142,9 +142,9 @@ jQuery(document).ready(function() {
 	Login.init();
 	Demo.init();
 	
-	// if(localStorage.getItem("token")) {
-	// 	window.location.href='index.html';
-	// }
+	if(localStorage.getItem("token")) {
+		window.location.href='index.html';
+	}
 	
 	$("#login").click(function() {
 		$.ajax({
@@ -175,22 +175,6 @@ jQuery(document).ready(function() {
 			}
 		});
 		
-		// let username = $("#username").val()
-		// localStorage.setItem("username", username);
-		// if(username == 'superadmin') {
-		// 	localStorage.setItem("auth", 0);
-		// }else if(username == 'admin') {
-		// 	localStorage.setItem("auth", '1');
-		// }else if(username == 'subadmin') {
-		// 	localStorage.setItem("auth", '2');
-		// }else if(username == 'teacher') {
-		// 	localStorage.setItem("auth", '3');
-		// }else {
-		// 	alert('账号错误，请重输')
-		// 	return false
-		// }
-		// localStorage.setItem("centerAreaId", '1f184d63f76644e3bb0889d7e43d9309');
-		// window.location.href='index.html';
 	})
 });
 </script>

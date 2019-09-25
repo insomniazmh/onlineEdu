@@ -50,7 +50,7 @@
 						<tr class="odd gradeX" ng-repeat="item in data">
 							<td style="min-width: 250px;">
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">冻结</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">{{item.isValidated== '0' ? '冻结' : '解冻'}}</button>
 								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
 								<button class="btn btn-sm btn-info" ng-click="examine(item)" ng-if='auth==1'>审核</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
@@ -194,6 +194,51 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="picsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">图片和文档</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div class="row" style="min-height: 200px;">
+								<div class="col-md-8" style="border-right: 1px solid #0088CC;min-height: 200px;">
+									<div ng-repeat="row in pics" class="picWrapper">
+										<i class="glyphicon glyphicon-remove-sign removePic" ng-click='removePic(row.fileId)'></i>
+										<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div ng-repeat="row in docs" style="margin: 10px 0;">
+										<a href="{{row.fileUrl}}" style="font-size: 22px;">{{row.fileName}}</a>
+										<i class="glyphicon glyphicon-remove-sign" style="font-size: 22px;cursor: pointer;" ng-click='removePic(row.fileId, "doc")'></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 col-md-offset-3">
+						<div>
+							<div id="topPicSrc" class="filePicker">选择图片上传</div>
+						</div>
+					</div>
+					<div class="col-md-2 col-md-offset-5">
+						<div>
+							<div id="topDocSrc" class="filePicker">选择文件上传</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
 </div>
 <script>
 	function plansCtrl($scope, $http, $rootScope, $interval) {
@@ -251,6 +296,8 @@
 			}
 		})
 		
+		
+		
 		/*    教学计划增删改查start    */
 		$scope.add = function() {
 			$scope.flag = 'add';
@@ -302,23 +349,131 @@
 		/*    教学计划增删改查end    */
 		
 		//删除教学计划
-		$scope.del = function(plan) {
-			layer.confirm("您确定要为删除该教学计划吗", {
-				btn: ['确定', "取消"] //按钮
-			}, function() {
-				common.ajax({
-					$scope: $scope,
-					$http: $http,
-					method: 'delete',
-					operate: true,
-					url: '/teachPlan/'+plan.planId,
-					success: function(res) {
-						$scope.loadAllPlan();
-						layer.closeAll('dialog');
-					}
-				});
+		$scope.del = function(detail) {
+			let tip = '冻结'
+			if(detail.isValidated == '1') {
+				tip = '解冻'
+			}
+			
+			common.ajax({
+				method: 'put',
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				tip: '您确实要'+tip+'该教学计划吗',
+				url: '/teachPlan/status/'+detail.planId,
+				success: function(res) {
+					$scope.loadAllPlan();
+					layer.closeAll('dialog');
+				}
 			});
 		}
+		
+		$scope.pics = []
+		$scope.docs = []
+		//加载图片
+		$scope.upload = function(detail) {
+			$scope.detail = detail
+			common.ajax({
+				method: 'get',
+				$scope: $scope,
+				$http: $http,
+				url: '/TeachPlanFile/findAll/'+detail.planId,
+				success: function(res) {
+					for(let val of res) {
+						console.log(val.fileType)
+						if(val.fileType) {
+							$scope.docs.push(val)
+						}else {
+							$scope.pics.push(val)
+						}
+					}
+					$("#picsModal").modal('show')
+				}
+			});
+		}
+		
+		//保存图片
+		$scope.savePic = function(file) {
+			file.planId = $scope.detail.planId
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: file,
+				operate: true,
+				url: '/TeachPlanFile/save',
+				success: function(res) {
+					if(res.fileType) {
+						$scope.docs.push(res)
+					}else {
+						$scope.pics.push(res)
+					}
+					
+				}
+			});
+		}
+		
+		//显示相册
+		$scope.showPhotos = function(index) {
+			common.showPhotos({
+				pics: $scope.pics,
+				title: '教师相关图片',
+				index: index
+			})
+		}
+		
+		//删除图片/文件
+		$scope.removePic = function(fileId, fileType) {
+			let tip = '图片'
+			if(fileType) {
+				tip = '文档'
+			}
+			common.ajax({
+				method: 'delete',
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				tip: '您确实要删除该'+tip+'吗',
+				url: '/TeachPlanFile/'+fileId,
+				success: function() {
+					$scope.pics.forEach(function (val,index) {
+						if(val.fileId == fileId) {
+							$scope.pics.splice(index, 1);
+						}
+					});
+					$scope.docs.forEach(function (val,index) {
+						if(val.fileId == fileId) {
+							$scope.docs.splice(index, 1);
+						}
+					});
+				}
+			});			
+		}
+		
+		//上传图片
+		common.fileUpload({
+			id: 'topPicSrc',
+			type: 'pic',
+			success: function(file, response) {
+				$scope.$apply(function() {
+					console.log(response);
+					$scope.savePic(response)
+				});
+			}
+		});
+		
+		//上传文件
+		common.fileUpload({
+			id: 'topDocSrc',
+			type: 'doc',
+			success: function(file, response) {
+				$scope.$apply(function() {
+					response.fileType = 'doc'
+					$scope.savePic(response)
+				});
+			}
+		});
+		/*************教学计划模块end*****************/ 
 		
 		//查询课程字典中的所有课程
 		$scope.loadCourseDic = function() {

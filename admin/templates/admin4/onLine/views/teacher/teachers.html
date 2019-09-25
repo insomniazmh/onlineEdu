@@ -340,8 +340,8 @@
 				data: file,
 				operate: true,
 				url: '/teacher/uploadFile',
-				success: function() {
-					$scope.pics.push(file)
+				success: function(res) {
+					$scope.pics.push(res)
 				}
 			});
 		}
