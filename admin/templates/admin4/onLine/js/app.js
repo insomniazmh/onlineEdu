@@ -239,6 +239,26 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
+		
+		// 修改密码
+		.state('updatePwd', {
+			url: "/updatePwd.html",
+			templateUrl: "views/updatePwd.html",
+			data: {
+				pageTitle: '修改密码',
+				pageSubTitle: '修改密码'
+			},
+			controller: "",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'MetronicApp',
+						files: [
+						]
+					}]);
+				}]
+			}
+		})
     
     // 报名信息
     .state('enroll', {

@@ -380,6 +380,8 @@
 				$http: $http,
 				url: '/TeachPlanFile/findAll/'+detail.planId,
 				success: function(res) {
+					$scope.pics = []
+					$scope.docs = []
 					for(let val of res) {
 						console.log(val.fileType)
 						if(val.fileType) {

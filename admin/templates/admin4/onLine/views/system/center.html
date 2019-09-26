@@ -39,7 +39,7 @@
 								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
-								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="reset(item)">重置密码</button>
+								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="resetPwd(item)">重置密码</button>
 							</td>
 							<td>
 								<span ng-show='!item.edit'>{{item.centerName}}</span>
@@ -58,12 +58,12 @@
 								<input ng-show='item.edit' type="text" ng-model="item.phone" />
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.phone}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.phone" />
+								<span ng-show='!item.edit'>{{item.companyName}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.companyName" />
 							</td>
 							<td>
-								<span ng-show='!item.edit'>{{item.phone}}</span>
-								<input ng-show='item.edit' type="text" ng-model="item.phone" />
+								<span ng-show='!item.edit'>{{item.companyAddress}}</span>
+								<input ng-show='item.edit' type="text" ng-model="item.companyAddress" />
 							</td>
 							<td>
 								<span>{{item.createTime}}</span>
@@ -146,6 +146,21 @@
 		}
 		
 		$scope.save = function(center) {
+			if(!center.centerName || center.centerName == '') {
+				layer.alert('请输入学习中心名称')
+				return false
+			}
+			
+			if(!center.phone || center.phone == '') {
+				layer.alert('请输入联系电话')
+				return false
+			}
+			let phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
+			if (!phoneReg.test(center.phone)) {
+				layer.alert('请输入正确的手机号')
+				return false;
+			}
+			
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
@@ -153,8 +168,7 @@
 				operate: true,
 				url: '/learnCenter/saveOrUpdate',
 				success: function(res) {
-					console.log(res);
-					center.edit = false;
+					$scope.loadCenterList();
 				}
 			});
 		};
@@ -184,6 +198,23 @@
 				}
 			});
 		};
+		
+		//重置密码
+		$scope.resetPwd = function(detail) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: {
+					id: detail.centerName
+				},
+				tip: '重置密码后，该账户的密码将被设为手机号后六位，您确实要对该账户重置密码吗',
+				url: '/auth/resetPassWord',
+				success: function(res) {
+					// $scope.loadTeacherList();
+				}
+			});
+		}
 		
 		//加载图片
 		$scope.upload = function(detail) {
