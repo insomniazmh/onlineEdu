@@ -68,62 +68,91 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">图集</h4>
+					<h4 class="modal-title">图集
+						<button class="btn btn-circle red-sunglo btn-sm" style="float: right;margin-right: 10px;" ng-click="openAddModal()"> 新增 </button>
+					</h4>
+					
 				</div>
 				<div class="modal-body">
 					<div class="portlet">
 						<div class="portlet-body">
-							<div>
-								<h4>2019-8-16 语文</h4>
-								<div ng-repeat="row in pics" class="picWrapper">
-									<i class="glyphicon glyphicon-remove-sign removePic"></i>
-									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+							<div class="row">
+								<div class="col-md-8" style="border-right: 1px solid #0088CC;min-height: 200px;">
+									<a href="" style="margin: 10px 20px;color: {{item.selected ? 'red':'#5b9bd1'}}" 
+										ng-repeat='item in list' ng-click='loadPics(item)'>{{item.createDate}} {{item.courseName}}</a>
+									<div class="row">
+										<div>
+											<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+												<pagination total-items="bigTotalItems1" ng-model="currentPage1" ng-change="pageChanged1()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+											</div>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div>
-								<h4>2019-8-16 数学</h4>
-								<div ng-repeat="row in pics" class="picWrapper">
-									<i class="glyphicon glyphicon-remove-sign removePic"></i>
-									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
-								</div>
-							</div>
-							<div>
-								<h4>2019-8-16 英语</h4>
-								<div ng-repeat="row in pics" class="picWrapper">
-									<i class="glyphicon glyphicon-remove-sign removePic"></i>
-									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
-								</div>
-							</div>
-							<div>
-								<h4>2019-8-15 语文</h4>
-								<div ng-repeat="row in pics" class="picWrapper">
-									<i class="glyphicon glyphicon-remove-sign removePic"></i>
-									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
-								</div>
-							</div>
-							<div>
-								<h4>2019-8-15 数学</h4>
-								<div ng-repeat="row in pics" class="picWrapper">
-									<i class="glyphicon glyphicon-remove-sign removePic"></i>
-									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
-								</div>
-							</div>
-							<div>
-								<h4>2019-8-15 英语</h4>
-								<div ng-repeat="row in pics" class="picWrapper">
-									<i class="glyphicon glyphicon-remove-sign removePic"></i>
-									<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+								<div class="col-md-4">
+									<div style="min-height: 150px;">
+										<div ng-repeat="row in pics" class="picWrapper">
+											<i class="glyphicon glyphicon-remove-sign removePic" ng-click='removePic(row.fileId)'></i>
+											<img src="{{row.fileUrl}}" class="pic" ng-click='showPhotos($index)' />
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-5 col-md-offset-4">
+											<div>
+												<div id="topPicSrc" class="filePicker">选择图片上传</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-2 col-md-offset-5">
-						<div>
-							<div id="topPicSrc" class="filePicker">选择图片上传</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<div class="modal fade" id="addPicsModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">上传</h4>
+					
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<div class="row" style="margin-bottom: 40px;">
+								<div class="col-md-offset-3 col-md-6">
+									<div class="form-group form-md-line-input">
+										<input type="text" class="form-control date-picker" id="form_control_1" ng-model="date" placeholder="请选择日期">
+										<label for="form_control_1">日期</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row" style="margin-bottom: 40px;">
+								<div class="col-md-offset-3 col-md-6">
+									<div class="form-group form-md-line-input">
+										<select class="form-control" ng-model="courseId" id="form_control_2">
+											<option value="{{item.courseId}}" ng-repeat='item in courseList'>{{item.courseName}}</option>
+										</select>
+										<label for="form_control_2">课程</label>
+										<span class="help-block"></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-2 col-md-offset-5">
+									<div>
+										<div id="newPicSrc" class="filePicker">选择图片上传</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -138,6 +167,7 @@
 	function planDatumCtrl($scope, $http, $rootScope) {
 		$scope.pics = []
 		$scope.currentPage = 1
+		$scope.currentPage1 = 1
 		$scope.searchObj = {
 			agoDay: 30
 		}
@@ -164,50 +194,124 @@
 			$scope.loadAllClass();
 		}
 		
+		//根据计划id和班级id加载时间课程列表
 		$scope.upload = function(detail) {
 			$scope.detail = detail
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
 				data: {
+					"page": $scope.currentPage1-1,
+					"size": common.pageSize,
 					classId: $scope.detail.classId,
 					planId: $scope.detail.planId
 				},
-				url: '/planFile/findAllByPlanIdAndClassId',
+				url: '/planFile/findAllPage',
 				success: function(res) {
-					$scope.pics = res
+					$scope.list = res.content
+					$scope.bigTotalItems1 = res.totalElements;
+					$scope.totalItems1 = res.totalPages;
+					console.log($scope.list)
+					if($scope.list.length > 0) {
+						$scope.loadPics($scope.list[0])//初始化图片
+					}
+					$scope.planCourses($scope.detail.planId)
 					$("#picsModal").modal('show')
 				}
 			});
 		}
 		
-		//上传图片
+		$scope.pageChanged1 = function() {
+			$scope.upload($scope.detail)
+		}
+		
+		//根据计划id查询所选课程
+		$scope.planCourses = function(planId) {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					planId: planId
+				},
+				url: '/teachPlan/course/'+planId,
+				success: function(res) {
+					$scope.courseList = res
+					$("#planCoursesModal").modal('show');
+				}
+			});
+		}
+		
+		//根据课程id和日期查询图片详情
+		$scope.loadPics = function(item) {
+			for(let val of $scope.list) {
+				val.selected = false
+			}
+			item.selected = true
+			$scope.courseId = item.courseId
+			$scope.date = item.createDate
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: item,
+				url: '/planFile/findAllByCourseIdAndCreateDate',
+				success: function(res) {
+					$scope.pics = res
+				}
+			});
+		}
+		
+		//上传图片(编辑)
 		common.fileUpload({
 			id: 'topPicSrc',
 			type: 'pic',
 			success: function(file, response) {
 				$scope.$apply(function() {
-					$scope.savePic(response.fileUrl)
+					$scope.savePic(response)
 				});
 			}
 		});
 		
-		$scope.savePic = function(fileUrl) {
+		//上传图片(新增)
+		common.fileUpload({
+			id: 'newPicSrc',
+			type: 'pic',
+			success: function(file, response) {
+				$scope.$apply(function() {
+					console.log($scope.date)
+					console.log($scope.courseId)
+					if(!$scope.date || $scope.date=='') {
+						layer.alert('请先选择日期')
+						return false
+					}
+					if(!$scope.courseId || $scope.courseId=='') {
+						layer.alert('请先选择课程')
+						return false
+					}
+					$scope.savePic(response)
+					$("#addPicsModal").modal('hide')
+				});
+			}
+		});
+		
+		//保存图片
+		$scope.savePic = function(file) {
+			let postData = {
+				classId: $scope.detail.classId,
+				planId: $scope.detail.planId,
+				courseId: $scope.courseId,
+				createDate: $scope.date,
+				fileName: file.fileName,
+				fileUrl: file.fileUrl
+			}
+			console.log(postData)
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
-				data: {
-					classId: $scope.detail.classId,
-					planId: $scope.detail.planId,
-					fileUrl: fileUrl
-				},
+				data: postData,
 				operate: true,
 				url: '/planFile/saveOrUpdate',
-				success: function() {
-					$scope.detail.fileUrl = fileUrl
-					$scope.pics.push({
-						fileUrl: fileUrl
-					})
+				success: function(res) {
+					$scope.upload($scope.detail)
 				}
 			});
 		}
@@ -220,6 +324,37 @@
 				index: index
 			})
 		}
+		
+		//删除图片
+		$scope.removePic = function(fileId) {
+			common.ajax({
+				method: 'delete',
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				tip: '您确实要删除该图片吗',
+				url: '/planFile/file/'+fileId,
+				success: function() {
+					$scope.pics.forEach(function (val,index) {
+						if(val.fileId == fileId) {
+							$scope.pics.splice(index, 1);
+						}
+					});
+				}
+			});			
+		}
+		
+		//打开新增图片模态框
+		$scope.openAddModal = function() {
+			$scope.date = ''
+			$scope.courseId = ''
+			$("#addPicsModal").modal('show')
+		}
+		
+		$(".date-picker").datepicker({
+			language: 'zh-CN',
+			format: 'yyyy-mm-dd'
+		})
 		
 	}
 </script>

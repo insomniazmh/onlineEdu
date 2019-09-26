@@ -44,7 +44,12 @@ form p {
 .search {
 	display: flex;
 }
-.search input,select {
+.search input {
+	margin-bottom: 8px;
+	max-width: 160px;
+	display: inline-block !important;
+}
+.search select {
 	margin-bottom: 8px;
 	max-width: 160px;
 	display: inline-block !important;

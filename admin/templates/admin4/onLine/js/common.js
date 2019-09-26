@@ -347,7 +347,7 @@ var common = {
 			
 		let postData = {
 			"page": settings.$scope.currentPage - 1,
-			"size": settings.$rootScope.pageSize,
+			"size": common.pageSize,
 			// sortVo: {
 			// 	"page": settings.$scope.currentPage - 1,
 			// 	"size": settings.$rootScope.pageSize,
