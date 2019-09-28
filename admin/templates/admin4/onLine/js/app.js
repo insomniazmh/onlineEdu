@@ -976,4 +976,16 @@ MetronicApp.run(["$rootScope", "settings", "$state", function($rootScope, settin
 				callback();
 			}
 		}
+		
+		$rootScope.verifyStatusHelper = function(status) {
+			let rtn = ''
+			if(status == 0) {
+				rtn = '审核通过'
+			}else if(status == 1) {
+				rtn = '待审核'
+			}else if(status == 2) {
+				rtn = '审核未通过'
+			}
+			return rtn
+		}
 }]);

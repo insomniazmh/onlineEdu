@@ -40,9 +40,11 @@
 								</div>
 								<div class="col-md-6">
 									<label class="label-text">审核状态</label>
-									<select class="form-control">
-										<option value="">未审核</option>
-										<option value="1">已审核</option>
+									<select class="form-control" ng-model='searchObj.verifyStatus' ng-change='changeSearch()'>
+										<option value="">全部</option>
+										<option value="1">待审核</option>
+										<option value="0">审核通过</option>
+										<option value="2">审核不通过</option>
 									</select>
 									<button class="btn blue btn-sm">查询</button>
 								</div>
@@ -61,6 +63,8 @@
 							<th>所在行业</th>
 							<th>学位</th>
 							<th>工作单位及职务</th>
+							<th>审核状态</th>
+							<th>审核意见</th>
 							<th ng-if='auth==1'>所属学习中心</th>
 						</tr>
 					</thead>
@@ -70,7 +74,7 @@
 								<button class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								<button class="btn btn-sm btn-info" ng-click="del(item)">{{item.isValidated== '0' ? '冻结' : '解冻'}}</button>
 								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
-								<button class="btn btn-sm btn-info" ng-click="examine(item)" ng-if='auth==1'>审核</button>
+								<button class="btn btn-sm btn-info" ng-click="openExamine(item)" ng-if='auth==1 && item.verifyStatus==1'>审核</button>
 								<button class="btn btn-info btn-sm" ng-click="resetPwd(item)" ng-if='auth==1  || auth==2'>重置密码</button>
 							</td>
 							<td>{{item.teacherName}}</td>
@@ -80,6 +84,8 @@
 							<td>{{item.industry}}</td>
 							<td>{{item.academicDegree}}</td>
 							<td>{{item.position}}</td>
+							<td>{{verifyStatusHelper(item.verifyStatus)}}</td>
+							<td>{{item.remark}}</td>
 							<td ng-if='auth==1'>{{item.centerName}}</td>
 						</tr>
 					</tbody>
@@ -243,11 +249,62 @@
 		</div>
 	</div>
 	
+	<!--审核-->
+	<div class="modal fade" id="examineModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">审核</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<form action="#" class="form-horizontal">
+								<div class="form-body">
+									
+									<div class="form-group">
+										<label class="col-md-1 control-label">审核:</label>
+										<div class="col-md-2">
+											<select class="form-control" ng-model='examine.verifyStatus'>
+												<option value="0">通过</option>
+												<option value="2">不通过</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-1 control-label">审核意见:</label>
+										<div class="col-md-5">
+											<textarea type="text" class="form-control" ng-model='examine.remark' style="height: 200px;"></textarea>
+										</div>
+									</div>
+								</div>
+							</form>
+							<div class="form-actions noborder" style="text-align: center;">
+								<button type="button" class="btn blue" ng-click="examineSub()">确定</button>
+								<button type="button" class="btn blue">取消</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 	
 
 </div>
 <script>
 	function teachersCtrl($scope, $http, $rootScope) {
+		$scope.searchObj = {
+			verifyStatus: ''
+		}
+		
+		$scope.changeSearch = function() {
+			$scope.loadTeacherList()
+		}
+		
 		//加载外聘教师列表
 		$scope.loadTeacherList = function() {			
 			common.loadDataList({
@@ -395,6 +452,31 @@
 					});
 				}
 			});			
+		}
+		
+		//弹出审核模态框
+		$scope.openExamine = function(detail) {
+			$scope.detail = detail
+			$scope.examine = {
+				teacherId: detail.teacherId,
+				verifyStatus: 0,
+				remark: ''
+			}
+			$('#examineModal').modal('show')
+		}
+		
+		$scope.examineSub = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: $scope.examine,
+				url: '/teacher/verifyTeacher',
+				success: function() {
+					$scope.loadTeacherList();
+					$('#examineModal').modal('hide')
+				}
+			});
 		}
 		
 		//上传图片

@@ -362,7 +362,7 @@ var common = {
 			postData = Object.assign(postData, settings.$scope.searchObj);
 		}
 		
-		postData.centerAreaId = '1f184d63f76644e3bb0889d7e43d9309'
+		postData.centerAreaId = ''
 		console.log(postData);
 		
 		common.ajax({
