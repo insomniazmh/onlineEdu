@@ -738,6 +738,24 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			}
 		})
 		
+		// 课程审核
+		.state('courseExamine', {
+			url: "/courseExamine.html",
+			templateUrl: "views/course/courseExamine.html",
+			data: {
+				pageTitle: '课程审核'
+			},
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load({
+						name: 'MetronicApp',
+						insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+						files: []
+					});
+				}]
+			}
+		})
+		
 		// 外聘教师
 		.state('teachers', {
 			url: "/teachers.html",

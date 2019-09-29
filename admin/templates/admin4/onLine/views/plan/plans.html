@@ -42,6 +42,8 @@
 							<th>计划开始时间</th>
 							<th>计划截止时间</th>
 							<th>负责人</th>
+							<th>审核状态</th>
+							<th>审核意见</th>
 							<th ng-show='!globalEdit'>所属学习中心</th>
 							<th ng-show='!globalEdit'>创建时间</th>
 						</tr>
@@ -51,8 +53,8 @@
 							<td style="min-width: 250px;">
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">{{item.isValidated== '0' ? '冻结' : '解冻'}}</button>
-								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
-								<button class="btn btn-sm btn-info" ng-click="examine(item)" ng-if='auth==1'>审核</button>
+								<button ng-show='!item.edit' class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
+								<button class="btn btn-sm btn-info" ng-click="openExamine(item)" ng-if='auth==1 && item.verifyStatus==1'>审核</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 							</td>
@@ -74,15 +76,20 @@
 								<span ng-show='!item.edit'>{{item.endDate}}</span>
 								<input ng-show='item.edit' type="text" ng-model="item.endDate" class="date-picker" />
 							</td>
-							
 							<td>
 								<span ng-show='!item.edit'>{{item.planAdmin}}</span>
 								<input ng-show='item.edit' type="text" ng-model="item.planAdmin" />
 							</td>
 							<td ng-show='!globalEdit'>
-								{{item.planAdmin}}
+								{{verifyStatusHelper(item.verifyStatus)}}
 							</td>
-							<td ng-show='!globalEdit'>{{item.updateTime}}</td>
+							<td ng-show='!globalEdit'>
+								{{item.remark}}
+							</td>
+							<td ng-show='!globalEdit'>
+								{{item.centerName}}
+							</td>
+							<td ng-show='!globalEdit'>{{item.createTime}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -167,6 +174,50 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<!--审核-->
+	<div class="modal fade" id="examineModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">审核</h4>
+				</div>
+				<div class="modal-body">
+					<div class="portlet">
+						<div class="portlet-body">
+							<form action="#" class="form-horizontal">
+								<div class="form-body">
+									
+									<div class="form-group">
+										<label class="col-md-1 control-label">审核:</label>
+										<div class="col-md-2">
+											<select class="form-control" ng-model='examine.verifyStatus'>
+												<option value="0">通过</option>
+												<option value="2">不通过</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-1 control-label">审核意见:</label>
+										<div class="col-md-5">
+											<textarea type="text" class="form-control" ng-model='examine.remark' style="height: 200px;"></textarea>
+										</div>
+									</div>
+								</div>
+							</form>
+							<div class="form-actions noborder" style="text-align: center;">
+								<button type="button" class="btn blue" ng-click="examineSub()">确定</button>
+								<button type="button" class="btn blue">取消</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
 	</div>
 	
 	<!-- 班级 -->
@@ -365,6 +416,31 @@
 				success: function(res) {
 					$scope.loadAllPlan();
 					layer.closeAll('dialog');
+				}
+			});
+		}
+		
+		//弹出审核模态框
+		$scope.openExamine = function(detail) {
+			$scope.detail = detail
+			$scope.examine = {
+				planId: detail.planId,
+				verifyStatus: 0,
+				remark: ''
+			}
+			$('#examineModal').modal('show')
+		}
+		
+		$scope.examineSub = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				data: $scope.examine,
+				url: '/teachPlan/verifyTeachPlan',
+				success: function() {
+					$scope.loadAllPlan();
+					$('#examineModal').modal('hide')
 				}
 			});
 		}
