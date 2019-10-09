@@ -42,8 +42,8 @@
 							<th>计划开始时间</th>
 							<th>计划截止时间</th>
 							<th>负责人</th>
-							<th>审核状态</th>
-							<th>审核意见</th>
+							<th ng-show='!globalEdit'>审核状态</th>
+							<th ng-show='!globalEdit'>审核意见</th>
 							<th ng-show='!globalEdit'>所属学习中心</th>
 							<th ng-show='!globalEdit'>创建时间</th>
 						</tr>
@@ -321,8 +321,14 @@
 		
 		$scope.currentPage = 1
 		$scope.searchObj = {
-			agoDay: 30
+			verifyStatus: '',
+			planId: ''
 		}
+		$scope.$watch('searchObj', function(){
+			$scope.loadAllPlan();
+		},true);
+		
+		
 		//分页加载教学计划
 		$scope.loadAllPlan = function() {
 			common.loadDataList({
@@ -451,10 +457,12 @@
 		$scope.upload = function(detail) {
 			$scope.detail = detail
 			common.ajax({
-				method: 'get',
 				$scope: $scope,
 				$http: $http,
-				url: '/TeachPlanFile/findAll/'+detail.planId,
+				data: {
+					planId: detail.planId
+				},
+				url: '/TeachPlanFile/findAll',
 				success: function(res) {
 					$scope.pics = []
 					$scope.docs = []
