@@ -106,10 +106,15 @@
 		$scope.$on('addSmall', function(d, data) {
 			let question = data
 			question.teacherId = localStorage.getItem("userid")
+			question.teacherName = localStorage.getItem("username")
 			question.levelId = $scope.questionLevel
 			question.chapterId = $rootScope.currentNode.id
 			question.chapterName = $rootScope.currentNode.text
 			question.courseId = $rootScope.currCourse.courseId
+			question.courseName = $rootScope.currCourse.courseName
+			question.centerAreaId = localStorage.getItem("centerAreaId")
+			question.centerName = localStorage.getItem("centerName")
+			
 			
 			if(!question.levelId || question.levelId=="") {
 				layer.alert("请选择难易程度");

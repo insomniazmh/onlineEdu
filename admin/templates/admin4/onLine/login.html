@@ -162,8 +162,10 @@ jQuery(document).ready(function() {
 			success: function(data) {
 				if(data.ret == 0) {
 					localStorage.setItem("token", data.data.token);
+					localStorage.setItem("centerAreaId", data.data.centerAreaId);
+					localStorage.setItem("centerName", data.data.centerName);
 					localStorage.setItem("userid", data.data.userId);
-					localStorage.setItem("username", $("#username").val());
+					localStorage.setItem("username", data.data.userName);
 					localStorage.setItem("auth", data.data.roleCode);
 					window.location.href='index.html';
 				}else {

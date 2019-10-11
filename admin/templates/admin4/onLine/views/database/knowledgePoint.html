@@ -69,7 +69,10 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" data-target="#accordion1_{{$index}}">
-											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span>
+											<span ng-if='row.verifyStatus == 1'>({{verifyStatusHelper(row.verifyStatus)}})</span>
+											<span ng-if='row.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(row.verifyStatus)}})</span>
+										</a>
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
 											 ng-click="editQuestion(row)"></i>
@@ -97,7 +100,10 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDuoxuan" data-target="#accordionDuoxuan_{{$index}}">
-											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span> 
+											<span ng-if='row.verifyStatus == 1'>({{verifyStatusHelper(row.verifyStatus)}})</span>
+											<span ng-if='row.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(row.verifyStatus)}})</span>
+										</a>
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
 											 ng-click="editQuestion(row)"></i>
@@ -125,7 +131,10 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionPanduan" data-target="#accordionPanduan_{{$index}}">
-											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span> </a>
+											<span ng-bind-html="row.choiceQstTxt" style="display: inline-block;"></span> 
+											<span ng-if='row.verifyStatus == 1'>({{verifyStatusHelper(row.verifyStatus)}})</span>
+											<span ng-if='row.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(row.verifyStatus)}})</span>
+										</a>
 										<div style="display: inline-block;float: right;">
 											<i class="fa fa-edit opreat" style="padding-right: 20px;border-right: 1px solid #45B6AF;" title="编辑"
 											 ng-click="editQuestion(row)"></i>

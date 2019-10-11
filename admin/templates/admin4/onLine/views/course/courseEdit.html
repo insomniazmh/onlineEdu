@@ -79,7 +79,7 @@
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
-			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint')">知识点题库</button>
+			<button type="button" class="btn green" onclick="common.goUrl('knowledgePoint')">题库</button>
 			<button type="button" class="btn blue" onclick="common.goUrl('assistant')">教学资料</button>
 		</div>
 	</div>
@@ -130,7 +130,7 @@
 									</div>
 									<div class="portlet-body">
 										<div class="tab-content">
-											<ul class="feeds" style="width: 48%; display: inline-block;">
+											<ul class="feeds">
 												<li>
 													<div class="col1">
 														<div class="cont">
@@ -143,8 +143,11 @@
 																<div class="desc">
 																	
 																	<span id="filePickerKejian" class="filePicker"> 上传课件 </span>
-																	<div style="display: inline;margin-left: 20px;position: absolute;">
-																			已有课件 <a ng-click='blank(kejian)'>({{kejian.fileName}})</a>
+																	<div style="display: inline;margin-left: 20px;position: absolute;"> 已有课件 
+																			<a ng-click='blank(kejian)'>({{kejian.fileName}})
+																				<span ng-if='kejian.verifyStatus == 1'>({{verifyStatusHelper(kejian.verifyStatus)}})</span>
+																				<span ng-if='kejian.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(kejian.verifyStatus)}})</span>
+																			</a>
 																	</div>
 						
 																</div>
@@ -189,7 +192,10 @@
 																	</div>
 																	<div class="cont-col2">
 																		<div class="desc">
-																			<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+																			<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}
+																				<span ng-if='row.verifyStatus == 1'>({{verifyStatusHelper(row.verifyStatus)}})</span>
+																				<span ng-if='row.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(row.verifyStatus)}})</span>
+																			</a>
 																		</div>
 																	</div>
 																</div>
@@ -331,6 +337,7 @@
 							url: '/courseware/savefile',
 							data: postData,
 							success: function(data) {
+								response.verifyStatus = '1'
 								$scope.kejian = response;
 							}
 						});

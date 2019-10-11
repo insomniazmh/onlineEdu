@@ -34,7 +34,7 @@
 	<div style="position: absolute;right: 10px; top: 35px;">
 		<span style="color: #3175af;margin-right:5px;">跳转至&nbsp;&nbsp;<i class="fa fa-mail-forward"></i></span>
 		<div class="btn-group btn-group-sm btn-group-solid">
-			<button type="button" class="btn red" onclick="common.goUrl('knowledgePoint')">知识点题库</button>
+			<button type="button" class="btn red" onclick="common.goUrl('knowledgePoint')">题库</button>
 			<button type="button" class="btn blue" onclick="common.goUrl('courseEdit')">课程信息</button>
 		</div>
 	</div>
@@ -94,7 +94,10 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}
+														<span ng-if='row.verifyStatus == 1'>({{verifyStatusHelper(row.verifyStatus)}})</span>
+														<span ng-if='row.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(row.verifyStatus)}})</span>
+													</a>
 												</div>
 											</div>
 										</div>
@@ -122,7 +125,10 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}
+														<span ng-if='row.verifyStatus == 1'>({{verifyStatusHelper(row.verifyStatus)}})</span>
+														<span ng-if='row.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(row.verifyStatus)}})</span>
+													</a>
 												</div>
 											</div>
 										</div>
@@ -149,7 +155,10 @@
 											</div>
 											<div class="cont-col2">
 												<div class="desc">
-													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}</a>
+													<a href="{{row.fileUrl}}" style="line-height: 25px;" target=_blank>{{row.fileName}}
+														<span ng-if='row.verifyStatus == 1'>({{verifyStatusHelper(row.verifyStatus)}})</span>
+														<span ng-if='row.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(row.verifyStatus)}})</span>
+													</a>
 												</div>
 											</div>
 										</div>
@@ -233,8 +242,8 @@
 		
 		$scope.init = function() {
 			$scope.loadDatumList("1");
+			$scope.loadDatumList("3");
 			$scope.loadDatumList("4");
-			$scope.loadDatumList("5");
 		}
 		
 		//打开资料添加框

@@ -725,7 +725,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 			url: "/courseDic.html",
 			templateUrl: "views/course/courseDic.html",
 			data: {
-				pageTitle: '课程字典'
+				pageTitle: '计划课程名称'
 			},
 			resolve: {
 				deps: ['$ocLazyLoad', function($ocLazyLoad) {

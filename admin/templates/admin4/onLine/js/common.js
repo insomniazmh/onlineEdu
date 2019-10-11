@@ -68,7 +68,7 @@ var common = {
 			settings.data.userId = localStorage.getItem('userid')
 		}
 		
-		if(settings.data) {
+		if(settings.data && !settings.data.centerAreaId) {
 			settings.data.centerAreaId = ''
 		}
 
@@ -163,6 +163,7 @@ var common = {
 			if(settings.select) {
 				this.select = true;
 			}
+			console.log(this)
 			if(this.examType == "single") {
 				this.title = this.choiceQstTxt + "（单选）";
 			} else if(this.examType == "multiple") {
@@ -171,6 +172,11 @@ var common = {
 				this.title = this.choiceQstTxt + "（判断）";
 			} else if(this.examType == "design") {
 				this.title = this.choiceQstTxt + "（主观）";
+			}
+			if(this.verifyStatus == '1') {
+				this.title = this.title + '(待审核)'
+			}else if(this.verifyStatus == '2') {
+				this.title = this.title + '(审核未通过)'
 			}
 			
 		});
@@ -362,7 +368,9 @@ var common = {
 			postData = Object.assign(postData, settings.$scope.searchObj);
 		}
 		
-		postData.centerAreaId = ''
+		if(!postData.centerAreaId) {
+			postData.centerAreaId = ''
+		} 
 		console.log(postData);
 		
 		common.ajax({
@@ -383,7 +391,7 @@ var common = {
 					settings.$scope.data = res.content;
 				}
 				if(settings.success) {
-					settings.success()
+					settings.success(res)
 				}
 			}
 		});

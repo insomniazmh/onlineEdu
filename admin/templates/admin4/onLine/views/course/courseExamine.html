@@ -53,9 +53,9 @@
 							</td>
 							<td>{{item.courseName}}</td>
 							<td>{{item.teacherName}}</td>
-							<td>{{item.operateType}}</td>
-							<td>{{item.datumType}}</td>
-							<td>{{item.datumName}}</td>
+							<td>{{item.submitType}}</td>
+							<td>{{datumTypeHelper(item.datumType)}}</td>
+							<td>{{item.fileName}}</td>
 							<td ng-if='auth==1'>{{item.centerName}}</td>
 						</tr>
 					</tbody>
@@ -85,7 +85,24 @@
 						<div class="portlet-body">
 							<form action="#" class="form-horizontal">
 								<div class="form-body">
-									
+									<div class="form-group" ng-if='detail.datumType==1'>
+										<label class="col-md-1 control-label">文档:</label>
+										<div class="col-md-11" style="padding-top: 4px;">
+											<a style="font-size: 18px;" href="{{detail.fileUrl}}">{{detail.fileName}}</a>
+										</div>
+									</div>
+									<div class="form-group" ng-if='detail.datumType==3'>
+										<label class="col-md-1 control-label">视频:</label>
+										<div class="col-md-2">
+											<video src="{{detail.fileUrl}}" controls="controls" style="height: 300px; width:auto;">您的浏览器不支持 video 标签。</video>
+										</div>
+									</div>
+									<div class="form-group" ng-if='detail.datumType==4'>
+										<label class="col-md-1 control-label">音频:</label>
+										<div class="col-md-2">
+											<audio src="{{detail.fileUrl}}" controls="controls">您的浏览器不支持 audio 标签。</audio>
+										</div>
+									</div>
 									<div class="form-group">
 										<label class="col-md-1 control-label">审核:</label>
 										<div class="col-md-2">
@@ -119,85 +136,44 @@
 
 </div>
 <script>
-	function teachersCtrl($scope, $http, $rootScope) {
+	function teachersCtrl($scope, $http, $rootScope, $sce, $timeout) {
+		$scope.currentPage = 1
 		$scope.searchObj = {
 			verifyStatus: ''
 		}
 		
 		$scope.changeSearch = function() {
-			$scope.loadTeacherList()
+			$scope.loadExamineList()
 		}
 		
-		// //加载外聘教师列表
-		// $scope.loadTeacherList = function() {			
-		// 	common.loadDataList({
-		// 		$scope: $scope,
-		// 		$http: $http,
-		// 		$rootScope: $rootScope,
-		// 		url: '/teacher/findAllPage'
-		// 	});
-		// };
-		// $scope.loadTeacherList()
-		
-		$scope.data = [{
-			courseName: '课程1',
-			teacherName: '教师1',
-			operateType: '编辑章节',
-			datumType: '文字',
-			datumName: '第一节 java基础',
-			centerName: '中心1'
-		}, {
-			courseName: '课程1',
-			teacherName: '教师1',
-			operateType: '上传课件',
-			datumType: '视频',
-			datumName: '第一节视频课件.mp4',
-			centerName: '中心2'
-		}, {
-			courseName: '课程3',
-			teacherName: '教师1',
-			operateType: '上传资料',
-			datumType: '文档',
-			datumName: 'java基础教程.doc',
-			centerName: '中心3'
-		}, {
-			courseName: '课程3',
-			teacherName: '教师1',
-			operateType: '更新题目',
-			datumType: '题目',
-			datumName: 'java语言中又几种基本变量类型',
-			centerName: '中心3'
-		}]
-		
-		//加载图片
-		$scope.upload = function(detail) {
-			$scope.detail = detail
-			common.ajax({
-				method: 'get',
+		//加载待审核课程资料和题目列表
+		$scope.loadExamineList = function() {			
+			common.loadDataList({
 				$scope: $scope,
 				$http: $http,
-				url: '/teacher/files/'+detail.teacherId,
+				$rootScope: $rootScope,
+				url: '/courseVerify/findAllPageVerify',
 				success: function(res) {
-					$scope.pics = res
-					$("#picsModal").modal('show')
+					$scope.detail = res[0]
 				}
 			});
-		}
+		};
+		$scope.loadExamineList()
 		
-		//显示相册
-		$scope.showPhotos = function(index) {
-			common.showPhotos({
-				pics: $scope.pics,
-				title: '教师相关图片',
-				index: index
-			})
+		$scope.pageChanged = function() {
+			$scope.loadExamineList()
 		}
 		
 		//弹出审核模态框
 		$scope.openExamine = function(detail) {
 			$scope.detail = detail
+			console.log(detail)
+			if(detail.datumType == '3' || detail.datumType == '4') {
+				$scope.detail.fileUrl = $sce.trustAsResourceUrl($scope.detail.fileUrl);
+			}
+			
 			$scope.examine = {
-				teacherId: detail.teacherId,
+				id: detail.voId,
 				verifyStatus: 0,
 				remark: ''
 			}
@@ -210,12 +186,30 @@
 				$http: $http,
 				operate: true,
 				data: $scope.examine,
-				url: '/teacher/verifyTeacher',
+				url: '/courseVerify/verify',
 				success: function() {
-					$scope.loadTeacherList();
-					$('#examineModal').modal('hide')
+					common.toast({
+						title: "即将进入下一条数据"
+					});
+					$timeout(function(){
+						$scope.loadExamineList();
+					},1500);
+
 				}
 			});
+		}
+		
+		//资料类型转换
+		$scope.datumTypeHelper = function(status) {
+			let rtn = ''
+			if(status == 1) {
+				rtn = '文档'
+			}else if(status == 3) {
+				rtn = '视频'
+			}else if(status == 4) {
+				rtn = '音频'
+			}
+			return rtn
 		}
 	}
 </script>
