@@ -259,6 +259,26 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 				}]
 			}
 		})
+		
+		// 课程导入
+		.state('courseImport', {
+			url: "/courseImport.html",
+			templateUrl: "views/course/courseImport.html",
+			data: {
+				pageTitle: '课程导入',
+				pageSubTitle: '课程导入'
+			},
+			controller: "",
+			resolve: {
+				deps: ['$ocLazyLoad', function($ocLazyLoad) {
+					return $ocLazyLoad.load([{
+						name: 'MetronicApp',
+						files: [
+						]
+					}]);
+				}]
+			}
+		})
     
     // 报名信息
     .state('enroll', {
