@@ -85,6 +85,33 @@
 						<div class="portlet-body">
 							<form action="#" class="form-horizontal">
 								<div class="form-body">
+									<div class="form-group" ng-if='detail.datumType==0'>
+										<label class="col-md-1 control-label">题干:</label>
+										<div class="col-md-11">
+											<p ng-bind-html="detail.question.choiceQstTxt"></p>
+										</div>
+									</div>
+									<div class="form-group" ng-if='detail.datumType==0'>
+										<label class="col-md-1 control-label">选项:</label>
+										<div class="col-md-11">
+											<p ng-repeat="x in detail.question.optChildren">
+												<span ng-bind-html="x.optValue" style="display: inline-block;"></span>．
+												<span ng-bind-html="x.optTxt" style="display: inline-block;"></span>
+											</p>
+										</div>
+									</div>
+									<div class="form-group" ng-if='detail.datumType==0'>
+										<label class="col-md-1 control-label">答案:</label>
+										<div class="col-md-11">
+											<p ng-bind-html="detail.question.answer" style="display: inline-block;"></p>
+										</div>
+									</div>
+									<div class="form-group" ng-if='detail.datumType==0'>
+										<label class="col-md-1 control-label">解析:</label>
+										<div class="col-md-11">
+											<p ng-bind-html="detail.question.analysis" style="display: inline-block;"> </p>
+										</div>
+									</div>
 									<div class="form-group" ng-if='detail.datumType==1'>
 										<label class="col-md-1 control-label">文档:</label>
 										<div class="col-md-11" style="padding-top: 4px;">
@@ -170,6 +197,19 @@
 			console.log(detail)
 			if(detail.datumType == '3' || detail.datumType == '4') {
 				$scope.detail.fileUrl = $sce.trustAsResourceUrl($scope.detail.fileUrl);
+			}
+			//加载题目
+			if(detail.datumType == '0') {
+				common.ajax2({
+					method: 'get',
+					$scope: $scope,
+					$http: $http,
+					url: '/question/'+detail.questionId,
+					success: function(res) {
+						console.log(res)
+						$scope.detail.question = res
+					}
+				});
 			}
 			
 			$scope.examine = {
