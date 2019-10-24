@@ -53,13 +53,15 @@ Page({
   sub: function() {
     getApp().agriknow.bindUser(this.data.realName, this.data.idNumber)
       .then(res => {
-        wx.showToast({
-          title: '绑定成功！',
-        });
         getApp().globalData.alreadyBind = true;
         wx.navigateTo({
-          url: '/pages/index/index'
+          url: 'pages/index/index'
         });
+        wx.showToast({
+          title: '绑定成功！'
+        });
+        
+        
       })
       .catch(res => {
         //wx.stopPullDownRefresh()

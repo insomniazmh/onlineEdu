@@ -48,10 +48,10 @@
 </view>
 
 <!-- 显示答案和解析 -->
-<view wx:if="{{analysiShow}}">
+<view wx:if="{{analysiShow}}" style="padding: 15px 25px;background: #F8F8F8;">
   <view>您的答案是：{{stuAnswer}}</view>
-  <view>正确答案是：{{rightAnswer}}</view>
-  <view>解析：{{analysis}}</view>
+  <view style="margin-top: 10px;">正确答案是：{{rightAnswer}}</view>
+  <view style="margin-top: 10px;">解析：{{analysis}}</view>
 </view>
 
 <button class='com_btn mt_100 btn_state_on' bindtap="bindSub" 

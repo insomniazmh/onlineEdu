@@ -1,18 +1,14 @@
 var common = {
-	
-	url: 'http://1a712f5772.imwork.net:37862',
-	url2: 'http://1a712f5772.imwork.net:50311',
-	
 	//正式服
-	 // url: 'https://e.hnfts.cn/lineEdu',
-	 // url2: 'https://e.hnfts.cn/lineEduQuiz',
+	 url: 'https://e.hnfts.cn/lineEdu',
+	 url2: 'https://e.hnfts.cn/lineEduQuiz',
 
 	//测试服
 	// url: 'http://192.168.10.2:7080',
 	// url2: 'http://192.168.10.2:7081',
 	
-	// uploadUrl: 'https://e.hnfts.cn/upload/upload',
-	uploadUrl: 'http://114.115.174.243:8612/upload/',
+	uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	// uploadUrl: 'http://192.168.10.2:8612/upload',
 	
 	pageSize: 15,
 
@@ -202,7 +198,8 @@ var common = {
 			server: url,
 			// 选择文件的按钮。可选。
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
-			pick: '#' + settings.id
+			pick: '#' + settings.id,
+			duplicate: true
 		}
 		if(settings.options) {
 			options = $.extend(options, settings.options);
@@ -394,7 +391,7 @@ var common = {
 					settings.$scope.data = res.content;
 				}
 				if(settings.success) {
-					settings.success(res)
+					settings.success(res.content)
 				}
 			}
 		});

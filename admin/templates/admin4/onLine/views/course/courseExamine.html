@@ -112,22 +112,29 @@
 											<p ng-bind-html="detail.question.analysis" style="display: inline-block;"> </p>
 										</div>
 									</div>
-									<div class="form-group" ng-if='detail.datumType==1'>
+									<div class="form-group" ng-if='detail.datumType==1 && detail.fileType=="pic"'>
+										<label class="col-md-1 control-label">图片:</label>
+										<div class="col-md-11" style="padding-top: 4px;">
+											<img src="{{detail.fileUrl}}" />
+											<!-- <a style="font-size: 18px;" href="{{detail.trustFileUrl}}">{{detail.fileName}}</a> -->
+										</div>
+									</div>
+									<div class="form-group" ng-if='detail.datumType==1 && detail.fileType=="doc"'>
 										<label class="col-md-1 control-label">文档:</label>
 										<div class="col-md-11" style="padding-top: 4px;">
-											<a style="font-size: 18px;" href="{{detail.fileUrl}}">{{detail.fileName}}</a>
+											<a style="font-size: 18px;" href="{{detail.trustFileUrl}}">{{detail.fileName}}</a>
 										</div>
 									</div>
 									<div class="form-group" ng-if='detail.datumType==3'>
 										<label class="col-md-1 control-label">视频:</label>
 										<div class="col-md-2">
-											<video src="{{detail.fileUrl}}" controls="controls" style="height: 300px; width:auto;">您的浏览器不支持 video 标签。</video>
+											<video src="{{detail.trustFileUrl}}" controls="controls" style="height: 300px; width:auto;">您的浏览器不支持 video 标签。</video>
 										</div>
 									</div>
 									<div class="form-group" ng-if='detail.datumType==4'>
 										<label class="col-md-1 control-label">音频:</label>
 										<div class="col-md-2">
-											<audio src="{{detail.fileUrl}}" controls="controls">您的浏览器不支持 audio 标签。</audio>
+											<audio src="{{detail.trustFileUrl}}" controls="controls">您的浏览器不支持 audio 标签。</audio>
 										</div>
 									</div>
 									<div class="form-group">
@@ -181,7 +188,16 @@
 				$rootScope: $rootScope,
 				url: '/courseVerify/findAllPageVerify',
 				success: function(res) {
-					$scope.detail = res[0]
+					if(res.length>0) {
+						$scope.detail = res[0]
+						$scope.examineHelper($scope.detail)
+					}else {
+						common.toast({
+							title: "已经没有需要审核的数据了"
+						});
+						$('#examineModal').modal('hide')
+					}
+					
 				}
 			});
 		};
@@ -194,9 +210,25 @@
 		//弹出审核模态框
 		$scope.openExamine = function(detail) {
 			$scope.detail = detail
+			$scope.examineHelper(detail)
+			$('#examineModal').modal('show')
+		}
+		
+		//将需要审核的详细信息显示出来
+		$scope.examineHelper = function(detail) {
 			console.log(detail)
+			console.log($scope.detail)
+			if(detail.datumType == '1') {
+				let arr = $scope.detail.fileUrl.split('.')
+				let last = arr.pop()
+				if(last=='jpg' || last=='png') {
+					$scope.detail.fileType = 'pic'
+				}else {
+					$scope.detail.fileType = 'doc'
+				}
+			}
 			if(detail.datumType == '3' || detail.datumType == '4') {
-				$scope.detail.fileUrl = $sce.trustAsResourceUrl($scope.detail.fileUrl);
+				$scope.detail.trustFileUrl = $sce.trustAsResourceUrl($scope.detail.fileUrl);
 			}
 			//加载题目
 			if(detail.datumType == '0') {
@@ -217,7 +249,6 @@
 				verifyStatus: 0,
 				remark: ''
 			}
-			$('#examineModal').modal('show')
 		}
 		
 		$scope.examineSub = function() {

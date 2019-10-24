@@ -30,14 +30,14 @@
 											</div>
 										</div>
 									</div>
-									<div class="row" style="margin-bottom: 40px;">
+									<!-- <div class="row" style="margin-bottom: 40px;">
 										<div class="col-md-12">
 											<div class="form-group form-md-line-input">
 												<input type="number" class="form-control" id='videoTime' ng-model="videoTime" placeholder="请输入规定学习时长(分钟)" />
 												<label for="form_control_1">规定学习时长(分钟)</label>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								<div class="form-actions noborder">
 									<button type="button" class="btn blue" ng-click="createNode()">提交</button>
@@ -201,6 +201,11 @@
 
 		//新建或修改目录
 		$scope.createNode = function() {
+			if(!$scope.chapterName || $scope.chapterName=='') {
+				layer.alert('请输入章节名称')
+				return false
+			}
+			
 			var ref = $('#tree').jstree(true),
 				sel = ref.get_selected();
 			if(!sel.length) {
@@ -208,6 +213,7 @@
 			}
 			sel = sel[0];
 			$("#createNodeModal").modal("hide");
+			
 			let postData = {
 				"chapterName": $scope.chapterName,
 				"randomQuestionsNumber": $scope.randomQuestionsNumber,

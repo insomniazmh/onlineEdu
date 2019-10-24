@@ -36,7 +36,7 @@
 							<td style="min-width: 150px;">
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="edit(item)">编辑</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="del(item)">{{item.isValidated== '0' ? '冻结' : '解冻'}}</button>
-								<button class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
+								<button ng-show='!item.edit' class="btn btn-sm btn-info" ng-click="upload(item)">上传/查看</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="save(item)">保存</button>
 								<button ng-show='item.edit' class="btn btn-info btn-sm" ng-click="cancel(item, $index)">取消</button>
 								<button ng-show='!item.edit' class="btn btn-info btn-sm" ng-click="resetPwd(item)">重置密码</button>
@@ -241,7 +241,8 @@
 				operate: true,
 				url: '/learnCenter/saveFiles',
 				success: function(res) {
-					$scope.pics.push(res)
+					// $scope.pics.push(res)
+					$scope.upload($scope.detail)
 				}
 			});
 		}
