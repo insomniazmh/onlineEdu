@@ -247,6 +247,46 @@ Page({
   },
 
   /**
+   * 下载资料
+   */
+  download: function (e) {
+    var that = this;
+    this.setData({
+      loadingHidden: false
+    });
+    wx.downloadFile({
+      url: e.currentTarget.dataset.url,
+      success(res) {
+        // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+        if (res.statusCode === 200) {
+          that.setData({
+            loadingHidden: true
+          });
+          console.log(res.tempFilePath)
+          // 保存图片到本地
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success: function (data) {
+              wx.showModal({
+                title: '下载成功',
+                content: '图片以保存至您的手机',
+              })
+            },
+          });
+
+          wx.openDocument({
+            filePath: res.tempFilePath,
+            success: function (res) {
+              console.log('打开文档成功')
+            }
+          })
+
+        }
+      }
+    })
+  },
+
+  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {

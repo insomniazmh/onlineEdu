@@ -237,13 +237,11 @@
 							</div>
 						</div>
 						<div class="col-md-12 export-option">
-							<p>当前已选班级：
-								<span ng-repeat='item in allClasses'>{{item.className}}</span>
+							<p style="padding: 15px;">当前已选班级：
+								<span ng-repeat='item in allClasses'
+								 ng-if="item.checked"
+								 style="margin-right: 15px;">{{item.className}}</span>
 							</p>
-							<div style="display: inline-block;margin: 10px 20px;" ng-repeat='item in allClasses'>
-								<input type="checkbox" name="basicVar" ng-model='item.checked' />
-								<span style="font-weight: 600;">{{item.className}}</span>
-							</div>
 						</div>
 						<div class="col-md-12" style="text-align: center">
 							<button type="button" style="width: 200px" class="btn btn-md blue" ng-click="planClassesUpd()"> 确定 </button>
