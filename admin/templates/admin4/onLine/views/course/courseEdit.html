@@ -319,36 +319,37 @@
 			
 			success: function(file, response) {
 				console.log('debug....')
-				$("#aa").prop('src', response.fileUrl)
-				$timeout(function() {
-					let oV = document.getElementById('aa')
-					oV.oncanplay = function() {
-						console.log('debug111....')
-						$("#filePickerKejian").find('input[type="file"]').val("");
-						var postData = {
-							"chapterId": $rootScope.currentNode.id,
-							"courseId": $rootScope.currCourse.courseId,
-							"courseName": $rootScope.currCourse.courseName,
-							'fileUrl': response.fileUrl,
-							'fileName': response.fileName,
-							'videoTime': Math.round(oV.duration)	//视频时长(四舍五入)
-						};
-						
-						$scope.$apply(function() {
-							common.ajax({
-								$scope: $scope,
-								$http: $http,
-								operate: true,
-								url: '/courseware/savefile',
-								data: postData,
-								success: function(data) {
-									response.verifyStatus = '1'
-									$scope.kejian = response;
-								}
-							});
-						});
-					}
-				}, 500)
+				$scope.$apply(function() {
+					$("#aa").prop('src', response.fileUrl)
+					$timeout(function() {
+						let oV = document.getElementById('aa')
+						oV.oncanplay = function() {
+							console.log('debug111....')
+							$("#filePickerKejian").find('input[type="file"]').val("");
+							var postData = {
+								"chapterId": $rootScope.currentNode.id,
+								"courseId": $rootScope.currCourse.courseId,
+								"courseName": $rootScope.currCourse.courseName,
+								'fileUrl': response.fileUrl,
+								'fileName': response.fileName,
+								'videoTime': Math.round(oV.duration)	//视频时长(四舍五入)
+							};
+							
+							
+								common.ajax({
+									$scope: $scope,
+									$http: $http,
+									operate: true,
+									url: '/courseware/savefile',
+									data: postData,
+									success: function(data) {
+										response.verifyStatus = '1'
+										$scope.kejian = response;
+									}
+								});
+						}
+					}, 500)
+				})
 			}
 		});
 
