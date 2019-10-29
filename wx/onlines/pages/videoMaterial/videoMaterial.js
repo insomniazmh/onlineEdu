@@ -228,7 +228,7 @@ Page({
    * 播放进度变化时触发，可获取总时长和当前播放时长
    */
   timeupdate: function (e) {
-    console.log(e);
+    console.log(e.detail.currentTime);
   },
 
   /**

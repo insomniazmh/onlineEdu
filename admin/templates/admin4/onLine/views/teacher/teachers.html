@@ -482,7 +482,7 @@
 		}
 		
 		$scope.export = function () {
-			window.open('http://192.168.10.2:7080/teacher/exportTeachers/'+localStorage.getItem('token'))
+			window.open(common.url+'/teacher/exportTeachers/'+localStorage.getItem('token'))
 			// common.ajax({
 			// 	method: 'get',
 			// 	$scope: $scope,

@@ -142,6 +142,36 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 导出 -->
+	<div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">导出学生信息</h4>
+				</div>
+				<div class="modal-body">
+					<form action="#" class="form-horizontal">
+						<div class="form-body" style="margin-bottom: 50px;">
+							<div class="row">
+								<label class="col-md-2 control-label">学生状态</label>
+								<div class="col-md-4">
+									<select class="form-control" ng-model='verifyStatus'>
+										<option value="0">正常</option>
+										<option value="1">冻结</option>
+									</select>
+								</div>
+								<div class="col-md-6">
+									<button type="button" class="btn btn-md blue" ng-click='exportSub()'> 确定 </button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- 课程详情 -->
 	<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 10051;">
@@ -177,6 +207,7 @@
 </div>
 <script>
 	function schoolrollCtrl($scope, $http, $rootScope, $timeout) {
+		$scope.verifyStatus = '0'
 		$timeout(function() {
 			$rootScope.label = '入学时间'
 		}, 100);
@@ -187,7 +218,7 @@
 		$scope.supple = {} //补充信息
 
 		$scope.exportTplUrl = common.url + '/export/exportStudentTemplate' //导出模板url
-		$scope.exportUrl = common.url + '/export/exportStudentsParameter' //导出url
+		// $scope.exportUrl = common.url + '/export/exportStudentsParameter' //导出url
 		//加载学生列表
 		$scope.loadStudentsList = function() {
 			common.loadDataList({
@@ -209,6 +240,10 @@
 
 		$scope.export = function() {
 			$("#exportModal").modal('show');
+		}
+		
+		$scope.exportSub = function() {
+			window.open(common.url+'/studentOnLine/exportStudent/'+localStorage.getItem('token')+'/'+$scope.verifyStatus)
 		}
 
 		$scope.detail = function() {
