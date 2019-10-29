@@ -142,7 +142,7 @@ Page({
       chapterId: chapterId,
       number: 3
     }).then(res => {
-      if (res.ret == 0) {
+      if (res.ret == 0 && res.data.length>0) {
         var questions = res.data;
         for (let i = 0; i < questions.length; i++) {
           questions[i].cut = '';

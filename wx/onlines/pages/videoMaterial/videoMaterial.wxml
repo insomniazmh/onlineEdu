@@ -61,4 +61,4 @@
   </view>
 
 </view>
-<loading hidden="{{loadingHidden}}"></loading>
+<!-- <loading hidden="{{loadingHidden}}"></loading> -->
