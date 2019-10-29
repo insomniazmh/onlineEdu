@@ -62,9 +62,25 @@
 				</div>
 			</div>
 			<div class="portlet-body">
-				<div class="table-toolbar">
+				<!-- <div class="table-toolbar">
 					<div data-ng-include="'components/search.html'"></div>
-				</div>
+				</div> -->
+				<!-- <div class="table-toolbar">
+					<form action="#" class="form-horizontal">
+						<div class="form-body search">
+							<div class="col-md-12" style="display: flex;">
+								<div class="col-md-6">
+									<label class="label-text">学生状态</label>
+									<select class="form-control" ng-model='searchObj.isValidated' ng-change='changeSearch()'>
+										<option value="">全部</option>
+										<option value="0">正常</option>
+										<option value="1">冻结</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div> -->
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
@@ -157,7 +173,7 @@
 							<div class="row">
 								<label class="col-md-2 control-label">学生状态</label>
 								<div class="col-md-4">
-									<select class="form-control" ng-model='verifyStatus'>
+									<select class="form-control" ng-model='isValidated'>
 										<option value="0">正常</option>
 										<option value="1">冻结</option>
 									</select>
@@ -207,7 +223,7 @@
 </div>
 <script>
 	function schoolrollCtrl($scope, $http, $rootScope, $timeout) {
-		$scope.verifyStatus = '0'
+		$scope.isValidated = '0'
 		$timeout(function() {
 			$rootScope.label = '入学时间'
 		}, 100);
@@ -233,6 +249,10 @@
 		$scope.pageChanged = function() {
 			$scope.loadStudentsList();
 		}
+		
+		$scope.changeSearch = function() {
+			$scope.loadStudentsList()
+		}
 
 		$scope.import = function() {
 			$("#importModal").modal('show');
@@ -243,7 +263,7 @@
 		}
 		
 		$scope.exportSub = function() {
-			window.open(common.url+'/studentOnLine/exportStudent/'+localStorage.getItem('token')+'/'+$scope.verifyStatus)
+			window.open(common.url+'/studentOnLine/exportStudent/'+localStorage.getItem('token')+'/'+$scope.isValidated)
 		}
 
 		// $scope.detail = function() {
