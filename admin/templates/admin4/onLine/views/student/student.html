@@ -82,7 +82,7 @@
 					<tbody>
 						<tr ng-repeat="item in data" class="odd gradeX" ng-click="editStuInfo(item);">
 							<td>
-								<button class="btn btn-info btn-sm" ng-click="del(item)">冻结</button>
+								<button class="btn btn-info btn-sm" ng-click="del(item)">{{item.isValidated== '0' ? '冻结' : '解冻'}}</button>
 							</td>
 							<td>{{item.studentName}}</td>
 							<td>{{item.className}}</td>
@@ -174,7 +174,7 @@
 	</div>
 
 	<!-- 课程详情 -->
-	<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 10051;">
+	<!-- <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 10051;">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -201,7 +201,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 
 </div>
@@ -246,8 +246,27 @@
 			window.open(common.url+'/studentOnLine/exportStudent/'+localStorage.getItem('token')+'/'+$scope.verifyStatus)
 		}
 
-		$scope.detail = function() {
-			$("#courseModal").modal('show');
+		// $scope.detail = function() {
+		// 	$("#courseModal").modal('show');
+		// }
+		
+		$scope.del = function(detail) {
+			let tip = '冻结'
+			if(detail.isValidated == '1') {
+				tip = '解冻'
+			}
+			
+			common.ajax({
+				method: 'put',
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				tip: '您确实要'+tip+'该学生吗',
+				url: '/studentOnLine/status/'+detail.studentId,
+				success: function(res) {
+					$scope.loadStudentsList();
+				}
+			});
 		}
 
 		//导入学生数据
