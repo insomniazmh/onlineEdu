@@ -307,8 +307,16 @@
 				});
 			},
 			success: function(file, response) {
-				$scope.loadStudentsList();
-				$("#importModal").modal('hide');
+				if(response.ret == 0) {
+					$scope.loadStudentsList();
+					$("#importModal").modal('hide');
+				}else {
+					common.toast({
+						title: response.msg,
+						type: 2
+					});
+				}
+				
 			}
 		});
 

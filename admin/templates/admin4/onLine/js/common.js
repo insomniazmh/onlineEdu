@@ -7,8 +7,8 @@ var common = {
 	url: 'http://192.168.10.2:7080',
 	url2: 'http://192.168.10.2:7081',
 	
-	uploadUrl: 'https://e.hnfts.cn/upload/upload',
-	// uploadUrl: 'http://192.168.10.2:8612/upload',
+	// uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	uploadUrl: 'http://192.168.10.2:8612/upload',
 	
 	pageSize: 15,
 

@@ -229,6 +229,9 @@ Page({
    */
   timeupdate: function (e) {
     console.log(e.detail.currentTime);
+    this.setData({
+      currentTime: e.detail.currentTime
+    })
   },
 
   /**
