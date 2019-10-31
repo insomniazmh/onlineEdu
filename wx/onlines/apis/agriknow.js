@@ -57,6 +57,13 @@ class agriknow {
   loadCourseDetail(postData = {}) {
     return this._request.postRequest(this._baseUrl + this._education + '/course/getCourse', postData).then(res => res.data)
   }
+
+  /**
+   *  更新目前学习的章节和进程
+   */
+  saveVideoRecord(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseChapterRecord/saveVideoRecord', postData).then(res => res.data)
+  }
   
   /**
    * 提交（预习自测/课后作业）回答

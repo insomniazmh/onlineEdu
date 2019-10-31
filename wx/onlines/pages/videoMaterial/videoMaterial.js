@@ -98,7 +98,8 @@ Page({
       chapterId: chapterId
     }).then(res => {
       that.setData({
-        videoUrl: res.data[0].fileUrl
+        videoUrl: res.data[0].fileUrl,
+        duration: res.data[0].videoTime
       })
     })
     .catch(res => {
@@ -228,10 +229,34 @@ Page({
    * 播放进度变化时触发，可获取总时长和当前播放时长
    */
   timeupdate: function (e) {
-    console.log(e.detail.currentTime);
+    console.log(e);
     this.setData({
       currentTime: e.detail.currentTime
     })
+
+    getApp().agriknow.saveVideoRecord(postData)
+      .then(res => {
+        if (res.ret == 0) {
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 2000
+          });
+          var questionList = that.data.questionList;
+          for (let i = 0; i < questionList.length; i++) {
+            if (questionList[i].id == that.data.currentQuestion.id) {
+              questionList[i].done = true;
+              questionList[i].myAnswer = postData.answer;
+            }
+          }
+          that.setData({
+            questionList: questionList
+          });
+        }
+      })
+      .catch(res => {
+        //wx.stopPullDownRefresh()
+      });
   },
 
   /**

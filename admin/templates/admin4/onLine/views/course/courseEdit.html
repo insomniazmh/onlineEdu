@@ -308,7 +308,7 @@
 				var rtn = {
 					continue: true
 				}
-				if (!$rootScope.currentNode) {
+				if (!$rootScope.currentNode || $rootScope.currentNode.id=='0') {
 					rtn = {
 						continue: false,
 						title: "请先选择章节"
