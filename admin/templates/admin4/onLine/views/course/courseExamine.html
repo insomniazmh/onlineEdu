@@ -11,29 +11,31 @@
 		width: 46px;
 		height: 28px;
 	}
+	.top-news span {
+		text-align: center;
+	}
 </style>
 <div class="row" ng-controller="teachersCtrl">
-	<div class="col-md-12">
+	<div ng-show='courseFlag'>
+		<div class="col-md-2" ng-repeat='item in examineCourse' ng-click='changeExamineCourse(item)'>
+			<div class="top-news">
+				<a href="javascript:;" class="btn green"> <span> {{item}} </span> </a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12" ng-show='!courseFlag'>
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet box grey-cascade">
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-globe"></i>课程审核
 				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn blue" ng-click="goBack()">
+					<i class="fa fa-arrow-left"></i> 返回 </a>
+				</div>
 			</div>
 			<div class="portlet-body">
-				<div class="table-toolbar">
-					<form action="#" class="form-horizontal">
-						<div class="form-body search">
-							<div class="col-md-12" style="display: flex;">
-								<div class="col-md-3">
-									<label class="label-text">课程</label>
-									<input type="text" class="form-control" />
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
@@ -171,13 +173,37 @@
 </div>
 <script>
 	function teachersCtrl($scope, $http, $rootScope, $sce, $timeout) {
+		$scope.courseFlag = true
 		$scope.currentPage = 1
 		$scope.searchObj = {
 			verifyStatus: ''
 		}
 		
-		$scope.changeSearch = function() {
+		//加载需审核的课程列表
+		$scope.loadExamineCourseList = function() {
+			common.ajax({
+				method: 'get',
+				$scope: $scope,
+				$http: $http,
+				url: '/courseVerify/findCourse',
+				success: function(res) {
+					$scope.examineCourse = res
+				}
+			});
+		}
+		$scope.loadExamineCourseList()
+		
+		//点击被选中的课程
+		$scope.changeExamineCourse = function(courseName) {
+			$scope.searchObj = {
+				courseName: courseName
+			}
 			$scope.loadExamineList()
+		}
+		
+		$scope.goBack = function() {
+			$scope.courseFlag = true
+			$scope.loadExamineCourseList()
 		}
 		
 		//加载待审核课程资料和题目列表
@@ -188,6 +214,7 @@
 				$rootScope: $rootScope,
 				url: '/courseVerify/findAllPageVerify',
 				success: function(res) {
+					$scope.courseFlag = false
 					if(res.length>0) {
 						$scope.detail = res[0]
 						$scope.examineHelper($scope.detail)
@@ -201,7 +228,7 @@
 				}
 			});
 		};
-		$scope.loadExamineList()
+		// $scope.loadExamineList()
 		
 		$scope.pageChanged = function() {
 			$scope.loadExamineList()
@@ -264,7 +291,7 @@
 					});
 					$timeout(function(){
 						$scope.loadExamineList();
-					},1500);
+					},500);
 
 				}
 			});
