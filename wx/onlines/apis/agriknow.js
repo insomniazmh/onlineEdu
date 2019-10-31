@@ -61,8 +61,8 @@ class agriknow {
   /**
    *  更新目前学习的章节和进程
    */
-  saveVideoRecord(postData = {}) {
-    return this._request.postRequest(this._baseUrl + this._education + '/courseChapterRecord/saveVideoRecord', postData).then(res => res.data)
+  saveChapterRecord(postData = {}) {
+    return this._request.postRequest(this._baseUrl + this._education + '/courseChapterRecord/saveChapterRecord', postData).then(res => res.data)
   }
   
   /**

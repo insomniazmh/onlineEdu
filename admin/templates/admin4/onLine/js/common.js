@@ -312,7 +312,7 @@ var common = {
 		}
 		
 		if(settings.$rootScope.currentNode.id == '0') {
-			layer.alert("题目不能加到课程上");
+			layer.alert("资料和题目不能加到课程上");
 			return false;
 		}
 				

@@ -1,7 +1,7 @@
 <view class='headVideo'>
   <!-- <video poster='/img/banner/header.png' 
          src="blob:https://www.bilibili.com/ec78544f-6978-47d3-ba3d-0a21dc15cbe7"></video> -->
-  <video id="video" src="{{videoUrl}}" bindtimeupdate='timeupdate' controls></video>
+  <video id="video" src="{{videoUrl}}" bindtimeupdate='timeupdate' bindpause='videoParse' bindended='videoParse' bindplay='videoPlay' controls></video>
   <view>
     <van-tabs active="{{ active }}">
     <van-tab title="目录">

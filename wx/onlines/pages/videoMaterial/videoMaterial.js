@@ -26,6 +26,10 @@ Page({
     })
     this.loadCourseDescribe()
     this.loadChapter()
+    let that = this
+
+    
+      
   },
 
   //加载课程详情获取课程描述
@@ -94,13 +98,24 @@ Page({
   //加载视频课件
   loadVideo: function(chapterId) {
     let that = this
+    this.videoContext.pause()
     getApp().agriknow.loadVideo({
-      chapterId: chapterId
+      chapterId: chapterId,
+      courseId: that.data.courseId
     }).then(res => {
-      that.setData({
-        videoUrl: res.data[0].fileUrl,
-        duration: res.data[0].videoTime
-      })
+      console.log(res.data[0])
+      if (res.data[0]) {
+        that.setData({
+          videoUrl: res.data[0].fileUrl,
+          videoDuration: res.data[0].videoTime
+        })
+      }else {
+        that.setData({
+          videoUrl: '',
+          videoDuration: 0
+        })
+      }
+      
     })
     .catch(res => {
       //wx.stopPullDownRefresh()
@@ -231,32 +246,43 @@ Page({
   timeupdate: function (e) {
     console.log(e);
     this.setData({
-      currentTime: e.detail.currentTime
+      locationTime: e.detail.currentTime.toFixed(0),
+      duration: (e.timeStamp / 1000).toFixed(0)
     })
+  },
 
-    getApp().agriknow.saveVideoRecord(postData)
-      .then(res => {
-        if (res.ret == 0) {
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success',
-            duration: 2000
-          });
-          var questionList = that.data.questionList;
-          for (let i = 0; i < questionList.length; i++) {
-            if (questionList[i].id == that.data.currentQuestion.id) {
-              questionList[i].done = true;
-              questionList[i].myAnswer = postData.answer;
-            }
-          }
-          that.setData({
-            questionList: questionList
-          });
+  videoParse: function(e) {
+    console.log('视频暂停了')
+    clearInterval(this.data.intervalIndex)
+  },
+
+  videoPlay: function(e) {
+    let that = this
+    console.log('视频播放了')
+    let index = setInterval(function () {
+      if (that.data.videoDuration && that.data.locationTime) {
+        let postData = {
+          chapterId: that.data.chapterId,
+          courseId: that.data.courseId,
+          duration: that.data.locationTime,
+          locationTime: that.data.locationTime,
+          studentId: wx.getStorageSync('studentId'),
+          videoDuration: that.data.videoDuration
         }
-      })
-      .catch(res => {
-        //wx.stopPullDownRefresh()
-      });
+
+        getApp().agriknow.saveChapterRecord(postData)
+          .then(res => {
+
+          })
+          .catch(res => {
+            //wx.stopPullDownRefresh()
+          });
+
+      }
+    }, 3000)
+    this.setData({
+      intervalIndex: index
+    })
   },
 
   /**
