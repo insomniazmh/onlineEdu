@@ -33,8 +33,13 @@ Page({
   },
 
   jumpTransaction: function (e) {
+    let course = e.currentTarget.dataset.course
+    let url = e.currentTarget.dataset.url + '?id=' + course.courseId + '&courseName=' + course.courseName
+    if (course.chapterId) {
+      url = url + '&chapterId=' + course.chapterId
+    }
     wx.navigateTo({
-      url: e.currentTarget.dataset.url + '?id=' + e.currentTarget.dataset.course.courseId
+      url: url
     })
   },
 
@@ -63,10 +68,11 @@ Page({
         }
       }
     });
+
+    this.myCourses()
   },
 
   onLoad: function () {
-    this.myCourses()
   },
 
   //微信登录

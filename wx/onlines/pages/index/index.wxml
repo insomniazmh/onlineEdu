@@ -50,10 +50,10 @@
         <text class='mt_10 text3'>授课老师：{{item.createUserName}}</text>
       </view>
       <view class='cfx'></view>
-      <!-- <view class='class_number'>
+      <view class='class_number'>
         <image src='/img/icon_1.png' mode='widthFix'></image>
-        <text style='font-size:24rpx;'>进行到   {{item.joinChapterName}}</text>
-      </view> -->
+        <text style='font-size:24rpx;'>进行到   {{item.chapterName}}</text>
+      </view>
   </view>
   <!--循环到此结束-->
 </view>

@@ -22,8 +22,14 @@ Page({
   onLoad: function (options) {
     console.log(options)
     this.setData({
-      courseId: options.id
+      courseId: options.id,
+      courseName: options.courseName
     })
+    if (options.chapterId) {
+      this.setData({
+        chapterId: options.chapterId
+      })
+    }
     this.loadCourseDescribe()
     this.loadChapter()
     let that = this
@@ -54,32 +60,44 @@ Page({
     }).then(res => {
       //拼装章节，两层循环
       for (let i = 0; i < res.data.length; i++) {
+        //如果parent为0，则为章
         if (res.data[i].parent == '0') {
           res.data[i].children = [] 
           res.data[i].index = i+1
           chapterList.push(res.data[i])
-        }else {
-          for (let y = 0; y < chapterList.length; y++) {
+        } else {//如果parent不为0，则为节
+          let curr = false;//是否为默认章节
+          if (!that.data.chapterId) {//如果没有默认章节，则默认第一章第一节
+            that.setData({
+              chapterId: res.data[i].id
+            })
+            that.setData({//默认打开第一个面板
+              activeNames: 1
+            });
+          } else if (that.data.chapterId == res.data[i].id) {//如果有默认章节，对比是不是这个章节
+            curr = true
+          }
+          
+          for (let y = 0; y < chapterList.length; y++) {//拼装节
             if (res.data[i].parent == chapterList[y].id) {
               chapterList[y].children.push(res.data[i])
+              if (curr) {//如果是默认章节，打开默认章节对应的面板
+                console.log(y)
+                that.setData({
+                  activeNames: y + 1
+                });
+              }
             }
-            if(that.data.linshiFlag == 0) {
-              this.setData({
-                chapterId: res.data[i].id
-              })
-              this.loadVideo(res.data[i].id)
-              this.loadDatumList(res.data[i].id)
-              this.loadExerciseList(res.data[i].id)
-              that.setData({
-                linshiFlag: 1
-              })
-            }
+            
           }
         }
       }
       that.setData({
         chapterList: chapterList
       })
+      this.loadVideo(that.data.chapterId)
+      this.loadDatumList(that.data.chapterId)
+      this.loadExerciseList(that.data.chapterId)
     }).catch(res => {
       
     })
@@ -101,18 +119,22 @@ Page({
     this.videoContext.pause()
     getApp().agriknow.loadVideo({
       chapterId: chapterId,
-      courseId: that.data.courseId
+      courseId: that.data.courseId,
+      courseName: that.data.courseName
     }).then(res => {
       console.log(res.data[0])
       if (res.data[0]) {
         that.setData({
           videoUrl: res.data[0].fileUrl,
-          videoDuration: res.data[0].videoTime
+          videoDuration: res.data[0].videoTime,
+          locationTime: res.data[0].locationTime
         })
+        this.videoContext.seek(res.data[0].locationTime)
       }else {
         that.setData({
           videoUrl: '',
-          videoDuration: 0
+          videoDuration: 0,
+          locationTime: 0
         })
       }
       
@@ -244,10 +266,8 @@ Page({
    * 播放进度变化时触发，可获取总时长和当前播放时长
    */
   timeupdate: function (e) {
-    console.log(e);
     this.setData({
-      locationTime: e.detail.currentTime.toFixed(0),
-      duration: (e.timeStamp / 1000).toFixed(0)
+      locationTime: e.detail.currentTime.toFixed(0)
     })
   },
 
@@ -264,6 +284,7 @@ Page({
         let postData = {
           chapterId: that.data.chapterId,
           courseId: that.data.courseId,
+          courseName: that.data.courseName,
           duration: that.data.locationTime,
           locationTime: that.data.locationTime,
           studentId: wx.getStorageSync('studentId'),
