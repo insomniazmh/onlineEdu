@@ -5,7 +5,7 @@
 			<label class="label-text">教学计划</label>
 			<input id='planName' type="text" class="form-control" />
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3" ng-show='{{flag}}'>
 			<label class="label-text">审核状态</label>
 			<select class="form-control" ng-model='searchObj.verifyStatus'>
 				<option value="">全部</option>
@@ -15,7 +15,7 @@
 			</select>
 		</div>
 	</div>
-	<div class="col-md-12">
+	<!-- <div class="col-md-12">
 		<div class="col-md-1">
 			<label class="label-text">{{label}}</label>
 		</div>
@@ -26,11 +26,17 @@
 				</li>
 			</ul>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <script>
 	function searchCtrl($scope, $http, $rootScope) {
+		$scope.flag = true
+		let href = window.location.href.split('/').pop()
+		console.log(href == 'study.html')
+		if(href == 'study.html') {
+			$scope.flag = false
+		}
 		$rootScope.label = '计划创建时间'
 		$rootScope.searchObj = {
 			verifyStatus: '',

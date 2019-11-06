@@ -1,0 +1,185 @@
+<link href="../../../assets/admin/pages/css/profile-old.css" rel="stylesheet">
+<style>
+	.label-text {
+		margin-top: 8px;
+	}
+	
+	.form-control {
+		margin-bottom: 8px;
+	}
+	
+	.btn-info {
+		margin-bottom: 2px;
+		float: right;
+		margin-left: 5px;
+	}
+	
+	.abslute {
+		position: absolute;
+		float: right;
+		margin-left: -100px;
+		margin-top: 21px;
+		width: 46px;
+		height: 28px;
+	}
+	
+	.table-toolbar {
+		border-bottom: 3px solid #ddd;
+		border-width: 100%;
+	}
+	.btnSearch{
+		position: absolute;
+		right:50px;
+		top: 3px;
+	}
+	.export-all {
+		border-bottom: 1px solid gainsboro;
+		padding: 10px;
+	}
+	
+	.export-option {
+		padding: 10px 0;
+		line-height: 35px;
+	}
+	div.checker {
+		margin-left: 30px !important;
+		
+	}
+</style>
+<div class="row" ng-controller="scoreCtrl">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet box grey-cascade">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i>学生学习情况
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-toolbar">
+					<div data-ng-include="'components/search.html'"></div>
+				</div>
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>语文</th>
+							<th>数学</th>
+							<th>英语</th>
+							<th>教学计划</th>
+							<th>入学时间</th>
+							<th>毕业时间</th>
+							<th>学习中心</th>
+							<th>手机号</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="editStuInfo(item);">
+							<td>{{item.studentName}}</td>
+							<td>{{item.centerName}}</td>
+							<td>{{item.enrollmentDate}}</td>
+							<td>{{item.stuIDCard}}</td>
+							<td>{{item.gender}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+					<div>
+						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
+							<pagination total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" first-text="首页" items-per-page="{{pageSize}}" last-text="末页" previous-text="上一页" next-text="下一页"></pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+	
+	<!-- 课程详情 -->
+	<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 10051;">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">课程详情</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12" style="text-align: center;">
+							<img class="certificate" src="../../../assets/admin/layout4/img/avatar1.jpg" alt="">
+							<div class="leftText">
+								<p>高等数学（第一学期）</p>
+								<p>考试成绩:98</p>
+								<p>平时成绩:18</p>
+								<p>考试成绩占比:70%</p>
+								<p>平时成绩占比:30%</p>
+								<p>学习时长占比:9%</p>
+								<p>章节练习占比:21%</p>
+								<p>考试时间:2019-6-8</p>
+								<p style="color: blue;">已通过</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</div>
+<script>
+	function scoreCtrl($scope, $http, $rootScope, $timeout) {
+		$scope.currentPage = 1
+		$scope.detail = {} //学生信息详情
+		$scope.searchObj = {};//搜索信息
+		$scope.familyData = [];//家庭成员信息
+		$scope.supple = {} //补充信息
+		
+		//加载学生列表
+		$scope.loadStudentsList = function() {			
+			common.loadDataList({
+				$scope: $scope,
+				$http: $http,
+				$rootScope: $rootScope,
+				url: '/course/findCourseStudyPage'
+			});
+		};
+		$scope.loadStudentsList();
+		
+		$scope.pageChanged = function() {
+			$scope.loadStudentsList();
+		}
+		
+		$scope.detail = function() {
+			$("#courseModal").modal('show');
+		}
+		
+	}
+</script>
+
+
+
+
+
+<!-- {
+	"studentId": "10001",
+	"studentName": "杨邴邴",
+	"stuPhone": "18239490477",
+	"centerAreaId": "dde3132df4c84b9097ad97e30482d74d",
+	"centerName": "西格玛",
+	"planId": "66aa529ea8254d03af2334d621922607",
+	"planName": "计划1025",
+	"startDate": "2019-10-25",
+	"endDate": "2019-11-30",
+	"英语": {
+		courseId: 'd201a6bfcd6448239b331f118b38e80e',
+		shipinzongshichang: '1834*60',
+		takanle: '235*60',
+		tazuole: '47',
+		duile: '23'
+	},
+	"数学": "7690533a7e5e49eab509bfebc2c14011"
+}, -->

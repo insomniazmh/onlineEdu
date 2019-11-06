@@ -218,7 +218,7 @@ var common = {
 		
 	
 		uploader.on('uploadBeforeSend', function(block, data, headers) {
-			console.log( uploader.getFiles() );
+			// console.log( uploader.getFiles() );
 			if(settings.beforeSend) {
 				let rtn = settings.beforeSend()
 				if(!rtn.continue) {
@@ -232,7 +232,7 @@ var common = {
 				}
 			}
 			var flag = common.checkFileExt(data.name, settings.type);
-			console.log(data);
+			// console.log(data);
 			if(!flag) {
 				uploader.removeFile( data.id, true );
 				uploader.cancelFile( data.id, true );

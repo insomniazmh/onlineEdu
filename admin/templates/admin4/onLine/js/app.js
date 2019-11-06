@@ -338,6 +338,20 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
         }]
       }
     })
+		//  学生学习信息
+		.state('study', {
+		  url: "/study.html",
+		  templateUrl: "views/student/study.html",     
+		  resolve: {
+		    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+		      return $ocLazyLoad.load({
+		        name: 'MetronicApp',
+		        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+		        files: [] 
+		      });
+		    }]
+		  }
+		})
     
      //  学籍管理
     .state('schoolroll', {

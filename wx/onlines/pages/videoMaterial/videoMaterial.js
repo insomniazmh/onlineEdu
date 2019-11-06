@@ -177,6 +177,7 @@ Page({
   loadExerciseList: function (chapterId) {
     let that = this
     getApp().agriknow.snapshot({
+      courseId: that.data.courseId,
       chapterId: chapterId,
       number: 3
     }).then(res => {

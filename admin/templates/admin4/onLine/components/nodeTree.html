@@ -73,6 +73,7 @@
 					courseId: $rootScope.currCourse.courseId
 				},
 				success: function(data) {
+					$rootScope.currChapters = data
 					data.unshift({
 						'id': '0',
 						"parent": "#",
@@ -90,6 +91,11 @@
 		
 		//切换课程
 		$scope.$watch("currCourse",function(newValue,oldValue){
+			$scope.loadChapter();
+		})
+		
+		//导入课程
+		$scope.$watch("changeChapter",function(newValue,oldValue){
 			$scope.loadChapter();
 		})
 		

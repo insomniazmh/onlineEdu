@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
+<link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/jquery-multi-select/css/multi-select.css" />
 <style>
 	#uploader .placeholder {
 		min-height: 150px;
@@ -17,6 +17,11 @@
 	}
 	
 	.filePicker div:nth-child(2) {
+		width: 100%!important;
+		height: 100%!important;
+	}
+	
+	.webuploader-container div:nth-child(2) {
 		width: 100%!important;
 		height: 100%!important;
 	}
@@ -114,13 +119,17 @@
 										<div class="caption" style="font-size: 14px;">
 											<i class="icon-settings" style="font-size: 12px;"></i>授课目录
 										</div>
+										<div class="actions">
+											<button class="btn btn-circle red-sunglo btn-sm" ng-click='openModel()'>
+												<i class="fa fa-plus"></i> 导入课程 </button>
+										</div>
 									</div>
 									<div class="portlet-body">
 										<div data-ng-include="'components/nodeTree.html'"></div>
 									</div>
 								</div>
 							</div>
-						
+
 							<div class="col-md-8">
 								<div class="portlet light">
 									<div class="portlet-title tabbable-line">
@@ -141,15 +150,15 @@
 															</div>
 															<div class="cont-col2">
 																<div class="desc">
-																	
+
 																	<span id="filePickerKejian" class="filePicker"> 上传课件 </span>
-																	<div style="display: inline;margin-left: 20px;position: absolute;"> 已有课件 
-																			<a ng-click='blank(kejian)'>({{kejian.fileName}})
-																				<span ng-if='kejian.verifyStatus == 1'>({{verifyStatusHelper(kejian.verifyStatus)}})</span>
-																				<span ng-if='kejian.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(kejian.verifyStatus)}})</span>
-																			</a>
+																	<div style="display: inline;margin-left: 20px;position: absolute;"> 已有课件
+																		<a ng-click='blank(kejian)'>({{kejian.fileName}})
+																			<span ng-if='kejian.verifyStatus == 1'>({{verifyStatusHelper(kejian.verifyStatus)}})</span>
+																			<span ng-if='kejian.verifyStatus == 2' style="color: red;">({{verifyStatusHelper(kejian.verifyStatus)}})</span>
+																		</a>
 																	</div>
-						
+
 																</div>
 															</div>
 														</div>
@@ -159,7 +168,7 @@
 										</div>
 									</div>
 								</div>
-						
+
 								<div class="portlet light" style="height: 400px;">
 									<div class="portlet-title tabbable-line">
 										<div class="caption" style="font-size: 14px;">
@@ -209,7 +218,7 @@
 													</ul>
 												</div>
 											</div>
-											
+
 											<!--作业-->
 											<div class="tab-pane" id="tab_2_2">
 												<ul class="feeds">
@@ -247,25 +256,59 @@
 		</div>
 		<!-- END: ACCORDION DEMO -->
 	</div>
-	
+
+	<!-- 导入课程 -->
+	<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 10051;">
+		<div class="modal-dialog modal-full">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">导入课程</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12" style="text-align: center">
+							<button style="width: 200px;background: #00b7ee;" type="button" class="btn btn-md" id="uploadSub"> 点击选择课程上传
+							</button>
+						</div>
+						<div class="col-md-12" id="videoWrapper">
+							<div style="width:300px;margin: 20px;float: left;" ng-repeat='row in videoList'>
+								<video controls="controls" id="{{row.id}}'" src="{{row.trustFileUrl}}" style="width:100%;height:auto;"></video>
+								<div>
+									<span ng-click='upGo($index)'>前移</span>
+									<span ng-click='downGo($index)' style="float: right;">后移</span>
+								</div>
+								<h4>{{row.fileName}}</h4>
+							</div>
+							<div class="col-md-12" style="text-align: center">
+								<button ng-show='videoList.length>0' style="width: 200px;" type="button" class="btn btn-md blue" ng-click='importSub()'>
+									提交 </button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<video controls="controls" id="aa"></video>
 </div>
 <!-- END MAIN CONTENT -->
 
 <script src="js/webuploader-0.1.5/webuploader.min.js"></script>
 <script>
-	function editCourseCtrl($scope, $http, $rootScope, $timeout) {		
+	function editCourseCtrl($scope, $http, $rootScope, $timeout, $sce) {
 		$scope.kejian = {}; //视频课件
-
+		$scope.count = 0
 		/*
 		 * 根据章节id加载章节课件或已挂载的资料
 		 * datumType  1文档　2图册　3视频　4音频　5链接
 		 * */
 		$scope.loadDatumData = function(type) {
-			if(!$rootScope.currCourse || !$rootScope.currentNode) {
+			if (!$rootScope.currCourse || !$rootScope.currentNode) {
 				return false
 			}
-			
+
 			var postData = {
 				"chapterId": $rootScope.currentNode.id,
 				"courseId": $rootScope.currCourse.courseId,
@@ -276,29 +319,29 @@
 					"sort": 1
 				}
 			};
-			
+
 			let url = '/courseware/findByChapterId'
-			if(type == 'dutum') {
+			if (type == 'dutum') {
 				url = '/chapteData/findDatumList';
 			}
-			
+
 			common.ajax({
 				$scope: $scope,
 				$http: $http,
 				url: url,
 				data: postData,
 				success: function(data) {
-					if(data) {//如果有数据
-						if (type == "kejian") {//课件
+					if (data) { //如果有数据
+						if (type == "kejian") { //课件
 							$scope.kejian = data[0];
-						} else if(type = 'dutum') {//资料
+						} else if (type = 'dutum') { //资料
 							$scope.ziliaoList = data;
 						}
 					}
 				}
 			});
 		}
-		
+
 		//上传课件
 		common.fileUpload({
 			id: 'filePickerKejian',
@@ -308,7 +351,7 @@
 				var rtn = {
 					continue: true
 				}
-				if (!$rootScope.currentNode || $rootScope.currentNode.id=='0') {
+				if (!$rootScope.currentNode || $rootScope.currentNode.id == '0') {
 					rtn = {
 						continue: false,
 						title: "请先选择章节"
@@ -316,7 +359,7 @@
 				}
 				return rtn;
 			},
-			
+
 			success: function(file, response) {
 				console.log('debug....')
 				$("#aa").prop('src', response.fileUrl)
@@ -329,9 +372,9 @@
 						"courseName": $rootScope.currCourse.courseName,
 						'fileUrl': response.fileUrl,
 						'fileName': response.fileName,
-						'videoTime': Math.round(oV.duration)	//视频时长(四舍五入)
+						'videoTime': Math.round(oV.duration) //视频时长(四舍五入)
 					};
-					
+
 					$scope.$apply(function() {
 						common.ajax({
 							$scope: $scope,
@@ -346,13 +389,126 @@
 						});
 					})
 				}, 500)
-				
+
 			}
 		});
 
+		//打开导入模态框
+		$scope.openModel = function() {
+			console.log($rootScope.currChapters)
+			console.log($rootScope.currChapters.length)
+			if ($rootScope.currChapters.length > 2) {
+				layer.alert('本课程已经有章节了，不能导入')
+				return false
+			}
+			
+			if($rootScope.currChapters.length == 1) {
+				let postData = {
+					"chapterName": $rootScope.currCourse.courseName,
+					"courseId": $rootScope.currCourse.courseId,
+					chapterParentId: 0
+				}
+				
+				common.ajax({
+					$scope: $scope,
+					$http: $http,
+					url: '/courseChapter/save',
+					data: postData,
+					success: function(data) {
+						// $scope.loadChapter();
+						$rootScope.changeChapter = $scope.count
+						$scope.count++
+						$('#importModal').modal('show')
+					}
+				});
+			}
+			$('#importModal').modal('show')
+			
+		}
+
+		$scope.count = 0
+		$scope.videoList = []
+		//导入课程
+		common.fileUpload({
+			id: 'uploadSub',
+			type: 'video',
+			success: function(file, response) {
+				console.log(file)
+				if (response.code && response.meg) {
+					layer.alert(response.meg)
+					return false
+				}
+
+				$scope.$apply(function() {
+					$scope.videoList.push({
+						id: file.id,
+						fileUrl: response.fileUrl,
+						trustFileUrl: $sce.trustAsResourceUrl(response.fileUrl),
+						fileName: response.fileName,
+						randomQuestionsNumber: 5,
+						publish: 'Y',
+						chapterType: ''
+					})
+				})
+			}
+		});
+
+		//向上调整顺序
+		$scope.upGo = function(index) {
+			console.log(index)
+			if (index != 0) {
+				$scope.videoList[index] = $scope.videoList.splice(index - 1, 1, $scope.videoList[index])[0];
+			} else {
+				layer.alert('已经是第一位，无法前移了')
+			}
+		}
+
+		//向下调整顺序
+		$scope.downGo = function(index) {
+			if (index != $scope.videoList.length - 1) {
+				$scope.videoList[index] = $scope.videoList.splice(index + 1, 1, $scope.videoList[index])[0];
+			} else {
+				layer.alert('已经是最后一位，无法后移了')
+			}
+		}
+
+		//确认导入
+		$scope.importSub = function() {
+			for (let i = 0; i < $scope.videoList.length; i++) {
+				let duration = $($("#videoWrapper").find('video')[i])[0].duration
+				console.log(Math.round(duration))
+				$scope.videoList[i].videoTime = Math.round(duration)
+				$scope.videoList[i].fileVideoTime = Math.round(duration)
+			}
+			console.log($scope.videoList)
+			
+			let postData = {
+				chapterParentId: $rootScope.currChapters[1].id,
+				courseId: $rootScope.currCourse.courseId,
+				courseName: $rootScope.currCourse.courseName,
+				teacherName: localStorage.getItem('username'),
+				centerName: localStorage.getItem('centerName'),
+				files: $scope.videoList
+			}
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				url: '/courseChapter/saveChapterDataList',
+				data: postData,
+				success: function(data) {
+					// $scope.loadChapter();
+					$rootScope.changeChapter = $scope.count
+					$scope.count++
+					$('#importModal').modal('hide')
+					$scope.videoList = []
+				}
+			});
+			
+		}
+
 		//加载所有题目
 		$scope.loadQuestions = function() {
-			if(!$rootScope.currCourse || !$rootScope.currentNode) {
+			if (!$rootScope.currCourse || !$rootScope.currentNode) {
 				return false
 			}
 			var data = {
@@ -363,7 +519,7 @@
 				"size": common.pageSize,
 				"sort": 1
 			};
-			
+
 			common.ajax2({
 				$scope: $scope,
 				$http: $http,
@@ -386,16 +542,16 @@
 			$scope.loadQuestions(); //加载作业问题列表
 		};
 		$scope.initData();
-		
-		$scope.$watch("currentNode",function(newValue,oldValue){
+
+		$scope.$watch("currentNode", function(newValue, oldValue) {
 			console.log(newValue);
 			$scope.initData();
 		})
-		
+
 		$scope.blank = function(file) {
 			window.open(file.fileUrl)
 		}
-		
+
 		//删除题目
 		$scope.delQuestion = function(id) {
 			layer.confirm("您确定要删除该题目吗", {
@@ -415,5 +571,4 @@
 			});
 		}
 	}
-	
 </script>
