@@ -63,9 +63,9 @@
 					<thead>
 						<tr>
 							<th>姓名</th>
-							<th>语文</th>
-							<th>数学</th>
-							<th>英语</th>
+							<th ng-repeat='item in courseList'>{{item.courseName}}</th>
+							<!-- <th>数学</th>
+							<th>英语</th> -->
 							<th>教学计划</th>
 							<th>入学时间</th>
 							<th>毕业时间</th>
@@ -76,13 +76,14 @@
 					<tbody>
 						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="editStuInfo(item);">
 							<td>{{item.studentName}}</td>
+							<td>{{}}</td>
+							<td>{{}}</td>
+							<td>{{}}</td>
+							<td>{{item.planName}}</td>
+							<td>{{item.startDate}}</td>
+							<td>{{item.endDate}}</td>
 							<td>{{item.centerName}}</td>
-							<td>{{item.enrollmentDate}}</td>
-							<td>{{item.stuIDCard}}</td>
-							<td>{{item.gender}}</td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>{{item.stuPhone}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -144,14 +145,49 @@
 				$scope: $scope,
 				$http: $http,
 				$rootScope: $rootScope,
-				url: '/course/findCourseStudyPage'
+				url: '/teachPlan/findPlanCourseAllPage',
+				success: function() {
+					console.log($scope.data)
+					
+					for(let course of $scope.courseList) {
+						let courseName = course.courseName
+						
+					}
+					console.log($scope.data);
+				}
 			});
 		};
-		$scope.loadStudentsList();
+		
+		$scope.loadCourseByPlan = function() {
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				data: {
+					planId: $scope.searchObj.planId
+				},
+				url: '/teachPlan/course/'+$scope.searchObj.planId,
+				success: function(res) {
+					$scope.courseList = res
+					$scope.loadStudentsList();
+				}
+			});
+		}
 		
 		$scope.pageChanged = function() {
 			$scope.loadStudentsList();
 		}
+		
+		$scope.searchObj = {
+			planId: ''
+		}
+		
+		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
+			if($rootScope.searchObj && $rootScope.searchObj.planId) {
+				$scope.searchObj = $rootScope.searchObj
+				$scope.loadCourseByPlan()
+				
+			}
+		})
 		
 		$scope.detail = function() {
 			$("#courseModal").modal('show');
@@ -159,27 +195,3 @@
 		
 	}
 </script>
-
-
-
-
-
-<!-- {
-	"studentId": "10001",
-	"studentName": "杨邴邴",
-	"stuPhone": "18239490477",
-	"centerAreaId": "dde3132df4c84b9097ad97e30482d74d",
-	"centerName": "西格玛",
-	"planId": "66aa529ea8254d03af2334d621922607",
-	"planName": "计划1025",
-	"startDate": "2019-10-25",
-	"endDate": "2019-11-30",
-	"英语": {
-		courseId: 'd201a6bfcd6448239b331f118b38e80e',
-		shipinzongshichang: '1834*60',
-		takanle: '235*60',
-		tazuole: '47',
-		duile: '23'
-	},
-	"数学": "7690533a7e5e49eab509bfebc2c14011"
-}, -->
