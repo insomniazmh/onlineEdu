@@ -76,9 +76,12 @@
 					<tbody>
 						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="editStuInfo(item);">
 							<td>{{item.studentName}}</td>
-							<td>{{}}</td>
-							<td>{{}}</td>
-							<td>{{}}</td>
+							<td ng-repeat='course in item.studyInfo'>
+								<span ng-if="course.onLineTime" style="margin-right: 20px;">{{course.onLineTime}}分钟/{{course.onLineTimeSum}}分钟</span>
+								<span ng-if="!course.onLineTime" style="margin-right: 20px;">未开始学习</span>
+								<span ng-if="course.answerSum">{{course.correctSum}}题/{{course.answerSum}}题</span>
+								<span ng-if="!course.answerSum">未开始做题</span>
+							</td>
 							<td>{{item.planName}}</td>
 							<td>{{item.startDate}}</td>
 							<td>{{item.endDate}}</td>
@@ -87,6 +90,7 @@
 						</tr>
 					</tbody>
 				</table>
+				<h5 style="color: red;">备注：课程中数值的意思为   已学习时长/总学习时长   做对题目/已做题目</h4>
 				<div class="row">
 					<div>
 						<div class="col-md-11" style="float: left; clear: both; margin-left: 20px;">
@@ -148,11 +152,46 @@
 				url: '/teachPlan/findPlanCourseAllPage',
 				success: function() {
 					console.log($scope.data)
-					
-					for(let course of $scope.courseList) {
-						let courseName = course.courseName
-						
+					for(let stu of $scope.data) {
+						stu.studyInfo = []
+						if(stu.courses && stu.courses.length>0) {
+							for(let x of $scope.courseList) {
+								let flag = false
+								for(let y of stu.courses) {
+									if(x.courseName == y.courseName) {
+										stu.studyInfo.push({
+											courseName: y.courseName,
+											onLineTime: Math.round(y.onLineTime/60),
+											onLineTimeSum: Math.round(y.onLineTimeSum/60),
+											correctSum:y.correctSum,
+											answerSum: y.answerSum
+										})
+										flag = true
+									}
+								}
+								if(!flag) {
+									stu.studyInfo.push({
+										courseName: x.courseName,
+										// onLineTime: '未开始学习',
+										// onLineTimeSum: '未开始学习',
+										// correctSum: '未开始做题',
+										// answerSum: '未开始做题'
+									})
+								}
+							}
+						}else {
+							for(let x of $scope.courseList) {
+								stu.studyInfo.push({
+									courseName: x.courseName,
+									// onLineTime: '未开始学习',
+									// onLineTimeSum: '未开始学习',
+									// correctSum: '未开始做题',
+									// answerSum: '未开始做题'
+								})
+							}
+						}
 					}
+					
 					console.log($scope.data);
 				}
 			});

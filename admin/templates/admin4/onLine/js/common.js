@@ -71,10 +71,12 @@ var common = {
 			settings.data.centerAreaId = ''
 		}
 
-		Metronic.blockUI({
-			boxed: true,
-			message: "加载中，请耐心等待..."
-		});
+		
+		
+		// Metronic.blockUI({
+		// 	boxed: true,
+		// 	message: "加载中，请耐心等待..."
+		// });
 		
 		let postUrl = '';
 		if(settings.gateway == 'edu') {
@@ -105,6 +107,7 @@ var common = {
 			headers = settings.headers
 		}
 		headers.token = localStorage.getItem("token")
+		let index = layer.load(2);
 		settings.$http({
 			headers: headers,
 			method: settings.method,
@@ -112,6 +115,7 @@ var common = {
 			data: settings.data,
 		}).then(function successCallback(response) {
 			var data = response.data;
+			layer.close(index)
 			if(data.ret == 0) {
 				if(settings.operate) {
 					common.toast({
