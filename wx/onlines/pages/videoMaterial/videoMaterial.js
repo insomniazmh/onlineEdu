@@ -124,6 +124,9 @@ Page({
     }).then(res => {
       console.log(res.data[0])
       if (res.data[0]) {
+        if (!res.data[0].locationTime) {
+          res.data[0].locationTime = 0
+        }
         that.setData({
           videoUrl: res.data[0].fileUrl,
           videoDuration: res.data[0].videoTime,
@@ -192,6 +195,12 @@ Page({
         that.setData({
           questionList: questions,
           currentQuestion: questions[0]
+        });
+        that.wrapQuestion();
+      }else {
+        that.setData({
+          questionList: [],
+          currentQuestion: {}
         });
         that.wrapQuestion();
       }
@@ -373,14 +382,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    clearInterval(this.data.intervalIndex)
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    clearInterval(this.data.intervalIndex)
   },
 
   /**

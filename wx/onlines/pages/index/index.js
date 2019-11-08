@@ -23,6 +23,12 @@ Page({
     getApp().agriknow.myCourseList()
       .then(res => {
         console.log(res)
+        for(let i=0;i<res.data.length;i++) {
+          if (res.data[i].chapterName && res.data[i].chapterName.length>17) {
+            res.data[i].chapterName = res.data[i].chapterName.substring(0, 15)+'...'
+          }
+          
+        }
         that.setData({
           courseList: res.data
         })

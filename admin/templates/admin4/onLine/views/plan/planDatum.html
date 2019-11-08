@@ -194,6 +194,14 @@
 			$scope.loadAllClass();
 		}
 		
+		//更改查询条件
+		$scope.$watch('changeSearchObj', function(newVal,oldVal) {
+			if($rootScope.searchObj) {
+				$scope.searchObj = $rootScope.searchObj
+				$scope.loadAllClass();
+			}
+		})
+		
 		//根据计划id和班级id加载时间课程列表
 		$scope.upload = function(detail) {
 			$scope.detail = detail

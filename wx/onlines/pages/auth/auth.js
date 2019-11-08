@@ -57,7 +57,7 @@ Page({
         wx.showToast({
           title: '绑定成功！'
         });
-        wx.switchTab({
+        wx.navigateTo({
           url: '/pages/index/index'
         });
         
