@@ -87,8 +87,8 @@ Page({
           }).then(res => {
             if (res.ret == 0) {
               var resData = res.data;
+              wx.setStorageSync('token', resData.token)//将token信息存入本地
               if (resData.binding && resData.binding == '0') {
-                wx.setStorageSync('token', resData.token)//将token信息存入本地
                 wx.setStorageSync('classId', resData.classId)
                 wx.setStorageSync('studentId', resData.studentId)
                 that.loadMyCourse();
