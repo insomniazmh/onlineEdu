@@ -238,9 +238,7 @@
 						</div>
 						<div class="col-md-12 export-option">
 							<p style="padding: 15px;">当前已选班级：
-								<span ng-repeat='item in allClasses'
-								 ng-if="item.checked"
-								 style="margin-right: 15px;">{{item.className}}</span>
+								<span ng-repeat='item in alreadyClass' style="margin-right: 15px;">{{item.className}}</span>
 							</p>
 						</div>
 						<div class="col-md-12" style="text-align: center">
@@ -683,6 +681,7 @@
 				},
 				url: '/teachPlan/class/'+planId,
 				success: function(res) {
+					$scope.alreadyClass = res
 					for(let ac of $scope.allClasses) {
 						ac.checked = false
 						for(let pc of res) {

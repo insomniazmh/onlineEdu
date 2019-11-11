@@ -138,7 +138,7 @@
 					data: $scope.course,
 					success: function(data) {
 						$rootScope.currCourseId = data.courseId
-						layer.confirm('提交成功，即将转到教辅资料库添加资料', {
+						layer.confirm('提交成功，即将转到课程编辑页面添加资料', {
 							btn: ['确定'] //按钮
 						}, function() {
 							//加载课程列表
@@ -159,7 +159,7 @@
 											$rootScope.currCourse = value
 										}
 									}
-									window.location.href = "#/assistant.html";
+									window.location.href = "#/courseEdit.html";
 									layer.closeAll('dialog');
 								}
 							});
