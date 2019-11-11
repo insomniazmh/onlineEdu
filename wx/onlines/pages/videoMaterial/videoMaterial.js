@@ -95,6 +95,7 @@ Page({
       that.setData({
         chapterList: chapterList
       })
+      console.log(that.data.chapterId)
       this.loadVideo(that.data.chapterId)
       this.loadDatumList(that.data.chapterId)
       this.loadExerciseList(that.data.chapterId)
@@ -115,8 +116,13 @@ Page({
 
   //加载视频课件
   loadVideo: function(chapterId) {
+    console.log(chapterId)
     let that = this
-    this.videoContext.pause()
+    console.log(this.videoContext)
+    if (this.videoContext) {
+      this.videoContext.pause()
+    }
+    
     getApp().agriknow.loadVideo({
       chapterId: chapterId,
       courseId: that.data.courseId,
@@ -283,34 +289,40 @@ Page({
 
   videoParse: function(e) {
     console.log('视频暂停了')
+    this.updateStudyInfo()
     clearInterval(this.data.intervalIndex)
+  },
+
+  updateStudyInfo: function() {
+    let that = this
+    if (that.data.videoDuration && that.data.locationTime) {
+      let postData = {
+        chapterId: that.data.chapterId,
+        courseId: that.data.courseId,
+        courseName: that.data.courseName,
+        duration: that.data.locationTime,
+        locationTime: that.data.locationTime,
+        studentId: wx.getStorageSync('studentId'),
+        videoDuration: that.data.videoDuration
+      }
+
+      getApp().agriknow.saveChapterRecord(postData)
+        .then(res => {
+
+        })
+        .catch(res => {
+          //wx.stopPullDownRefresh()
+        });
+
+    }
   },
 
   videoPlay: function(e) {
     let that = this
     console.log('视频播放了')
     let index = setInterval(function () {
-      if (that.data.videoDuration && that.data.locationTime) {
-        let postData = {
-          chapterId: that.data.chapterId,
-          courseId: that.data.courseId,
-          courseName: that.data.courseName,
-          duration: that.data.locationTime,
-          locationTime: that.data.locationTime,
-          studentId: wx.getStorageSync('studentId'),
-          videoDuration: that.data.videoDuration
-        }
-
-        getApp().agriknow.saveChapterRecord(postData)
-          .then(res => {
-
-          })
-          .catch(res => {
-            //wx.stopPullDownRefresh()
-          });
-
-      }
-    }, 3000)
+      that.updateStudyInfo()
+    }, 10000)
     this.setData({
       intervalIndex: index
     })
@@ -383,6 +395,7 @@ Page({
    */
   onHide: function () {
     clearInterval(this.data.intervalIndex)
+    this.updateStudyInfo()
   },
 
   /**
@@ -390,6 +403,7 @@ Page({
    */
   onUnload: function () {
     clearInterval(this.data.intervalIndex)
+    this.updateStudyInfo()
   },
 
   /**

@@ -12,9 +12,10 @@
     "pages/main/paper/paper",
     "pages/main/TransactionAdd/TransactionAdd",
     "pages/videoMaterial/videoMaterial",
-    "pages/auth/auth",
     "pages/reg/reg",
-    "pages/information/infodetail/infodetail"
+    "pages/information/infodetail/infodetail",
+    "pages/auth/auth",
+    "pages/serviceText/serviceText"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,9 +23,5 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
-  
   "sitemapLocation": "sitemap.json"
-  
 }
-
-

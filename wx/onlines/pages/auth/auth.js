@@ -11,14 +11,45 @@ Page({
         text: '实名信息'
       }
     ],
-    active: 0
+    active: 0,
+    items: [
+      {name: 'serviceText', checked: false}
+    ]
   },
 
   onLoad: function () {
 
   },
 
+  //勾选服务协议
+  checkboxChange: function(e) {
+    let flag = false
+    if (e.detail.value[0] =='serviceText') {
+      flag = true
+    }
+    this.setData({
+      flag: flag
+    })
+  },
+
+  //跳转至服务协议
+  serviceText: function() {
+    console.log(234);
+    wx.navigateTo({
+      url: '/pages/serviceText/serviceText'
+    });
+  },
+
   bindGetUserInfo: function (e) {
+    console.log(this.data.flag)
+    if (!this.data.flag) {
+      wx.showToast({
+        title: '请先阅读服务协议',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
     if (e.detail.userInfo) {
       //用户按了允许授权按钮
       this.setData({

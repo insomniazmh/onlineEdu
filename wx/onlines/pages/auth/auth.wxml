@@ -15,6 +15,25 @@
     </view>
     <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" 
       bindgetuserinfo="bindGetUserInfo" wx:if="{{active == 0}}">授权登录</button>
+    <view style="padding-left: 20px;" wx:if="{{active == 0}}">
+      <checkbox-group bindchange="checkboxChange" style='display:inline'>
+        <label class="checkbox" wx:for="{{items}}">
+          <checkbox 
+          value="{{item.name}}" 
+          checked="{{item.checked}}" 
+          style="transform:scale(0.7);" 
+          />
+        
+        </label>
+      </checkbox-group>
+      <text style="font-size:14px;" bindtap="serviceText">阅读并同意以下协议<text 
+       style="color:rgb(0, 0, 204);" 
+       
+      >《服务协议》</text></text>
+        
+      
+    </view>
+  
 
     <van-cell-group wx:if="{{active == 1}}">
       <van-field value="{{ realName }}" required clearable label="姓名" 

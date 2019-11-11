@@ -272,7 +272,7 @@
 							</button>
 						</div>
 						<div class="col-md-12" id="videoWrapper">
-							<div style="width:300px;margin: 20px;float: left;" ng-repeat='row in videoList'>
+							<div style="height: 300px; width:auto;margin: 20px;float: left;" ng-repeat='row in videoList'>
 								<video controls="controls" id="{{row.id}}'" src="{{row.trustFileUrl}}" style="width:100%;height:auto;"></video>
 								<div>
 									<span ng-click='upGo($index)'>前移</span>

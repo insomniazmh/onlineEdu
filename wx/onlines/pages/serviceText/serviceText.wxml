@@ -1,0 +1,4 @@
+<!--pages/serviceText/serviceText.wxml-->
+<view style="padding:10px;">本产品为河南省外贸学校开发的一款微信小程序，可以进行在线学习和作业回答，仅限河南省外贸学校教师和学生使用，使用前需先检验姓名和身份证号码，核实确为本校师生之后才能使用</view>
+<button class='bottom' type='primary' bindtap="goback">确定</button>
+
