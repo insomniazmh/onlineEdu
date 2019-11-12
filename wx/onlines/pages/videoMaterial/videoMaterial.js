@@ -106,12 +106,14 @@ Page({
 
   //点击章节切换资源
   chooseChapter: function (e) {
+    this.updateStudyInfo()
     this.setData({
       chapterId: e.currentTarget.dataset.id
     })
     this.loadVideo(e.currentTarget.dataset.id)
     this.loadDatumList(e.currentTarget.dataset.id)
     this.loadExerciseList(e.currentTarget.dataset.id)
+    
   },
 
   //加载视频课件

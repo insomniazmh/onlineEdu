@@ -29,6 +29,7 @@
 							<th>公司名称</th>
 							<th>公司地址</th>
 							<th>创立时间</th>
+							<th>用户状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -67,6 +68,9 @@
 							</td>
 							<td>
 								<span>{{item.createTime}}</span>
+							</td>
+							<td>
+								<span>{{item.isValidated== '0' ? '正常' : '已冻结'}}</span>
 							</td>
 						</tr>
 					</tbody>

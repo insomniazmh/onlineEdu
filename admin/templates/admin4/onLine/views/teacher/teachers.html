@@ -67,6 +67,7 @@
 							<th>工作单位及职务</th>
 							<th>审核状态</th>
 							<th>审核意见</th>
+							<th>用户状态</th>
 							<th ng-if='auth==1'>所属学习中心</th>
 						</tr>
 					</thead>
@@ -88,6 +89,7 @@
 							<td>{{item.position}}</td>
 							<td>{{verifyStatusHelper(item.verifyStatus)}}</td>
 							<td>{{item.remark}}</td>
+							<td>{{item.isValidated== '0' ? '正常' : '已冻结'}}</td>
 							<td ng-if='auth==1'>{{item.centerName}}</td>
 						</tr>
 					</tbody>

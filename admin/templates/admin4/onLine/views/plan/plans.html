@@ -46,6 +46,7 @@
 							<th ng-show='!globalEdit'>审核意见</th>
 							<th ng-show='!globalEdit'>所属学习中心</th>
 							<th ng-show='!globalEdit'>创建时间</th>
+							<th ng-show='!globalEdit'>计划状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -90,6 +91,7 @@
 								{{item.centerName}}
 							</td>
 							<td ng-show='!globalEdit'>{{item.createTime}}</td>
+							<td ng-show='!globalEdit'>{{item.isValidated==0 ? '正常': '已冻结'}}</td>
 						</tr>
 					</tbody>
 				</table>
