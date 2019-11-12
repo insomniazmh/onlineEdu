@@ -77,9 +77,9 @@
 						<tr ng-repeat="item in data" class="odd gradeX" style="cursor: pointer;" ng-click="editStuInfo(item);">
 							<td>{{item.studentName}}</td>
 							<td ng-repeat='course in item.studyInfo'>
-								<span ng-if="course.onLineTime" style="margin-right: 20px;">{{course.onLineTime}}分钟/{{course.onLineTimeSum}}分钟</span>
+								<span ng-if="course.onLineTime" style="margin-right: 20px;"><span style="color:red; font-weight: 600;font-size: 18px;">{{course.onLineTime}}</span>分钟/{{course.onLineTimeSum}}分钟</span>
 								<span ng-if="!course.onLineTime" style="margin-right: 20px;">未开始学习</span>
-								<span ng-if="course.answerSum">{{course.correctSum}}题/{{course.answerSum}}题</span>
+								<span ng-if="course.answerSum"><span style="color:red">{{course.correctSum}}</span>题/{{course.answerSum}}题</span>
 								<span ng-if="!course.answerSum">未开始做题</span>
 							</td>
 							<td>{{item.planName}}</td>

@@ -273,6 +273,7 @@
 						</div>
 						<div class="col-md-12" id="videoWrapper">
 							<div style="width: 400px; height:auto;margin: 20px;float: left;" ng-repeat='row in videoList'>
+								<i class="glyphicon glyphicon-remove-sign removeVideo" ng-click='removeVideo(row.id)'></i>
 								<video controls="controls" id="{{row.id}}'" src="{{row.trustFileUrl}}" style="width:100%;height:auto;"></video>
 								<div>
 									<span ng-click='upGo($index)'>前移</span>
@@ -472,6 +473,18 @@
 			} else {
 				layer.alert('已经是最后一位，无法后移了')
 			}
+		}
+		
+		//删除视频
+		$scope.removeVideo = function(id) {
+			$scope.videoList.splice($scope.videoList.findIndex(item => item.id === 3222), 1)
+			
+			$scope.videoList.filter(obj=>obj.id!==3222)
+			
+			// $scope.videoList.filter(obj=>obj.id!==3222)
+			// for(let value of $scope.videoList) {
+			// 	if(id = value.id)
+			// }
 		}
 
 		//确认导入

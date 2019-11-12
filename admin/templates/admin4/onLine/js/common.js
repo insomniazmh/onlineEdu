@@ -4,7 +4,7 @@ var common = {
 	 // url2: 'https://e.hnfts.cn/lineEduQuiz',
 
 	//测试服
-	url: 'http://192.168.10.11:8080',
+	url: 'http://192.168.10.2:7080',
 	url2: 'http://192.168.10.2:7081',
 	
 	// uploadUrl: 'https://e.hnfts.cn/upload/upload',
@@ -245,7 +245,6 @@ var common = {
 			}else {
 				index = layer.load(2);
 				common.layerLoad.push(index)
-				console.log(common.layerLoad)
 			}
 			
 		})
@@ -253,11 +252,11 @@ var common = {
 		uploader.on('uploadSuccess', function(file, response) {
 			layer.close(common.layerLoad[0])
 			common.layerLoad.shift()
-			console.log(common.layerLoad)
 			settings.success(file, response, uploader);
 		});
 	
-		uploader.on('uploadError', function(file) {
+		uploader.on('uploadError', function(file, response) {
+			console.log(file)
 			layer.close(index)
 			common.toast({
 				title: "上传失败",

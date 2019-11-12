@@ -18,7 +18,18 @@ Page({
   },
 
   onLoad: function () {
+    
+  },
 
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    if (wx.getStorageSync('binding') == '0') {
+      wx.navigateTo({
+        url: '/pages/index/index'
+      });
+    }
   },
 
   //勾选服务协议
@@ -88,9 +99,13 @@ Page({
         wx.showToast({
           title: '绑定成功！'
         });
-        wx.navigateTo({
-          url: '/pages/index/index'
-        });
+        wx.setStorageSync('binding', '0')
+        setTimeout(function () {
+          wx.navigateTo({
+            url: '/pages/index/index'
+          });
+        }, 2000);
+        
         
       })
       .catch(res => {

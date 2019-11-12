@@ -45,7 +45,8 @@
 										<span class="label label-sm label-icon label-success">
 											<i class="fa fa-leaf"></i>
 										</span>
-										{{row.courseName}} </span>
+											{{row.courseName}} <span ng-if='row.alias'>({{row.alias}})</span>
+										</span>
 									</a>
 								</li>
 							</ul>
