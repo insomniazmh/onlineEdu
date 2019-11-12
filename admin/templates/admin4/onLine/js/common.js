@@ -7,10 +7,11 @@ var common = {
 	url: 'http://192.168.10.11:8080',
 	url2: 'http://192.168.10.2:7081',
 	
-	uploadUrl: 'https://e.hnfts.cn/upload/upload',
-	// uploadUrl: 'http://192.168.10.2:8612/upload',
+	// uploadUrl: 'https://e.hnfts.cn/upload/upload',
+	uploadUrl: 'http://192.168.10.2:8612/upload',
 	
 	pageSize: 15,
+	layerLoad: [],
 
 	//提示信息
 	toast: function(settings) {
@@ -242,21 +243,22 @@ var common = {
 				uploader.cancelFile( data.id, true );
 				console.log( uploader.getFiles() );
 			}else {
-				Metronic.blockUI({
-					boxed: true,
-					message: "上传中，请耐心等待..."
-				});
+				index = layer.load(2);
+				common.layerLoad.push(index)
+				console.log(common.layerLoad)
 			}
 			
 		})
 	
 		uploader.on('uploadSuccess', function(file, response) {
-			Metronic.unblockUI();
+			layer.close(common.layerLoad[0])
+			common.layerLoad.shift()
+			console.log(common.layerLoad)
 			settings.success(file, response, uploader);
 		});
 	
 		uploader.on('uploadError', function(file) {
-			Metronic.unblockUI();
+			layer.close(index)
 			common.toast({
 				title: "上传失败",
 				type: 2
