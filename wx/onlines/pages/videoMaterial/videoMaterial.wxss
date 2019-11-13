@@ -155,6 +155,7 @@ swiper{
 .choosen_box text{border-radius:50%;display:block;width:60rpx;height:60rpx;text-align:center;line-height:60rpx;float:left;font-size:32rpx;margin-left:25rpx;margin-bottom:15rpx;}
 .color_state_off{background:white;color:#F3A84B;border:1px solid #F3A84B;}
 .color_state_on{background:#F3A84B;color:white;border:1px solid white;}
+.color_state_curr{background:red;color:white;border:1px solid white;}
 
 .text_answers_clm .wxParse-p {
   display: inline

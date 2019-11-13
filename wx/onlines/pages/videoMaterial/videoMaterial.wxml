@@ -49,7 +49,7 @@
       <van-tab title="作业">
         <view class='choosen_box'>
           <view class='slide_box'>
-            <text wx:for="{{questionList}}" class="{{item.done?'color_state_on':'color_state_off'}}" bindtap='bindtab' data-id='{{item.id}}'>{{index+1}}</text>
+            <text wx:for="{{questionList}}" class="{{item.class}}" bindtap='bindtab' data-id='{{item.id}}'>{{index+1}}</text>
           </view>
           <view class='cfx'></view>
         </view>

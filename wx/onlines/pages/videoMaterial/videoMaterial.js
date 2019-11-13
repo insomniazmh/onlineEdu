@@ -205,16 +205,31 @@ Page({
       number: randomQuestionsNumber
     }).then(res => {
       if (res.ret == 0 && res.data.length>0) {
-        var questions = res.data;
+        let questions = res.data;
+        let curr = 'N'
         for (let i = 0; i < questions.length; i++) {
           questions[i].cut = '';
           if (questions[i].stuAnswer) {
-            questions[i].done = true;
+            questions[i].class = 'color_state_on';
+          }else {
+            if (curr=="N") {
+              questions[i].class = 'color_state_curr';
+              curr = 'Y'
+              that.setData({
+                currentQuestion: questions[i]
+              });
+            }else {
+              questions[i].class = 'color_state_off';
+            }
           }
         }
+        if (curr=='N') {
+          that.setData({
+            currentQuestion: questions[0]
+          });
+        }
         that.setData({
-          questionList: questions,
-          currentQuestion: questions[0]
+          questionList: questions
         });
         that.wrapQuestion();
       }else {
@@ -234,11 +249,23 @@ Page({
     console.log(e.currentTarget.dataset.id);
     var questionList = this.data.questionList;
     for (let i = 0; i < questionList.length; i++) {
+      if (questionList[i].class == 'color_state_curr') {
+        questionList[i].class = 'color_state_off'
+      }
       if (e.currentTarget.dataset.id == questionList[i].id) {
-        this.setData({ currentQuestion: questionList[i] });
+        console.log(questionList[i])
+        if (questionList[i].class == 'color_state_off') {
+          questionList[i].class = 'color_state_curr'
+        }
+        this.setData({ 
+          currentQuestion: questionList[i] 
+        });
         this.wrapQuestion();
       }
     }
+    this.setData({
+      questionList: questionList
+    })
   },
 
   /**
@@ -261,16 +288,17 @@ Page({
             icon: 'success',
             duration: 2000
           });
-          var questionList = that.data.questionList;
-          for (let i = 0; i < questionList.length; i++) {
-            if (questionList[i].id == that.data.currentQuestion.id) {
-              questionList[i].done = true;
-              questionList[i].myAnswer = postData.answer;
-            }
-          }
-          that.setData({
-            questionList: questionList
-          });
+          that.loadExerciseList(that.data.chapterId)
+          // var questionList = that.data.questionList;
+          // for (let i = 0; i < questionList.length; i++) {
+          //   if (questionList[i].id == that.data.currentQuestion.id) {
+          //     questionList[i].done = true;
+          //     questionList[i].myAnswer = postData.answer;
+          //   }
+          // }
+          // that.setData({
+          //   questionList: questionList
+          // });
         }
       })
       .catch(res => {
