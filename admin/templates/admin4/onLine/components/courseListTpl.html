@@ -10,19 +10,21 @@
 				<div class="owl-wrapper" style="width: 100%; left: 0px; display: block;">
 					<div class="owl-item active" style="width: 228px;" ng-repeat="row in myCourseList">
 						<div>
-							<div class="product-item" ng-click="changeCourse(row)">
-								<div class="pi-img-wrapper">
+							<div class="product-item">
+								<div class="pi-img-wrapper" ng-click="changeCourse(row)">
 									<img src="{{row.topPicSrc}}" class="img-responsive" style="width: 194px;height: 194px;" alt="暂无图片">
 								</div>
-								<h3 style="text-align: center;">
+								<h3 style="text-align: center;" ng-click="changeCourse(row)">
 									<a>{{row.courseName}}
 									<span ng-if='row.alias'>({{row.alias}})</span>
+									<span ng-if='row.isValidated=="1"' style="color: red;">(已弃用)</span>
 									</a>
 								</h3>
-								<!-- <div style="text-align: center;" ng-show="flag">
-									<button class="btn btn-sm btn-primary">发布课程</button>
-									<button class="btn btn-sm btn-danger">删除课程</button>
-								</div> -->
+								<div style="text-align: center;" ng-show="flag">
+									<!-- <button class="btn btn-sm btn-primary">发布课程</button> -->
+									<button ng-if='row.isValidated=="0"' class="btn btn-sm btn-danger" ng-click='updateStatus(row)'>弃用课程</button>
+									<button ng-if='row.isValidated=="1"' class="btn btn-sm btn-primary" ng-click='updateStatus(row)'>启用课程</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -52,5 +54,26 @@
 				$scope.flag = true;
 			}
 		});
+		
+		//弃用/启用课程
+		$scope.updateStatus = function(course) {
+			let tip = '弃用'
+			if(course.isValidated == '1') {
+				tip = '启用'
+			}
+			common.ajax({
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				tips: '您确定要'+tip+'该课程吗？',
+				data: {
+					courseId: course.courseId
+				},
+				url: '/course/updateStatus',
+				success: function() {
+					window.location.reload()
+				}
+			});
+		}
 	}
 </script>
