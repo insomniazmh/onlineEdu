@@ -58,6 +58,9 @@ Page({
     getApp().agriknow.loadChapterByCourseId({
       courseId: that.data.courseId
     }).then(res => {
+      that.setData({
+        chapterArr: res.data
+      })
       //拼装章节，两层循环
       for (let i = 0; i < res.data.length; i++) {
         //如果parent为0，则为章
@@ -187,10 +190,19 @@ Page({
   //加载章节练习题(快照)
   loadExerciseList: function (chapterId) {
     let that = this
+    let chapterArr = this.data.chapterArr
+    let randomQuestionsNumber = 10
+    
+    for (let i = 0; i < chapterArr.length;i++) {
+      if (chapterArr[i].id == chapterId) {
+        randomQuestionsNumber = chapterArr[i].randomQuestionsNumber
+      }
+    }
+    // return false
     getApp().agriknow.snapshot({
       courseId: that.data.courseId,
       chapterId: chapterId,
-      number: 3
+      number: randomQuestionsNumber
     }).then(res => {
       if (res.ret == 0 && res.data.length>0) {
         var questions = res.data;
