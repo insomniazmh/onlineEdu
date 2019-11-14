@@ -202,7 +202,8 @@ Page({
     getApp().agriknow.snapshot({
       courseId: that.data.courseId,
       chapterId: chapterId,
-      number: randomQuestionsNumber
+      number: randomQuestionsNumber,
+      roleId: wx.getStorageSync('roleId')
     }).then(res => {
       if (res.ret == 0 && res.data.length>0) {
         let questions = res.data;
@@ -272,6 +273,10 @@ Page({
    * 接收question组件提交信息
    */
   onSubQuestion: function (e) {
+    console.log(wx.getStorageSync('roleId'))
+    if (wx.getStorageSync('roleId') == '0') {
+      return false
+    }
     var postData = e.detail;
     console.log(e)
     var that = this;
@@ -279,6 +284,7 @@ Page({
     postData.courseId = this.data.courseId;
     postData.classId = wx.getStorageSync('classId');
     postData.chapterName = 'xxx';
+    postData.roleId = wx.getStorageSync('roleId');
 
     getApp().agriknow.answerSelfTest(postData)
       .then(res => {
@@ -336,6 +342,9 @@ Page({
   },
 
   updateStudyInfo: function() {
+    if (wx.getStorageSync('roleId') == '0') {
+      return false
+    }
     let that = this
     if (that.data.videoDuration && that.data.locationTime) {
       let postData = {

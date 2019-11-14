@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/reg/reg",
+    
     "pages/discuss/discussPage/discussPage",
     "pages/main/main/main",
     "pages/course/index/index",
@@ -12,7 +14,7 @@
     "pages/main/paper/paper",
     "pages/main/TransactionAdd/TransactionAdd",
     "pages/videoMaterial/videoMaterial",
-    "pages/reg/reg",
+    
     "pages/information/infodetail/infodetail",
     "pages/auth/auth",
     "pages/serviceText/serviceText"

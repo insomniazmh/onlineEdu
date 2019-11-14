@@ -17,8 +17,9 @@ Page({
     ]
   },
 
-  onLoad: function () {
-    
+  onLoad: function (option) {
+    console.log(option)
+    this.setData(option)
   },
 
   /**

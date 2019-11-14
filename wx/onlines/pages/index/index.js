@@ -75,7 +75,7 @@ Page({
       }
     });
 
-    this.myCourses()
+    
   },
 
   onLoad: function () {
@@ -95,10 +95,11 @@ Page({
               var resData = res.data;
               wx.setStorageSync('token', resData.token)//将token信息存入本地
               wx.setStorageSync('binding', resData.binding)//将绑定状态存入本地
+              wx.setStorageSync('roleId', resData.roleId)//将用户类型存入本地
               if (resData.binding && resData.binding == '0') {
                 wx.setStorageSync('classId', resData.classId)
                 wx.setStorageSync('studentId', resData.studentId)
-                that.loadMyCourse();
+                that.myCourses()
               } else {
                 //将页面跳转至绑定页
                 wx.showModal({

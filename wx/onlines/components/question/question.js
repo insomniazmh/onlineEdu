@@ -30,6 +30,7 @@ Component({
     checkTOF: true,
     analysiShow: false,
     answer: "",
+    userType: wx.getStorageSync('roleId'),
     upLoadImg: []
   },
   methods: {
@@ -70,6 +71,7 @@ Component({
 
     /**点击判断答案选项 */
     bindTOF: function (e) {
+      console.log(this.data.userType)
       if (e.currentTarget.dataset.id == 1) {
         this.setData({
           checkTOF: true,

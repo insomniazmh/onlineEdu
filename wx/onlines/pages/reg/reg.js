@@ -8,9 +8,10 @@ Page({
 
   },
 
-  nav: function() {
+  nav: function(e) {
+    let flag = e.currentTarget.dataset.flag
     wx.navigateTo({
-      url: '/pages/auth/auth',
+      url: '/pages/auth/auth?type=' + flag,
     })
   }
 

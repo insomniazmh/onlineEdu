@@ -38,7 +38,9 @@
     <van-cell-group wx:if="{{active == 1}}">
       <van-field value="{{ realName }}" required clearable label="姓名" 
         placeholder="请输入姓名" bind:change="onChangeName" />
-      <van-field value="{{ idNumber }}" label="身份证号码" placeholder="请输入身份证号码" 
+      <van-field wx:if="{{type=='student'}}" value="{{ idNumber }}" label="身份证号码" placeholder="请输入身份证号码" 
+        border="{{ false }}" required bind:change="onChangeId" />
+      <van-field wx:if="{{type=='teacher'}}" value="{{ idNumber }}" label="手机号码" placeholder="请输入手机号码" 
         border="{{ false }}" required bind:change="onChangeId" />
     </van-cell-group>
     <button class='bottom' type='primary' bindtap='sub' wx:if="{{active == 1}}">确定</button>

@@ -1,3 +1,4 @@
 <!--pages/reg/reg.wxml-->
 <image class='bg-img' src='/img/bj.png'></image>
-<button class='bottom' type='default' bindtap='nav'>我要注册</button>
+<button class='bottom' type='primary' bindtap='nav' data-flag="student">我是学生</button>
+<button class='bottom' type='default' bindtap='nav' data-flag="teacher">我是老师</button>
