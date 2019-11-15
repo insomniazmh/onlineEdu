@@ -52,6 +52,9 @@ class request {
    */
   requestAll(url, data, header, method) {
     var that = this;
+    wx.showLoading({
+      title: '加载中',
+    })
     return new Promise((resolve, reject) => {
       header = {
         'content-type': 'application/json',
@@ -63,6 +66,7 @@ class request {
         header: header,
         method: method,
         success: (res => {
+          wx.hideLoading()
           //console.log(res);
           if (res.statusCode === 200) {
             //200: 服务端业务处理正常结束
@@ -90,6 +94,7 @@ class request {
           }
         }),
         fail: (res => {
+          wx.hideLoading()
           if (that._errorHandler != null) {
             that._errorHandler(res)
           }

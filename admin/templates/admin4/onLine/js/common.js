@@ -204,6 +204,9 @@ var common = {
 			// 选择文件的按钮。可选。
 			// 内部根据当前运行是创建，可能是input元素，也可能是flash.
 			pick: '#' + settings.id,
+			headers: {
+				token: localStorage.getItem("token")
+			},
 			duplicate: true
 		}
 		if(settings.options) {

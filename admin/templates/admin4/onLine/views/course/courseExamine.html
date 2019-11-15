@@ -57,7 +57,9 @@
 							<td>{{item.teacherName}}</td>
 							<td>{{item.submitType}}</td>
 							<td>{{datumTypeHelper(item.datumType)}}</td>
-							<td>{{item.fileName}}</td>
+							<td>
+								<span ng-bind-html="item.fileName"></span>
+							</td>
 							<td ng-if='auth==1'>{{item.centerName}}</td>
 						</tr>
 					</tbody>

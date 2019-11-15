@@ -489,14 +489,20 @@
 
 		//确认导入
 		$scope.importSub = function() {
+			let flag = true
 			for (let i = 0; i < $scope.videoList.length; i++) {
 				let duration = $($("#videoWrapper").find('video')[i])[0].duration
 				console.log(Math.round(duration))
+				if(Math.round(duration)<60) {
+					layer.alert($scope.videoList[i].fileName+'视频长度小于一分钟，请删除或重新上传')
+					flag = false
+				}
 				$scope.videoList[i].videoTime = Math.round(duration)
 				$scope.videoList[i].fileVideoTime = Math.round(duration)
 			}
-			console.log($scope.videoList)
-			
+			if(!flag) {
+				return false
+			}
 			let postData = {
 				chapterParentId: $rootScope.currChapters[1].id,
 				courseId: $rootScope.currCourse.courseId,
