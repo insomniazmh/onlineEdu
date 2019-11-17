@@ -54,8 +54,8 @@
   <view style="margin-top: 10px;">解析：{{analysis}}</view>
 </view>
 
-<button class='com_btn mt_100 btn_state_on' bindtap="bindSub" 
-wx:if="{{showSub && userType==1}}">提交</button>
+<button class='com_btn mtd_50 btn_state_on' bindtap="bindSub" 
+wx:if="{{showSub}}">提交</button>
 <image class='raise_hand' bindtap='bindRaise' src="https://e.hnfts.cn/img/z19.png" 
 mode='widthFix' wx:if="{{raiseFlag}}"></image>
 <!--按钮的状态通过添加删除类“btn_state_on/btn_state_off”切换-->

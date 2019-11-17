@@ -52,9 +52,12 @@ class request {
    */
   requestAll(url, data, header, method) {
     var that = this;
-    wx.showLoading({
-      title: '加载中',
-    })
+    if(!data.unLoadIng) {
+      wx.showLoading({
+        title: '加载中',
+      })
+    }
+    
     return new Promise((resolve, reject) => {
       header = {
         'content-type': 'application/json',

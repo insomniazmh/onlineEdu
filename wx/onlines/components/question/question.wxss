@@ -1,6 +1,7 @@
 /*课程公共样式*/
 .cl_o{color:#f2a84b;}
 .mt_100{margin-top:100rpx;}
+.mtd_50{margin-top:50rpx; margin-bottom: 30px;}
 .text_typeOne{background:#F8F8F8;padding:60rpx 20rpx;position:relative;}
 .text_typeOne text{font-size:32rpx;}
 .text_state{width:90rpx;position:absolute;right:0;top:0;}

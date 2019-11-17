@@ -46,7 +46,6 @@ Page({
 
   //跳转至服务协议
   serviceText: function() {
-    console.log(234);
     wx.navigateTo({
       url: '/pages/serviceText/serviceText'
     });
@@ -100,6 +99,7 @@ Page({
         wx.showToast({
           title: '绑定成功！'
         });
+        wx.removeStorageSync("token")
         wx.setStorageSync('binding', '0')
         setTimeout(function () {
           wx.navigateTo({

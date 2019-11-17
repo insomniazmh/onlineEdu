@@ -354,7 +354,8 @@ Page({
         duration: that.data.locationTime,
         locationTime: that.data.locationTime,
         studentId: wx.getStorageSync('studentId'),
-        videoDuration: that.data.videoDuration
+        videoDuration: that.data.videoDuration,
+        unLoadIng: true
       }
 
       getApp().agriknow.saveChapterRecord(postData)
