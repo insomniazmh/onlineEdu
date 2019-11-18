@@ -23,6 +23,7 @@
 						<tr>
 							<th>操作</th>
 							<th>课程名称</th>
+							<th>状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -37,6 +38,7 @@
 								<span ng-show='!item.edit'>{{item.courseName}}</span>
 								<input ng-show='item.edit' type="text" ng-model="item.courseName" />
 							</td>
+							<td>{{item.isValidated== '0' ? '正常' : '已冻结'}}</td>
 						</tr>
 					</tbody>
 				</table>

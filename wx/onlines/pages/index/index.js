@@ -61,11 +61,12 @@ Page({
           wx.getUserInfo({
             success: function (res) {
               wx.setStorageSync('portrait', res.userInfo.avatarUrl)//将token信息存入本地
-              if (!wx.getStorageSync('token')) {
-                that.wxLogin(res.userInfo.avatarUrl);
-              }else {
-                that.myCourses()
-              }
+              // if (!wx.getStorageSync('token')) {
+              //   that.wxLogin(res.userInfo.avatarUrl);
+              // }else {
+              //   that.myCourses()
+              // }
+              that.wxLogin(res.userInfo.avatarUrl);
             }
           });
         } else {

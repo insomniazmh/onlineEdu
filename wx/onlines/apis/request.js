@@ -80,8 +80,11 @@ class request {
                 title: '登录信息失效，请退出重试',
                 icon: 'none'
               });
+              wx.removeStorageSync('token')
+              wx.navigateTo({
+                url: '/pages/index/index'
+              })
             }else {
-              console.log(res);
               wx.showToast({
                 title: res.data.msg,
                 icon: 'none'

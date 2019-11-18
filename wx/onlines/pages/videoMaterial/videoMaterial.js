@@ -13,6 +13,7 @@ Page({
     audioDatum: [],//音频资料
     videoDatum: [],//视频资料
     courseDescribe: '',//课程描述
+    seek: 0,
     chapterList:[]//章节
   },
 
@@ -141,7 +142,8 @@ Page({
         that.setData({
           videoUrl: res.data[0].fileUrl,
           videoDuration: res.data[0].videoTime,
-          locationTime: res.data[0].locationTime
+          locationTime: res.data[0].locationTime,
+          seek: 0
         })
         this.videoContext.seek(res.data[0].locationTime)
       }else {
@@ -337,7 +339,7 @@ Page({
 
   videoParse: function(e) {
     console.log('视频暂停了')
-    this.updateStudyInfo()
+    // this.updateStudyInfo()
     clearInterval(this.data.intervalIndex)
   },
 
@@ -372,6 +374,13 @@ Page({
   videoPlay: function(e) {
     let that = this
     console.log('视频播放了')
+    console.log(this.data.locationTime)
+    if (this.data.seek == 0) {
+      this.videoContext.seek(this.data.locationTime)
+    }
+    this.setData({
+      seek: 1
+    })
     let index = setInterval(function () {
       that.updateStudyInfo()
     }, 10000)
