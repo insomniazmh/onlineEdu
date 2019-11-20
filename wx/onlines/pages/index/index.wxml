@@ -52,7 +52,8 @@
       <view class='cfx'></view>
       <view class='class_number'>
         <image src='/img/icon_1.png' mode='widthFix'></image>
-        <text style='font-size:24rpx;'>进行到   {{item.chapterName}}</text>
+        <text style='font-size:24rpx;' wx:if='{{item.finish==1}}'>进行到   {{item.chapterName}}</text>
+        <text style='font-size:24rpx;' wx:if='{{item.finish==0}}'>已完成</text>
       </view>
   </view>
   <!--循环到此结束-->
