@@ -22,8 +22,9 @@
 								</h3>
 								<div style="text-align: center;" ng-show="flag">
 									<!-- <button class="btn btn-sm btn-primary">发布课程</button> -->
-									<button ng-if='row.isValidated=="0"' class="btn btn-sm btn-danger" ng-click='updateStatus(row)'>弃用课程</button>
+									<button ng-if='row.isValidated=="0"' class="btn btn-sm btn-warning" ng-click='updateStatus(row)'>弃用课程</button>
 									<button ng-if='row.isValidated=="1"' class="btn btn-sm btn-primary" ng-click='updateStatus(row)'>启用课程</button>
+									<button class="btn btn-sm btn-danger" ng-click='removeCourse(row.courseId)'>彻底删除课程</button>
 								</div>
 							</div>
 						</div>
@@ -70,6 +71,21 @@
 					courseId: course.courseId
 				},
 				url: '/course/updateStatus',
+				success: function() {
+					window.location.reload()
+				}
+			});
+		}
+		
+		//彻底删除课程
+		$scope.removeCourse = function(courseId) {			
+			common.ajax({
+				method: 'delete',
+				$scope: $scope,
+				$http: $http,
+				operate: true,
+				tip: '彻底删除后，该课程所有章节和资料将全部删除，并且无法找回，请谨慎操作，您确定要彻底删除该课程吗？',
+				url: '/course/'+courseId,
 				success: function() {
 					window.location.reload()
 				}

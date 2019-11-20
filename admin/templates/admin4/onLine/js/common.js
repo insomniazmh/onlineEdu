@@ -1,11 +1,11 @@
 var common = {
 	//正式服
-	 // url: 'https://e.hnfts.cn/lineEdu',
-	 // url2: 'https://e.hnfts.cn/lineEduQuiz',
+	 url: 'https://e.hnfts.cn/lineEdu',
+	 url2: 'https://e.hnfts.cn/lineEduQuiz',
 
 	//测试服
-	url: 'http://192.168.10.2:7080',
-	url2: 'http://192.168.10.2:7081',
+	// url: 'http://192.168.10.2:7080',
+	// url2: 'http://192.168.10.2:7081',
 	
 	uploadUrl: 'https://e.hnfts.cn/upload/upload',
 	// uploadUrl: 'http://192.168.10.2:8612/upload',

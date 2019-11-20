@@ -306,7 +306,7 @@
 				$scope: $scope,
 				$http: $http,
 				operate: true,
-				tip: '彻底删除后，该学生的所有信息和记录都会删除，您确实要彻底删除该学生吗',
+				tip: '彻底删除后，该学生的所有信息和记录都会删除，并且无法找回，请谨慎操作，您确实要彻底删除该学生吗',
 				url: '/studentOnLine/'+id,
 				success: function(res) {
 					$scope.loadStudentsList();
